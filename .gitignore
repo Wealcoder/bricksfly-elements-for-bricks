@@ -1,0 +1,14 @@
+.idea/
+*.log
+*.map
+node_modules/
+vendor/
+build/
+dist/
+public/build/
+log/
+composer.lock
+package-lock.json
+.DS_Store
+.project
+Thumbs.db

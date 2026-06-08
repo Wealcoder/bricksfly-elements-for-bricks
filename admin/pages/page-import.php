@@ -1,0 +1,135 @@
+<?php
+
+namespace AABAddons\Admin\Pages;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit();
+}
+
+class AAB_Page_Importer {
+
+	const HANDLE = 'aab-page-import';
+
+	public function __construct() {
+		add_action( 'admin_menu', [ $this, 'add_menu' ], 25 );
+		add_action( 'admin_enqueue_scripts', [ $this, 'importer_assets' ] );
+		add_action( 'admin_print_scripts', [ $this, 'clear_notices_for_importer' ] );
+		add_filter( 'admin_body_class', [ $this, 'admin_classes' ], 100 );
+		add_filter( 'views_edit-page', [ $this, 'custom_page_tab' ] );
+		add_action( 'pre_get_posts', [ $this, 'custom_page_filter' ] );
+	}
+
+	public function custom_page_tab( $views ) {
+		global $wpdb;
+
+		$count = $wpdb->get_var( "
+			SELECT COUNT(*) FROM $wpdb->posts
+			WHERE post_type = 'page'
+			AND post_status = 'publish'
+			AND ID IN (
+				SELECT post_id FROM $wpdb->postmeta
+				WHERE meta_key = 'aae_imported' AND meta_value = '1'
+			)
+		" );
+
+		$class                     = ( isset( $_GET['aae-latest-import'] ) && $_GET['aae-latest-import'] === 'import' ) ? 'current' : '';
+		$url                       = add_query_arg( 'aae-latest-import', 'import', admin_url( 'edit.php?post_type=page' ) );
+		$views['latest-import']    = "<a href='" . esc_url( $url ) . "' class='" . esc_attr( $class ) . "' style='color: #fc6848; font-weight: 500'>" . esc_html__( 'AAB Imported', 'bricksfly' ) . " <span class='count'>(" . (int) $count . ")</span></a>";
+
+		return $views;
+	}
+
+	public function custom_page_filter( $query ) {
+		global $pagenow;
+
+		if ( is_admin() && $pagenow === 'edit.php' && $query->get( 'post_type' ) === 'page' ) {
+			if ( isset( $_GET['aae-latest-import'] ) && $_GET['aae-latest-import'] === 'import' ) {
+				$query->set( 'meta_key', 'aae_imported' );
+				$query->set( 'meta_value', '1' );
+			}
+		}
+	}
+
+	public function clear_notices_for_importer() {
+		$screen = get_current_screen();
+		if ( $screen && strpos( $screen->id, '_page_bf-page-importer' ) !== false ) {
+			remove_all_actions( 'admin_notices' );
+			remove_all_actions( 'all_admin_notices' );
+		}
+	}
+
+	public function admin_classes( $classes ) {
+		$screen = get_current_screen();
+		if ( ! is_string( $classes ) ) {
+			$classes = '';
+		}
+		if ( $screen && strpos( $screen->id, '_page_bf-page-importer' ) !== false ) {
+			$classes .= ' wcf-anim2024';
+		}
+		return $classes;
+	}
+
+	public function add_menu() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
+		add_submenu_page(
+			\AAB\Admin\Pages\AAB_Admin_Init::MENU_PAGE_SLUG,
+			__( 'Page Import', 'bricksfly' ),
+			__( 'Page Import', 'bricksfly' ),
+			'manage_options',
+			'bf-page-importer',
+			[ $this, 'page_html' ]
+		);
+	}
+
+	public function page_html() {
+		echo '<div id="bf-page-importer"></div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	}
+
+	public function importer_assets( $hook ) {
+		$screen = get_current_screen();
+		if ( ! $screen ) {
+			return;
+		}
+
+		if ( strpos( $screen->id, '_page_bf-page-importer' ) === false ) {
+			return;
+		}
+
+		wp_enqueue_style(
+			'bf-page-importer-admin',
+			AAB_ADDONS_URL . 'public/build/admin/page-import.css',
+			[],
+			time()
+		);
+
+		wp_enqueue_script(
+			'bf-page-importer-admin',
+			AAB_ADDONS_URL . 'public/build/admin/page-import.js',
+			[ 'wp-element' ],
+			time(),
+			true
+		);
+
+		$localize_data = [
+			'plugin_url'         => AAB_ADDONS_URL,
+			'ajaxurl'            => admin_url( 'admin-ajax.php' ),
+			'nonce'              => wp_create_nonce( 'aab_admin_nonce' ),
+			'addons_config'      => apply_filters( 'wcf_addons_dashboard_config', $GLOBALS['aab_addons_config'] ?? [] ),
+			'adminURL'           => admin_url(),
+			'page_url'           => esc_url( admin_url( 'edit.php?post_type=page' ) ),
+			'user_role'          => function_exists( 'aabaddon_get_current_user_roles' ) ? aabaddon_get_current_user_roles() : [],
+			'version'            => AAB_ADDONS_VERSION,
+			'st_template_domain' => AAB_TEMPLATE_STARTER_BASE_URL,
+			'home_url'           => home_url( '/' ),
+		];
+
+		wp_localize_script( 'bf-page-importer-admin', 'AAB_ADDONS_ADMIN', $localize_data );
+	}
+}
+
+if ( is_admin() ) {
+	new AAB_Page_Importer();
+}

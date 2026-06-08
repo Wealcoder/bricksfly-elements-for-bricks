@@ -1,0 +1,92 @@
+.aae-timeline .thumb {
+    line-height: 0;
+}
+
+.aae-timeline .timeline-item {
+    display: flex;
+    gap: var(--content-gap, 60px);
+}
+
+.aae-timeline .content-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.aae-timeline .timeline-item:not(:last-child) .content-wrap{
+    margin-bottom: var(--contentBottomSpace, 10px);
+}
+.aae-timeline .content-wrap .content {
+    flex: 1;
+}
+
+.aae-timeline .step-box {
+    position: relative;
+}
+
+.aae-timeline .step-box svg {
+    width: 100%;
+    height: 100%;
+}
+
+.aae-timeline .step-box .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    width: calc(var(--icon-size, 25px) + (2 * var(--icon-padding, 1px)));
+    height: calc(var(--icon-size, 25px) + (2 * var(--icon-padding, 1px)));
+    border-radius: 100%;
+    background-color: #F9B099;
+    position: relative;
+    z-index: 1;
+}
+
+.aae-timeline .step-box .icon > i,
+.aae-timeline .step-box .icon > svg {
+    font-size: var(--icon-size, 16px);
+    line-height: 1;
+}
+
+.aae-timeline .step-box .line {
+    width: 2px;
+    height: 100%;
+    border-left: 1px dashed #F9B099;
+    position: absolute;
+    top: 0;
+    left: calc(50% + 2px);
+    transform: translateX(calc(-50% - 2px));
+}
+
+.aae-timeline .indicator {
+    --indicator-gap: 20px;
+    position: absolute;
+    right: 10px;
+    height: 1px;
+    width: 70px;
+    background-color: #000000;
+    left: calc(100% + var(--indicator-gap));
+}
+
+@media (min-width: 1023px) {
+    .aae-timeline.style-2 .step-box {
+        order: 1;
+    }
+
+    .aae-timeline.style-2 .content-wrap {
+        width: calc(50% - (var(--icon-size, 25px) + (2 * var(--icon-padding, 1px))) / 2 - var(--content-gap, 60px));
+    }
+
+    .aae-timeline.style-2 .timeline-item:nth-child(odd) .content-wrap {
+        direction: rtl;
+    }
+
+    .aae-timeline.style-2 .timeline-item:nth-child(odd) .indicator {
+        left: auto;
+        right: calc(100% + var(--indicator-gap));
+    }
+
+    .aae-timeline.style-2 .timeline-item:nth-child(even) {
+        flex-direction: row-reverse;
+    }
+}

@@ -1,0 +1,125 @@
+.aab-floating-elements {
+  position: relative;
+}
+
+.aab-floating-elements .floating-element {
+  position: absolute;
+  line-height: 0;
+  z-index: 1; // fallback; overridden by inline style per item
+
+  // ── Size ──────────────────────────────────────────────────────────────────
+  // --aab-fe-width is set (with @media wrappers) by render_responsive_styles()
+  width: var(--aab-fe-width);
+
+  // ── Horizontal position ────────────────────────────────────────────────────
+  // Only the active side's var is consumed; the inactive side resets to auto
+  // so a previously stored value from the opposite orientation never bleeds.
+
+  &.h-left {
+    left:  var(--aab-fe-left, auto);
+    right: auto;
+  }
+
+  &.h-right {
+    right: var(--aab-fe-right, auto);
+    left:  auto;
+  }
+
+  // ── Vertical position ──────────────────────────────────────────────────────
+
+  &.v-top {
+    top:    var(--aab-fe-top, auto);
+    bottom: auto;
+  }
+
+  &.v-bottom {
+    bottom: var(--aab-fe-bottom, auto);
+    top:    auto;
+  }
+}
+
+.aab-floating-elements .floating-element img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* -------------------------
+   Hide on breakpoint — disabled for now.
+   Re-enable in floating-elements.php (set_controls + render) AND here.
+------------------------- */
+/*
+@media (min-width: 992px) {
+  .aab-hide-on-desktop { display: none !important; }
+}
+@media (max-width: 991px) and (min-width: 768px) {
+  .aab-hide-on-tablet_portrait { display: none !important; }
+}
+@media (max-width: 767px) and (min-width: 479px) {
+  .aab-hide-on-mobile_landscape { display: none !important; }
+}
+@media (max-width: 478px) {
+  .aab-hide-on-mobile_portrait { display: none !important; }
+}
+*/
+
+/* -------------------------
+   Live Animations
+------------------------- */
+
+/* Float Y */
+@keyframes aab-floating-float {
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
+
+.aab-live-anim-float > * {
+  animation: aab-floating-float 6s ease-in-out infinite;
+}
+
+/* Float X */
+@keyframes aab-floating-float-x {
+  0%   { transform: translateX(0px); }
+  50%  { transform: translateX(-20px); }
+  100% { transform: translateX(0px); }
+}
+
+.aab-live-anim-float-x > * {
+  animation: aab-floating-float-x 6s ease-in-out infinite;
+}
+
+/* Spin */
+@keyframes aab-floating-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.aab-live-anim-spin > * {
+  animation: aab-floating-spin 6s linear infinite;
+}
+
+/* Scale */
+@keyframes aab-floating-scale {
+  from { transform: scale(1); }
+  to   { transform: scale(0.8); }
+}
+
+.aab-live-anim-scale > * {
+  animation: aab-floating-scale 3s linear infinite alternate;
+}
+
+/* Wiggle */
+@keyframes aab-floating-wiggle {
+  0%, 7%    { transform: rotateZ(0); }
+  15%       { transform: rotateZ(-15deg); }
+  20%       { transform: rotateZ(10deg); }
+  25%       { transform: rotateZ(-10deg); }
+  30%       { transform: rotateZ(6deg); }
+  35%       { transform: rotateZ(-4deg); }
+  40%, 100% { transform: rotateZ(0); }
+}
+
+.aab-live-anim-wiggle > * {
+  animation: aab-floating-wiggle 2s linear infinite;
+}

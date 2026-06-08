@@ -1,0 +1,19 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+
+.bricks-panel .bricks-control-group.my-custom-animation-icon::before {
+    content: "\f109"; /* Dashicons unicode example */
+    font-family: 'Dashicons';
+    color: #ff6600;
+    font-size: 16px;
+    margin-right: 6px;
+}
+
+/* Optional: style the group container */
+.bricks-panel .bricks-control-group.my-custom-animation-icon {
+    background-color: #1e1e1e;
+    border-radius: 6px;
+    padding: 8px 10px;
+}

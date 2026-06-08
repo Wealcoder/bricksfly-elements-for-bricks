@@ -1,0 +1,84 @@
+
+.aab-social-icons{
+  // display: flex;
+  width: 100%;
+}
+.aab-social-icons .aab-social-icons-list {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  justify-content: var(--aab-justify, flex-start);
+  width: 100%;
+}
+
+.aab-social-icons .aab-social-icons-list li {
+  list-style: none;
+  line-height: 1;
+}
+
+.aab-social-icons .aab-social-icons-list li a.aab-social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--icon-size, 20px);
+  line-height: var(--icon-size, 20px);
+  width: calc(var(--icon-size, 20px) + (2 * var(--icon-padding, 1px)));
+  height: calc(var(--icon-size, 20px) + (2 * var(--icon-padding, 1px)));
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.aab-social-icons .aab-social-icons-list li a.aab-social-icon svg {
+  width: 1em;
+  height: 1em;
+}
+
+/* -------------------------
+   Hover Animations
+------------------------- */
+
+/* Grow */
+.aab-hover-grow {
+  transition: transform 0.3s;
+}
+
+.aab-hover-grow:hover {
+  transform: scale(1.1);
+}
+
+/* Shrink */
+.aab-hover-shrink {
+  transition: transform 0.3s;
+}
+
+.aab-hover-shrink:hover {
+  transform: scale(0.9);
+}
+
+/* Pulse */
+@keyframes aab-hover-pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.aab-hover-pulse:hover {
+  animation: aab-hover-pulse 0.6s ease-in-out;
+}
+
+/* Float Up */
+.aab-hover-float-up {
+  transition: transform 0.3s;
+}
+
+.aab-hover-float-up:hover {
+  transform: translateY(-5px);
+}

@@ -1,0 +1,595 @@
+/* ===========================
+   BASE
+=========================== */
+
+.aab-icon-box {
+	display: flex;
+	position: relative;
+	box-sizing: border-box;
+	transition: all 0.3s ease;
+	gap: 20px;
+}
+
+.aab-icon-box *,
+.aab-icon-box *::before,
+.aab-icon-box *::after {
+	box-sizing: border-box;
+}
+
+/* Direction */
+.aab-icon-box--vertical          { flex-direction: column; }
+.aab-icon-box--vertical-reverse  { flex-direction: column-reverse; }
+.aab-icon-box--horizontal        { flex-direction: row; }
+.aab-icon-box--horizontal-reverse { flex-direction: row-reverse; }
+
+/* Alignment - vertical */
+.aab-icon-box--align-left.aab-icon-box--vertical,
+.aab-icon-box--align-left.aab-icon-box--vertical-reverse {
+	align-items: flex-start;
+	text-align: left;
+}
+.aab-icon-box--align-center.aab-icon-box--vertical,
+.aab-icon-box--align-center.aab-icon-box--vertical-reverse {
+	align-items: center;
+	text-align: center;
+}
+.aab-icon-box--align-right.aab-icon-box--vertical,
+.aab-icon-box--align-right.aab-icon-box--vertical-reverse {
+	align-items: flex-end;
+	text-align: right;
+}
+
+/* Alignment - horizontal */
+.aab-icon-box--align-left   { text-align: left; }
+.aab-icon-box--align-center { text-align: center; }
+.aab-icon-box--align-right  { text-align: right; }
+
+/* Icon vertical align (horizontal modes) */
+.aab-icon-box--icon-top    { align-items: flex-start; }
+.aab-icon-box--icon-center { align-items: center; }
+.aab-icon-box--icon-bottom { align-items: flex-end; }
+
+
+/* ===========================
+   ICON
+=========================== */
+
+.aab-icon-box__icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	font-size: 40px;
+	line-height: 1;
+	transition: all 0.3s ease;
+}
+
+.aab-icon-box__icon i,
+.aab-icon-box__icon svg {
+	display: block;
+}
+
+.aab-icon-box__icon svg {
+	width: 1em;
+	height: 1em;
+	fill: currentColor;
+}
+
+
+/* ===========================
+   CONTENT
+=========================== */
+
+.aab-icon-box__content {
+	flex: 1;
+	min-width: 0;
+}
+
+.aab-icon-box__title {
+	margin: 0 0 10px;
+	line-height: 1.3;
+	transition: color 0.3s ease;
+}
+
+.aab-icon-box__desc {
+	margin: 0 0 15px;
+	line-height: 1.6;
+	transition: color 0.3s ease;
+}
+
+.aab-icon-box__desc:last-child {
+	margin-bottom: 0;
+}
+
+
+/* ===========================
+   BOX LINK OVERLAY
+=========================== */
+
+.aab-icon-box__link-overlay {
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+}
+
+
+/* ===========================
+   1. DEFAULT
+=========================== */
+
+.aab-icon-box--default {
+	padding: 30px;
+}
+
+
+/* ===========================
+   2. STACKED CARD
+=========================== */
+
+.aab-icon-box--stacked {
+	padding: 40px 30px;
+	background: #fff;
+	border-radius: 8px;
+	box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+}
+
+.aab-icon-box--stacked:hover {
+	box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+	transform: translateY(-4px);
+}
+
+
+/* ===========================
+   3. BORDERED
+=========================== */
+
+.aab-icon-box--bordered {
+	padding: 30px;
+	border: 2px solid #e0e0e0;
+	border-radius: 8px;
+}
+
+.aab-icon-box--bordered:hover {
+	border-color: #111;
+}
+
+
+/* ===========================
+   4. MINIMAL
+=========================== */
+
+.aab-icon-box--minimal {
+	padding: 0;
+}
+
+
+/* ===========================
+   5. FLOATING ICON
+=========================== */
+
+.aab-icon-box--floating {
+	padding: 40px 30px 30px;
+	background: #fff;
+	border-radius: 8px;
+	box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+}
+
+.aab-icon-box--floating.aab-icon-box--vertical > .aab-icon-box__icon,
+.aab-icon-box--floating.aab-icon-box--vertical-reverse > .aab-icon-box__icon {
+	margin-top: -60px;
+	background: #fff;
+	padding: 15px;
+	border-radius: 50%;
+	box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+
+/* ===========================
+   6. GRADIENT BAR
+=========================== */
+
+.aab-icon-box--gradient-bar {
+	padding: 30px;
+	background: #fff;
+	border-radius: 8px;
+	box-shadow: 0 2px 15px rgba(0,0,0,0.06);
+	overflow: hidden;
+}
+
+.aab-icon-box--gradient-bar::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 4px;
+	background: linear-gradient(90deg, #6366f1, #ec4899);
+	transition: height 0.3s ease;
+}
+
+.aab-icon-box--gradient-bar:hover::before {
+	height: 6px;
+}
+
+
+/* ===========================
+   7. ICON + LEFT LINE
+=========================== */
+
+.aab-icon-box--icon-left-line {
+	padding: 20px 0;
+}
+
+.aab-icon-box--icon-left-line .aab-icon-box__line {
+	width: 3px;
+	align-self: stretch;
+	background-color: #6366f1;
+	border-radius: 3px;
+	flex-shrink: 0;
+	transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.aab-icon-box--icon-left-line:hover .aab-icon-box__line {
+	width: 5px;
+}
+
+/* Force horizontal for this layout */
+.aab-icon-box--icon-left-line.aab-icon-box--vertical,
+.aab-icon-box--icon-left-line.aab-icon-box--vertical-reverse {
+	flex-direction: row;
+}
+
+
+/* ===========================
+   8. ZOOM ON HOVER
+=========================== */
+
+.aab-icon-box--zoom-hover {
+	padding: 30px;
+	background: #fff;
+	border-radius: 8px;
+	box-shadow: 0 2px 15px rgba(0,0,0,0.06);
+	overflow: hidden;
+	transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.aab-icon-box--zoom-hover:hover {
+	transform: scale(1.04);
+	box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+}
+
+.aab-icon-box--zoom-hover:hover .aab-icon-box__icon {
+	transform: scale(1.2) rotate(5deg);
+}
+
+
+/* ===========================
+   9. FLIP CARD
+=========================== */
+
+.aab-icon-box--flip-card {
+	perspective: 800px;
+	position: relative;
+	width: 100%;
+	min-width: 260px;
+	min-height: 280px;
+	padding: 0;
+	background: transparent;
+}
+
+.aab-icon-box--flip-card .aab-icon-box__flip-front,
+.aab-icon-box--flip-card .aab-icon-box__flip-back {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 30px;
+	backface-visibility: hidden;
+	-webkit-backface-visibility: hidden;
+	border-radius: 8px;
+	transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.aab-icon-box--flip-card .aab-icon-box__flip-front,
+.aab-icon-box--flip-card .aab-icon-box__flip-back {
+    border-radius: var(--box-border-radius);
+}
+
+.aab-icon-box--flip-card .aab-icon-box__flip-front {
+	background: #fff;
+	box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+}
+
+.aab-icon-box--flip-card .aab-icon-box__flip-back {
+	background: #111;
+	color: #fff;
+	box-shadow: 0 2px 20px rgba(0,0,0,0.15);
+}
+
+/* Horizontal flip */
+.aab-icon-box--flip-horizontal .aab-icon-box__flip-back {
+	transform: rotateY(180deg);
+}
+.aab-icon-box--flip-horizontal:hover .aab-icon-box__flip-front {
+	transform: rotateY(-180deg);
+}
+.aab-icon-box--flip-horizontal:hover .aab-icon-box__flip-back {
+	transform: rotateY(0deg);
+}
+
+/* Vertical flip */
+.aab-icon-box--flip-vertical .aab-icon-box__flip-back {
+	transform: rotateX(180deg);
+}
+.aab-icon-box--flip-vertical:hover .aab-icon-box__flip-front {
+	transform: rotateX(-180deg);
+}
+.aab-icon-box--flip-vertical:hover .aab-icon-box__flip-back {
+	transform: rotateX(0deg);
+}
+
+
+/* ===========================
+   10. SLIDE UP REVEAL
+=========================== */
+
+.aab-icon-box--slide-up {
+	padding: 30px;
+	background: #fff;
+	border-radius: 8px;
+	box-shadow: 0 2px 15px rgba(0,0,0,0.06);
+	overflow: hidden;
+}
+
+/* Hide description + button in main content for slide-up */
+.aab-icon-box--slide-up > .aab-icon-box__content > .aab-icon-box__desc,
+.aab-icon-box--slide-up > .aab-icon-box__content > .aab-icon-box__btn {
+	opacity: 0;
+	visibility: hidden;
+	height: 0;
+	margin: 0;
+	overflow: hidden;
+}
+
+.aab-icon-box__slide-overlay {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	padding: 30px;
+	background: #111;
+	color: #fff;
+	transform: translateY(100%);
+	transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+	border-radius: 0 0 8px 8px;
+	z-index: 2;
+}
+
+.aab-icon-box--slide-up:hover .aab-icon-box__slide-overlay {
+	transform: translateY(0);
+}
+
+.aab-icon-box__slide-overlay .aab-icon-box__desc {
+	color: rgba(255,255,255,0.85);
+}
+
+
+/* ===========================
+   BUTTON - BASE
+=========================== */
+
+.aab-icon-box__btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	text-decoration: none;
+	cursor: pointer;
+	position: relative;
+	overflow: hidden;
+	z-index: 2;
+	transition: all 0.3s ease;
+	line-height: 1.4;
+	border: none;
+}
+
+.aab-icon-box__btn--full {
+	width: 100%;
+}
+
+.aab-icon-box__btn-icon {
+	display: inline-flex;
+	align-items: center;
+	line-height: 1;
+	transition: transform 0.3s ease;
+}
+
+.aab-icon-box__btn-icon i,
+.aab-icon-box__btn-icon svg {
+	display: block;
+}
+
+/* Button Sizes */
+.aab-icon-box__btn--xs { padding: 4px 10px; font-size: 12px; }
+.aab-icon-box__btn--sm { padding: 8px 18px; font-size: 13px; }
+.aab-icon-box__btn--md { padding: 10px 24px; font-size: 15px; }
+.aab-icon-box__btn--lg { padding: 14px 32px; font-size: 17px; }
+
+
+/* ===========================
+   BUTTON STYLE: SOLID
+=========================== */
+
+.aab-icon-box__btn--solid {
+	background: #111;
+	color: #fff;
+	border-radius: 4px;
+}
+
+
+/* ===========================
+   BUTTON STYLE: OUTLINE
+=========================== */
+
+.aab-icon-box__btn--outline {
+	background: transparent;
+	color: #111;
+	border: 2px solid #111;
+	border-radius: 4px;
+}
+
+
+/* ===========================
+   BUTTON STYLE: GHOST
+=========================== */
+
+.aab-icon-box__btn--ghost {
+	background: transparent;
+	color: #111;
+	padding-left: 0;
+	padding-right: 0;
+}
+
+
+/* ===========================
+   BUTTON STYLE: UNDERLINE
+=========================== */
+
+.aab-icon-box__btn--underline {
+	background: transparent;
+	color: #111;
+	padding-left: 0;
+	padding-right: 0;
+	border-bottom: 2px solid currentColor;
+	border-radius: 0;
+}
+
+
+/* ===========================
+   BUTTON HOVER: FILL
+=========================== */
+
+.aab-icon-box__btn--hover-fill-left::before,
+.aab-icon-box__btn--hover-fill-right::before,
+.aab-icon-box__btn--hover-fill-top::before,
+.aab-icon-box__btn--hover-fill-bottom::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	background-color: #333;
+	transition: transform 0.4s ease;
+	pointer-events: none;
+}
+
+.aab-icon-box__btn--hover-fill-left::before {
+	transform: scaleX(0); transform-origin: left;
+}
+.aab-icon-box__btn--hover-fill-left:hover::before {
+	transform: scaleX(1);
+}
+
+.aab-icon-box__btn--hover-fill-right::before {
+	transform: scaleX(0); transform-origin: right;
+}
+.aab-icon-box__btn--hover-fill-right:hover::before {
+	transform: scaleX(1);
+}
+
+.aab-icon-box__btn--hover-fill-top::before {
+	transform: scaleY(0); transform-origin: top;
+}
+.aab-icon-box__btn--hover-fill-top:hover::before {
+	transform: scaleY(1);
+}
+
+.aab-icon-box__btn--hover-fill-bottom::before {
+	transform: scaleY(0); transform-origin: bottom;
+}
+.aab-icon-box__btn--hover-fill-bottom:hover::before {
+	transform: scaleY(1);
+}
+
+.aab-icon-box__btn--hover-fill-left:hover,
+.aab-icon-box__btn--hover-fill-right:hover,
+.aab-icon-box__btn--hover-fill-top:hover,
+.aab-icon-box__btn--hover-fill-bottom:hover {
+	color: #fff;
+}
+
+
+/* ===========================
+   BUTTON HOVER: SHRINK / GROW
+=========================== */
+
+.aab-icon-box__btn--hover-shrink:hover {
+	transform: scale(0.95);
+}
+
+.aab-icon-box__btn--hover-grow:hover {
+	transform: scale(1.05);
+}
+
+
+/* ===========================
+   BUTTON HOVER: ICON SLIDE
+=========================== */
+
+.aab-icon-box__btn--hover-icon-slide .aab-icon-box__btn-icon {
+	transition: transform 0.3s ease;
+}
+
+.aab-icon-box__btn--hover-icon-slide.aab-icon-box__btn--icon-after:hover .aab-icon-box__btn-icon {
+	transform: translateX(5px);
+}
+
+.aab-icon-box__btn--hover-icon-slide.aab-icon-box__btn--icon-before:hover .aab-icon-box__btn-icon {
+	transform: translateX(-5px);
+}
+
+
+/* ===========================
+   FLIP CARD — BACK FACE
+=========================== */
+
+// .aab-icon-box--flip-card .aab-icon-box__flip-back {
+//     background: #111;
+//     color: #fff;
+// }
+
+// .aab-icon-box--flip-card .aab-icon-box__flip-back .aab-icon-box__desc {
+//     color: inherit;
+//     margin: 0 0 15px;
+// }
+
+// // .aab-icon-box--flip-card .aab-icon-box__flip-back .aab-icon-box__desc:last-child {
+// //     margin-bottom: 0;
+// // }
+
+// .aab-icon-box--flip-card .aab-icon-box__flip-back {
+//     border: inherit;
+// }
+
+
+/* ===========================
+   FLIP CARD — BACK FACE
+=========================== */
+
+.aab-icon-box--flip-card .aab-icon-box__flip-back {
+    background: #111;
+    color: #fff;
+    border-style: solid;   /* required so border-color control works */
+    border-width: 2px;     /* required so border-color control works */
+    border-color: transparent; /* invisible by default until user sets a color */
+}
+
+.aab-icon-box--flip-card .aab-icon-box__flip-back .aab-icon-box__desc {
+    color: inherit;
+    margin: 0 0 15px;
+}
+
+.aab-icon-box--flip-card .aab-icon-box__flip-back .aab-icon-box__desc:last-child {
+    margin-bottom: 0;
+}

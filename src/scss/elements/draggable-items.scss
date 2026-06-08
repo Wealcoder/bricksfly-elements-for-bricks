@@ -1,0 +1,36 @@
+.draggable--items {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    /* overflow: hidden; */
+}
+
+.draggable--items .drag--item {
+    --drag-rotate: 0deg;
+    display: inline-block;
+    padding: 14px 20px 13px;
+    border-radius: 50px;
+    background-color: #FFC3C3;
+    color: inherit;
+    text-decoration: none;
+    cursor: move;
+    user-select: none;
+    touch-action: none;
+    opacity: 0;
+    transform: translateY(-300px) rotate(var(--drag-rotate));
+    transition:
+        transform 0.9s cubic-bezier(0.34, 1.56, 0.64, 1),
+        opacity 0.5s ease-out;
+}
+
+.draggable--items .drag--item.is-loaded {
+    opacity: 1;
+    transform: translateY(0) rotate(var(--drag-rotate));
+}
+
+.draggable--items .drag--item.ui-draggable-dragging {
+    z-index: 10;
+    transition: none;
+}

@@ -1,0 +1,102 @@
+.aab-brand-slider-wrapper {
+  overflow: hidden;
+  position: relative;
+}
+
+.aab-brand-slider-wrapper .swiper {
+  overflow: hidden;
+}
+
+/* Linear timing must be forced via CSS for accurate Marquee transitions */
+.aab-brand-slider-wrapper .swiper-wrapper {
+  align-items: center;
+  -webkit-transition-timing-function: linear !important;
+  -o-transition-timing-function: linear !important;
+  transition-timing-function: linear !important;
+}
+
+.aab-brand-slider-wrapper .text-slide-content {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  white-space: nowrap;
+}
+
+.aab-brand-slider-wrapper.slide-width-auto .swiper-slide {
+  width: auto !important;
+}
+
+.aab-brand-slider-wrapper .swiper-slide img {
+  display: block;
+  max-width: 100%;
+}
+
+.aab-brand-slider-wrapper .aab-separator-icon {
+  display: inline-flex;
+  line-height: 1;
+}
+
+.aab-brand-slider-wrapper .aab-separator-icon svg {
+  width: 1em;
+  height: 1em;
+}
+
+/* Navigation arrows */
+.aab-brand-slider-wrapper .aab-arrow-prev,
+.aab-brand-slider-wrapper .aab-arrow-next {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  transition: all 0.3s;
+}
+
+.aab-brand-slider-wrapper .aab-arrow-prev {
+  left: 0;
+}
+
+.aab-brand-slider-wrapper .aab-arrow-next {
+  right: 0;
+}
+
+.aab-brand-slider-wrapper .aab-arrow-prev svg,
+.aab-brand-slider-wrapper .aab-arrow-next svg {
+  width: 1em;
+  height: 1em;
+}
+
+/* Pagination */
+.aab-brand-slider-wrapper .swiper-pagination {
+  position: static;
+  margin-top: 15px;
+  text-align: center;
+}
+
+.aab-brand-slider-wrapper .swiper-pagination-bullets {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.aab-brand-slider-wrapper .swiper-pagination-bullets .swiper-pagination-bullet {
+  margin: 0;
+}
+
+.aab-brand-slider-wrapper .swiper-pagination-fraction {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.aab-brand-slider-wrapper .swiper-pagination-progressbar {
+  position: relative;
+  height: 4px;
+  margin-top: 15px;
+}

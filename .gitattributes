@@ -1,0 +1,44 @@
+# Files and directories excluded from the wp.org / GitHub release zip.
+# `git archive` will skip anything marked `export-ignore`.
+
+/.github            export-ignore
+/.gitattributes     export-ignore
+/.gitignore         export-ignore
+/.distignore        export-ignore
+/.editorconfig      export-ignore
+/.eslintrc          export-ignore
+/.eslintrc.cjs      export-ignore
+/.eslintignore      export-ignore
+/.prettierrc        export-ignore
+/.prettierignore    export-ignore
+/.phpcs.xml.dist    export-ignore
+/phpstan.neon       export-ignore
+/phpunit.xml        export-ignore
+/phpunit.xml.dist   export-ignore
+/composer.json      export-ignore
+/composer.lock      export-ignore
+/package.json       export-ignore
+/package-lock.json  export-ignore
+/yarn.lock          export-ignore
+/pnpm-lock.yaml     export-ignore
+/babel.config.js    export-ignore
+/webpack.config.js  export-ignore
+/postcss.config.js  export-ignore
+/tailwind.dashboard.config.js   export-ignore
+/tailwind.cptBuilder.config.js  export-ignore
+/tailwind.pageImport.config.js  export-ignore
+/components.json    export-ignore
+/components.cptBuilder.json     export-ignore
+/components.dashboard.json      export-ignore
+/components.pageImport.json     export-ignore
+/jsconfig.json      export-ignore
+/swap-config.js     export-ignore
+/gulpfile.js        export-ignore
+/config.orginal     export-ignore
+
+/node_modules       export-ignore
+/src                export-ignore
+/tests              export-ignore
+/dist               export-ignore
+/.vscode            export-ignore
+/.idea              export-ignore

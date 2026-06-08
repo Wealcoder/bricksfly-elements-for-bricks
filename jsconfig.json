@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/admin/dashboard/*"],
+      "S/*": ["src/modules/cpt-builder/*"]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "build",
+    "dist"
+  ]
+}

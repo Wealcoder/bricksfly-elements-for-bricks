@@ -1,0 +1,74 @@
+.aab-video-mask {
+  border: 1px solid #ddd;
+  position: relative;
+}
+
+.aab-video-mask .video-wrapper {
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s;
+  -webkit-mask-size: 140px;
+  -webkit-mask-position-x: 0;
+  -webkit-mask-position-y: 0;
+  -webkit-mask-repeat: no-repeat;
+}
+
+.aab-video-mask .video--btn {
+  position: absolute;
+  left: 60px;
+  top: 50px;
+  display: flex;
+  align-items: center;
+  gap: 70px;
+  line-height: 1;
+  z-index: 2;
+  background: transparent;
+  fill: #000;
+  color: #000;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.aab-video-mask .title {
+  transition: all 0.3s;
+  position: relative;
+  z-index: 1;
+  font-size: 18px;
+}
+
+.aab-video-mask .close-title.hidden {
+  display: none;
+}
+
+.aab-video-mask .open-title.hidden {
+  display: none;
+}
+
+.aab-video-mask .icon {
+  z-index: 1;
+  position: relative;
+  line-height: 1;
+  transition: all 0.3s;
+  font-size: 30px;
+}
+
+.aab-video-mask svg {
+  width: 1em;
+  height: 1em;
+}
+
+.aab-video-mask video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/* Open state */
+.aab-video-mask.mask-open .video-wrapper {
+  z-index: -1;
+  -webkit-mask-size: 300% !important;
+  -webkit-mask-position-x: 50% !important;
+  -webkit-mask-position-y: 50% !important;
+}

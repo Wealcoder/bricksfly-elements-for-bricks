@@ -1,0 +1,840 @@
+:where(.aae--btn-pro-wrapper) {
+    display: flex;
+    width: auto;
+    width: 100%;
+}
+
+:where(.aae--btn-pro-wrapper) svg {
+    width: 1em;
+    height: 1em;
+}
+
+:where(.aae--btn-pro-wrapper) .icon {
+    line-height: 0;
+}
+
+:where(.aae--btn-pro-wrapper) .aae--btn-pro {
+    gap: 5px;
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.3s;
+    outline: none;
+    text-decoration: none;
+}
+
+/* ============== Style 1 — Border Divide ============== */
+:where(.aae--btn-pro-wrapper.style-1) .btn-border-divide {
+    align-items: flex-end;
+    overflow: hidden;
+}
+
+:where(.aae--btn-pro-wrapper.style-1) .btn-border-divide .text,
+:where(.aae--btn-pro-wrapper.style-1) .btn-border-divide .icon {
+    transition: all 0.3s;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: inherit;
+}
+
+:where(.aae--btn-pro-wrapper.style-1) .btn-border-divide .icon {
+    display: inline-flex;
+    padding-bottom: 3px;
+    position: relative;
+    overflow: hidden;
+}
+
+:where(.aae--btn-pro-wrapper.style-1) .btn-border-divide .icon i:first-child,
+:where(.aae--btn-pro-wrapper.style-1) .btn-border-divide .icon svg:first-child {
+    position: absolute;
+    transform: translate(-10px, 10px);
+    transition: all 0.3s;
+    opacity: 0;
+}
+
+:where(.aae--btn-pro-wrapper.style-1) .btn-border-divide .icon i:last-child,
+:where(.aae--btn-pro-wrapper.style-1) .btn-border-divide .icon svg:last-child {
+    transition: all 0.3s;
+    opacity: 1;
+}
+
+:where(.aae--btn-pro-wrapper.style-1) .btn-border-divide:hover .icon i:first-child,
+:where(.aae--btn-pro-wrapper.style-1) .btn-border-divide:hover .icon svg:first-child {
+    transform: translate(0, 0);
+    opacity: 1;
+}
+
+:where(.aae--btn-pro-wrapper.style-1) .btn-border-divide:hover .icon i:last-child,
+:where(.aae--btn-pro-wrapper.style-1) .btn-border-divide:hover .icon svg:last-child {
+    transform: translate(10px, -10px);
+    opacity: 0;
+}
+
+/* ============== Style 2 — Shadow Offset ============== */
+:where(.aae--btn-pro-wrapper.style-2) .aae--btn-pro {
+    border: 3px solid #1C1D20;
+    padding: 12px 30px;
+    border-radius: 10px;
+}
+
+:where(.aae--btn-pro-wrapper.style-2) .aae--btn-pro:hover {
+    box-shadow: 7px 7px 0 #1C1D20;
+}
+
+/* ============== Style 3 — Text Flip ============== */
+:where(.aae--btn-pro-wrapper.style-3) .btn-text-flip {
+    perspective: 1000px;
+    align-items: center;
+}
+
+:where(.aae--btn-pro-wrapper.style-3) .btn-text-flip span {
+    position: relative;
+    display: inline-block;
+    padding: 0;
+    color: #121212;
+    transition: transform 0.3s;
+    transform-origin: 50% 0;
+    transform-style: preserve-3d;
+}
+
+:where(.aae--btn-pro-wrapper.style-3) .btn-text-flip span::before {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    content: attr(data-text);
+    transition: color 0.3s;
+    transform: rotateX(-90deg);
+    transform-origin: 50% 0;
+    text-align: center;
+}
+
+:where(.aae--btn-pro-wrapper.style-3) .btn-text-flip:hover span {
+    transform: rotateX(90deg) translateY(-12px);
+}
+
+/* ============== Style 4 — Radial Reveal (cursor-tracked) ============== */
+:where(.aae--btn-pro-wrapper.style-4) .aae--btn-pro {
+    font-weight: 500;
+    font-size: 16px;
+    text-align: center;
+    color: #fff;
+    background-color: #121212;
+    padding: 18px 42px;
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+:where(.aae--btn-pro-wrapper.style-4) .aae--btn-pro span {
+    position: absolute;
+    width: 0;
+    height: 0;
+    background: #FC5A11;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.5s ease;
+    z-index: -1;
+}
+
+:where(.aae--btn-pro-wrapper.style-4) .aae--btn-pro strong {
+    width: 50px;
+    display: inherit;
+    height: 1px;
+    background: #fff;
+    margin-left: 5px;
+    position: relative;
+}
+
+:where(.aae--btn-pro-wrapper.style-4) .aae--btn-pro strong::after {
+    position: absolute;
+    content: "";
+    top: -5px;
+    right: 30px;
+    border: solid #fff;
+    border-width: 0 1px 1px 0;
+    padding: 5px;
+    transform: rotate(-45deg);
+    transition: all 0.3s;
+    opacity: 0;
+}
+
+:where(.aae--btn-pro-wrapper.style-4) .aae--btn-pro:hover span {
+    width: 500px;
+    height: 500px;
+}
+
+:where(.aae--btn-pro-wrapper.style-4) .aae--btn-pro:hover strong::after {
+    right: 0;
+    opacity: 1;
+}
+
+/* ============== Styles 5 & 6 — Icon Swap Pill ============== */
+:where(.aae--btn-pro-wrapper) .aae-btn-pro-group {
+    display: inline-flex;
+    width: fit-content;
+    text-decoration: none;
+}
+
+:where(.aae--btn-pro-wrapper) .aae-btn-pro-group .g-btn-text {
+    padding: 21px 40px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1;
+    color: #fff;
+    background-color: #0A1A3D;
+    text-transform: capitalize;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    overflow: hidden;
+    z-index: 1;
+    gap: 30px;
+    white-space: nowrap;
+    border-radius: 30px;
+    text-decoration: none;
+}
+
+:where(.aae--btn-pro-wrapper) .aae-btn-pro-group .g-btn-icon {
+    color: #fff;
+    fill: #fff;
+    border-radius: 50px;
+    background-color: #0A1A3D;
+    border: 1px solid transparent;
+    height: 60px;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.5s;
+}
+
+:where(.aae--btn-pro-wrapper) .aae-btn-pro-group > *:nth-child(2) {
+    transform: scale3d(1, 1, 1);
+}
+
+:where(.aae--btn-pro-wrapper) .aae-btn-pro-group:hover > *:nth-child(2) {
+    transform: scale3d(1, 1, 1);
+}
+
+/* Style 5 */
+:where(.aae--btn-pro-wrapper.style-5) .aae-btn-pro-group > *:nth-child(1) {
+    transform: scale3d(0.5, 0.5, 1);
+    margin-right: calc(var(--icon-width, 60px) * -1);
+    opacity: 0;
+}
+
+:where(.aae--btn-pro-wrapper.style-5) .aae-btn-pro-group > *:nth-child(3) {
+    transform: scale3d(1, 1, 1);
+    margin-left: 0;
+    opacity: 1;
+}
+
+:where(.aae--btn-pro-wrapper.style-5) .aae-btn-pro-group:hover > *:nth-child(1) {
+    transform: scale3d(1, 1, 1);
+    margin-right: 0;
+    opacity: 1;
+}
+
+:where(.aae--btn-pro-wrapper.style-5) .aae-btn-pro-group:hover > *:nth-child(3) {
+    transform: scale3d(0.5, 0.5, 1);
+    margin-left: calc(var(--icon-width, 60px) * -1);
+    opacity: 0;
+}
+
+/* Style 6 */
+:where(.aae--btn-pro-wrapper.style-6) .aae-btn-pro-group > *:nth-child(1) {
+    transform: scale3d(1, 1, 1);
+    margin-right: 0;
+    opacity: 1;
+}
+
+:where(.aae--btn-pro-wrapper.style-6) .aae-btn-pro-group > *:nth-child(3) {
+    transform: scale3d(0.5, 0.5, 1);
+    margin-left: calc(var(--icon-width, 60px) * -1);
+    opacity: 0;
+}
+
+:where(.aae--btn-pro-wrapper.style-6) .aae-btn-pro-group:hover > *:nth-child(1) {
+    transform: scale3d(0.5, 0.5, 1);
+    margin-right: calc(var(--icon-width, 60px) * -1);
+    opacity: 0;
+}
+
+:where(.aae--btn-pro-wrapper.style-6) .aae-btn-pro-group:hover > *:nth-child(3) {
+    transform: scale3d(1, 1, 1);
+    margin-left: 0;
+    opacity: 1;
+}
+
+/* ============== Style 7 — Outline Pill ============== */
+:where(.aae--btn-pro-wrapper.style-7) .aae--btn-pro {
+    color: #fff;
+    fill: #fff;
+    border: 1px solid #ddd;
+    padding: 18px 30px;
+    border-radius: 35px;
+    position: relative;
+    overflow: hidden;
+    --outline-gap: 10px;
+}
+
+:where(.aae--btn-pro-wrapper.style-7) .aae--btn-pro::after {
+    position: absolute;
+    content: "";
+    width: calc(100% - calc(var(--outline-gap) * 2));
+    height: calc(100% - calc(var(--outline-gap) * 2));
+    left: 50%;
+    top: 50%;
+    background: #121212;
+    transform: translate(-50%, -50%);
+    border-radius: 35px;
+    z-index: -1;
+    transition: all 0.3s;
+}
+
+:where(.aae--btn-pro-wrapper.style-7) .aae--btn-pro:hover {
+    fill: #121212;
+    color: #121212;
+}
+
+:where(.aae--btn-pro-wrapper.style-7) .aae--btn-pro:hover::after {
+    width: 50%;
+    top: -4px;
+    transform: translate(-50%, -100%);
+}
+
+/* ============== Style 8 — Slide Reveal ============== */
+@keyframes btnSlideBounce {
+    0% {
+        left: -92%;
+    }
+    75% {
+        left: 3%;
+    }
+    100% {
+        left: 0;
+    }
+}
+
+:where(.aae--btn-pro-wrapper.style-8) .aae--btn-pro {
+    color: #121212;
+    fill: #121212;
+    border: 1px solid #121212;
+    padding: 18px 30px;
+    border-radius: 35px;
+    position: relative;
+    overflow: hidden;
+    background-color: #121212;
+    z-index: 1;
+    cursor: pointer;
+}
+
+:where(.aae--btn-pro-wrapper.style-8) .aae--btn-pro::after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: #fff;
+    border-radius: 35px;
+    z-index: -1;
+    transition: left 0.6s cubic-bezier(0.65, 0, 0.26, 1.2);
+}
+
+:where(.aae--btn-pro-wrapper.style-8) .aae--btn-pro:hover {
+    color: #fff;
+    fill: #fff;
+}
+
+:where(.aae--btn-pro-wrapper.style-8) .aae--btn-pro:hover::after {
+    left: -100%;
+}
+
+/* ============================================================
+   Base (WCF) button styles + hover variants — from button.scss
+   Scoped under :where(.aae--btn-pro-wrapper) to avoid leaking out.
+   ============================================================ */
+
+/* Mask keyframes */
+@keyframes aab_mask_animation {
+    from { -webkit-mask-position: 0 0; mask-position: 0 0; }
+    to   { -webkit-mask-position: 100% 0; mask-position: 100% 0; }
+}
+
+@keyframes aab_mask_animation_2 {
+    from { -webkit-mask-position: 100% 0; mask-position: 100% 0; }
+    to   { -webkit-mask-position: 0 0; mask-position: 0 0; }
+}
+
+/* Wrapper & link base */
+:where(.aae--btn-pro-wrapper) .wcf__btn i {
+    transition: all 0.3s;
+}
+
+:where(.aae--btn-pro-wrapper) .wcf__btn svg {
+    width: 1em;
+    height: 1em;
+}
+
+:where(.aae--btn-pro-wrapper) .wcf__btn a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 16px;
+    line-height: 1;
+    font-weight: 500;
+    transition: all 0.3s;
+    text-decoration: none;
+    cursor: pointer;
+    --btn-hover-bg: #FC5A11;
+}
+
+:where(.aae--btn-pro-wrapper) .wcf__btn.icon-position-after i,
+:where(.aae--btn-pro-wrapper) .wcf__btn.icon-position-after svg {
+    order: 15;
+}
+
+:where(.aae--btn-pro-wrapper) .wcf__btn.icon-position-after .wcf-btn-mask::after {
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+/* ---------- Base styles ---------- */
+:where(.aae--btn-pro-wrapper) .wcf-btn-default {
+    padding: 17px 35px;
+    border: 1px solid #1C1D20;
+    overflow: hidden;
+    z-index: 0;
+    color: #1C1D20;
+    position: relative;
+}
+
+:where(.aae--btn-pro-wrapper) .wcf-btn-default:hover {
+    color: #1C1D20;
+}
+
+:where(.aae--btn-pro-wrapper) .wcf-btn-circle {
+    width: 140px;
+    height: 140px;
+    color: #1C1D20;
+    border-radius: 100%;
+    flex-direction: column;
+    background-color: #E8BF96;
+    position: relative;
+}
+
+:where(.aae--btn-pro-wrapper) .wcf-btn-circle:hover {
+    color: #fff;
+}
+
+:where(.aae--btn-pro-wrapper) .wcf-btn-oval {
+    color: #1C1D20;
+    border: 1px solid #1C1D20;
+    padding: 32px 52px;
+    border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+    position: relative;
+}
+
+:where(.aae--btn-pro-wrapper) .wcf-btn-oval:hover {
+    color: #E8BF96;
+}
+
+:where(.aae--btn-pro-wrapper) .wcf-btn-ellipse {
+    color: #1C1D20;
+    padding: 45px 45px;
+    position: relative;
+    background-color: #1C1D20;
+    border-radius: 100%;
+    border-top-left-radius: 200%;
+    border-bottom-right-radius: 200%;
+    z-index: 1;
+}
+
+:where(.aae--btn-pro-wrapper) .wcf-btn-ellipse:hover {
+    color: #FFBC7D;
+    background-color: #E8BF96;
+}
+
+:where(.aae--btn-pro-wrapper) .wcf-btn-ellipse:before {
+    position: absolute;
+    content: "";
+    width: calc(100% - 16px);
+    height: calc(100% - 2px);
+    background-color: #fff;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 100%;
+    border-top-left-radius: 200%;
+    border-bottom-right-radius: 200%;
+}
+
+:where(.aae--btn-pro-wrapper) .wcf-btn-square {
+    flex-direction: column;
+    color: #1C1D20;
+    text-align: center;
+    border: 1px solid currentColor;
+    height: 215px;
+    width: 215px;
+    padding: 20px;
+    z-index: 0;
+    transition: all 0.5s;
+    position: relative;
+}
+
+:where(.aae--btn-pro-wrapper) .wcf-btn-square:hover {
+    color: #E8BF96;
+}
+
+:where(.aae--btn-pro-wrapper) .wcf-btn-underline {
+    color: #1C1D20;
+    padding-bottom: 5px;
+    position: relative;
+}
+
+:where(.aae--btn-pro-wrapper) .wcf-btn-underline::after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 1px;
+    left: 0;
+    bottom: 0;
+    background-color: currentColor;
+    transition: all 0.3s;
+}
+
+:where(.aae--btn-pro-wrapper) .wcf-btn-underline:hover {
+    color: #E8BF96;
+    fill: #E8BF96;
+}
+
+:where(.aae--btn-pro-wrapper) .wcf-btn-underline:hover::after {
+    width: 0%;
+}
+
+:where(.aae--btn-pro-wrapper) .wcf-btn-mask {
+    padding: 15px 30px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s;
+    border-radius: 5px;
+    color: #1C1D20;
+    border: 1px solid #1C1D20;
+    z-index: 1;
+}
+
+:where(.aae--btn-pro-wrapper) .wcf-btn-mask i,
+:where(.aae--btn-pro-wrapper) .wcf-btn-mask svg {
+    position: relative;
+    z-index: 1;
+}
+
+:where(.aae--btn-pro-wrapper) .wcf-btn-mask::after {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    color: #fff;
+    position: absolute;
+    content: attr(data-text);
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: #1C1D20;
+    -webkit-mask: url("../../images/mask-btn.png");
+    mask: url("../../images/mask-btn.png");
+    -webkit-mask-size: 2300% 100%;
+    mask-size: 2300% 100%;
+    animation: aab_mask_animation_2 0.7s steps(22) forwards;
+    padding: 15px 30px;
+}
+
+:where(.aae--btn-pro-wrapper) .wcf-btn-mask:hover {
+    color: #1C1D20;
+}
+
+:where(.aae--btn-pro-wrapper) .wcf-btn-mask:hover::after {
+    animation: aab_mask_animation 0.7s steps(22) forwards;
+}
+
+/* ---------- bg-change expanding span (circle / oval auto) ---------- */
+:where(.aae--btn-pro-wrapper) .btn-hover-bgchange {
+    overflow: hidden;
+    position: relative;
+    z-index: 5;
+}
+
+:where(.aae--btn-pro-wrapper) .btn-hover-bgchange span {
+    position: absolute;
+    content: "";
+    width: 0;
+    height: 0;
+    left: 50%;
+    top: 50%;
+    z-index: -1;
+    border-radius: 100%;
+    transition: all 1s;
+    background-color: var(--btn-hover-bg, #1C1D20);
+    transform: translate(-50%, -50%);
+}
+
+:where(.aae--btn-pro-wrapper) .btn-hover-bgchange:hover {
+    color: #fff;
+    border: 1px solid #1C1D20;
+}
+
+:where(.aae--btn-pro-wrapper) .btn-hover-bgchange:hover span {
+    width: 400px;
+    height: 400px;
+}
+
+/* ---------- Hover variants (default / square only) ---------- */
+:where(.aae--btn-pro-wrapper) .btn-hover-default:hover {
+    color: #1C1D20;
+    background-color: #fff;
+}
+
+:where(.aae--btn-pro-wrapper) .btn-hover-cross {
+    overflow: hidden;
+    position: relative;
+    transition: all 1s;
+}
+
+:where(.aae--btn-pro-wrapper) .btn-hover-cross::after {
+    position: absolute;
+    content: "";
+    width: 150%;
+    height: 0%;
+    left: 50%;
+    top: 50%;
+    background-color: var(--btn-hover-bg, #1C1D20);
+    transform: translateX(-50%) translateY(-50%);
+    transition: all 0.75s;
+    opacity: 0.5;
+    z-index: -1;
+}
+
+:where(.aae--btn-pro-wrapper) .btn-hover-cross:hover {
+    color: #fff;
+}
+
+:where(.aae--btn-pro-wrapper) .btn-hover-cross:hover::after {
+    height: 120%;
+    opacity: 1;
+}
+
+:where(.aae--btn-pro-wrapper) .btn-hover-divide {
+    overflow: hidden;
+    position: relative;
+    transition: all 1s;
+    z-index: 1;
+}
+
+:where(.aae--btn-pro-wrapper) .btn-hover-divide::after {
+    position: absolute;
+    content: "";
+    width: 0%;
+    height: 100%;
+    left: 50%;
+    top: 50%;
+    background-color: var(--btn-hover-bg, #1C1D20);
+    transform: translateX(-50%) translateY(-50%);
+    transition: all 0.75s;
+    opacity: 0.5;
+    z-index: -1;
+}
+
+:where(.aae--btn-pro-wrapper) .btn-hover-divide:hover {
+    color: #fff;
+}
+
+:where(.aae--btn-pro-wrapper) .btn-hover-divide:hover::after {
+    width: 120%;
+    opacity: 1;
+}
+
+:where(.aae--btn-pro-wrapper) .btn-hover-cropping {
+    overflow: hidden;
+    position: relative;
+    transition: all 1s;
+}
+
+:where(.aae--btn-pro-wrapper) .btn-hover-cropping::after {
+    position: absolute;
+    content: "";
+    width: 150%;
+    height: 0%;
+    left: 50%;
+    top: 50%;
+    background-color: var(--btn-hover-bg, #1C1D20);
+    transform: translateX(-50%) translateY(-50%) rotate(25deg);
+    transition: all 0.75s;
+    opacity: 0.5;
+    z-index: -1;
+}
+
+:where(.aae--btn-pro-wrapper) .btn-hover-cropping:hover {
+    color: #fff;
+}
+
+:where(.aae--btn-pro-wrapper) .btn-hover-cropping:hover::after {
+    height: 400%;
+    opacity: 1;
+}
+
+:where(.aae--btn-pro-wrapper) .btn-rollover-top {
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+}
+
+:where(.aae--btn-pro-wrapper) .btn-rollover-top::after {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 0;
+    width: 100%;
+    z-index: -1;
+    content: '';
+    background-color: var(--btn-hover-bg, #1C1D20);
+    transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+}
+
+:where(.aae--btn-pro-wrapper) .btn-rollover-top:hover {
+    color: #fff;
+}
+
+:where(.aae--btn-pro-wrapper) .btn-rollover-top:hover::after {
+    top: 0;
+    bottom: auto;
+    height: 100%;
+}
+
+:where(.aae--btn-pro-wrapper) .btn-rollover-left {
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+}
+
+:where(.aae--btn-pro-wrapper) .btn-rollover-left::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 0;
+    z-index: -1;
+    content: '';
+    background-color: var(--btn-hover-bg, #1C1D20);
+    transition: all 0.4s cubic-bezier(0.42, 0, 0.58, 1) 0s;
+}
+
+:where(.aae--btn-pro-wrapper) .btn-rollover-left:hover {
+    color: #fff;
+}
+
+:where(.aae--btn-pro-wrapper) .btn-rollover-left:hover::after {
+    left: 0;
+    right: auto;
+    width: 100%;
+}
+
+:where(.aae--btn-pro-wrapper) .btn-rollover-cross {
+    overflow: hidden;
+    position: relative;
+    transition: all 0.5s;
+}
+
+:where(.aae--btn-pro-wrapper) .btn-rollover-cross::before {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    bottom: 100%;
+    left: 100%;
+    opacity: 0;
+    border-bottom: 1px solid var(--btn-hover-bg, #1C1D20);
+    border-left: 1px solid var(--btn-hover-bg, #1C1D20);
+    transition: all 0.75s;
+}
+
+:where(.aae--btn-pro-wrapper) .btn-rollover-cross::after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    top: 100%;
+    right: 100%;
+    opacity: 0;
+    border-top: 1px solid var(--btn-hover-bg, #1C1D20);
+    border-right: 1px solid var(--btn-hover-bg, #1C1D20);
+    transition: all 0.75s;
+}
+
+:where(.aae--btn-pro-wrapper) .btn-rollover-cross:hover {
+    border-color: transparent !important;
+    color: #1C1D20;
+}
+
+:where(.aae--btn-pro-wrapper) .btn-rollover-cross:hover::before {
+    bottom: 0;
+    left: 0;
+    opacity: 1;
+    width: 100%;
+    height: 100%;
+}
+
+:where(.aae--btn-pro-wrapper) .btn-rollover-cross:hover::after {
+    top: 0;
+    right: 0;
+    opacity: 1;
+    width: 100%;
+    height: 100%;
+}
+
+:where(.aae--btn-pro-wrapper) .btn-parallal-border {
+    overflow: hidden;
+    position: relative;
+    transition: all 0.5s;
+}
+
+:where(.aae--btn-pro-wrapper) .btn-parallal-border::before {
+    position: absolute;
+    content: "";
+    width: 0%;
+    height: 0%;
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    border-bottom: 1px solid var(--btn-hover-bg, #1C1D20);
+    border-left: 1px solid var(--btn-hover-bg, #1C1D20);
+    transition: all 0.75s;
+}
+
+:where(.aae--btn-pro-wrapper) .btn-parallal-border::after {
+    position: absolute;
+    content: "";
+    width: 0%;
+    height: 0%;
+    top: 0;
+    right: 0;
+    opacity: 0;
+    border-top: 1px solid var(--btn-hover-bg, #1C1D20);
+    border-right: 1px solid var(--btn-hover-bg, #1C1D20);
+    transition: all 0.75s;
+}
+
+:where(.aae--btn-pro-wrapper) .btn-parallal-border:hover {
+    border-color: transparent !important;
+    color: #1C1D20;
+}
+
+:where(.aae--btn-pro-wrapper) .btn-parallal-border:hover::before,
+:where(.aae--btn-pro-wrapper) .btn-parallal-border:hover::after {
+    opacity: 1;
+    width: 100%;
+    height: 100%;
+}

@@ -1,0 +1,644 @@
+<?php
+
+if (! defined('ABSPATH')) exit;
+
+class AAB_Bricks_Button_Pro extends \Bricks\Element
+{
+
+	public $category     = 'bricks fly';
+	public $name         = 'aab-button-pro';
+	public $icon         = 'ti-mouse-alt aab-element-marker';
+	public $css_selector = '.aae--btn-pro-wrapper';
+	public $scripts      = ['aabButtonPro'];
+
+	public function get_label()
+	{
+		return esc_html__('Advanced Button Pro', 'bricksfly');
+	}
+
+	public function get_keywords()
+	{
+		return ['button', 'pro', 'advanced', 'hover', 'cta'];
+	}
+
+	public function enqueue_scripts()
+	{
+		wp_enqueue_style('bricks-font-awesome-6');
+		wp_enqueue_style('bricks-font-awesome-6-brands');
+
+		wp_enqueue_style(
+			'aab-button-pro',
+			AAB_ADDONS_URL . 'public/build/elements/button-pro.css',
+			[],
+			'1.0.0'
+		);
+
+		wp_enqueue_script(
+			'aab-button-pro',
+			AAB_ADDONS_URL . 'public/build/elements/button-pro.js',
+			[],
+			'1.0.0',
+			true
+		);
+	}
+
+	public function set_control_groups()
+	{
+		$this->control_groups['button'] = [
+			'title' => esc_html__('Button', 'bricksfly'),
+			'tab'   => 'content',
+		];
+
+		$this->control_groups['button_style'] = [
+			'title' => esc_html__('Button Style', 'bricksfly'),
+			'tab'   => 'style',
+		];
+	}
+
+	public function set_controls()
+	{
+
+		// Content
+		$this->controls['btnStyle'] = [
+			'tab'     => 'content',
+			'group'   => 'button',
+			'label'   => esc_html__('Style', 'bricksfly'),
+			'type'    => 'select',
+			'options' => [
+				'base-default'   => esc_html__('Default', 'bricksfly'),
+				'base-square'    => esc_html__('Square', 'bricksfly'),
+				'base-underline' => esc_html__('Underline', 'bricksfly'),
+				'base-mask'      => esc_html__('Mask', 'bricksfly'),
+				'base-oval'      => esc_html__('Oval', 'bricksfly'),
+				'base-circle'    => esc_html__('Circle', 'bricksfly'),
+				'base-ellipse'   => esc_html__('Ellipse', 'bricksfly'),
+				'1'              => esc_html__('Pro 1 — Border Divide', 'bricksfly'),
+				'2'              => esc_html__('Pro 2 — Shadow Offset', 'bricksfly'),
+				'3'              => esc_html__('Pro 3 — Text Flip', 'bricksfly'),
+				'4'              => esc_html__('Pro 4 — Radial Reveal', 'bricksfly'),
+				'5'              => esc_html__('Pro 5 — Icon Swap L→R', 'bricksfly'),
+				'6'              => esc_html__('Pro 6 — Icon Swap R→L', 'bricksfly'),
+				'7'              => esc_html__('Pro 7 — Outline Pill', 'bricksfly'),
+				'8'              => esc_html__('Pro 8 — Slide Reveal', 'bricksfly'),
+			],
+			'default' => '1',
+		];
+
+		$this->controls['btnHoverVariant'] = [
+			'tab'      => 'content',
+			'group'    => 'button',
+			'label'    => esc_html__('Hover Style', 'bricksfly'),
+			'type'     => 'select',
+			'options'  => [
+				'hover-none'      => esc_html__('None', 'bricksfly'),
+				'hover-divide'    => esc_html__('Divided', 'bricksfly'),
+				'hover-cross'     => esc_html__('Cross', 'bricksfly'),
+				'hover-cropping'  => esc_html__('Cropping', 'bricksfly'),
+				'rollover-top'    => esc_html__('Rollover Top', 'bricksfly'),
+				'rollover-left'   => esc_html__('Rollover Left', 'bricksfly'),
+				'parallal-border' => esc_html__('Parallel Border', 'bricksfly'),
+				'rollover-cross'  => esc_html__('Rollover Cross', 'bricksfly'),
+			],
+			'default'  => 'hover-none',
+			'required' => ['btnStyle', '=', ['base-default', 'base-square']],
+		];
+
+		$this->controls['btnText'] = [
+			'tab'     => 'content',
+			'group'   => 'button',
+			'label'   => esc_html__('Text', 'bricksfly'),
+			'type'    => 'text',
+			'default' => esc_html__('Discover More', 'bricksfly'),
+		];
+
+		$this->controls['btnIcon'] = [
+			'tab'      => 'content',
+			'group'    => 'button',
+			'label'    => esc_html__('Icon', 'bricksfly'),
+			'type'     => 'icon',
+			'default'  => [
+				'icon'    => 'fas fa-arrow-right',
+				'library' => 'fontawesomeSolid',
+			],
+			'required' => ['btnStyle', '!=', '4'],
+		];
+
+		$this->controls['btnIconPosition'] = [
+			'tab'      => 'content',
+			'group'    => 'button',
+			'label'    => esc_html__('Icon Position', 'bricksfly'),
+			'type'     => 'select',
+			'inline'   => true,
+			'options'  => [
+				'row'         => esc_html__('After', 'bricksfly'),
+				'row-reverse' => esc_html__('Before', 'bricksfly'),
+			],
+			'default'  => 'row',
+			'required' => ['btnStyle', '!=', ['5', '6']],
+			'css'      => [
+				[
+					'property' => 'flex-direction',
+					'selector' => '.aae--btn-pro, .wcf__btn a',
+				],
+			],
+		];
+
+		$this->controls['btnLink'] = [
+			'tab'   => 'content',
+			'group' => 'button',
+			'label' => esc_html__('Link', 'bricksfly'),
+			'type'  => 'link',
+		];
+
+		$this->controls['btnOutlineGap'] = [
+			'tab'      => 'content',
+			'group'    => 'button',
+			'label'    => esc_html__('Outline Gap', 'bricksfly'),
+			'type'     => 'number',
+			'units'    => true,
+			'default'  => '10px',
+			'required' => ['btnStyle', '=', '7'],
+			'css'      => [
+				[
+					'property' => '--outline-gap',
+					'selector' => '&.style-7 .aae--btn-pro',
+				],
+			],
+		];
+
+		$this->controls['btnAlign'] = [
+			'tab'     => 'content',
+			'group'   => 'button',
+			'label'   => esc_html__('Alignment', 'bricksfly'),
+			'type'    => 'align-items',
+			'inline'  => true,
+			'exclude' => ['stretch'],
+			'css'     => [
+				[
+					'property' => 'justify-content',
+					'selector' => '',
+				],
+			],
+		];
+
+		// Style
+		$this->controls['btnTypo'] = [
+			'tab'   => 'style',
+			'group' => 'button_style',
+			'label' => esc_html__('Typography', 'bricksfly'),
+			'type'  => 'typography',
+			'css'   => [
+				[
+					'property' => 'typography',
+					'selector' => '.aae--btn-pro, .g-btn-text, .wcf__btn a',
+				],
+			],
+		];
+
+		$this->controls['btnBg'] = [
+			'tab'      => 'style',
+			'group'    => 'button_style',
+			'label'    => esc_html__('Background', 'bricksfly'),
+			'type'     => 'background',
+			'required' => ['btnStyle', '!=', '7'],
+			'css'      => [
+				[
+					'property' => 'background',
+					'selector' => '.aae--btn-pro, .g-btn-text, .g-btn-icon, .wcf__btn a',
+				],
+			],
+		];
+
+		$this->controls['btnBg2'] = [
+			'tab'      => 'style',
+			'group'    => 'button_style',
+			'label'    => esc_html__('Inner Background', 'bricksfly'),
+			'type'     => 'background',
+			'required' => ['btnStyle', '=', ['7', '8']],
+			'css'      => [
+				[
+					'property' => 'background',
+					'selector' => '.aae--btn-pro::after',
+				],
+			],
+		];
+
+		$this->controls['btnBorder'] = [
+			'tab'   => 'style',
+			'group' => 'button_style',
+			'label' => esc_html__('Border', 'bricksfly'),
+			'type'  => 'border',
+			'css'   => [
+				[
+					'property' => 'border',
+					'selector' => '.aae--btn-pro, .g-btn-text, .g-btn-icon, .wcf__btn a',
+				],
+			],
+		];
+
+		$this->controls['btnBorderHeight'] = [
+			'tab'      => 'style',
+			'group'    => 'button_style',
+			'label'    => esc_html__('Divider Width', 'bricksfly'),
+			'type'     => 'number',
+			'units'    => true,
+			'min'      => 0,
+			'required' => ['btnStyle', '=', '1'],
+			'default'  => '1px',
+			'css'      => [
+				[
+					'property' => 'border-bottom-width',
+					'selector' => '.btn-border-divide .text, .btn-border-divide .icon',
+				],
+			],
+		];
+
+		$this->controls['btnPadding'] = [
+			'tab'   => 'style',
+			'group' => 'button_style',
+			'label' => esc_html__('Padding', 'bricksfly'),
+			'type'  => 'dimensions',
+			'css'   => [
+				[
+					'property' => 'padding',
+					'selector' => '.aae--btn-pro, .g-btn-text, .wcf__btn a',
+				],
+			],
+		];
+
+		$this->controls['iconHeading'] = [
+			'tab'   => 'style',
+			'group' => 'button_style',
+			'label' => esc_html__('Icon', 'bricksfly'),
+			'type'  => 'separator',
+		];
+
+		$this->controls['btnIconSize'] = [
+			'tab'   => 'style',
+			'group' => 'button_style',
+			'label' => esc_html__('Icon Size', 'bricksfly'),
+			'type'  => 'number',
+			'units' => true,
+			'css'   => [
+				[
+					'property' => 'font-size',
+					'selector' => '.aae--btn-pro .icon, .g-btn-icon',
+				],
+				[
+					'property' => 'width',
+					'selector' => '&.style-4 .aae--btn-pro strong',
+				],
+			],
+		];
+
+		$this->controls['btnIconSizeWidth'] = [
+			'tab'      => 'style',
+			'group'    => 'button_style',
+			'label'    => esc_html__('Icon Width', 'bricksfly'),
+			'type'     => 'number',
+			'units'    => true,
+			'required' => ['btnStyle', '=', ['5', '6']],
+			'css'      => [
+				[
+					'property' => 'width',
+					'selector' => '.g-btn-icon',
+				],
+				[
+					'property' => 'height',
+					'selector' => '.g-btn-icon',
+				],
+				[
+					'property' => '--icon-width',
+					'selector' => '.g-btn-icon',
+				],
+			],
+		];
+
+		$this->controls['btnGap'] = [
+			'tab'      => 'style',
+			'group'    => 'button_style',
+			'label'    => esc_html__('Gap', 'bricksfly'),
+			'type'     => 'number',
+			'units'    => true,
+			'required' => ['btnStyle', '!=', ['5', '6']],
+			'css'      => [
+				[
+					'property' => 'gap',
+					'selector' => '.aae--btn-pro, .g-btn-text',
+				],
+			],
+		];
+
+		$this->controls['colorsHeading'] = [
+			'tab'   => 'style',
+			'group' => 'button_style',
+			'label' => esc_html__('Colors', 'bricksfly'),
+			'type'  => 'separator',
+		];
+
+		$this->controls['btnColor'] = [
+			'tab'   => 'style',
+			'group' => 'button_style',
+			'label' => esc_html__('Text Color', 'bricksfly'),
+			'type'  => 'color',
+			'css'   => [
+				[
+					'property' => 'color',
+					'selector' => '.aae--btn-pro, .btn-text-flip span, .g-btn-text, .g-btn-icon, .wcf__btn a',
+				],
+				[
+					'property' => 'fill',
+					'selector' => '.aae--btn-pro, .g-btn-text, .g-btn-icon, .wcf__btn a',
+				],
+				[
+					'property' => 'background-color',
+					'selector' => '&.style-4 .aae--btn-pro strong',
+				],
+			],
+		];
+
+		$this->controls['btnBrColor'] = [
+			'tab'      => 'style',
+			'group'    => 'button_style',
+			'label'    => esc_html__('Divider Color', 'bricksfly'),
+			'type'     => 'color',
+			'required' => ['btnStyle', '=', '1'],
+			'css'      => [
+				[
+					'property' => 'border-bottom-color',
+					'selector' => '.btn-border-divide .text, .btn-border-divide .icon',
+				],
+			],
+		];
+
+
+		$this->controls['btnHColor'] = [
+			'tab'   => 'style',
+			'group' => 'button_style',
+			'label' => esc_html__('Hover Text Color', 'bricksfly'),
+			'type'  => 'color',
+			'css'   => [
+				[
+					'property' => 'color',
+					'selector' => '.aae--btn-pro:hover, .aae--btn-pro:hover .icon, .btn-text-flip:hover span, .aae-btn-pro-group:hover .g-btn-text, .aae-btn-pro-group:hover .g-btn-icon, .wcf__btn a:hover',
+				],
+				[
+					'property' => 'fill',
+					'selector' => '.aae--btn-pro:hover, .aae--btn-pro:hover .icon, .aae-btn-pro-group:hover .g-btn-icon, .wcf__btn a:hover',
+				],
+				[
+					'property' => 'background-color',
+					'selector' => '&.style-4 .aae--btn-pro:hover strong',
+				],
+			],
+		];
+
+		$this->controls['btnHBorder'] = [
+			'tab'   => 'style',
+			'group' => 'button_style',
+			'label' => esc_html__('Hover Border Color', 'bricksfly'),
+			'type'  => 'color',
+			'css'   => [
+				[
+					'property' => 'border-color',
+					'selector' => '.aae--btn-pro:hover, .g-btn-text:hover, .btn-border-divide:hover .text, .btn-border-divide:hover .icon, .wcf__btn a:hover',
+				],
+			],
+		];
+
+		// $this->controls['btnHBg'] = [
+		// 	'tab'   => 'style',
+		// 	'group' => 'button_style',
+		// 	'label' => esc_html__('Hover Background', 'bricksfly'),
+		// 	'type'  => 'background',
+		// 	'css'   => [
+		// 		[
+		// 			'property' => 'background',
+		// 			'selector' => '.aae--btn-pro:hover, .aae-btn-pro-group:hover .g-btn-text, .aae-btn-pro-group:hover .g-btn-icon, .wcf__btn a:hover',
+		// 		],
+		// 	],
+		// ];
+
+		$this->controls['btnHBg'] = [
+			'tab'   => 'style',
+			'group' => 'button_style',
+			'label' => esc_html__('Hover Background', 'bricksfly'),
+			'type'  => 'background',
+			'css'   => [
+				[
+					'property' => 'background',
+					'selector' => '.aae--btn-pro:hover, .aae-btn-pro-group:hover .g-btn-text, .aae-btn-pro-group:hover .g-btn-icon, .wcf__btn a:hover',
+				],
+				[
+					'property' => '--btn-hover-bg',
+					'selector' => '.wcf__btn a',
+				],
+			],
+		];
+
+		$this->controls['btnRevealColor'] = [
+			'tab'      => 'style',
+			'group'    => 'button_style',
+			'label'    => esc_html__('Reveal Color', 'bricksfly'),
+			'type'     => 'color',
+			//'required' => ['btnStyle', '=', ['4', 'base-default']],
+			'default'  => ['hex' => '#FC5A11'],
+			'css'      => [
+				[
+					'property' => 'background-color',
+					'selector' => '&.style-4 .aae--btn-pro span',
+				],
+				[
+					'property' => '--btn-hover-bg',
+					'selector' => '.wcf__btn a',
+				],
+			],
+		];
+
+		$this->controls['btnBoxShadow'] = [
+			'tab'      => 'style',
+			'group'    => 'button_style',
+			'label'    => esc_html__('Hover Shadow', 'bricksfly'),
+			'type'     => 'box-shadow',
+			'required' => ['btnStyle', '=', '2'],
+			'css'      => [
+				[
+					'property' => 'box-shadow',
+					'selector' => '&.style-2 .aae--btn-pro:hover',
+				],
+			],
+		];
+
+		$this->controls['btnRevealOffset'] = [
+			'tab'      => 'style',
+			'group'    => 'button_style',
+			'label'    => esc_html__('Hover Reveal Offset', 'bricksfly'),
+			'type'     => 'number',
+			'units'    => true,
+			'required' => ['btnStyle', '=', '7'],
+			'default'  => '4px',
+			'css'      => [
+				[
+					'property' => 'top',
+					'selector' => '&.style-7 .aae--btn-pro:hover::after',
+				],
+			],
+		];
+
+		$this->controls['btnSlideOffset'] = [
+			'tab'      => 'style',
+			'group'    => 'button_style',
+			'label'    => esc_html__('Hover Slide Offset', 'bricksfly'),
+			'type'     => 'number',
+			'units'    => true,
+			'required' => ['btnStyle', '=', '8'],
+			'default'  => '-92%',
+			'css'      => [
+				[
+					'property' => 'left',
+					'selector' => '&.style-8 .aae--btn-pro:hover::after',
+				],
+			],
+		];
+	}
+
+	public function render()
+	{
+		$settings = $this->settings;
+		$style    = ! empty($settings['btnStyle']) ? $settings['btnStyle'] : '1';
+		$text     = isset($settings['btnText']) ? $settings['btnText'] : '';
+		$icon     = $settings['btnIcon'] ?? [];
+
+		$this->set_attribute('_root', 'class', ['aae--btn-pro-wrapper', 'style-' . $style]);
+
+		$link_key = 'btn-link';
+
+		if (! empty($settings['btnLink'])) {
+			$this->set_link_attributes($link_key, $settings['btnLink']);
+		} else {
+			$this->set_attribute($link_key, 'href', '#');
+		}
+
+		$icon_html = $icon ? self::render_icon($icon, ['aria-hidden' => 'true']) : '';
+
+		// Base (WCF) styles — render via .wcf__btn > a.wcf-btn-{slug}
+		if (0 === strpos($style, 'base-')) {
+			$slug = substr($style, 5);
+
+			$icon_position_after = isset($settings['btnIconPosition']) && 'row-reverse' === $settings['btnIconPosition'];
+			$ext_wrap            = in_array($slug, ['oval', 'circle', 'ellipse'], true);
+			$bg_change           = in_array($slug, ['oval', 'circle'], true);
+			$hover_variant       = isset($settings['btnHoverVariant']) ? $settings['btnHoverVariant'] : 'hover-none';
+
+			$btn_classes = ['wcf-btn-' . $slug];
+
+			if (in_array($slug, ['default', 'square'], true) && ! empty($hover_variant) && 'hover-none' !== $hover_variant) {
+				$btn_classes[] = 'btn-' . $hover_variant;
+			}
+
+			if ($bg_change) {
+				$btn_classes[] = 'btn-hover-bgchange';
+				$btn_classes[] = 'btn-item';
+			} elseif ('ellipse' === $slug) {
+				$btn_classes[] = 'btn-item';
+			}
+
+			$this->set_attribute($link_key, 'class', $btn_classes);
+
+			if ('mask' === $slug) {
+				$this->set_attribute($link_key, 'data-text', $text);
+			}
+
+			if ($ext_wrap) {
+				$this->set_attribute($link_key, 'data-magnetic', 'true');
+			}
+
+			$wrapper_classes = ['wcf__btn'];
+			if ($icon_position_after) {
+				$wrapper_classes[] = 'icon-position-after';
+			}
+
+			$ext_close = '';
+			echo '<div ' . $this->render_attributes('_root') . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo '<div class="' . esc_attr(implode(' ', $wrapper_classes)) . '">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+
+			if ($ext_wrap) {
+				echo '<div class="btn-wrapper">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				$ext_close = '</div>';
+			}
+
+			echo '<a ' . $this->render_attributes($link_key) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo esc_html($text);
+			echo $icon_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			if ($bg_change) {
+				echo '<span></span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			}
+			echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+
+			echo $ext_close; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			return;
+		}
+
+		echo '<div ' . $this->render_attributes('_root') . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+
+		switch ($style) {
+
+			case '1':
+				$this->set_attribute($link_key, 'class', ['aae--btn-pro', 'btn-border-divide']);
+				echo '<a ' . $this->render_attributes($link_key) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo '<span class="text">' . esc_html($text) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo '<span class="icon">' . $icon_html . $icon_html . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				break;
+
+			case '2':
+				$this->set_attribute($link_key, 'class', ['aae--btn-pro']);
+				echo '<a ' . $this->render_attributes($link_key) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo esc_html($text);
+				echo '<span class="icon">' . $icon_html . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				break;
+
+			case '3':
+				$this->set_attribute($link_key, 'class', ['aae--btn-pro', 'btn-text-flip']);
+				echo '<a ' . $this->render_attributes($link_key) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo '<span data-text="' . esc_attr($text) . '">' . esc_html($text) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo $icon_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				break;
+
+			case '4':
+				$this->set_attribute($link_key, 'class', ['btn-hover', 'aae--btn-pro']);
+				echo '<a ' . $this->render_attributes($link_key) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo '<span></span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo esc_html($text);
+				echo '<strong></strong>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				break;
+
+			case '5':
+			case '6':
+				$this->set_attribute($link_key, 'class', ['aae-btn-pro-group']);
+				echo '<a ' . $this->render_attributes($link_key) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo '<span class="g-btn-icon">' . $icon_html . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo '<span class="g-btn-text">' . esc_html($text) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo '<span class="g-btn-icon">' . $icon_html . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				break;
+
+			case '7':
+			case '8':
+			default:
+				$this->set_attribute($link_key, 'class', ['aae--btn-pro']);
+				echo '<a ' . $this->render_attributes($link_key) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo esc_html($text);
+				echo '<span class="icon">' . $icon_html . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				break;
+		}
+
+		echo '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	}
+}

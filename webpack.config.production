@@ -1,0 +1,204 @@
+const defaultConfig = require("@wordpress/scripts/config/webpack.config");
+const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const RemoveEmptyScriptsPlugin = require("webpack-remove-empty-scripts");
+const TerserPlugin = require("terser-webpack-plugin");
+
+const isProd =
+  process.env.NODE_ENV === "production" ||
+  process.argv.includes("--mode=production") ||
+  process.argv.includes("-p");
+
+const defaultRulesWithoutBabel = defaultConfig.module.rules.filter(
+  (rule) => !rule.use || !JSON.stringify(rule.use).includes("babel-loader"),
+);
+
+/* -------------------------------------------------------------------------
+   Config 1 — Admin React entries (dashboard, page-import, cpt-builder).
+   Unchanged from the previous setup.
+------------------------------------------------------------------------- */
+const adminConfig = {
+  ...defaultConfig,
+  // @wordpress/scripts sets devtool to 'source-map' unless NODE_ENV=production.
+  // Force it off so production builds never emit .js.map / .css.map files.
+  devtool: false,
+  mode: "production",
+  name: "admin",
+  externals: {
+    react: "React",
+    "react-dom": "ReactDOM",
+  },
+  entry: {
+    "admin/dashboard": "./src/admin/dashboard/main.js",
+    "admin/page-import": "./src/admin/page-import/main.js",
+    "modules/cpt-builder/main": "./src/modules/cpt-builder/main.js",
+  },
+  output: {
+    path: path.resolve(__dirname, "public/build"),
+    filename: "[name].js",
+    clean: false,
+  },
+  module: {
+    ...defaultConfig.module,
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        // Force ESM parsing so webpack accepts the import/export statements
+        // that Babel leaves intact (package.json has type: "commonjs", which
+        // would otherwise make webpack parse .js files as scripts).
+        type: "javascript/esm",
+        resolve: { fullySpecified: false },
+        use: {
+          loader: require.resolve("babel-loader"),
+          options: {
+            presets: [
+              [require.resolve("@babel/preset-env"), { modules: false }],
+              require.resolve("@babel/preset-react"),
+            ],
+          },
+        },
+      },
+      ...defaultRulesWithoutBabel,
+    ],
+  },
+  // @wordpress/scripts ships CleanWebpackPlugin in its default plugin list,
+  // which wipes the entire output directory before emitting. That clobbers
+  // the public-assets config's output (they share public/build/), so we
+  // drop it here and let `clean: false` on output keep things stable.
+  plugins: defaultConfig.plugins.filter(
+    (p) => p.constructor.name !== "CleanWebpackPlugin",
+  ),
+  resolve: {
+    extensions: [".js", ".jsx"],
+    alias: {
+      "@": path.resolve(__dirname, "src/admin/dashboard"),
+      S: path.resolve(__dirname, "src/modules/cpt-builder/"),
+    },
+  },
+};
+
+// -------------------------------------------------------------------------
+// Config 2 — Bundled assets (elements, extensions, sitewide, admin vanilla).
+//
+// Source layout:
+//   src/js/elements/<name>.js     — entry; imports its own SCSS
+//   src/scss/elements/<name>.scss
+//   src/js/extensions/<name>.js   — extension entry; imports its SCSS (if any)
+//   src/scss/extensions/<name>.scss
+//   src/js/admin/<name>.js        — admin vanilla JS (non-React); imports SCSS
+//   src/scss/admin/<name>.scss
+//   src/js/frontend.js            — sitewide bundle; imports frontend.scss
+//   src/scss/frontend.scss
+//
+// CSS-only elements use a 1-line stub JS that just imports the SCSS. The
+// emitted JS for those entries is empty and stripped by RemoveEmptyScripts.
+//
+// Output layout (referenced directly by PHP `AAB_ADDONS_URL . 'public/build/...'`):
+//   public/build/elements/<name>.{js,css}
+//   public/build/extensions/<name>.{js,css}
+//   public/build/admin/<name>.{js,css}       (alongside the React admin/dashboard et al.)
+//   public/build/frontend.{js,css}
+// -------------------------------------------------------------------------
+const ELEMENT_ENTRIES = [
+  // JS + SCSS pairs
+  "animated-heading",
+  "brand-slider",
+  "button-pro",
+  "counter",
+  "draggable-items",
+  "icon-box",
+  "image-accordion",
+  "post-social-share",
+  "progressbar",
+  "testimonial",
+  "testimonial-2",
+  "testimonial-3",
+  "toggle-switch",
+  "video-box-slider",
+  "video-box",
+  "video-mask",
+  "video-popup",
+  "video-story",
+  // CSS-only (JS is a 1-line stub that imports the SCSS)
+  "floating-elements",
+  "meta-info",
+  "posts-slider",
+  "social-icons",
+  "team",
+  "timeline",
+];
+
+const elementEntries = ELEMENT_ENTRIES.reduce((acc, name) => {
+  acc[`elements/${name}`] = `./src/js/elements/${name}.js`;
+  return acc;
+}, {});
+
+const bundlesConfig = {
+  name: "bundles",
+  mode: "production",
+  devtool: false,
+  entry: {
+    ...elementEntries,
+    "extensions/starter-animations": "./src/js/extensions/starter-animations.js",
+    "extensions/starter-animations-builder":
+      "./src/js/extensions/starter-animations-builder.js",
+    frontend: "./src/js/frontend.js",
+
+    // Admin vanilla (non-React) JS + SCSS bundles
+    "admin/bricks-animation-addons-admin":
+      "./src/js/admin/bricks-animation-addons-admin.js",
+    "admin/aab-template-library": "./src/js/admin/aab-template-library.js",
+  },
+  output: {
+    path: path.resolve(__dirname, "public/build"),
+    filename: "[name].js",
+    assetModuleFilename: "images/[name][ext]",
+    clean: false,
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: require.resolve("babel-loader"),
+          options: {
+            presets: [
+              [require.resolve("@babel/preset-env"), { modules: "commonjs" }],
+            ],
+          },
+        },
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "sass-loader",
+        ],
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg|woff2?|ttf|eot)$/,
+        type: "asset/resource",
+      },
+    ],
+  },
+  plugins: [
+    new RemoveEmptyScriptsPlugin(),
+    new MiniCssExtractPlugin({ filename: "[name].css" }),
+  ],
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        extractComments: false,
+        terserOptions: { format: { comments: false } },
+      }),
+      new CssMinimizerPlugin(),
+    ],
+  },
+};
+
+module.exports = [adminConfig, bundlesConfig];

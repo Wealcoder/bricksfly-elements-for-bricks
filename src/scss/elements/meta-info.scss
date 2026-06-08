@@ -1,0 +1,289 @@
+/* AAB Bricks — Post Meta */
+
+.wcf--category-wrap,
+.wcf--meta-list {
+	flex-wrap: wrap;
+	display: flex;
+}
+
+.wcf--meta-list,
+.wcf--meta-list ul {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+.wcf--category-list li:last-child::after,
+.wcf--meta-list.style-1 > li:last-child::after,
+.wcf--meta-list.style-2 > li:last-child::after {
+	display: none;
+}
+
+.wcf-separator {
+	position: relative;
+}
+
+.wcf--meta-list svg {
+	width: 1em;
+	height: 1em;
+}
+
+.wcf-separator::after {
+	content: attr(data-separator);
+	display: inline-block;
+	margin-inline-start: 12px;
+	font-size: 16px;
+}
+
+/* Suppress separator on category-wrap outer li in style-1
+   (inner list handles its own separators) */
+.wcf--meta-list.style-1 li.wcf--category-wrap::after {
+	display: none;
+}
+
+.wcf--meta-list {
+	width: 100%;
+	gap: 15px;
+}
+
+.wcf--meta-list path {
+	transition: 0.3s;
+}
+
+.wcf--category-list {
+	gap: 15px;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+.wcf--meta-list .wcf-btn-default {
+	padding: 0;
+	border: none;
+	display: inline-block;
+	text-decoration: none;
+}
+
+.wcf--meta-list.style-1 li,
+.wcf--meta-list.style-1 li a {
+	color: #1c1d20;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1.7;
+}
+
+.wcf--meta-list.style-1 li a:hover {
+	color: #f0b849;
+}
+
+.wcf--meta-list li {
+	display: flex;
+	align-items: center;
+}
+
+.wcf--meta-list i,
+.wcf--meta-list svg {
+	margin-right: 5px;
+}
+
+.wcf--meta-list.style-2 {
+	gap: 10px 50px;
+	align-items: center;
+}
+
+.wcf--meta-list.style-2 > li {
+	align-items: flex-start;
+	flex-direction: column;
+	position: relative;
+}
+
+.wcf--meta-list.style-2 > li::after {
+	display: block;
+	position: absolute;
+	content: "";
+	width: 1px;
+	height: 100%;
+	background-color: #efefef;
+	inset-inline-end: -25px;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.wcf--meta-list.style-2 .wcf--author-wrap {
+	flex-direction: row;
+	align-items: center;
+}
+
+.wcf--meta-list.style-2 .wcf-author-img {
+	margin-inline-end: 15px;
+}
+
+.wcf--meta-list.style-2 li .label {
+	color: #555;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 1.6;
+	text-transform: capitalize;
+	margin-bottom: 5px;
+	display: flex;
+	align-items: center;
+}
+
+.post-time-ago,
+.wcf--meta-date,
+.wcf--meta-list.style-2 li a,
+.wcf--meta-view {
+	color: #1c1d20;
+	font-size: 16px;
+	font-weight: 500;
+	line-height: 1.6;
+	text-transform: capitalize;
+}
+
+.wcf--meta-list.style-2 li a:hover {
+	color: #f0b849;
+}
+
+.wcf--meta-list.style-2 .wcf-author-img img {
+	width: 60px;
+	height: 60px;
+	border-radius: 100%;
+	object-fit: cover;
+}
+
+.wcf--meta-list.style-2 .wcf--meta-view {
+	display: flex;
+}
+
+.wcf--meta-list span.wcf_separator_icon {
+	display: inline-flex;
+	align-items: center;
+	margin: 0 8px;
+}
+
+.wcf--meta-list .aae-post-read-later {
+	cursor: pointer;
+}
+
+/* ---------- Category hover effects ---------- */
+
+.wcf--meta-category a {
+	position: relative;
+	overflow: hidden;
+	transition: color 0.3s, background-color 0.3s, border-color 0.3s;
+}
+
+.wcf--meta-category a.btn-hover-divide {
+	background-image: linear-gradient(currentColor, currentColor);
+	background-position: 0% 100%;
+	background-repeat: no-repeat;
+	background-size: 0% 1px;
+	transition: background-size 0.3s;
+}
+.wcf--meta-category a.btn-hover-divide:hover {
+	background-size: 100% 1px;
+}
+
+.wcf--meta-category a.btn-hover-cross {
+	background-image: linear-gradient(currentColor, currentColor);
+	background-position: 0% 50%;
+	background-repeat: no-repeat;
+	background-size: 0% 1px;
+	transition: background-size 0.3s;
+}
+.wcf--meta-category a.btn-hover-cross:hover {
+	background-size: 100% 1px;
+}
+
+.wcf--meta-category a.btn-hover-cropping {
+	background-image: linear-gradient(currentColor, currentColor);
+	background-position: 100% 100%;
+	background-repeat: no-repeat;
+	background-size: 0% 1px;
+	transition: background-size 0.3s;
+}
+.wcf--meta-category a.btn-hover-cropping:hover {
+	background-size: 100% 1px;
+}
+
+.wcf--meta-category a.btn-rollover-top {
+	display: inline-block;
+	overflow: hidden;
+	position: relative;
+}
+.wcf--meta-category a.btn-rollover-top::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 0;
+	background: currentColor;
+	opacity: 0.1;
+	transition: height 0.3s ease;
+	z-index: -1;
+}
+.wcf--meta-category a.btn-rollover-top:hover::before {
+	height: 100%;
+}
+
+.wcf--meta-category a.btn-rollover-left {
+	display: inline-block;
+	overflow: hidden;
+	position: relative;
+}
+.wcf--meta-category a.btn-rollover-left::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 0;
+	height: 100%;
+	background: currentColor;
+	opacity: 0.1;
+	transition: width 0.3s ease;
+	z-index: -1;
+}
+.wcf--meta-category a.btn-rollover-left:hover::before {
+	width: 100%;
+}
+
+.wcf--meta-category a.btn-parallal-border {
+	position: relative;
+}
+.wcf--meta-category a.btn-parallal-border::before,
+.wcf--meta-category a.btn-parallal-border::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	width: 100%;
+	height: 1px;
+	background: currentColor;
+	transform: scaleX(0);
+	transition: transform 0.3s ease;
+}
+.wcf--meta-category a.btn-parallal-border::before { top: 0; transform-origin: left; }
+.wcf--meta-category a.btn-parallal-border::after  { bottom: 0; transform-origin: right; }
+.wcf--meta-category a.btn-parallal-border:hover::before,
+.wcf--meta-category a.btn-parallal-border:hover::after { transform: scaleX(1); }
+
+.wcf--meta-category a.btn-rollover-cross {
+	position: relative;
+}
+.wcf--meta-category a.btn-rollover-cross::before,
+.wcf--meta-category a.btn-rollover-cross::after {
+	content: "";
+	position: absolute;
+	background: currentColor;
+	transition: transform 0.3s ease;
+}
+.wcf--meta-category a.btn-rollover-cross::before {
+	left: 0; top: 0; width: 100%; height: 1px;
+	transform: scaleX(0); transform-origin: left;
+}
+.wcf--meta-category a.btn-rollover-cross::after {
+	left: 0; top: 0; width: 1px; height: 100%;
+	transform: scaleY(0); transform-origin: top;
+}
+.wcf--meta-category a.btn-rollover-cross:hover::before { transform: scaleX(1); }
+.wcf--meta-category a.btn-rollover-cross:hover::after  { transform: scaleY(1); }

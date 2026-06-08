@@ -1,0 +1,119 @@
+.aae-toggle-switch-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.aae-toggle-switch-wrapper .slide-toggle-wrapper {
+    --switcher-width: 40px;
+    --switcher-border-width: 2px;
+    --switcher-indicator-width: 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    // margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    gap: var(--toggle-gap, 10px);
+    margin-bottom: var(--toggle-bt-space-gap, 20px);
+
+}
+
+.aae-toggle-switch-wrapper .slide-toggle-wrapper input {
+    display: none;
+}
+
+.aae-toggle-switch-wrapper .before_label,
+.aae-toggle-switch-wrapper .after_label {
+    cursor: pointer;
+}
+
+.aae-toggle-switch-wrapper .toggle-pane {
+    display: none;
+}
+
+.aae-toggle-switch-wrapper .toggle-pane.show {
+    display: block;
+}
+
+/* Style 1 — slider toggle */
+.aae-toggle-switch-wrapper.style-1 .switcher {
+    display: inline-block;
+    width: var(--switcher-width);
+    height: 20px;
+    background-color: #999999;
+    border: var(--switcher-border-width) solid #999999;
+    border-radius: 10px;
+    position: relative;
+    cursor: pointer;
+}
+
+.aae-toggle-switch-wrapper.style-1 .switcher::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: var(--switcher-indicator-width);
+    height: var(--switcher-indicator-width);
+    background-color: #ffffff;
+    border-radius: 50%;
+    transition: transform 0.3s;
+    transform: translate(0px, -50%);
+}
+
+.aae-toggle-switch-wrapper.style-1 input:checked + .switcher::before {
+    transform: translate(calc(var(--switcher-width) - (var(--switcher-indicator-width) + 2 * var(--switcher-border-width))), -50%);
+}
+
+.aae-toggle-switch-wrapper.style-1 input:checked + .switcher {
+    background-color: #000;
+    border-color: #000;
+}
+
+/* Style 2 — tab style with sliding background */
+.aae-toggle-switch-wrapper.style-2 .switcher {
+    display: none;
+}
+
+.aae-toggle-switch-wrapper.style-2 .before_label,
+.aae-toggle-switch-wrapper.style-2 .after_label {
+    padding: 10px 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.aae-toggle-switch-wrapper.style-2 .before_label::after,
+.aae-toggle-switch-wrapper.style-2 .after_label::after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: #000;
+    z-index: -1;
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 0.3s;
+}
+
+.aae-toggle-switch-wrapper.style-2 .before_label.active,
+.aae-toggle-switch-wrapper.style-2 .after_label.active {
+    color: #fff;
+}
+
+.aae-toggle-switch-wrapper.style-2 .before_label.active::after,
+.aae-toggle-switch-wrapper.style-2 .after_label.active::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translatex(0);
+}
+
+.aae-toggle-switch-wrapper.style-2 .before_label::after {
+    transform: translatex(100%);
+}
+
+.aae-toggle-switch-wrapper.style-2 .after_label::after {
+    transform: translatex(-100%);
+}

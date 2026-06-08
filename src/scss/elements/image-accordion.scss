@@ -1,0 +1,94 @@
+.aab-image-accordion {
+  display: flex;
+  height: 70vh;
+  /* Bricks Section/Container/Block default to display:flex with
+     align-items:center | flex-start, which shrinks children to content
+     width. Our accordion items have no intrinsic width (background-image
+     only) so the whole wrapper collapses inside those parents. Force the
+     cross-axis to fill via width:100% + align-self:stretch so the
+     element renders identically inside Div, Block, Container, and
+     Section. min-width:0 keeps it from overflowing when the parent
+     happens to use flex-direction:row. */
+  width: 100%;
+  align-self: stretch;
+  min-width: 0;
+}
+
+.aab-image-accordion.accordion-layout-horizontal {
+  flex-direction: row;
+}
+
+.aab-image-accordion.accordion-layout-vertical {
+  flex-direction: column;
+}
+
+.aab-image-accordion .accordion-item {
+  position: relative;
+  overflow: hidden;
+  flex: 1;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.aab-image-accordion .accordion-item.accordion-hover-active {
+  flex: 3;
+}
+
+.aab-image-accordion .accordion-item::after {
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.aab-image-accordion .accordion-hover-active::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+.aab-image-accordion .content {
+  text-align: center;
+  padding: 20px;
+  position: absolute;
+  z-index: 2;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(100px);
+}
+
+.aab-image-accordion .accordion-hover-active .content {
+  transition: all 1s;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.aab-image-accordion .subtitle {
+  margin-bottom: 10px;
+}
+
+.aab-image-accordion .title {
+  margin-bottom: 10px;
+}
+
+.aab-image-accordion .aab-btn {
+  display: inline-block;
+  margin-top: 20px;
+  text-decoration: none;
+  cursor: pointer;
+}

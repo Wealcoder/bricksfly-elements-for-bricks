@@ -1,0 +1,412 @@
+/**
+ * Bricks Builder — Animation Addons Section Library
+ *
+ * Two zones of styling:
+ *   1. `.aab-import-section-button` — the toolbar button injected into the
+ *      Bricks main toolbar (`#bricks-toolbar`). It piggybacks on Bricks'
+ *      own toolbar item shape so it looks native.
+ *   2. `.aab-tl-modal*` — the lightbox modal that overlays the whole
+ *      builder while the user browses remote templates.
+ *
+ * Variables stay scoped to our prefixed selectors so we don't leak into
+ * the Bricks theme dark/light variable system.
+ */
+
+/* === Toolbar button ===============================================
+ *
+ * Matches the visual footprint of Bricks' native toolbar actions
+ * (undo / redo / save / preview): a square, icon-only target that
+ * inherits the toolbar height and shows its label only via the
+ * `data-balloon` tooltip on hover. Anything wider would break the
+ * uniform spacing of the toolbar.
+ */
+
+.aab-import-section-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.aab-import-section-button .aab-import-section-button__inner {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 32px;
+	height: 28px;
+	margin: 0 4px;
+	padding: 0;
+	border: 1px solid rgba(250, 204, 21, 0.55);
+	border-radius: 4px;
+	/* Warm amber wash — bright enough to be the most legible non-action
+	   item in the toolbar, dark enough to not compete with the primary
+	   Save / Preview controls. */
+	color: #1e1e22;
+	background: #facc15;
+	text-decoration: none;
+	cursor: pointer;
+	transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+.aab-import-section-button .aab-import-section-button__inner:hover,
+.aab-import-section-button .aab-import-section-button__inner:focus-visible {
+	color: #1e1e22;
+	background: #fde047;
+	border-color: #fde047;
+	outline: none;
+}
+
+.aab-import-section-button .aab-import-section-button__inner:active {
+	transform: translateY(1px);
+}
+
+.aab-import-section-button__icon {
+	width: 18px;
+	height: 18px;
+	fill: currentColor;
+	display: block;
+}
+
+/* Screen-reader-only label (mirrors WP core `.screen-reader-text`). */
+.aab-import-section-button .screen-reader-text {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	border: 0;
+	white-space: nowrap;
+}
+
+/* === Modal ======================================================= */
+
+.aab-tl-modal {
+	position: fixed;
+	inset: 0;
+	z-index: 100050;
+	display: none;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+	color: #111;
+}
+
+.aab-tl-modal--visible {
+	display: block;
+}
+
+.aab-tl-modal__backdrop {
+	position: absolute;
+	inset: 0;
+	background: rgba(15, 15, 18, 0.6);
+	backdrop-filter: blur(2px);
+}
+
+.aab-tl-modal__dialog {
+	position: absolute;
+	top: 5vh;
+	left: 5vw;
+	width: 90vw;
+	height: 90vh;
+	background: #fff;
+	border-radius: 8px;
+	box-shadow: 0 30px 60px -10px rgba(0, 0, 0, 0.4);
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+}
+
+/* Header */
+.aab-tl-modal__header {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	padding: 12px 20px;
+	background: #1e1e22;
+	color: #fff;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.aab-tl-modal__title {
+	font-size: 14px;
+	font-weight: 600;
+	min-width: 220px;
+}
+
+.aab-tl-modal__tabs {
+	display: flex;
+	gap: 6px;
+	flex: 1;
+	justify-content: center;
+}
+
+.aab-tl-tab {
+	background: transparent;
+	color: #d5d6da;
+	border: 1px solid transparent;
+	padding: 6px 14px;
+	border-radius: 4px;
+	font-size: 12px;
+	font-weight: 500;
+	cursor: pointer;
+	transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.aab-tl-tab:hover {
+	color: #fff;
+	background: rgba(255, 255, 255, 0.05);
+}
+
+.aab-tl-tab.is-active {
+	color: #fff;
+	border-color: #fc6848;
+	background: rgba(252, 104, 72, 0.15);
+}
+
+.aab-tl-modal__close {
+	background: transparent;
+	color: #fff;
+	border: 0;
+	font-size: 28px;
+	line-height: 1;
+	cursor: pointer;
+	padding: 0 4px;
+	transition: color 0.15s ease;
+}
+
+.aab-tl-modal__close:hover {
+	color: #fc6848;
+}
+
+/* Filters */
+.aab-tl-modal__filters {
+	display: flex;
+	gap: 12px;
+	padding: 12px 20px;
+	background: #f4f4f6;
+	border-bottom: 1px solid #e2e2e5;
+	flex-wrap: wrap;
+}
+
+.aab-tl-filter select,
+.aab-tl-search input[type='search'] {
+	height: 36px;
+	padding: 0 12px;
+	border: 1px solid #d8d8db;
+	border-radius: 4px;
+	background: #fff;
+	font-size: 13px;
+	color: #1e1e22;
+	min-width: 160px;
+	box-shadow: none;
+	outline: none;
+	transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.aab-tl-search {
+	flex: 1;
+	min-width: 200px;
+}
+
+.aab-tl-search input[type='search'] {
+	width: 100%;
+	min-width: 0;
+}
+
+.aab-tl-filter select:focus,
+.aab-tl-search input[type='search']:focus {
+	border-color: #fc6848;
+	box-shadow: 0 0 0 3px rgba(252, 104, 72, 0.18);
+}
+
+/* Body grid */
+.aab-tl-modal__body {
+	flex: 1;
+	overflow-y: auto;
+	background: #f8f8fa;
+	padding: 20px;
+}
+
+.aab-tl-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+	gap: 20px;
+}
+
+.aab-tl-card {
+	position: relative;
+	background: #fff;
+	border: 1px solid #e6e6e9;
+	border-radius: 6px;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.aab-tl-card:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.25);
+	border-color: #fc6848;
+}
+
+.aab-tl-card__thumb {
+	position: relative;
+	width: 100%;
+	background: #f0f0f4;
+	aspect-ratio: 4 / 3;
+	overflow: hidden;
+}
+
+.aab-tl-card__thumb img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: top center;
+	transition: transform 0.4s ease;
+}
+
+.aab-tl-card:hover .aab-tl-card__thumb img {
+	transform: scale(1.03);
+}
+
+.aab-tl-card__footer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+	padding: 10px 12px;
+	border-top: 1px solid #eee;
+}
+
+.aab-tl-card__title {
+	flex: 1;
+	margin: 0;
+	font-size: 13px;
+	font-weight: 500;
+	color: #1e1e22;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.aab-tl-card__insert,
+.aab-tl-card__pro {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	background: #fc6848;
+	color: #fff;
+	border: 0;
+	border-radius: 4px;
+	padding: 6px 12px;
+	font-size: 12px;
+	font-weight: 500;
+	cursor: pointer;
+	text-decoration: none;
+	transition: background 0.15s ease;
+}
+
+.aab-tl-card__pro {
+	background: #1e1e22;
+}
+
+.aab-tl-card__insert:hover {
+	background: #e85630;
+}
+
+.aab-tl-card__pro:hover {
+	background: #2c2c30;
+}
+
+.aab-tl-card__insert:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+}
+
+.aab-tl-card__insert-icon {
+	font-weight: 700;
+	font-size: 14px;
+	line-height: 1;
+}
+
+/* Empty / error / loader */
+.aab-tl-empty {
+	grid-column: 1 / -1;
+	text-align: center;
+	color: #65656a;
+	font-size: 13px;
+	padding: 60px 20px;
+}
+
+.aab-tl-empty--error {
+	color: #c0392b;
+}
+
+.aab-tl-loadmore {
+	height: 32px;
+}
+
+.aab-tl-modal__loading {
+	position: absolute;
+	bottom: 20px;
+	right: 24px;
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 8px 12px;
+	background: #fff;
+	border-radius: 4px;
+	border: 1px solid #e2e2e5;
+	font-size: 12px;
+	color: #1e1e22;
+	box-shadow: 0 6px 16px -6px rgba(0, 0, 0, 0.18);
+}
+
+.aab-tl-modal__loading[hidden] {
+	display: none;
+}
+
+.aab-tl-spinner {
+	display: inline-block;
+	width: 14px;
+	height: 14px;
+	border: 2px solid #d5d5d8;
+	border-top-color: #fc6848;
+	border-radius: 50%;
+	animation: aab-tl-spin 0.8s linear infinite;
+}
+
+@keyframes aab-tl-spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+/* === Responsive =================================================== */
+
+@media (max-width: 900px) {
+	.aab-tl-modal__dialog {
+		top: 2vh;
+		left: 2vw;
+		width: 96vw;
+		height: 96vh;
+	}
+
+	.aab-tl-modal__header {
+		flex-wrap: wrap;
+		gap: 10px;
+	}
+
+	.aab-tl-modal__tabs {
+		justify-content: flex-start;
+	}
+
+	.aab-tl-grid {
+		grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+	}
+}

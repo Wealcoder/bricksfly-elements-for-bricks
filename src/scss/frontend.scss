@@ -1,0 +1,136 @@
+/**
+ * All of the CSS for your public-facing functionality should be
+ * included in this file.
+ */
+
+
+ /* Bricks editor panel custom group icon */
+/* Custom icon for your group in Bricks panel */
+.bricks-panel .bricks-control-group.my-custom-animation-icon::before {
+    content: "\f109"; /* Dashicons unicode example */
+    font-family: 'Dashicons';
+    color: #ff6600;
+    font-size: 16px;
+    margin-right: 6px;
+}
+
+/* Optional: style the group container */
+.bricks-panel .bricks-control-group.my-custom-animation-icon {
+    background-color: #1e1e1e;
+    border-radius: 6px;
+    padding: 8px 10px;
+}
+
+
+/* Extension css */
+
+.aab-anim-reveal-line{
+  overflow: hidden;
+}
+
+/* 3D Spin wrapper */
+.aab-spin-wrapper {
+  position: relative;
+  perspective: 600px;
+  overflow: visible;
+}
+.aab-spin-clone {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  visibility: hidden;
+}
+
+.aab_animation_text_invert {
+  --text-color: 0, 0%, 0%;
+}
+.aab_animation_text_invert .aab_invert_line {
+  background-image: linear-gradient(to right, hsla(var(--text-color), 1) 50%, hsla(var(--text-color), 0.3) 50%) !important;
+  background-size: 200% 100%;
+  background-position-x: 100%;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+
+.wcf-image-hover {
+  transition: opacity 0.3s, transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+  position: absolute;
+  width: 300px;
+  height: 400px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  left: 0;
+  top: -50%;
+  z-index: 1;
+  opacity: 0;
+  visibility: hidden;
+  background-size: cover;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
+
+.bricks-panel [data-control-group="aab_animation_control_group"],
+.bricks-panel [data-control-group="wealcoder-aab-image-reveal-on-hover-group"],
+.bricks-panel [data-control-group="aab_animation_parallax_effect_group"],
+.bricks-panel [data-control-group="aab_image_animation_group"],
+.bricks-panel [data-control-group="aab_image_reveal_group"],
+.bricks-panel [data-control-group="zz3_che5x_cnt_group"],
+.bricks-panel [data-control-group="aab_cursor_hover_effect_group"],
+.bricks-panel [data-control-group="aab_tilt_effect_group"],
+.bricks-panel [data-control-group="aab_pin_area_control_group"],
+.bricks-panel [data-control-group="aab_cursor_move_effect_group"],
+.bricks-panel [data-control-group="aab_horizontal_scroll_group"],
+.bricks-panel [data-control-group="aab_text_animation"],
+.bricks-panel [data-control-group="aab_wrapper_link_group"],
+.bricks-panel [data-control-group="aab_advanced_tooltip_gr_content"],
+.bricks-panel [data-control-group="aab_scrollto_group"]{
+	border-left: 3px solid #ff5a1f;
+}
+
+
+[data-image_reveal] {
+  position: relative;
+}
+
+
+/* Start marker */
+.gsap-marker-start {
+  background: #00ff88 !important;
+  color: #000 !important;
+  font-size: 12px !important;
+  padding: 4px 6px !important;
+  border-radius: 4px !important;
+}
+
+/* End marker */
+.gsap-marker-end {
+  background: #ff0066 !important;
+  color: #fff !important;
+  font-size: 12px !important;
+  padding: 4px 6px !important;
+  border-radius: 4px !important;
+}
+
+/* Scroller start */
+.gsap-marker-scroller-start {
+  background: #0077ff !important;
+  color: #fff !important;
+}
+
+/* Scroller end */
+.gsap-marker-scroller-end {
+  background: #ffaa00 !important;
+  color: #000 !important;
+}
+
+/* On your wrapper */
+#smooth-wrapper {
+  overflow-x: scroll;   /* enables native horizontal scroll */
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
+
