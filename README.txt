@@ -8,7 +8,9 @@ Stable tag: 1.0.0
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Powerful elements, GSAP animations, smart extensions, and ready-made website templates for Bricks Builder — no coding required.
+
 == Description ==
+
 Build stunning, high-performance **Bricks Builder** websites with powerful elements, advanced GSAP-powered animations, smart extensions, and ready-made website templates — all without writing a single line of code.
 **BricksFly includes 25+ powerful elements, 15+ smart extensions, 20+ ready-made Bricks website templates, and a complete GSAP animation engine — built to enhance your Bricks Builder experience.**
 *This is just our first release. We're actively expanding — more elements, extensions, templates, and animation features are rolling out soon. Install today and grow with us.*
@@ -23,7 +25,8 @@ BricksFly is built around four pillars that complete what Bricks gives you out o
 - **Extensions** — 15+ smart extensions that supercharge your workflow with GSAP animations, cursor effects, tooltips, and more.
 - **Animations** — A full GSAP-powered animation engine with ScrollTrigger, SplitText, MotionPath, and more — no JavaScript required.
 ***Build modern, animated Bricks websites that look premium and load fast.***
-### Who Are BricksFly For?
+
+### Who Are BricksFly Fo
 BricksFly is built for creators who want more than basic Bricks Builder — and who want to build faster without increasing development costs.
 ### Perfect For:
 **Agencies & Freelancers**
