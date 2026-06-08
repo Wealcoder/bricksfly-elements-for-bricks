@@ -98,7 +98,9 @@ class AAB_Builder_Template_Library {
 		// cases (custom routing, REST previews, etc.).
 		$post_id = (int) get_the_ID();
 		if ( ! $post_id ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading URL parameters for context only, not processing form data.
 			$post_id = isset( $_GET['post_id'] ) ? absint( $_GET['post_id'] ) : (
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading URL parameters for context only, not processing form data.
 				isset( $_GET['p'] ) ? absint( $_GET['p'] ) : 0
 			);
 		}

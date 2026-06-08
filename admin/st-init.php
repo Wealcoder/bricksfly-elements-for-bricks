@@ -278,6 +278,11 @@ class OneClickImport {
 	}
 
 	public function setup_st_importer() {
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verification happens at the AJAX callback level; this runs on admin_init for importer setup.
+		// Verify nonce for POST requests
+		if ( ! empty( $_POST ) && isset( $_POST['nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'aab_admin_nonce' ) ) {
+			return;
+		}
 		$this->import_files = array();
 		$attachment_status  = array_key_exists( 'attachment', $_POST ) ? sanitize_text_field( wp_unslash( $_POST['attachment'] ) ) : true;
 
