@@ -97,7 +97,7 @@ class AAB_Bricks_Brand_Slider extends \Bricks\Element
 			'group'         => 'content',
 			'label'         => esc_html__('Image List', 'bricksfly'),
 			'type'          => 'repeater',
-			'titleProperty' => 'image',
+			'titleProperty' => 'imageTitle',
 			'fields'        => [
 				'imageTitle' => [
 					'label' => esc_html__('Image Title', 'bricksfly'),
@@ -109,7 +109,7 @@ class AAB_Bricks_Brand_Slider extends \Bricks\Element
 					'type'  => 'image',
 				],
 			],
-			'titleProperty' => 'imageTitle',
+			'default'  => [],
 			'required' => ['slideContent', '=', 'image'],
 		];
 

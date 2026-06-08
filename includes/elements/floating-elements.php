@@ -338,11 +338,12 @@ class AAB_Bricks_Floating_Elements extends \Bricks\Element
 		];
 
 		$this->controls['floating_items'] = [
-			'tab'    => 'content',
-			'group'  => 'elements',
-			'label'  => esc_html__('Elements', 'bricksfly'),
-			'type'   => 'repeater',
-			'fields' => $fields,
+			'tab'     => 'content',
+			'group'   => 'elements',
+			'label'   => esc_html__('Elements', 'bricksfly'),
+			'type'    => 'repeater',
+			'fields'  => $fields,
+			'default' => [],
 		];
 	}
 

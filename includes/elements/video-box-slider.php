@@ -1392,7 +1392,8 @@ class AAB_Bricks_Video_Box_Slider extends \Bricks\Element {
 		}
 
 		$image_size  = $settings['imageSize'] ?? 'full';
-		$title_tag   = in_array( ( $settings['titleTag'] ?? 'h4' ), [ 'h1','h2','h3','h4','h5','h6','div','span','p' ], true ) ? $settings['titleTag'] : 'h4';
+		$title_tag   = $settings['titleTag'] ?? 'h4';
+		$title_tag   = in_array( $title_tag, [ 'h1','h2','h3','h4','h5','h6','div','span','p' ], true ) ? $title_tag : 'h4';
 		$direction   = $settings['direction'] ?? 'ltr';
 		$show_nav    = ! empty( $settings['navigation'] );
 		$show_pag    = ! empty( $settings['pagination'] );
