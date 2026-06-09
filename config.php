@@ -850,6 +850,22 @@ $config = array(
 								'doc_url'      => 'https://bricksfly.com/docs/general-extensions/wrapper-link/',
 								'youtube_url'  => '',
 							),
+							'live-copy'           => array(
+								'label'        => 'Live Copy',
+								'location'     => array(
+									'cTab'     => 'general',
+									'pluginId' => 'general-extensions',
+								),
+								'is_pro'       => true,
+								'is_active'    => false,
+								'is_extension' => false,
+								'is_upcoming'  => false,
+								'setup'        => array('basic'),
+								'icon'         => 'wcf-icon-Live-Copy',
+								'demo_url'     => 'https://bricksfly.com/extensions/live-copy/',
+								'doc_url'      => 'https://bricksfly.com/docs/general-extensions/live-copy/',
+								'youtube_url'  => '',
+							),
 							// 'popup'        => array(
 							// 	'label'        => 'Popup',
 							// 	'location'     => array(
