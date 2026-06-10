@@ -1,74 +1,147 @@
 @charset "UTF-8";
-/* =====================================
-   COMMON BASE TARGET
-===================================== */
-/* =====================================
-   COMMON ANIMATION SETTINGS
-===================================== */
-.aab-animate[class*=aab-starter-animations-] .elementor-widget-container > *,
-.aab-animate[class*=aab-starter-animations-] > *,
-.aab-animate.aab-target-self[class*=aab-starter-animations-] {
-  animation-duration: var(--aab-duration, 700ms);
-  animation-delay: var(--aab-delay, 0ms);
-  animation-timing-function: var(--aab-ease, ease);
-  animation-fill-mode: forwards;
+
+// =====================================================================
+// GUARD MIXINS
+//
+// Every "initial hidden state" rule is wrapped in one of these two guards:
+//
+//  @include when-hidden  →  applies on FRONTEND only, once JS has run
+//                           (.aab-preinit is added by initStarterAnimations)
+//                           OR in BUILDER during PLAY preview
+//                           (.aab-playing is added by the message handler)
+//
+//  @include when-playing →  applies in BUILDER only, during PLAY preview
+//                           (.aab-playing is added by the message handler)
+//
+// Nothing is hidden until one of these conditions is true, so elements
+// in the Bricks builder are always fully visible unless the user clicks
+// PLAY.
+// =====================================================================
+
+@mixin when-hidden {
+  .aab-preinit &,
+  .aab-playing & {
+    @content;
+  }
 }
 
-/* =====================================
-   REVEAL ENGINE (FIXED TARGET)
-===================================== */
-/* Initial Hidden State */
-.aab-starter-animations-reveal .elementor-widget-container > *,
-.aab-starter-animations-reveal > *,
-.aab-starter-animations-reveal.aab-target-self {
-  opacity: 0;
+// For rules where the element IS the root (aab-target-self / containers)
+@mixin when-hidden-self {
+  &.aab-preinit,
+  &.aab-playing {
+    @content;
+  }
 }
 
-/* Bottom */
-.aab-reveal-bottom.aab-starter-animations-reveal .elementor-widget-container > *,
-.aab-reveal-bottom.aab-starter-animations-reveal > *,
-.aab-reveal-bottom.aab-starter-animations-reveal.aab-target-self {
-  clip-path: inset(100% 0 0 0);
+// =====================================================================
+//   COMMON ANIMATION SETTINGS
+// =====================================================================
+.aab-animate[class*="aab-starter-animations-"] {
+  .elementor-widget-container > *,
+  > * {
+    animation-duration: var(--aab-duration, 700ms);
+    animation-delay: var(--aab-delay, 0ms);
+    animation-timing-function: var(--aab-ease, ease);
+    animation-fill-mode: forwards;
+  }
+
+  &.aab-target-self {
+    animation-duration: var(--aab-duration, 700ms);
+    animation-delay: var(--aab-delay, 0ms);
+    animation-timing-function: var(--aab-ease, ease);
+    animation-fill-mode: forwards;
+  }
 }
 
-/* Top */
-.aab-reveal-top.aab-starter-animations-reveal .elementor-widget-container > *,
-.aab-reveal-top.aab-starter-animations-reveal > *,
-.aab-reveal-top.aab-starter-animations-reveal.aab-target-self {
-  clip-path: inset(0 0 100% 0);
+// =====================================================================
+//   REVEAL ENGINE
+// =====================================================================
+
+// --- Initial hidden state (guarded) ---
+.aab-starter-animations-reveal {
+  .elementor-widget-container > *,
+  > * {
+    @include when-hidden { opacity: 0; }
+  }
+  &.aab-target-self {
+    @include when-hidden-self { opacity: 0; }
+  }
 }
 
-/* Left */
-.aab-reveal-left.aab-starter-animations-reveal .elementor-widget-container > *,
-.aab-reveal-left.aab-starter-animations-reveal > *,
-.aab-reveal-left.aab-starter-animations-reveal.aab-target-self {
-  clip-path: inset(0 100% 0 0);
+// Bottom
+.aab-reveal-bottom.aab-starter-animations-reveal {
+  .elementor-widget-container > *,
+  > * {
+    @include when-hidden { clip-path: inset(100% 0 0 0); }
+  }
+  &.aab-target-self {
+    @include when-hidden-self { clip-path: inset(100% 0 0 0); }
+  }
 }
 
-/* Right */
-.aab-reveal-right.aab-starter-animations-reveal .elementor-widget-container > *,
-.aab-reveal-right.aab-starter-animations-reveal > *,
-.aab-reveal-right.aab-starter-animations-reveal.aab-target-self {
-  clip-path: inset(0 0 0 100%);
+// Top
+.aab-reveal-top.aab-starter-animations-reveal {
+  .elementor-widget-container > *,
+  > * {
+    @include when-hidden { clip-path: inset(0 0 100% 0); }
+  }
+  &.aab-target-self {
+    @include when-hidden-self { clip-path: inset(0 0 100% 0); }
+  }
 }
 
-/* Center */
-.aab-reveal-center.aab-starter-animations-reveal .elementor-widget-container > *,
-.aab-reveal-center.aab-starter-animations-reveal > *,
-.aab-reveal-center.aab-starter-animations-reveal.aab-target-self {
-  clip-path: inset(0 50% 0 50%);
+// Left
+.aab-reveal-left.aab-starter-animations-reveal {
+  .elementor-widget-container > *,
+  > * {
+    @include when-hidden { clip-path: inset(0 100% 0 0); }
+  }
+  &.aab-target-self {
+    @include when-hidden-self { clip-path: inset(0 100% 0 0); }
+  }
 }
 
-/* Animate */
-.aab-animate.aab-starter-animations-reveal .elementor-widget-container > *,
-.aab-animate.aab-starter-animations-reveal > *,
-.aab-animate.aab-starter-animations-reveal.aab-target-self {
-  animation-name: aab-reveal-anim;
-  animation-duration: var(--aab-duration, 700ms);
-  animation-delay: var(--aab-delay, 0ms);
-  animation-timing-function: var(--aab-ease, ease);
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
+// Right
+.aab-reveal-right.aab-starter-animations-reveal {
+  .elementor-widget-container > *,
+  > * {
+    @include when-hidden { clip-path: inset(0 0 0 100%); }
+  }
+  &.aab-target-self {
+    @include when-hidden-self { clip-path: inset(0 0 0 100%); }
+  }
+}
+
+// Center
+.aab-reveal-center.aab-starter-animations-reveal {
+  .elementor-widget-container > *,
+  > * {
+    @include when-hidden { clip-path: inset(0 50% 0 50%); }
+  }
+  &.aab-target-self {
+    @include when-hidden-self { clip-path: inset(0 50% 0 50%); }
+  }
+}
+
+// --- Animate ---
+.aab-animate.aab-starter-animations-reveal {
+  .elementor-widget-container > *,
+  > * {
+    animation-name: aab-reveal-anim;
+    animation-duration: var(--aab-duration, 700ms);
+    animation-delay: var(--aab-delay, 0ms);
+    animation-timing-function: var(--aab-ease, ease);
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+  }
+  &.aab-target-self {
+    animation-name: aab-reveal-anim;
+    animation-duration: var(--aab-duration, 700ms);
+    animation-delay: var(--aab-delay, 0ms);
+    animation-timing-function: var(--aab-ease, ease);
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+  }
 }
 
 @keyframes aab-reveal-anim {
@@ -77,22 +150,34 @@
     opacity: 1;
   }
 }
-/* =====================================
-   TRANSFORM ANIMATIONS
-===================================== */
-/* Scale Up */
-.aab-starter-animations-scale-up .elementor-widget-container > *,
-.aab-starter-animations-scale-up > *,
-.aab-starter-animations-scale-up.aab-target-self {
-  transform: scale(var(--aab-scale-start, 0.6));
-  opacity: var(--aab-scale-opacity, 0);
-  transform-origin: var(--aab-scale-origin, center);
+
+// =====================================================================
+//   TRANSFORM ANIMATIONS
+// =====================================================================
+
+// --- Scale Up ---
+.aab-starter-animations-scale-up {
+  .elementor-widget-container > *,
+  > * {
+    @include when-hidden {
+      transform: scale(var(--aab-scale-start, 0.6));
+      opacity: var(--aab-scale-opacity, 0);
+      transform-origin: var(--aab-scale-origin, center);
+    }
+  }
+  &.aab-target-self {
+    @include when-hidden-self {
+      transform: scale(var(--aab-scale-start, 0.6));
+      opacity: var(--aab-scale-opacity, 0);
+      transform-origin: var(--aab-scale-origin, center);
+    }
+  }
 }
 
-.aab-animate.aab-starter-animations-scale-up .elementor-widget-container > *,
-.aab-animate.aab-starter-animations-scale-up > *,
-.aab-animate.aab-starter-animations-scale-up.aab-target-self {
-  animation-name: aab-scale-up;
+.aab-animate.aab-starter-animations-scale-up {
+  .elementor-widget-container > *, > *, &.aab-target-self {
+    animation-name: aab-scale-up;
+  }
 }
 
 @keyframes aab-scale-up {
@@ -101,204 +186,264 @@
     opacity: 1;
   }
 }
-/* Rotate In */
-.aab-starter-animations-rotate-in .elementor-widget-container > *,
-.aab-starter-animations-rotate-in > *,
-.aab-starter-animations-rotate-in.aab-target-self {
-  transform: rotate(-45deg);
-  opacity: 0;
+
+// --- Rotate In ---
+.aab-starter-animations-rotate-in {
+  .elementor-widget-container > *,
+  > * {
+    @include when-hidden { transform: rotate(-45deg); opacity: 0; }
+  }
+  &.aab-target-self {
+    @include when-hidden-self { transform: rotate(-45deg); opacity: 0; }
+  }
 }
 
-.aab-animate.aab-starter-animations-rotate-in .elementor-widget-container > *,
-.aab-animate.aab-starter-animations-rotate-in > *,
-.aab-animate.aab-starter-animations-rotate-in.aab-target-self {
-  animation-name: aab-rotate-in;
+.aab-animate.aab-starter-animations-rotate-in {
+  .elementor-widget-container > *, > *, &.aab-target-self {
+    animation-name: aab-rotate-in;
+  }
 }
 
 @keyframes aab-rotate-in {
-  to {
-    transform: rotate(0);
-    opacity: 1;
+  to { transform: rotate(0); opacity: 1; }
+}
+
+// --- Slide ---
+
+// Base hidden state (opacity only — transform is direction-specific)
+.aab-starter-animations-slide {
+  .elementor-widget-container > *,
+  > * {
+    @include when-hidden { opacity: 0; }
+  }
+  &.aab-target-self {
+    @include when-hidden-self { opacity: 0; }
   }
 }
-/* Slide Up */
-/* Base Slide State */
-.aab-starter-animations-slide .elementor-widget-container > *,
-.aab-starter-animations-slide > *,
-.aab-starter-animations-slide.aab-target-self {
-  opacity: 0;
+
+// Bottom → Top
+.aab-slide-bottom.aab-starter-animations-slide {
+  .elementor-widget-container > *,
+  > * {
+    @include when-hidden { transform: translateY(var(--aab-slide-distance, 60px)); }
+  }
+  &.aab-target-self {
+    @include when-hidden-self { transform: translateY(var(--aab-slide-distance, 60px)); }
+  }
 }
 
-/* Bottom → Top */
-.aab-slide-bottom.aab-starter-animations-slide .elementor-widget-container > *,
-.aab-slide-bottom.aab-starter-animations-slide > *,
-.aab-slide-bottom.aab-starter-animations-slide.aab-target-self {
-  transform: translateY(var(--aab-slide-distance, 60px));
+// Top → Bottom
+.aab-slide-top.aab-starter-animations-slide {
+  .elementor-widget-container > *,
+  > * {
+    @include when-hidden { transform: translateY(calc(var(--aab-slide-distance, 60px) * -1)); }
+  }
+  &.aab-target-self {
+    @include when-hidden-self { transform: translateY(calc(var(--aab-slide-distance, 60px) * -1)); }
+  }
 }
 
-/* Top → Bottom */
-.aab-slide-top.aab-starter-animations-slide .elementor-widget-container > *,
-.aab-slide-top.aab-starter-animations-slide > *,
-.aab-slide-top.aab-starter-animations-slide.aab-target-self {
-  transform: translateY(calc(var(--aab-slide-distance, 60px) * -1));
+// Left → Right
+.aab-slide-left.aab-starter-animations-slide {
+  .elementor-widget-container > *,
+  > * {
+    @include when-hidden { transform: translateX(calc(var(--aab-slide-distance, 60px) * -1)); }
+  }
+  &.aab-target-self {
+    @include when-hidden-self { transform: translateX(calc(var(--aab-slide-distance, 60px) * -1)); }
+  }
 }
 
-/* Left → Right */
-.aab-slide-left.aab-starter-animations-slide .elementor-widget-container > *,
-.aab-slide-left.aab-starter-animations-slide > *,
-.aab-slide-left.aab-starter-animations-slide.aab-target-self {
-  transform: translateX(calc(var(--aab-slide-distance, 60px) * -1));
+// Right → Left
+.aab-slide-right.aab-starter-animations-slide {
+  .elementor-widget-container > *,
+  > * {
+    @include when-hidden { transform: translateX(var(--aab-slide-distance, 60px)); }
+  }
+  &.aab-target-self {
+    @include when-hidden-self { transform: translateX(var(--aab-slide-distance, 60px)); }
+  }
 }
 
-/* Right → Left */
-.aab-slide-right.aab-starter-animations-slide .elementor-widget-container > *,
-.aab-slide-right.aab-starter-animations-slide > *,
-.aab-slide-right.aab-starter-animations-slide.aab-target-self {
-  transform: translateX(var(--aab-slide-distance, 60px));
-}
-
-/* Animate */
-.aab-animate.aab-starter-animations-slide .elementor-widget-container > *,
-.aab-animate.aab-starter-animations-slide > *,
-.aab-animate.aab-starter-animations-slide.aab-target-self {
-  animation: aab-slide var(--aab-duration, 700ms) var(--aab-ease, ease) forwards;
+// Animate
+.aab-animate.aab-starter-animations-slide {
+  .elementor-widget-container > *,
+  > * {
+    animation: aab-slide var(--aab-duration, 700ms) var(--aab-ease, ease) forwards;
+  }
+  &.aab-target-self {
+    animation: aab-slide var(--aab-duration, 700ms) var(--aab-ease, ease) forwards;
+  }
 }
 
 @keyframes aab-slide {
-  to {
-    transform: translateX(0) translateY(0);
-    opacity: 1;
+  to { transform: translateX(0) translateY(0); opacity: 1; }
+}
+
+// =========================================
+//   Skew Reveal
+// =========================================
+.aab-starter-animations-skew-reveal {
+  .elementor-widget-container > *,
+  > * {
+    @include when-hidden {
+      transform: skewX(var(--aab-skew-angle, 18deg)) translateX(var(--aab-skew-distance, -40px));
+      opacity: var(--aab-skew-opacity-start, 0);
+      animation-duration: var(--aab-duration, 0.6s);
+      animation-delay: var(--aab-skew-delay, 0s);
+      animation-timing-function: var(--aab-skew-ease, ease);
+      animation-fill-mode: forwards;
+      will-change: transform, opacity;
+    }
+  }
+  &.aab-target-self {
+    @include when-hidden-self {
+      transform: skewX(var(--aab-skew-angle, 18deg)) translateX(var(--aab-skew-distance, -40px));
+      opacity: var(--aab-skew-opacity-start, 0);
+      animation-duration: var(--aab-duration, 0.6s);
+      animation-delay: var(--aab-skew-delay, 0s);
+      animation-timing-function: var(--aab-skew-ease, ease);
+      animation-fill-mode: forwards;
+      will-change: transform, opacity;
+    }
   }
 }
-/* =========================================
-   Skew Reveal (Variable Driven)
-========================================= */
-.aab-starter-animations-skew-reveal .elementor-widget-container > *,
-.aab-starter-animations-skew-reveal > *,
-.aab-starter-animations-skew-reveal.aab-target-self {
-  transform: skewX(var(--aab-skew-angle, 18deg)) translateX(var(--aab-skew-distance, -40px));
-  opacity: var(--aab-skew-opacity-start, 0);
-  animation-duration: var(--aab-duration, 0.6s);
-  animation-delay: var(--aab-skew-delay, 0s);
-  animation-timing-function: var(--aab-skew-ease, ease);
-  animation-fill-mode: forwards;
-  will-change: transform, opacity;
+
+.aab-animate.aab-starter-animations-skew-reveal {
+  .elementor-widget-container > *, > *, &.aab-target-self {
+    animation-name: aab-skew-reveal;
+  }
 }
 
-/* Trigger */
-.aab-animate.aab-starter-animations-skew-reveal .elementor-widget-container > *,
-.aab-animate.aab-starter-animations-skew-reveal > *,
-.aab-animate.aab-starter-animations-skew-reveal.aab-target-self {
-  animation-name: aab-skew-reveal;
-}
-
-/* Keyframes */
 @keyframes aab-skew-reveal {
-  to {
-    transform: skewX(0deg) translateX(0);
-    opacity: 1;
+  to { transform: skewX(0deg) translateX(0); opacity: 1; }
+}
+
+// =========================================
+//   Flip
+// =========================================
+.aab-starter-animations-flip {
+  .elementor-widget-container > *,
+  > * {
+    @include when-hidden {
+      opacity: 0;
+      transform-style: preserve-3d;
+      perspective: var(--aab-flip-perspective, 800px);
+      animation-duration: var(--aab-flip-duration, 0.6s);
+      animation-delay: var(--aab-flip-delay, 0s);
+      animation-timing-function: var(--aab-flip-ease, ease);
+      animation-fill-mode: forwards;
+      will-change: transform, opacity;
+    }
+  }
+  &.aab-target-self {
+    @include when-hidden-self {
+      opacity: 0;
+      transform-style: preserve-3d;
+      perspective: var(--aab-flip-perspective, 800px);
+      animation-duration: var(--aab-flip-duration, 0.6s);
+      animation-delay: var(--aab-flip-delay, 0s);
+      animation-timing-function: var(--aab-flip-ease, ease);
+      animation-fill-mode: forwards;
+      will-change: transform, opacity;
+    }
   }
 }
-/* Flip Animation Base */
-.aab-starter-animations-flip .elementor-widget-container > *,
-.aab-starter-animations-flip > *,
-.aab-starter-animations-flip.aab-target-self {
-  opacity: 0;
-  transform-style: preserve-3d;
-  perspective: var(--aab-flip-perspective, 800px);
-  animation-duration: var(--aab-flip-duration, 0.6s);
-  animation-delay: var(--aab-flip-delay, 0s);
-  animation-timing-function: var(--aab-flip-ease, ease);
-  animation-fill-mode: forwards;
-  will-change: transform, opacity;
+
+// X Axis
+.aab-flip-axis-x.aab-starter-animations-flip {
+  .elementor-widget-container > *,
+  > * {
+    @include when-hidden { transform: rotateX(var(--aab-flip-angle, 90deg)); }
+  }
+  &.aab-target-self {
+    @include when-hidden-self { transform: rotateX(var(--aab-flip-angle, 90deg)); }
+  }
 }
 
-/* X Axis */
-.aab-flip-axis-x.aab-starter-animations-flip .elementor-widget-container > *,
-.aab-flip-axis-x.aab-starter-animations-flip > *,
-.aab-flip-axis-x.aab-starter-animations-flip.aab-target-self {
-  transform: rotateX(var(--aab-flip-angle, 90deg));
+// Y Axis
+.aab-flip-axis-y.aab-starter-animations-flip {
+  .elementor-widget-container > *,
+  > * {
+    @include when-hidden { transform: rotateY(var(--aab-flip-angle, 90deg)); }
+  }
+  &.aab-target-self {
+    @include when-hidden-self { transform: rotateY(var(--aab-flip-angle, 90deg)); }
+  }
 }
 
-/* Y Axis */
-.aab-flip-axis-y.aab-starter-animations-flip .elementor-widget-container > *,
-.aab-flip-axis-y.aab-starter-animations-flip > *,
-.aab-flip-axis-y.aab-starter-animations-flip.aab-target-self {
-  transform: rotateY(var(--aab-flip-angle, 90deg));
+.aab-animate.aab-starter-animations-flip {
+  .elementor-widget-container > *, > *, &.aab-target-self {
+    animation-name: aab-flip;
+  }
 }
 
-/* Trigger */
-.aab-animate.aab-starter-animations-flip .elementor-widget-container > *,
-.aab-animate.aab-starter-animations-flip > *,
-.aab-animate.aab-starter-animations-flip.aab-target-self {
-  animation-name: aab-flip;
-}
-
-/* Keyframes */
 @keyframes aab-flip {
-  to {
-    transform: rotateX(0deg) rotateY(0deg);
-    opacity: 1;
-  }
-}
-/* Zoom In */
-.aab-starter-animations-zoom-in .elementor-widget-container > *,
-.aab-starter-animations-zoom-in > *,
-.aab-starter-animations-zoom-in.aab-target-self {
-  transform: scale(1.3);
-  opacity: 0;
+  to { transform: rotateX(0deg) rotateY(0deg); opacity: 1; }
 }
 
-.aab-animate.aab-starter-animations-zoom-in .elementor-widget-container > *,
-.aab-animate.aab-starter-animations-zoom-in > *,
-.aab-animate.aab-starter-animations-zoom-in.aab-target-self {
-  animation-name: aab-zoom-in;
+// --- Zoom In ---
+.aab-starter-animations-zoom-in {
+  .elementor-widget-container > *,
+  > * {
+    @include when-hidden { transform: scale(1.3); opacity: 0; }
+  }
+  &.aab-target-self {
+    @include when-hidden-self { transform: scale(1.3); opacity: 0; }
+  }
+}
+
+.aab-animate.aab-starter-animations-zoom-in {
+  .elementor-widget-container > *, > *, &.aab-target-self {
+    animation-name: aab-zoom-in;
+  }
 }
 
 @keyframes aab-zoom-in {
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-/* Combo Reveal */
-.aab-starter-animations-combo-reveal .elementor-widget-container > *,
-.aab-starter-animations-combo-reveal > *,
-.aab-starter-animations-combo-reveal.aab-target-self {
-  transform: translateY(40px) scale(0.9);
-  opacity: 0;
+  to { transform: scale(1); opacity: 1; }
 }
 
-.aab-animate.aab-starter-animations-combo-reveal .elementor-widget-container > *,
-.aab-animate.aab-starter-animations-combo-reveal > *,
-.aab-animate.aab-starter-animations-combo-reveal.aab-target-self {
-  animation-name: aab-combo-reveal;
+// --- Combo Reveal ---
+.aab-starter-animations-combo-reveal {
+  .elementor-widget-container > *,
+  > * {
+    @include when-hidden { transform: translateY(40px) scale(0.9); opacity: 0; }
+  }
+  &.aab-target-self {
+    @include when-hidden-self { transform: translateY(40px) scale(0.9); opacity: 0; }
+  }
+}
+
+.aab-animate.aab-starter-animations-combo-reveal {
+  .elementor-widget-container > *, > *, &.aab-target-self {
+    animation-name: aab-combo-reveal;
+  }
 }
 
 @keyframes aab-combo-reveal {
-  to {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-  }
+  to { transform: translateY(0) scale(1); opacity: 1; }
 }
-/* Glow Pulse */
+
+// =====================================================================
+//   TEXT EFFECTS
+// =====================================================================
+
+// --- Glow Pulse ---
+// Glow has no hidden state — it's a repeating animation so it starts
+// from its natural visible state.
 .aab-animate.aab-starter-animations-text-glow {
   animation: aab-glow var(--aab-duration, 2s) var(--aab-ease, ease-in-out) alternate;
   animation-iteration-count: var(--aab-iteration, infinite);
 }
 
 @keyframes aab-glow {
-  from {
-    text-shadow: 0 0 5px var(--aab-glow-color, #fff);
-  }
-  to {
-    text-shadow: 0 0 var(--aab-glow-size, 20px) var(--aab-glow-color, #00f);
-  }
+  from { text-shadow: 0 0 5px var(--aab-glow-color, #fff); }
+  to   { text-shadow: 0 0 var(--aab-glow-size, 20px) var(--aab-glow-color, #00f); }
 }
-/* Pop Scale */
+
+// --- Pop Scale ---
 .aab-starter-animations-text-pop {
-  transform: scale(0.6);
-  opacity: 0;
+  @include when-hidden-self { transform: scale(0.6); opacity: 0; }
 }
 
 .aab-animate.aab-starter-animations-text-pop {
@@ -306,17 +451,13 @@
 }
 
 @keyframes aab-text-pop {
-  70% {
-    transform: scale(1.1);
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
+  70%  { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
 }
-/* =====================================
-   Typewriter
-===================================== */
+
+// =====================================================================
+//   Typewriter
+// =====================================================================
 .aab-starter-animations-text-typewriter,
 .aab-target-self.aab-starter-animations-text-typewriter {
   display: inline-block;
@@ -340,67 +481,96 @@
 @keyframes aab-typewriter-caret {
   50% { opacity: 0; }
 }
-/* =====================================
-   Cinematic Mask Wipe
-===================================== */
-.aab-starter-animations-text-mask-wipe .elementor-widget-container > *,
-.aab-starter-animations-text-mask-wipe > *,
-.aab-target-self.aab-starter-animations-text-mask-wipe {
-  position: relative;
-  display: inline-block;
-  overflow: hidden;
+
+// =====================================================================
+//   Cinematic Mask Wipe
+// =====================================================================
+.aab-starter-animations-text-mask-wipe {
+  .elementor-widget-container > *,
+  > *,
+  &.aab-target-self {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+  }
 }
 
-/* Mask layer */
-.aab-starter-animations-text-mask-wipe .elementor-widget-container > *::after,
-.aab-starter-animations-text-mask-wipe > *::after,
-.aab-target-self.aab-starter-animations-text-mask-wipe::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--aab-mask-bg, #000);
-  transform: translateX(0%);
-  z-index: 2;
+// Mask layer — only show the covering pseudo-element when about to animate
+.aab-starter-animations-text-mask-wipe {
+  .elementor-widget-container > *::after,
+  > *::after {
+    content: none; // hidden by default
+    @include when-hidden {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--aab-mask-bg, #000);
+      transform: translateX(0%);
+      z-index: 2;
+    }
+  }
+  &.aab-target-self::after {
+    content: none;
+    @include when-hidden-self {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--aab-mask-bg, #000);
+      transform: translateX(0%);
+      z-index: 2;
+    }
+  }
 }
 
-/* Animate */
-.aab-animate.aab-starter-animations-text-mask-wipe .elementor-widget-container > *::after,
-.aab-animate.aab-starter-animations-text-mask-wipe > *::after,
-.aab-animate.aab-target-self.aab-starter-animations-text-mask-wipe::after {
-  animation: aab-mask-wipe var(--aab-duration, 1000ms) var(--aab-ease, cubic-bezier(0.77, 0, 0.18, 1)) var(--aab-delay, 0ms) forwards;
+// Animate
+.aab-animate.aab-starter-animations-text-mask-wipe {
+  .elementor-widget-container > *::after,
+  > *::after,
+  &.aab-target-self::after {
+    animation: aab-mask-wipe var(--aab-duration, 1000ms) var(--aab-ease, cubic-bezier(0.77, 0, 0.18, 1)) var(--aab-delay, 0ms) forwards;
+  }
 }
 
 @keyframes aab-mask-wipe {
-  to {
-    transform: translateX(100%);
+  to { transform: translateX(100%); }
+}
+
+// =====================================================================
+//   TEXT WAVE
+// =====================================================================
+.aab-starter-animations-text-wave {
+  .elementor-widget-container > *,
+  > *,
+  &.aab-target-self {
+    position: relative;
+  }
+
+  // The text-wave color transparency is a visual effect, not a hidden state.
+  // Keep it unconditional so the effect is always ready, but don't hide.
+  .elementor-widget-container > *::after,
+  > *::after,
+  &.aab-target-self::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--aab-wave-fill, #03a9f4);
   }
 }
-/* Scrollable Select2 Dropdown */
-.aab-select-scroll .select2-results__options {
-  max-height: 150px !important;
-  overflow-y: auto !important;
-}
 
-/* =====================================
-   TEXT WAVE (Water Stroke Effect)
-===================================== */
-.aab-starter-animations-text-wave .elementor-widget-container > *,
-.aab-starter-animations-text-wave > *,
-.aab-target-self.aab-starter-animations-text-wave {
-  position: relative;
-  color: transparent;
-}
+// Wave triggers on animate (text color becomes transparent to show wave)
+.aab-animate.aab-starter-animations-text-wave {
+  .elementor-widget-container > *,
+  > *,
+  &.aab-target-self {
+    color: transparent;
+  }
 
-/* Animated layer */
-.aab-starter-animations-text-wave .elementor-widget-container > *::after,
-.aab-starter-animations-text-wave > *::after,
-.aab-target-self.aab-starter-animations-text-wave::after {
-  content: attr(data-text);
-  position: absolute;
-  left: 0;
-  top: 0;
-  color: var(--aab-wave-fill, #03a9f4);
-  animation: aab-wave 4s ease-in-out infinite;
+  .elementor-widget-container > *::after,
+  > *::after,
+  &.aab-target-self::after {
+    animation: aab-wave 4s ease-in-out infinite;
+  }
 }
 
 @keyframes aab-wave {
@@ -411,217 +581,153 @@
     clip-path: polygon(0% 60%, 15% 65%, 34% 66%, 51% 62%, 67% 50%, 84% 45%, 100% 46%, 100% 100%, 0% 100%);
   }
 }
-/* =====================================
-   BACKGROUND CLIP TEXT ANIMATION
-===================================== */
-.aab-starter-animations-text-bg-clip .elementor-widget-container > *,
-.aab-starter-animations-text-bg-clip > *,
-.aab-target-self.aab-starter-animations-text-bg-clip {
-  position: relative;
-  color: var(--aab-bg-text-color, rgba(255, 0, 0, 0.1));
-  background-image: var(--aab-bg-text-image);
-  background-size: var(--aab-bg-text-size, cover);
-  background-repeat: repeat;
-  background-position: left 0 top 50%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+
+// =====================================================================
+//   BACKGROUND CLIP TEXT ANIMATION
+// =====================================================================
+.aab-starter-animations-text-bg-clip {
+  .elementor-widget-container > *,
+  > *,
+  &.aab-target-self {
+    position: relative;
+    color: var(--aab-bg-text-color, rgba(255, 0, 0, 0.1));
+    background-image: var(--aab-bg-text-image);
+    background-size: var(--aab-bg-text-size, cover);
+    background-repeat: repeat;
+    background-position: left 0 top 50%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 }
 
-/* Animate only when triggered */
-.aab-animate.aab-starter-animations-text-bg-clip .elementor-widget-container > *,
-.aab-animate.aab-starter-animations-text-bg-clip > *,
-.aab-animate.aab-target-self.aab-starter-animations-text-bg-clip {
-  animation: aab-bg-text-animation var(--aab-bg-speed, 15s) linear infinite;
+// Only animate on trigger
+.aab-animate.aab-starter-animations-text-bg-clip {
+  .elementor-widget-container > *,
+  > *,
+  &.aab-target-self {
+    animation: aab-bg-text-animation var(--aab-bg-speed, 15s) linear infinite;
+  }
 }
 
 @keyframes aab-bg-text-animation {
-  0% {
-    background-position: left 0 top 50%;
+  0%   { background-position: left 0 top 50%; }
+  50%  { background-position: left 1500px top 50%; }
+  100% { background-position: left 0 top 50%; }
+}
+
+// =====================================================================
+//   CHARACTER ANIMATION ENGINE
+// =====================================================================
+
+// Preset default CSS variables
+.aab-char-preset-revolve      { --aab-char-x: -150px; --aab-char-y: -50px;   --aab-char-rotate: -180deg;  --aab-char-scale: 2;   }
+.aab-char-preset-ball         { --aab-char-x:    0px; --aab-char-y: -200px;  --aab-char-rotate:    0deg;  --aab-char-scale: 1;   }
+.aab-char-preset-slide        { --aab-char-x: -100px; --aab-char-y:    0px;  --aab-char-rotate:    0deg;  --aab-char-scale: 1;   }
+.aab-char-preset-revolve_drop { --aab-char-x:    0px; --aab-char-y: -150px;  --aab-char-rotate: -360deg;  --aab-char-scale: 1.5; }
+.aab-char-preset-drop_vanish  { --aab-char-x:    0px; --aab-char-y: -250px;  --aab-char-rotate:    0deg;  --aab-char-scale: 0.3; }
+.aab-char-preset-twister      { --aab-char-x:    0px; --aab-char-y:    0px;  --aab-char-rotate: -720deg;  --aab-char-scale: 1;   }
+
+// Parent container
+[class*="aab-starter-animations-text-char"] {
+  .elementor-widget-container > *,
+  > *,
+  &.aab-target-self {
+    display: inline-block;
   }
-  50% {
-    background-position: left 1500px top 50%;
+}
+
+// Initial state for spans — guarded
+[class*="aab-starter-animations-text-char"] {
+  .elementor-widget-container > * span,
+  > * span {
+    display: inline-block;
+    @include when-hidden {
+      opacity: 0;
+      transform: translate(var(--aab-char-x, -150px), var(--aab-char-y, 0)) rotate(var(--aab-char-rotate, -180deg)) scale(var(--aab-char-scale, 2));
+      animation-delay: calc(var(--aab-stagger, 0.05s) * var(--i));
+      will-change: transform, opacity;
+    }
   }
-  100% {
-    background-position: left 0 top 50%;
+  &.aab-target-self span {
+    display: inline-block;
+    @include when-hidden-self {
+      opacity: 0;
+      transform: translate(var(--aab-char-x, -150px), var(--aab-char-y, 0)) rotate(var(--aab-char-rotate, -180deg)) scale(var(--aab-char-scale, 2));
+      animation-delay: calc(var(--aab-stagger, 0.05s) * var(--i));
+      will-change: transform, opacity;
+    }
   }
 }
-/* =====================================
-   CHARACTER ANIMATION ENGINE (CLEAN)
-===================================== */
-/* ===============================
-   PRESET DEFAULT VALUES
-================================ */
-/* Revolve */
-.aab-char-preset-revolve {
-  --aab-char-x: -150px;
-  --aab-char-y: -50px;
-  --aab-char-rotate: -180deg;
-  --aab-char-scale: 2;
+
+// Animate state for spans
+.aab-animate[class*="aab-starter-animations-text-char"] {
+  .elementor-widget-container > * span,
+  > * span,
+  &.aab-target-self span {
+    animation-name: aab-char;
+    animation-duration: var(--aab-duration, 0.5s);
+    animation-timing-function: var(--aab-ease, ease);
+    animation-fill-mode: forwards;
+  }
 }
 
-/* Ball Drop */
-.aab-char-preset-ball {
-  --aab-char-x: 0px;
-  --aab-char-y: -200px;
-  --aab-char-rotate: 0deg;
-  --aab-char-scale: 1;
-}
-
-/* Slide */
-.aab-char-preset-slide {
-  --aab-char-x: -100px;
-  --aab-char-y: 0px;
-  --aab-char-rotate: 0deg;
-  --aab-char-scale: 1;
-}
-
-/* Revolve Drop */
-.aab-char-preset-revolve_drop {
-  --aab-char-x: 0px;
-  --aab-char-y: -150px;
-  --aab-char-rotate: -360deg;
-  --aab-char-scale: 1.5;
-}
-
-/* Drop Vanish */
-.aab-char-preset-drop_vanish {
-  --aab-char-x: 0px;
-  --aab-char-y: -250px;
-  --aab-char-rotate: 0deg;
-  --aab-char-scale: 0.3;
-}
-
-/* Twister */
-.aab-char-preset-twister {
-  --aab-char-x: 0px;
-  --aab-char-y: 0px;
-  --aab-char-rotate: -720deg;
-  --aab-char-scale: 1;
-}
-
-/* Parent Fix */
-[class*=aab-starter-animations-text-char] .elementor-widget-container > *,
-[class*=aab-starter-animations-text-char] > *,
-.aab-target-self[class*=aab-starter-animations-text-char] {
-  display: inline-block;
-}
-
-/* Initial State */
-[class*=aab-starter-animations-text-char] .elementor-widget-container > * span,
-[class*=aab-starter-animations-text-char] > * span,
-.aab-target-self[class*=aab-starter-animations-text-char] span {
-  display: inline-block;
-  opacity: 0;
-  transform: translate(var(--aab-char-x, -150px), var(--aab-char-y, 0)) rotate(var(--aab-char-rotate, -180deg)) scale(var(--aab-char-scale, 2));
-  animation-delay: calc(var(--aab-stagger, 0.05s) * var(--i));
-  will-change: transform, opacity;
-}
-
-/* Animate State */
-.aab-animate[class*=aab-starter-animations-text-char] .elementor-widget-container > * span,
-.aab-animate[class*=aab-starter-animations-text-char] > * span,
-.aab-animate.aab-target-self[class*=aab-starter-animations-text-char] span {
-  animation-name: aab-char;
-  animation-duration: var(--aab-duration, 0.5s);
-  animation-timing-function: var(--aab-ease, ease);
-  animation-fill-mode: forwards;
-}
-
-/* Keyframe */
 @keyframes aab-char {
-  to {
-    opacity: 1;
-    transform: translate(0, 0) rotate(0deg) scale(1);
+  to { opacity: 1; transform: translate(0, 0) rotate(0deg) scale(1); }
+}
+
+// =====================================================================
+//   CONTAINER SLIDE ANIMATION
+// =====================================================================
+
+// Elementor .e-con variant
+.aab-starter-animations-slide.e-con {
+  @include when-hidden-self {
+    opacity: 0;
+    animation-duration: var(--aab-slide-duration, 600ms);
+    animation-delay: var(--aab-slide-delay, 0ms);
+    animation-timing-function: var(--aab-slide-ease, ease);
+    animation-fill-mode: forwards;
+    will-change: transform, opacity;
   }
 }
-/* =========================================
-   Container Slide Animation (Stable)
-========================================= */
-/* Initial */
-.aab-starter-animations-slide.e-con {
-  opacity: 0;
-  animation-duration: var(--aab-slide-duration, 600ms);
-  animation-delay: var(--aab-slide-delay, 0ms);
-  animation-timing-function: var(--aab-slide-ease, ease);
-  animation-fill-mode: forwards;
-  will-change: transform, opacity;
-}
+.aab-slide-bottom.aab-starter-animations-slide.e-con { @include when-hidden-self { transform: translateY(var(--aab-slide-distance, 40px)); } }
+.aab-slide-top.aab-starter-animations-slide.e-con    { @include when-hidden-self { transform: translateY(calc(-1 * var(--aab-slide-distance, 40px))); } }
+.aab-slide-left.aab-starter-animations-slide.e-con   { @include when-hidden-self { transform: translateX(calc(-1 * var(--aab-slide-distance, 40px))); } }
+.aab-slide-right.aab-starter-animations-slide.e-con  { @include when-hidden-self { transform: translateX(var(--aab-slide-distance, 40px)); } }
 
-/* Direction */
-.aab-slide-bottom.aab-starter-animations-slide.e-con {
-  transform: translateY(var(--aab-slide-distance, 40px));
-}
-
-.aab-slide-top.aab-starter-animations-slide.e-con {
-  transform: translateY(calc(-1 * var(--aab-slide-distance, 40px)));
-}
-
-.aab-slide-left.aab-starter-animations-slide.e-con {
-  transform: translateX(calc(-1 * var(--aab-slide-distance, 40px)));
-}
-
-.aab-slide-right.aab-starter-animations-slide.e-con {
-  transform: translateX(var(--aab-slide-distance, 40px));
-}
-
-/* Trigger */
-.aab-animate.aab-starter-animations-slide.e-con {
-  animation-name: aab-container-slide;
-}
+.aab-animate.aab-starter-animations-slide.e-con { animation-name: aab-container-slide; }
 
 @keyframes aab-container-slide {
-  to {
-    transform: translateX(0) translateY(0);
-    opacity: 1;
-  }
+  to { transform: translateX(0) translateY(0); opacity: 1; }
 }
-/* =========================================
-   CONTAINER FLIP ANIMATION (SELF ONLY)
-========================================= */
-/* Initial State */
+
+// Container flip (Elementor)
 .aab-starter-animations-flip.e-con {
-  opacity: 0;
-  transform-style: preserve-3d;
-  perspective: var(--aab-flip-perspective-container, 800px);
-  animation-duration: var(--aab-duration, 700ms);
-  animation-delay: var(--aab-delay, 0ms);
-  animation-timing-function: var(--aab-ease, ease);
-  animation-fill-mode: forwards;
-  will-change: transform, opacity;
-}
-
-/* Axis X */
-.aab-flip-axis-container-x.aab-starter-animations-flip.e-con {
-  transform: rotateX(var(--aab-flip-angle-container, 90deg));
-}
-
-/* Axis Y */
-.aab-flip-axis-container-y.aab-starter-animations-flip.e-con {
-  transform: rotateY(var(--aab-flip-angle-container, 90deg));
-}
-
-/* Trigger */
-.aab-animate.aab-starter-animations-flip.e-con {
-  animation-name: aab-container-flip;
-}
-
-/* Keyframes — 2D scale to identity. The initial state pins one axis at 0
-   (per the aab-flip-axis-container-x/y rules above), and this `to` state
-   restores both axes to 1. No 3D transform functions anywhere, so the
-   container never establishes a 3D rendering context. */
-@keyframes aab-container-flip {
-  to {
-    transform: scaleX(1) scaleY(1);
-    opacity: 1;
+  @include when-hidden-self {
+    opacity: 0;
+    transform-style: preserve-3d;
+    perspective: var(--aab-flip-perspective-container, 800px);
+    animation-duration: var(--aab-duration, 700ms);
+    animation-delay: var(--aab-delay, 0ms);
+    animation-timing-function: var(--aab-ease, ease);
+    animation-fill-mode: forwards;
+    will-change: transform, opacity;
   }
 }
+.aab-flip-axis-container-x.aab-starter-animations-flip.e-con { @include when-hidden-self { transform: rotateX(var(--aab-flip-angle-container, 90deg)); } }
+.aab-flip-axis-container-y.aab-starter-animations-flip.e-con { @include when-hidden-self { transform: rotateY(var(--aab-flip-angle-container, 90deg)); } }
 
-/* =====================================
-   BRICKS-SPECIFIC OVERRIDES
-===================================== */
+.aab-animate.aab-starter-animations-flip.e-con { animation-name: aab-container-flip; }
 
-/* text-glow — bump specificity above the COMMON rule so the shorthand wins
-   on animation-fill-mode */
+@keyframes aab-container-flip {
+  to { transform: scaleX(1) scaleY(1); opacity: 1; }
+}
+
+// =====================================================================
+//   BRICKS-SPECIFIC OVERRIDES
+// =====================================================================
+
+// text-glow — bump specificity so shorthand wins on animation-fill-mode
 .aab-animate.aab-target-self.aab-starter-animations-text-glow {
   animation: aab-glow var(--aab-duration, 2s) var(--aab-ease, ease-in-out) alternate;
   animation-iteration-count: var(--aab-iteration, infinite);
@@ -632,100 +738,74 @@
   display: inline-block;
 }
 
-/* =====================================
-   BRICKS-SPECIFIC CONTAINER ANIMATIONS
-===================================== */
+// =====================================================================
+//   BRICKS CONTAINER ANIMATIONS
+// =====================================================================
 
-/* ----- Slide ----- */
-/* Initial state on the container itself */
-.brxe-container.aab-starter-animations-slide,
-.brxe-section.aab-starter-animations-slide,
-.brxe-block.aab-starter-animations-slide,
-.brxe-div.aab-starter-animations-slide {
-  opacity: 0;
-  animation-duration: var(--aab-slide-duration, 600ms);
-  animation-delay: var(--aab-slide-delay, 0ms);
-  animation-timing-function: var(--aab-slide-ease, ease);
-  animation-fill-mode: forwards;
-  will-change: transform, opacity;
-}
-.brxe-container.aab-slide-bottom.aab-starter-animations-slide,
-.brxe-section.aab-slide-bottom.aab-starter-animations-slide,
-.brxe-block.aab-slide-bottom.aab-starter-animations-slide,
-.brxe-div.aab-slide-bottom.aab-starter-animations-slide {
-  transform: translateY(var(--aab-slide-distance, 40px));
-}
-.brxe-container.aab-slide-top.aab-starter-animations-slide,
-.brxe-section.aab-slide-top.aab-starter-animations-slide,
-.brxe-block.aab-slide-top.aab-starter-animations-slide,
-.brxe-div.aab-slide-top.aab-starter-animations-slide {
-  transform: translateY(calc(-1 * var(--aab-slide-distance, 40px)));
-}
-.brxe-container.aab-slide-left.aab-starter-animations-slide,
-.brxe-section.aab-slide-left.aab-starter-animations-slide,
-.brxe-block.aab-slide-left.aab-starter-animations-slide,
-.brxe-div.aab-slide-left.aab-starter-animations-slide {
-  transform: translateX(calc(-1 * var(--aab-slide-distance, 40px)));
-}
-.brxe-container.aab-slide-right.aab-starter-animations-slide,
-.brxe-section.aab-slide-right.aab-starter-animations-slide,
-.brxe-block.aab-slide-right.aab-starter-animations-slide,
-.brxe-div.aab-slide-right.aab-starter-animations-slide {
-  transform: translateX(var(--aab-slide-distance, 40px));
-}
-/* Trigger: container animates as a unit */
-.brxe-container.aab-animate.aab-starter-animations-slide,
-.brxe-section.aab-animate.aab-starter-animations-slide,
-.brxe-block.aab-animate.aab-starter-animations-slide,
-.brxe-div.aab-animate.aab-starter-animations-slide {
-  animation-name: aab-container-slide;
+$bricks-containers: (
+  ".brxe-container",
+  ".brxe-section",
+  ".brxe-block",
+  ".brxe-div"
+);
+
+// ----- Slide -----
+@each $sel in $bricks-containers {
+  #{$sel}.aab-starter-animations-slide {
+    @include when-hidden-self {
+      opacity: 0;
+      animation-duration: var(--aab-slide-duration, 600ms);
+      animation-delay: var(--aab-slide-delay, 0ms);
+      animation-timing-function: var(--aab-slide-ease, ease);
+      animation-fill-mode: forwards;
+      will-change: transform, opacity;
+    }
+  }
+  #{$sel}.aab-slide-bottom.aab-starter-animations-slide { @include when-hidden-self { transform: translateY(var(--aab-slide-distance, 40px)); } }
+  #{$sel}.aab-slide-top.aab-starter-animations-slide    { @include when-hidden-self { transform: translateY(calc(-1 * var(--aab-slide-distance, 40px))); } }
+  #{$sel}.aab-slide-left.aab-starter-animations-slide   { @include when-hidden-self { transform: translateX(calc(-1 * var(--aab-slide-distance, 40px))); } }
+  #{$sel}.aab-slide-right.aab-starter-animations-slide  { @include when-hidden-self { transform: translateX(var(--aab-slide-distance, 40px)); } }
+  #{$sel}.aab-animate.aab-starter-animations-slide { animation-name: aab-container-slide; }
 }
 
-/* ----- Flip -----
-   Per-child 2D scale (not container rotateY) — animating the container
-   itself triggered a Chromium paint bug that left text descendants
-   invisible until a forced repaint. */
-.brxe-container.aab-starter-animations-flip > *:not(.aab-target-self),
-.brxe-section.aab-starter-animations-flip > *:not(.aab-target-self),
-.brxe-block.aab-starter-animations-flip > *:not(.aab-target-self),
-.brxe-div.aab-starter-animations-flip > *:not(.aab-target-self) {
-  opacity: 0;
-  /* Override the source flip rule's 3D rendering context (which hits the
-     same paint bug at the child level). */
-  transform-style: flat;
-  perspective: none;
-  animation-duration: var(--aab-duration, 700ms);
-  animation-delay: var(--aab-delay, 0ms);
-  animation-timing-function: var(--aab-ease, ease);
-  animation-fill-mode: forwards;
-  will-change: transform, opacity;
-}
-.brxe-container.aab-flip-axis-container-x.aab-starter-animations-flip > *:not(.aab-target-self),
-.brxe-section.aab-flip-axis-container-x.aab-starter-animations-flip > *:not(.aab-target-self),
-.brxe-block.aab-flip-axis-container-x.aab-starter-animations-flip > *:not(.aab-target-self),
-.brxe-div.aab-flip-axis-container-x.aab-starter-animations-flip > *:not(.aab-target-self) {
-  transform: scaleX(1) scaleY(0);
-}
-.brxe-container.aab-flip-axis-container-y.aab-starter-animations-flip > *:not(.aab-target-self),
-.brxe-section.aab-flip-axis-container-y.aab-starter-animations-flip > *:not(.aab-target-self),
-.brxe-block.aab-flip-axis-container-y.aab-starter-animations-flip > *:not(.aab-target-self),
-.brxe-div.aab-flip-axis-container-y.aab-starter-animations-flip > *:not(.aab-target-self) {
-  transform: scaleX(0) scaleY(1);
-}
-.brxe-container.aab-animate.aab-starter-animations-flip > *:not(.aab-target-self),
-.brxe-section.aab-animate.aab-starter-animations-flip > *:not(.aab-target-self),
-.brxe-block.aab-animate.aab-starter-animations-flip > *:not(.aab-target-self),
-.brxe-div.aab-animate.aab-starter-animations-flip > *:not(.aab-target-self) {
-  animation-name: aab-container-flip;
+// ----- Flip (per-child 2D scale) -----
+@each $sel in $bricks-containers {
+  #{$sel}.aab-starter-animations-flip > *:not(.aab-target-self) {
+    @include when-hidden {
+      opacity: 0;
+      transform-style: flat;
+      perspective: none;
+      animation-duration: var(--aab-duration, 700ms);
+      animation-delay: var(--aab-delay, 0ms);
+      animation-timing-function: var(--aab-ease, ease);
+      animation-fill-mode: forwards;
+      will-change: transform, opacity;
+    }
+  }
+  #{$sel}.aab-flip-axis-container-x.aab-starter-animations-flip > *:not(.aab-target-self) {
+    @include when-hidden { transform: scaleX(1) scaleY(0); }
+  }
+  #{$sel}.aab-flip-axis-container-y.aab-starter-animations-flip > *:not(.aab-target-self) {
+    @include when-hidden { transform: scaleX(0) scaleY(1); }
+  }
+  #{$sel}.aab-animate.aab-starter-animations-flip > *:not(.aab-target-self) {
+    animation-name: aab-container-flip;
+  }
 }
 
-/* Reset children of slide containers so they don't double-animate with the
-   container itself. aab-target-self opts a child out of the reset. */
-.brxe-container.aab-starter-animations-slide > *:not(.aab-target-self),
-.brxe-section.aab-starter-animations-slide > *:not(.aab-target-self),
-.brxe-block.aab-starter-animations-slide > *:not(.aab-target-self),
-.brxe-div.aab-starter-animations-slide > *:not(.aab-target-self) {
-  transform: none;
-  animation: none;
-  opacity: 1;
+// Reset children of slide containers so they don't double-animate
+@each $sel in $bricks-containers {
+  #{$sel}.aab-starter-animations-slide > *:not(.aab-target-self) {
+    transform: none;
+    animation: none;
+    opacity: 1;
+  }
+}
+
+// =====================================================================
+//   Scrollable Select2 Dropdown (utility)
+// =====================================================================
+.aab-select-scroll .select2-results__options {
+  max-height: 150px !important;
+  overflow-y: auto !important;
 }

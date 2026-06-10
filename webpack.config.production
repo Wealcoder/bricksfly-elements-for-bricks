@@ -142,8 +142,8 @@ const bundlesConfig = {
   entry: {
     ...elementEntries,
     "extensions/starter-animations": "./src/js/extensions/starter-animations.js",
-    "extensions/starter-animations-builder":
-      "./src/js/extensions/starter-animations-builder.js",
+    "extensions/starter-animations-preview":
+      "./src/js/extensions/starter-animations-preview.js",
     frontend: "./src/js/frontend.js",
 
     // Admin vanilla (non-React) JS + SCSS bundles

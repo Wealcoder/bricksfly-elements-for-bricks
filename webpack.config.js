@@ -143,10 +143,11 @@ const bundlesConfig = {
   devtool: isProd ? false : "source-map",
   entry: {
     ...elementEntries,
-    "extensions/starter-animations":
-      "./src/js/extensions/starter-animations.js",
+    "extensions/editor-panel": "./src/js/extensions/editor-panel.js",
+    "extensions/starter-animations-client":
+      "./src/js/extensions/starter-animations/client.js",
     "extensions/starter-animations-builder":
-      "./src/js/extensions/starter-animations-builder.js",
+      "./src/js/extensions/starter-animations/builder.js",
     frontend: "./src/js/frontend.js",
     // Admin vanilla (non-React) JS + SCSS bundles
     "admin/bricks-animation-addons-admin":

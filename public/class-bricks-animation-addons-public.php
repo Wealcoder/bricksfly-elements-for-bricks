@@ -1,6 +1,6 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (! defined('ABSPATH')) {
 	exit;
 }
 
@@ -83,5 +83,20 @@ class Bricks_Animation_Addons_Public
 
 		// Base plugin script.
 		wp_enqueue_script($this->plugin_name, AAB_ADDONS_URL . 'public/build/frontend.js', array(), $this->version, false);
+	}
+
+	public function enqueue_editor_panel()
+	{
+		if (! function_exists('bricks_is_builder_main') || ! bricks_is_builder_main()) {
+			return;
+		}
+
+		wp_enqueue_script(
+			'aab-editor-panel-free',
+			AAB_ADDONS_URL . 'public/build/extensions/editor-panel.js',
+			[],
+			$this->version,
+			true
+		);
 	}
 }
