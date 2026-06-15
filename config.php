@@ -152,6 +152,37 @@ $config = array(
 						'youtube_url'  => '',
 						'description'  => 'Visualize stats and skills with animated line, circle, or dot-style progress bars.',
 					),
+
+					'gallery-progress'          => array(
+						'label'        => 'Gallery Progress',
+						'location'     => array(
+							'cTab' => 'all',
+						),
+						'is_active'    => false,
+						'setup'        => array('basic'),
+						'is_pro'       => true,
+						'is_extension' => false,
+						'is_upcoming'  => false,
+						'keywords'     => array(
+							'progress bar',
+							'progressbar',
+							'skill bar',
+							'percentage bar',
+							'circle progress',
+							'line progress',
+							'dot progress',
+							'animated progress',
+							'progress indicator',
+							'loading bar',
+						),
+						'order'        => 29,
+						'icon'         => 'wcf-icon-Progress-Bar',
+						'demo_url'     => '#',
+						'doc_url'      => '#',
+						'youtube_url'  => '',
+						'description'  => 'Visualize stats and skills with animated line, circle, or dot-style progress bars.',
+					),
+
 					'icon-box'             => array(
 						'label'        => 'Icon Box',
 						'location'     => array(
