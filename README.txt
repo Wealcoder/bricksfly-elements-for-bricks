@@ -1,5 +1,5 @@
-=== BricksFly – Bricks Addons, GSAP Animations & Bricks Website Templates ===
-Contributors: wealcoder, zilani
+=== BricksFly ===
+Contributors: wealcoder, raselsec
 Tags: bricks, bricks builder, gsap, animation, templates
 Requires at least: 6.6
 Tested up to: 7.0
@@ -230,7 +230,7 @@ This plugin connects to the following external services. By installing and activ
 If you do not use the corresponding feature (templates page, changelog widget, license screen, YouTube widget), no requests are made to these services.
 == Source Code ==
 Unminified JavaScript and CSS source for the React admin UI lives under `/src` in the plugin's public repository:
-https://github.com/Wealcoder/bricks-addons/tree/main/src
+https://github.com/Wealcoder/bricksfly/tree/main/src
 The GSAP libraries used by the GSAP-powered elements and extensions ship with the **BricksFly Pro** plugin under `/public/js/lib/`. They are unmodified third-party builds from GreenSock — source available at:
 * GSAP — https://greensock.com/gsap/ — [GreenSock Standard "No Charge" License](https://greensock.com/standard-license/)
 * Source: https://github.com/greensock/GSAP
