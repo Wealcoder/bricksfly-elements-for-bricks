@@ -21,6 +21,9 @@
   gap: 30px;
   white-space: nowrap;
 }
+.aab-brand-slider-wrapper .swiper-slide {
+  display:flex;
+}
 
 .aab-brand-slider-wrapper.slide-width-auto .swiper-slide {
   width: auto !important;

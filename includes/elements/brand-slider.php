@@ -56,6 +56,11 @@ class AAB_Bricks_Brand_Slider extends \Bricks\Element
 			'tab'   => 'content',
 		];
 
+		$this->control_groups['items_style'] = [
+			'title'    => esc_html__('Items', 'bricksfly'),
+			'tab'      => 'style',
+		];
+
 		$this->control_groups['image_style'] = [
 			'title'    => esc_html__('Image', 'bricksfly'),
 			'tab'      => 'style',
@@ -173,9 +178,18 @@ class AAB_Bricks_Brand_Slider extends \Bricks\Element
 		$this->controls['spaceBetween'] = [
 			'tab'         => 'content',
 			'group'       => 'slider_options',
-			'label'       => esc_html__('Space Between (px)', 'bricksfly'),
+			'label'       => esc_html__('Space Between Item(px)', 'bricksfly'),
 			'type'        => 'number',
-			'default'     => 30,
+			'default'     => 0,
+			'breakpoints' => true,
+		];
+
+		$this->controls['spaceBetweenIconText'] = [
+			'tab'         => 'content',
+			'group'       => 'slider_options',
+			'label'       => esc_html__('Space Between Icon and Text (px)', 'bricksfly'),
+			'type'        => 'number',
+			'default'     => 0,
 			'breakpoints' => true,
 		];
 
@@ -242,6 +256,45 @@ class AAB_Bricks_Brand_Slider extends \Bricks\Element
 			'type'  => 'checkbox',
 		];
 
+		// Items Style
+
+		$this->controls['icon_position'] = [
+			'tab'      => 'style',
+			'group'    => 'items_style',
+			'label'    => esc_html__('Icon Alignment', 'bricksfly'),
+			'type'     => 'select',
+			'inline'   => true,
+			'options'  => [
+				'row-reverse'   => esc_html__('Left', 'bricksfly'),
+				'row' => esc_html__('Right', 'bricksfly'),
+			],
+			'default'  => 'row',
+			
+			'css'      => [
+				['property' => 'flex-direction', 'selector' => '.aab-brand-slider-wrapper .text-slide-content'],
+			],
+			
+		];
+
+
+		$this->controls['items_alignment'] = [
+			'tab'      => 'style',
+			'group'    => 'items_style',
+			'label'    => esc_html__('Items Alignment', 'bricksfly'),
+			'type'     => 'select',
+			'inline'   => true,
+			'options'  => [
+				'left'   => esc_html__('Left', 'bricksfly'),
+				'center' => esc_html__('Center', 'bricksfly'),
+				'right'  => esc_html__('Right', 'bricksfly'),
+			],
+			'default'  => 'left',
+			
+			'css'      => [
+				['property' => 'justify-content', 'selector' => '.aab-brand-slider-wrapper .swiper-slide'],
+			],
+			
+		];
 		// --- Style: Image ---
 
 		$this->controls['imgWidth'] = [
