@@ -58,24 +58,24 @@ class AAB_Bricks_Brand_Slider extends \Bricks\Element
 
 		$this->control_groups['items_style'] = [
 			'title'    => esc_html__('Items', 'bricksfly'),
-			'tab'      => 'style',
+			'tab'      => 'content',
 		];
 
 		$this->control_groups['image_style'] = [
 			'title'    => esc_html__('Image', 'bricksfly'),
-			'tab'      => 'style',
+			'tab'      => 'content',
 			'required' => ['slideContent', '=', 'image'],
 		];
 
 		$this->control_groups['text_style'] = [
 			'title'    => esc_html__('Text', 'bricksfly'),
-			'tab'      => 'style',
+			'tab'      => 'content',
 			'required' => ['slideContent', '=', 'text'],
 		];
 
 		$this->control_groups['nav_style'] = [
 			'title' => esc_html__('Navigation', 'bricksfly'),
-			'tab'   => 'style',
+			'tab'   => 'content',
 		];
 	}
 
@@ -201,7 +201,7 @@ class AAB_Bricks_Brand_Slider extends \Bricks\Element
 			'type'    => 'select',
 			'inline'  => true,
 			'options' => $toggle_options,
-			'default' => 'on',
+			'default' => 'off',
 			'breakpoints' => true,
 		];
 
@@ -223,7 +223,7 @@ class AAB_Bricks_Brand_Slider extends \Bricks\Element
 			'type'    => 'select',
 			'inline'  => true,
 			'options' => $toggle_options,
-			'default' => 'on',
+			'default' => 'off',
 			'breakpoints' => true,
 		];
 
