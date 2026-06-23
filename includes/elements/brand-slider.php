@@ -184,12 +184,24 @@ class AAB_Bricks_Brand_Slider extends \Bricks\Element
 			'breakpoints' => true,
 		];
 
+		// Tri-state options for responsive on/off toggles. Bricks cannot distinguish an
+		// unchecked checkbox from "not set", so a checkbox can't be forced OFF at a smaller
+		// breakpoint while ON at desktop. A select with an explicit Default/On/Off solves it:
+		// '' (Default) = inherit, 'on' = force on, 'off' = force off.
+		$toggle_options = [
+			''    => esc_html__('Default', 'bricksfly'),
+			'on'  => esc_html__('On', 'bricksfly'),
+			'off' => esc_html__('Off', 'bricksfly'),
+		];
+
 		$this->controls['autoplay'] = [
 			'tab'     => 'content',
 			'group'   => 'slider_options',
 			'label'   => esc_html__('Autoplay', 'bricksfly'),
-			'type'    => 'checkbox',
-			'default' => true,
+			'type'    => 'select',
+			'inline'  => true,
+			'options' => $toggle_options,
+			'default' => 'on',
 			'breakpoints' => true,
 		];
 
@@ -200,7 +212,7 @@ class AAB_Bricks_Brand_Slider extends \Bricks\Element
 			'type'     => 'number',
 			'default'  => 0, // 0 is best for true continuous linear sliders
 			'description' => esc_html__('Set to 0 or 1 for a continuous marquee effect.', 'bricksfly'),
-			'required' => ['autoplay', '!=', ''],
+			'required' => ['autoplay', '!=', 'off'],
 			'breakpoints' => true,
 		];
 
@@ -208,8 +220,10 @@ class AAB_Bricks_Brand_Slider extends \Bricks\Element
 			'tab'     => 'content',
 			'group'   => 'slider_options',
 			'label'   => esc_html__('Loop', 'bricksfly'),
-			'type'    => 'checkbox',
-			'default' => true,
+			'type'    => 'select',
+			'inline'  => true,
+			'options' => $toggle_options,
+			'default' => 'on',
 			'breakpoints' => true,
 		];
 
@@ -217,16 +231,22 @@ class AAB_Bricks_Brand_Slider extends \Bricks\Element
 			'tab'      => 'content',
 			'group'    => 'slider_options',
 			'label'    => esc_html__('Pause on Hover', 'bricksfly'),
-			'type'     => 'checkbox',
+			'type'     => 'select',
+			'inline'   => true,
+			'options'  => $toggle_options,
+			'default'  => '',
 			'breakpoints' => true,
-			'required' => ['autoplay', '!=', ''],
+			'required' => ['autoplay', '!=', 'off'],
 		];
 
 		$this->controls['showNavigation'] = [
 			'tab'   => 'content',
 			'group' => 'slider_options',
 			'label' => esc_html__('Show Navigation', 'bricksfly'),
-			'type'  => 'checkbox',
+			'type'  => 'select',
+			'inline'  => true,
+			'options' => $toggle_options,
+			'default' => '',
 			'breakpoints' => true,
 		];
 
@@ -234,7 +254,10 @@ class AAB_Bricks_Brand_Slider extends \Bricks\Element
 			'tab'   => 'content',
 			'group' => 'slider_options',
 			'label' => esc_html__('Show Pagination', 'bricksfly'),
-			'type'  => 'checkbox',
+			'type'  => 'select',
+			'inline'  => true,
+			'options' => $toggle_options,
+			'default' => '',
 			'breakpoints' => true,
 		];
 
@@ -626,197 +649,258 @@ class AAB_Bricks_Brand_Slider extends \Bricks\Element
 			return is_numeric($v) ? (fmod((float) $v, 1) === 0.0 ? (int) $v : (float) $v) : $v;
 		};
 
-		$desktop_pv = $cast_per_view($settings['slidesPerView'] ?? 'auto');
-		$desktop_sb = isset($settings['spaceBetween']) && $settings['spaceBetween'] !== '' ? (int) $settings['spaceBetween'] : 30;
-
-		$breakpoint_options = [];
-		$has_auto           = ($desktop_pv === 'auto');
+		$reverse = ! empty($settings['reverseDirection']);
 
 		/**
-		 * Convert Bricks responsive control values into Swiper `breakpoints`.
+		 * Resolve a responsive control across every Bricks breakpoint into a per-range
+		 * (min-width keyed) map, replaying Bricks' cascade so blank breakpoints inherit
+		 * the correct neighbour. Returns [ minWidth => value, ... ] including the base
+		 * range keyed at 0.
 		 *
-		 * Bricks (default) is DESKTOP-FIRST: a breakpoint's `width` is a MAX-width and
-		 * a value cascades DOWN to all smaller breakpoints until overridden. Swiper is
-		 * always MOBILE-FIRST: `breakpoints` keys are MIN-widths and a value cascades UP
-		 * until a larger key overrides it. The two cascade in opposite directions, so we
-		 * cannot copy a Bricks value to a Swiper key 1:1 — we rebuild the cascade.
+		 * Bricks (default) is DESKTOP-FIRST: a breakpoint's `width` is a MAX-width and a
+		 * value cascades DOWN to smaller breakpoints until overridden. Swiper / our JS is
+		 * MOBILE-FIRST: keys are MIN-widths, larger key wins. The two cascade in opposite
+		 * directions, so we rebuild the cascade rather than copy values 1:1.
+		 *
+		 * $base_key/$cast let each control read its desktop value and coerce raw strings.
+		 * $default is used for any range the Bricks cascade leaves unset, so the returned
+		 * map is DENSE: exactly one entry per breakpoint range, keyed by its min-width.
+		 * A dense map means consumers never have to guess a gap's value by looking at a
+		 * neighbouring range (which would wrongly leak a value across breakpoints).
 		 */
-		if (class_exists('\Bricks\Breakpoints') && is_array(\Bricks\Breakpoints::$breakpoints) && ! empty(\Bricks\Breakpoints::$breakpoints)) {
+		$resolve_responsive = function ($base_key, $cast, $default) use ($settings) {
+			$out = [];
+
+			if (! (class_exists('\Bricks\Breakpoints') && is_array(\Bricks\Breakpoints::$breakpoints) && ! empty(\Bricks\Breakpoints::$breakpoints))) {
+				return $out;
+			}
+
 			$is_mobile_first = ! empty(\Bricks\Breakpoints::$is_mobile_first);
 
-			// Collect every breakpoint's raw setting (including the desktop/base one).
+			// Collect raw value per breakpoint (desktop/base reads the unsuffixed key).
 			$points = [];
 			foreach (\Bricks\Breakpoints::$breakpoints as $bp) {
 				$key = isset($bp['key']) ? $bp['key'] : '';
-				if (! $key) {
-					continue;
-				}
+				if (! $key) continue;
 
 				$is_base = ! empty($bp['base']) || $key === 'desktop';
-
-				if ($is_base) {
-					$pv_raw = $settings['slidesPerView'] ?? null;
-					$sb_raw = $settings['spaceBetween'] ?? null;
-				} else {
-					$pv_raw = isset($settings["slidesPerView:{$key}"]) ? $settings["slidesPerView:{$key}"] : null;
-					$sb_raw = isset($settings["spaceBetween:{$key}"]) ? $settings["spaceBetween:{$key}"] : null;
-				}
+				$raw     = $is_base
+					? ($settings[$base_key] ?? null)
+					: (isset($settings["{$base_key}:{$key}"]) ? $settings["{$base_key}:{$key}"] : null);
 
 				$points[] = [
-					'key'     => $key,
-					'width'   => isset($bp['width']) ? intval($bp['width']) : 0,
-					'is_base' => $is_base,
-					'pv_raw'  => $pv_raw,
-					'sb_raw'  => $sb_raw,
+					'width' => isset($bp['width']) ? intval($bp['width']) : 0,
+					'raw'   => $raw,
 				];
 			}
 
-			// Sort ascending by width so we can build Swiper min-width keys and propagate
-			// the cascade in a single direction.
 			usort($points, function ($a, $b) {
 				return $a['width'] <=> $b['width'];
 			});
 
 			$count = count($points);
+			$resolved = [];
 
-			// Pre-resolve each point's effective values, replaying Bricks' cascade so that a
-			// breakpoint with no explicit value inherits the correct neighbour (Swiper does
-			// not cascade across non-adjacent keys, so every key we emit must be complete).
-			$resolved_pv = [];
-			$resolved_sb = [];
-
+			// Replay the cascade in the direction Bricks fills empty breakpoints.
+			$carry = null;
 			if ($is_mobile_first) {
-				// Mobile-first: value cascades UP (toward larger). Walk ascending, carrying
-				// the last seen value forward — this already matches Swiper's model.
-				$carry_pv = null;
-				$carry_sb = null;
 				for ($i = 0; $i < $count; $i++) {
-					if ($points[$i]['pv_raw'] !== null && $points[$i]['pv_raw'] !== '') $carry_pv = $points[$i]['pv_raw'];
-					if ($points[$i]['sb_raw'] !== null && $points[$i]['sb_raw'] !== '') $carry_sb = $points[$i]['sb_raw'];
-					$resolved_pv[$i] = $carry_pv;
-					$resolved_sb[$i] = $carry_sb;
+					if ($points[$i]['raw'] !== null && $points[$i]['raw'] !== '') $carry = $points[$i]['raw'];
+					$resolved[$i] = $carry;
 				}
 			} else {
-				// Desktop-first: value cascades DOWN (toward smaller). Walk descending,
-				// carrying the last seen value down to smaller breakpoints.
-				$carry_pv = null;
-				$carry_sb = null;
 				for ($i = $count - 1; $i >= 0; $i--) {
-					if ($points[$i]['pv_raw'] !== null && $points[$i]['pv_raw'] !== '') $carry_pv = $points[$i]['pv_raw'];
-					if ($points[$i]['sb_raw'] !== null && $points[$i]['sb_raw'] !== '') $carry_sb = $points[$i]['sb_raw'];
-					$resolved_pv[$i] = $carry_pv;
-					$resolved_sb[$i] = $carry_sb;
+					if ($points[$i]['raw'] !== null && $points[$i]['raw'] !== '') $carry = $points[$i]['raw'];
+					$resolved[$i] = $carry;
 				}
 			}
 
-			// Emit Swiper breakpoints (min-width keyed). Each point ascending in width starts
-			// a new min-width range at its lower bound. The smallest range maps to key 0.
+			// Map each resolved point to a min-width key, filling unset ranges with $default.
 			for ($i = 0; $i < $count; $i++) {
 				if ($is_mobile_first) {
-					// Mobile-first: the breakpoint's own width IS its min-width.
 					$min_width = $points[$i]['width'];
 				} else {
-					// Desktop-first: this point (max-width W) covers up to W; the Swiper
-					// range it owns starts just above the next-smaller breakpoint's max-width.
-					$prev = ($i > 0) ? $points[$i - 1]['width'] : 0;
+					$prev      = ($i > 0) ? $points[$i - 1]['width'] : 0;
 					$min_width = $prev > 0 ? $prev + 1 : 0;
 				}
 
-				$pv_raw = $resolved_pv[$i];
-				$sb_raw = $resolved_sb[$i];
+				$val = ($resolved[$i] === null || $resolved[$i] === '') ? null : $cast($resolved[$i]);
+				if ($val === null) $val = $default;
 
-				$bp_opts = [];
-				if ($pv_raw !== null && $pv_raw !== '') {
-					$pv = $cast_per_view($pv_raw);
-					if ($pv !== null) {
-						$bp_opts['slidesPerView'] = $pv;
-						if ($pv === 'auto') $has_auto = true;
-					}
-				}
-				if ($sb_raw !== null && $sb_raw !== '') {
-					$bp_opts['spaceBetween'] = intval($sb_raw);
-				}
-
-				if (! empty($bp_opts)) {
-					// Higher min-width key wins in Swiper; later writes to the same key win here.
-					$breakpoint_options[$min_width] = $bp_opts;
-				}
+				$out[$min_width] = $val; // later (larger-index) write wins on key collision
 			}
 
-			// Swiper applies the TOP-LEVEL options as the floor (effectively the key-0 range)
-			// and only overrides them as the viewport crosses each larger min-width key. So the
-			// smallest-range value must live at top level, NOT desktop's value. Promote the
-			// key-0 entry to become the top-level defaults, then remove it from the map.
-			if (isset($breakpoint_options[0])) {
-				if (isset($breakpoint_options[0]['slidesPerView'])) {
-					$desktop_pv = $breakpoint_options[0]['slidesPerView'];
-				}
-				if (isset($breakpoint_options[0]['spaceBetween'])) {
-					$desktop_sb = $breakpoint_options[0]['spaceBetween'];
-				}
-				unset($breakpoint_options[0]);
-			}
-		}
+			ksort($out);
+			return $out;
+		};
 
-		if (! empty($breakpoint_options)) {
-			ksort($breakpoint_options);
-		}
+		// Coercion helpers for each control type.
+		$cast_pv   = $cast_per_view;
+		$cast_int  = function ($v) { return ($v === '' || $v === null) ? null : (int) $v; };
+		// Tri-state toggle: 'on' => true, 'off' => false, '' / null => null (inherit).
+		// Legacy boolean values (from before the select migration) are honoured too.
+		$cast_bool = function ($v) {
+			if ($v === '' || $v === null) return null;
+			if ($v === 'on'  || $v === true  || $v === 1 || $v === '1') return true;
+			if ($v === 'off' || $v === false || $v === 0 || $v === '0') return false;
+			return (bool) $v;
+		};
 
+		// Desktop (top-level) fallbacks — used as each control's cascade default and as the
+		// pre-JS / no-breakpoint-data state. Toggles resolve through $cast_bool, applying the
+		// control default when the setting is absent / left on "Default".
+		$desktop_toggle = function ($key, $default) use ($settings, $cast_bool) {
+			$v = $cast_bool($settings[$key] ?? null);
+			return $v === null ? $default : $v;
+		};
+
+		$desktop_pv  = $cast_per_view($settings['slidesPerView'] ?? 'auto');
+		if ($desktop_pv === null) $desktop_pv = 'auto';
+		$desktop_sb  = isset($settings['spaceBetween']) && $settings['spaceBetween'] !== '' ? (int) $settings['spaceBetween'] : 30;
 		$speed       = isset($settings['speed']) ? (int) $settings['speed'] : 5000;
-		$loop        = ! empty($settings['loop']);
-		$autoplay    = ! empty($settings['autoplay']);
+		$loop        = $desktop_toggle('loop', true);          // control default 'on'
+		$autoplay    = $desktop_toggle('autoplay', true);      // control default 'on'
 		$delay       = isset($settings['autoplayDelay']) ? (int) $settings['autoplayDelay'] : 0;
-		$pause_hover = ! empty($settings['pauseOnHover']);
-		$show_nav    = ! empty($settings['showNavigation']);
-		$show_pag    = ! empty($settings['showPagination']);
-		$reverse     = ! empty($settings['reverseDirection']);
+		$pause_hover = $desktop_toggle('pauseOnHover', false);
+		$show_nav    = $desktop_toggle('showNavigation', false);
+		$show_pag    = $desktop_toggle('showPagination', false);
 
-		$swiper_options = [
-			'slidesPerView' => $desktop_pv ?? 'auto',
-			'spaceBetween'  => $desktop_sb,
-			'speed'         => $speed,
-			'loop'          => $loop,
-		];
+		// Resolve every responsive control into a DENSE per-range map (one entry per breakpoint
+		// range), each control's gaps filled with its desktop default so ranges never leak.
+		$pv_map    = $resolve_responsive('slidesPerView', $cast_pv,   $desktop_pv);
+		$sb_map    = $resolve_responsive('spaceBetween',  $cast_int,  $desktop_sb);
+		$speed_map = $resolve_responsive('speed',         $cast_int,  $speed);
+		$delay_map = $resolve_responsive('autoplayDelay', $cast_int,  $delay);
+		$ap_map    = $resolve_responsive('autoplay',      $cast_bool, $autoplay);
+		$loop_map  = $resolve_responsive('loop',          $cast_bool, $loop);
+		$hover_map = $resolve_responsive('pauseOnHover',  $cast_bool, $pause_hover);
+		$nav_map   = $resolve_responsive('showNavigation', $cast_bool, $show_nav);
+		$pag_map   = $resolve_responsive('showPagination', $cast_bool, $show_pag);
 
-		if (! empty($breakpoint_options)) {
-			$swiper_options['breakpoints'] = $breakpoint_options;
-		}
-        var_dump($swiper_options['breakpoints']);
-		if ($autoplay) {
-			$swiper_options['autoplay'] = [
-				'delay'                => $delay,
-				'disableOnInteraction' => false,
-				'reverseDirection'     => $reverse,
-				'pauseOnMouseEnter'    => $pause_hover,
+		// `slide-width-auto` CSS hook: true if desktop OR any breakpoint uses "auto".
+		$has_auto = ($desktop_pv === 'auto') || in_array('auto', $pv_map, true);
+
+		/**
+		 * Build a complete Swiper option object for a given set of resolved values. Used
+		 * both for the base (top-level) options and for each responsive range the JS
+		 * re-inits with. Selectors for nav/pagination are resolved to elements in JS.
+		 */
+		$build_options = function ($pv, $sb, $sp, $lp, $ap, $dl, $hov, $nav, $pag) use ($reverse) {
+			$opts = [
+				'slidesPerView' => $pv,
+				'spaceBetween'  => $sb,
+				'speed'         => $sp,
+				'loop'          => $lp,
 			];
 
-			// CRITICAL FIX: If running a marquee (delay 0/1), freeMode must be true
-			if ($delay <= 1) {
-				$swiper_options['freeMode'] = [
-					'enabled'   => true,
-					'momentum'  => false,
+			if ($ap) {
+				$opts['autoplay'] = [
+					'delay'                => $dl,
+					'disableOnInteraction' => false,
+					'reverseDirection'     => $reverse,
+					'pauseOnMouseEnter'    => $hov,
 				];
+
+				// Marquee mode (delay 0/1) needs freeMode for continuous linear motion.
+				if ($dl <= 1) {
+					$opts['freeMode'] = ['enabled' => true, 'momentum' => false];
+				}
+			} else {
+				$opts['autoplay'] = false;
 			}
+
+			$opts['navigation'] = $nav
+				? ['nextEl' => '.aab-arrow-next', 'prevEl' => '.aab-arrow-prev']
+				: false;
+
+			$opts['pagination'] = $pag
+				? ['el' => '.swiper-pagination', 'clickable' => true]
+				: false;
+
+			return $opts;
+		};
+
+		// Resolve a per-range value, falling back to the desktop default.
+		$pick = function ($map, $default) {
+			// Base range (key 0) value if present, else desktop default.
+			return array_key_exists(0, $map) ? $map[0] : $default;
+		};
+
+		// Base (top-level) options use the smallest-range value (Swiper's floor / pre-JS state).
+		$swiper_options = $build_options(
+			$pick($pv_map, $desktop_pv),
+			$pick($sb_map, $desktop_sb),
+			$pick($speed_map, $speed),
+			$pick($loop_map, $loop),
+			$pick($ap_map, $autoplay),
+			$pick($delay_map, $delay),
+			$pick($hover_map, $pause_hover),
+			$pick($nav_map, $show_nav),
+			$pick($pag_map, $show_pag)
+		);
+
+		/**
+		 * Build the per-range responsive map the JS consumes: { minWidth: {full options} }.
+		 * Every distinct min-width across all controls becomes a range; each range's value
+		 * for a control is the largest min-width entry <= the range's min-width (mobile-first
+		 * resolution), falling back to the desktop default.
+		 */
+		$range_keys = [];
+		foreach ([$pv_map, $sb_map, $speed_map, $delay_map, $ap_map, $loop_map, $hover_map, $nav_map, $pag_map] as $m) {
+			foreach (array_keys($m) as $k) $range_keys[$k] = true;
+		}
+		$range_keys = array_keys($range_keys);
+		sort($range_keys);
+
+		$at = function ($map, $min_width, $default) {
+			$value = $default;
+			foreach ($map as $k => $v) {
+				if ($k <= $min_width) $value = $v; else break;
+			}
+			return $value;
+		};
+
+		$responsive = [];
+		foreach ($range_keys as $mw) {
+			if ($mw === 0) continue; // base range already lives in $swiper_options
+			$responsive[$mw] = $build_options(
+				$at($pv_map,    $mw, $desktop_pv),
+				$at($sb_map,    $mw, $desktop_sb),
+				$at($speed_map, $mw, $speed),
+				$at($loop_map,  $mw, $loop),
+				$at($ap_map,    $mw, $autoplay),
+				$at($delay_map, $mw, $delay),
+				$at($hover_map, $mw, $pause_hover),
+				$at($nav_map,   $mw, $show_nav),
+				$at($pag_map,   $mw, $show_pag)
+			);
 		}
 
-		if ($show_nav) {
-			$swiper_options['navigation'] = [
-				'nextEl' => '.aab-arrow-next',
-				'prevEl' => '.aab-arrow-prev',
+		// Native Swiper breakpoints (layout only) so slidesPerView/spaceBetween still
+		// respond instantly without a re-init; the JS layers the behavioral options on top.
+		$layout_breakpoints = [];
+		foreach ($responsive as $mw => $opts) {
+			$layout_breakpoints[$mw] = [
+				'slidesPerView' => $opts['slidesPerView'],
+				'spaceBetween'  => $opts['spaceBetween'],
 			];
 		}
-
-		if ($show_pag) {
-			$swiper_options['pagination'] = [
-				'el'        => '.swiper-pagination',
-				'clickable' => true,
-			];
+		if (! empty($layout_breakpoints)) {
+			$swiper_options['breakpoints'] = $layout_breakpoints;
 		}
 
 		$auto_class = $has_auto ? ' slide-width-auto' : '';
 
+		// Nav / pagination markup must exist if ANY range enables it (a smaller range may
+		// turn it on even when desktop has it off). Swiper toggles the actual modules per range.
+		$nav_anywhere = $show_nav || in_array(true, $nav_map, true);
+		$pag_anywhere = $show_pag || in_array(true, $pag_map, true);
+
 		$this->set_attribute('_root', 'class', ['aab-brand-slider-wrapper' . $auto_class]);
 		$this->set_attribute('_root', 'data-swiper', wp_json_encode($swiper_options));
+		if (! empty($responsive)) {
+			$this->set_attribute('_root', 'data-swiper-responsive', wp_json_encode($responsive));
+		}
 
 		$slides = [];
 
@@ -877,12 +961,12 @@ class AAB_Bricks_Brand_Slider extends \Bricks\Element
 		echo implode('', $slides); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo '</div>';
 
-		if ($show_nav && count($slides) > 1) {
+		if ($nav_anywhere && count($slides) > 1) {
 			echo '<div class="aab-arrow-prev"><i class="fas fa-chevron-left" aria-hidden="true"></i></div>';
 			echo '<div class="aab-arrow-next"><i class="fas fa-chevron-right" aria-hidden="true"></i></div>';
 		}
 
-		if ($show_pag && count($slides) > 1) {
+		if ($pag_anywhere && count($slides) > 1) {
 			echo '<div class="swiper-pagination"></div>';
 		}
 
