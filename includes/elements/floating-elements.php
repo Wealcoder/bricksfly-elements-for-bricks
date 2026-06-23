@@ -295,7 +295,21 @@ class AAB_Bricks_Floating_Elements extends \Bricks\Element
 			'label'   => esc_html__('Elements', 'bricksfly'),
 			'type'    => 'repeater',
 			'fields'  => $fields,
-			'default' => [],
+			// Start with one item so the element renders a real (dummy) image on insert
+			// instead of the empty-state. Uses the Bricks placeholder image as content;
+			// orientation/animation use the field defaults.
+			'default' => [
+				[
+					'image'                 => [
+						'url'      => defined('BRICKS_URL_ASSETS') ? BRICKS_URL_ASSETS . 'images/placeholder-image-800x600.jpg' : '',
+						'filename' => 'placeholder-image-800x600.jpg',
+					],
+					'horizontalOrientation' => 'left',
+					'verticalOrientation'   => 'top',
+					'liveAnimation'         => 'float',
+					'zIndex'                => 1,
+				],
+			],
 		];
 	}
 
