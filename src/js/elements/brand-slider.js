@@ -102,6 +102,18 @@ import "../../scss/elements/brand-slider.scss";
       var pauseOnHover = options.autoplay && options.autoplay.pauseOnMouseEnter;
       if (pauseOnHover) options.autoplay.pauseOnMouseEnter = false;
 
+      // The arrow / pagination elements are always present in the DOM (so any range can
+      // use them), but Swiper only wires up the modules it's given. Toggle their visibility
+      // to match the active range, otherwise disabled arrows would still show.
+      var prevEl = wrapper.querySelector(".aab-arrow-prev");
+      var nextEl = wrapper.querySelector(".aab-arrow-next");
+      var pagEl = wrapper.querySelector(".swiper-pagination");
+      var navOn = !!options.navigation;
+      var pagOn = !!options.pagination;
+      if (prevEl) prevEl.style.display = navOn ? "" : "none";
+      if (nextEl) nextEl.style.display = navOn ? "" : "none";
+      if (pagEl) pagEl.style.display = pagOn ? "" : "none";
+
       var swiper = new Swiper(swiperContainer, options);
 
       function syncSlideMargin() {
