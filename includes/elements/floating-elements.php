@@ -176,18 +176,15 @@ class AAB_Bricks_Floating_Elements extends \Bricks\Element
 			],
 
 			// ── Size (responsive) ──────────────────────────────────────────────
+			// No 'css' array: changing this fires Bricks' full PHP re-render,
+			// which rebuilds the per-item <style> block in render_responsive_styles().
 			'size' => [
 				'label'      => esc_html__('Size', 'bricksfly'),
 				'type'       => 'number',
 				'units'      => true,
 				'responsive' => true,
-				'css'        => [
-					[
-						'selector' => '.floating-element',
-						'property' => '--aab-fe-width',
-					],
-				],
 			],
+
 			// ── Horizontal offset ──────────────────────────────────────────────
 
 			'horizontalOrientation' => [
@@ -207,12 +204,6 @@ class AAB_Bricks_Floating_Elements extends \Bricks\Element
 				'units'      => true,
 				'responsive' => true,
 				'required'   => ['horizontalOrientation', '!=', 'right'],
-				'css'        => [
-					[
-						'selector' => '.floating-element.h-left',
-						'property' => '--aab-fe-left',
-					],
-				],
 			],
 
 			'offsetXEnd' => [
@@ -221,12 +212,6 @@ class AAB_Bricks_Floating_Elements extends \Bricks\Element
 				'units'      => true,
 				'responsive' => true,
 				'required'   => ['horizontalOrientation', '=', 'right'],
-				'css'        => [
-					[
-						'selector' => '.floating-element.h-right',
-						'property' => '--aab-fe-right',
-					],
-				],
 			],
 
 			// ── Vertical offset ────────────────────────────────────────────────
@@ -248,12 +233,6 @@ class AAB_Bricks_Floating_Elements extends \Bricks\Element
 				'units'      => true,
 				'responsive' => true,
 				'required'   => ['verticalOrientation', '!=', 'bottom'],
-				'css'        => [
-					[
-						'selector' => '.floating-element.v-top',
-						'property' => '--aab-fe-top',
-					],
-				],
 			],
 
 			'offsetYEnd' => [
@@ -262,12 +241,6 @@ class AAB_Bricks_Floating_Elements extends \Bricks\Element
 				'units'      => true,
 				'responsive' => true,
 				'required'   => ['verticalOrientation', '=', 'bottom'],
-				'css'        => [
-					[
-						'selector' => '.floating-element.v-bottom',
-						'property' => '--aab-fe-bottom',
-					],
-				],
 			],
 
 			'zIndex' => [
@@ -312,27 +285,6 @@ class AAB_Bricks_Floating_Elements extends \Bricks\Element
 				'step'     => 0.1,
 				'default'  => 0.5,
 				'required' => ['enableScrollSmoother', '!=', ''],
-			],
-
-			'_cssSnapshot' => [
-				'label'    => '',
-				'type'    => 'select',
-				'options' => [
-					''        => esc_html__('None', 'bricksfly'),
-					'float'   => esc_html__('Float Y', 'bricksfly'),
-					'float-x' => esc_html__('Float X', 'bricksfly'),
-					'spin'    => esc_html__('Spin', 'bricksfly'),
-					'scale'   => esc_html__('Scale', 'bricksfly'),
-					'wiggle'  => esc_html__('Wiggle', 'bricksfly'),
-				],
-
-
-				'css'      => [
-					[
-						'selector' => '',
-						'property' => '--aab-fe-snap', // meaningless property, just triggers rerender
-					],
-				],
 			],
 
 		];
