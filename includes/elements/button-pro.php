@@ -81,8 +81,56 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 				'7'              => esc_html__('Pro 7 — Outline Pill', 'bricksfly'),
 				'8'              => esc_html__('Pro 8 — Slide Reveal', 'bricksfly'),
 			],
-			'default' => '1',
+			'default' => 'base-default',
 		];
+
+		 //--- Square size (responsive) ---
+		// The Square style ships with a fixed 215×215 box in CSS, so Padding alone
+		// can't resize it. These Width/Height controls override that box and, because
+		// Bricks generates breakpoint-scoped rules for `css` controls, they work
+		// responsively (set a value per device via the control's breakpoint switcher).
+		$this->controls['btnSquareWidth'] = [
+			'tab'   => 'content',
+			'group' => 'button',
+			'label'       => esc_html__('Square Width', 'bricksfly'),
+			'type'        => 'number',
+			'units'       => true,
+			'breakpoints' => true,
+			'required'    => ['btnStyle', '=', 'base-square'],
+			'css'         => [
+				// Override both width and the min-width default, so any value (even
+				// smaller than the 215px default) takes effect.
+				[
+					'property' => 'width',
+					'selector' => '.wcf-btn-square',
+				],
+				[
+					'property' => 'min-width',
+					'selector' => '.wcf-btn-square',
+				],
+			],
+		];
+
+		$this->controls['btnSquareHeight'] = [
+			'tab'   => 'content',
+			'group' => 'button',
+			'label'       => esc_html__('Square Height', 'bricksfly'),
+			'type'        => 'number',
+			'units'       => true,
+			'breakpoints' => true,
+			'required'    => ['btnStyle', '=', 'base-square'],
+			'css'         => [
+				[
+					'property' => 'height',
+					'selector' => '.wcf-btn-square',
+				],
+				[
+					'property' => 'min-height',
+					'selector' => '.wcf-btn-square',
+				],
+			],
+		];
+
 
 		$this->controls['btnHoverVariant'] = [
 			'tab'      => 'content',
@@ -393,6 +441,25 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 			],
 		];
 
+		$this->controls['btnHIconColor'] = [
+			'tab'   => 'style',
+			'group' => 'button_style',
+			'label' => esc_html__('Hover Icon Color', 'bricksfly'),
+			'type'  => 'color',
+			'css'   => [
+				// Icon (font icon) color on hover — overrides the inherited text hover color.
+				[
+					'property' => 'color',
+					'selector' => '.aae--btn-pro:hover .icon, .aae-btn-pro-group:hover .g-btn-icon, .wcf__btn a:hover i',
+				],
+				// SVG icon fill on hover.
+				[
+					'property' => 'fill',
+					'selector' => '.aae--btn-pro:hover .icon, .aae-btn-pro-group:hover .g-btn-icon, .wcf__btn a:hover svg',
+				],
+			],
+		];
+
 		$this->controls['btnHBorder'] = [
 			'tab'   => 'style',
 			'group' => 'button_style',
@@ -502,143 +569,168 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 		];
 	}
 
-	public function render()
-	{
+	private function get_allowed_text_html(): array{
+		$attrs = ['class' => true, 'style' => true, 'id' => true];
+ 
+		return [
+			'span'   => $attrs,
+			'strong' => $attrs,
+			'b'      => $attrs,
+			'em'     => $attrs,
+			'i'      => $attrs,
+			'br'     => [],
+			'h1'     => $attrs,
+			'h2'     => $attrs,
+			'h3'     => $attrs,
+			'h4'     => $attrs,
+			'h5'     => $attrs,
+			'h6'     => $attrs,
+		];
+	}
+ 
+	public function render(){
 		$settings = $this->settings;
 		$style    = ! empty($settings['btnStyle']) ? $settings['btnStyle'] : '1';
 		$text     = isset($settings['btnText']) ? $settings['btnText'] : '';
 		$icon     = $settings['btnIcon'] ?? [];
-
+ 
+		// Sanitized HTML version for visible content; plain version for attributes.
+		$allowed_html = $this->get_allowed_text_html();
+		$text_html    = wp_kses($text, $allowed_html);
+		$text_plain   = wp_strip_all_tags($text);
+ 
 		$this->set_attribute('_root', 'class', ['aae--btn-pro-wrapper', 'style-' . $style]);
-
+ 
 		$link_key = 'btn-link';
-
+ 
 		if (! empty($settings['btnLink'])) {
 			$this->set_link_attributes($link_key, $settings['btnLink']);
 		} else {
 			$this->set_attribute($link_key, 'href', '#');
 		}
-
+ 
 		$icon_html = $icon ? self::render_icon($icon, ['aria-hidden' => 'true']) : '';
-
+ 
 		// Base (WCF) styles — render via .wcf__btn > a.wcf-btn-{slug}
 		if (0 === strpos($style, 'base-')) {
 			$slug = substr($style, 5);
-
+ 
 			$icon_position_after = isset($settings['btnIconPosition']) && 'row-reverse' === $settings['btnIconPosition'];
 			$ext_wrap            = in_array($slug, ['oval', 'circle', 'ellipse'], true);
 			$bg_change           = in_array($slug, ['oval', 'circle'], true);
 			$hover_variant       = isset($settings['btnHoverVariant']) ? $settings['btnHoverVariant'] : 'hover-none';
-
+ 
 			$btn_classes = ['wcf-btn-' . $slug];
-
+ 
 			if (in_array($slug, ['default', 'square'], true) && ! empty($hover_variant) && 'hover-none' !== $hover_variant) {
 				$btn_classes[] = 'btn-' . $hover_variant;
 			}
-
+ 
 			if ($bg_change) {
 				$btn_classes[] = 'btn-hover-bgchange';
 				$btn_classes[] = 'btn-item';
 			} elseif ('ellipse' === $slug) {
 				$btn_classes[] = 'btn-item';
 			}
-
+ 
 			$this->set_attribute($link_key, 'class', $btn_classes);
-
+ 
 			if ('mask' === $slug) {
-				$this->set_attribute($link_key, 'data-text', $text);
+				// Attribute value → must be plain text, no tags.
+				$this->set_attribute($link_key, 'data-text', $text_plain);
 			}
-
+ 
 			if ($ext_wrap) {
 				$this->set_attribute($link_key, 'data-magnetic', 'true');
 			}
-
+ 
 			$wrapper_classes = ['wcf__btn'];
 			if ($icon_position_after) {
 				$wrapper_classes[] = 'icon-position-after';
 			}
-
+ 
 			$ext_close = '';
 			echo '<div ' . $this->render_attributes('_root') . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo '<div class="' . esc_attr(implode(' ', $wrapper_classes)) . '">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-
+ 
 			if ($ext_wrap) {
 				echo '<div class="btn-wrapper">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				$ext_close = '</div>';
 			}
-
+ 
 			echo '<a ' . $this->render_attributes($link_key) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			echo esc_html($text);
+			echo $text_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo $icon_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			if ($bg_change) {
 				echo '<span></span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			}
 			echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-
+ 
 			echo $ext_close; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			return;
 		}
-
+ 
 		echo '<div ' . $this->render_attributes('_root') . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-
+ 
 		switch ($style) {
-
+ 
 			case '1':
 				$this->set_attribute($link_key, 'class', ['aae--btn-pro', 'btn-border-divide']);
 				echo '<a ' . $this->render_attributes($link_key) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				echo '<span class="text">' . esc_html($text) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo '<span class="text">' . $text_html . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo '<span class="icon">' . $icon_html . $icon_html . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				break;
-
+ 
 			case '2':
 				$this->set_attribute($link_key, 'class', ['aae--btn-pro']);
 				echo '<a ' . $this->render_attributes($link_key) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				echo esc_html($text);
+				echo $text_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo '<span class="icon">' . $icon_html . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				break;
-
+ 
 			case '3':
 				$this->set_attribute($link_key, 'class', ['aae--btn-pro', 'btn-text-flip']);
 				echo '<a ' . $this->render_attributes($link_key) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				echo '<span data-text="' . esc_attr($text) . '">' . esc_html($text) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				// data-text is an attribute → plain text only.
+				echo '<span data-text="' . esc_attr($text_plain) . '">' . $text_html . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo $icon_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				break;
-
+ 
 			case '4':
 				$this->set_attribute($link_key, 'class', ['btn-hover', 'aae--btn-pro']);
 				echo '<a ' . $this->render_attributes($link_key) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo '<span></span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				echo esc_html($text);
+				echo $text_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo '<strong></strong>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				break;
-
+ 
 			case '5':
 			case '6':
 				$this->set_attribute($link_key, 'class', ['aae-btn-pro-group']);
 				echo '<a ' . $this->render_attributes($link_key) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo '<span class="g-btn-icon">' . $icon_html . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				echo '<span class="g-btn-text">' . esc_html($text) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo '<span class="g-btn-text">' . $text_html . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo '<span class="g-btn-icon">' . $icon_html . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				break;
-
+ 
 			case '7':
 			case '8':
 			default:
 				$this->set_attribute($link_key, 'class', ['aae--btn-pro']);
 				echo '<a ' . $this->render_attributes($link_key) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				echo esc_html($text);
+				echo $text_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo '<span class="icon">' . $icon_html . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				break;
 		}
-
+ 
 		echo '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 }

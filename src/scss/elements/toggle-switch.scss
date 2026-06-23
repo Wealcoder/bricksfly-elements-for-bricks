@@ -96,6 +96,7 @@
     opacity: 0;
     visibility: hidden;
     transition: transform 0.3s;
+    border-radius: var(--label-after-radius, 0);
 }
 
 .aae-toggle-switch-wrapper.style-2 .before_label.active,

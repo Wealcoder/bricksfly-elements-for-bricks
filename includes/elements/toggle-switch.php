@@ -297,7 +297,7 @@ class Aae_Bricks_Toggle_Switch extends \Bricks\Element
 
         $this->controls['titleBgColor'] = [
             'group' => 'title_style',
-            'label' => esc_html__('Text Color', 'bricksfly'),
+            'label' => esc_html__('Text Background', 'bricksfly'),
             'type'  => 'color',
             'css'   => [
                 ['property' => 'background-color', 'selector' => '.before_label'],
@@ -330,7 +330,7 @@ class Aae_Bricks_Toggle_Switch extends \Bricks\Element
 
         $this->controls['activeTitleBackground'] = [
             'group'    => 'active_title_style',
-            'label'    => esc_html__('Background', 'bricksfly'),
+            'label'    => esc_html__('Title Background', 'bricksfly'),
             'type'     => 'color',
             'css'      => [
                 ['property' => 'background-color', 'selector' => '.before_label::after'],
@@ -355,8 +355,16 @@ class Aae_Bricks_Toggle_Switch extends \Bricks\Element
             'label'    => esc_html__('Border Radius', 'bricksfly'),
             'type'     => 'dimensions',
             'css'      => [
-                ['property' => 'border-radius', 'selector' => '.before_label::after'],
-                ['property' => 'border-radius', 'selector' => '.after_label::after'],
+                // CSS var consumed by the ::after pseudo-element in SCSS.
+                // Using a var avoids Bricks' issues with pseudo-elements in selectors.
+                [
+                    'property' => '--label-after-radius',
+                    'selector' => '.before_label',
+                ],
+                [
+                    'property' => '--label-after-radius',
+                    'selector' => '.after_label',
+                ],
             ],
             'required' => ['elementList', '=', '2'],
         ];
