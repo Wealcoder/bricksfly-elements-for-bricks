@@ -175,30 +175,13 @@ class AAB_Bricks_Brand_Slider extends \Bricks\Element
 			'breakpoints' => true,
 		];
 
-		$this->controls['spaceBetween'] = [
-			'tab'         => 'content',
-			'group'       => 'slider_options',
-			'label'       => esc_html__('Space Between Item(px)', 'bricksfly'),
-			'type'        => 'number',
-			'default'     => 0,
-			'breakpoints' => true,
-		];
-
-		$this->controls['spaceBetweenIconText'] = [
-			'tab'         => 'content',
-			'group'       => 'slider_options',
-			'label'       => esc_html__('Space Between Icon and Text (px)', 'bricksfly'),
-			'type'        => 'number',
-			'default'     => 0,
-			'breakpoints' => true,
-		];
-
 		$this->controls['speed'] = [
 			'tab'     => 'content',
 			'group'   => 'slider_options',
 			'label'   => esc_html__('Speed (ms)', 'bricksfly'),
 			'type'    => 'number',
 			'default' => 5000,
+			'breakpoints' => true,
 		];
 
 		$this->controls['autoplay'] = [
@@ -207,6 +190,7 @@ class AAB_Bricks_Brand_Slider extends \Bricks\Element
 			'label'   => esc_html__('Autoplay', 'bricksfly'),
 			'type'    => 'checkbox',
 			'default' => true,
+			'breakpoints' => true,
 		];
 
 		$this->controls['autoplayDelay'] = [
@@ -217,6 +201,7 @@ class AAB_Bricks_Brand_Slider extends \Bricks\Element
 			'default'  => 0, // 0 is best for true continuous linear sliders
 			'description' => esc_html__('Set to 0 or 1 for a continuous marquee effect.', 'bricksfly'),
 			'required' => ['autoplay', '!=', ''],
+			'breakpoints' => true,
 		];
 
 		$this->controls['loop'] = [
@@ -225,6 +210,7 @@ class AAB_Bricks_Brand_Slider extends \Bricks\Element
 			'label'   => esc_html__('Loop', 'bricksfly'),
 			'type'    => 'checkbox',
 			'default' => true,
+			'breakpoints' => true,
 		];
 
 		$this->controls['pauseOnHover'] = [
@@ -232,6 +218,7 @@ class AAB_Bricks_Brand_Slider extends \Bricks\Element
 			'group'    => 'slider_options',
 			'label'    => esc_html__('Pause on Hover', 'bricksfly'),
 			'type'     => 'checkbox',
+			'breakpoints' => true,
 			'required' => ['autoplay', '!=', ''],
 		];
 
@@ -240,6 +227,7 @@ class AAB_Bricks_Brand_Slider extends \Bricks\Element
 			'group' => 'slider_options',
 			'label' => esc_html__('Show Navigation', 'bricksfly'),
 			'type'  => 'checkbox',
+			'breakpoints' => true,
 		];
 
 		$this->controls['showPagination'] = [
@@ -247,6 +235,7 @@ class AAB_Bricks_Brand_Slider extends \Bricks\Element
 			'group' => 'slider_options',
 			'label' => esc_html__('Show Pagination', 'bricksfly'),
 			'type'  => 'checkbox',
+			'breakpoints' => true,
 		];
 
 		$this->controls['reverseDirection'] = [
@@ -254,28 +243,10 @@ class AAB_Bricks_Brand_Slider extends \Bricks\Element
 			'group' => 'slider_options',
 			'label' => esc_html__('Reverse Direction', 'bricksfly'),
 			'type'  => 'checkbox',
+			'breakpoints' => true,
 		];
 
 		// Items Style
-
-		$this->controls['icon_position'] = [
-			'tab'      => 'style',
-			'group'    => 'items_style',
-			'label'    => esc_html__('Icon Alignment', 'bricksfly'),
-			'type'     => 'select',
-			'inline'   => true,
-			'options'  => [
-				'row-reverse'   => esc_html__('Left', 'bricksfly'),
-				'row' => esc_html__('Right', 'bricksfly'),
-			],
-			'default'  => 'row',
-			
-			'css'      => [
-				['property' => 'flex-direction', 'selector' => '.aab-brand-slider-wrapper .text-slide-content'],
-			],
-			
-		];
-
 
 		$this->controls['items_alignment'] = [
 			'tab'      => 'style',
@@ -289,12 +260,71 @@ class AAB_Bricks_Brand_Slider extends \Bricks\Element
 				'right'  => esc_html__('Right', 'bricksfly'),
 			],
 			'default'  => 'left',
-			
+			'breakpoints' => true,
 			'css'      => [
-				['property' => 'justify-content', 'selector' => '.aab-brand-slider-wrapper .swiper-slide'],
+				['property' => 'justify-content', 'selector' => '.swiper-slide'],
 			],
 			
 		];
+
+		// $this->controls['spaceBetween'] = [
+		// 	'tab'         => 'style',
+		// 	'group'       => 'items_style',
+		// 	'label'       => esc_html__('Space Between Item(px)', 'bricksfly'),
+		// 	'type'        => 'number',
+		// 	'default'     => 0,
+		// 	'breakpoints' => true,
+		// ];
+
+		$this->controls['spaceBetweenItems'] = [
+			'tab'         => 'style',
+			'group'       => 'items_style',
+			'label'       => esc_html__('Space Between Item(px)', 'bricksfly'),
+			'type'        => 'number',
+			'units'       => true,        // outputs the unit with the value
+			'unit'        => 'px',        // default unit
+			'default'     => '0px',
+			'breakpoints' => true,
+			
+			'css'      => [
+				['property' => 'gap', 'selector' => '.swiper-wrapper'],
+			],
+		];
+
+		$this->controls['icon_position'] = [
+			'tab'      => 'style',
+			'group'    => 'items_style',
+			'label'    => esc_html__('Icon Position', 'bricksfly'),
+			'type'     => 'select',
+			'inline'   => true,
+			'options'  => [
+				'row-reverse'   => esc_html__('Left', 'bricksfly'),
+				'row' => esc_html__('Right', 'bricksfly'),
+			],
+			'default'  => 'row',
+			'breakpoints' => true,
+			'css'      => [
+				['property' => 'flex-direction', 'selector' => '.text-slide-content'],
+			],
+			
+		];
+       
+		$this->controls['spaceBetweenIconText'] = [
+			'tab'         => 'style',
+			'group'       => 'items_style',
+			'label'       => esc_html__('Space Between Icon and Text (px)', 'bricksfly'),
+			'type'        => 'number',
+			'units'       => true,        // outputs the unit with the value
+			'unit'        => 'px',        // default unit
+			'default'     => '30px',
+			'breakpoints' => true,
+			
+			'css'      => [
+				['property' => 'gap', 'selector' => '.text-slide-content'],
+			],
+		];
+
+		
 		// --- Style: Image ---
 
 		$this->controls['imgWidth'] = [
@@ -602,23 +632,98 @@ class AAB_Bricks_Brand_Slider extends \Bricks\Element
 		$breakpoint_options = [];
 		$has_auto           = ($desktop_pv === 'auto');
 
+		/**
+		 * Convert Bricks responsive control values into Swiper `breakpoints`.
+		 *
+		 * Bricks (default) is DESKTOP-FIRST: a breakpoint's `width` is a MAX-width and
+		 * a value cascades DOWN to all smaller breakpoints until overridden. Swiper is
+		 * always MOBILE-FIRST: `breakpoints` keys are MIN-widths and a value cascades UP
+		 * until a larger key overrides it. The two cascade in opposite directions, so we
+		 * cannot copy a Bricks value to a Swiper key 1:1 — we rebuild the cascade.
+		 */
 		if (class_exists('\Bricks\Breakpoints') && is_array(\Bricks\Breakpoints::$breakpoints) && ! empty(\Bricks\Breakpoints::$breakpoints)) {
-			$brk_list = array_values(\Bricks\Breakpoints::$breakpoints);
-			$brk_count = count($brk_list);
+			$is_mobile_first = ! empty(\Bricks\Breakpoints::$is_mobile_first);
 
-			for ($index = 0; $index < $brk_count; $index++) {
-				$bp  = $brk_list[$index];
+			// Collect every breakpoint's raw setting (including the desktop/base one).
+			$points = [];
+			foreach (\Bricks\Breakpoints::$breakpoints as $bp) {
 				$key = isset($bp['key']) ? $bp['key'] : '';
-
-				if (! $key || $key === 'desktop') {
+				if (! $key) {
 					continue;
 				}
 
-				$next_smaller = isset($brk_list[$index + 1]) ? $brk_list[$index + 1] : null;
-				$min_width    = ($next_smaller && ! empty($next_smaller['width'])) ? intval($next_smaller['width']) + 1 : 1;
+				$is_base = ! empty($bp['base']) || $key === 'desktop';
 
-				$pv_raw = isset($settings["slidesPerView:{$key}"]) ? $settings["slidesPerView:{$key}"] : null;
-				$sb_raw = isset($settings["spaceBetween:{$key}"]) ? $settings["spaceBetween:{$key}"] : null;
+				if ($is_base) {
+					$pv_raw = $settings['slidesPerView'] ?? null;
+					$sb_raw = $settings['spaceBetween'] ?? null;
+				} else {
+					$pv_raw = isset($settings["slidesPerView:{$key}"]) ? $settings["slidesPerView:{$key}"] : null;
+					$sb_raw = isset($settings["spaceBetween:{$key}"]) ? $settings["spaceBetween:{$key}"] : null;
+				}
+
+				$points[] = [
+					'key'     => $key,
+					'width'   => isset($bp['width']) ? intval($bp['width']) : 0,
+					'is_base' => $is_base,
+					'pv_raw'  => $pv_raw,
+					'sb_raw'  => $sb_raw,
+				];
+			}
+
+			// Sort ascending by width so we can build Swiper min-width keys and propagate
+			// the cascade in a single direction.
+			usort($points, function ($a, $b) {
+				return $a['width'] <=> $b['width'];
+			});
+
+			$count = count($points);
+
+			// Pre-resolve each point's effective values, replaying Bricks' cascade so that a
+			// breakpoint with no explicit value inherits the correct neighbour (Swiper does
+			// not cascade across non-adjacent keys, so every key we emit must be complete).
+			$resolved_pv = [];
+			$resolved_sb = [];
+
+			if ($is_mobile_first) {
+				// Mobile-first: value cascades UP (toward larger). Walk ascending, carrying
+				// the last seen value forward — this already matches Swiper's model.
+				$carry_pv = null;
+				$carry_sb = null;
+				for ($i = 0; $i < $count; $i++) {
+					if ($points[$i]['pv_raw'] !== null && $points[$i]['pv_raw'] !== '') $carry_pv = $points[$i]['pv_raw'];
+					if ($points[$i]['sb_raw'] !== null && $points[$i]['sb_raw'] !== '') $carry_sb = $points[$i]['sb_raw'];
+					$resolved_pv[$i] = $carry_pv;
+					$resolved_sb[$i] = $carry_sb;
+				}
+			} else {
+				// Desktop-first: value cascades DOWN (toward smaller). Walk descending,
+				// carrying the last seen value down to smaller breakpoints.
+				$carry_pv = null;
+				$carry_sb = null;
+				for ($i = $count - 1; $i >= 0; $i--) {
+					if ($points[$i]['pv_raw'] !== null && $points[$i]['pv_raw'] !== '') $carry_pv = $points[$i]['pv_raw'];
+					if ($points[$i]['sb_raw'] !== null && $points[$i]['sb_raw'] !== '') $carry_sb = $points[$i]['sb_raw'];
+					$resolved_pv[$i] = $carry_pv;
+					$resolved_sb[$i] = $carry_sb;
+				}
+			}
+
+			// Emit Swiper breakpoints (min-width keyed). Each point ascending in width starts
+			// a new min-width range at its lower bound. The smallest range maps to key 0.
+			for ($i = 0; $i < $count; $i++) {
+				if ($is_mobile_first) {
+					// Mobile-first: the breakpoint's own width IS its min-width.
+					$min_width = $points[$i]['width'];
+				} else {
+					// Desktop-first: this point (max-width W) covers up to W; the Swiper
+					// range it owns starts just above the next-smaller breakpoint's max-width.
+					$prev = ($i > 0) ? $points[$i - 1]['width'] : 0;
+					$min_width = $prev > 0 ? $prev + 1 : 0;
+				}
+
+				$pv_raw = $resolved_pv[$i];
+				$sb_raw = $resolved_sb[$i];
 
 				$bp_opts = [];
 				if ($pv_raw !== null && $pv_raw !== '') {
@@ -633,8 +738,23 @@ class AAB_Bricks_Brand_Slider extends \Bricks\Element
 				}
 
 				if (! empty($bp_opts)) {
+					// Higher min-width key wins in Swiper; later writes to the same key win here.
 					$breakpoint_options[$min_width] = $bp_opts;
 				}
+			}
+
+			// Swiper applies the TOP-LEVEL options as the floor (effectively the key-0 range)
+			// and only overrides them as the viewport crosses each larger min-width key. So the
+			// smallest-range value must live at top level, NOT desktop's value. Promote the
+			// key-0 entry to become the top-level defaults, then remove it from the map.
+			if (isset($breakpoint_options[0])) {
+				if (isset($breakpoint_options[0]['slidesPerView'])) {
+					$desktop_pv = $breakpoint_options[0]['slidesPerView'];
+				}
+				if (isset($breakpoint_options[0]['spaceBetween'])) {
+					$desktop_sb = $breakpoint_options[0]['spaceBetween'];
+				}
+				unset($breakpoint_options[0]);
 			}
 		}
 
@@ -661,7 +781,7 @@ class AAB_Bricks_Brand_Slider extends \Bricks\Element
 		if (! empty($breakpoint_options)) {
 			$swiper_options['breakpoints'] = $breakpoint_options;
 		}
-
+        var_dump($swiper_options['breakpoints']);
 		if ($autoplay) {
 			$swiper_options['autoplay'] = [
 				'delay'                => $delay,
