@@ -72,14 +72,14 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 				'base-oval'      => esc_html__('Oval', 'bricksfly'),
 				'base-circle'    => esc_html__('Circle', 'bricksfly'),
 				'base-ellipse'   => esc_html__('Ellipse', 'bricksfly'),
-				'1'              => esc_html__('Pro 1 — Border Divide', 'bricksfly'),
-				'2'              => esc_html__('Pro 2 — Shadow Offset', 'bricksfly'),
-				'3'              => esc_html__('Pro 3 — Text Flip', 'bricksfly'),
-				'4'              => esc_html__('Pro 4 — Radial Reveal', 'bricksfly'),
-				'5'              => esc_html__('Pro 5 — Icon Swap L→R', 'bricksfly'),
-				'6'              => esc_html__('Pro 6 — Icon Swap R→L', 'bricksfly'),
-				'7'              => esc_html__('Pro 7 — Outline Pill', 'bricksfly'),
-				'8'              => esc_html__('Pro 8 — Slide Reveal', 'bricksfly'),
+				'pro-1'          => esc_html__('Pro 1 — Border Divide', 'bricksfly'),
+				'pro-2'          => esc_html__('Pro 2 — Shadow Offset', 'bricksfly'),
+				'pro-3'          => esc_html__('Pro 3 — Text Flip', 'bricksfly'),
+				'pro-4'          => esc_html__('Pro 4 — Radial Reveal', 'bricksfly'),
+				'pro-5'          => esc_html__('Pro 5 — Icon Swap L→R', 'bricksfly'),
+				'pro-6'          => esc_html__('Pro 6 — Icon Swap R→L', 'bricksfly'),
+				'pro-7'          => esc_html__('Pro 7 — Outline Pill', 'bricksfly'),
+				'pro-8'          => esc_html__('Pro 8 — Slide Reveal', 'bricksfly'),
 			],
 			'default' => 'base-default',
 		];
@@ -168,7 +168,7 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 				'icon'    => 'fas fa-arrow-right',
 				'library' => 'fontawesomeSolid',
 			],
-			'required' => ['btnStyle', '!=', '4'],
+			'required' => ['btnStyle', '!=', 'pro-4'],
 		];
 
 		$this->controls['btnIconPosition'] = [
@@ -182,7 +182,7 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 				'row-reverse' => esc_html__('Before', 'bricksfly'),
 			],
 			'default'  => 'row',
-			'required' => ['btnStyle', '!=', ['5', '6']],
+			'required' => ['btnStyle', '!=', ['pro-5', 'pro-6']],
 			'css'      => [
 				[
 					'property' => 'flex-direction',
@@ -248,11 +248,25 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 			'group'    => 'button_style',
 			'label'    => esc_html__('Background', 'bricksfly'),
 			'type'     => 'background',
-			'required' => ['btnStyle', '!=', '7'],
+			'required' => ['btnStyle', '!=', 'pro-7'],
 			'css'      => [
 				[
 					'property' => 'background',
 					'selector' => '.aae--btn-pro, .g-btn-text, .g-btn-icon, .wcf__btn a',
+				],
+			],
+		];
+
+		$this->controls['btnMaskBg'] = [
+			'tab'      => 'style',
+			'group'    => 'button_style',
+			'label'    => esc_html__('Mask Background', 'bricksfly'),
+			'type'     => 'background',
+			'required' => ['btnStyle', '=', 'base-mask'],
+			'css'      => [
+				[
+					'property' => 'background',
+					'selector' => '.wcf-btn-mask::after',
 				],
 			],
 		];
@@ -262,7 +276,7 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 			'group'    => 'button_style',
 			'label'    => esc_html__('Inner Background', 'bricksfly'),
 			'type'     => 'background',
-			'required' => ['btnStyle', '=', ['7', '8']],
+			'required' => ['btnStyle', '=', ['pro-7', 'pro-8']],
 			'css'      => [
 				[
 					'property' => 'background',
@@ -291,7 +305,7 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 			'type'     => 'number',
 			'units'    => true,
 			'min'      => 0,
-			'required' => ['btnStyle', '=', '1'],
+			'required' => ['btnStyle', '=', 'pro-1'],
 			'default'  => '1px',
 			'css'      => [
 				[
@@ -345,7 +359,7 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 			'label'    => esc_html__('Icon Width', 'bricksfly'),
 			'type'     => 'number',
 			'units'    => true,
-			'required' => ['btnStyle', '=', ['5', '6']],
+			'required' => ['btnStyle', '=', ['pro-5', 'pro-6']],
 			'css'      => [
 				[
 					'property' => 'width',
@@ -368,7 +382,7 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 			'label'    => esc_html__('Gap', 'bricksfly'),
 			'type'     => 'number',
 			'units'    => true,
-			'required' => ['btnStyle', '!=', ['5', '6']],
+			'required' => ['btnStyle', '!=', ['pro-5', 'pro-6']],
 			'css'      => [
 				[
 					'property' => 'gap',
@@ -410,7 +424,7 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 			'group'    => 'button_style',
 			'label'    => esc_html__('Divider Color', 'bricksfly'),
 			'type'     => 'color',
-			'required' => ['btnStyle', '=', '1'],
+			'required' => ['btnStyle', '=', 'pro-1'],
 			'css'      => [
 				[
 					'property' => 'border-bottom-color',
@@ -496,11 +510,13 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 					'property' => 'background',
 					'selector' => '.aae--btn-pro:hover, .aae-btn-pro-group:hover .g-btn-text, .aae-btn-pro-group:hover .g-btn-icon, .wcf__btn a:hover',
 				],
-				[
-					'property' => '--btn-hover-bg',
-					'selector' => '.wcf__btn a',
-				],
 			],
+			
+			'required' =>[
+							['btnStyle', '=', [ 'base-default', 'base-square', 'base-ellipse']],
+							['btnHoverVariant', '=', ['hover-none']],
+						],
+
 		];
 
 		$this->controls['btnRevealColor'] = [
@@ -520,6 +536,11 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 					'selector' => '.wcf__btn a',
 				],
 			],
+             'required' => [
+							//['btnHoverVariant', '!=', ['hover-none']],
+							['btnStyle', '=', ['base-default', 'base-square', 'base-square','base-circle','base-oval','pro-4']]
+						],
+			//'required' => ['btnStyle', '!=', ['base-default', 'base-square', 'base-underline', 'base-mask', 'base-ellipse']],
 		];
 
 		$this->controls['btnBoxShadow'] = [
@@ -527,7 +548,7 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 			'group'    => 'button_style',
 			'label'    => esc_html__('Hover Shadow', 'bricksfly'),
 			'type'     => 'box-shadow',
-			'required' => ['btnStyle', '=', '2'],
+			'required' => ['btnStyle', '=', 'pro-2'],
 			'css'      => [
 				[
 					'property' => 'box-shadow',
@@ -542,7 +563,7 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 			'label'    => esc_html__('Hover Reveal Offset', 'bricksfly'),
 			'type'     => 'number',
 			'units'    => true,
-			'required' => ['btnStyle', '=', '7'],
+			'required' => ['btnStyle', '=', 'pro-7'],
 			'default'  => '4px',
 			'css'      => [
 				[
@@ -558,7 +579,7 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 			'label'    => esc_html__('Hover Slide Offset', 'bricksfly'),
 			'type'     => 'number',
 			'units'    => true,
-			'required' => ['btnStyle', '=', '8'],
+			'required' => ['btnStyle', '=', 'pro-8'],
 			'default'  => '-92%',
 			'css'      => [
 				[
@@ -590,74 +611,84 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
  
 	public function render(){
 		$settings = $this->settings;
-		$style    = ! empty($settings['btnStyle']) ? $settings['btnStyle'] : '1';
+		$style    = ! empty($settings['btnStyle']) ? $settings['btnStyle'] : 'base-default';
+
+		// The Style control now uses non-numeric keys (`pro-1` … `pro-8`) so PHP
+		// can't recast them to integers and reorder the dropdown. Internally the
+		// renderer and CSS still key off the bare number (`1` … `8`) and the
+		// `style-N` class, so strip the `pro-` prefix here to keep everything
+		// downstream — the switch cases and the `style-N` class — untouched.
+		if (0 === strpos($style, 'pro-')) {
+			$style = substr($style, 4);
+		}
+
 		$text     = isset($settings['btnText']) ? $settings['btnText'] : '';
 		$icon     = $settings['btnIcon'] ?? [];
- 
+
 		// Sanitized HTML version for visible content; plain version for attributes.
 		$allowed_html = $this->get_allowed_text_html();
 		$text_html    = wp_kses($text, $allowed_html);
 		$text_plain   = wp_strip_all_tags($text);
- 
+
 		$this->set_attribute('_root', 'class', ['aae--btn-pro-wrapper', 'style-' . $style]);
- 
+
 		$link_key = 'btn-link';
- 
+
 		if (! empty($settings['btnLink'])) {
 			$this->set_link_attributes($link_key, $settings['btnLink']);
 		} else {
 			$this->set_attribute($link_key, 'href', '#');
 		}
- 
+
 		$icon_html = $icon ? self::render_icon($icon, ['aria-hidden' => 'true']) : '';
- 
+
 		// Base (WCF) styles — render via .wcf__btn > a.wcf-btn-{slug}
 		if (0 === strpos($style, 'base-')) {
 			$slug = substr($style, 5);
- 
+
 			$icon_position_after = isset($settings['btnIconPosition']) && 'row-reverse' === $settings['btnIconPosition'];
 			$ext_wrap            = in_array($slug, ['oval', 'circle', 'ellipse'], true);
 			$bg_change           = in_array($slug, ['oval', 'circle'], true);
 			$hover_variant       = isset($settings['btnHoverVariant']) ? $settings['btnHoverVariant'] : 'hover-none';
- 
+
 			$btn_classes = ['wcf-btn-' . $slug];
- 
+
 			if (in_array($slug, ['default', 'square'], true) && ! empty($hover_variant) && 'hover-none' !== $hover_variant) {
 				$btn_classes[] = 'btn-' . $hover_variant;
 			}
- 
+
 			if ($bg_change) {
 				$btn_classes[] = 'btn-hover-bgchange';
 				$btn_classes[] = 'btn-item';
 			} elseif ('ellipse' === $slug) {
 				$btn_classes[] = 'btn-item';
 			}
- 
+
 			$this->set_attribute($link_key, 'class', $btn_classes);
- 
+
 			if ('mask' === $slug) {
 				// Attribute value → must be plain text, no tags.
 				$this->set_attribute($link_key, 'data-text', $text_plain);
 			}
- 
+
 			if ($ext_wrap) {
 				$this->set_attribute($link_key, 'data-magnetic', 'true');
 			}
- 
+
 			$wrapper_classes = ['wcf__btn'];
 			if ($icon_position_after) {
 				$wrapper_classes[] = 'icon-position-after';
 			}
- 
+
 			$ext_close = '';
 			echo '<div ' . $this->render_attributes('_root') . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo '<div class="' . esc_attr(implode(' ', $wrapper_classes)) . '">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
- 
+
 			if ($ext_wrap) {
 				echo '<div class="btn-wrapper">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				$ext_close = '</div>';
 			}
- 
+
 			echo '<a ' . $this->render_attributes($link_key) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo $text_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo $icon_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -665,17 +696,17 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 				echo '<span></span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			}
 			echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
- 
+
 			echo $ext_close; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			return;
 		}
- 
+
 		echo '<div ' . $this->render_attributes('_root') . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
- 
+      
 		switch ($style) {
- 
+
 			case '1':
 				$this->set_attribute($link_key, 'class', ['aae--btn-pro', 'btn-border-divide']);
 				echo '<a ' . $this->render_attributes($link_key) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -683,7 +714,7 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 				echo '<span class="icon">' . $icon_html . $icon_html . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				break;
- 
+
 			case '2':
 				$this->set_attribute($link_key, 'class', ['aae--btn-pro']);
 				echo '<a ' . $this->render_attributes($link_key) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -691,7 +722,7 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 				echo '<span class="icon">' . $icon_html . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				break;
- 
+
 			case '3':
 				$this->set_attribute($link_key, 'class', ['aae--btn-pro', 'btn-text-flip']);
 				echo '<a ' . $this->render_attributes($link_key) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -700,7 +731,7 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 				echo $icon_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				break;
- 
+
 			case '4':
 				$this->set_attribute($link_key, 'class', ['btn-hover', 'aae--btn-pro']);
 				echo '<a ' . $this->render_attributes($link_key) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -709,7 +740,7 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 				echo '<strong></strong>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				break;
- 
+
 			case '5':
 			case '6':
 				$this->set_attribute($link_key, 'class', ['aae-btn-pro-group']);
@@ -719,7 +750,7 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 				echo '<span class="g-btn-icon">' . $icon_html . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				break;
- 
+
 			case '7':
 			case '8':
 			default:
@@ -730,7 +761,7 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 				echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				break;
 		}
- 
+
 		echo '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 }
