@@ -46,8 +46,7 @@ function initFrontend() {
   // KEY BEHAVIOUR: aab-preinit is added only after the observer registers the
   // element. CSS hidden states are gated on .aab-preinit, so there is no flash
   // of hidden content on slow connections — elements stay visible until JS runs.
-
-  const observer = new IntersectionObserver(
+   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         const wrapper = entry.target;

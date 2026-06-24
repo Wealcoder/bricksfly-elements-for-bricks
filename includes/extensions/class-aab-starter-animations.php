@@ -891,61 +891,77 @@ class AAB_Starter_Animations
 	 * animation classes manually based on the saved settings.
 	 * ================================================================== */
 
-	public function apply_render_classes($attributes, $key, $element)
-	{
-		if ($key !== '_root') {
+public function apply_render_classes($attributes, $key, $element)
+{
+	if (! is_object($element) || empty($element->name)) {
+		return $attributes;
+	}
+
+	$name         = $element->name;
+	$is_image     = in_array($name, self::MEDIA_WIDGETS, true);
+	$is_text      = in_array($name, self::TEXT_WIDGETS, true) || $is_image;
+	$is_container = in_array($name, self::CONTAINER_WIDGETS, true);
+
+	if (! $is_text && ! $is_container) {
+		return $attributes;
+	}
+
+	// heading / text / container render their outer tag from the `_root`
+	// attribute set, so we only act on that key. The core *image* element does
+	// NOT reliably expose `_root` to this filter — gating strictly on `_root`
+	// means image classes are never injected (the bug). For image we instead
+	// act on the FIRST key Bricks renders (its outer wrapper) and write the
+	// classes onto that same set, once per element.
+	if (! $is_image && $key !== '_root') {
+		return $attributes;
+	}
+
+	if ($is_image) {
+		static $img_done = [];
+		$eid = isset($element->id) ? $element->id : spl_object_id($element);
+		if (isset($img_done[$eid])) {
 			return $attributes;
 		}
+		$img_done[$eid] = true;
+	}
 
-		if (! is_object($element) || empty($element->name)) {
-			return $attributes;
+	// The attribute set we write onto: `_root` for text/container, the current
+	// (outer) key for image.
+	$root_key = $is_image ? $key : '_root';
+
+	$settings = isset($element->settings) && is_array($element->settings) ? $element->settings : [];
+
+	if (! isset($attributes[$root_key]) || ! is_array($attributes[$root_key])) {
+		$attributes[$root_key] = [];
+	}
+	if (! isset($attributes[$root_key]['class'])) {
+		$attributes[$root_key]['class'] = [];
+	} elseif (! is_array($attributes[$root_key]['class'])) {
+		$attributes[$root_key]['class'] = [$attributes[$root_key]['class']];
+	}
+
+	$add = function ($class) use (&$attributes, $root_key) {
+		$class = sanitize_html_class($class);
+		if ($class !== '') {
+			$attributes[$root_key]['class'][] = $class;
 		}
+	};
 
-		$name        = $element->name;
-		$is_text     = in_array($name, self::TEXT_WIDGETS, true) || in_array($name, self::MEDIA_WIDGETS, true);
-		$is_container = in_array($name, self::CONTAINER_WIDGETS, true);
+	if ($is_text) {
+		$anim = isset($settings['_aab_starter_anim']) ? $settings['_aab_starter_anim'] : '';
+		if ($anim && $anim !== 'none') {
+			$add('aab-starter-animations-' . $anim);
+			$add('aab-target-self');
 
-		if (! $is_text && ! $is_container) {
-			return $attributes;
-		}
+			$repeat = ($settings['_aab_repeat_on_enter'] ?? '') === 'yes' ? 'yes' : 'no';
+			$add('aab-repeat-' . $repeat);
 
-		$settings = isset($element->settings) && is_array($element->settings) ? $element->settings : [];
 
-		// Bricks's render_attributes filter passes the FULL $this->attributes
-		// array, keyed by attribute set name (`_root`, `a`, ...). To inject
-		// classes onto the root we must write to $attributes['_root']['class'],
-		// not to a top-level $attributes['class'] (which Bricks ignores).
-		if (! isset($attributes['_root']) || ! is_array($attributes['_root'])) {
-			$attributes['_root'] = [];
-		}
-		if (! isset($attributes['_root']['class'])) {
-			$attributes['_root']['class'] = [];
-		} elseif (! is_array($attributes['_root']['class'])) {
-			$attributes['_root']['class'] = [$attributes['_root']['class']];
-		}
-
-		$add = function ($class) use (&$attributes) {
-			$class = sanitize_html_class($class);
-			if ($class !== '') {
-				$attributes['_root']['class'][] = $class;
-			}
-		};
-
-		if ($is_text) {
-			$anim = isset($settings['_aab_starter_anim']) ? $settings['_aab_starter_anim'] : '';
-			if ($anim && $anim !== 'none') {
-				$add('aab-starter-animations-' . $anim);
-				// The wrapper itself is the animation target on text/media
-				// elements. The CSS rules use the .aab-target-self variant.
-				$add('aab-target-self');
-			}
-
-			// text-bg-clip needs the image URL piped into a CSS variable.
-			// Bricks image controls store an array; extract the URL and emit
-			// it as an inline style on the root attribute set.
+			// text-bg-clip needs the image URL piped into a CSS variable. (Image
+			// elements never use this preset, so this only runs for text widgets.)
 			if ($anim === 'text-bg-clip' && ! empty($settings['_aab_bg_text_image'])) {
-				$img      = $settings['_aab_bg_text_image'];
-				$bg_url   = '';
+				$img    = $settings['_aab_bg_text_image'];
+				$bg_url = '';
 				if (is_array($img)) {
 					if (! empty($img['url'])) {
 						$bg_url = $img['url'];
@@ -958,29 +974,20 @@ class AAB_Starter_Animations
 				}
 
 				if ($bg_url !== '') {
-					$style_decl  = '--aab-bg-text-image:url(' . esc_url_raw($bg_url) . ');';
-					$existing    = isset($attributes['_root']['style']) ? $attributes['_root']['style'] : '';
+					$style_decl = '--aab-bg-text-image:url(' . esc_url_raw($bg_url) . ');';
+					$existing   = isset($attributes[$root_key]['style']) ? $attributes[$root_key]['style'] : '';
 					if (is_array($existing)) {
-						$existing[]                     = $style_decl;
-						$attributes['_root']['style']   = $existing;
+						$existing[]                      = $style_decl;
+						$attributes[$root_key]['style']  = $existing;
 					} else {
-						$attributes['_root']['style']   = trim((string) $existing . ' ' . $style_decl);
+						$attributes[$root_key]['style']  = trim((string) $existing . ' ' . $style_decl);
 					}
 				}
 			}
 
-			// Direction/axis/preset classes are emitted from the picker's
-			// active animation. Bricks does NOT persist a control's default
-			// value into saved settings — it only stores keys the user
-			// explicitly changed. So when the user picks e.g. "Slide" and
-			// leaves the direction at its default, $settings['_aab_slide_direction']
-			// is empty and the CSS has no transform to animate from. We
-			// fall back to the same defaults declared on the controls so
-			// the animation always has the matching prefix-class.
 			if ($anim === 'reveal') {
 				$direction = ! empty($settings['_aab_reveal_direction']) ? $settings['_aab_reveal_direction'] : 'bottom';
 				$add('aab-reveal-' . $direction);
-
 				if (! empty($settings['_aab_reveal_fade'])) {
 					$add('aab-reveal-yes');
 				}
@@ -1000,17 +1007,14 @@ class AAB_Starter_Animations
 				$axis = ! empty($settings['_aab_flip_axis']) ? $settings['_aab_flip_axis'] : 'x';
 				$add('aab-flip-axis-' . $axis);
 			}
-
-			if (! empty($settings['_aab_repeat_on_enter'])) {
-				$add('aab-repeat-' . $settings['_aab_repeat_on_enter']);
-			}
 		}
 
-		if ($is_container) {
-			$anim = isset($settings['_aab_starter_anim_container']) ? $settings['_aab_starter_anim_container'] : '';
-			if ($anim && $anim !== 'none') {
-				$add('aab-starter-animations-' . $anim);
-			}
+	}
+
+	if ($is_container) {
+		$anim = isset($settings['_aab_starter_anim_container']) ? $settings['_aab_starter_anim_container'] : '';
+		if ($anim && $anim !== 'none') {
+			$add('aab-starter-animations-' . $anim);
 
 			if ($anim === 'slide') {
 				$direction = ! empty($settings['_aab_slide_direction_container']) ? $settings['_aab_slide_direction_container'] : 'bottom';
@@ -1022,13 +1026,15 @@ class AAB_Starter_Animations
 				$add('aab-flip-axis-container-' . $axis);
 			}
 
-			if (! empty($settings['_aab_repeat_on_enter_container'])) {
-				$add('aab-repeat-' . $settings['_aab_repeat_on_enter_container']);
-			}
+			// reads `aab-repeat-yes` — so never emit the no-op `aab-repeat-no`.
+			$repeat = ($settings['_aab_repeat_on_enter_container'] ?? '') === 'yes' ? 'yes' : 'no';
+			$add('aab-repeat-' . $repeat);
 		}
-
-		return $attributes;
+	
 	}
+
+	return $attributes;
+}
 
 	/* =====================================================================
 	 * Frontend assets
