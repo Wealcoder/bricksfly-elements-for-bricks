@@ -344,7 +344,7 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 			'css'   => [
 				[
 					'property' => 'font-size',
-					'selector' => '.aae--btn-pro .icon, .g-btn-icon',
+					'selector' => '.aae--btn-pro .icon, .g-btn-icon, .wcf__btn a i',
 				],
 				[
 					'property' => 'width',
@@ -352,29 +352,72 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 				],
 			],
 		];
-
-		$this->controls['btnIconSizeWidth'] = [
-			'tab'      => 'style',
-			'group'    => 'button_style',
-			'label'    => esc_html__('Icon Width', 'bricksfly'),
-			'type'     => 'number',
-			'units'    => true,
-			'required' => ['btnStyle', '=', ['pro-5', 'pro-6']],
-			'css'      => [
+		$this->controls['btnRedialLineSize'] = [
+			'tab'   => 'style',
+			'group' => 'button_style',
+			'label' => esc_html__('Radial Line Size', 'bricksfly'),
+			'type'  => 'number',
+			'default'  => '50px',
+			'units' => true,
+			'required' => ['btnStyle', '=', 'pro-4'],
+			'css'   => [
 				[
 					'property' => 'width',
-					'selector' => '.g-btn-icon',
+					'selector' => '.aae--btn-pro strong',
 				],
-				[
-					'property' => 'height',
-					'selector' => '.g-btn-icon',
-				],
-				[
-					'property' => '--icon-width',
-					'selector' => '.g-btn-icon',
-				],
+				
 			],
 		];
+
+			$this->controls['btnRedialLineHeight'] = [
+			'tab'   => 'style',
+			'group' => 'button_style',
+			'label' => esc_html__('Radial Line Height', 'bricksfly'),
+			'type'  => 'number',
+			'default'=>'1px',
+			'units' => true,
+			'required' => ['btnStyle', '=', 'pro-4'],
+			'css'   => [
+				[
+					'property' => 'height',
+					'selector' => '.aae--btn-pro strong',
+				],
+
+				[
+					'property' => 'border-right-width',
+					'selector' => '.aae--btn-pro strong::after',
+				],
+
+				[
+					'property' => 'border-bottom-width',
+					'selector' => '.aae--btn-pro strong::after',
+				],
+				
+			],
+		];
+
+		// $this->controls['btnIconSizeWidth'] = [
+		// 	'tab'      => 'style',
+		// 	'group'    => 'button_style',
+		// 	'label'    => esc_html__('Icon Width', 'bricksfly'),
+		// 	'type'     => 'number',
+		// 	'units'    => true,
+		// 	'required' => ['btnStyle', '=', ['pro-5', 'pro-6']],
+		// 	'css'      => [
+		// 		[
+		// 			'property' => 'width',
+		// 			'selector' => '.g-btn-icon',
+		// 		],
+		// 		[
+		// 			'property' => 'height',
+		// 			'selector' => '.g-btn-icon',
+		// 		],
+		// 		[
+		// 			'property' => '--icon-width',
+		// 			'selector' => '.g-btn-icon',
+		// 		],
+		// 	],
+		// ];
 
 		$this->controls['btnGap'] = [
 			'tab'      => 'style',
@@ -386,7 +429,7 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 			'css'      => [
 				[
 					'property' => 'gap',
-					'selector' => '.aae--btn-pro, .g-btn-text',
+					'selector' => '.aae--btn-pro, .g-btn-text, .wcf__btn a',
 				],
 			],
 		];
@@ -460,6 +503,7 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 			'group' => 'button_style',
 			'label' => esc_html__('Hover Icon Color', 'bricksfly'),
 			'type'  => 'color',
+			'required' => ['btnStyle', '!=', 'pro-4'],
 			'css'   => [
 				// Icon (font icon) color on hover — overrides the inherited text hover color.
 				[
@@ -474,6 +518,30 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 			],
 		];
 
+		$this->controls['btnRadialIconColor'] = [
+			'tab'   => 'style',
+			'group' => 'button_style',
+			'label' => esc_html__(' Radial Line/icon Color', 'bricksfly'),
+			'type'  => 'color',
+			'required' => ['btnStyle', '=', 'pro-4'],
+			'css'   => [
+				// Icon (font icon) color on hover — overrides the inherited text hover color.
+				[
+					'property' => 'background-color',
+					'selector' => '.aae--btn-pro strong',
+				],
+
+				[
+					'property' => 'border-color',
+					'selector' => '.aae--btn-pro strong::after',
+				],
+               
+			
+			],
+		];
+
+		
+
 		$this->controls['btnHBorder'] = [
 			'tab'   => 'style',
 			'group' => 'button_style',
@@ -482,7 +550,7 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 			'css'   => [
 				[
 					'property' => 'border-color',
-					'selector' => '.aae--btn-pro:hover, .g-btn-text:hover, .btn-border-divide:hover .text, .btn-border-divide:hover .icon, .wcf__btn a:hover',
+					'selector' => '.aae--btn-pro:hover, .g-btn-text:hover, .btn-border-divide:hover .text, .btn-border-divide:hover .icon, .wcf__btn a:hover, .g-btn-icon:hover',
 				],
 			],
 		];
