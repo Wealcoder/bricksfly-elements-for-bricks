@@ -297,13 +297,26 @@ class Aae_Bricks_Toggle_Switch extends \Bricks\Element
 
         $this->controls['titleBgColor'] = [
             'group' => 'title_style',
-            'label' => esc_html__('Text Background', 'bricksfly'),
+            'label' => esc_html__('Title Background', 'bricksfly'),
             'type'  => 'color',
             'css'   => [
                 ['property' => 'background-color', 'selector' => '.before_label'],
                 ['property' => 'background-color', 'selector' => '.after_label'],
             ],
             'required' => ['elementList', '=', '2'],
+        ];
+
+            $this->controls['TitleBorder'] = [
+            'tab'   => 'style',
+            'group' => 'title_style',
+            'label' => esc_html__( 'Title Border', 'bricksfly' ),
+            'type'  => 'border',
+            'css'   => [
+                [
+                    'property' => 'border',
+                    'selector' => '.after_label, .before_label',
+                ],
+            ],
         ];
 
         // $this->controls['titleColor'] = [
@@ -350,23 +363,74 @@ class Aae_Bricks_Toggle_Switch extends \Bricks\Element
             'required' => ['elementList', '=', '2'],
         ];
 
-        $this->controls['activeTitleRadius'] = [
-            'group'    => 'active_title_style',
-            'label'    => esc_html__('Border Radius', 'bricksfly'),
-            'type'     => 'dimensions',
-            'css'      => [
-                // CSS var consumed by the ::after pseudo-element in SCSS.
-                // Using a var avoids Bricks' issues with pseudo-elements in selectors.
+        // The active-title fill is the animated ::after pseudo-element, which Bricks
+        // can't reliably style directly. So Border + Radius are bridged through CSS
+        // custom properties set on the .before_label / .after_label elements, then
+        // consumed by the ::after in SCSS (see toggle-switch.scss).
+
+        // $this->controls['activeTitleBorderWidth'] = [
+        //     'group'    => 'active_title_style',
+        //     'label'    => esc_html__('Border Width', 'bricksfly'),
+        //     'type'     => 'dimensions',
+        //     'css'      => [
+        //         ['property' => '--label-after-border-width', 'selector' => '.before_label'],
+        //         ['property' => '--label-after-border-width', 'selector' => '.after_label'],
+        //     ],
+        //     'required' => ['elementList', '=', '2'],
+        // ];
+
+        // $this->controls['activeTitleBorderStyle'] = [
+        //     'group'    => 'active_title_style',
+        //     'label'    => esc_html__('Border Style', 'bricksfly'),
+        //     'type'     => 'select',
+        //     'inline'   => true,
+        //     'options'  => [
+        //         'solid'  => esc_html__('Solid', 'bricksfly'),
+        //         'dashed' => esc_html__('Dashed', 'bricksfly'),
+        //         'dotted' => esc_html__('Dotted', 'bricksfly'),
+        //         'double' => esc_html__('Double', 'bricksfly'),
+        //     ],
+        //     'css'      => [
+        //         ['property' => '--label-after-border-style', 'selector' => '.before_label'],
+        //         ['property' => '--label-after-border-style', 'selector' => '.after_label'],
+        //     ],
+        //     'required' => ['elementList', '=', '2'],
+        // ];
+
+        // $this->controls['activeTitleBorderColor'] = [
+        //     'group'    => 'active_title_style',
+        //     'label'    => esc_html__('Border Color', 'bricksfly'),
+        //     'type'     => 'color',
+        //     'css'      => [
+        //         ['property' => '--label-after-border-color', 'selector' => '.before_label'],
+        //         ['property' => '--label-after-border-color', 'selector' => '.after_label'],
+        //     ],
+        //     'required' => ['elementList', '=', '2'],
+        // ];
+
+        // $this->controls['activeTitleRadius'] = [
+        //     'group'    => 'active_title_style',
+        //     'label'    => esc_html__('Border Radius', 'bricksfly'),
+        //     'type'     => 'dimensions',
+        //     'css'      => [
+        //         ['property' => 'border-top-left-radius', 'selector' => '.before_label'],
+        //         ['property' => 'border-top-right-radius', 'selector' => '.before_label'],
+        //     ],
+        //     'required' => ['elementList', '=', '2'],
+        // ];
+
+
+        $this->controls['activeTitleBorder'] = [
+            'tab'   => 'style',
+            'group' => 'active_title_style',
+            'label' => esc_html__( 'Active Title Border', 'bricksfly' ),
+            'type'  => 'border',
+            'css'   => [
                 [
-                    'property' => '--label-after-radius',
-                    'selector' => '.before_label',
-                ],
-                [
-                    'property' => '--label-after-radius',
-                    'selector' => '.after_label',
+                    'property' => 'border',
+                    'selector' => '.active.after_label, .active.before_label',
                 ],
             ],
-            'required' => ['elementList', '=', '2'],
         ];
     }
 

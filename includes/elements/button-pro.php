@@ -248,7 +248,7 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 			'group'    => 'button_style',
 			'label'    => esc_html__('Background', 'bricksfly'),
 			'type'     => 'background',
-			'required' => ['btnStyle', '!=', 'pro-7'],
+			'required' => ['btnStyle', '!=', ['pro-7', 'base-underline']],
 			'css'      => [
 				[
 					'property' => 'background',
@@ -581,7 +581,7 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 			],
 			
 			'required' =>[
-							['btnStyle', '=', [ 'base-default', 'base-square', 'base-ellipse']],
+							['btnStyle', '=', [ 'base-default', 'base-square', 'base-ellipse', 'pro-5','pro-6']],
 							['btnHoverVariant', '=', ['hover-none']],
 						],
 

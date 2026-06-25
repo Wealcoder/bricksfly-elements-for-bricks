@@ -578,15 +578,19 @@
 :where(.aae--btn-pro-wrapper) .btn-hover-bgchange span {
     position: absolute;
     content: "";
-    width: 0;
-    height: 0;
+    /* Sized as a % of the button itself (not a fixed 400px), so it scales with the
+       button when font-size grows. At rest scale(0); on hover it expands past √2×
+       each side (150% > 141%), guaranteeing the rounded fill covers the whole button
+       in both axes regardless of size or aspect ratio. */
+    width: 150%;
+    height: 150%;
     left: 50%;
     top: 50%;
     z-index: -1;
     border-radius: 100%;
-    transition: all 1s;
+    transition: transform 1s;
     background-color: var(--btn-hover-bg, #1C1D20);
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) scale(0);
 }
 
 :where(.aae--btn-pro-wrapper) .btn-hover-bgchange:hover {
@@ -595,8 +599,7 @@
 }
 
 :where(.aae--btn-pro-wrapper) .btn-hover-bgchange:hover span {
-    width: 400px;
-    height: 400px;
+    transform: translate(-50%, -50%) scale(1);
 }
 
 /* ---------- Hover variants (default / square only) ---------- */

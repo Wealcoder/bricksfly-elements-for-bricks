@@ -96,7 +96,14 @@
     opacity: 0;
     visibility: hidden;
     transition: transform 0.3s;
+    /* Border + radius are driven by CSS vars set from the control panel
+       (see toggle-switch.php). border-box keeps the border inside the 100% fill. */
+    box-sizing: border-box;
     border-radius: var(--label-after-radius, 0);
+    border-width: var(--label-after-border-width, 0);
+    border-style: var(--label-after-border-style, solid);
+    border-color: var(--label-after-border-color, transparent);
+    border-radius:inherit;
 }
 
 .aae-toggle-switch-wrapper.style-2 .before_label.active,
