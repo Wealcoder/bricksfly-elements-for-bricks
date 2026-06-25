@@ -376,7 +376,7 @@ class AAB_Bricks_Video_Box extends \Bricks\Element {
 			'group' => 'content_style',
 			'label' => esc_html__( 'Title Color', 'bricksfly' ),
 			'type'  => 'color',
-			'css'   => [ [ 'property' => 'color', 'selector' => '.aab-video-box .title' ] ],
+			'css'   => [ [ 'property' => 'color', 'selector' => '.title' ] ],
 		];
 
 		$this->controls['titleTypography'] = [
@@ -384,7 +384,7 @@ class AAB_Bricks_Video_Box extends \Bricks\Element {
 			'group' => 'content_style',
 			'label' => esc_html__( 'Title Typography', 'bricksfly' ),
 			'type'  => 'typography',
-			'css'   => [ [ 'property' => 'font', 'selector' => '.aab-video-box .title' ] ],
+			'css'   => [ [ 'property' => 'font', 'selector' => '.title' ] ],
 		];
 
 		$this->controls['titleSpacing'] = [
@@ -401,7 +401,7 @@ class AAB_Bricks_Video_Box extends \Bricks\Element {
 			'group' => 'content_style',
 			'label' => esc_html__( 'Subtitle Color', 'bricksfly' ),
 			'type'  => 'color',
-			'css'   => [ [ 'property' => 'color', 'selector' => '.aab-video-box .subtitle' ] ],
+			'css'   => [ [ 'property' => 'color', 'selector' => '.subtitle' ] ],
 		];
 
 		$this->controls['subtitleTypography'] = [
@@ -409,7 +409,7 @@ class AAB_Bricks_Video_Box extends \Bricks\Element {
 			'group' => 'content_style',
 			'label' => esc_html__( 'Subtitle Typography', 'bricksfly' ),
 			'type'  => 'typography',
-			'css'   => [ [ 'property' => 'font', 'selector' => '.aab-video-box .subtitle' ] ],
+			'css'   => [ [ 'property' => 'font', 'selector' => '.subtitle' ] ],
 		];
 
 		$this->controls['subtitleSpacing'] = [
