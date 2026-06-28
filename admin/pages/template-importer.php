@@ -29,7 +29,14 @@ class AAB_Template_Importer {
 		add_action( 'wp_ajax_aaeaddon_wishlist_option', [ $this, 'wishlist' ] );
 		add_action( 'wp_ajax_aaeaddon_upload_manual_import_file', [ $this, 'template_installer' ] );
 		add_action( 'wp_ajax_aaeaddon_template_dependency_status', [ $this, 'template_dependency_status' ] );
-		add_action( 'wp_ajax_aae_lite_get_latest_imported_pages', [ $this, 'get_latest_imported_pages' ] );
+		// NOTE: the 'aae_lite_get_latest_imported_pages' AJAX action is handled by
+		// OneClickImport::aae_get_latest_imported_pages() (admin/st-init.php).
+		// That handler is batch-aware — it returns the page(s) from the most
+		// recent import via the 'aae_last_import_batch' option, which is what the
+		// "Go to page" button on the Complete Import step needs. A second callback
+		// here on the same action raced the correct one (whichever fired first
+		// won and called wp_die) and queried by date DESC — which returns the
+		// wrong page because WXR preserves each page's original post_date. Removed.
 		add_filter( 'wcf_addons_dashboard_config', [ $this, 'include_user_wishlist' ] );
 	}
 
@@ -127,33 +134,6 @@ class AAB_Template_Importer {
 		}
 
 		wp_send_json_success( [ 'dependencies' => $dependencies ] );
-	}
-
-	public function get_latest_imported_pages() {
-		check_ajax_referer( 'aab_admin_nonce', 'nonce' );
-
-		$per_page = isset( $_POST['per_page'] ) ? absint( $_POST['per_page'] ) : 5;
-
-		$pages = get_posts( [
-			'post_type'   => 'page',
-			'post_status' => 'publish',
-			'numberposts' => $per_page,
-			'orderby'     => 'date',
-			'order'       => 'DESC',
-			'meta_key'    => 'aae_imported',
-			'meta_value'  => '1',
-		] );
-
-		$result = [];
-		foreach ( $pages as $page ) {
-			$result[] = [
-				'id'        => $page->ID,
-				'title'     => $page->post_title,
-				'permalink' => get_permalink( $page->ID ),
-			];
-		}
-
-		wp_send_json_success( [ 'pages' => $result ] );
 	}
 
 	public function template_installer() {

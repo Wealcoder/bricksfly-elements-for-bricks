@@ -13,10 +13,45 @@ class AAB_Page_Importer {
 	public function __construct() {
 		add_action( 'admin_menu', [ $this, 'add_menu' ], 25 );
 		add_action( 'admin_enqueue_scripts', [ $this, 'importer_assets' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_page_list_button' ] );
 		add_action( 'admin_print_scripts', [ $this, 'clear_notices_for_importer' ] );
 		add_filter( 'admin_body_class', [ $this, 'admin_classes' ], 100 );
 		add_filter( 'views_edit-page', [ $this, 'custom_page_tab' ] );
 		add_action( 'pre_get_posts', [ $this, 'custom_page_filter' ] );
+	}
+
+	/**
+	 * Inject an "Import Page" button next to "Add Page" on the Pages list
+	 * screen (edit.php?post_type=page). Loads a small vanilla JS file that
+	 * appends the button after the core .page-title-action element and links
+	 * it to the BricksFly page importer.
+	 */
+	public function enqueue_page_list_button() {
+		if ( ! current_user_can( 'edit_pages' ) ) {
+			return;
+		}
+
+		$screen = get_current_screen();
+		if ( ! $screen || $screen->post_type !== 'page' || $screen->base !== 'edit' ) {
+			return;
+		}
+
+		wp_enqueue_script(
+			'aab-admin-actions',
+			AAB_ADDONS_URL . 'public/js/aab-admin-actions.js',
+			[],
+			AAB_ADDONS_VERSION,
+			true
+		);
+
+		wp_localize_script(
+			'aab-admin-actions',
+			'AAB_PAGE_IMPORT',
+			[
+				'page_url' => esc_url( admin_url( 'admin.php?page=bf-page-importer' ) ),
+				'logo'     => esc_url( AAB_ADDONS_URL . 'public/images/plugin_logo.png' ),
+			]
+		);
 	}
 
 	public function custom_page_tab( $views ) {

@@ -25,6 +25,9 @@ class OneClickImport {
 	private $plugin_page_setup = array();
 	private $imported_terms = array();
 
+	/** Stable batch id for the current page-import run (see save_wp_page_import_track). */
+	private $page_import_batch_id = '';
+
 	public static function get_instance() {
 		if ( null === static::$instance ) {
 			static::$instance = new static();
@@ -48,12 +51,29 @@ class OneClickImport {
 	public function __wakeup() {}
 
 	public function save_wp_page_import_track( $post_id, $original_id, $postdata, $data ) {
+		// wp_insert_post() can return a WP_Error (and the WXR importer fires this
+		// hook before its own is_wp_error() check). Bail on any non-positive /
+		// error id, otherwise we'd point 'aae_last_import_batch' at a batch that
+		// has no real post — which makes "Go to page" resolve to nothing and the
+		// latest imported page never show.
+		if ( is_wp_error( $post_id ) || ! ( (int) $post_id > 0 ) ) {
+			return;
+		}
+
 		if ( empty( $postdata['post_content'] ) ) {
 			return;
 		}
 
-		if ( $postdata['post_type'] == 'page' ) {
-			$batch_id = 'wxr_' . gmdate( 'Ymd_His' );
+		if ( isset( $postdata['post_type'] ) && $postdata['post_type'] === 'page' ) {
+			// One batch id for the whole import run, computed once per request so
+			// every page imported together shares it (gmdate() alone would split
+			// a multi-second import across batches). The option is updated only
+			// for valid pages, so it always references a real, imported page.
+			if ( empty( $this->page_import_batch_id ) ) {
+				$this->page_import_batch_id = 'wxr_' . gmdate( 'Ymd_His' ) . '_' . wp_generate_password( 6, false );
+			}
+			$batch_id = $this->page_import_batch_id;
+
 			update_option( 'aae_last_import_batch', $batch_id );
 			add_post_meta( $post_id, 'aae_import_batch', $batch_id, true );
 			add_post_meta( $post_id, 'aae_imported', 1, true );
@@ -71,33 +91,51 @@ class OneClickImport {
 		$per_page = isset( $_POST['per_page'] ) ? max( 1, (int) $_POST['per_page'] ) : 1;
 		$batch_id = get_option( 'aae_last_import_batch' );
 
-		$meta_query = [];
-		if ( $batch_id ) {
-			$meta_query[] = [
-				'key'     => 'aae_import_batch',
-				'value'   => $batch_id,
-				'compare' => '=',
-			];
-		} else {
-			$meta_query[] = [
-				'key'     => 'aae_imported',
-				'value'   => 1,
-				'compare' => '=',
-			];
-		}
-
-		$q = new \WP_Query( [
+		// Order by ID (insertion order), NOT date: imported pages keep the
+		// template's original post_date, so "date DESC" surfaces the wrong page.
+		// ID DESC reliably returns the most recently created (= just-imported) one.
+		$base_args = [
 			'post_type'      => 'page',
 			'post_status'    => 'publish',
 			'posts_per_page' => $per_page,
-			'orderby'        => 'date',
+			'orderby'        => 'ID',
 			'order'          => 'DESC',
-			'meta_query'     => $meta_query,
 			'no_found_rows'  => true,
 			'fields'         => 'ids',
-		] );
+		];
 
-		if ( empty( $q->posts ) ) {
+		$post_ids = [];
+
+		// 1) Preferred: the pages from the most recent import batch.
+		if ( $batch_id ) {
+			$q = new \WP_Query( $base_args + [
+				'meta_query' => [
+					[
+						'key'     => 'aae_import_batch',
+						'value'   => $batch_id,
+						'compare' => '=',
+					],
+				],
+			] );
+			$post_ids = $q->posts;
+		}
+
+		// 2) Fallback: any imported page. Covers a stale/empty batch option so
+		//    "Go to page" and the latest-page view still resolve to a real page.
+		if ( empty( $post_ids ) ) {
+			$q = new \WP_Query( $base_args + [
+				'meta_query' => [
+					[
+						'key'     => 'aae_imported',
+						'value'   => 1,
+						'compare' => '=',
+					],
+				],
+			] );
+			$post_ids = $q->posts;
+		}
+
+		if ( empty( $post_ids ) ) {
 			wp_send_json_success( [
 				'batch_id' => $batch_id,
 				'pages'    => [],
@@ -111,7 +149,7 @@ class OneClickImport {
 				'permalink' => get_permalink( $id ),
 				'date'      => get_post_time( 'c', true, $id ),
 			];
-		}, $q->posts );
+		}, $post_ids );
 
 		wp_send_json_success( [
 			'batch_id' => $batch_id,
