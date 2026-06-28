@@ -321,7 +321,7 @@ class Aae_Bricks_Team extends \Bricks\Element
             'label' => esc_html__('Background', 'bricksfly'),
             'type'  => 'background',
             'css'   => [['property' => 'background', 'selector' => '.content']],
-            'exclude' => ['video'],
+            'exclude' => ['video'],  // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude -- Bricks control option, not a WP_Query arg
         ];
 
         $this->controls['contentPadding'] = [
@@ -417,7 +417,7 @@ class Aae_Bricks_Team extends \Bricks\Element
             'label'    => esc_html__('Background', 'bricksfly'),
             'type'     => 'background',
             'css'      => [['property' => 'background', 'selector' => '.social-media']],
-            'exclude'  => ['video'],
+            'exclude'  => ['video'],  // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude -- Bricks control option, not a WP_Query arg
             'required' => ['elementList', '=', '2'],
         ];
 

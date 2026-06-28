@@ -446,7 +446,7 @@ class Aae_Bricks_Timeline extends \Bricks\Element
             'label' => esc_html__('Typography', 'bricksfly'),
             'type'  => 'typography',
             'css'   => [['property' => 'font', 'selector' => '.step-box .icon']],
-            'exclude' => ['font-size', 'text-decoration', 'line-height'],
+            'exclude' => ['font-size', 'text-decoration', 'line-height'],   // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude -- Bricks control option, not a WP_Query arg
         ];
 
         $this->controls['stepSize'] = [

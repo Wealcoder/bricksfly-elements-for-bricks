@@ -2,7 +2,7 @@ import { RiArrowLeftLine } from "react-icons/ri";
 import LargeLogo from "./LargeLogo";
 import GetProButton from "../shared/GetProButton";
 
-const TemplateHeader = ({ activeBtn = true }) => {
+const TemplateHeader = ({ activeBtn = true, showProButton = true }) => {
   const getDashboardUrl = () => {
     const url = new URL(window.location.href);
 
@@ -38,7 +38,7 @@ const TemplateHeader = ({ activeBtn = true }) => {
         )}
         <LargeLogo homeUrl={getDashboardUrl} />
       </div>
-      {activeBtn ? (
+      {activeBtn && showProButton ? (
         <div className="flex justify-end gap-3 items-center">
           <GetProButton />
         </div>

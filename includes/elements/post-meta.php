@@ -1239,14 +1239,23 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 			return;
 		}
 
-		$ratings = get_posts( [
-			'post_type'   => 'aaeaddon_post_rating',
-			'post_status' => 'publish',
-			'numberposts' => -1,
-			'meta_query'  => [
-				[ 'key' => 'post_id', 'value' => get_the_ID() ],
-			],
-		] );
+		$post_id = get_the_ID();
+		$cache_key = 'bricksfly_ratings_' . $post_id;
+		$ratings = wp_cache_get( $cache_key, 'bricksfly' );
+
+		if ( false === $ratings ) {
+			$ratings = get_posts( [
+				'post_type'   => 'aaeaddon_post_rating',
+				'post_status' => 'publish',
+				'numberposts' => -1,
+				'fields'      => 'ids',
+				// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Lookup is cached; rating volume is low.
+				'meta_query'  => [
+					[ 'key' => 'post_id', 'value' => $post_id ],
+				],
+			] );
+			wp_cache_set( $cache_key, $ratings, 'bricksfly', HOUR_IN_SECONDS );
+		}
 		$total = is_array( $ratings ) ? count( $ratings ) : 0;
 
 		if ( '1' === $layout ) {

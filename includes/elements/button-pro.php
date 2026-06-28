@@ -220,7 +220,7 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 			'label'   => esc_html__('Alignment', 'bricksfly'),
 			'type'    => 'align-items',
 			'inline'  => true,
-			'exclude' => ['stretch'],
+			'exclude' => ['stretch'],  // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude -- Bricks control option, not a WP_Query arg
 			'css'     => [
 				[
 					'property' => 'justify-content',

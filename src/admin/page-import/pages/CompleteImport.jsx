@@ -45,7 +45,7 @@ const CompleteImport = () => {
       const url = page
         ? page.permalink +
           (page.permalink.includes("?") ? "&" : "?") +
-          "aae-cache=1"
+          "aab-cache=1"
         : "#";
 
       setPageUrl(url);

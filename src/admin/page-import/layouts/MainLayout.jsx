@@ -55,7 +55,8 @@ MainLayout.SecondLayout = ({ children }) => {
         </div>
       ) : (
         <div className="bg-background">
-          <TemplateHeader />
+          {/* Page importer: hide the "Activate License" / Pro button in the header. */}
+          <TemplateHeader showProButton={false} />
           <div>{children}</div>
         </div>
       )}

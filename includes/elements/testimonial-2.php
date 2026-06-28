@@ -275,7 +275,7 @@ class Aae_Bricks_Testimonial2 extends \Bricks\Element
             'label' => esc_html__('Background', 'bricksfly'),
             'type'  => 'background',
             'css'   => [['property' => 'background', 'selector' => '.slide']],
-            'exclude' => ['video'],
+            'exclude' => ['video'],  // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude -- Bricks control option, not a WP_Query arg
         ];
 
         $this->controls['slideBorder'] = [

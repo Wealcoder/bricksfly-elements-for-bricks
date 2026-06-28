@@ -201,7 +201,7 @@ class AAB_Bricks_Counter extends \Bricks\Element
 					'selector' => '.aab-counter__inner',
 				],
 			],
-			'exclude' => ['space-between', 'space-around', 'space-evenly'],
+			'exclude' => ['space-between', 'space-around', 'space-evenly'], // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude -- Bricks control option, not a WP_Query arg
 		];
 
 		$this->controls['gap'] = [

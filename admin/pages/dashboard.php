@@ -428,7 +428,7 @@ class AAB_Admin_Init
 			'user_role'           => aabaddon_get_current_user_roles(),
 			'version'             => AAB_ADDONS_VERSION,
 			'st_template_domain'  => AAB_TEMPLATE_STARTER_BASE_URL,
-			'home_url' => add_query_arg(['aae-cache' => 1], home_url('/')),
+			'home_url' => add_query_arg(['aab-cache' => 1], home_url('/')),
 			'template_menu' => $this->get_template_menu_data(),
 			'plugin_url' => AAB_ADDONS_URL,
 			'has_pro' => file_exists($this->plugin_file),
