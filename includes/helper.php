@@ -301,7 +301,7 @@ add_filter('wcf_addons_dashboard_config', 'aab_translate_config_tree', 5);
 if (! function_exists('aab_is_pro_active')) {
 
   /**
-   * Whether the BricksFly Pro plugin is installed and active.
+   * Whether the Bricksfly Pro plugin is installed and active.
    *
    * @return bool
    */
@@ -322,7 +322,7 @@ if (! function_exists('aab_is_pro_active')) {
 if (! function_exists('aab_is_pro_installed')) {
 
   /**
-   * Whether the BricksFly Pro plugin folder + main file exist on
+   * Whether the Bricksfly Pro plugin folder + main file exist on
    * disk. Independent of whether the plugin is currently activated — used to
    * gate features that must not run at all when Pro isn't available, such as
    * the site-settings extensions and pro extension toggles.

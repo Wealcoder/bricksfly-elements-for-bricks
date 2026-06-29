@@ -36,7 +36,7 @@ add_action('init', function () {
 	__('Animations', 'bricksfly');
 	__('Boost credibility and visibility by highlighting trusted logos with a smooth, auto-scrolling slider.', 'bricksfly');
 	__('Brand Slider', 'bricksfly');
-	__('BricksFly Pro', 'bricksfly');
+	__('Bricksfly Pro', 'bricksfly');
 	__('Captivate your audience with stunning off-canvas reveals that keep users engaged longer on site!', 'bricksfly');
 	__('Classic Testimonial', 'bricksfly');
 	__('Counter', 'bricksfly');

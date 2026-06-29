@@ -90,8 +90,8 @@ class AAB_Settings_Placeholder
 			: __('Site Settings requires the Pro plugin', 'bricksfly');
 
 		$body = $pro_active
-			? __('BricksFly Pro is installed, but its license is not active for this site. Activate the license to enable Site Settings (Preloader, Cursor, Scroll Indicator, Scroll-to-Top).', 'bricksfly')
-			: __('Site Settings (Preloader, Cursor, Scroll Indicator, Scroll-to-Top) is a Pro feature. Install and activate BricksFly Pro, then activate your license, to use it.', 'bricksfly');
+			? __('Bricksfly Pro is installed, but its license is not active for this site. Activate the license to enable Site Settings (Preloader, Cursor, Scroll Indicator, Scroll-to-Top).', 'bricksfly')
+			: __('Site Settings (Preloader, Cursor, Scroll Indicator, Scroll-to-Top) is a Pro feature. Install and activate Bricksfly Pro, then activate your license, to use it.', 'bricksfly');
 
 		$cta_url = $pro_active
 			? admin_url('admin.php?page=bf_addons_settings&bf-license=1')
@@ -123,7 +123,7 @@ class AAB_Settings_Placeholder
 		if (! self::is_aab_admin_screen()) return;
 
 		echo '<div class="notice notice-warning"><p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		echo '<strong>' . esc_html__('BricksFly:', 'bricksfly') . '</strong> '; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo '<strong>' . esc_html__('Bricksfly:', 'bricksfly') . '</strong> '; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo esc_html__('Install and activate the Pro plugin to unlock Site Settings and other premium features.', 'bricksfly');
 		echo '</p></div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}

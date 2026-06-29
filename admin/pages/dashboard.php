@@ -272,8 +272,8 @@ class AAB_Admin_Init
 			return;
 		}
 		self::$parent_menu_hook = add_menu_page(
-			esc_html__('BricksFly', 'bricksfly'),
-			esc_html__('BricksFly', 'bricksfly'),
+			esc_html__('Bricksfly', 'bricksfly'),
+			esc_html__('Bricksfly', 'bricksfly'),
 			self::MENU_CAPABILITY,
 			self::MENU_PAGE_SLUG,
 			'',
@@ -467,7 +467,7 @@ class AAB_Admin_Init
 		if (! $pro_active) {
 			return array(
 				'heading' => esc_html__('Pro plugin installed — activate it to continue', 'bricksfly'),
-				'subtext' => esc_html__('Head to the Plugins screen and click "Activate" on BricksFly Pro to enable premium features.', 'bricksfly'),
+				'subtext' => esc_html__('Head to the Plugins screen and click "Activate" on Bricksfly Pro to enable premium features.', 'bricksfly'),
 				'button'  => esc_html__('Activate Plugin', 'bricksfly'),
 			);
 		}

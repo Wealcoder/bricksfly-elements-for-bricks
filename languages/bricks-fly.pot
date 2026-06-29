@@ -13153,11 +13153,11 @@ msgid "Integration Status"
 msgstr ""
 
 #: src/modules/dashboard/components/shared/IntegrationCard.jsx:43
-msgid "You have successfully deactivated BricksFly AddonPro"
+msgid "You have successfully deactivated Bricksfly AddonPro"
 msgstr ""
 
 #: src/modules/dashboard/components/shared/IntegrationCard.jsx:84
-msgid "You have successfully activated BricksFly AddonPro"
+msgid "You have successfully activated Bricksfly AddonPro"
 msgstr ""
 
 #: src/modules/dashboard/components/shared/IntegrationCard.jsx:175

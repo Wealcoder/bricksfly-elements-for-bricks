@@ -1,4 +1,4 @@
-=== BricksFly ===
+=== Bricksfly ===
 Contributors: wealcoder, raselsec
 Tags: bricks, bricks builder, gsap, animation, templates
 Requires at least: 6.6
@@ -12,22 +12,22 @@ Powerful elements, GSAP animations, smart extensions, and ready-made website tem
 == Description ==
 
 Build stunning, high-performance **Bricks Builder** websites with powerful elements, advanced GSAP-powered animations, smart extensions, and ready-made website templates — all without writing a single line of code.
-**BricksFly includes 25+ powerful elements, 15+ smart extensions, 20+ ready-made Bricks website templates, and a complete GSAP animation engine — built to enhance your Bricks Builder experience.**
+**Bricksfly includes 25+ powerful elements, 15+ smart extensions, 20+ ready-made Bricks website templates, and a complete GSAP animation engine — built to enhance your Bricks Builder experience.**
 *This is just our first release. We're actively expanding — more elements, extensions, templates, and animation features are rolling out soon. Install today and grow with us.*
 ### Why Bricks Builder Needs More
 Bricks Builder is one of the fastest, cleanest page builders available — but it's intentionally minimal. Many essential design elements, advanced animations, ready-made templates, and workflow extensions aren't included by default.
 Creating advanced scroll animations, building common UI patterns, or designing modern animated layouts often means writing custom code or stitching together multiple third-party tools.
-BricksFly solves this by bringing everything you need directly inside Bricks Builder — elements, extensions, animations, and templates — in one lightweight plugin.
+Bricksfly solves this by bringing everything you need directly inside Bricks Builder — elements, extensions, animations, and templates — in one lightweight plugin.
 ### The Complete Toolkit That Enhances Bricks Builder
-BricksFly is built around four pillars that complete what Bricks gives you out of the box:
+Bricksfly is built around four pillars that complete what Bricks gives you out of the box:
 - **Templates** — 20+ professionally designed Bricks website templates plus preset animation templates to launch faster.
 - **Elements** — 25+ powerful elements covering everything from buttons and testimonials to video players and timelines.
 - **Extensions** — 15+ smart extensions that supercharge your workflow with GSAP animations, cursor effects, tooltips, and more.
 - **Animations** — A full GSAP-powered animation engine with ScrollTrigger, SplitText, MotionPath, and more — no JavaScript required.
 ***Build modern, animated Bricks websites that look premium and load fast.***
 
-### Who Are BricksFly Fo
-BricksFly is built for creators who want more than basic Bricks Builder — and who want to build faster without increasing development costs.
+### Who Are Bricksfly Fo
+Bricksfly is built for creators who want more than basic Bricks Builder — and who want to build faster without increasing development costs.
 ### Perfect For:
 **Agencies & Freelancers**
  Deliver client websites faster using advanced Bricks animations, ready-made website templates, and prebuilt layouts. Reduce custom coding time, lower development costs, and increase project margins.
@@ -38,7 +38,7 @@ BricksFly is built for creators who want more than basic Bricks Builder — and 
 **Small Business Owners & Creators**
  Build professional animated Bricks websites using ready-to-use templates and elements — no coding knowledge required.
 ### Save Time. Reduce Costs. Launch Faster.
-Instead of building elements from scratch, animating with custom code, or hiring developers for GSAP integration, BricksFly gives you a complete toolkit in one lightweight plugin — helping you complete projects faster and keep your workflow efficient.
+Instead of building elements from scratch, animating with custom code, or hiring developers for GSAP integration, Bricksfly gives you a complete toolkit in one lightweight plugin — helping you complete projects faster and keep your workflow efficient.
 ### Massive Bricks Template Library
 Speed up development with a growing collection of ready-made Bricks templates:
 👉 20+ Full Bricks Website Templates
@@ -47,7 +47,7 @@ Speed up development with a growing collection of ready-made Bricks templates:
 👉 Pre-animated, ready-to-use designs
 *Our template library is growing weekly — new website templates, sections, and pre-animated layouts are added with every release.*
 ### Built for Performance & Speed
-BricksFly is designed as a lightweight Bricks Builder addon.
+Bricksfly is designed as a lightweight Bricks Builder addon.
 #### Smart Asset Loading
 Only the scripts and features you use are loaded — preventing unnecessary bloat on your website.
 #### Optimized GSAP Integration
@@ -58,7 +58,7 @@ Built-in options allow you to respect user accessibility preferences and disable
 Every element, extension, and animation is structured to work seamlessly with Bricks Builder — without conflicting scripts or heavy dependencies.
 ***Build animated Bricks websites that look dynamic and load fast.***
 ### Powerful GSAP Animation features for Bricks
-BricksFly brings a complete GSAP-powered motion system directly inside Bricks Builder — allowing you to create advanced, high-performance animations without writing custom JavaScript.
+Bricksfly brings a complete GSAP-powered motion system directly inside Bricks Builder — allowing you to create advanced, high-performance animations without writing custom JavaScript.
 🌟 ScrollTrigger
 🎬 Preset Animation
 ⚡ Smooth Scrolling
@@ -117,7 +117,7 @@ Design beautiful, dynamic Bricks websites with 25+ exclusive elements. From crea
 - **Image Accordion** — Highlight images with smooth accordion-style interactions.
 - **Toggle Switch** — Add interactive on/off toggle elements for content control.
 ### 15+ Powerful Extensions for Bricks
-BricksFly comes with a growing collection of powerful extensions that enhance your Bricks experience. Enable only what you need to keep your site lightweight and fast.
+Bricksfly comes with a growing collection of powerful extensions that enhance your Bricks experience. Enable only what you need to keep your site lightweight and fast.
 #### GSAP Extensions
 - **Scroll Smoother** — Add smooth scrolling for a modern, fluid browsing experience.
 - **Animation** — Create custom Bricks animations with flexible triggers and timing.
@@ -140,15 +140,15 @@ BricksFly comes with a growing collection of powerful extensions that enhance yo
 - **Cursor** — Replace the default cursor with custom designs and interactive cursor styles.
 - **Scroll Indicator** — Show a reading progress bar or scroll indicator on any page.
 - **Scroll To Top** — Add a customizable scroll-to-top button for better navigation.
-### BricksFly vs Plain Bricks Builder
-Bricks Builder is a powerful, lightweight page builder, but advanced design elements and animations often require additional tools. Here's how BricksFly expands what's possible:
+### Bricksfly vs Plain Bricks Builder
+Bricks Builder is a powerful, lightweight page builder, but advanced design elements and animations often require additional tools. Here's how Bricksfly expands what's possible:
 #### Plain Bricks Builder
 - Core elements only
 - Simple entrance animations
 - Limited scroll effects
 - Build templates from scratch
 - No advanced workflow extensions
-#### Bricks + BricksFly
+#### Bricks + Bricksfly
 - 25+ premium elements (video, dynamic, accordion, timeline, and more)
 - Full GSAP-powered animation engine
 - Advanced ScrollTrigger interactions
@@ -156,10 +156,10 @@ Bricks Builder is a powerful, lightweight page builder, but advanced design elem
 - 15+ workflow extensions (Tooltip, Preloader, Cursor, Wrapper Link, and more)
 ### When to Use Each
 If you only need a minimal builder with core elements, plain Bricks Builder is enough.
-If you want a complete toolkit — advanced elements, GSAP animations, ready templates, and workflow extensions — BricksFly gives you everything in one lightweight plugin.
+If you want a complete toolkit — advanced elements, GSAP animations, ready templates, and workflow extensions — Bricksfly gives you everything in one lightweight plugin.
 ### Built by the Team Behind Animation Addons for Elementor
-BricksFly is made by **Wealcoder**, the team behind [Animation Addons for Elementor](https://wordpress.org/plugins/animation-addons-for-elementor/) — trusted by 18,000+ active users with a 4.7 ⭐ rating.
-We're building BricksFly with the same mission: helping you build better, faster websites without writing custom code.
+Bricksfly is made by **Wealcoder**, the team behind [Animation Addons for Elementor](https://wordpress.org/plugins/animation-addons-for-elementor/) — trusted by 18,000+ active users with a 4.7 ⭐ rating.
+We're building Bricksfly with the same mission: helping you build better, faster websites without writing custom code.
 ### We're Just Getting Started
 This is our first public release. We're actively building more elements, more extensions, more templates, and more animation features for Bricks Builder.
 Install today, and grow with us — every update brings something new.
@@ -177,34 +177,34 @@ Install today, and grow with us — every update brings something new.
 Note: This plugin requires the Bricks theme to function. Please ensure Bricks is installed and activated before proceeding.
 1. Install the plugin directly from the WordPress Plugins screen, or manually upload the plugin files to /wp-content/plugins/bricks-addons directory.
 2. Activate the plugin from the Plugins section in your WordPress dashboard.
-3. Access all settings via the admin sidebar under **BricksFly**.
-4. Find all elements categorized inside the Bricks editor under the **BricksFly** group.
+3. Access all settings via the admin sidebar under **Bricksfly**.
+4. Find all elements categorized inside the Bricks editor under the **Bricksfly** group.
 For any questions, visit our FAQ page or reach out via our Contact Form. 🚀
 == Frequently Asked Questions ==
-= What is BricksFly? =
-BricksFly is an all-in-one addon for Bricks Builder. It enhances Bricks with 25+ powerful elements, 15+ smart extensions, a complete GSAP animation engine, and 20+ ready-made website templates — all designed to help you build modern, animated websites faster, without writing custom code.
+= What is Bricksfly? =
+Bricksfly is an all-in-one addon for Bricks Builder. It enhances Bricks with 25+ powerful elements, 15+ smart extensions, a complete GSAP animation engine, and 20+ ready-made website templates — all designed to help you build modern, animated websites faster, without writing custom code.
 = Do I need Bricks Builder to use this plugin? =
-Yes. BricksFly is built specifically to enhance Bricks Builder. You'll need the Bricks Builder theme installed and activated for this plugin to work.
-= Will BricksFly slow down my site? =
-No. BricksFly is built with performance as a core priority. It uses smart asset loading — only the scripts and features you actually use are loaded on your pages. Animations are optimized through efficient GSAP integration, and the plugin respects Core Web Vitals.
-= Do I need to know code to use BricksFly? =
+Yes. Bricksfly is built specifically to enhance Bricks Builder. You'll need the Bricks Builder theme installed and activated for this plugin to work.
+= Will Bricksfly slow down my site? =
+No. Bricksfly is built with performance as a core priority. It uses smart asset loading — only the scripts and features you actually use are loaded on your pages. Animations are optimized through efficient GSAP integration, and the plugin respects Core Web Vitals.
+= Do I need to know code to use Bricksfly? =
 Not at all. Every element, extension, and animation can be configured visually inside the Bricks editor. You can apply advanced GSAP animations, build custom layouts, and use ready-made templates without writing a single line of code.
-= Is BricksFly compatible with other Bricks plugins? =
-Yes. BricksFly is built with a clean, modular architecture and works alongside your existing Bricks Builder plugins without conflicts.
-= What kind of animations can I create with BricksFly? =
+= Is Bricksfly compatible with other Bricks plugins? =
+Yes. Bricksfly is built with a clean, modular architecture and works alongside your existing Bricks Builder plugins without conflicts.
+= What kind of animations can I create with Bricksfly? =
 You can create advanced GSAP-powered animations including ScrollTrigger scroll effects, SplitText text animations, Smooth Scrolling, Horizontal Scrolling, Parallax effects, cursor hover effects, and more — all configurable visually inside Bricks.
-= How often is BricksFly updated? =
-We're actively building BricksFly. New elements, extensions, templates, and animation features are added regularly. Install today and grow with us — every update brings something new.
-= Does BricksFly work with WooCommerce? =
-BricksFly works alongside WooCommerce. Dedicated WooCommerce-focused elements are part of our active development roadmap and will be added in upcoming releases.
+= How often is Bricksfly updated? =
+We're actively building Bricksfly. New elements, extensions, templates, and animation features are added regularly. Install today and grow with us — every update brings something new.
+= Does Bricksfly work with WooCommerce? =
+Bricksfly works alongside WooCommerce. Dedicated WooCommerce-focused elements are part of our active development roadmap and will be added in upcoming releases.
 = Can I import the website templates with one click? =
-Yes. BricksFly includes a built-in template library with one-click import for full website templates, sections, and pre-animated layouts — directly inside your Bricks Builder workflow.
+Yes. Bricksfly includes a built-in template library with one-click import for full website templates, sections, and pre-animated layouts — directly inside your Bricks Builder workflow.
 == Screenshots ==
 1. **Preset Animations** — Instantly apply ready-made animations without any hassle.
 2. **GSAP Animation Builder** — Build unlimited custom animations with intuitive controls and complete flexibility.
 3. **Pre-Built Templates** — Choose from a growing collection of ready-to-use Bricks templates.
 4. **Extensions Dashboard** — Enable only the extensions you need to keep your site lightweight.
-5. **Powerful Dashboard** — Organize, manage, and monitor all your BricksFly settings in one clean interface.
+5. **Powerful Dashboard** — Organize, manage, and monitor all your Bricksfly settings in one clean interface.
 6. **Element Settings Panel** — Advanced controls and customization for every Bricks element.
 7. **Live Section Download** — One-click import of pre-designed sections directly into your Bricks projects.
 8. **ScrollTrigger Animations** — Build advanced scroll-based animations powered by GSAP.
@@ -214,7 +214,7 @@ Yes. BricksFly includes a built-in template library with one-click import for fu
 This plugin connects to the following external services. By installing and activating the plugin you do **not** trigger any of these calls; each is invoked only when you use the corresponding feature.
 **1. Themecrowdy Template API** — `https://www.themecrowdy.com/wp-json/wcf/v1/menu/42`
 * **What it does:** Fetches the starter-template menu used by the one-click template importer.
-* **When called:** Only when you open the **BricksFly → Templates** page in admin.
+* **When called:** Only when you open the **Bricksfly → Templates** page in admin.
 * **Data sent:** None beyond the standard HTTP request headers (no personal data, no site identifiers).
 * **Provider:** Themecrowdy — [Terms of Service](https://themecrowdy.com/terms-of-service/) | [Privacy Policy](https://themecrowdy.com/privacy-policy/)
 **2. Wealcoder Store (changelog + license)** — `https://store.wealcoder.com/wp-json/userdata/v1/changelog?p=768` and `https://store.wealcoder.com/`
@@ -231,11 +231,11 @@ If you do not use the corresponding feature (templates page, changelog widget, l
 == Source Code ==
 Unminified JavaScript and CSS source for the React admin UI lives under `/src` in the plugin's public repository:
 https://github.com/Wealcoder/bricksfly/tree/main/src
-The GSAP libraries used by the GSAP-powered elements and extensions ship with the **BricksFly Pro** plugin under `/public/js/lib/`. They are unmodified third-party builds from GreenSock — source available at:
+The GSAP libraries used by the GSAP-powered elements and extensions ship with the **Bricksfly Pro** plugin under `/public/js/lib/`. They are unmodified third-party builds from GreenSock — source available at:
 * GSAP — https://greensock.com/gsap/ — [GreenSock Standard "No Charge" License](https://greensock.com/standard-license/)
 * Source: https://github.com/greensock/GSAP
 == Changelog ==
-= 🌀 BricksFly v1.0.0 – 14 May 2026 =
+= 🌀 Bricksfly v1.0.0 – 14 May 2026 =
  - 🚀 **Initial Release**
 == Upgrade Notice ==
 = 1.0.0 =

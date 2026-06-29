@@ -24,7 +24,7 @@ class AAB_Page_Importer {
 	 * Inject an "Import Page" button next to "Add Page" on the Pages list
 	 * screen (edit.php?post_type=page). Loads a small vanilla JS file that
 	 * appends the button after the core .page-title-action element and links
-	 * it to the BricksFly page importer.
+	 * it to the Bricksfly page importer.
 	 */
 	public function enqueue_page_list_button() {
 		if ( ! current_user_can( 'edit_pages' ) ) {
