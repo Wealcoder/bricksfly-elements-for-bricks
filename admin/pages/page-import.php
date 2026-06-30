@@ -150,11 +150,48 @@ class AAB_Page_Importer {
 			true
 		);
 
+		// Enrich the config with the CURRENT license state so Pro page templates
+		// unlock the moment a license is activated — no manual refresh needed.
+		//
+		// The bug this fixes: the Page Importer used to localize a bare
+		// `addons_config` with no license fields, so the React app's Pro gate
+		// (TemplateShow.jsx: `activated?.product_status?.item_id === 13`) never
+		// saw the active license and kept every Pro template locked. The
+		// Dashboard already enriches its config this way; we mirror it here so
+		// BOTH pages read the SAME single source of truth.
+		//
+		// Reading the options here (on every importer page load) means the state
+		// is always freshly fetched — never a stale cached value — so activation
+		// done elsewhere is reflected on the next load of this page.
+		$addons_config = apply_filters( 'wcf_addons_dashboard_config', $GLOBALS['aab_addons_config'] ?? [] );
+
+		$license_status = (string) get_option( 'wcf_addon_sl_license_status', '' );
+		$license_key    = (string) get_option( 'wcf_addon_sl_license_key', '' );
+
+		// Valid only when the Pro plugin folder exists AND the stored status is
+		// "valid" — the same combined check used by aab_is_license_valid() and
+		// the Dashboard, so deleting the Pro folder relocks Pro instantly.
+		$pro_installed = function_exists( 'aab_is_pro_installed' ) ? aab_is_pro_installed() : false;
+		$license_valid = $pro_installed && ( 'valid' === $license_status );
+
+		$addons_config['sl_lic']    = $license_key;
+		$addons_config['is_pro']    = $pro_installed;
+		$addons_config['wcf_valid'] = $license_valid;
+
+		// The compiled React UI unlocks Pro items on `product_status.item_id === 13`.
+		// Send 13 only when the license is valid (mirrors the Dashboard); the real
+		// EDD item id is carried separately for the actual API verification flow.
+		$addons_config['product_status'] = [
+			'item_id'      => $license_valid ? 13 : 0,
+			'status'       => $license_status,
+			'real_item_id' => defined( 'AAB_ADDON_PRO_ITEM_ID' ) ? AAB_ADDON_PRO_ITEM_ID : 0,
+		];
+
 		$localize_data = [
 			'plugin_url'         => AAB_ADDONS_URL,
 			'ajaxurl'            => admin_url( 'admin-ajax.php' ),
 			'nonce'              => wp_create_nonce( 'aab_admin_nonce' ),
-			'addons_config'      => apply_filters( 'wcf_addons_dashboard_config', $GLOBALS['aab_addons_config'] ?? [] ),
+			'addons_config'      => $addons_config,
 			'adminURL'           => admin_url(),
 			'page_url'           => esc_url( admin_url( 'edit.php?post_type=page' ) ),
 			'user_role'          => function_exists( 'aabaddon_get_current_user_roles' ) ? aabaddon_get_current_user_roles() : [],
