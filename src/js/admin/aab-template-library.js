@@ -543,21 +543,32 @@ import "../../scss/admin/aab-template-library.scss";
 
 	// --- Insert -------------------------------------------------------
 
+	/**
+	 * Insert a template as a PREVIEW-BEFORE-COMMIT change.
+	 *
+	 * The server resolves the section (elements + global classes/variables) but
+	 * does NOT save or reload. We feed the result into Bricks' OWN paste pipeline
+	 * so the section lands in the live in-memory canvas as an unsaved, undoable
+	 * change — exactly like a manual paste. Nothing is written to the document
+	 * until the user clicks Bricks' Save button. Selecting another template just
+	 * pastes again (each paste is its own undo step), and undo/redo + existing
+	 * unsaved edits are preserved because we never touch the DB or reload.
+	 */
 	function handleInsert(card, btn) {
 		if (!CFG.post_id) {
 			window.alert(I18N.insert_failed || 'Could not import this section.');
 			return;
 		}
 
-		// Warn about reload + unsaved Vue state, since we have to reload
-		// the iframe so Bricks Vue store picks up the new content.
-		if (!window.confirm(I18N.unsaved_warning || 'This will reload the builder. Save your unsaved changes first?')) {
-			return;
-		}
-
 		var originalLabel = btn.innerHTML;
 		btn.disabled = true;
 		btn.innerHTML = escapeHtml(I18N.inserting || 'Inserting…');
+
+		function fail(msg) {
+			btn.disabled = false;
+			btn.innerHTML = originalLabel;
+			window.alert(msg || I18N.insert_failed || 'Could not import this section.');
+		}
 
 		var formData = new FormData();
 		formData.append('action', 'aab_builder_insert_template');
@@ -572,23 +583,217 @@ import "../../scss/admin/aab-template-library.scss";
 		})
 			.then(function (r) { return r.json(); })
 			.then(function (resp) {
-				if (resp && resp.success) {
-					btn.innerHTML = escapeHtml(I18N.insert_success || 'Imported. Reloading…');
-					setTimeout(function () {
-						window.location.reload();
-					}, 400);
-				} else {
-					var msg = (resp && resp.data && resp.data.message) || I18N.insert_failed;
-					btn.disabled = false;
-					btn.innerHTML = originalLabel;
-					window.alert(msg);
+				if (!resp || !resp.success || !resp.data) {
+					return fail(resp && resp.data && resp.data.message);
 				}
+
+				var data = resp.data;
+				var elements = data.content;
+				if (!Array.isArray(elements) || !elements.length) {
+					return fail(I18N.insert_failed);
+				}
+
+				// Bricks' paste reads its clipboard envelope; write the section
+				// into it (with its globals so CSS/vars carry over) then trigger
+				// the native paste into the canvas.
+				var envelope = {
+					source: 'bricksCopiedElements',
+					content: elements,
+					globalClasses: Array.isArray(data.global_classes) ? data.global_classes : [],
+					globalVariables: Array.isArray(data.globalVariables) ? data.globalVariables : [],
+					components: [],
+					globalElements: [],
+					sourceUrl: ''
+				};
+
+				pasteIntoCanvas(JSON.stringify(envelope), function (ok) {
+					if (ok) {
+						btn.disabled = false;
+						btn.innerHTML = originalLabel;
+						closeLibraryModal();
+					} else {
+						fail(I18N.insert_failed);
+					}
+				});
 			})
 			.catch(function () {
-				btn.disabled = false;
-				btn.innerHTML = originalLabel;
-				window.alert(I18N.insert_failed || 'Could not import this section.');
+				fail();
 			});
+	}
+
+	// --- Native Bricks paste (preview, no reload) ---------------------
+
+	// Candidate paste method names across Bricks versions, priority order.
+	var PASTE_METHOD_NAMES = ['$_pasteElements', '$_paste', 'pasteElements', '$_insertElements'];
+	var _pasteCache = null; // { instance, method }
+
+	/**
+	 * Write the Bricks clipboard envelope, then run Bricks' native paste so the
+	 * section appears in the canvas as an unsaved/undoable change. Works on
+	 * secure contexts (clipboard API) and plain HTTP (temporary shim). Invokes
+	 * `done(true|false)`.
+	 */
+	function pasteIntoCanvas(payload, done) {
+		var resolved = resolvePasteInstance();
+		if (!resolved) {
+			done(false);
+			return;
+		}
+
+		function callPaste() {
+			// Bricks regenerates ids and inserts relative to the active element;
+			// without an active element it appends to the document root, which is
+			// the desired "add this section" behaviour for the library.
+			try {
+				var r = resolved.instance[resolved.method]();
+				if (r && typeof r.then === 'function') {
+					r.then(function () { done(true); }, function () { done(false); });
+				} else {
+					done(true);
+				}
+			} catch (e) {
+				done(false);
+			}
+		}
+
+		var secure = !!(navigator.clipboard && window.isSecureContext && navigator.clipboard.writeText);
+		if (secure) {
+			navigator.clipboard.writeText(payload).then(callPaste, callPaste);
+			return;
+		}
+
+		// Non-secure (local HTTP): shim clipboard.readText + isSecureContext so
+		// Bricks' paste still reads our payload, then restore on the next tick.
+		if (!runWithClipboardShim(payload, callPaste)) {
+			done(false);
+		}
+	}
+
+	/**
+	 * Find a Bricks Vue component instance exposing a paste method. Searches the
+	 * main builder document and the canvas iframe; caches the winner. Mirrors the
+	 * discovery used by the paste feature: Vue 3 exposes the mounted root via
+	 * `node._vnode.component` / `node.__vue_app__._instance`, and methods live on
+	 * the instance's `proxy` or `ctx`.
+	 */
+	function resolvePasteInstance() {
+		if (_pasteCache && _pasteCache.instance && typeof _pasteCache.instance[_pasteCache.method] === 'function') {
+			return _pasteCache;
+		}
+
+		var seen = (typeof Set === 'function') ? new Set() : null;
+
+		function methodOn(inst) {
+			if (!inst) { return null; }
+			for (var i = 0; i < PASTE_METHOD_NAMES.length; i++) {
+				try { if (typeof inst[PASTE_METHOD_NAMES[i]] === 'function') { return PASTE_METHOD_NAMES[i]; } } catch (e) {}
+			}
+			return null;
+		}
+
+		function hitOn(comp) {
+			if (!comp) { return null; }
+			var cands = [comp.proxy, comp.ctx];
+			for (var c = 0; c < cands.length; c++) {
+				var m = methodOn(cands[c]);
+				if (m) { return { instance: cands[c], method: m }; }
+			}
+			return null;
+		}
+
+		function visitComp(comp, depth) {
+			if (!comp || depth > 80) { return null; }
+			if (seen) { if (seen.has(comp)) { return null; } seen.add(comp); }
+			var hit = hitOn(comp);
+			if (hit) { return hit; }
+			return visitVNode(comp.subTree, depth + 1);
+		}
+
+		function visitVNode(vnode, depth) {
+			if (!vnode || depth > 80) { return null; }
+			if (vnode.component) {
+				var f = visitComp(vnode.component, depth + 1);
+				if (f) { return f; }
+			}
+			if (Array.isArray(vnode.children)) {
+				for (var i = 0; i < vnode.children.length; i++) {
+					var f2 = visitVNode(vnode.children[i], depth + 1);
+					if (f2) { return f2; }
+				}
+			}
+			return null;
+		}
+
+		var docs = [document];
+		try {
+			var ifr = document.getElementById('bricks-builder-iframe');
+			var idoc = ifr && (ifr.contentDocument || (ifr.contentWindow && ifr.contentWindow.document));
+			if (idoc && idoc !== document) { docs.push(idoc); }
+		} catch (e) {}
+
+		var roots = ['.brx-body', '#bricks-builder', '#app', 'body'];
+		for (var d = 0; d < docs.length; d++) {
+			for (var r = 0; r < roots.length; r++) {
+				var node = docs[d].querySelector(roots[r]);
+				if (!node) { continue; }
+				var comps = [];
+				if (node._vnode && node._vnode.component) { comps.push(node._vnode.component); }
+				if (node.__vue_app__ && node.__vue_app__._instance) { comps.push(node.__vue_app__._instance); }
+				if (node.__vueParentComponent) { comps.push(node.__vueParentComponent); }
+				for (var c = 0; c < comps.length; c++) {
+					var found = visitComp(comps[c], 0);
+					if (found) { _pasteCache = found; return found; }
+				}
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * Temporarily make Bricks' secure-context-gated clipboard paste work on a
+	 * plain-HTTP builder: override navigator.clipboard.readText() to return
+	 * `payload` and force isSecureContext truthy, run `fn`, then restore on the
+	 * next tick (the native read is async). Returns false if it can't be shimmed.
+	 */
+	function runWithClipboardShim(payload, fn) {
+		var hadClipboard = 'clipboard' in navigator;
+		var originalClipboard = navigator.clipboard;
+		var secureDescriptor = Object.getOwnPropertyDescriptor(window, 'isSecureContext');
+
+		function restore() {
+			try {
+				if (hadClipboard) {
+					Object.defineProperty(navigator, 'clipboard', { value: originalClipboard, configurable: true, writable: true });
+				} else {
+					delete navigator.clipboard;
+				}
+			} catch (e) {}
+			try {
+				if (secureDescriptor) {
+					Object.defineProperty(window, 'isSecureContext', secureDescriptor);
+				}
+			} catch (e) {}
+		}
+
+		try {
+			Object.defineProperty(navigator, 'clipboard', {
+				value: { readText: function () { return Promise.resolve(payload); } },
+				configurable: true,
+				writable: true
+			});
+			Object.defineProperty(window, 'isSecureContext', { value: true, configurable: true });
+		} catch (e) {
+			restore();
+			return false;
+		}
+
+		try {
+			fn();
+		} finally {
+			setTimeout(restore, 0);
+		}
+		return true;
 	}
 
 	// --- Helpers ------------------------------------------------------

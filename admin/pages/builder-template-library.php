@@ -195,6 +195,15 @@ class AAB_Builder_Template_Library {
 	 * The Bricks data shape we expect is the same array that Bricks
 	 * serializes into `_bricks_page_content_2`: a list of element objects
 	 * with `id`, `name`, `parent`, `children`, `settings`, etc.
+	 *
+	 * PREVIEW-BEFORE-COMMIT: this endpoint NO LONGER writes the post content or
+	 * reloads the builder. It only RESOLVES the template (elements + global
+	 * classes/variables) and returns it. The client feeds the result into
+	 * Bricks' native paste pipeline so the section lands in the in-memory canvas
+	 * as an unsaved, undoable change — committed to the DB only when the user
+	 * clicks Bricks' own Save button. (Global classes/variables also ride along
+	 * in the returned payload and are imported by the native paste, so they too
+	 * persist only on Save.)
 	 */
 	public function ajax_insert_template() {
 		check_ajax_referer( 'aab-builder-template-library', 'nonce' );
@@ -211,47 +220,40 @@ class AAB_Builder_Template_Library {
 			wp_send_json_error( [ 'message' => __( 'No template id provided.', 'bricksfly' ) ], 400 );
 		}
 
-		$elements = $this->resolve_template_elements( $template_id );
+		$resolved = $this->resolve_template_payload( $template_id );
 
-		if ( is_wp_error( $elements ) ) {
-			wp_send_json_error( [ 'message' => $elements->get_error_message() ], 502 );
+		if ( is_wp_error( $resolved ) ) {
+			wp_send_json_error( [ 'message' => $resolved->get_error_message() ], 502 );
 		}
+
+		$elements = $resolved['content'];
 
 		if ( empty( $elements ) || ! is_array( $elements ) ) {
 			wp_send_json_error( [ 'message' => __( 'Template content is empty or in an unsupported format.', 'bricksfly' ) ], 422 );
 		}
 
-		// Regenerate every element id so we don't collide with existing
-		// elements on the canvas. Also remap parent/children references.
-		$elements = $this->remap_element_ids( $elements );
-
-		$meta_key = defined( 'BRICKS_DB_PAGE_CONTENT' ) ? BRICKS_DB_PAGE_CONTENT : '_bricks_page_content_2';
-		$existing = get_post_meta( $post_id, $meta_key, true );
-
-		if ( ! is_array( $existing ) ) {
-			$existing = [];
-		}
-
-		$merged = array_merge( $existing, $elements );
-
-		update_post_meta( $post_id, $meta_key, $merged );
-
 		/**
-		 * Fires after a template has been imported into a Bricks post.
+		 * Fires after a template has been resolved for preview insert.
 		 *
-		 * @param int   $post_id   The post that was edited.
-		 * @param array $elements  The newly inserted element array.
+		 * @param int   $post_id   The post being edited.
+		 * @param array $elements  The resolved element array (not yet saved).
 		 */
 		do_action( 'aab_builder_template_library_inserted', $post_id, $elements );
 
+		// Return the full Bricks export shape so the client can build the native
+		// paste envelope. Ids are NOT remapped here — Bricks' paste regenerates
+		// element ids itself, so remapping server-side would be redundant work.
 		wp_send_json_success( [
-			'inserted_count' => count( $elements ),
-			'message'        => __( 'Template imported.', 'bricksfly' ),
+			'content'         => $elements,
+			'global_classes'  => $resolved['global_classes'],
+			'globalVariables' => $resolved['globalVariables'],
+			'inserted_count'  => count( $elements ),
+			'message'         => __( 'Template resolved.', 'bricksfly' ),
 		] );
 	}
 
 	/**
-	 * Resolve the Bricks element array for a remote template id.
+	 * Resolve the full Bricks export payload for a remote template id.
 	 *
 	 * Two hops, both server-to-server so the download URL is never
 	 * exposed to the client:
@@ -259,10 +261,15 @@ class AAB_Builder_Template_Library {
 	 *      to learn the signed `json_file.url`.
 	 *   2. GET that URL and decode the Bricks copy/paste JSON.
 	 *
+	 * Returns the resolved elements together with any global classes / variables
+	 * the section carries. Nothing is persisted — the client hands this to
+	 * Bricks' native paste, which registers ids + globals in the in-memory store
+	 * and saves them only when the user clicks Save.
+	 *
 	 * @param int $template_id Remote section id.
-	 * @return array|\WP_Error
+	 * @return array|\WP_Error { content, global_classes, globalVariables }
 	 */
-	private function resolve_template_elements( $template_id ) {
+	private function resolve_template_payload( $template_id ) {
 		$meta_endpoint = apply_filters(
 			'aab_builder_template_library_remote_single_api',
 			'https://www.themecrowdy.com/wp-json/bricks-sections/v1/list/' . $template_id,
@@ -308,87 +315,43 @@ class AAB_Builder_Template_Library {
 			return new \WP_Error( 'aab_invalid_template_json', __( 'Invalid template JSON.', 'bricksfly' ) );
 		}
 
-		// Merge any global classes / variables the section references into the
-		// site registries BEFORE returning the elements. The inserted elements
-		// reference these by id (settings._cssGlobalClasses) and by var(--…)
-		// tokens; without the definitions in `bricks_global_classes` /
-		// `bricks_global_variables`, the imported section loses its CSS. This is
-		// a plain post-meta insert (no Bricks native paste to import them for us),
-		// so we persist them ourselves — the same id-keyed merge the page
-		// importer uses (existing entries win, new ones are appended).
-		$this->merge_template_globals( $decoded );
-
-		return $this->extract_elements( $decoded );
+		// Return elements + globals untouched. The client builds Bricks' paste
+		// envelope from this; Bricks' native paste regenerates element ids and
+		// imports the globals into the in-memory store, persisting only on Save.
+		return [
+			'content'         => $this->extract_elements( $decoded ),
+			'global_classes'  => $this->extract_globals( $decoded, 'classes' ),
+			'globalVariables' => $this->extract_globals( $decoded, 'variables' ),
+		];
 	}
 
 	/**
-	 * Merge a section payload's global classes and global variables into the
-	 * site's `bricks_global_classes` / `bricks_global_variables` options.
+	 * Pull the global classes or variables out of a section payload.
 	 *
-	 * Accepts the Bricks export shape (`global_classes` / `globalVariables`) and
-	 * the camelCase variants. Union is keyed by item `id`: existing entries are
-	 * kept on conflict (so the user's tweaks survive) and new items appended.
+	 * Accepts both the Bricks export key and its camel/snake variant:
+	 *   - classes:   `global_classes` | `globalClasses`
+	 *   - variables: `globalVariables` | `global_variables`
 	 *
-	 * @param mixed $payload Decoded section JSON.
-	 * @return void
-	 */
-	private function merge_template_globals( $payload ) {
-		if ( ! is_array( $payload ) ) {
-			return;
-		}
-
-		// Global classes — accept snake_case (Bricks export) and camelCase.
-		$classes = [];
-		if ( isset( $payload['global_classes'] ) && is_array( $payload['global_classes'] ) ) {
-			$classes = $payload['global_classes'];
-		} elseif ( isset( $payload['globalClasses'] ) && is_array( $payload['globalClasses'] ) ) {
-			$classes = $payload['globalClasses'];
-		}
-		if ( ! empty( $classes ) ) {
-			$existing = get_option( 'bricks_global_classes' );
-			update_option( 'bricks_global_classes', $this->union_by_id( $existing, $classes ) );
-		}
-
-		// Global variables — accept camelCase (Bricks export) and snake_case.
-		$variables = [];
-		if ( isset( $payload['globalVariables'] ) && is_array( $payload['globalVariables'] ) ) {
-			$variables = $payload['globalVariables'];
-		} elseif ( isset( $payload['global_variables'] ) && is_array( $payload['global_variables'] ) ) {
-			$variables = $payload['global_variables'];
-		}
-		if ( ! empty( $variables ) ) {
-			$existing = get_option( 'bricks_global_variables' );
-			update_option( 'bricks_global_variables', $this->union_by_id( $existing, $variables ) );
-		}
-	}
-
-	/**
-	 * Union two id-keyed lists, keeping existing items on id conflict and
-	 * appending new items from the incoming list. Mirrors the page importer's
-	 * `merge_bricks_option()` for list-shaped Bricks options.
-	 *
-	 * @param mixed $existing Current option value (may be empty / non-array).
-	 * @param array $incoming Items to merge in.
+	 * @param mixed  $payload Decoded section JSON.
+	 * @param string $which   'classes' or 'variables'.
 	 * @return array
 	 */
-	private function union_by_id( $existing, $incoming ) {
-		if ( ! is_array( $existing ) || empty( $existing ) ) {
-			return array_values( $incoming );
+	private function extract_globals( $payload, $which ) {
+		if ( ! is_array( $payload ) ) {
+			return [];
 		}
 
-		$by_id = [];
-		foreach ( $existing as $item ) {
-			if ( is_array( $item ) && isset( $item['id'] ) ) {
-				$by_id[ $item['id'] ] = $item;
-			}
-		}
-		foreach ( $incoming as $item ) {
-			if ( is_array( $item ) && isset( $item['id'] ) && ! isset( $by_id[ $item['id'] ] ) ) {
-				$by_id[ $item['id'] ] = $item;
+		$keys = ( 'variables' === $which )
+			? [ 'globalVariables', 'global_variables' ]
+			: [ 'global_classes', 'globalClasses' ];
+
+		foreach ( $keys as $key ) {
+			if ( isset( $payload[ $key ] ) && is_array( $payload[ $key ] ) ) {
+				return $payload[ $key ];
 			}
 		}
 
-		return array_values( $by_id );
+		return [];
 	}
 
 	/**
@@ -426,57 +389,6 @@ class AAB_Builder_Template_Library {
 		}
 
 		return [];
-	}
-
-	/**
-	 * Regenerate Bricks element ids and remap parent/children references so
-	 * the inserted section doesn't collide with elements already on the
-	 * canvas. Bricks element ids are short alphanumeric strings — we use
-	 * the same shape so the post-meta stays valid.
-	 *
-	 * @param array $elements
-	 * @return array
-	 */
-	private function remap_element_ids( $elements ) {
-		$id_map = [];
-
-		// First pass: build old → new id map.
-		foreach ( $elements as $element ) {
-			if ( isset( $element['id'] ) ) {
-				$id_map[ $element['id'] ] = $this->generate_element_id();
-			}
-		}
-
-		// Second pass: rewrite ids + parent/children references.
-		foreach ( $elements as &$element ) {
-			if ( isset( $element['id'] ) && isset( $id_map[ $element['id'] ] ) ) {
-				$element['id'] = $id_map[ $element['id'] ];
-			}
-
-			if ( isset( $element['parent'] ) && isset( $id_map[ $element['parent'] ] ) ) {
-				$element['parent'] = $id_map[ $element['parent'] ];
-			}
-
-			if ( isset( $element['children'] ) && is_array( $element['children'] ) ) {
-				$element['children'] = array_map(
-					function ( $child_id ) use ( $id_map ) {
-						return $id_map[ $child_id ] ?? $child_id;
-					},
-					$element['children']
-				);
-			}
-		}
-		unset( $element );
-
-		return $elements;
-	}
-
-	/**
-	 * Mimic Bricks' 6-char alphanumeric element id (uses the same alphabet
-	 * the Bricks builder generates: `[a-z0-9]`).
-	 */
-	private function generate_element_id() {
-		return strtolower( wp_generate_password( 6, false ) );
 	}
 }
 
