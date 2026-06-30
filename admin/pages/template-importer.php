@@ -326,10 +326,25 @@ class AAB_Template_Importer {
 				continue;
 			}
 
-			$xml_data = wp_remote_retrieve_body( $response );
-			if ( empty( $xml_data ) ) {
+			$body = wp_remote_retrieve_body( $response );
+			if ( empty( $body ) ) {
 				continue;
 			}
+
+			// Some option sources are Bricks export JSON files rather than WP
+			// options XML. The template entry flags these with an option_name like
+			// `page_global_class`, and the file is a Bricks export:
+			//   { "global_classes": [ { id, name, settings }, … ], "type":"bricks", … }
+			// In that case we don't have <name>/<value> nodes — instead we take the
+			// export's global_classes and MERGE them into `bricks_global_classes`
+			// (dedup by id, keep existing on conflict), the same merge used for the
+			// XML path. Detect by the declared option_name OR by the JSON shape.
+			$declared_option = isset( $item['option_name'] ) ? sanitize_key( (string) $item['option_name'] ) : '';
+			if ( $this->maybe_install_global_class_settings_json( $declared_option, $body ) ) {
+				continue;
+			}
+
+			$xml_data = $body;
 
 			$prev_errors = libxml_use_internal_errors( true );
 			$xml         = simplexml_load_string( $xml_data, 'SimpleXMLElement', LIBXML_NOCDATA );
@@ -371,6 +386,64 @@ class AAB_Template_Importer {
 				update_option( $option_name, $value );
 			}
 		}
+	}
+
+	/**
+	 * Handle an option source that is a Bricks export JSON (e.g. the
+	 * `page_global_class` entry), merging its global classes into the site's
+	 * `bricks_global_classes` option.
+	 *
+	 * The remote file looks like a standard Bricks export:
+	 *   { "global_classes": [ { id, name, settings }, … ], "type": "bricks", … }
+	 *
+	 * We extract `global_classes` and union it into `bricks_global_classes` with
+	 * the same id-keyed merge used for the XML option path (existing entries win
+	 * on conflict, new classes are appended) so pages that reference these class
+	 * ids resolve their CSS, without clobbering the user's own classes.
+	 *
+	 * @param string $declared_option The option_name declared in the template item.
+	 * @param string $body            The downloaded file body.
+	 * @return bool   True if the body was handled as global-settings JSON (caller
+	 *                should skip the XML path); false to fall through to XML.
+	 */
+	private function maybe_install_global_class_settings_json( $declared_option, $body ) {
+		// Only treat this as JSON global-settings when the template flags it, OR
+		// when the body is clearly a Bricks export carrying global_classes. This
+		// keeps every existing XML options file on the untouched XML path.
+		$is_flagged = ( 'page_global_class' === $declared_option );
+
+		$trimmed = ltrim( $body );
+		$looks_json = ( '' !== $trimmed && ( '{' === $trimmed[0] || '[' === $trimmed[0] ) );
+
+		if ( ! $is_flagged && ! $looks_json ) {
+			return false;
+		}
+
+		$data = json_decode( $body, true );
+		if ( ! is_array( $data ) ) {
+			return false; // not JSON — let the XML path try.
+		}
+
+		// Accept both the Bricks export key `global_classes` and the camelCase
+		// `globalClasses` some payloads use.
+		$incoming_classes = array();
+		if ( isset( $data['global_classes'] ) && is_array( $data['global_classes'] ) ) {
+			$incoming_classes = $data['global_classes'];
+		} elseif ( isset( $data['globalClasses'] ) && is_array( $data['globalClasses'] ) ) {
+			$incoming_classes = $data['globalClasses'];
+		}
+
+		// If it's JSON but has no global classes, there's nothing to merge — but
+		// it's still not an XML options file, so consider it handled (skip XML).
+		if ( empty( $incoming_classes ) ) {
+			return $is_flagged || $looks_json;
+		}
+
+		$existing = get_option( 'bricks_global_classes' );
+		$merged   = $this->merge_bricks_option( 'bricks_global_classes', $existing, $incoming_classes );
+		update_option( 'bricks_global_classes', $merged );
+
+		return true;
 	}
 
 	/**

@@ -308,7 +308,87 @@ class AAB_Builder_Template_Library {
 			return new \WP_Error( 'aab_invalid_template_json', __( 'Invalid template JSON.', 'bricksfly' ) );
 		}
 
+		// Merge any global classes / variables the section references into the
+		// site registries BEFORE returning the elements. The inserted elements
+		// reference these by id (settings._cssGlobalClasses) and by var(--…)
+		// tokens; without the definitions in `bricks_global_classes` /
+		// `bricks_global_variables`, the imported section loses its CSS. This is
+		// a plain post-meta insert (no Bricks native paste to import them for us),
+		// so we persist them ourselves — the same id-keyed merge the page
+		// importer uses (existing entries win, new ones are appended).
+		$this->merge_template_globals( $decoded );
+
 		return $this->extract_elements( $decoded );
+	}
+
+	/**
+	 * Merge a section payload's global classes and global variables into the
+	 * site's `bricks_global_classes` / `bricks_global_variables` options.
+	 *
+	 * Accepts the Bricks export shape (`global_classes` / `globalVariables`) and
+	 * the camelCase variants. Union is keyed by item `id`: existing entries are
+	 * kept on conflict (so the user's tweaks survive) and new items appended.
+	 *
+	 * @param mixed $payload Decoded section JSON.
+	 * @return void
+	 */
+	private function merge_template_globals( $payload ) {
+		if ( ! is_array( $payload ) ) {
+			return;
+		}
+
+		// Global classes — accept snake_case (Bricks export) and camelCase.
+		$classes = [];
+		if ( isset( $payload['global_classes'] ) && is_array( $payload['global_classes'] ) ) {
+			$classes = $payload['global_classes'];
+		} elseif ( isset( $payload['globalClasses'] ) && is_array( $payload['globalClasses'] ) ) {
+			$classes = $payload['globalClasses'];
+		}
+		if ( ! empty( $classes ) ) {
+			$existing = get_option( 'bricks_global_classes' );
+			update_option( 'bricks_global_classes', $this->union_by_id( $existing, $classes ) );
+		}
+
+		// Global variables — accept camelCase (Bricks export) and snake_case.
+		$variables = [];
+		if ( isset( $payload['globalVariables'] ) && is_array( $payload['globalVariables'] ) ) {
+			$variables = $payload['globalVariables'];
+		} elseif ( isset( $payload['global_variables'] ) && is_array( $payload['global_variables'] ) ) {
+			$variables = $payload['global_variables'];
+		}
+		if ( ! empty( $variables ) ) {
+			$existing = get_option( 'bricks_global_variables' );
+			update_option( 'bricks_global_variables', $this->union_by_id( $existing, $variables ) );
+		}
+	}
+
+	/**
+	 * Union two id-keyed lists, keeping existing items on id conflict and
+	 * appending new items from the incoming list. Mirrors the page importer's
+	 * `merge_bricks_option()` for list-shaped Bricks options.
+	 *
+	 * @param mixed $existing Current option value (may be empty / non-array).
+	 * @param array $incoming Items to merge in.
+	 * @return array
+	 */
+	private function union_by_id( $existing, $incoming ) {
+		if ( ! is_array( $existing ) || empty( $existing ) ) {
+			return array_values( $incoming );
+		}
+
+		$by_id = [];
+		foreach ( $existing as $item ) {
+			if ( is_array( $item ) && isset( $item['id'] ) ) {
+				$by_id[ $item['id'] ] = $item;
+			}
+		}
+		foreach ( $incoming as $item ) {
+			if ( is_array( $item ) && isset( $item['id'] ) && ! isset( $by_id[ $item['id'] ] ) ) {
+				$by_id[ $item['id'] ] = $item;
+			}
+		}
+
+		return array_values( $by_id );
 	}
 
 	/**
