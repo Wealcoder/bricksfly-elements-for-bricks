@@ -86,7 +86,16 @@ const LicenseDialog = ({ open, setOpen }) => {
 
           if (return_content?.license === "valid") {
             // AAB_ADDONS_ADMIN.addons_config.wcf_valid = true;
-            setActivated(AAB_ADDONS_ADMIN.addons_config);
+            // Guard: this dialog is shared with the Page Importer app, whose
+            // context does not expose setActivated. Calling an undefined setter
+            // here would throw and abort the rest of the success handler — so the
+            // spinner would never stop and the reload below would never fire,
+            // leaving the popup stuck on "loading". The reload re-reads the
+            // freshly activated license anyway, so the in-memory update is
+            // optional.
+            if (typeof setActivated === "function") {
+              setActivated(AAB_ADDONS_ADMIN.addons_config);
+            }
             toast.success("Activate Successful", {
               position: "top-right",
             });
@@ -99,7 +108,14 @@ const LicenseDialog = ({ open, setOpen }) => {
               date: utcDate,
             };
 
-            updateNotice(sampleData);
+            // Guard: useNotification() (like useActivate) resolves to the
+            // dashboard context, which the Page Importer app does not provide,
+            // so updateNotice can be undefined there. Calling it unguarded threw
+            // ("R is not a function" in the minified build) and aborted the
+            // handler before the reload — leaving the popup stuck on loading.
+            if (typeof updateNotice === "function") {
+              updateNotice(sampleData);
+            }
 
             const url = new URL(window.location.href);
             url.searchParams.delete("bf-license");
@@ -107,7 +123,9 @@ const LicenseDialog = ({ open, setOpen }) => {
             window.location.reload();
           } else {
             // AAB_ADDONS_ADMIN.addons_config.wcf_valid = false;
-            setActivated(AAB_ADDONS_ADMIN.addons_config);
+            if (typeof setActivated === "function") {
+              setActivated(AAB_ADDONS_ADMIN.addons_config);
+            }
             toast.success("Deactivate Successful", {
               position: "top-right",
             });
@@ -120,7 +138,14 @@ const LicenseDialog = ({ open, setOpen }) => {
               date: utcDate,
             };
 
-            updateNotice(sampleData);
+            // Guard: useNotification() (like useActivate) resolves to the
+            // dashboard context, which the Page Importer app does not provide,
+            // so updateNotice can be undefined there. Calling it unguarded threw
+            // ("R is not a function" in the minified build) and aborted the
+            // handler before the reload — leaving the popup stuck on loading.
+            if (typeof updateNotice === "function") {
+              updateNotice(sampleData);
+            }
             const url = new URL(window.location.href);
             url.searchParams.delete("bf-license");
             window.history.replaceState({}, "", url);
@@ -130,6 +155,14 @@ const LicenseDialog = ({ open, setOpen }) => {
         } else {
           setErrorMessage(return_content.message);
         }
+        setLoading(false);
+      })
+      .catch((err) => {
+        // Never leave the dialog stuck on the spinner if the request or
+        // response parsing fails.
+        setErrorMessage(
+          (err && err.message) || "Something went wrong. Please try again.",
+        );
         setLoading(false);
       });
   };
