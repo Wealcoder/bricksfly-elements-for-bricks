@@ -1,8 +1,13 @@
 import { RiArrowLeftLine } from "react-icons/ri";
 import LargeLogo from "./LargeLogo";
 import GetProButton from "../shared/GetProButton";
+import LicenseStatusBadge from "./LicenseStatusBadge";
 
-const TemplateHeader = ({ activeBtn = true, showProButton = true }) => {
+const TemplateHeader = ({
+  activeBtn = true,
+  showProButton = true,
+  showLicenseStatus = false,
+}) => {
   const getDashboardUrl = () => {
     const url = new URL(window.location.href);
 
@@ -41,6 +46,10 @@ const TemplateHeader = ({ activeBtn = true, showProButton = true }) => {
       {activeBtn && showProButton ? (
         <div className="flex justify-end gap-3 items-center">
           <GetProButton />
+        </div>
+      ) : showLicenseStatus ? (
+        <div className="flex justify-end gap-3 items-center">
+          <LicenseStatusBadge />
         </div>
       ) : (
         ""
