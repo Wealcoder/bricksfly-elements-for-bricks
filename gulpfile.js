@@ -6,7 +6,7 @@
  * Excludes: node_modules, src, dist (build output), and the gulpfile itself.
  *
  * Usage:
- *   npx gulp zip          # build dist/bricksfly.zip
+ *   npx gulp zip          # build dist/the-bricksfly.zip
  *   npx gulp watch:zip    # rebuild on change
  */
 
@@ -16,7 +16,7 @@ const zip     = require('gulp-zip');
 const del     = require('del');
 const through = require('through2');
 
-const PLUGIN_SLUG = 'bricksfly';
+const PLUGIN_SLUG = 'the-bricksfly';
 const DIST_DIR    = 'dist';
 
 const sources = [
@@ -44,7 +44,7 @@ const sources = [
 ];
 
 // Prefix every file path with the plugin slug so the zip extracts
-// into `bricksfly/...` (WordPress convention).
+// into `the-bricksfly/...` (WordPress convention).
 function prefixFolder(folder) {
     return through.obj(function (file, _, cb) {
         if (file.relative) {

@@ -13,7 +13,7 @@ class AAB_Bricks_Counter extends \Bricks\Element
 
 	public function get_label()
 	{
-		return esc_html__('Counter', 'bricksfly');
+		return esc_html__('Counter', 'the-bricksfly');
 	}
 
 	public function get_keywords()
@@ -42,32 +42,32 @@ class AAB_Bricks_Counter extends \Bricks\Element
 	public function set_control_groups()
 	{
 		$this->control_groups['content'] = [
-			'title' => esc_html__('Content', 'bricksfly'),
+			'title' => esc_html__('Content', 'the-bricksfly'),
 			'tab'   => 'content',
 		];
 
 		$this->control_groups['animation'] = [
-			'title' => esc_html__('Animation', 'bricksfly'),
+			'title' => esc_html__('Animation', 'the-bricksfly'),
 			'tab'   => 'content',
 		];
 
 		$this->control_groups['layout'] = [
-			'title' => esc_html__('Layout', 'bricksfly'),
+			'title' => esc_html__('Layout', 'the-bricksfly'),
 			'tab'   => 'content',
 		];
 
 		$this->control_groups['number_style'] = [
-			'title' => esc_html__('Number', 'bricksfly'),
+			'title' => esc_html__('Number', 'the-bricksfly'),
 			'tab'   => 'style',
 		];
 
 		$this->control_groups['prefix_suffix_style'] = [
-			'title' => esc_html__('Prefix / Suffix', 'bricksfly'),
+			'title' => esc_html__('Prefix / Suffix', 'the-bricksfly'),
 			'tab'   => 'style',
 		];
 
 		$this->control_groups['title_style'] = [
-			'title' => esc_html__('Title', 'bricksfly'),
+			'title' => esc_html__('Title', 'the-bricksfly'),
 			'tab'   => 'style',
 		];
 	}
@@ -81,42 +81,42 @@ class AAB_Bricks_Counter extends \Bricks\Element
 
 		$this->controls['starting_number'] = [
 			'group'   => 'content',
-			'label'   => esc_html__('Starting Number', 'bricksfly'),
+			'label'   => esc_html__('Starting Number', 'the-bricksfly'),
 			'type'    => 'number',
 			'default' => 0,
 		];
 
 		$this->controls['ending_number'] = [
 			'group'   => 'content',
-			'label'   => esc_html__('Ending Number', 'bricksfly'),
+			'label'   => esc_html__('Ending Number', 'the-bricksfly'),
 			'type'    => 'number',
 			'default' => 100,
 		];
 
 		$this->controls['number_prefix'] = [
 			'group'       => 'content',
-			'label'       => esc_html__('Number Prefix', 'bricksfly'),
+			'label'       => esc_html__('Number Prefix', 'the-bricksfly'),
 			'type'        => 'text',
 			'placeholder' => '$',
 		];
 
 		$this->controls['number_suffix'] = [
 			'group'       => 'content',
-			'label'       => esc_html__('Number Suffix', 'bricksfly'),
+			'label'       => esc_html__('Number Suffix', 'the-bricksfly'),
 			'type'        => 'text',
 			'placeholder' => '+',
 		];
 
 		$this->controls['counter_title'] = [
 			'group'   => 'content',
-			'label'   => esc_html__('Title', 'bricksfly'),
+			'label'   => esc_html__('Title', 'the-bricksfly'),
 			'type'    => 'text',
-			'default' => esc_html__('Happy Clients', 'bricksfly'),
+			'default' => esc_html__('Happy Clients', 'the-bricksfly'),
 		];
 
 		$this->controls['title_tag'] = [
 			'group'   => 'content',
-			'label'   => esc_html__('Title HTML Tag', 'bricksfly'),
+			'label'   => esc_html__('Title HTML Tag', 'the-bricksfly'),
 			'type'    => 'select',
 			'options' => [
 				'h1' => 'H1',
@@ -135,13 +135,13 @@ class AAB_Bricks_Counter extends \Bricks\Element
 
 		$this->controls['thousand_separator'] = [
 			'group'   => 'content',
-			'label'   => esc_html__('Thousand Separator', 'bricksfly'),
+			'label'   => esc_html__('Thousand Separator', 'the-bricksfly'),
 			'type'    => 'select',
 			'options' => [
-				'none'  => esc_html__('None', 'bricksfly'),
-				'comma' => esc_html__('Comma (1,000)', 'bricksfly'),
-				'dot'   => esc_html__('Dot (1.000)', 'bricksfly'),
-				'space' => esc_html__('Space (1 000)', 'bricksfly'),
+				'none'  => esc_html__('None', 'the-bricksfly'),
+				'comma' => esc_html__('Comma (1,000)', 'the-bricksfly'),
+				'dot'   => esc_html__('Dot (1.000)', 'the-bricksfly'),
+				'space' => esc_html__('Space (1 000)', 'the-bricksfly'),
 			],
 			'default' => 'comma',
 		];
@@ -152,7 +152,7 @@ class AAB_Bricks_Counter extends \Bricks\Element
 
 		$this->controls['animation_duration'] = [
 			'group'   => 'animation',
-			'label'   => esc_html__('Duration (ms)', 'bricksfly'),
+			'label'   => esc_html__('Duration (ms)', 'the-bricksfly'),
 			'type'    => 'number',
 			'default' => 2000,
 			'step'    => 100,
@@ -161,11 +161,11 @@ class AAB_Bricks_Counter extends \Bricks\Element
 
 		$this->controls['animation_trigger'] = [
 			'group'   => 'animation',
-			'label'   => esc_html__('Trigger', 'bricksfly'),
+			'label'   => esc_html__('Trigger', 'the-bricksfly'),
 			'type'    => 'select',
 			'options' => [
-				'on_scroll'    => esc_html__('On Scroll (In View)', 'bricksfly'),
-				'on_page_load' => esc_html__('On Page Load', 'bricksfly'),
+				'on_scroll'    => esc_html__('On Scroll (In View)', 'the-bricksfly'),
+				'on_page_load' => esc_html__('On Page Load', 'the-bricksfly'),
 			],
 			'default' => 'on_scroll',
 		];
@@ -176,13 +176,13 @@ class AAB_Bricks_Counter extends \Bricks\Element
 
 		$this->controls['direction'] = [
 			'group'   => 'layout',
-			'label'   => esc_html__('Direction', 'bricksfly'),
+			'label'   => esc_html__('Direction', 'the-bricksfly'),
 			'type'    => 'select',
 			'options' => [
-				'column'         => esc_html__('Vertical (Number Top)', 'bricksfly'),
-				'column-reverse' => esc_html__('Vertical (Title Top)', 'bricksfly'),
-				'row'            => esc_html__('Horizontal (Number Left)', 'bricksfly'),
-				'row-reverse'    => esc_html__('Horizontal (Title Left)', 'bricksfly'),
+				'column'         => esc_html__('Vertical (Number Top)', 'the-bricksfly'),
+				'column-reverse' => esc_html__('Vertical (Title Top)', 'the-bricksfly'),
+				'row'            => esc_html__('Horizontal (Number Left)', 'the-bricksfly'),
+				'row-reverse'    => esc_html__('Horizontal (Title Left)', 'the-bricksfly'),
 			],
 			'default' => 'column',
 			'css'     => [[
@@ -193,7 +193,7 @@ class AAB_Bricks_Counter extends \Bricks\Element
 
 		$this->controls['alignment'] = [
 			'group'   => 'layout',
-			'label'   => esc_html__('Alignment', 'bricksfly'),
+			'label'   => esc_html__('Alignment', 'the-bricksfly'),
 			'type'    => 'justify-content',
 			'css'     => [
 				[
@@ -206,7 +206,7 @@ class AAB_Bricks_Counter extends \Bricks\Element
 
 		$this->controls['gap'] = [
 			'group' => 'layout',
-			'label' => esc_html__('Gap', 'bricksfly'),
+			'label' => esc_html__('Gap', 'the-bricksfly'),
 			'type'  => 'number',
 			'units' => true,
 			'css'   => [[
@@ -217,7 +217,7 @@ class AAB_Bricks_Counter extends \Bricks\Element
 
 		$this->controls['number_gap'] = [
 			'group' => 'layout',
-			'label' => esc_html__('Number Row Gap', 'bricksfly'),
+			'label' => esc_html__('Number Row Gap', 'the-bricksfly'),
 			'type'  => 'number',
 			'units' => true,
 			'css'   => [[
@@ -232,7 +232,7 @@ class AAB_Bricks_Counter extends \Bricks\Element
 
 		$this->controls['number_typo'] = [
 			'group' => 'number_style',
-			'label' => esc_html__('Typography', 'bricksfly'),
+			'label' => esc_html__('Typography', 'the-bricksfly'),
 			'type'  => 'typography',
 			'css'   => [[
 				'property' => 'typography',
@@ -242,7 +242,7 @@ class AAB_Bricks_Counter extends \Bricks\Element
 
 		$this->controls['number_bg'] = [
 			'group' => 'number_style',
-			'label' => esc_html__('Background', 'bricksfly'),
+			'label' => esc_html__('Background', 'the-bricksfly'),
 			'type'  => 'color',
 			'css'   => [[
 				'property' => 'background-color',
@@ -252,7 +252,7 @@ class AAB_Bricks_Counter extends \Bricks\Element
 
 		$this->controls['number_padding'] = [
 			'group' => 'number_style',
-			'label' => esc_html__('Padding', 'bricksfly'),
+			'label' => esc_html__('Padding', 'the-bricksfly'),
 			'type'  => 'dimensions',
 			'css'   => [[
 				'property' => 'padding',
@@ -262,7 +262,7 @@ class AAB_Bricks_Counter extends \Bricks\Element
 
 		$this->controls['number_border'] = [
 			'group' => 'number_style',
-			'label' => esc_html__('Border', 'bricksfly'),
+			'label' => esc_html__('Border', 'the-bricksfly'),
 			'type'  => 'border',
 			'css'   => [[
 				'property' => 'border',
@@ -272,7 +272,7 @@ class AAB_Bricks_Counter extends \Bricks\Element
 
 		// $this->controls['number_radius'] = [
 		// 	'group' => 'number_style',
-		// 	'label' => esc_html__( 'Border Radius', 'bricksfly' ),
+		// 	'label' => esc_html__( 'Border Radius', 'the-bricksfly' ),
 		// 	'type'  => 'dimensions',
 		// 	'css'   => [[
 		// 		'property' => 'border-radius',
@@ -286,7 +286,7 @@ class AAB_Bricks_Counter extends \Bricks\Element
 
 		$this->controls['prefix_typo'] = [
 			'group' => 'prefix_suffix_style',
-			'label' => esc_html__('Prefix Typography', 'bricksfly'),
+			'label' => esc_html__('Prefix Typography', 'the-bricksfly'),
 			'type'  => 'typography',
 			'css'   => [[
 				'property' => 'typography',
@@ -296,7 +296,7 @@ class AAB_Bricks_Counter extends \Bricks\Element
 
 		$this->controls['suffix_typo'] = [
 			'group' => 'prefix_suffix_style',
-			'label' => esc_html__('Suffix Typography', 'bricksfly'),
+			'label' => esc_html__('Suffix Typography', 'the-bricksfly'),
 			'type'  => 'typography',
 			'css'   => [[
 				'property' => 'typography',
@@ -310,7 +310,7 @@ class AAB_Bricks_Counter extends \Bricks\Element
 
 		$this->controls['title_typo'] = [
 			'group' => 'title_style',
-			'label' => esc_html__('Typography', 'bricksfly'),
+			'label' => esc_html__('Typography', 'the-bricksfly'),
 			'type'  => 'typography',
 			'css'   => [[
 				'property' => 'typography',
@@ -320,7 +320,7 @@ class AAB_Bricks_Counter extends \Bricks\Element
 
 		$this->controls['title_margin'] = [
 			'group' => 'title_style',
-			'label' => esc_html__('Margin', 'bricksfly'),
+			'label' => esc_html__('Margin', 'the-bricksfly'),
 			'type'  => 'dimensions',
 			'css'   => [[
 				'property' => 'margin',

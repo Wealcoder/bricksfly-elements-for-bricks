@@ -84,7 +84,7 @@ class AAB_Starter_Animations
 	public function inject_text_group($groups)
 	{
 		$groups[self::GROUP_ID] = [
-			'title' => Label_Name_Helper::title(__('Starter Animations', 'bricksfly')),
+			'title' => Label_Name_Helper::title(__('Starter Animations', 'the-bricksfly')),
 			'tab'   => 'content',
 		];
 		return $groups;
@@ -93,7 +93,7 @@ class AAB_Starter_Animations
 	public function inject_container_group($groups)
 	{
 		$groups[self::GROUP_ID_CONTAINER] = [
-			'title' => Label_Name_Helper::title(__('Starter Animations', 'bricksfly')),
+			'title' => Label_Name_Helper::title(__('Starter Animations', 'the-bricksfly')),
 			'tab'   => 'content',
 		];
 		return $groups;
@@ -106,18 +106,18 @@ class AAB_Starter_Animations
 	private function get_text_animation_options()
 	{
 		return [
-			'none'             => esc_html__('None', 'bricksfly'),
-			'reveal'           => esc_html__('Reveal', 'bricksfly'),
-			'scale-up'         => esc_html__('Scale', 'bricksfly'),
-			'slide'            => esc_html__('Slide', 'bricksfly'),
-			'skew-reveal'      => esc_html__('Skew Reveal', 'bricksfly'),
-			'flip'             => esc_html__('Flip', 'bricksfly'),
-			'text-glow'        => esc_html__('Glow Pulse (text)', 'bricksfly'),
-			'text-typewriter'  => esc_html__('Typewriter (text)', 'bricksfly'),
-			'text-mask-wipe'   => esc_html__('Mask Wipe (text)', 'bricksfly'),
-			'text-wave'        => esc_html__('Water Wave (text)', 'bricksfly'),
-			'text-bg-clip'     => esc_html__('Background Clip (text)', 'bricksfly'),
-			'text-char-animate' => esc_html__('Character Animation (text)', 'bricksfly'),
+			'none'             => esc_html__('None', 'the-bricksfly'),
+			'reveal'           => esc_html__('Reveal', 'the-bricksfly'),
+			'scale-up'         => esc_html__('Scale', 'the-bricksfly'),
+			'slide'            => esc_html__('Slide', 'the-bricksfly'),
+			'skew-reveal'      => esc_html__('Skew Reveal', 'the-bricksfly'),
+			'flip'             => esc_html__('Flip', 'the-bricksfly'),
+			'text-glow'        => esc_html__('Glow Pulse (text)', 'the-bricksfly'),
+			'text-typewriter'  => esc_html__('Typewriter (text)', 'the-bricksfly'),
+			'text-mask-wipe'   => esc_html__('Mask Wipe (text)', 'the-bricksfly'),
+			'text-wave'        => esc_html__('Water Wave (text)', 'the-bricksfly'),
+			'text-bg-clip'     => esc_html__('Background Clip (text)', 'the-bricksfly'),
+			'text-char-animate' => esc_html__('Character Animation (text)', 'the-bricksfly'),
 		];
 	}
 
@@ -125,25 +125,25 @@ class AAB_Starter_Animations
 	{
 		// Image / media: layout animations only — strip text effects.
 		return [
-			'none'        => esc_html__('None', 'bricksfly'),
-			'reveal'      => esc_html__('Reveal', 'bricksfly'),
-			'scale-up'    => esc_html__('Scale', 'bricksfly'),
-			'slide'       => esc_html__('Slide', 'bricksfly'),
-			'skew-reveal' => esc_html__('Skew Reveal', 'bricksfly'),
-			'flip'        => esc_html__('Flip', 'bricksfly'),
+			'none'        => esc_html__('None', 'the-bricksfly'),
+			'reveal'      => esc_html__('Reveal', 'the-bricksfly'),
+			'scale-up'    => esc_html__('Scale', 'the-bricksfly'),
+			'slide'       => esc_html__('Slide', 'the-bricksfly'),
+			'skew-reveal' => esc_html__('Skew Reveal', 'the-bricksfly'),
+			'flip'        => esc_html__('Flip', 'the-bricksfly'),
 		];
 	}
 
 	private function get_easing_options()
 	{
 		return [
-			'ease'                          => esc_html__('Ease (Default)', 'bricksfly'),
-			'linear'                        => esc_html__('Linear', 'bricksfly'),
-			'ease-in'                       => esc_html__('Ease In', 'bricksfly'),
-			'ease-out'                      => esc_html__('Ease Out', 'bricksfly'),
-			'ease-in-out'                   => esc_html__('Ease In Out', 'bricksfly'),
-			'cubic-bezier(.25,.8,.25,1)'    => esc_html__('Smooth Cubic', 'bricksfly'),
-			'cubic-bezier(.17,.67,.83,.67)' => esc_html__('Elastic Feel', 'bricksfly'),
+			'ease'                          => esc_html__('Ease (Default)', 'the-bricksfly'),
+			'linear'                        => esc_html__('Linear', 'the-bricksfly'),
+			'ease-in'                       => esc_html__('Ease In', 'the-bricksfly'),
+			'ease-out'                      => esc_html__('Ease Out', 'the-bricksfly'),
+			'ease-in-out'                   => esc_html__('Ease In Out', 'the-bricksfly'),
+			'cubic-bezier(.25,.8,.25,1)'    => esc_html__('Smooth Cubic', 'the-bricksfly'),
+			'cubic-bezier(.17,.67,.83,.67)' => esc_html__('Elastic Feel', 'the-bricksfly'),
 		];
 	}
 
@@ -168,7 +168,7 @@ class AAB_Starter_Animations
 		$controls['_aab_starter_anim'] = [
 			'tab'         => 'content',
 			'group'       => self::GROUP_ID,
-			'label'       => esc_html__('Animation', 'bricksfly'),
+			'label'       => esc_html__('Animation', 'the-bricksfly'),
 			'type'        => 'select',
 			'options'     => $is_text ? $this->get_text_animation_options() : $this->get_media_animation_options(),
 			'default'     => 'none',
@@ -179,7 +179,7 @@ class AAB_Starter_Animations
 		$controls['_aab_anim_duration'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
-			'label'    => esc_html__('Duration (ms)', 'bricksfly'),
+			'label'    => esc_html__('Duration (ms)', 'the-bricksfly'),
 			'type'     => 'number',
 			'default'  => 1000,
 			'min'      => 100,
@@ -198,7 +198,7 @@ class AAB_Starter_Animations
 		$controls['_aab_anim_delay'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
-			'label'    => esc_html__('Delay (ms)', 'bricksfly'),
+			'label'    => esc_html__('Delay (ms)', 'the-bricksfly'),
 			'type'     => 'number',
 			'default'  => 0,
 			'min'      => 0,
@@ -217,7 +217,7 @@ class AAB_Starter_Animations
 		$controls['_aab_anim_ease'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
-			'label'    => esc_html__('Easing', 'bricksfly'),
+			'label'    => esc_html__('Easing', 'the-bricksfly'),
 			'type'     => 'select',
 			'options'  => $this->get_easing_options(),
 			'default'  => 'ease',
@@ -236,7 +236,7 @@ class AAB_Starter_Animations
 			$controls['_aab_glow_color'] = [
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
-				'label'    => esc_html__('Glow Color', 'bricksfly'),
+				'label'    => esc_html__('Glow Color', 'the-bricksfly'),
 				'type'     => 'color',
 				'default'  => ['hex' => '#0000ff'],
 				'required' => ['_aab_starter_anim', '=', 'text-glow'],
@@ -251,7 +251,7 @@ class AAB_Starter_Animations
 			$controls['_aab_glow_size'] = [
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
-				'label'    => esc_html__('Glow Size (px)', 'bricksfly'),
+				'label'    => esc_html__('Glow Size (px)', 'the-bricksfly'),
 				'type'     => 'number',
 				'default'  => 20,
 				'min'      => 5,
@@ -269,11 +269,11 @@ class AAB_Starter_Animations
 			$controls['_aab_glow_iteration'] = [
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
-				'label'    => esc_html__('Animation Loop', 'bricksfly'),
+				'label'    => esc_html__('Animation Loop', 'the-bricksfly'),
 				'type'     => 'select',
 				'options'  => [
-					'1'        => esc_html__('Play Once', 'bricksfly'),
-					'infinite' => esc_html__('Infinite', 'bricksfly'),
+					'1'        => esc_html__('Play Once', 'the-bricksfly'),
+					'infinite' => esc_html__('Infinite', 'the-bricksfly'),
 				],
 				'default'  => 'infinite',
 				'inline'   => true,
@@ -290,7 +290,7 @@ class AAB_Starter_Animations
 			$controls['_aab_mask_wipe_bg'] = [
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
-				'label'    => esc_html__('Mask Color', 'bricksfly'),
+				'label'    => esc_html__('Mask Color', 'the-bricksfly'),
 				'type'     => 'color',
 				'default'  => ['hex' => '#000000'],
 				'required' => ['_aab_starter_anim', '=', 'text-mask-wipe'],
@@ -307,14 +307,14 @@ class AAB_Starter_Animations
 		$controls['_aab_reveal_direction'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
-			'label'    => esc_html__('Direction', 'bricksfly'),
+			'label'    => esc_html__('Direction', 'the-bricksfly'),
 			'type'     => 'select',
 			'options'  => [
-				'bottom' => esc_html__('Bottom -> Top', 'bricksfly'),
-				'top'    => esc_html__('Top -> Bottom', 'bricksfly'),
-				'left'   => esc_html__('Left -> Right', 'bricksfly'),
-				'right'  => esc_html__('Right -> Left', 'bricksfly'),
-				'center' => esc_html__('Center Expand', 'bricksfly'),
+				'bottom' => esc_html__('Bottom -> Top', 'the-bricksfly'),
+				'top'    => esc_html__('Top -> Bottom', 'the-bricksfly'),
+				'left'   => esc_html__('Left -> Right', 'the-bricksfly'),
+				'right'  => esc_html__('Right -> Left', 'the-bricksfly'),
+				'center' => esc_html__('Center Expand', 'the-bricksfly'),
 			],
 			'default'  => 'bottom',
 			'inline'   => true,
@@ -324,7 +324,7 @@ class AAB_Starter_Animations
 		$controls['_aab_reveal_fade'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
-			'label'    => esc_html__('Enable Fade', 'bricksfly'),
+			'label'    => esc_html__('Enable Fade', 'the-bricksfly'),
 			'type'     => 'checkbox',
 			'default'  => false,
 			'required' => ['_aab_starter_anim', '=', 'reveal'],
@@ -335,7 +335,7 @@ class AAB_Starter_Animations
 			$controls['_aab_wave_fill_color'] = [
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
-				'label'    => esc_html__('Wave Fill Color', 'bricksfly'),
+				'label'    => esc_html__('Wave Fill Color', 'the-bricksfly'),
 				'type'     => 'color',
 				'required' => ['_aab_starter_anim', '=', 'text-wave'],
 				'css'      => [
@@ -355,7 +355,7 @@ class AAB_Starter_Animations
 			$controls['_aab_bg_text_image'] = [
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
-				'label'    => esc_html__('Background Image', 'bricksfly'),
+				'label'    => esc_html__('Background Image', 'the-bricksfly'),
 				'type'     => 'image',
 				'required' => ['_aab_starter_anim', '=', 'text-bg-clip'],
 			];
@@ -363,7 +363,7 @@ class AAB_Starter_Animations
 			$controls['_aab_bg_text_speed'] = [
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
-				'label'    => esc_html__('Animation Speed (s)', 'bricksfly'),
+				'label'    => esc_html__('Animation Speed (s)', 'the-bricksfly'),
 				'type'     => 'number',
 				'default'  => 15,
 				'min'      => 1,
@@ -382,15 +382,15 @@ class AAB_Starter_Animations
 			$controls['_aab_char_preset'] = [
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
-				'label'    => esc_html__('Character Preset', 'bricksfly'),
+				'label'    => esc_html__('Character Preset', 'the-bricksfly'),
 				'type'     => 'select',
 				'options'  => [
-					'revolve'      => esc_html__('Revolve Scale', 'bricksfly'),
-					'ball'         => esc_html__('Ball Drop', 'bricksfly'),
-					'slide'        => esc_html__('Side Slide', 'bricksfly'),
-					'revolve_drop' => esc_html__('Revolve Drop', 'bricksfly'),
-					'drop_vanish'  => esc_html__('Drop Vanish', 'bricksfly'),
-					'twister'      => esc_html__('Twister', 'bricksfly'),
+					'revolve'      => esc_html__('Revolve Scale', 'the-bricksfly'),
+					'ball'         => esc_html__('Ball Drop', 'the-bricksfly'),
+					'slide'        => esc_html__('Side Slide', 'the-bricksfly'),
+					'revolve_drop' => esc_html__('Revolve Drop', 'the-bricksfly'),
+					'drop_vanish'  => esc_html__('Drop Vanish', 'the-bricksfly'),
+					'twister'      => esc_html__('Twister', 'the-bricksfly'),
 				],
 				'default'  => 'revolve',
 				'inline'   => true,
@@ -400,7 +400,7 @@ class AAB_Starter_Animations
 			$controls['_aab_char_revolve_x'] = [
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
-				'label'    => esc_html__('Translate X (px)', 'bricksfly'),
+				'label'    => esc_html__('Translate X (px)', 'the-bricksfly'),
 				'type'     => 'number',
 				'default'  => -150,
 				'required' => [
@@ -419,7 +419,7 @@ class AAB_Starter_Animations
 			$controls['_aab_char_revolve_y'] = [
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
-				'label'    => esc_html__('Translate Y (px)', 'bricksfly'),
+				'label'    => esc_html__('Translate Y (px)', 'the-bricksfly'),
 				'type'     => 'number',
 				'default'  => -50,
 				'required' => [
@@ -438,7 +438,7 @@ class AAB_Starter_Animations
 			$controls['_aab_char_ball_y'] = [
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
-				'label'    => esc_html__('Drop Distance (px)', 'bricksfly'),
+				'label'    => esc_html__('Drop Distance (px)', 'the-bricksfly'),
 				'type'     => 'number',
 				'default'  => 200,
 				'required' => [
@@ -457,7 +457,7 @@ class AAB_Starter_Animations
 			$controls['_aab_char_twister_rotate'] = [
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
-				'label'    => esc_html__('Rotate Degree', 'bricksfly'),
+				'label'    => esc_html__('Rotate Degree', 'the-bricksfly'),
 				'type'     => 'number',
 				'default'  => -180,
 				'required' => [
@@ -478,7 +478,7 @@ class AAB_Starter_Animations
 		$controls['_aab_scale_start'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
-			'label'    => esc_html__('Start Scale', 'bricksfly'),
+			'label'    => esc_html__('Start Scale', 'the-bricksfly'),
 			'type'     => 'number',
 			'default'  => 0.6,
 			'step'     => 0.1,
@@ -496,7 +496,7 @@ class AAB_Starter_Animations
 		$controls['_aab_scale_end'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
-			'label'    => esc_html__('End Scale', 'bricksfly'),
+			'label'    => esc_html__('End Scale', 'the-bricksfly'),
 			'type'     => 'number',
 			'default'  => 1,
 			'step'     => 0.1,
@@ -514,14 +514,14 @@ class AAB_Starter_Animations
 		$controls['_aab_scale_origin'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
-			'label'    => esc_html__('Scale From', 'bricksfly'),
+			'label'    => esc_html__('Scale From', 'the-bricksfly'),
 			'type'     => 'select',
 			'options'  => [
-				'center' => esc_html__('Center', 'bricksfly'),
-				'top'    => esc_html__('Top', 'bricksfly'),
-				'bottom' => esc_html__('Bottom', 'bricksfly'),
-				'left'   => esc_html__('Left', 'bricksfly'),
-				'right'  => esc_html__('Right', 'bricksfly'),
+				'center' => esc_html__('Center', 'the-bricksfly'),
+				'top'    => esc_html__('Top', 'the-bricksfly'),
+				'bottom' => esc_html__('Bottom', 'the-bricksfly'),
+				'left'   => esc_html__('Left', 'the-bricksfly'),
+				'right'  => esc_html__('Right', 'the-bricksfly'),
 			],
 			'default'  => 'center',
 			'inline'   => true,
@@ -538,13 +538,13 @@ class AAB_Starter_Animations
 		$controls['_aab_slide_direction'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
-			'label'    => esc_html__('Direction', 'bricksfly'),
+			'label'    => esc_html__('Direction', 'the-bricksfly'),
 			'type'     => 'select',
 			'options'  => [
-				'bottom' => esc_html__('Bottom → Top', 'bricksfly'),
-				'top'    => esc_html__('Top → Bottom', 'bricksfly'),
-				'left'   => esc_html__('Left → Right', 'bricksfly'),
-				'right'  => esc_html__('Right → Left', 'bricksfly'),
+				'bottom' => esc_html__('Bottom → Top', 'the-bricksfly'),
+				'top'    => esc_html__('Top → Bottom', 'the-bricksfly'),
+				'left'   => esc_html__('Left → Right', 'the-bricksfly'),
+				'right'  => esc_html__('Right → Left', 'the-bricksfly'),
 			],
 			'default'  => 'bottom',
 			'inline'   => true,
@@ -554,7 +554,7 @@ class AAB_Starter_Animations
 		$controls['_aab_slide_distance'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
-			'label'    => esc_html__('Distance (px)', 'bricksfly'),
+			'label'    => esc_html__('Distance (px)', 'the-bricksfly'),
 			'type'     => 'number',
 			'default'  => 60,
 			'min'      => 0,
@@ -574,7 +574,7 @@ class AAB_Starter_Animations
 		$controls['_aab_skew_angle'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
-			'label'    => esc_html__('Skew Angle (deg)', 'bricksfly'),
+			'label'    => esc_html__('Skew Angle (deg)', 'the-bricksfly'),
 			'type'     => 'number',
 			'default'  => 18,
 			'required' => ['_aab_starter_anim', '=', 'skew-reveal'],
@@ -590,7 +590,7 @@ class AAB_Starter_Animations
 		$controls['_aab_skew_distance'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
-			'label'    => esc_html__('Translate Distance (px)', 'bricksfly'),
+			'label'    => esc_html__('Translate Distance (px)', 'the-bricksfly'),
 			'type'     => 'number',
 			'default'  => 40,
 			'required' => ['_aab_starter_anim', '=', 'skew-reveal'],
@@ -607,11 +607,11 @@ class AAB_Starter_Animations
 		$controls['_aab_flip_axis'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
-			'label'    => esc_html__('Flip Direction', 'bricksfly'),
+			'label'    => esc_html__('Flip Direction', 'the-bricksfly'),
 			'type'     => 'select',
 			'options'  => [
-				'x' => esc_html__('Flip X', 'bricksfly'),
-				'y' => esc_html__('Flip Y', 'bricksfly'),
+				'x' => esc_html__('Flip X', 'the-bricksfly'),
+				'y' => esc_html__('Flip Y', 'the-bricksfly'),
 			],
 			'default'  => 'x',
 			'inline'   => true,
@@ -621,7 +621,7 @@ class AAB_Starter_Animations
 		$controls['_aab_flip_angle'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
-			'label'    => esc_html__('Flip Angle (deg)', 'bricksfly'),
+			'label'    => esc_html__('Flip Angle (deg)', 'the-bricksfly'),
 			'type'     => 'number',
 			'default'  => 90,
 			'required' => ['_aab_starter_anim', '=', 'flip'],
@@ -637,7 +637,7 @@ class AAB_Starter_Animations
 		$controls['_aab_flip_perspective'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
-			'label'    => esc_html__('Perspective (px)', 'bricksfly'),
+			'label'    => esc_html__('Perspective (px)', 'the-bricksfly'),
 			'type'     => 'number',
 			'default'  => 800,
 			'required' => ['_aab_starter_anim', '=', 'flip'],
@@ -654,12 +654,12 @@ class AAB_Starter_Animations
 		$controls['_aab_repeat_on_enter'] = [
 			'tab'         => 'content',
 			'group'       => self::GROUP_ID,
-			'label'       => esc_html__('Repeat Animation?', 'bricksfly'),
-			'description' => esc_html__('Play once, or replay every time the element enters the viewport.', 'bricksfly'),
+			'label'       => esc_html__('Repeat Animation?', 'the-bricksfly'),
+			'description' => esc_html__('Play once, or replay every time the element enters the viewport.', 'the-bricksfly'),
 			'type'        => 'select',
 			'options'     => [
-				'no'  => esc_html__('Play Once', 'bricksfly'),
-				'yes' => esc_html__('Every Time', 'bricksfly'),
+				'no'  => esc_html__('Play Once', 'the-bricksfly'),
+				'yes' => esc_html__('Every Time', 'the-bricksfly'),
 			],
 			'default'     => 'no',
 			'inline'      => true,
@@ -671,8 +671,8 @@ class AAB_Starter_Animations
 		$controls['_aab_anim_editor_enabled'] = [
 			'tab'         => 'content',
 			'group'       => self::GROUP_ID,
-			'label'       => esc_html__('Enable On Editor', 'bricksfly'),
-			'description' => esc_html__('For better performance in editor mode, keep this off.', 'bricksfly'),
+			'label'       => esc_html__('Enable On Editor', 'the-bricksfly'),
+			'description' => esc_html__('For better performance in editor mode, keep this off.', 'the-bricksfly'),
 			'type'        => 'checkbox',
 			'inline'      => true,
 			'required'    => ['_aab_starter_anim', '!=', ['', 'none']],
@@ -703,12 +703,12 @@ class AAB_Starter_Animations
 		$controls['_aab_starter_anim_container'] = [
 			'tab'     => 'content',
 			'group'   => self::GROUP_ID_CONTAINER,
-			'label'   => esc_html__('Animation', 'bricksfly'),
+			'label'   => esc_html__('Animation', 'the-bricksfly'),
 			'type'    => 'select',
 			'options' => [
-				'none'  => esc_html__('None', 'bricksfly'),
-				'slide' => esc_html__('Slide', 'bricksfly'),
-				'flip'  => esc_html__('Flip', 'bricksfly'),
+				'none'  => esc_html__('None', 'the-bricksfly'),
+				'slide' => esc_html__('Slide', 'the-bricksfly'),
+				'flip'  => esc_html__('Flip', 'the-bricksfly'),
 			],
 			'default' => 'none',
 			'inline'  => true,
@@ -718,13 +718,13 @@ class AAB_Starter_Animations
 		$controls['_aab_slide_direction_container'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID_CONTAINER,
-			'label'    => esc_html__('Slide Direction', 'bricksfly'),
+			'label'    => esc_html__('Slide Direction', 'the-bricksfly'),
 			'type'     => 'select',
 			'options'  => [
-				'bottom' => esc_html__('Bottom → Top', 'bricksfly'),
-				'top'    => esc_html__('Top → Bottom', 'bricksfly'),
-				'left'   => esc_html__('Left → Right', 'bricksfly'),
-				'right'  => esc_html__('Right → Left', 'bricksfly'),
+				'bottom' => esc_html__('Bottom → Top', 'the-bricksfly'),
+				'top'    => esc_html__('Top → Bottom', 'the-bricksfly'),
+				'left'   => esc_html__('Left → Right', 'the-bricksfly'),
+				'right'  => esc_html__('Right → Left', 'the-bricksfly'),
 			],
 			'default'  => 'bottom',
 			'inline'   => true,
@@ -734,7 +734,7 @@ class AAB_Starter_Animations
 		$controls['_aab_slide_distance_container'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID_CONTAINER,
-			'label'    => esc_html__('Distance (px)', 'bricksfly'),
+			'label'    => esc_html__('Distance (px)', 'the-bricksfly'),
 			'type'     => 'number',
 			'default'  => 40,
 			'required' => ['_aab_starter_anim_container', '=', 'slide'],
@@ -750,7 +750,7 @@ class AAB_Starter_Animations
 		$controls['_aab_slide_duration_container'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID_CONTAINER,
-			'label'    => esc_html__('Duration (ms)', 'bricksfly'),
+			'label'    => esc_html__('Duration (ms)', 'the-bricksfly'),
 			'type'     => 'number',
 			'default'  => 600,
 			'required' => ['_aab_starter_anim_container', '=', 'slide'],
@@ -766,7 +766,7 @@ class AAB_Starter_Animations
 		$controls['_aab_slide_delay_container'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID_CONTAINER,
-			'label'    => esc_html__('Delay (ms)', 'bricksfly'),
+			'label'    => esc_html__('Delay (ms)', 'the-bricksfly'),
 			'type'     => 'number',
 			'default'  => 0,
 			'required' => ['_aab_starter_anim_container', '=', 'slide'],
@@ -782,7 +782,7 @@ class AAB_Starter_Animations
 		$controls['_aab_slide_ease_container'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID_CONTAINER,
-			'label'    => esc_html__('Easing', 'bricksfly'),
+			'label'    => esc_html__('Easing', 'the-bricksfly'),
 			'type'     => 'select',
 			'options'  => $this->get_easing_options(),
 			'default'  => 'ease',
@@ -800,11 +800,11 @@ class AAB_Starter_Animations
 		$controls['_aab_flip_axis_container'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID_CONTAINER,
-			'label'    => esc_html__('Flip Direction', 'bricksfly'),
+			'label'    => esc_html__('Flip Direction', 'the-bricksfly'),
 			'type'     => 'select',
 			'options'  => [
-				'x' => esc_html__('Flip X', 'bricksfly'),
-				'y' => esc_html__('Flip Y', 'bricksfly'),
+				'x' => esc_html__('Flip X', 'the-bricksfly'),
+				'y' => esc_html__('Flip Y', 'the-bricksfly'),
 			],
 			'default'  => 'x',
 			'inline'   => true,
@@ -814,7 +814,7 @@ class AAB_Starter_Animations
 		$controls['_aab_flip_angle_container'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID_CONTAINER,
-			'label'    => esc_html__('Flip Angle (deg)', 'bricksfly'),
+			'label'    => esc_html__('Flip Angle (deg)', 'the-bricksfly'),
 			'type'     => 'number',
 			'default'  => 90,
 			'required' => ['_aab_starter_anim_container', '=', 'flip'],
@@ -830,7 +830,7 @@ class AAB_Starter_Animations
 		$controls['_aab_flip_perspective_container'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID_CONTAINER,
-			'label'    => esc_html__('Perspective (px)', 'bricksfly'),
+			'label'    => esc_html__('Perspective (px)', 'the-bricksfly'),
 			'type'     => 'number',
 			'default'  => 800,
 			'required' => ['_aab_starter_anim_container', '=', 'flip'],
@@ -847,11 +847,11 @@ class AAB_Starter_Animations
 		$controls['_aab_repeat_on_enter_container'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID_CONTAINER,
-			'label'    => esc_html__('Repeat Animation?', 'bricksfly'),
+			'label'    => esc_html__('Repeat Animation?', 'the-bricksfly'),
 			'type'     => 'select',
 			'options'  => [
-				'no'  => esc_html__('Play Once', 'bricksfly'),
-				'yes' => esc_html__('Every Time', 'bricksfly'),
+				'no'  => esc_html__('Play Once', 'the-bricksfly'),
+				'yes' => esc_html__('Every Time', 'the-bricksfly'),
 			],
 			'default'  => 'no',
 			'inline'   => true,
@@ -861,8 +861,8 @@ class AAB_Starter_Animations
 		$controls['_aab_anim_editor_enabled_container'] = [
 			'tab'         => 'content',
 			'group'       => self::GROUP_ID_CONTAINER,
-			'label'       => esc_html__('Enable On Editor', 'bricksfly'),
-			'description' => esc_html__('For better performance in editor mode, keep this off.', 'bricksfly'),
+			'label'       => esc_html__('Enable On Editor', 'the-bricksfly'),
+			'description' => esc_html__('For better performance in editor mode, keep this off.', 'the-bricksfly'),
 			'type'        => 'checkbox',
 			'inline'      => true,
 			'required'    => ['_aab_starter_anim_container', '!=', ['', 'none']],

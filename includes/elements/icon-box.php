@@ -13,7 +13,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 	public function get_label()
 	{
-		return esc_html__('Icon Box', 'bricksfly');
+		return esc_html__('Icon Box', 'the-bricksfly');
 	}
 
 	public function get_keywords()
@@ -42,52 +42,52 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 	public function set_control_groups()
 	{
 		$this->control_groups['content'] = [
-			'title' => esc_html__('Content', 'bricksfly'),
+			'title' => esc_html__('Content', 'the-bricksfly'),
 			'tab'   => 'content',
 		];
 
 		$this->control_groups['layout'] = [
-			'title' => esc_html__('Layout', 'bricksfly'),
+			'title' => esc_html__('Layout', 'the-bricksfly'),
 			'tab'   => 'content',
 		];
 
 		$this->control_groups['button_content'] = [
-			'title' => esc_html__('Button', 'bricksfly'),
+			'title' => esc_html__('Button', 'the-bricksfly'),
 			'tab'   => 'content',
 		];
 
 		$this->control_groups['box_style'] = [
-			'title' => esc_html__('Box', 'bricksfly'),
+			'title' => esc_html__('Box', 'the-bricksfly'),
 			'tab'   => 'style',
 		];
 
 		$this->control_groups['icon_style'] = [
-			'title' => esc_html__('Icon', 'bricksfly'),
+			'title' => esc_html__('Icon', 'the-bricksfly'),
 			'tab'   => 'style',
 		];
 
 		$this->control_groups['title_style'] = [
-			'title' => esc_html__('Title', 'bricksfly'),
+			'title' => esc_html__('Title', 'the-bricksfly'),
 			'tab'   => 'style',
 		];
 
 		$this->control_groups['desc_style'] = [
-			'title' => esc_html__('Description', 'bricksfly'),
+			'title' => esc_html__('Description', 'the-bricksfly'),
 			'tab'   => 'style',
 		];
 
 		$this->control_groups['btn_style'] = [
-			'title' => esc_html__('Button Style', 'bricksfly'),
+			'title' => esc_html__('Button Style', 'the-bricksfly'),
 			'tab'   => 'style',
 		];
 
 		$this->control_groups['btn_hover_style'] = [
-			'title' => esc_html__('Button Hover', 'bricksfly'),
+			'title' => esc_html__('Button Hover', 'the-bricksfly'),
 			'tab'   => 'style',
 		];
 
 		$this->control_groups['flip_back_style'] = [
-			'title'    => esc_html__('Flip Back', 'bricksfly'),
+			'title'    => esc_html__('Flip Back', 'the-bricksfly'),
 			'tab'      => 'style',
 			'required' => [['layout_preset', '=', 'flip-card']],
 		];
@@ -102,7 +102,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['icon'] = [
 			'group'   => 'content',
-			'label'   => esc_html__('Icon', 'bricksfly'),
+			'label'   => esc_html__('Icon', 'the-bricksfly'),
 			'type'    => 'icon',
 			'default' => [
 				'library' => 'themify',
@@ -112,14 +112,14 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['title'] = [
 			'group'   => 'content',
-			'label'   => esc_html__('Title', 'bricksfly'),
+			'label'   => esc_html__('Title', 'the-bricksfly'),
 			'type'    => 'text',
-			'default' => esc_html__('Icon Box Title', 'bricksfly'),
+			'default' => esc_html__('Icon Box Title', 'the-bricksfly'),
 		];
 
 		$this->controls['title_tag'] = [
 			'group'   => 'content',
-			'label'   => esc_html__('Title Tag', 'bricksfly'),
+			'label'   => esc_html__('Title Tag', 'the-bricksfly'),
 			'type'    => 'select',
 			'options' => [
 				'h1' => 'H1',
@@ -138,14 +138,14 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['description'] = [
 			'group'   => 'content',
-			'label'   => esc_html__('Description', 'bricksfly'),
+			'label'   => esc_html__('Description', 'the-bricksfly'),
 			'type'    => 'textarea',
-			'default' => esc_html__('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis.', 'bricksfly'),
+			'default' => esc_html__('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis.', 'the-bricksfly'),
 		];
 
 		$this->controls['box_link'] = [
 			'group' => 'content',
-			'label' => esc_html__('Box Link', 'bricksfly'),
+			'label' => esc_html__('Box Link', 'the-bricksfly'),
 			'type'  => 'link',
 		];
 
@@ -155,56 +155,56 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['layout_preset'] = [
 			'group'   => 'layout',
-			'label'   => esc_html__('Layout', 'bricksfly'),
+			'label'   => esc_html__('Layout', 'the-bricksfly'),
 			'type'    => 'select',
 			'options' => [
-				'default'      => esc_html__('Default', 'bricksfly'),
-				'stacked'      => esc_html__('Stacked Card', 'bricksfly'),
-				'bordered'     => esc_html__('Bordered', 'bricksfly'),
-				'minimal'      => esc_html__('Minimal', 'bricksfly'),
-				'floating'     => esc_html__('Floating Icon', 'bricksfly'),
-				'gradient-bar' => esc_html__('Gradient Bar', 'bricksfly'),
-				'icon-left-line' => esc_html__('Icon + Left Line', 'bricksfly'),
-				'zoom-hover'   => esc_html__('Zoom on Hover', 'bricksfly'),
-				'flip-card'    => esc_html__('Flip Card', 'bricksfly'),
-				'slide-up'     => esc_html__('Slide Up Reveal', 'bricksfly'),
+				'default'      => esc_html__('Default', 'the-bricksfly'),
+				'stacked'      => esc_html__('Stacked Card', 'the-bricksfly'),
+				'bordered'     => esc_html__('Bordered', 'the-bricksfly'),
+				'minimal'      => esc_html__('Minimal', 'the-bricksfly'),
+				'floating'     => esc_html__('Floating Icon', 'the-bricksfly'),
+				'gradient-bar' => esc_html__('Gradient Bar', 'the-bricksfly'),
+				'icon-left-line' => esc_html__('Icon + Left Line', 'the-bricksfly'),
+				'zoom-hover'   => esc_html__('Zoom on Hover', 'the-bricksfly'),
+				'flip-card'    => esc_html__('Flip Card', 'the-bricksfly'),
+				'slide-up'     => esc_html__('Slide Up Reveal', 'the-bricksfly'),
 			],
 			'default' => 'default',
 		];
 
 		$this->controls['direction'] = [
 			'group'   => 'layout',
-			'label'   => esc_html__('Direction', 'bricksfly'),
+			'label'   => esc_html__('Direction', 'the-bricksfly'),
 			'type'    => 'select',
 			'options' => [
-				'vertical'           => esc_html__('Vertical', 'bricksfly'),
-				'horizontal'         => esc_html__('Horizontal', 'bricksfly'),
-				'horizontal-reverse' => esc_html__('Horizontal Reverse', 'bricksfly'),
-				'vertical-reverse'   => esc_html__('Vertical Reverse', 'bricksfly'),
+				'vertical'           => esc_html__('Vertical', 'the-bricksfly'),
+				'horizontal'         => esc_html__('Horizontal', 'the-bricksfly'),
+				'horizontal-reverse' => esc_html__('Horizontal Reverse', 'the-bricksfly'),
+				'vertical-reverse'   => esc_html__('Vertical Reverse', 'the-bricksfly'),
 			],
 			'default' => 'vertical',
 		];
 
 		$this->controls['align'] = [
 			'group'   => 'layout',
-			'label'   => esc_html__('Alignment', 'bricksfly'),
+			'label'   => esc_html__('Alignment', 'the-bricksfly'),
 			'type'    => 'select',
 			'options' => [
-				'left'   => esc_html__('Left', 'bricksfly'),
-				'center' => esc_html__('Center', 'bricksfly'),
-				'right'  => esc_html__('Right', 'bricksfly'),
+				'left'   => esc_html__('Left', 'the-bricksfly'),
+				'center' => esc_html__('Center', 'the-bricksfly'),
+				'right'  => esc_html__('Right', 'the-bricksfly'),
 			],
 			'default' => 'center',
 		];
 
 		$this->controls['icon_position'] = [
 			'group'   => 'layout',
-			'label'   => esc_html__('Icon Vertical Align', 'bricksfly'),
+			'label'   => esc_html__('Icon Vertical Align', 'the-bricksfly'),
 			'type'    => 'select',
 			'options' => [
-				'top'    => esc_html__('Top', 'bricksfly'),
-				'center' => esc_html__('Center', 'bricksfly'),
-				'bottom' => esc_html__('Bottom', 'bricksfly'),
+				'top'    => esc_html__('Top', 'the-bricksfly'),
+				'center' => esc_html__('Center', 'the-bricksfly'),
+				'bottom' => esc_html__('Bottom', 'the-bricksfly'),
 			],
 			'default'  => 'top',
 			'required' => [['direction', '=', ['horizontal', 'horizontal-reverse']]],
@@ -212,7 +212,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['content_gap'] = [
 			'group' => 'layout',
-			'label' => esc_html__('Content Gap', 'bricksfly'),
+			'label' => esc_html__('Content Gap', 'the-bricksfly'),
 			'type'  => 'number',
 			'units' => true,
 			'css'   => [[
@@ -224,19 +224,19 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 		// Flip card back content
 		$this->controls['flip_back_text'] = [
 			'group'    => 'layout',
-			'label'    => esc_html__('Back Text', 'bricksfly'),
+			'label'    => esc_html__('Back Text', 'the-bricksfly'),
 			'type'     => 'textarea',
-			'default'  => esc_html__('Hover to see this side! Add any content for the card back.', 'bricksfly'),
+			'default'  => esc_html__('Hover to see this side! Add any content for the card back.', 'the-bricksfly'),
 			'required' => [['layout_preset', '=', 'flip-card']],
 		];
 
 		$this->controls['flip_direction'] = [
 			'group'   => 'layout',
-			'label'   => esc_html__('Flip Direction', 'bricksfly'),
+			'label'   => esc_html__('Flip Direction', 'the-bricksfly'),
 			'type'    => 'select',
 			'options' => [
-				'horizontal' => esc_html__('Horizontal', 'bricksfly'),
-				'vertical'   => esc_html__('Vertical', 'bricksfly'),
+				'horizontal' => esc_html__('Horizontal', 'the-bricksfly'),
+				'vertical'   => esc_html__('Vertical', 'the-bricksfly'),
 			],
 			'default'  => 'horizontal',
 			'required' => [['layout_preset', '=', 'flip-card']],
@@ -245,7 +245,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 		// Gradient bar color
 		$this->controls['gradient_bar_color'] = [
 			'group'    => 'layout',
-			'label'    => esc_html__('Bar Gradient', 'bricksfly'),
+			'label'    => esc_html__('Bar Gradient', 'the-bricksfly'),
 			'type'     => 'background',
 			'required' => [['layout_preset', '=', 'gradient-bar']],
 			'css'      => [[
@@ -257,7 +257,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 		// Line color
 		$this->controls['line_color'] = [
 			'group'    => 'layout',
-			'label'    => esc_html__('Line Color', 'bricksfly'),
+			'label'    => esc_html__('Line Color', 'the-bricksfly'),
 			'type'     => 'color',
 			'required' => [['layout_preset', '=', 'icon-left-line']],
 			'css'      => [[
@@ -272,40 +272,40 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['show_button'] = [
 			'group'   => 'button_content',
-			'label'   => esc_html__('Show Button', 'bricksfly'),
+			'label'   => esc_html__('Show Button', 'the-bricksfly'),
 			'type'    => 'checkbox',
 			'default' => false,
 		];
 
 		$this->controls['btn_text'] = [
 			'group'    => 'button_content',
-			'label'    => esc_html__('Button Text', 'bricksfly'),
+			'label'    => esc_html__('Button Text', 'the-bricksfly'),
 			'type'     => 'text',
-			'default'  => esc_html__('Read More', 'bricksfly'),
+			'default'  => esc_html__('Read More', 'the-bricksfly'),
 			'required' => [['show_button', '!=', '']],
 		];
 
 		$this->controls['btn_link'] = [
 			'group'    => 'button_content',
-			'label'    => esc_html__('Button Link', 'bricksfly'),
+			'label'    => esc_html__('Button Link', 'the-bricksfly'),
 			'type'     => 'link',
 			'required' => [['show_button', '!=', '']],
 		];
 
 		$this->controls['btn_icon'] = [
 			'group'    => 'button_content',
-			'label'    => esc_html__('Button Icon', 'bricksfly'),
+			'label'    => esc_html__('Button Icon', 'the-bricksfly'),
 			'type'     => 'icon',
 			'required' => [['show_button', '!=', '']],
 		];
 
 		$this->controls['btn_icon_position'] = [
 			'group'   => 'button_content',
-			'label'   => esc_html__('Icon Position', 'bricksfly'),
+			'label'   => esc_html__('Icon Position', 'the-bricksfly'),
 			'type'    => 'select',
 			'options' => [
-				'before' => esc_html__('Before', 'bricksfly'),
-				'after'  => esc_html__('After', 'bricksfly'),
+				'before' => esc_html__('Before', 'the-bricksfly'),
+				'after'  => esc_html__('After', 'the-bricksfly'),
 			],
 			'default'  => 'after',
 			'required' => [['show_button', '!=', '']],
@@ -313,13 +313,13 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['btn_style_type'] = [
 			'group'   => 'button_content',
-			'label'   => esc_html__('Style Type', 'bricksfly'),
+			'label'   => esc_html__('Style Type', 'the-bricksfly'),
 			'type'    => 'select',
 			'options' => [
-				'solid'     => esc_html__('Solid', 'bricksfly'),
-				'outline'   => esc_html__('Outline', 'bricksfly'),
-				'ghost'     => esc_html__('Ghost (Text)', 'bricksfly'),
-				'underline' => esc_html__('Underline', 'bricksfly'),
+				'solid'     => esc_html__('Solid', 'the-bricksfly'),
+				'outline'   => esc_html__('Outline', 'the-bricksfly'),
+				'ghost'     => esc_html__('Ghost (Text)', 'the-bricksfly'),
+				'underline' => esc_html__('Underline', 'the-bricksfly'),
 			],
 			'default'  => 'solid',
 			'required' => [['show_button', '!=', '']],
@@ -327,17 +327,17 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['btn_hover_type'] = [
 			'group'   => 'button_content',
-			'label'   => esc_html__('Hover Effect', 'bricksfly'),
+			'label'   => esc_html__('Hover Effect', 'the-bricksfly'),
 			'type'    => 'select',
 			'options' => [
-				'none'        => esc_html__('None', 'bricksfly'),
-				'fill-left'   => esc_html__('Fill Left', 'bricksfly'),
-				'fill-right'  => esc_html__('Fill Right', 'bricksfly'),
-				'fill-top'    => esc_html__('Fill Top', 'bricksfly'),
-				'fill-bottom' => esc_html__('Fill Bottom', 'bricksfly'),
-				'shrink'      => esc_html__('Shrink', 'bricksfly'),
-				'grow'        => esc_html__('Grow', 'bricksfly'),
-				'icon-slide'  => esc_html__('Icon Slide', 'bricksfly'),
+				'none'        => esc_html__('None', 'the-bricksfly'),
+				'fill-left'   => esc_html__('Fill Left', 'the-bricksfly'),
+				'fill-right'  => esc_html__('Fill Right', 'the-bricksfly'),
+				'fill-top'    => esc_html__('Fill Top', 'the-bricksfly'),
+				'fill-bottom' => esc_html__('Fill Bottom', 'the-bricksfly'),
+				'shrink'      => esc_html__('Shrink', 'the-bricksfly'),
+				'grow'        => esc_html__('Grow', 'the-bricksfly'),
+				'icon-slide'  => esc_html__('Icon Slide', 'the-bricksfly'),
 			],
 			'default'  => 'none',
 			'required' => [['show_button', '!=', '']],
@@ -345,7 +345,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['btn_size'] = [
 			'group'   => 'button_content',
-			'label'   => esc_html__('Size', 'bricksfly'),
+			'label'   => esc_html__('Size', 'the-bricksfly'),
 			'type'    => 'select',
 			'options' => [
 				'xs' => 'XS',
@@ -359,7 +359,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['btn_full_width'] = [
 			'group'    => 'button_content',
-			'label'    => esc_html__('Full Width', 'bricksfly'),
+			'label'    => esc_html__('Full Width', 'the-bricksfly'),
 			'type'     => 'checkbox',
 			'required' => [['show_button', '!=', '']],
 		];
@@ -370,7 +370,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['box_bg'] = [
 			'group' => 'box_style',
-			'label' => esc_html__('Background', 'bricksfly'),
+			'label' => esc_html__('Background', 'the-bricksfly'),
 			'type'  => 'background',
 			'css'   => [[
 				'property' => 'background',
@@ -380,7 +380,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['box_padding'] = [
 			'group' => 'box_style',
-			'label' => esc_html__('Padding', 'bricksfly'),
+			'label' => esc_html__('Padding', 'the-bricksfly'),
 			'type'  => 'dimensions',
 			'css'   => [[
 				'property' => 'padding',
@@ -391,7 +391,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['box_border'] = [
 			'group' => 'box_style',
-			'label' => esc_html__('Border', 'bricksfly'),
+			'label' => esc_html__('Border', 'the-bricksfly'),
 			'type'  => 'border',
 			'css'   => [
 				[
@@ -407,7 +407,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		// $this->controls['box_border'] = [
 		// 	'group' => 'box_style',
-		// 	'label' => esc_html__('Border', 'bricksfly'),
+		// 	'label' => esc_html__('Border', 'the-bricksfly'),
 		// 	'type'  => 'border',
 		// 	'css'   => [
 		// 		[
@@ -423,7 +423,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['box_shadow'] = [
 			'group' => 'box_style',
-			'label' => esc_html__('Shadow', 'bricksfly'),
+			'label' => esc_html__('Shadow', 'the-bricksfly'),
 			'type'  => 'box-shadow',
 			'css'   => [[
 				'property' => 'box-shadow',
@@ -433,7 +433,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['box_h_bg'] = [
 			'group' => 'box_style',
-			'label' => esc_html__('Hover Background', 'bricksfly'),
+			'label' => esc_html__('Hover Background', 'the-bricksfly'),
 			'type'  => 'background',
 			'css'   => [[
 				'property' => 'background',
@@ -443,7 +443,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['box_h_border_color'] = [
 			'group' => 'box_style',
-			'label' => esc_html__('Hover Border Color', 'bricksfly'),
+			'label' => esc_html__('Hover Border Color', 'the-bricksfly'),
 			'type'  => 'color',
 			'css'   => [[
 				'property' => 'border-color',
@@ -453,7 +453,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['box_h_shadow'] = [
 			'group' => 'box_style',
-			'label' => esc_html__('Hover Shadow', 'bricksfly'),
+			'label' => esc_html__('Hover Shadow', 'the-bricksfly'),
 			'type'  => 'box-shadow',
 			'css'   => [[
 				'property' => 'box-shadow',
@@ -463,7 +463,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['box_transition'] = [
 			'group'   => 'box_style',
-			'label'   => esc_html__('Transition (ms)', 'bricksfly'),
+			'label'   => esc_html__('Transition (ms)', 'the-bricksfly'),
 			'type'    => 'number',
 			'default' => 300,
 			'css'     => [[
@@ -479,7 +479,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['icon_size'] = [
 			'group' => 'icon_style',
-			'label' => esc_html__('Size', 'bricksfly'),
+			'label' => esc_html__('Size', 'the-bricksfly'),
 			'type'  => 'number',
 			'units' => true,
 			'css'   => [[
@@ -490,7 +490,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['icon_color'] = [
 			'group' => 'icon_style',
-			'label' => esc_html__('Color', 'bricksfly'),
+			'label' => esc_html__('Color', 'the-bricksfly'),
 			'type'  => 'color',
 			'css'   => [[
 				'property' => 'color',
@@ -500,7 +500,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['icon_bg'] = [
 			'group' => 'icon_style',
-			'label' => esc_html__('Background', 'bricksfly'),
+			'label' => esc_html__('Background', 'the-bricksfly'),
 			'type'  => 'color',
 			'css'   => [[
 				'property' => 'background-color',
@@ -510,7 +510,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['icon_width'] = [
 			'group' => 'icon_style',
-			'label' => esc_html__('Width / Height', 'bricksfly'),
+			'label' => esc_html__('Width / Height', 'the-bricksfly'),
 			'type'  => 'number',
 			'units' => true,
 			'css'   => [
@@ -527,7 +527,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['icon_border'] = [
 			'group' => 'icon_style',
-			'label' => esc_html__('Border', 'bricksfly'),
+			'label' => esc_html__('Border', 'the-bricksfly'),
 			'type'  => 'border',
 			'css'   => [[
 				'property' => 'border',
@@ -537,7 +537,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['icon_padding'] = [
 			'group' => 'icon_style',
-			'label' => esc_html__('Padding', 'bricksfly'),
+			'label' => esc_html__('Padding', 'the-bricksfly'),
 			'type'  => 'dimensions',
 			'css'   => [[
 				'property' => 'padding',
@@ -547,7 +547,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['icon_shadow'] = [
 			'group' => 'icon_style',
-			'label' => esc_html__('Shadow', 'bricksfly'),
+			'label' => esc_html__('Shadow', 'the-bricksfly'),
 			'type'  => 'box-shadow',
 			'css'   => [[
 				'property' => 'box-shadow',
@@ -557,7 +557,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['icon_h_color'] = [
 			'group' => 'icon_style',
-			'label' => esc_html__('Hover Color', 'bricksfly'),
+			'label' => esc_html__('Hover Color', 'the-bricksfly'),
 			'type'  => 'color',
 			'css'   => [[
 				'property' => 'color',
@@ -567,7 +567,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['icon_h_bg'] = [
 			'group' => 'icon_style',
-			'label' => esc_html__('Hover Background', 'bricksfly'),
+			'label' => esc_html__('Hover Background', 'the-bricksfly'),
 			'type'  => 'color',
 			'css'   => [[
 				'property' => 'background-color',
@@ -577,7 +577,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['icon_spacing'] = [
 			'group' => 'icon_style',
-			'label' => esc_html__('Bottom Spacing', 'bricksfly'),
+			'label' => esc_html__('Bottom Spacing', 'the-bricksfly'),
 			'type'  => 'number',
 			'units' => true,
 			'css'   => [[
@@ -592,7 +592,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['title_typo'] = [
 			'group' => 'title_style',
-			'label' => esc_html__('Typography', 'bricksfly'),
+			'label' => esc_html__('Typography', 'the-bricksfly'),
 			'type'  => 'typography',
 			'css'   => [[
 				'property' => 'typography',
@@ -602,7 +602,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['title_color'] = [
 			'group' => 'title_style',
-			'label' => esc_html__('Color', 'bricksfly'),
+			'label' => esc_html__('Color', 'the-bricksfly'),
 			'type'  => 'color',
 			'css'   => [[
 				'property' => 'color',
@@ -612,7 +612,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['title_h_color'] = [
 			'group' => 'title_style',
-			'label' => esc_html__('Hover Color', 'bricksfly'),
+			'label' => esc_html__('Hover Color', 'the-bricksfly'),
 			'type'  => 'color',
 			'css'   => [[
 				'property' => 'color',
@@ -622,7 +622,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['title_margin'] = [
 			'group' => 'title_style',
-			'label' => esc_html__('Margin', 'bricksfly'),
+			'label' => esc_html__('Margin', 'the-bricksfly'),
 			'type'  => 'dimensions',
 			'css'   => [[
 				'property' => 'margin',
@@ -636,7 +636,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['desc_typo'] = [
 			'group' => 'desc_style',
-			'label' => esc_html__('Typography', 'bricksfly'),
+			'label' => esc_html__('Typography', 'the-bricksfly'),
 			'type'  => 'typography',
 			'css'   => [[
 				'property' => 'typography',
@@ -646,7 +646,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['desc_color'] = [
 			'group' => 'desc_style',
-			'label' => esc_html__('Color', 'bricksfly'),
+			'label' => esc_html__('Color', 'the-bricksfly'),
 			'type'  => 'color',
 			'css'   => [[
 				'property' => 'color',
@@ -656,7 +656,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['desc_h_color'] = [
 			'group' => 'desc_style',
-			'label' => esc_html__('Hover Color', 'bricksfly'),
+			'label' => esc_html__('Hover Color', 'the-bricksfly'),
 			'type'  => 'color',
 			'css'   => [[
 				'property' => 'color',
@@ -666,7 +666,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['desc_margin'] = [
 			'group' => 'desc_style',
-			'label' => esc_html__('Margin', 'bricksfly'),
+			'label' => esc_html__('Margin', 'the-bricksfly'),
 			'type'  => 'dimensions',
 			'css'   => [[
 				'property' => 'margin',
@@ -680,7 +680,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['btn_typo'] = [
 			'group' => 'btn_style',
-			'label' => esc_html__('Typography', 'bricksfly'),
+			'label' => esc_html__('Typography', 'the-bricksfly'),
 			'type'  => 'typography',
 			'css'   => [[
 				'property' => 'typography',
@@ -690,7 +690,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['btn_color'] = [
 			'group' => 'btn_style',
-			'label' => esc_html__('Color', 'bricksfly'),
+			'label' => esc_html__('Color', 'the-bricksfly'),
 			'type'  => 'color',
 			'css'   => [[
 				'property' => 'color',
@@ -700,7 +700,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['btn_bg_color'] = [
 			'group' => 'btn_style',
-			'label' => esc_html__('Background', 'bricksfly'),
+			'label' => esc_html__('Background', 'the-bricksfly'),
 			'type'  => 'color',
 			'css'   => [[
 				'property' => 'background-color',
@@ -710,7 +710,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['btn_border'] = [
 			'group' => 'btn_style',
-			'label' => esc_html__('Border', 'bricksfly'),
+			'label' => esc_html__('Border', 'the-bricksfly'),
 			'type'  => 'border',
 			'css'   => [[
 				'property' => 'border',
@@ -720,7 +720,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['btn_padding'] = [
 			'group' => 'btn_style',
-			'label' => esc_html__('Padding', 'bricksfly'),
+			'label' => esc_html__('Padding', 'the-bricksfly'),
 			'type'  => 'dimensions',
 			'css'   => [[
 				'property' => 'padding',
@@ -730,7 +730,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['btn_shadow'] = [
 			'group' => 'btn_style',
-			'label' => esc_html__('Shadow', 'bricksfly'),
+			'label' => esc_html__('Shadow', 'the-bricksfly'),
 			'type'  => 'box-shadow',
 			'css'   => [[
 				'property' => 'box-shadow',
@@ -740,7 +740,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['btn_icon_size'] = [
 			'group' => 'btn_style',
-			'label' => esc_html__('Icon Size', 'bricksfly'),
+			'label' => esc_html__('Icon Size', 'the-bricksfly'),
 			'type'  => 'number',
 			'units' => true,
 			'css'   => [[
@@ -751,7 +751,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['btn_icon_gap'] = [
 			'group' => 'btn_style',
-			'label' => esc_html__('Icon Gap', 'bricksfly'),
+			'label' => esc_html__('Icon Gap', 'the-bricksfly'),
 			'type'  => 'number',
 			'units' => true,
 			'css'   => [[
@@ -766,7 +766,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['btn_h_color'] = [
 			'group' => 'btn_hover_style',
-			'label' => esc_html__('Color', 'bricksfly'),
+			'label' => esc_html__('Color', 'the-bricksfly'),
 			'type'  => 'color',
 			'css'   => [[
 				'property' => 'color',
@@ -776,7 +776,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['btn_h_bg_color'] = [
 			'group' => 'btn_hover_style',
-			'label' => esc_html__('Background', 'bricksfly'),
+			'label' => esc_html__('Background', 'the-bricksfly'),
 			'type'  => 'color',
 			'css'   => [[
 				'property' => 'background-color',
@@ -786,7 +786,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['btn_h_border_color'] = [
 			'group' => 'btn_hover_style',
-			'label' => esc_html__('Border Color', 'bricksfly'),
+			'label' => esc_html__('Border Color', 'the-bricksfly'),
 			'type'  => 'color',
 			'css'   => [[
 				'property' => 'border-color',
@@ -796,7 +796,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['btn_h_shadow'] = [
 			'group' => 'btn_hover_style',
-			'label' => esc_html__('Shadow', 'bricksfly'),
+			'label' => esc_html__('Shadow', 'the-bricksfly'),
 			'type'  => 'box-shadow',
 			'css'   => [[
 				'property' => 'box-shadow',
@@ -806,7 +806,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['btn_hover_fill_color'] = [
 			'group'    => 'btn_hover_style',
-			'label'    => esc_html__('Fill Color', 'bricksfly'),
+			'label'    => esc_html__('Fill Color', 'the-bricksfly'),
 			'type'     => 'color',
 			'required' => [['btn_hover_type', '=', ['fill-left', 'fill-right', 'fill-top', 'fill-bottom']]],
 			'css'      => [[
@@ -817,7 +817,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['btn_transition'] = [
 			'group'   => 'btn_hover_style',
-			'label'   => esc_html__('Transition (ms)', 'bricksfly'),
+			'label'   => esc_html__('Transition (ms)', 'the-bricksfly'),
 			'type'    => 'number',
 			'default' => 300,
 			'css'     => [[
@@ -835,7 +835,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['flip_back_bg'] = [
 			'group'    => 'flip_back_style',
-			'label'    => esc_html__('Background', 'bricksfly'),
+			'label'    => esc_html__('Background', 'the-bricksfly'),
 			'type'     => 'background',
 			'required' => [['layout_preset', '=', 'flip-card']],
 			'css'      => [[
@@ -846,7 +846,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['flip_back_padding'] = [
 			'group'    => 'flip_back_style',
-			'label'    => esc_html__('Padding', 'bricksfly'),
+			'label'    => esc_html__('Padding', 'the-bricksfly'),
 			'type'     => 'dimensions',
 			'required' => [['layout_preset', '=', 'flip-card']],
 			'css'      => [[
@@ -857,7 +857,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		// $this->controls['flip_back_border'] = [
 		// 	'group'    => 'flip_back_style',
-		// 	'label'    => esc_html__('Border', 'bricksfly'),
+		// 	'label'    => esc_html__('Border', 'the-bricksfly'),
 		// 	'type'     => 'border',
 		// 	'required' => [['layout_preset', '=', 'flip-card']],
 		// 	'css'      => [[
@@ -868,7 +868,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['flip_back_border_color'] = [
 			'group'    => 'flip_back_style',
-			'label'    => esc_html__('Border Color', 'bricksfly'),
+			'label'    => esc_html__('Border Color', 'the-bricksfly'),
 			'type'     => 'color',
 			'required' => [['layout_preset', '=', 'flip-card']],
 			'css'      => [[
@@ -879,7 +879,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['flip_back_shadow'] = [
 			'group'    => 'flip_back_style',
-			'label'    => esc_html__('Shadow', 'bricksfly'),
+			'label'    => esc_html__('Shadow', 'the-bricksfly'),
 			'type'     => 'box-shadow',
 			'required' => [['layout_preset', '=', 'flip-card']],
 			'css'      => [[
@@ -890,7 +890,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['flip_back_typo'] = [
 			'group'    => 'flip_back_style',
-			'label'    => esc_html__('Typography', 'bricksfly'),
+			'label'    => esc_html__('Typography', 'the-bricksfly'),
 			'type'     => 'typography',
 			'required' => [['layout_preset', '=', 'flip-card']],
 			'css'      => [[
@@ -901,7 +901,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		// $this->controls['flip_back_color'] = [
 		// 	'group'    => 'flip_back_style',
-		// 	'label'    => esc_html__('Text Color', 'bricksfly'),
+		// 	'label'    => esc_html__('Text Color', 'the-bricksfly'),
 		// 	'type'     => 'color',
 		// 	'required' => [['layout_preset', '=', 'flip-card']],
 		// 	'css'      => [[
@@ -912,7 +912,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 
 		$this->controls['flip_back_text_margin'] = [
 			'group'    => 'flip_back_style',
-			'label'    => esc_html__('Text Margin', 'bricksfly'),
+			'label'    => esc_html__('Text Margin', 'the-bricksfly'),
 			'type'     => 'dimensions',
 			'required' => [['layout_preset', '=', 'flip-card']],
 			'css'      => [[
@@ -1112,7 +1112,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 			echo '<span class="aab-icon-box__btn-icon">' . self::render_icon($s['btn_icon']) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 
-		echo '<span class="aab-icon-box__btn-text">' . esc_html($s['btn_text'] ?? esc_html__('Read More', 'bricksfly')) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo '<span class="aab-icon-box__btn-text">' . esc_html($s['btn_text'] ?? esc_html__('Read More', 'the-bricksfly')) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		if (! empty($s['btn_icon']) && $icon_pos === 'after') {
 			echo '<span class="aab-icon-box__btn-icon">' . self::render_icon($s['btn_icon']) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped

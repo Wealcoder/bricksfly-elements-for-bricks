@@ -11,7 +11,7 @@ class AAB_Bricks_Animated_Heading extends \Bricks\Element {
 	public $scripts      = [ 'aabAnimatedHeading' ];
 
 	public function get_label() {
-		return esc_html__('Animated Heading', 'bricksfly');
+		return esc_html__('Animated Heading', 'the-bricksfly');
 	}
 
 	public function get_keywords() {
@@ -37,22 +37,22 @@ class AAB_Bricks_Animated_Heading extends \Bricks\Element {
 
 	public function set_control_groups() {
 		$this->control_groups['content'] = [
-			'title' => esc_html__('Content', 'bricksfly'),
+			'title' => esc_html__('Content', 'the-bricksfly'),
 			'tab'   => 'content',
 		];
 
 		$this->control_groups['animation'] = [
-			'title' => esc_html__('Animation', 'bricksfly'),
+			'title' => esc_html__('Animation', 'the-bricksfly'),
 			'tab'   => 'content',
 		];
 
 		$this->control_groups['heading_style'] = [
-			'title' => esc_html__('Heading', 'bricksfly'),
+			'title' => esc_html__('Heading', 'the-bricksfly'),
 			'tab'   => 'style',
 		];
 
 		$this->control_groups['text_effects'] = [
-			'title' => esc_html__('Text Effects', 'bricksfly'),
+			'title' => esc_html__('Text Effects', 'the-bricksfly'),
 			'tab'   => 'style',
 		];
 	}
@@ -65,14 +65,14 @@ class AAB_Bricks_Animated_Heading extends \Bricks\Element {
 
 		$this->controls['heading_text'] = [
 			'group'   => 'content',
-			'label'   => esc_html__( 'Heading Text', 'bricksfly' ),
+			'label'   => esc_html__( 'Heading Text', 'the-bricksfly' ),
 			'type'    => 'text',
-			'default' => esc_html__( 'Animated Heading', 'bricksfly' ),
+			'default' => esc_html__( 'Animated Heading', 'the-bricksfly' ),
 		];
 
 		$this->controls['heading_tag'] = [
 			'group'   => 'content',
-			'label'   => esc_html__( 'HTML Tag', 'bricksfly' ),
+			'label'   => esc_html__( 'HTML Tag', 'the-bricksfly' ),
 			'type'    => 'select',
 			'options' => [
 				'h1' => 'H1', 'h2' => 'H2', 'h3' => 'H3',
@@ -84,13 +84,13 @@ class AAB_Bricks_Animated_Heading extends \Bricks\Element {
 
 		$this->controls['heading_link'] = [
 			'group' => 'content',
-			'label' => esc_html__( 'Link', 'bricksfly' ),
+			'label' => esc_html__( 'Link', 'the-bricksfly' ),
 			'type'  => 'link',
 		];
 
 		$this->controls['text_align'] = [
 			'group' => 'content',
-			'label' => esc_html__( 'Text Align', 'bricksfly' ),
+			'label' => esc_html__( 'Text Align', 'the-bricksfly' ),
 			'type'  => 'text-align',
 			'css'   => [[
 				'property' => 'text-align',
@@ -104,34 +104,34 @@ class AAB_Bricks_Animated_Heading extends \Bricks\Element {
 
 		$this->controls['animation_type'] = [
 			'group'   => 'animation',
-			'label'   => esc_html__( 'Animation Type', 'bricksfly' ),
+			'label'   => esc_html__( 'Animation Type', 'the-bricksfly' ),
 			'type'    => 'select',
 			'options' => [
-				'none'             => esc_html__( 'None', 'bricksfly' ),
-				'reveal'           => esc_html__( 'Reveal', 'bricksfly' ),
-				'scale'            => esc_html__( 'Scale', 'bricksfly' ),
-				'slide'            => esc_html__( 'Slide', 'bricksfly' ),
-				'skew_reveal'      => esc_html__( 'Skew Reveal', 'bricksfly' ),
-				'glow_pulse'       => esc_html__( 'Glow Pulse', 'bricksfly' ),
-				'typewriter'       => esc_html__( 'Typewriter', 'bricksfly' ),
-				'mask_wipe'        => esc_html__( 'Mask Wipe', 'bricksfly' ),
-				'water_wave'       => esc_html__( 'Water Wave', 'bricksfly' ),
-				'background_clip'  => esc_html__( 'Background Clip Text', 'bricksfly' ),
-				'character'        => esc_html__( 'Character Animation', 'bricksfly' ),
+				'none'             => esc_html__( 'None', 'the-bricksfly' ),
+				'reveal'           => esc_html__( 'Reveal', 'the-bricksfly' ),
+				'scale'            => esc_html__( 'Scale', 'the-bricksfly' ),
+				'slide'            => esc_html__( 'Slide', 'the-bricksfly' ),
+				'skew_reveal'      => esc_html__( 'Skew Reveal', 'the-bricksfly' ),
+				'glow_pulse'       => esc_html__( 'Glow Pulse', 'the-bricksfly' ),
+				'typewriter'       => esc_html__( 'Typewriter', 'the-bricksfly' ),
+				'mask_wipe'        => esc_html__( 'Mask Wipe', 'the-bricksfly' ),
+				'water_wave'       => esc_html__( 'Water Wave', 'the-bricksfly' ),
+				'background_clip'  => esc_html__( 'Background Clip Text', 'the-bricksfly' ),
+				'character'        => esc_html__( 'Character Animation', 'the-bricksfly' ),
 			],
 			'default' => 'reveal',
 		];
 
 		$this->controls['animation_trigger'] = [
 			'group'   => 'animation',
-			'label'   => esc_html__( 'Trigger', 'bricksfly' ),
+			'label'   => esc_html__( 'Trigger', 'the-bricksfly' ),
 			'type'    => 'select',
 			'options' => [
-				'on_scroll'        => esc_html__( 'On Scroll', 'bricksfly' ),
-				'on_page_load'     => esc_html__( 'On Page Load', 'bricksfly' ),
-				'play_with_scroll' => esc_html__( 'Play With Scroll', 'bricksfly' ),
-				'mouseover'        => esc_html__( 'Hover', 'bricksfly' ),
-				'click'            => esc_html__( 'Click', 'bricksfly' ),
+				'on_scroll'        => esc_html__( 'On Scroll', 'the-bricksfly' ),
+				'on_page_load'     => esc_html__( 'On Page Load', 'the-bricksfly' ),
+				'play_with_scroll' => esc_html__( 'Play With Scroll', 'the-bricksfly' ),
+				'mouseover'        => esc_html__( 'Hover', 'the-bricksfly' ),
+				'click'            => esc_html__( 'Click', 'the-bricksfly' ),
 			],
 			'default'  => 'on_scroll',
 			'required' => [['animation_type', '!=', 'none']],
@@ -139,7 +139,7 @@ class AAB_Bricks_Animated_Heading extends \Bricks\Element {
 
 		$this->controls['trigger_selector'] = [
 			'group'       => 'animation',
-			'label'       => esc_html__( 'Trigger Selector', 'bricksfly' ),
+			'label'       => esc_html__( 'Trigger Selector', 'the-bricksfly' ),
 			'type'        => 'text',
 			'placeholder' => '.my-class',
 			'required'    => [
@@ -150,7 +150,7 @@ class AAB_Bricks_Animated_Heading extends \Bricks\Element {
 
 		$this->controls['animation_duration'] = [
 			'group'    => 'animation',
-			'label'    => esc_html__( 'Duration (s)', 'bricksfly' ),
+			'label'    => esc_html__( 'Duration (s)', 'the-bricksfly' ),
 			'type'     => 'number',
 			'default'  => 1,
 			'step'     => 0.1,
@@ -159,7 +159,7 @@ class AAB_Bricks_Animated_Heading extends \Bricks\Element {
 
 		$this->controls['animation_delay'] = [
 			'group'    => 'animation',
-			'label'    => esc_html__( 'Delay (s)', 'bricksfly' ),
+			'label'    => esc_html__( 'Delay (s)', 'the-bricksfly' ),
 			'type'     => 'number',
 			'default'  => 0,
 			'step'     => 0.1,
@@ -168,7 +168,7 @@ class AAB_Bricks_Animated_Heading extends \Bricks\Element {
 
 		$this->controls['animation_stagger'] = [
 			'group'    => 'animation',
-			'label'    => esc_html__( 'Stagger (s)', 'bricksfly' ),
+			'label'    => esc_html__( 'Stagger (s)', 'the-bricksfly' ),
 			'type'     => 'number',
 			'default'  => 0.02,
 			'step'     => 0.01,
@@ -181,7 +181,7 @@ class AAB_Bricks_Animated_Heading extends \Bricks\Element {
 
 		$this->controls['heading_typo'] = [
 			'group' => 'heading_style',
-			'label' => esc_html__( 'Typography', 'bricksfly' ),
+			'label' => esc_html__( 'Typography', 'the-bricksfly' ),
 			'type'  => 'typography',
 			'css'   => [[
 				'property' => 'typography',
@@ -191,7 +191,7 @@ class AAB_Bricks_Animated_Heading extends \Bricks\Element {
 
 		$this->controls['heading_color'] = [
 			'group' => 'heading_style',
-			'label' => esc_html__( 'Color', 'bricksfly' ),
+			'label' => esc_html__( 'Color', 'the-bricksfly' ),
 			'type'  => 'color',
 			'css'   => [[
 				'property' => 'color',
@@ -201,7 +201,7 @@ class AAB_Bricks_Animated_Heading extends \Bricks\Element {
 
 		$this->controls['heading_margin'] = [
 			'group' => 'heading_style',
-			'label' => esc_html__( 'Margin', 'bricksfly' ),
+			'label' => esc_html__( 'Margin', 'the-bricksfly' ),
 			'type'  => 'dimensions',
 			'css'   => [[
 				'property' => 'margin',
@@ -211,7 +211,7 @@ class AAB_Bricks_Animated_Heading extends \Bricks\Element {
 
 		$this->controls['heading_padding'] = [
 			'group' => 'heading_style',
-			'label' => esc_html__( 'Padding', 'bricksfly' ),
+			'label' => esc_html__( 'Padding', 'the-bricksfly' ),
 			'type'  => 'dimensions',
 			'css'   => [[
 				'property' => 'padding',
@@ -225,7 +225,7 @@ class AAB_Bricks_Animated_Heading extends \Bricks\Element {
 
 		$this->controls['text_shadow'] = [
 			'group' => 'text_effects',
-			'label' => esc_html__( 'Text Shadow', 'bricksfly' ),
+			'label' => esc_html__( 'Text Shadow', 'the-bricksfly' ),
 			'type'  => 'box-shadow',
 			'css'   => [[
 				'property' => 'text-shadow',
@@ -235,7 +235,7 @@ class AAB_Bricks_Animated_Heading extends \Bricks\Element {
 
 		$this->controls['bg_clip_gradient'] = [
 			'group'    => 'text_effects',
-			'label'    => esc_html__( 'Gradient Background', 'bricksfly' ),
+			'label'    => esc_html__( 'Gradient Background', 'the-bricksfly' ),
 			'type'     => 'background',
 			'required' => [['animation_type', '=', 'background_clip']],
 			'css'      => [[
@@ -246,7 +246,7 @@ class AAB_Bricks_Animated_Heading extends \Bricks\Element {
 
 		$this->controls['stroke_color'] = [
 			'group' => 'text_effects',
-			'label' => esc_html__( 'Text Stroke Color', 'bricksfly' ),
+			'label' => esc_html__( 'Text Stroke Color', 'the-bricksfly' ),
 			'type'  => 'color',
 			'css'   => [[
 				'property' => '-webkit-text-stroke-color',
@@ -256,7 +256,7 @@ class AAB_Bricks_Animated_Heading extends \Bricks\Element {
 
 		$this->controls['stroke_width'] = [
 			'group' => 'text_effects',
-			'label' => esc_html__( 'Text Stroke Width', 'bricksfly' ),
+			'label' => esc_html__( 'Text Stroke Width', 'the-bricksfly' ),
 			'type'  => 'number',
 			'units' => true,
 			'css'   => [[
@@ -269,7 +269,7 @@ class AAB_Bricks_Animated_Heading extends \Bricks\Element {
 	public function render() {
 		$s = $this->settings;
 
-		$text    = $s['heading_text'] ?? esc_html__( 'Animated Heading', 'bricksfly' );
+		$text    = $s['heading_text'] ?? esc_html__( 'Animated Heading', 'the-bricksfly' );
 		$tag     = $s['heading_tag'] ?? 'h2';
 		$tag     = in_array( $tag, ['h1','h2','h3','h4','h5','h6'], true ) ? $tag : 'h2';
 

@@ -85,7 +85,7 @@ class OneClickImport {
 			! isset( $_POST['nonce'] ) ||
 			! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'aab_admin_nonce' )
 		) {
-			wp_send_json_error( [ 'message' => esc_html__( 'Invalid or missing nonce', 'bricksfly' ) ], 403 );
+			wp_send_json_error( [ 'message' => esc_html__( 'Invalid or missing nonce', 'the-bricksfly' ) ], 403 );
 		}
 
 		$per_page = isset( $_POST['per_page'] ) ? max( 1, (int) $_POST['per_page'] ) : 1;
@@ -192,13 +192,13 @@ class OneClickImport {
 					Helpers::log_error_and_send_ajax_response(
 						$this->selected_import_files->get_error_message(),
 						$this->log_file_path,
-						esc_html__( 'Downloaded files', 'bricksfly' )
+						esc_html__( 'Downloaded files', 'the-bricksfly' )
 					);
 				}
 			} else {
 				$response                   = [];
 				$template_data['next_step'] = 'fail';
-				$response['msg']            = esc_html__( 'No import files specified!', 'bricksfly' );
+				$response['msg']            = esc_html__( 'No import files specified!', 'the-bricksfly' );
 				$response['progress']       = 0;
 				$response['template']       = wp_unslash( $template_data );
 				wp_send_json( $response );
@@ -243,7 +243,7 @@ class OneClickImport {
 		delete_transient( 'aadaddon_import_menu_mapping' );
 		delete_transient( 'aaeaddon_import_posts_with_nav_block' );
 
-		$response['msg']      = esc_html__( 'Congrats, your demo has been imported.', 'bricksfly' );
+		$response['msg']      = esc_html__( 'Congrats, your demo has been imported.', 'the-bricksfly' );
 		$response['progress'] = 80;
 
 		check_ajax_referer( 'aab_admin_nonce', 'nonce' );

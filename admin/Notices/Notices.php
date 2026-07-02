@@ -106,7 +106,7 @@ class Notices {
 					esc_attr( $this->plugin_prefix . '_dismiss_notice' ),
 					esc_attr( $style ),
 					wp_kses_post( wptexturize( $message ) ),
-					$notice['dismissible'] ? '<button type="button" class="notice-dismiss"><span class="screen-reader-text">' . esc_html__( 'Dismiss this notice', 'bricksfly' ) . '</span></button>' : ''
+					$notice['dismissible'] ? '<button type="button" class="notice-dismiss"><span class="screen-reader-text">' . esc_html__( 'Dismiss this notice', 'the-bricksfly' ) . '</span></button>' : ''
 				);
 			}
 		}

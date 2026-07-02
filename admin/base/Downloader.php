@@ -26,7 +26,7 @@ class Downloader {
 		if ( empty( $url ) ) {
 			return new \WP_Error(
 				'missing_url',
-				__( 'Missing URL for downloading a file!', 'bricksfly' )
+				__( 'Missing URL for downloading a file!', 'the-bricksfly' )
 			);
 		}
 
@@ -42,7 +42,7 @@ class Downloader {
 				'download_error',
 				sprintf(
 					/* translators: 1: opening <strong> tag, 2: file URL, 3: closing </strong> tag, 4: line break, 5: error code, 6: error message. */
-					__( 'An error occurred while fetching file from: %1$s%2$s%3$s!%4$sReason: %5$s - %6$s.', 'bricksfly' ),
+					__( 'An error occurred while fetching file from: %1$s%2$s%3$s!%4$sReason: %5$s - %6$s.', 'the-bricksfly' ),
 					'<strong>',
 					$url,
 					'</strong>',

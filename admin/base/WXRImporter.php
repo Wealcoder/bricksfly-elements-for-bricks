@@ -82,7 +82,7 @@ class WXRImporter extends \WP_Importer {
 		$status = $reader->open( $file );
 
 		if ( ! $status ) {
-			return new WP_Error( 'wxr_importer.cannot_parse', __( 'Could not open the file for parsing', 'bricksfly' ) );
+			return new WP_Error( 'wxr_importer.cannot_parse', __( 'Could not open the file for parsing', 'the-bricksfly' ) );
 		}
 
 		return $reader;
@@ -191,7 +191,7 @@ class WXRImporter extends \WP_Importer {
 					if ( version_compare( $this->version, self::MAX_WXR_VERSION, '>' ) ) {
 						$this->logger->warning( sprintf(
 							/* translators: 1: WXR file version detected in the import file, 2: maximum WXR version this importer supports. */
-							__( 'This WXR file (version %1$s) is newer than the importer (version %2$s) and may not be supported. Please consider updating.', 'bricksfly' ),
+							__( 'This WXR file (version %1$s) is newer than the importer (version %2$s) and may not be supported. Please consider updating.', 'the-bricksfly' ),
 							$this->version,
 							self::MAX_WXR_VERSION
 						) );
@@ -253,7 +253,7 @@ class WXRImporter extends \WP_Importer {
 					if ( version_compare( $this->version, self::MAX_WXR_VERSION, '>' ) ) {
 						$this->logger->warning( sprintf(
 							/* translators: 1: WXR file version detected in the import file, 2: maximum WXR version this importer supports. */
-							__( 'This WXR file (version %1$s) is newer than the importer (version %2$s) and may not be supported. Please consider updating.', 'bricksfly' ),
+							__( 'This WXR file (version %1$s) is newer than the importer (version %2$s) and may not be supported. Please consider updating.', 'the-bricksfly' ),
 							$this->version,
 							self::MAX_WXR_VERSION
 						) );
@@ -390,7 +390,7 @@ class WXRImporter extends \WP_Importer {
 
 	protected function import_start( $file ) {
 		if ( ! is_file( $file ) ) {
-			return new WP_Error( 'wxr_importer.file_missing', __( 'The file does not exist, please try again.', 'bricksfly' ) );
+			return new WP_Error( 'wxr_importer.file_missing', __( 'The file does not exist, please try again.', 'the-bricksfly' ) );
 		}
 
 		wp_defer_term_counting( true );
@@ -430,7 +430,7 @@ class WXRImporter extends \WP_Importer {
 	public function set_user_mapping( $mapping ) {
 		foreach ( $mapping as $map ) {
 			if ( empty( $map['old_slug'] ) || empty( $map['old_id'] ) || empty( $map['new_id'] ) ) {
-				$this->logger->warning( __( 'Invalid author mapping', 'bricksfly' ) );
+				$this->logger->warning( __( 'Invalid author mapping', 'the-bricksfly' ) );
 				continue;
 			}
 
@@ -476,7 +476,7 @@ class WXRImporter extends \WP_Importer {
 				case 'wp:status':
 					$data['post_status'] = $child->textContent;
 					if ( $data['post_status'] === 'auto-draft' ) {
-						return new WP_Error( 'wxr_importer.post.cannot_import_draft', __( 'Cannot import auto-draft posts', 'bricksfly' ), $data );
+						return new WP_Error( 'wxr_importer.post.cannot_import_draft', __( 'Cannot import auto-draft posts', 'the-bricksfly' ), $data );
 					}
 					break;
 				case 'wp:post_parent':    $data['post_parent']    = $child->textContent; break;
@@ -577,7 +577,7 @@ class WXRImporter extends \WP_Importer {
 		if ( 'attachment' === $postdata['post_type'] ) {
 			$remote_url = ! empty( $data['attachment_url'] ) ? $data['attachment_url'] : $data['guid'];
 			if ( ! $this->options['fetch_attachments'] ) {
-				update_option( 'aaeaddon_template_import_state', __( 'fetching attachments disabled', 'bricksfly' ) );
+				update_option( 'aaeaddon_template_import_state', __( 'fetching attachments disabled', 'the-bricksfly' ) );
 				return false;
 			}
 			$post_id = $this->process_attachment( $postdata, $meta, $remote_url );
@@ -717,7 +717,7 @@ class WXRImporter extends \WP_Importer {
 
 		$info = wp_check_filetype( $upload['file'] );
 		if ( ! $info ) {
-			return new WP_Error( 'attachment_processing_error', __( 'Invalid file type', 'bricksfly' ) );
+			return new WP_Error( 'attachment_processing_error', __( 'Invalid file type', 'the-bricksfly' ) );
 		}
 
 		$post['post_mime_type'] = $info['type'];
@@ -1109,13 +1109,13 @@ class WXRImporter extends \WP_Importer {
 			wp_delete_file( $upload['file'] );
 			return new WP_Error( 'import_file_error', sprintf(
 				/* translators: 1: HTTP status code, 2: HTTP status text, 3: requested URL. */
-				__( 'Remote server returned %1$d %2$s for %3$s', 'bricksfly' ),
+				__( 'Remote server returned %1$d %2$s for %3$s', 'the-bricksfly' ),
 				$code, get_status_header_desc( $code ), $url
 			) );
 		}
 
 		$filesize = filesize( $upload['file'] );
-		if ( 0 === $filesize ) { wp_delete_file( $upload['file'] ); return new WP_Error( 'import_file_error', __( 'Zero size file downloaded', 'bricksfly' ) ); }
+		if ( 0 === $filesize ) { wp_delete_file( $upload['file'] ); return new WP_Error( 'import_file_error', __( 'Zero size file downloaded', 'the-bricksfly' ) ); }
 
 		$max_size = (int) $this->max_attachment_size();
 		if ( ! empty( $max_size ) && $filesize > $max_size ) {
@@ -1124,7 +1124,7 @@ class WXRImporter extends \WP_Importer {
 				'import_file_error',
 				sprintf(
 					/* translators: %s: human-readable maximum allowed file size (e.g. "5 MB"). */
-					__( 'Remote file is too large, limit is %s', 'bricksfly' ),
+					__( 'Remote file is too large, limit is %s', 'the-bricksfly' ),
 					size_format( $max_size )
 				)
 			);
@@ -1135,15 +1135,15 @@ class WXRImporter extends \WP_Importer {
 
 	protected function post_process() {
 		if ( ! empty( $this->requires_remapping['post'] ) ) {
-			update_option( 'aaeaddon_template_import_state', esc_html__( 'Processing Posts', 'bricksfly' ) );
+			update_option( 'aaeaddon_template_import_state', esc_html__( 'Processing Posts', 'the-bricksfly' ) );
 			$this->post_process_posts( $this->requires_remapping['post'] );
 		}
 		if ( ! empty( $this->requires_remapping['comment'] ) ) {
-			update_option( 'aaeaddon_template_import_state', esc_html__( 'Processing Comments', 'bricksfly' ) );
+			update_option( 'aaeaddon_template_import_state', esc_html__( 'Processing Comments', 'the-bricksfly' ) );
 			$this->post_process_comments( $this->requires_remapping['comment'] );
 		}
 		if ( ! empty( $this->requires_remapping['term'] ) ) {
-			update_option( 'aaeaddon_template_import_state', esc_html__( 'Processing Terms', 'bricksfly' ) );
+			update_option( 'aaeaddon_template_import_state', esc_html__( 'Processing Terms', 'the-bricksfly' ) );
 			$this->post_process_terms( $this->requires_remapping['term'] );
 		}
 	}
@@ -1270,7 +1270,7 @@ class WXRImporter extends \WP_Importer {
 
 	function remap_featured_images() {
 		if ( empty( $this->featured_images ) ) { return; }
-		update_option( 'aaeaddon_template_import_state', esc_html__( 'Starting remapping of featured images', 'bricksfly' ) );
+		update_option( 'aaeaddon_template_import_state', esc_html__( 'Starting remapping of featured images', 'the-bricksfly' ) );
 		foreach ( $this->featured_images as $post_id => $value ) {
 			if ( isset( $this->mapping['post'][ $value ] ) ) {
 				$new_id = $this->mapping['post'][ $value ];
@@ -1318,7 +1318,7 @@ class WXRImporter extends \WP_Importer {
 
 	protected function prefill_existing_comments() {
 		global $wpdb;
-		update_option( 'aaeaddon_template_import_state', esc_html__( 'Comment checking', 'bricksfly' ) );
+		update_option( 'aaeaddon_template_import_state', esc_html__( 'Comment checking', 'the-bricksfly' ) );
 		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- table-name interpolation only, no user input.
 		$posts = $wpdb->get_results( "SELECT comment_ID, comment_author, comment_date FROM {$wpdb->comments}" );
 		foreach ( $posts as $item ) {

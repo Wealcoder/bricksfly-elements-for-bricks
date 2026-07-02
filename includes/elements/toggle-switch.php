@@ -12,7 +12,7 @@ class Aae_Bricks_Toggle_Switch extends \Bricks\Element
 
     public function get_label()
     {
-        return esc_html__('Toggle Switch', 'bricksfly');
+        return esc_html__('Toggle Switch', 'the-bricksfly');
     }
 
     public function get_keywords()
@@ -23,28 +23,28 @@ class Aae_Bricks_Toggle_Switch extends \Bricks\Element
     public function set_control_groups()
     {
         $this->control_groups['toggle'] = [
-            'title' => esc_html__('Toggle Switch', 'bricksfly'),
+            'title' => esc_html__('Toggle Switch', 'the-bricksfly'),
             'tab'   => 'content',
         ];
 
         $this->control_groups['wrapper_style'] = [
-            'title' => esc_html__('Switcher Wrapper', 'bricksfly'),
+            'title' => esc_html__('Switcher Wrapper', 'the-bricksfly'),
             'tab'   => 'style',
         ];
 
         $this->control_groups['switcher_style'] = [
-            'title'    => esc_html__('Switcher', 'bricksfly'),
+            'title'    => esc_html__('Switcher', 'the-bricksfly'),
             'tab'      => 'style',
             'required' => ['elementList', '=', '1'],
         ];
 
         $this->control_groups['title_style'] = [
-            'title' => esc_html__('Title', 'bricksfly'),
+            'title' => esc_html__('Title', 'the-bricksfly'),
             'tab'   => 'style',
         ];
 
         $this->control_groups['active_title_style'] = [
-            'title' => esc_html__('Active Title', 'bricksfly'),
+            'title' => esc_html__('Active Title', 'the-bricksfly'),
             'tab'   => 'style',
         ];
     }
@@ -55,11 +55,11 @@ class Aae_Bricks_Toggle_Switch extends \Bricks\Element
 
         $this->controls['elementList'] = [
             'group'   => 'toggle',
-            'label'   => esc_html__('Style', 'bricksfly'),
+            'label'   => esc_html__('Style', 'the-bricksfly'),
             'type'    => 'select',
             'options' => [
-                '1' => esc_html__('One', 'bricksfly'),
-                '2' => esc_html__('Two', 'bricksfly'),
+                '1' => esc_html__('One', 'the-bricksfly'),
+                '2' => esc_html__('Two', 'the-bricksfly'),
             ],
             'default' => '1',
             'inline'  => true,
@@ -67,38 +67,38 @@ class Aae_Bricks_Toggle_Switch extends \Bricks\Element
 
         $this->controls['toggleSwitcher'] = [
             'group'         => 'toggle',
-            'label'         => esc_html__('Toggle Switcher', 'bricksfly'),
+            'label'         => esc_html__('Toggle Switcher', 'the-bricksfly'),
             'type'          => 'repeater',
             'titleProperty' => 'switchTitle',
-            'description'   => esc_html__('Only the first 2 items are used (before / after).', 'bricksfly'),
+            'description'   => esc_html__('Only the first 2 items are used (before / after).', 'the-bricksfly'),
             'fields'        => [
                 'switchTitle' => [
-                    'label'       => esc_html__('Title', 'bricksfly'),
+                    'label'       => esc_html__('Title', 'the-bricksfly'),
                     'type'        => 'text',
-                    'placeholder' => esc_html__('Monthly', 'bricksfly'),
+                    'placeholder' => esc_html__('Monthly', 'the-bricksfly'),
                 ],
                 'contentType' => [
-                    'label'   => esc_html__('Content Type', 'bricksfly'),
+                    'label'   => esc_html__('Content Type', 'the-bricksfly'),
                     'type'    => 'select',
                     'options' => [
-                        'content'  => esc_html__('Content', 'bricksfly'),
-                        'template' => esc_html__('Saved Templates', 'bricksfly'),
+                        'content'  => esc_html__('Content', 'the-bricksfly'),
+                        'template' => esc_html__('Saved Templates', 'the-bricksfly'),
                     ],
                     'default' => 'content',
                     'inline'  => true,
                 ],
                 'switchTemplate' => [
-                    'label'       => esc_html__('Saved Template', 'bricksfly'),
+                    'label'       => esc_html__('Saved Template', 'the-bricksfly'),
                     'type'        => 'select',
                     'options'     => bricks_is_builder() ? \Bricks\Templates::get_templates_list(['section', 'content', 'popup'], get_the_ID()) : [],
                     'searchable'  => true,
-                    'placeholder' => esc_html__('Select template', 'bricksfly'),
+                    'placeholder' => esc_html__('Select template', 'the-bricksfly'),
                     'required'    => ['contentType', '=', 'template'],
                 ],
                 'switchContent' => [
-                    'label'    => esc_html__('Content', 'bricksfly'),
+                    'label'    => esc_html__('Content', 'the-bricksfly'),
                     'type'     => 'editor',
-                    'default'  => esc_html__('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', 'bricksfly'),
+                    'default'  => esc_html__('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', 'the-bricksfly'),
                     'required' => ['contentType', '=', 'content'],
                 ],
             ],
@@ -110,7 +110,7 @@ class Aae_Bricks_Toggle_Switch extends \Bricks\Element
 
         $this->controls['toggleGap'] = [
             'group' => 'toggle',
-            'label' => esc_html__('Gap', 'bricksfly'),
+            'label' => esc_html__('Gap', 'the-bricksfly'),
             'type'  => 'slider',
             'units' => [
                 'px' => ['min' => 0, 'max' => 200],
@@ -132,7 +132,7 @@ class Aae_Bricks_Toggle_Switch extends \Bricks\Element
 
         $this->controls['toggleBottomSpace'] = [
             'group' => 'toggle',
-            'label' => esc_html__('Bottom Space', 'bricksfly'),
+            'label' => esc_html__('Bottom Space', 'the-bricksfly'),
             'type'  => 'slider',
             'units' => [
                 'px' => ['min' => 0, 'max' => 200],
@@ -152,7 +152,7 @@ class Aae_Bricks_Toggle_Switch extends \Bricks\Element
 
         $this->controls['wrapBackground'] = [
             'group' => 'wrapper_style',
-            'label' => esc_html__('Background', 'bricksfly'),
+            'label' => esc_html__('Background', 'the-bricksfly'),
             'type'  => 'color',
             'css'   => [
                 ['property' => 'background-color', 'selector' => '.slide-toggle-wrapper'],
@@ -161,7 +161,7 @@ class Aae_Bricks_Toggle_Switch extends \Bricks\Element
 
         $this->controls['wrapPadding'] = [
             'group' => 'wrapper_style',
-            'label' => esc_html__('Padding', 'bricksfly'),
+            'label' => esc_html__('Padding', 'the-bricksfly'),
             'type'  => 'dimensions',
             'css'   => [
                 ['property' => 'padding', 'selector' => '.slide-toggle-wrapper'],
@@ -170,7 +170,7 @@ class Aae_Bricks_Toggle_Switch extends \Bricks\Element
 
         $this->controls['wrapBorder'] = [
             'group' => 'wrapper_style',
-            'label' => esc_html__('Border', 'bricksfly'),
+            'label' => esc_html__('Border', 'the-bricksfly'),
             'type'  => 'border',
             'css'   => [
                 ['property' => 'border', 'selector' => '.slide-toggle-wrapper'],
@@ -181,7 +181,7 @@ class Aae_Bricks_Toggle_Switch extends \Bricks\Element
 
         $this->controls['switcherWidth'] = [
             'group'   => 'switcher_style',
-            'label'   => esc_html__('Width', 'bricksfly'),
+            'label'   => esc_html__('Width', 'the-bricksfly'),
             'type'    => 'number',
             'units'   => ['px' => ['min' => 0, 'max' => 200]],
             'default' => '40',
@@ -194,7 +194,7 @@ class Aae_Bricks_Toggle_Switch extends \Bricks\Element
 
         $this->controls['switcherHeight'] = [
             'group'   => 'switcher_style',
-            'label'   => esc_html__('Height', 'bricksfly'),
+            'label'   => esc_html__('Height', 'the-bricksfly'),
             'type'    => 'number',
             'units'   => ['px' => ['min' => 0, 'max' => 200]],
             'default' => '20',
@@ -206,7 +206,7 @@ class Aae_Bricks_Toggle_Switch extends \Bricks\Element
 
         $this->controls['switcherBackground'] = [
             'group' => 'switcher_style',
-            'label' => esc_html__('Background', 'bricksfly'),
+            'label' => esc_html__('Background', 'the-bricksfly'),
             'type'  => 'color',
             'css'   => [
                 ['property' => 'background-color', 'selector' => '.switcher'],
@@ -216,7 +216,7 @@ class Aae_Bricks_Toggle_Switch extends \Bricks\Element
 
         $this->controls['switcherRadius'] = [
             'group' => 'switcher_style',
-            'label' => esc_html__('Border', 'bricksfly'),
+            'label' => esc_html__('Border', 'the-bricksfly'),
             'type'  => 'border',
             'css'   => [
                 ['property' => 'border', 'selector' => '.switcher'],
@@ -225,7 +225,7 @@ class Aae_Bricks_Toggle_Switch extends \Bricks\Element
 
         $this->controls['switcherActiveBackground'] = [
             'group' => 'switcher_style',
-            'label' => esc_html__('Active Background', 'bricksfly'),
+            'label' => esc_html__('Active Background', 'the-bricksfly'),
             'type'  => 'color',
             'css'   => [
                 ['property' => 'background-color', 'selector' => 'input:checked + .switcher'],
@@ -235,13 +235,13 @@ class Aae_Bricks_Toggle_Switch extends \Bricks\Element
 
         $this->controls['indicatorHeading'] = [
             'group' => 'switcher_style',
-            'label' => esc_html__('Indicator', 'bricksfly'),
+            'label' => esc_html__('Indicator', 'the-bricksfly'),
             'type'  => 'separator',
         ];
 
         $this->controls['indicatorWidth'] = [
             'group' => 'switcher_style',
-            'label' => esc_html__('Indicator Size', 'bricksfly'),
+            'label' => esc_html__('Indicator Size', 'the-bricksfly'),
             'type'  => 'number',
             'units' => ['px' => ['min' => 0, 'max' => 200]],
             'default' => '16',
@@ -253,7 +253,7 @@ class Aae_Bricks_Toggle_Switch extends \Bricks\Element
 
         $this->controls['indicatorSpace'] = [
             'group' => 'switcher_style',
-            'label' => esc_html__('Indicator Space', 'bricksfly'),
+            'label' => esc_html__('Indicator Space', 'the-bricksfly'),
             'type'  => 'number',
             'default' => '2',
             'placeholder' => '2',
@@ -265,7 +265,7 @@ class Aae_Bricks_Toggle_Switch extends \Bricks\Element
 
         $this->controls['indicatorBackground'] = [
             'group' => 'switcher_style',
-            'label' => esc_html__('Background', 'bricksfly'),
+            'label' => esc_html__('Background', 'the-bricksfly'),
             'type'  => 'color',
             'css'   => [
                 ['property' => 'background-color', 'selector' => '.switcher::before'],
@@ -275,7 +275,7 @@ class Aae_Bricks_Toggle_Switch extends \Bricks\Element
 
         $this->controls['indicatorRadius'] = [
             'group' => 'switcher_style',
-            'label' => esc_html__('Border', 'bricksfly'),
+            'label' => esc_html__('Border', 'the-bricksfly'),
             'type'  => 'border',
             'css'   => [
                 ['property' => 'border', 'selector' => '.switcher::before'],
@@ -286,7 +286,7 @@ class Aae_Bricks_Toggle_Switch extends \Bricks\Element
 
         $this->controls['titleTypography'] = [
             'group' => 'title_style',
-            'label' => esc_html__('Typography', 'bricksfly'),
+            'label' => esc_html__('Typography', 'the-bricksfly'),
             'type'  => 'typography',
             'css'   => [
                 ['property' => 'typography', 'selector' => '.before_label'],
@@ -297,7 +297,7 @@ class Aae_Bricks_Toggle_Switch extends \Bricks\Element
 
         $this->controls['titleBgColor'] = [
             'group' => 'title_style',
-            'label' => esc_html__('Title Background', 'bricksfly'),
+            'label' => esc_html__('Title Background', 'the-bricksfly'),
             'type'  => 'color',
             'css'   => [
                 ['property' => 'background-color', 'selector' => '.before_label'],
@@ -309,7 +309,7 @@ class Aae_Bricks_Toggle_Switch extends \Bricks\Element
             $this->controls['TitleBorder'] = [
             'tab'   => 'style',
             'group' => 'title_style',
-            'label' => esc_html__( 'Title Border', 'bricksfly' ),
+            'label' => esc_html__( 'Title Border', 'the-bricksfly' ),
             'type'  => 'border',
             'css'   => [
                 [
@@ -321,7 +321,7 @@ class Aae_Bricks_Toggle_Switch extends \Bricks\Element
 
         // $this->controls['titleColor'] = [
         //     'group' => 'title_style',
-        //     'label' => esc_html__('Text Color', 'bricksfly'),
+        //     'label' => esc_html__('Text Color', 'the-bricksfly'),
         //     'type'  => 'color',
         //     'css'   => [
         //         ['property' => 'color', 'selector' => '.before_label'],
@@ -333,7 +333,7 @@ class Aae_Bricks_Toggle_Switch extends \Bricks\Element
 
         $this->controls['activeTitleColor'] = [
             'group' => 'active_title_style',
-            'label' => esc_html__('Text Color', 'bricksfly'),
+            'label' => esc_html__('Text Color', 'the-bricksfly'),
             'type'  => 'color',
             'css'   => [
                 ['property' => 'color', 'selector' => '.before_label.active'],
@@ -343,7 +343,7 @@ class Aae_Bricks_Toggle_Switch extends \Bricks\Element
 
         $this->controls['activeTitleBackground'] = [
             'group'    => 'active_title_style',
-            'label'    => esc_html__('Title Background', 'bricksfly'),
+            'label'    => esc_html__('Title Background', 'the-bricksfly'),
             'type'     => 'color',
             'css'      => [
                 ['property' => 'background-color', 'selector' => '.before_label::after'],
@@ -354,7 +354,7 @@ class Aae_Bricks_Toggle_Switch extends \Bricks\Element
 
         $this->controls['activeTitlePadding'] = [
             'group'    => 'active_title_style',
-            'label'    => esc_html__('Padding', 'bricksfly'),
+            'label'    => esc_html__('Padding', 'the-bricksfly'),
             'type'     => 'dimensions',
             'css'      => [
                 ['property' => 'padding', 'selector' => '.before_label'],
@@ -370,7 +370,7 @@ class Aae_Bricks_Toggle_Switch extends \Bricks\Element
 
         // $this->controls['activeTitleBorderWidth'] = [
         //     'group'    => 'active_title_style',
-        //     'label'    => esc_html__('Border Width', 'bricksfly'),
+        //     'label'    => esc_html__('Border Width', 'the-bricksfly'),
         //     'type'     => 'dimensions',
         //     'css'      => [
         //         ['property' => '--label-after-border-width', 'selector' => '.before_label'],
@@ -381,14 +381,14 @@ class Aae_Bricks_Toggle_Switch extends \Bricks\Element
 
         // $this->controls['activeTitleBorderStyle'] = [
         //     'group'    => 'active_title_style',
-        //     'label'    => esc_html__('Border Style', 'bricksfly'),
+        //     'label'    => esc_html__('Border Style', 'the-bricksfly'),
         //     'type'     => 'select',
         //     'inline'   => true,
         //     'options'  => [
-        //         'solid'  => esc_html__('Solid', 'bricksfly'),
-        //         'dashed' => esc_html__('Dashed', 'bricksfly'),
-        //         'dotted' => esc_html__('Dotted', 'bricksfly'),
-        //         'double' => esc_html__('Double', 'bricksfly'),
+        //         'solid'  => esc_html__('Solid', 'the-bricksfly'),
+        //         'dashed' => esc_html__('Dashed', 'the-bricksfly'),
+        //         'dotted' => esc_html__('Dotted', 'the-bricksfly'),
+        //         'double' => esc_html__('Double', 'the-bricksfly'),
         //     ],
         //     'css'      => [
         //         ['property' => '--label-after-border-style', 'selector' => '.before_label'],
@@ -399,7 +399,7 @@ class Aae_Bricks_Toggle_Switch extends \Bricks\Element
 
         // $this->controls['activeTitleBorderColor'] = [
         //     'group'    => 'active_title_style',
-        //     'label'    => esc_html__('Border Color', 'bricksfly'),
+        //     'label'    => esc_html__('Border Color', 'the-bricksfly'),
         //     'type'     => 'color',
         //     'css'      => [
         //         ['property' => '--label-after-border-color', 'selector' => '.before_label'],
@@ -410,7 +410,7 @@ class Aae_Bricks_Toggle_Switch extends \Bricks\Element
 
         // $this->controls['activeTitleRadius'] = [
         //     'group'    => 'active_title_style',
-        //     'label'    => esc_html__('Border Radius', 'bricksfly'),
+        //     'label'    => esc_html__('Border Radius', 'the-bricksfly'),
         //     'type'     => 'dimensions',
         //     'css'      => [
         //         ['property' => 'border-top-left-radius', 'selector' => '.before_label'],
@@ -423,7 +423,7 @@ class Aae_Bricks_Toggle_Switch extends \Bricks\Element
         $this->controls['activeTitleBorder'] = [
             'tab'   => 'style',
             'group' => 'active_title_style',
-            'label' => esc_html__( 'Active Title Border', 'bricksfly' ),
+            'label' => esc_html__( 'Active Title Border', 'the-bricksfly' ),
             'type'  => 'border',
             'css'   => [
                 [
@@ -501,7 +501,7 @@ class Aae_Bricks_Toggle_Switch extends \Bricks\Element
         if (count($items) < 2) {
             return $this->render_element_placeholder([
                 'icon-class' => 'ti-control-shuffle',
-                'text'       => esc_html__('Toggle Switch needs at least 2 items.', 'bricksfly'),
+                'text'       => esc_html__('Toggle Switch needs at least 2 items.', 'the-bricksfly'),
             ]);
         }
 

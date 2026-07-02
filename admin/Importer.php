@@ -78,7 +78,7 @@ class Importer {
 			}
 
 			$log_added = Helpers::append_to_file(
-				__( 'Content installing', 'bricksfly' ) . PHP_EOL . $message,
+				__( 'Content installing', 'the-bricksfly' ) . PHP_EOL . $message,
 				$this->wcfio->get_log_file_path(),
 				''
 			);

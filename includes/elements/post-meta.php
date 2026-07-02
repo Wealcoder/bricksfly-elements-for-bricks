@@ -11,7 +11,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 	public $scripts      = [];
 
 	public function get_label() {
-		return esc_html__('Post Meta', 'bricksfly');
+		return esc_html__('Post Meta', 'the-bricksfly');
 	}
 
 	public function get_keywords() {
@@ -31,17 +31,17 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 	}
 
 	public function set_control_groups() {
-		$this->control_groups['layout']    = [ 'title' => esc_html__('Layout', 'bricksfly'),    'tab' => 'content' ];
-		$this->control_groups['content']   = [ 'title' => esc_html__('Content', 'bricksfly'),   'tab' => 'content' ];
+		$this->control_groups['layout']    = [ 'title' => esc_html__('Layout', 'the-bricksfly'),    'tab' => 'content' ];
+		$this->control_groups['content']   = [ 'title' => esc_html__('Content', 'the-bricksfly'),   'tab' => 'content' ];
 
-		$this->control_groups['general']   = [ 'title' => esc_html__('General', 'bricksfly'),   'tab' => 'style' ];
-		$this->control_groups['separator'] = [ 'title' => esc_html__('Separator', 'bricksfly'), 'tab' => 'style' ];
-		$this->control_groups['category']  = [ 'title' => esc_html__('Category', 'bricksfly'),  'tab' => 'style' ];
-		$this->control_groups['author']    = [ 'title' => esc_html__('Author', 'bricksfly'),    'tab' => 'style' ];
-		$this->control_groups['date']      = [ 'title' => esc_html__('Date', 'bricksfly'),      'tab' => 'style' ];
-		$this->control_groups['view']      = [ 'title' => esc_html__('View / Reading Time', 'bricksfly'), 'tab' => 'style' ];
-		$this->control_groups['comment']   = [ 'title' => esc_html__('Comment', 'bricksfly'),   'tab' => 'style' ];
-		$this->control_groups['ptime']     = [ 'title' => esc_html__('Time Ago', 'bricksfly'),  'tab' => 'style' ];
+		$this->control_groups['general']   = [ 'title' => esc_html__('General', 'the-bricksfly'),   'tab' => 'style' ];
+		$this->control_groups['separator'] = [ 'title' => esc_html__('Separator', 'the-bricksfly'), 'tab' => 'style' ];
+		$this->control_groups['category']  = [ 'title' => esc_html__('Category', 'the-bricksfly'),  'tab' => 'style' ];
+		$this->control_groups['author']    = [ 'title' => esc_html__('Author', 'the-bricksfly'),    'tab' => 'style' ];
+		$this->control_groups['date']      = [ 'title' => esc_html__('Date', 'the-bricksfly'),      'tab' => 'style' ];
+		$this->control_groups['view']      = [ 'title' => esc_html__('View / Reading Time', 'the-bricksfly'), 'tab' => 'style' ];
+		$this->control_groups['comment']   = [ 'title' => esc_html__('Comment', 'the-bricksfly'),   'tab' => 'style' ];
+		$this->control_groups['ptime']     = [ 'title' => esc_html__('Time Ago', 'the-bricksfly'),  'tab' => 'style' ];
 	}
 
 	public function set_controls() {
@@ -51,11 +51,11 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 		$this->controls['layoutStyle'] = [
 			'tab'     => 'content',
 			'group'   => 'layout',
-			'label'   => esc_html__( 'Layout Style', 'bricksfly' ),
+			'label'   => esc_html__( 'Layout Style', 'the-bricksfly' ),
 			'type'    => 'select',
 			'options' => [
-				'1' => esc_html__( 'One', 'bricksfly' ),
-				'2' => esc_html__( 'Two', 'bricksfly' ),
+				'1' => esc_html__( 'One', 'the-bricksfly' ),
+				'2' => esc_html__( 'Two', 'the-bricksfly' ),
 			],
 			'default' => '1',
 			'inline'  => true,
@@ -64,16 +64,16 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 		$this->controls['layoutAlign'] = [
 			'tab'   => 'content',
 			'group' => 'layout',
-			'label' => esc_html__( 'Alignment', 'bricksfly' ),
+			'label' => esc_html__( 'Alignment', 'the-bricksfly' ),
 			'type'  => 'select',
 
 			'options' => [
-				'flex-start'    => esc_html__( 'Start', 'bricksfly' ),
-				'center'        => esc_html__( 'Center', 'bricksfly' ),
-				'flex-end'      => esc_html__( 'End', 'bricksfly' ),
-				'space-between' => esc_html__( 'Space Between', 'bricksfly' ),
-				'space-around'  => esc_html__( 'Space Around', 'bricksfly' ),
-				'space-evenly'  => esc_html__( 'Space Evenly', 'bricksfly' ),
+				'flex-start'    => esc_html__( 'Start', 'the-bricksfly' ),
+				'center'        => esc_html__( 'Center', 'the-bricksfly' ),
+				'flex-end'      => esc_html__( 'End', 'the-bricksfly' ),
+				'space-between' => esc_html__( 'Space Between', 'the-bricksfly' ),
+				'space-around'  => esc_html__( 'Space Around', 'the-bricksfly' ),
+				'space-evenly'  => esc_html__( 'Space Evenly', 'the-bricksfly' ),
 			],
 
 			'inline' => true,
@@ -91,7 +91,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 		$this->controls['shareSeparator'] = [
 			'tab'     => 'content',
 			'group'   => 'layout',
-			'label'   => esc_html__( 'Share Separator', 'bricksfly' ),
+			'label'   => esc_html__( 'Share Separator', 'the-bricksfly' ),
 			'type'    => 'checkbox',
 			'default' => false,
 		];
@@ -99,7 +99,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 		$this->controls['shareSeparatorIcon'] = [
 			'tab'      => 'content',
 			'group'    => 'layout',
-			'label'    => esc_html__( 'Separator Icon', 'bricksfly' ),
+			'label'    => esc_html__( 'Separator Icon', 'the-bricksfly' ),
 			'type'     => 'icon',
 			'default'  => [ 'library' => 'fontawesome', 'icon' => 'fas fa-share-nodes' ],
 			'required' => [ 'shareSeparator', '=', true ],
@@ -108,7 +108,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 		$this->controls['showTitle'] = [
 			'tab'      => 'content',
 			'group'    => 'layout',
-			'label'    => esc_html__( 'Show Title', 'bricksfly' ),
+			'label'    => esc_html__( 'Show Title', 'the-bricksfly' ),
 			'type'     => 'checkbox',
 			'default'  => false,
 			'required' => [ 'layoutStyle', '=', '1' ],
@@ -119,51 +119,51 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 		$this->controls['metaList'] = [
 			'tab'           => 'content',
 			'group'         => 'content',
-			'label'         => esc_html__( 'Meta List', 'bricksfly' ),
+			'label'         => esc_html__( 'Meta List', 'the-bricksfly' ),
 			'type'          => 'repeater',
 			'titleProperty' => 'listTitle',
 			'fields'        => [
 				'listTitle' => [
-					'label'   => esc_html__( 'Title', 'bricksfly' ),
+					'label'   => esc_html__( 'Title', 'the-bricksfly' ),
 					'type'    => 'text',
-					'default' => esc_html__( 'List Title', 'bricksfly' ),
+					'default' => esc_html__( 'List Title', 'the-bricksfly' ),
 				],
 				'listType' => [
-					'label'   => esc_html__( 'Meta', 'bricksfly' ),
+					'label'   => esc_html__( 'Meta', 'the-bricksfly' ),
 					'type'    => 'select',
 					'options' => [
-						''             => esc_html__( '— Select —', 'bricksfly' ),
-						'category'     => esc_html__( 'Category', 'bricksfly' ),
-						'date'         => esc_html__( 'Date', 'bricksfly' ),
-						'view'         => esc_html__( 'View', 'bricksfly' ),
-						'author'       => esc_html__( 'Author', 'bricksfly' ),
-						'reading_time' => esc_html__( 'Reading Time', 'bricksfly' ),
-						'comment'      => esc_html__( 'Comment', 'bricksfly' ),
-						'review'       => esc_html__( 'Review', 'bricksfly' ),
-						'read-later'   => esc_html__( 'Save', 'bricksfly' ),
-						'time-ago'     => esc_html__( 'Post Time Ago', 'bricksfly' ),
-						'last-update'  => esc_html__( 'Last Updated', 'bricksfly' ),
+						''             => esc_html__( '— Select —', 'the-bricksfly' ),
+						'category'     => esc_html__( 'Category', 'the-bricksfly' ),
+						'date'         => esc_html__( 'Date', 'the-bricksfly' ),
+						'view'         => esc_html__( 'View', 'the-bricksfly' ),
+						'author'       => esc_html__( 'Author', 'the-bricksfly' ),
+						'reading_time' => esc_html__( 'Reading Time', 'the-bricksfly' ),
+						'comment'      => esc_html__( 'Comment', 'the-bricksfly' ),
+						'review'       => esc_html__( 'Review', 'the-bricksfly' ),
+						'read-later'   => esc_html__( 'Save', 'the-bricksfly' ),
+						'time-ago'     => esc_html__( 'Post Time Ago', 'the-bricksfly' ),
+						'last-update'  => esc_html__( 'Last Updated', 'the-bricksfly' ),
 					],
 					'default' => '',
 				],
 				'listIcon' => [
-					'label' => esc_html__( 'Icon', 'bricksfly' ),
+					'label' => esc_html__( 'Icon', 'the-bricksfly' ),
 					'type'  => 'icon',
 				],
 				'metaSeparator' => [
-					'label'       => esc_html__( 'Separator', 'bricksfly' ),
+					'label'       => esc_html__( 'Separator', 'the-bricksfly' ),
 					'type'        => 'text',
 					'default'     => '|',
-					'placeholder' => esc_html__( 'Enter your separator', 'bricksfly' ),
+					'placeholder' => esc_html__( 'Enter your separator', 'the-bricksfly' ),
 				],
 				'multipleCategory' => [
-					'label'    => esc_html__( 'Multiple Category', 'bricksfly' ),
+					'label'    => esc_html__( 'Multiple Category', 'the-bricksfly' ),
 					'type'     => 'checkbox',
 					'default'  => true,
 					'required' => [ 'listType', '=', 'category' ],
 				],
 				'categoryLimit' => [
-					'label'    => esc_html__( 'Category Limit', 'bricksfly' ),
+					'label'    => esc_html__( 'Category Limit', 'the-bricksfly' ),
 					'type'     => 'number',
 					'min'      => 1,
 					'max'      => 10,
@@ -176,19 +176,19 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 			],
 			'default' => [
 				[
-					'listTitle'        => esc_html__( 'Date', 'bricksfly' ),
+					'listTitle'        => esc_html__( 'Date', 'the-bricksfly' ),
 					'listType'         => 'date',
 					'metaSeparator'    => '|',
 					'multipleCategory' => true,
 				],
 				[
-					'listTitle'        => esc_html__( 'Author', 'bricksfly' ),
+					'listTitle'        => esc_html__( 'Author', 'the-bricksfly' ),
 					'listType'         => 'author',
 					'metaSeparator'    => '|',
 					'multipleCategory' => true,
 				],
 				[
-					'listTitle'        => esc_html__( 'Category', 'bricksfly' ),
+					'listTitle'        => esc_html__( 'Category', 'the-bricksfly' ),
 					'listType'         => 'category',
 					'metaSeparator'    => '|',
 					'multipleCategory' => true,
@@ -200,7 +200,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['textColor'] = [
 			'tab' => 'style', 'group' => 'general',
-			'label' => esc_html__( 'Text Color', 'bricksfly' ),
+			'label' => esc_html__( 'Text Color', 'the-bricksfly' ),
 			'type'  => 'color',
 			'css'   => [
 				[ 'property' => 'color', 'selector' => '.wcf--meta-list li' ],
@@ -213,7 +213,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['textTypo'] = [
 			'tab' => 'style', 'group' => 'general',
-			'label' => esc_html__( 'Typography', 'bricksfly' ),
+			'label' => esc_html__( 'Typography', 'the-bricksfly' ),
 			'type'  => 'typography',
 			'css'   => [
 				[ 'property' => 'font', 'selector' => '.wcf--meta-list li' ],
@@ -225,7 +225,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['labelColor'] = [
 			'tab' => 'style', 'group' => 'general',
-			'label' => esc_html__( 'Label Color', 'bricksfly' ),
+			'label' => esc_html__( 'Label Color', 'the-bricksfly' ),
 			'type'  => 'color',
 			'css'   => [
 				[ 'property' => 'color', 'selector' => '.wcf--meta-list li .label' ],
@@ -236,7 +236,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['labelGap'] = [
 			'tab' => 'style', 'group' => 'general',
-			'label' => esc_html__( 'Label Gap', 'bricksfly' ),
+			'label' => esc_html__( 'Label Gap', 'the-bricksfly' ),
 			'type'  => 'number',
 			'units' => [ 'px' => [ 'min' => 0, 'max' => 100 ] ],
 			'css'   => [
@@ -247,7 +247,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['labelTypo'] = [
 			'tab' => 'style', 'group' => 'general',
-			'label' => esc_html__( 'Label Typography', 'bricksfly' ),
+			'label' => esc_html__( 'Label Typography', 'the-bricksfly' ),
 			'type'  => 'typography',
 			'css'   => [ [ 'property' => 'font', 'selector' => '.wcf--meta-list li .label' ] ],
 			'required' => [ 'layoutStyle', '=', '2' ],
@@ -255,7 +255,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['metaColGap'] = [
 			'tab' => 'style', 'group' => 'general',
-			'label' => esc_html__( 'Column Gap', 'bricksfly' ),
+			'label' => esc_html__( 'Column Gap', 'the-bricksfly' ),
 			'type'  => 'number',
 			'units' => [ 'px' => [ 'min' => 0, 'max' => 100 ] ],
 			'css'   => [ [ 'property' => 'column-gap', 'selector' => '&.wcf--meta-list' ] ],
@@ -263,7 +263,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['metaRowGap'] = [
 			'tab' => 'style', 'group' => 'general',
-			'label' => esc_html__( 'Row Gap', 'bricksfly' ),
+			'label' => esc_html__( 'Row Gap', 'the-bricksfly' ),
 			'type'  => 'number',
 			'units' => [ 'px' => [ 'min' => 0, 'max' => 100 ] ],
 			'css'   => [ [ 'property' => 'row-gap', 'selector' => '&.wcf--meta-list' ] ],
@@ -271,7 +271,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['metaSpacing'] = [
 			'tab' => 'style', 'group' => 'general',
-			'label' => esc_html__( 'Spacing (Margin)', 'bricksfly' ),
+			'label' => esc_html__( 'Spacing (Margin)', 'the-bricksfly' ),
 			'type'  => 'spacing',
 			'css'   => [ [ 'property' => 'margin', 'selector' => '&.wcf--meta-list' ] ],
 		];
@@ -280,7 +280,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['separatorColor'] = [
 			'tab' => 'style', 'group' => 'separator',
-			'label' => esc_html__( 'Color', 'bricksfly' ),
+			'label' => esc_html__( 'Color', 'the-bricksfly' ),
 			'type'  => 'color',
 			'css'   => [ [ 'property' => 'background-color', 'selector' => '.wcf--meta-list.style-2 > li::after' ] ],
 			'required' => [ 'layoutStyle', '=', '2' ],
@@ -288,7 +288,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['separatorWidth'] = [
 			'tab' => 'style', 'group' => 'separator',
-			'label' => esc_html__( 'Width', 'bricksfly' ),
+			'label' => esc_html__( 'Width', 'the-bricksfly' ),
 			'type'  => 'number',
 			'units' => [ 'px' => [ 'min' => 0, 'max' => 20 ] ],
 			'css'   => [ [ 'property' => 'width', 'selector' => '.wcf--meta-list.style-2 > li::after' ] ],
@@ -297,7 +297,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['separatorHeight'] = [
 			'tab' => 'style', 'group' => 'separator',
-			'label' => esc_html__( 'Height', 'bricksfly' ),
+			'label' => esc_html__( 'Height', 'the-bricksfly' ),
 			'type'  => 'number',
 			'units' => [ 'px' => [ 'min' => 0, 'max' => 200 ], '%' => [ 'min' => 0, 'max' => 100 ] ],
 			'css'   => [ [ 'property' => 'height', 'selector' => '.wcf--meta-list.style-2 > li::after' ] ],
@@ -306,7 +306,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['separatorPosition2'] = [
 			'tab' => 'style', 'group' => 'separator',
-			'label' => esc_html__( 'Position (Layout 2)', 'bricksfly' ),
+			'label' => esc_html__( 'Position (Layout 2)', 'the-bricksfly' ),
 			'type'  => 'number',
 			'units' => [ 'px' => [ 'min' => 0, 'max' => 200 ], '%' => [ 'min' => 0, 'max' => 100 ] ],
 			'css'   => [
@@ -317,7 +317,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['separatorPosition'] = [
 			'tab' => 'style', 'group' => 'separator',
-			'label' => esc_html__( 'Position (Layout 1)', 'bricksfly' ),
+			'label' => esc_html__( 'Position (Layout 1)', 'the-bricksfly' ),
 			'type'  => 'number',
 			'units' => [ 'px' => [ 'min' => 0, 'max' => 200 ] ],
 			'css'   => [ [ 'property' => 'margin-inline-start', 'selector' => '.wcf-separator::after' ] ],
@@ -326,7 +326,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['shareSeparatorIconSize'] = [
 			'tab' => 'style', 'group' => 'separator',
-			'label' => esc_html__( 'Share Icon Size', 'bricksfly' ),
+			'label' => esc_html__( 'Share Icon Size', 'the-bricksfly' ),
 			'type'  => 'number',
 			'units' => [ 'px' => [ 'min' => 0, 'max' => 200 ] ],
 			'default' => '16px',
@@ -335,7 +335,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['shareSeparatorIconColor'] = [
 			'tab' => 'style', 'group' => 'separator',
-			'label' => esc_html__( 'Share Icon Color', 'bricksfly' ),
+			'label' => esc_html__( 'Share Icon Color', 'the-bricksfly' ),
 			'type'  => 'color',
 			'css'   => [
 				[ 'property' => 'color', 'selector' => 'span.wcf_separator_icon' ],
@@ -347,7 +347,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['categoryAlign'] = [
 			'tab' => 'style', 'group' => 'category',
-			'label' => esc_html__( 'Alignment', 'bricksfly' ),
+			'label' => esc_html__( 'Alignment', 'the-bricksfly' ),
 			'type'  => 'text-align',
 			'css'   => [
 				[ 'property' => 'align-items', 'selector' => '.wcf--category-wrap' ],
@@ -358,7 +358,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['categoryColGap'] = [
 			'tab' => 'style', 'group' => 'category',
-			'label' => esc_html__( 'Column Gap', 'bricksfly' ),
+			'label' => esc_html__( 'Column Gap', 'the-bricksfly' ),
 			'type'  => 'number',
 			'units' => [ 'px' => [ 'min' => 0, 'max' => 100 ] ],
 			'css'   => [ [ 'property' => 'column-gap', 'selector' => '.wcf--category-list' ] ],
@@ -366,7 +366,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['categoryRowGap'] = [
 			'tab' => 'style', 'group' => 'category',
-			'label' => esc_html__( 'Row Gap', 'bricksfly' ),
+			'label' => esc_html__( 'Row Gap', 'the-bricksfly' ),
 			'type'  => 'number',
 			'units' => [ 'px' => [ 'min' => 0, 'max' => 100 ] ],
 			'css'   => [ [ 'property' => 'row-gap', 'selector' => '.wcf--category-list' ] ],
@@ -374,31 +374,31 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['categoryHoverList'] = [
 			'tab' => 'style', 'group' => 'category',
-			'label' => esc_html__( 'Hover Style', 'bricksfly' ),
+			'label' => esc_html__( 'Hover Style', 'the-bricksfly' ),
 			'type'  => 'select',
 			'options' => [
-				'hover-none'      => esc_html__( 'None', 'bricksfly' ),
-				'hover-divide'    => esc_html__( 'Divided', 'bricksfly' ),
-				'hover-cross'     => esc_html__( 'Cross', 'bricksfly' ),
-				'hover-cropping'  => esc_html__( 'Cropping', 'bricksfly' ),
-				'rollover-top'    => esc_html__( 'Rollover Top', 'bricksfly' ),
-				'rollover-left'   => esc_html__( 'Rollover Left', 'bricksfly' ),
-				'parallal-border' => esc_html__( 'Parallel Border', 'bricksfly' ),
-				'rollover-cross'  => esc_html__( 'Rollover Cross', 'bricksfly' ),
+				'hover-none'      => esc_html__( 'None', 'the-bricksfly' ),
+				'hover-divide'    => esc_html__( 'Divided', 'the-bricksfly' ),
+				'hover-cross'     => esc_html__( 'Cross', 'the-bricksfly' ),
+				'hover-cropping'  => esc_html__( 'Cropping', 'the-bricksfly' ),
+				'rollover-top'    => esc_html__( 'Rollover Top', 'the-bricksfly' ),
+				'rollover-left'   => esc_html__( 'Rollover Left', 'the-bricksfly' ),
+				'parallal-border' => esc_html__( 'Parallel Border', 'the-bricksfly' ),
+				'rollover-cross'  => esc_html__( 'Rollover Cross', 'the-bricksfly' ),
 			],
 			'default' => 'hover-none',
 		];
 
 		$this->controls['categoryTypo'] = [
 			'tab' => 'style', 'group' => 'category',
-			'label' => esc_html__( 'Typography', 'bricksfly' ),
+			'label' => esc_html__( 'Typography', 'the-bricksfly' ),
 			'type'  => 'typography',
 			'css'   => [ [ 'property' => 'font', 'selector' => '.wcf--meta-list .wcf--meta-category a' ] ],
 		];
 
 		$this->controls['categoryPadding'] = [
 			'tab' => 'style', 'group' => 'category',
-			'label' => esc_html__( 'Padding', 'bricksfly' ),
+			'label' => esc_html__( 'Padding', 'the-bricksfly' ),
 			'type'  => 'spacing',
 			'css'   => [ [ 'property' => 'padding', 'selector' => '.wcf--meta-category a' ] ],
 			'required' => [ 'layoutStyle', '=', '1' ],
@@ -406,7 +406,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['categoryBorder'] = [
 			'tab' => 'style', 'group' => 'category',
-			'label' => esc_html__( 'Border', 'bricksfly' ),
+			'label' => esc_html__( 'Border', 'the-bricksfly' ),
 			'type'  => 'border',
 			'css'   => [ [ 'property' => 'border', 'selector' => '.wcf--meta-category a' ] ],
 			'required' => [ 'layoutStyle', '=', '1' ],
@@ -414,7 +414,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['categoryRadius'] = [
 			'tab' => 'style', 'group' => 'category',
-			'label' => esc_html__( 'Border Radius', 'bricksfly' ),
+			'label' => esc_html__( 'Border Radius', 'the-bricksfly' ),
 			'type'  => 'spacing',
 			'css'   => [ [ 'property' => 'border-radius', 'selector' => '.wcf--meta-category a' ] ],
 			'required' => [ 'layoutStyle', '=', '1' ],
@@ -422,7 +422,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['categoryColor'] = [
 			'tab' => 'style', 'group' => 'category',
-			'label' => esc_html__( 'Color', 'bricksfly' ),
+			'label' => esc_html__( 'Color', 'the-bricksfly' ),
 			'type'  => 'color',
 			'css'   => [
 				[ 'property' => 'color', 'selector' => '.wcf--meta-list .wcf--meta-category a' ],
@@ -432,14 +432,14 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['categoryHoverColor'] = [
 			'tab' => 'style', 'group' => 'category',
-			'label' => esc_html__( 'Hover Color', 'bricksfly' ),
+			'label' => esc_html__( 'Hover Color', 'the-bricksfly' ),
 			'type'  => 'color',
 			'css'   => [ [ 'property' => 'color', 'selector' => '.wcf--meta-list .wcf--meta-category a:hover' ] ],
 		];
 
 		$this->controls['categoryBg'] = [
 			'tab' => 'style', 'group' => 'category',
-			'label' => esc_html__( 'Background', 'bricksfly' ),
+			'label' => esc_html__( 'Background', 'the-bricksfly' ),
 			'type'  => 'background',
 			'css'   => [ [ 'property' => 'background', 'selector' => '.wcf--meta-category a' ] ],
 			'required' => [ 'layoutStyle', '=', '1' ],
@@ -447,7 +447,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['categoryHoverBg'] = [
 			'tab' => 'style', 'group' => 'category',
-			'label' => esc_html__( 'Hover Background', 'bricksfly' ),
+			'label' => esc_html__( 'Hover Background', 'the-bricksfly' ),
 			'type'  => 'background',
 			'css'   => [ [ 'property' => 'background', 'selector' => '.wcf--meta-category a:hover' ] ],
 			'required' => [ 'layoutStyle', '=', '1' ],
@@ -455,7 +455,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['categoryShadow'] = [
 			'tab' => 'style', 'group' => 'category',
-			'label' => esc_html__( 'Shadow', 'bricksfly' ),
+			'label' => esc_html__( 'Shadow', 'the-bricksfly' ),
 			'type'  => 'box-shadow',
 			'css'   => [ [ 'property' => 'box-shadow', 'selector' => '.wcf--meta-category a' ] ],
 			'required' => [ 'layoutStyle', '=', '1' ],
@@ -463,7 +463,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['categoryHoverShadow'] = [
 			'tab' => 'style', 'group' => 'category',
-			'label' => esc_html__( 'Hover Shadow', 'bricksfly' ),
+			'label' => esc_html__( 'Hover Shadow', 'the-bricksfly' ),
 			'type'  => 'box-shadow',
 			'css'   => [ [ 'property' => 'box-shadow', 'selector' => '.wcf--meta-category a:hover' ] ],
 			'required' => [ 'layoutStyle', '=', '1' ],
@@ -471,7 +471,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['categoryLabelColor'] = [
 			'tab' => 'style', 'group' => 'category',
-			'label' => esc_html__( 'Label Color', 'bricksfly' ),
+			'label' => esc_html__( 'Label Color', 'the-bricksfly' ),
 			'type'  => 'color',
 			'css'   => [ [ 'property' => 'color', 'selector' => '.wcf--category-title' ] ],
 			'required' => [ 'layoutStyle', '=', '2' ],
@@ -479,7 +479,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['categoryLabelTypo'] = [
 			'tab' => 'style', 'group' => 'category',
-			'label' => esc_html__( 'Label Typography', 'bricksfly' ),
+			'label' => esc_html__( 'Label Typography', 'the-bricksfly' ),
 			'type'  => 'typography',
 			'css'   => [ [ 'property' => 'font', 'selector' => '.wcf--category-title' ] ],
 			'required' => [ 'layoutStyle', '=', '2' ],
@@ -487,7 +487,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['categoryLabelSpacing'] = [
 			'tab' => 'style', 'group' => 'category',
-			'label' => esc_html__( 'Label Spacing', 'bricksfly' ),
+			'label' => esc_html__( 'Label Spacing', 'the-bricksfly' ),
 			'type'  => 'number',
 			'units' => [ 'px' => [ 'min' => 0, 'max' => 100 ] ],
 			'css'   => [ [ 'property' => 'margin-bottom', 'selector' => '.wcf--category-title' ] ],
@@ -496,7 +496,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['categoryIconSize'] = [
 			'tab' => 'style', 'group' => 'category',
-			'label' => esc_html__( 'Icon Size', 'bricksfly' ),
+			'label' => esc_html__( 'Icon Size', 'the-bricksfly' ),
 			'type'  => 'number',
 			'units' => [ 'px' => [ 'min' => 0, 'max' => 200 ] ],
 			'css'   => [
@@ -509,7 +509,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['categoryIconColor'] = [
 			'tab' => 'style', 'group' => 'category',
-			'label' => esc_html__( 'Icon Color', 'bricksfly' ),
+			'label' => esc_html__( 'Icon Color', 'the-bricksfly' ),
 			'type'  => 'color',
 			'css'   => [
 				[ 'property' => 'color', 'selector' => '.wcf--category-wrap > i' ],
@@ -523,14 +523,14 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['authorTypo'] = [
 			'tab' => 'style', 'group' => 'author',
-			'label' => esc_html__( 'Typography', 'bricksfly' ),
+			'label' => esc_html__( 'Typography', 'the-bricksfly' ),
 			'type'  => 'typography',
 			'css'   => [ [ 'property' => 'font', 'selector' => '.wcf--meta-list .wcf--meta-author a' ] ],
 		];
 
 		$this->controls['authorColor'] = [
 			'tab' => 'style', 'group' => 'author',
-			'label' => esc_html__( 'Color', 'bricksfly' ),
+			'label' => esc_html__( 'Color', 'the-bricksfly' ),
 			'type'  => 'color',
 			'css'   => [
 				[ 'property' => 'color', 'selector' => '.wcf--meta-list .wcf--meta-author a' ],
@@ -540,14 +540,14 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['authorHoverColor'] = [
 			'tab' => 'style', 'group' => 'author',
-			'label' => esc_html__( 'Hover Color', 'bricksfly' ),
+			'label' => esc_html__( 'Hover Color', 'the-bricksfly' ),
 			'type'  => 'color',
 			'css'   => [ [ 'property' => 'color', 'selector' => '.wcf--meta-list .wcf--meta-author a:hover' ] ],
 		];
 
 		$this->controls['authorLabelColor'] = [
 			'tab' => 'style', 'group' => 'author',
-			'label' => esc_html__( 'Label Color', 'bricksfly' ),
+			'label' => esc_html__( 'Label Color', 'the-bricksfly' ),
 			'type'  => 'color',
 			'css'   => [ [ 'property' => 'color', 'selector' => '.wcf--author-title' ] ],
 			'required' => [ 'layoutStyle', '=', '2' ],
@@ -555,7 +555,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['authorLabelTypo'] = [
 			'tab' => 'style', 'group' => 'author',
-			'label' => esc_html__( 'Label Typography', 'bricksfly' ),
+			'label' => esc_html__( 'Label Typography', 'the-bricksfly' ),
 			'type'  => 'typography',
 			'css'   => [ [ 'property' => 'font', 'selector' => '.wcf--author-title' ] ],
 			'required' => [ 'layoutStyle', '=', '2' ],
@@ -563,7 +563,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['authorIconSize'] = [
 			'tab' => 'style', 'group' => 'author',
-			'label' => esc_html__( 'Icon / Avatar Size', 'bricksfly' ),
+			'label' => esc_html__( 'Icon / Avatar Size', 'the-bricksfly' ),
 			'type'  => 'number',
 			'units' => [ 'px' => [ 'min' => 0, 'max' => 200 ] ],
 			'css'   => [
@@ -576,7 +576,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['authorIconColor'] = [
 			'tab' => 'style', 'group' => 'author',
-			'label' => esc_html__( 'Icon Color', 'bricksfly' ),
+			'label' => esc_html__( 'Icon Color', 'the-bricksfly' ),
 			'type'  => 'color',
 			'css'   => [
 				[ 'property' => 'color', 'selector' => '.wcf--meta-author i' ],
@@ -587,7 +587,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['authorImgRadius'] = [
 			'tab' => 'style', 'group' => 'author',
-			'label' => esc_html__( 'Avatar Radius', 'bricksfly' ),
+			'label' => esc_html__( 'Avatar Radius', 'the-bricksfly' ),
 			'type'  => 'spacing',
 			'css'   => [ [ 'property' => 'border-radius', 'selector' => '.wcf-author-img img' ] ],
 			'required' => [ 'layoutStyle', '=', '2' ],
@@ -597,7 +597,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['dateAlign'] = [
 			'tab' => 'style', 'group' => 'date',
-			'label' => esc_html__( 'Alignment', 'bricksfly' ),
+			'label' => esc_html__( 'Alignment', 'the-bricksfly' ),
 			'type'  => 'text-align',
 			'css'   => [
 				[ 'property' => 'align-items', 'selector' => '.wcf--date-wrap' ],
@@ -608,21 +608,21 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['dateColor'] = [
 			'tab' => 'style', 'group' => 'date',
-			'label' => esc_html__( 'Color', 'bricksfly' ),
+			'label' => esc_html__( 'Color', 'the-bricksfly' ),
 			'type'  => 'color',
 			'css'   => [ [ 'property' => 'color', 'selector' => '.wcf--meta-list .wcf--meta-date' ] ],
 		];
 
 		$this->controls['dateTypo'] = [
 			'tab' => 'style', 'group' => 'date',
-			'label' => esc_html__( 'Typography', 'bricksfly' ),
+			'label' => esc_html__( 'Typography', 'the-bricksfly' ),
 			'type'  => 'typography',
 			'css'   => [ [ 'property' => 'font', 'selector' => '.wcf--meta-list .wcf--meta-date' ] ],
 		];
 
 		$this->controls['dateLabelColor'] = [
 			'tab' => 'style', 'group' => 'date',
-			'label' => esc_html__( 'Label Color', 'bricksfly' ),
+			'label' => esc_html__( 'Label Color', 'the-bricksfly' ),
 			'type'  => 'color',
 			'css'   => [ [ 'property' => 'color', 'selector' => '.wcf--date-title' ] ],
 			'required' => [ 'layoutStyle', '=', '2' ],
@@ -630,7 +630,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['dateLabelTypo'] = [
 			'tab' => 'style', 'group' => 'date',
-			'label' => esc_html__( 'Label Typography', 'bricksfly' ),
+			'label' => esc_html__( 'Label Typography', 'the-bricksfly' ),
 			'type'  => 'typography',
 			'css'   => [ [ 'property' => 'font', 'selector' => '.wcf--date-title' ] ],
 			'required' => [ 'layoutStyle', '=', '2' ],
@@ -638,7 +638,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['dateIconSize'] = [
 			'tab' => 'style', 'group' => 'date',
-			'label' => esc_html__( 'Icon Size', 'bricksfly' ),
+			'label' => esc_html__( 'Icon Size', 'the-bricksfly' ),
 			'type'  => 'number',
 			'units' => [ 'px' => [ 'min' => 0, 'max' => 200 ] ],
 			'css'   => [
@@ -651,7 +651,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['dateIconColor'] = [
 			'tab' => 'style', 'group' => 'date',
-			'label' => esc_html__( 'Icon Color', 'bricksfly' ),
+			'label' => esc_html__( 'Icon Color', 'the-bricksfly' ),
 			'type'  => 'color',
 			'css'   => [
 				[ 'property' => 'color', 'selector' => '.wcf--meta-list .wcf--meta-date i' ],
@@ -665,7 +665,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['viewAlign'] = [
 			'tab' => 'style', 'group' => 'view',
-			'label' => esc_html__( 'Alignment', 'bricksfly' ),
+			'label' => esc_html__( 'Alignment', 'the-bricksfly' ),
 			'type'  => 'text-align',
 			'css'   => [
 				[ 'property' => 'align-items', 'selector' => '.wcf--view-wrap' ],
@@ -676,13 +676,13 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['viewDirection'] = [
 			'tab' => 'style', 'group' => 'view',
-			'label' => esc_html__( 'Direction', 'bricksfly' ),
+			'label' => esc_html__( 'Direction', 'the-bricksfly' ),
 			'type'  => 'select',
 			'options' => [
-				'row'            => esc_html__( 'Row', 'bricksfly' ),
-				'column'         => esc_html__( 'Column', 'bricksfly' ),
-				'row-reverse'    => esc_html__( 'Row Reverse', 'bricksfly' ),
-				'column-reverse' => esc_html__( 'Column Reverse', 'bricksfly' ),
+				'row'            => esc_html__( 'Row', 'the-bricksfly' ),
+				'column'         => esc_html__( 'Column', 'the-bricksfly' ),
+				'row-reverse'    => esc_html__( 'Row Reverse', 'the-bricksfly' ),
+				'column-reverse' => esc_html__( 'Column Reverse', 'the-bricksfly' ),
 			],
 			'inline' => true,
 			'css'    => [ [ 'property' => 'flex-direction', 'selector' => '.wcf--meta-view' ] ],
@@ -691,7 +691,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['viewGap'] = [
 			'tab' => 'style', 'group' => 'view',
-			'label' => esc_html__( 'Gap', 'bricksfly' ),
+			'label' => esc_html__( 'Gap', 'the-bricksfly' ),
 			'type'  => 'number',
 			'units' => [ 'px' => [ 'min' => 0, 'max' => 100 ] ],
 			'css'   => [ [ 'property' => 'gap', 'selector' => '.wcf--meta-view' ] ],
@@ -700,21 +700,21 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['viewColor'] = [
 			'tab' => 'style', 'group' => 'view',
-			'label' => esc_html__( 'Color', 'bricksfly' ),
+			'label' => esc_html__( 'Color', 'the-bricksfly' ),
 			'type'  => 'color',
 			'css'   => [ [ 'property' => 'color', 'selector' => '.wcf--meta-list .wcf--meta-view' ] ],
 		];
 
 		$this->controls['viewTypo'] = [
 			'tab' => 'style', 'group' => 'view',
-			'label' => esc_html__( 'Typography', 'bricksfly' ),
+			'label' => esc_html__( 'Typography', 'the-bricksfly' ),
 			'type'  => 'typography',
 			'css'   => [ [ 'property' => 'font', 'selector' => '.wcf--meta-list .wcf--meta-view' ] ],
 		];
 
 		$this->controls['viewLabelColor'] = [
 			'tab' => 'style', 'group' => 'view',
-			'label' => esc_html__( 'Label Color', 'bricksfly' ),
+			'label' => esc_html__( 'Label Color', 'the-bricksfly' ),
 			'type'  => 'color',
 			'css'   => [ [ 'property' => 'color', 'selector' => '.wcf--view-title' ] ],
 			'required' => [ 'layoutStyle', '=', '2' ],
@@ -722,7 +722,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['viewLabelTypo'] = [
 			'tab' => 'style', 'group' => 'view',
-			'label' => esc_html__( 'Label Typography', 'bricksfly' ),
+			'label' => esc_html__( 'Label Typography', 'the-bricksfly' ),
 			'type'  => 'typography',
 			'css'   => [ [ 'property' => 'font', 'selector' => '.wcf--view-title' ] ],
 			'required' => [ 'layoutStyle', '=', '2' ],
@@ -730,7 +730,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['viewIconSize'] = [
 			'tab' => 'style', 'group' => 'view',
-			'label' => esc_html__( 'Icon Size', 'bricksfly' ),
+			'label' => esc_html__( 'Icon Size', 'the-bricksfly' ),
 			'type'  => 'number',
 			'units' => [ 'px' => [ 'min' => 0, 'max' => 200 ] ],
 			'css'   => [
@@ -743,7 +743,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['viewIconColor'] = [
 			'tab' => 'style', 'group' => 'view',
-			'label' => esc_html__( 'Icon Color', 'bricksfly' ),
+			'label' => esc_html__( 'Icon Color', 'the-bricksfly' ),
 			'type'  => 'color',
 			'css'   => [
 				[ 'property' => 'color', 'selector' => '.wcf--meta-list .wcf--meta-view i' ],
@@ -757,7 +757,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['commentAlign'] = [
 			'tab' => 'style', 'group' => 'comment',
-			'label' => esc_html__( 'Alignment', 'bricksfly' ),
+			'label' => esc_html__( 'Alignment', 'the-bricksfly' ),
 			'type'  => 'text-align',
 			'css'   => [
 				[ 'property' => 'align-items', 'selector' => '.wcf--comment-wrap' ],
@@ -768,21 +768,21 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['commentColor'] = [
 			'tab' => 'style', 'group' => 'comment',
-			'label' => esc_html__( 'Color', 'bricksfly' ),
+			'label' => esc_html__( 'Color', 'the-bricksfly' ),
 			'type'  => 'color',
 			'css'   => [ [ 'property' => 'color', 'selector' => '.wcf--meta-list .wcf--meta-comment' ] ],
 		];
 
 		$this->controls['commentTypo'] = [
 			'tab' => 'style', 'group' => 'comment',
-			'label' => esc_html__( 'Typography', 'bricksfly' ),
+			'label' => esc_html__( 'Typography', 'the-bricksfly' ),
 			'type'  => 'typography',
 			'css'   => [ [ 'property' => 'font', 'selector' => '.wcf--meta-list .wcf--meta-comment' ] ],
 		];
 
 		$this->controls['commentLabelColor'] = [
 			'tab' => 'style', 'group' => 'comment',
-			'label' => esc_html__( 'Label Color', 'bricksfly' ),
+			'label' => esc_html__( 'Label Color', 'the-bricksfly' ),
 			'type'  => 'color',
 			'css'   => [ [ 'property' => 'color', 'selector' => '.wcf--comment-title' ] ],
 			'required' => [ 'layoutStyle', '=', '2' ],
@@ -790,7 +790,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['commentIconSize'] = [
 			'tab' => 'style', 'group' => 'comment',
-			'label' => esc_html__( 'Icon Size', 'bricksfly' ),
+			'label' => esc_html__( 'Icon Size', 'the-bricksfly' ),
 			'type'  => 'number',
 			'units' => [ 'px' => [ 'min' => 0, 'max' => 200 ] ],
 			'css'   => [
@@ -803,7 +803,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['commentIconColor'] = [
 			'tab' => 'style', 'group' => 'comment',
-			'label' => esc_html__( 'Icon Color', 'bricksfly' ),
+			'label' => esc_html__( 'Icon Color', 'the-bricksfly' ),
 			'type'  => 'color',
 			'css'   => [
 				[ 'property' => 'color', 'selector' => '.wcf--meta-comment i' ],
@@ -817,7 +817,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['ptimeAlign'] = [
 			'tab' => 'style', 'group' => 'ptime',
-			'label' => esc_html__( 'Alignment', 'bricksfly' ),
+			'label' => esc_html__( 'Alignment', 'the-bricksfly' ),
 			'type'  => 'text-align',
 			'css'   => [
 				[ 'property' => 'align-items', 'selector' => '.post-time-ago-wrap' ],
@@ -828,21 +828,21 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['ptimeColor'] = [
 			'tab' => 'style', 'group' => 'ptime',
-			'label' => esc_html__( 'Color', 'bricksfly' ),
+			'label' => esc_html__( 'Color', 'the-bricksfly' ),
 			'type'  => 'color',
 			'css'   => [ [ 'property' => 'color', 'selector' => '.wcf--meta-list .post-time-ago' ] ],
 		];
 
 		$this->controls['ptimeTypo'] = [
 			'tab' => 'style', 'group' => 'ptime',
-			'label' => esc_html__( 'Typography', 'bricksfly' ),
+			'label' => esc_html__( 'Typography', 'the-bricksfly' ),
 			'type'  => 'typography',
 			'css'   => [ [ 'property' => 'font', 'selector' => '.wcf--meta-list .post-time-ago' ] ],
 		];
 
 		$this->controls['ptimeLabelColor'] = [
 			'tab' => 'style', 'group' => 'ptime',
-			'label' => esc_html__( 'Label Color', 'bricksfly' ),
+			'label' => esc_html__( 'Label Color', 'the-bricksfly' ),
 			'type'  => 'color',
 			'css'   => [ [ 'property' => 'color', 'selector' => '.time-ago-title' ] ],
 			'required' => [ 'layoutStyle', '=', '2' ],
@@ -850,7 +850,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['ptimeIconSize'] = [
 			'tab' => 'style', 'group' => 'ptime',
-			'label' => esc_html__( 'Icon Size', 'bricksfly' ),
+			'label' => esc_html__( 'Icon Size', 'the-bricksfly' ),
 			'type'  => 'number',
 			'units' => [ 'px' => [ 'min' => 0, 'max' => 200 ] ],
 			'css'   => [
@@ -863,7 +863,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->controls['ptimeIconColor'] = [
 			'tab' => 'style', 'group' => 'ptime',
-			'label' => esc_html__( 'Icon Color', 'bricksfly' ),
+			'label' => esc_html__( 'Icon Color', 'the-bricksfly' ),
 			'type'  => 'color',
 			'css'   => [
 				[ 'property' => 'color', 'selector' => '.post-time-ago i' ],
@@ -905,7 +905,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		if ( empty( $meta_list ) ) {
 			$this->render_element_placeholder( [
-				'title' => esc_html__( 'Add at least one meta item.', 'bricksfly' ),
+				'title' => esc_html__( 'Add at least one meta item.', 'the-bricksfly' ),
 			] );
 			return;
 		}
@@ -1127,12 +1127,12 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 			$this->maybe_title_inline( $meta, $show_title );
 			$this->maybe_icon( $meta );
 			echo esc_html( $views ) . '&nbsp;';
-			echo esc_html__( 'Views', 'bricksfly' );
+			echo esc_html__( 'Views', 'the-bricksfly' );
 			echo '</li>';
 		} else {
 			echo '<li class="wcf--view-wrap">';
 			$this->label_block( $meta );
-			echo '<div class="wcf--meta-view">' . esc_html( $views ) . '&nbsp;<span>' . esc_html__( 'Views', 'bricksfly' ) . '</span></div>';
+			echo '<div class="wcf--meta-view">' . esc_html( $views ) . '&nbsp;<span>' . esc_html__( 'Views', 'the-bricksfly' ) . '</span></div>';
 			echo '</li>';
 		}
 	}
@@ -1142,7 +1142,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 		$content   = get_the_content();
 		$word_cnt  = str_word_count( wp_strip_all_tags( $content ) );
 		$time      = max( 1, (int) ceil( $word_cnt / 200 ) );
-		$suffix    = $time <= 1 ? esc_html__( 'minute read', 'bricksfly' ) : esc_html__( 'minutes read', 'bricksfly' );
+		$suffix    = $time <= 1 ? esc_html__( 'minute read', 'the-bricksfly' ) : esc_html__( 'minutes read', 'the-bricksfly' );
 
 		if ( '1' === $layout ) {
 			$this->open_li( [ 'wcf--meta-view', 'wcf-separator' ], $separator );
@@ -1235,7 +1235,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 		$separator = isset( $meta['metaSeparator'] ) ? $meta['metaSeparator'] : '';
 
 		if ( ! post_type_exists( 'aaeaddon_post_rating' ) ) {
-			echo '<li class="wcf--meta-view">' . esc_html__( '0 review (Pro feature)', 'bricksfly' ) . '</li>';
+			echo '<li class="wcf--meta-view">' . esc_html__( '0 review (Pro feature)', 'the-bricksfly' ) . '</li>';
 			return;
 		}
 
@@ -1262,12 +1262,12 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 			$this->open_li( [ 'wcf--meta-view', 'wcf-separator' ], $separator );
 			$this->maybe_title_inline( $meta, $show_title );
 			$this->maybe_icon( $meta );
-			echo esc_html( $total ) . ' ' . esc_html__( 'reviews', 'bricksfly' );
+			echo esc_html( $total ) . ' ' . esc_html__( 'reviews', 'the-bricksfly' );
 			echo '</li>';
 		} else {
 			echo '<li class="wcf--view-wrap">';
 			$this->label_block( $meta );
-			echo '<div class="wcf--meta-view">' . esc_html( $total ) . '&nbsp;<span>' . esc_html__( 'reviews', 'bricksfly' ) . '</span></div>';
+			echo '<div class="wcf--meta-view">' . esc_html( $total ) . '&nbsp;<span>' . esc_html__( 'reviews', 'the-bricksfly' ) . '</span></div>';
 			echo '</li>';
 		}
 	}
@@ -1280,12 +1280,12 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 			$this->open_li( [ 'wcf--meta-view', 'wcf-separator' ], $separator );
 			$this->maybe_title_inline( $meta, $show_title );
 			$this->maybe_icon( $meta );
-			echo '<span class="aae-post-read-later" data-post-id="' . esc_attr( $post_id ) . '">' . esc_html__( 'Save', 'bricksfly' ) . '</span>';
+			echo '<span class="aae-post-read-later" data-post-id="' . esc_attr( $post_id ) . '">' . esc_html__( 'Save', 'the-bricksfly' ) . '</span>';
 			echo '</li>';
 		} else {
 			echo '<li class="wcf--view-wrap">';
 			$this->label_block( $meta );
-			echo '<div class="wcf--meta-view"><span class="aae-post-read-later" data-post-id="' . esc_attr( $post_id ) . '">' . esc_html__( 'Save', 'bricksfly' ) . '</span></div>';
+			echo '<div class="wcf--meta-view"><span class="aae-post-read-later" data-post-id="' . esc_attr( $post_id ) . '">' . esc_html__( 'Save', 'the-bricksfly' ) . '</span></div>';
 			echo '</li>';
 		}
 	}

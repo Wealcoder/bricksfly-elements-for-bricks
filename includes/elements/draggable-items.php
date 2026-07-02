@@ -11,7 +11,7 @@ class AAB_Bricks_Draggable_Items extends \Bricks\Element {
 	public $scripts      = [ 'aabDraggableItems' ];
 
 	public function get_label() {
-		return esc_html__('Draggable Items', 'bricksfly');
+		return esc_html__('Draggable Items', 'the-bricksfly');
 	}
 
 	public function get_keywords() {
@@ -39,7 +39,7 @@ class AAB_Bricks_Draggable_Items extends \Bricks\Element {
 
 	public function set_control_groups() {
 		$this->control_groups['items'] = [
-			'title' => esc_html__('Items', 'bricksfly'),
+			'title' => esc_html__('Items', 'the-bricksfly'),
 			'tab'   => 'content',
 		];
 	}
@@ -49,33 +49,33 @@ class AAB_Bricks_Draggable_Items extends \Bricks\Element {
 		$this->controls['draggableItems'] = [
 			'tab'           => 'content',
 			'group'         => 'items',
-			'label'         => esc_html__( 'Items', 'bricksfly' ),
+			'label'         => esc_html__( 'Items', 'the-bricksfly' ),
 			'type'          => 'repeater',
 			'titleProperty' => 'title',
 			'fields'        => [
 
 				'title' => [
-					'label' => esc_html__( 'Title', 'bricksfly' ),
+					'label' => esc_html__( 'Title', 'the-bricksfly' ),
 					'type'  => 'text',
 				],
 
 				'link' => [
-					'label' => esc_html__( 'Link', 'bricksfly' ),
+					'label' => esc_html__( 'Link', 'the-bricksfly' ),
 					'type'  => 'link',
 				],
 
 				'titleColor' => [
-					'label' => esc_html__( 'Text Color', 'bricksfly' ),
+					'label' => esc_html__( 'Text Color', 'the-bricksfly' ),
 					'type'  => 'color',
 				],
 
 				'backgroundColor' => [
-					'label' => esc_html__( 'Background', 'bricksfly' ),
+					'label' => esc_html__( 'Background', 'the-bricksfly' ),
 					'type'  => 'color',
 				],
 
 				'rotate' => [
-					'label' => esc_html__( 'Rotate (deg)', 'bricksfly' ),
+					'label' => esc_html__( 'Rotate (deg)', 'the-bricksfly' ),
 					'type'  => 'number',
 					'min'   => -180,
 					'max'   => 180,
@@ -83,11 +83,11 @@ class AAB_Bricks_Draggable_Items extends \Bricks\Element {
 				],
 			],
 			'default' => [
-				[ 'title' => esc_html__( 'Technology', 'bricksfly' ) ],
-				[ 'title' => esc_html__( 'Manufacturing', 'bricksfly' ) ],
-				[ 'title' => esc_html__( 'Insurance', 'bricksfly' ) ],
-				[ 'title' => esc_html__( 'Transportation', 'bricksfly' ) ],
-				[ 'title' => esc_html__( 'Entertainment', 'bricksfly' ) ],
+				[ 'title' => esc_html__( 'Technology', 'the-bricksfly' ) ],
+				[ 'title' => esc_html__( 'Manufacturing', 'the-bricksfly' ) ],
+				[ 'title' => esc_html__( 'Insurance', 'the-bricksfly' ) ],
+				[ 'title' => esc_html__( 'Transportation', 'the-bricksfly' ) ],
+				[ 'title' => esc_html__( 'Entertainment', 'the-bricksfly' ) ],
 			],
 		];
 	}
@@ -112,7 +112,7 @@ class AAB_Bricks_Draggable_Items extends \Bricks\Element {
 		if ( empty( $items ) ) {
 			return $this->render_element_placeholder( [
 				'icon-class' => 'ti-move',
-				'text'       => esc_html__( 'No draggable items added.', 'bricksfly' ),
+				'text'       => esc_html__( 'No draggable items added.', 'the-bricksfly' ),
 			] );
 		}
 

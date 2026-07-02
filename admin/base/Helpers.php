@@ -67,7 +67,7 @@ class Helpers {
 				'failed_writing_file_to_server',
 				sprintf(
 					/* translators: 1: line break, 2: full file path the plugin tried to write to. */
-					__( 'An error occurred while writing file to your server! Tried to write a file to: %1$s%2$s.', 'bricksfly' ),
+					__( 'An error occurred while writing file to your server! Tried to write a file to: %1$s%2$s.', 'the-bricksfly' ),
 					'<br>',
 					$file_path
 				)
@@ -99,7 +99,7 @@ class Helpers {
 				'failed_writing_file_to_server',
 				sprintf(
 					/* translators: 1: line break, 2: full file path the plugin tried to write to. */
-					__( 'An error occurred while writing file to your server! Tried to write a file to: %1$s%2$s.', 'bricksfly' ),
+					__( 'An error occurred while writing file to your server! Tried to write a file to: %1$s%2$s.', 'the-bricksfly' ),
 					'<br>',
 					$file_path
 				)
@@ -125,7 +125,7 @@ class Helpers {
 				'failed_reading_file_from_server',
 				sprintf(
 					/* translators: 1: line break, 2: full file path the plugin tried to read from. */
-					__( 'An error occurred while reading a file from your server! Tried reading file from path: %1$s%2$s.', 'bricksfly' ),
+					__( 'An error occurred while reading a file from your server! Tried reading file from path: %1$s%2$s.', 'the-bricksfly' ),
 					'<br>',
 					$file_path
 				)
@@ -149,12 +149,12 @@ class Helpers {
 				'no_direct_file_access',
 				sprintf(
 					/* translators: 1: opening <strong> tag, 2: closing </strong> tag, 3: link to instructions on enabling the direct filesystem method. */
-					__( 'This WordPress page does not have %1$sdirect%2$s write file access. This plugin needs it in order to save the demo import xml file to the upload directory of your site. You can change this setting with these instructions: %3$s.', 'bricksfly' ),
+					__( 'This WordPress page does not have %1$sdirect%2$s write file access. This plugin needs it in order to save the demo import xml file to the upload directory of your site. You can change this setting with these instructions: %3$s.', 'the-bricksfly' ),
 					'<strong>',
 					'</strong>',
 					sprintf(
 						/* translators: 1: opening <strong> tag, 2: closing </strong> tag (around the word "direct"). */
-						'<a href="http://gregorcapuder.com/wordpress-how-to-set-direct-filesystem-method/" target="_blank">' . esc_html__( 'How to set %1$sdirect%2$s filesystem method', 'bricksfly' ) . '</a>',
+						'<a href="http://gregorcapuder.com/wordpress-how-to-set-direct-filesystem-method/" target="_blank">' . esc_html__( 'How to set %1$sdirect%2$s filesystem method', 'the-bricksfly' ) . '</a>',
 						'<strong>',
 						'</strong>'
 					)
@@ -169,14 +169,14 @@ class Helpers {
 		if ( false === ( $creds = request_filesystem_credentials( $demo_import_page_url, '', false, false, null ) ) ) {
 			return new \WP_error(
 				'filesystem_credentials_could_not_be_retrieved',
-				__( 'An error occurred while retrieving reading/writing permissions to your server (could not retrieve WP filesystem credentials)!', 'bricksfly' )
+				__( 'An error occurred while retrieving reading/writing permissions to your server (could not retrieve WP filesystem credentials)!', 'the-bricksfly' )
 			);
 		}
 
 		if ( ! WP_Filesystem( $creds ) ) {
 			return new \WP_Error(
 				'wrong_login_credentials',
-				__( 'Your WordPress login credentials don\'t allow to use WP_Filesystem!', 'bricksfly' )
+				__( 'Your WordPress login credentials don\'t allow to use WP_Filesystem!', 'the-bricksfly' )
 			);
 		}
 
@@ -201,7 +201,7 @@ class Helpers {
 		$attachment = array(
 			'guid'           => self::get_log_url( $log_path ),
 			'post_mime_type' => $filetype['type'],
-			'post_title'     => self::apply_filters( 'aaeaddon/attachment_prefix', esc_html__( 'Starter Template Import - ', 'bricksfly' ) ) . preg_replace( '/\.[^.]+$/', '', basename( $log_path ) ),
+			'post_title'     => self::apply_filters( 'aaeaddon/attachment_prefix', esc_html__( 'Starter Template Import - ', 'the-bricksfly' ) ) . preg_replace( '/\.[^.]+$/', '', basename( $log_path ) ),
 			'post_content'   => '',
 			'post_status'    => 'inherit',
 		);
@@ -221,7 +221,7 @@ class Helpers {
 
 		if ( ! current_user_can( 'import' ) ) {
 			wp_die(
-				esc_html__( 'Your user role isn\'t high enough. You don\'t have permission to import demo data.', 'bricksfly' )
+				esc_html__( 'Your user role isn\'t high enough. You don\'t have permission to import demo data.', 'the-bricksfly' )
 			);
 		}
 	}
@@ -245,7 +245,7 @@ class Helpers {
 		} );
 
 		$file_not_provided_error = array(
-			'error' => esc_html__( 'No file provided.', 'bricksfly' ),
+			'error' => esc_html__( 'No file provided.', 'the-bricksfly' ),
 		);
 
 		$content_file_info = isset( $uploaded_files['content_file'] ) ?
@@ -258,18 +258,18 @@ class Helpers {
 			$log_added = self::append_to_file(
 				sprintf(
 					/* translators: %s: upload error message returned by wp_handle_upload(). */
-					__( 'Content file was not uploaded. Error: %s', 'bricksfly' ),
+					__( 'Content file was not uploaded. Error: %s', 'the-bricksfly' ),
 					$content_file_info['error']
 				),
 				$log_file_path,
-				esc_html__( 'Upload files', 'bricksfly' )
+				esc_html__( 'Upload files', 'the-bricksfly' )
 			);
 		}
 
 		$log_added = self::append_to_file(
-			__( 'The import files were successfully uploaded!', 'bricksfly' ) . self::import_file_info( $selected_import_files ),
+			__( 'The import files were successfully uploaded!', 'the-bricksfly' ) . self::import_file_info( $selected_import_files ),
 			$log_file_path,
-			esc_html__( 'Upload files', 'bricksfly' )
+			esc_html__( 'Upload files', 'the-bricksfly' )
 		);
 
 		return $selected_import_files;
@@ -279,15 +279,15 @@ class Helpers {
 		return PHP_EOL .
 		sprintf(
 			/* translators: %s: PHP `max_execution_time` value in seconds. */
-			__( 'Initial max execution time = %s', 'bricksfly' ),
+			__( 'Initial max execution time = %s', 'the-bricksfly' ),
 			ini_get( 'max_execution_time' )
 		) . PHP_EOL .
 		sprintf(
 			/* translators: 1: line break (PHP_EOL), 2: site URL, 3: full path to the import data file (or a localized "not defined!" placeholder). */
-			__( 'Files info:%1$sSite URL = %2$s%1$sData file = %3$s%1$s', 'bricksfly' ),
+			__( 'Files info:%1$sSite URL = %2$s%1$sData file = %3$s%1$s', 'the-bricksfly' ),
 			PHP_EOL,
 			get_site_url(),
-			empty( $selected_import_files['content'] ) ? esc_html__( 'not defined!', 'bricksfly' ) : $selected_import_files['content'],
+			empty( $selected_import_files['content'] ) ? esc_html__( 'not defined!', 'the-bricksfly' ) : $selected_import_files['content'],
 		);
 	}
 

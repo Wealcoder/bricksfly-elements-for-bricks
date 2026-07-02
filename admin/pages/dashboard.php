@@ -272,8 +272,8 @@ class AAB_Admin_Init
 			return;
 		}
 		self::$parent_menu_hook = add_menu_page(
-			esc_html__('Bricksfly', 'bricksfly'),
-			esc_html__('Bricksfly', 'bricksfly'),
+			esc_html__('Bricksfly', 'the-bricksfly'),
+			esc_html__('Bricksfly', 'the-bricksfly'),
 			self::MENU_CAPABILITY,
 			self::MENU_PAGE_SLUG,
 			'',
@@ -283,8 +283,8 @@ class AAB_Admin_Init
 
 		add_submenu_page(
 			self::MENU_PAGE_SLUG,
-			esc_html__('Settings', 'bricksfly'),
-			esc_html__('Settings', 'bricksfly'),
+			esc_html__('Settings', 'the-bricksfly'),
+			esc_html__('Settings', 'the-bricksfly'),
 			'manage_options',
 			'bf_addons_settings',
 			array($this, 'plugin_dashboard_entry_page')
@@ -301,7 +301,7 @@ class AAB_Admin_Init
 		// (add_submenu_page URL-encodes `&` in the slug, breaking the param).
 		if (is_plugin_active('bricksfly-pro/bricksfly-pro.php')) {
 			$license_active = function_exists('aab_addons_sl_is_valid') && aab_addons_sl_is_valid();
-			$license_label  = esc_html__('License', 'bricksfly');
+			$license_label  = esc_html__('License', 'the-bricksfly');
 			if ($license_active) {
 				$license_label .= ' <span class="bf-license-menu-badge" style="display:inline-block;margin-left:6px;width:8px;height:8px;border-radius:50%;background:#10b981;vertical-align:middle;"></span>';
 			}
@@ -316,7 +316,7 @@ class AAB_Admin_Init
 		// "stater-template" tab. Registered via $submenu directly so the
 		// `&tab=` query string isn't URL-encoded by add_submenu_page().
 		$submenu[self::MENU_PAGE_SLUG][] = array(
-			esc_html__('Starter Template', 'bricksfly'),
+			esc_html__('Starter Template', 'the-bricksfly'),
 			'manage_options',
 			admin_url('admin.php?page=bf_addons_settings&tab=stater-template'),
 		);
@@ -466,54 +466,54 @@ class AAB_Admin_Init
 		// Case 2 — Pro installed but not active yet.
 		if (! $pro_active) {
 			return array(
-				'heading' => esc_html__('Pro plugin installed — activate it to continue', 'bricksfly'),
-				'subtext' => esc_html__('Head to the Plugins screen and click "Activate" on Bricksfly Pro to enable premium features.', 'bricksfly'),
-				'button'  => esc_html__('Activate Plugin', 'bricksfly'),
+				'heading' => esc_html__('Pro plugin installed — activate it to continue', 'the-bricksfly'),
+				'subtext' => esc_html__('Head to the Plugins screen and click "Activate" on Bricksfly Pro to enable premium features.', 'the-bricksfly'),
+				'button'  => esc_html__('Activate Plugin', 'the-bricksfly'),
 			);
 		}
 
 		// Case 3 — Both active but no license key saved yet.
 		if (empty($license_key)) {
 			return array(
-				'heading' => esc_html__('Activate your license to unlock Pro features', 'bricksfly'),
-				'subtext' => esc_html__('Enter your purchased license key to enable every premium extension, template, and automatic update.', 'bricksfly'),
-				'button'  => esc_html__('Activate License', 'bricksfly'),
+				'heading' => esc_html__('Activate your license to unlock Pro features', 'the-bricksfly'),
+				'subtext' => esc_html__('Enter your purchased license key to enable every premium extension, template, and automatic update.', 'the-bricksfly'),
+				'button'  => esc_html__('Activate License', 'the-bricksfly'),
 			);
 		}
 
 		// Case 4 — License key on file but the server says it's invalid.
 		if (in_array($license_status, array('invalid', 'missing'), true)) {
 			return array(
-				'heading' => esc_html__('Your license key is invalid', 'bricksfly'),
-				'subtext' => esc_html__('The saved license key is not valid for this site. Please re-enter it or purchase a new one.', 'bricksfly'),
-				'button'  => esc_html__('Re-enter License', 'bricksfly'),
+				'heading' => esc_html__('Your license key is invalid', 'the-bricksfly'),
+				'subtext' => esc_html__('The saved license key is not valid for this site. Please re-enter it or purchase a new one.', 'the-bricksfly'),
+				'button'  => esc_html__('Re-enter License', 'the-bricksfly'),
 			);
 		}
 
 		// Case 5 — Expired.
 		if ('expired' === $license_status) {
 			return array(
-				'heading' => esc_html__('Your license has expired', 'bricksfly'),
-				'subtext' => esc_html__('Renew your license to keep receiving updates and premium features.', 'bricksfly'),
-				'button'  => esc_html__('Renew License', 'bricksfly'),
+				'heading' => esc_html__('Your license has expired', 'the-bricksfly'),
+				'subtext' => esc_html__('Renew your license to keep receiving updates and premium features.', 'the-bricksfly'),
+				'button'  => esc_html__('Renew License', 'the-bricksfly'),
 			);
 		}
 
 		// Case 6 — Disabled / revoked.
 		if (in_array($license_status, array('disabled', 'revoked'), true)) {
 			return array(
-				'heading' => esc_html__('Your license has been disabled', 'bricksfly'),
-				'subtext' => esc_html__('Please contact support if you believe this is an error.', 'bricksfly'),
-				'button'  => esc_html__('Contact Support', 'bricksfly'),
+				'heading' => esc_html__('Your license has been disabled', 'the-bricksfly'),
+				'subtext' => esc_html__('Please contact support if you believe this is an error.', 'the-bricksfly'),
+				'button'  => esc_html__('Contact Support', 'the-bricksfly'),
 			);
 		}
 
 		// Case 7 — Site not yet activated for this URL.
 		if ('site_inactive' === $license_status) {
 			return array(
-				'heading' => esc_html__('This site is not activated on your license', 'bricksfly'),
-				'subtext' => esc_html__('Activate this site in your license to unlock premium features.', 'bricksfly'),
-				'button'  => esc_html__('Activate License', 'bricksfly'),
+				'heading' => esc_html__('This site is not activated on your license', 'the-bricksfly'),
+				'subtext' => esc_html__('Activate this site in your license to unlock premium features.', 'the-bricksfly'),
+				'button'  => esc_html__('Activate License', 'the-bricksfly'),
 			);
 		}
 
@@ -758,7 +758,7 @@ class AAB_Admin_Init
 		check_ajax_referer('aab_admin_nonce', 'nonce');
 
 		if (! current_user_can('manage_options')) {
-			wp_send_json_error(esc_html__('you are not allowed to do this action', 'bricksfly'));
+			wp_send_json_error(esc_html__('you are not allowed to do this action', 'the-bricksfly'));
 		}
 
 		if (! isset($_POST['fields'])) {
@@ -801,7 +801,7 @@ class AAB_Admin_Init
 			wp_send_json($return_message);
 		}
 
-		wp_send_json(esc_html__('Option name not found!', 'bricksfly'));
+		wp_send_json(esc_html__('Option name not found!', 'the-bricksfly'));
 	}
 
 	public function get_dynamic_settings()
@@ -809,11 +809,11 @@ class AAB_Admin_Init
 		check_ajax_referer('aab_admin_nonce', 'nonce');
 
 		if (! current_user_can('manage_options')) {
-			wp_send_json_error(esc_html__('You are not allowed to do this action', 'bricksfly'));
+			wp_send_json_error(esc_html__('You are not allowed to do this action', 'the-bricksfly'));
 		}
 
 		if (empty($_POST['setting_name'])) {
-			wp_send_json_error(esc_html__('Missing setting name.', 'bricksfly'));
+			wp_send_json_error(esc_html__('Missing setting name.', 'the-bricksfly'));
 		}
 
 		$setting_name = sanitize_text_field(wp_unslash($_POST['setting_name']));
@@ -846,7 +846,7 @@ class AAB_Admin_Init
 		check_ajax_referer('aab_admin_nonce', 'nonce');
 
 		if (! current_user_can('manage_options')) {
-			wp_send_json_error(esc_html__('you are not allowed to do this action', 'bricksfly'));
+			wp_send_json_error(esc_html__('you are not allowed to do this action', 'the-bricksfly'));
 		}
 
 		if (! isset($_POST['form_fields'])) {
@@ -862,7 +862,7 @@ class AAB_Admin_Init
 		update_option($setting_name, $form_data);
 
 		$return_message = array(
-			'message' => esc_html__('Settings Updated', 'bricksfly'),
+			'message' => esc_html__('Settings Updated', 'the-bricksfly'),
 		);
 		wp_send_json($return_message);
 	}
@@ -873,7 +873,7 @@ class AAB_Admin_Init
 		check_ajax_referer('aab_admin_nonce', 'nonce');
 
 		if (! current_user_can('manage_options')) {
-			wp_send_json_error(esc_html__('you are not allowed to do this action', 'bricksfly'));
+			wp_send_json_error(esc_html__('you are not allowed to do this action', 'the-bricksfly'));
 		}
 
 		if (! isset($_POST['notice'])) {
@@ -884,7 +884,7 @@ class AAB_Admin_Init
 		update_option('aab_notice_data', $sanitize_data);
 
 		$return_message = array(
-			'message' => esc_html__('Notice Updated', 'bricksfly'),
+			'message' => esc_html__('Notice Updated', 'the-bricksfly'),
 		);
 		wp_send_json($return_message);
 	}
@@ -895,7 +895,7 @@ class AAB_Admin_Init
 		check_ajax_referer('aab_admin_nonce', 'nonce');
 
 		if (! current_user_can('manage_options')) {
-			wp_send_json_error(esc_html__('you are not allowed to do this action', 'bricksfly'));
+			wp_send_json_error(esc_html__('you are not allowed to do this action', 'the-bricksfly'));
 		}
 
 		$transient      = get_transient('wcf_changelog_notice_cache3');
@@ -930,7 +930,7 @@ class AAB_Admin_Init
 		check_ajax_referer('aab_admin_nonce', 'nonce');
 
 		if (! current_user_can('manage_options')) {
-			wp_send_json_error(esc_html__('you are not allowed to do this action', 'bricksfly'));
+			wp_send_json_error(esc_html__('you are not allowed to do this action', 'the-bricksfly'));
 		}
 
 		$return_message = array(
@@ -945,7 +945,7 @@ class AAB_Admin_Init
 		check_ajax_referer('aab_admin_nonce', 'nonce');
 
 		if (! current_user_can('manage_options')) {
-			wp_send_json_error(esc_html__('you are not allowed to do this action', 'bricksfly'));
+			wp_send_json_error(esc_html__('you are not allowed to do this action', 'the-bricksfly'));
 		}
 
 		if (! isset($_POST['fields'])) {
@@ -1004,7 +1004,7 @@ class AAB_Admin_Init
 			);
 			wp_send_json($return_message);
 		}
-		wp_send_json(esc_html__('Option name not found!', 'bricksfly'));
+		wp_send_json(esc_html__('Option name not found!', 'the-bricksfly'));
 	}
 
 	/**
@@ -1021,7 +1021,7 @@ class AAB_Admin_Init
 		check_ajax_referer('aab_admin_nonce', 'nonce');
 
 		if (! current_user_can('manage_options')) {
-			wp_send_json_error(esc_html__('you are not allowed to do this action', 'bricksfly'));
+			wp_send_json_error(esc_html__('you are not allowed to do this action', 'the-bricksfly'));
 		}
 
 		if (! isset($_POST['smooth'])) {
@@ -1040,7 +1040,7 @@ class AAB_Admin_Init
 			wp_send_json($option);
 		}
 
-		wp_send_json(esc_html__('Option name not found!', 'bricksfly'));
+		wp_send_json(esc_html__('Option name not found!', 'the-bricksfly'));
 	}
 }
 

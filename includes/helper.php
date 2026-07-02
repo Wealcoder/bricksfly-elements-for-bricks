@@ -288,7 +288,7 @@ if (! function_exists('aab_translate_config_tree')) {
         $node[$key] = aab_translate_config_tree($value);
       } elseif (is_string($value) && in_array($key, $translatable_keys, true) && $value !== '') {
         // phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
-        $node[$key] = __($value, 'bricksfly');
+        $node[$key] = __($value, 'the-bricksfly');
       }
     }
 

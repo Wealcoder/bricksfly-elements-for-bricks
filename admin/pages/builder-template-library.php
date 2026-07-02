@@ -137,25 +137,25 @@ class AAB_Builder_Template_Library {
 					]
 				),
 				'i18n'            => [
-					'modal_title'     => esc_html__( 'Animation Addons — Section Library', 'bricksfly' ),
-					'button_label'    => esc_html__( 'Import Section', 'bricksfly' ),
-					'insert'          => esc_html__( 'Insert', 'bricksfly' ),
-					'inserting'       => esc_html__( 'Inserting…', 'bricksfly' ),
-					'go_premium'      => esc_html__( 'Go Premium', 'bricksfly' ),
-					'activate'        => esc_html__( 'Activate License', 'bricksfly' ),
-					'install_pro'     => esc_html__( 'Install Pro', 'bricksfly' ),
-					'search'          => esc_html__( 'Search', 'bricksfly' ),
-					'category'        => esc_html__( 'Category', 'bricksfly' ),
-					'all_colors'      => esc_html__( 'All', 'bricksfly' ),
-					'light'           => esc_html__( 'Light', 'bricksfly' ),
-					'dark'            => esc_html__( 'Dark', 'bricksfly' ),
-					'close'           => esc_html__( 'Close', 'bricksfly' ),
-					'loading'         => esc_html__( 'Loading', 'bricksfly' ),
-					'empty'           => esc_html__( 'No templates found.', 'bricksfly' ),
-					'fetch_failed'    => esc_html__( 'Failed to load templates. Check your connection and try again.', 'bricksfly' ),
-					'insert_success'  => esc_html__( 'Section imported. Reloading builder…', 'bricksfly' ),
-					'insert_failed'   => esc_html__( 'Could not import this section. Please try again.', 'bricksfly' ),
-					'unsaved_warning' => esc_html__( 'Importing will reload the builder. Save your unsaved changes first?', 'bricksfly' ),
+					'modal_title'     => esc_html__( 'Animation Addons — Section Library', 'the-bricksfly' ),
+					'button_label'    => esc_html__( 'Import Section', 'the-bricksfly' ),
+					'insert'          => esc_html__( 'Insert', 'the-bricksfly' ),
+					'inserting'       => esc_html__( 'Inserting…', 'the-bricksfly' ),
+					'go_premium'      => esc_html__( 'Go Premium', 'the-bricksfly' ),
+					'activate'        => esc_html__( 'Activate License', 'the-bricksfly' ),
+					'install_pro'     => esc_html__( 'Install Pro', 'the-bricksfly' ),
+					'search'          => esc_html__( 'Search', 'the-bricksfly' ),
+					'category'        => esc_html__( 'Category', 'the-bricksfly' ),
+					'all_colors'      => esc_html__( 'All', 'the-bricksfly' ),
+					'light'           => esc_html__( 'Light', 'the-bricksfly' ),
+					'dark'            => esc_html__( 'Dark', 'the-bricksfly' ),
+					'close'           => esc_html__( 'Close', 'the-bricksfly' ),
+					'loading'         => esc_html__( 'Loading', 'the-bricksfly' ),
+					'empty'           => esc_html__( 'No templates found.', 'the-bricksfly' ),
+					'fetch_failed'    => esc_html__( 'Failed to load templates. Check your connection and try again.', 'the-bricksfly' ),
+					'insert_success'  => esc_html__( 'Section imported. Reloading builder…', 'the-bricksfly' ),
+					'insert_failed'   => esc_html__( 'Could not import this section. Please try again.', 'the-bricksfly' ),
+					'unsaved_warning' => esc_html__( 'Importing will reload the builder. Save your unsaved changes first?', 'the-bricksfly' ),
 				],
 			]
 		);
@@ -171,10 +171,10 @@ class AAB_Builder_Template_Library {
 			'aab_builder_template_library_types',
 			[
 				'block' => [
-					'label' => esc_html__( 'Block', 'bricksfly' ),
+					'label' => esc_html__( 'Block', 'the-bricksfly' ),
 				],
 				'page'  => [
-					'label' => esc_html__( 'Page', 'bricksfly' ),
+					'label' => esc_html__( 'Page', 'the-bricksfly' ),
 				],
 			]
 		);
@@ -211,13 +211,13 @@ class AAB_Builder_Template_Library {
 		$post_id = isset( $_POST['post_id'] ) ? absint( $_POST['post_id'] ) : 0;
 
 		if ( ! $post_id || ! current_user_can( 'edit_post', $post_id ) ) {
-			wp_send_json_error( [ 'message' => __( 'Permission denied for this post.', 'bricksfly' ) ], 403 );
+			wp_send_json_error( [ 'message' => __( 'Permission denied for this post.', 'the-bricksfly' ) ], 403 );
 		}
 
 		$template_id = isset( $_POST['template_id'] ) ? absint( $_POST['template_id'] ) : 0;
 
 		if ( ! $template_id ) {
-			wp_send_json_error( [ 'message' => __( 'No template id provided.', 'bricksfly' ) ], 400 );
+			wp_send_json_error( [ 'message' => __( 'No template id provided.', 'the-bricksfly' ) ], 400 );
 		}
 
 		$resolved = $this->resolve_template_payload( $template_id );
@@ -229,7 +229,7 @@ class AAB_Builder_Template_Library {
 		$elements = $resolved['content'];
 
 		if ( empty( $elements ) || ! is_array( $elements ) ) {
-			wp_send_json_error( [ 'message' => __( 'Template content is empty or in an unsupported format.', 'bricksfly' ) ], 422 );
+			wp_send_json_error( [ 'message' => __( 'Template content is empty or in an unsupported format.', 'the-bricksfly' ) ], 422 );
 		}
 
 		/**
@@ -248,7 +248,7 @@ class AAB_Builder_Template_Library {
 			'global_classes'  => $resolved['global_classes'],
 			'globalVariables' => $resolved['globalVariables'],
 			'inserted_count'  => count( $elements ),
-			'message'         => __( 'Template resolved.', 'bricksfly' ),
+			'message'         => __( 'Template resolved.', 'the-bricksfly' ),
 		] );
 	}
 
@@ -289,7 +289,7 @@ class AAB_Builder_Template_Library {
 		$meta      = json_decode( $meta_body, true );
 
 		if ( empty( $meta['json_file']['url'] ) ) {
-			return new \WP_Error( 'aab_no_template_source', __( 'Could not resolve template source.', 'bricksfly' ) );
+			return new \WP_Error( 'aab_no_template_source', __( 'Could not resolve template source.', 'the-bricksfly' ) );
 		}
 
 		$json_url = esc_url_raw( $meta['json_file']['url'] );
@@ -307,12 +307,12 @@ class AAB_Builder_Template_Library {
 		$body = wp_remote_retrieve_body( $response );
 
 		if ( $code !== 200 || empty( $body ) ) {
-			return new \WP_Error( 'aab_empty_template', __( 'Empty template response.', 'bricksfly' ) );
+			return new \WP_Error( 'aab_empty_template', __( 'Empty template response.', 'the-bricksfly' ) );
 		}
 
 		$decoded = json_decode( $body, true );
 		if ( json_last_error() !== JSON_ERROR_NONE ) {
-			return new \WP_Error( 'aab_invalid_template_json', __( 'Invalid template JSON.', 'bricksfly' ) );
+			return new \WP_Error( 'aab_invalid_template_json', __( 'Invalid template JSON.', 'the-bricksfly' ) );
 		}
 
 		// Return elements + globals untouched. The client builds Bricks' paste

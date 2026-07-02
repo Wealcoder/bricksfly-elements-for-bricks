@@ -13,15 +13,15 @@
  * @package           Bricks_Fly
  *
  * @wordpress-plugin
- * Plugin Name:       Bricksfly
+ * Plugin Name:       The Bricksfly
  * Plugin URI:        https://bricksfly.com/
- * Description:       Bricksfly for Bricks comes with GSAP Animation Builder, Customizable Elements, Header Footer, Single Post, Archive Page Builder, and Many more.
+ * Description:       The Bricksfly for Bricks comes with GSAP Animation Builder, Customizable Elements, Header Footer, Single Post, Archive Page Builder, and Many more.
  * Version:           1.0.0
  * Author:            Wealcoder
  * Author URI:        https://wealcoder.com/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       bricksfly
+ * Text Domain:       the-bricksfly
  * Domain Path:       /languages
  * Requires at least: 6.6
  * Requires PHP:      7.4
@@ -177,11 +177,11 @@ function run_bricks_animation_addons()
 				'ajaxUrl'        => admin_url('admin-ajax.php'),
 				'post_id'        => get_the_ID(),
 				'i18n'           => array(
-					'okay'    => esc_html__('Okay', 'bricksfly'),
-					'cancel'  => esc_html__('Cancel', 'bricksfly'),
-					'submit'  => esc_html__('Submit', 'bricksfly'),
-					'success' => esc_html__('Success', 'bricksfly'),
-					'warning' => esc_html__('Warning', 'bricksfly'),
+					'okay'    => esc_html__('Okay', 'the-bricksfly'),
+					'cancel'  => esc_html__('Cancel', 'the-bricksfly'),
+					'submit'  => esc_html__('Submit', 'the-bricksfly'),
+					'success' => esc_html__('Success', 'the-bricksfly'),
+					'warning' => esc_html__('Warning', 'the-bricksfly'),
 				),
 				'smoothScroller' => json_decode(get_option('aab_smooth_scroller')),
 				// All Bricks breakpoints (defaults + custom). Empty array if

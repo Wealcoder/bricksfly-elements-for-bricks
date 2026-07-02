@@ -11,7 +11,7 @@ class Aae_Bricks_Timeline extends \Bricks\Element
 
     public function get_label()
     {
-        return esc_html__('Timeline', 'bricksfly');
+        return esc_html__('Timeline', 'the-bricksfly');
     }
 
     public function get_keywords()
@@ -22,23 +22,23 @@ class Aae_Bricks_Timeline extends \Bricks\Element
     public function set_control_groups()
     {
         $this->control_groups['layout'] = [
-            'title' => esc_html__('Layout', 'bricksfly'),
+            'title' => esc_html__('Layout', 'the-bricksfly'),
             'tab'   => 'content',
         ];
         $this->control_groups['timeline'] = [
-            'title' => esc_html__('Timeline', 'bricksfly'),
+            'title' => esc_html__('Timeline', 'the-bricksfly'),
             'tab'   => 'content',
         ];
         $this->control_groups['timeline_style'] = [
-            'title' => esc_html__('Timeline', 'bricksfly'),
+            'title' => esc_html__('Timeline', 'the-bricksfly'),
             'tab'   => 'style',
         ];
         $this->control_groups['content_style'] = [
-            'title' => esc_html__('Content', 'bricksfly'),
+            'title' => esc_html__('Content', 'the-bricksfly'),
             'tab'   => 'style',
         ];
         $this->control_groups['step_style'] = [
-            'title' => esc_html__('Step', 'bricksfly'),
+            'title' => esc_html__('Step', 'the-bricksfly'),
             'tab'   => 'style',
         ];
     }
@@ -48,11 +48,11 @@ class Aae_Bricks_Timeline extends \Bricks\Element
         // === LAYOUT ===
         $this->controls['elementList'] = [
             'group'   => 'layout',
-            'label'   => esc_html__('Style', 'bricksfly'),
+            'label'   => esc_html__('Style', 'the-bricksfly'),
             'type'    => 'select',
             'options' => [
-                '1' => esc_html__('One', 'bricksfly'),
-                '2' => esc_html__('Two', 'bricksfly'),
+                '1' => esc_html__('One', 'the-bricksfly'),
+                '2' => esc_html__('Two', 'the-bricksfly'),
             ],
             'default' => '1',
             'inline'  => true,
@@ -60,7 +60,7 @@ class Aae_Bricks_Timeline extends \Bricks\Element
 
         $this->controls['titleTag'] = [
             'group'   => 'layout',
-            'label'   => esc_html__('Title HTML Tag', 'bricksfly'),
+            'label'   => esc_html__('Title HTML Tag', 'the-bricksfly'),
             'type'    => 'select',
             'options' => [
                 'h1' => 'H1', 'h2' => 'H2', 'h3' => 'H3', 'h4' => 'H4', 'h5' => 'H5', 'h6' => 'H6',
@@ -72,7 +72,7 @@ class Aae_Bricks_Timeline extends \Bricks\Element
 
         $this->controls['dateIcon'] = [
             'group'   => 'layout',
-            'label'   => esc_html__('Date Icon', 'bricksfly'),
+            'label'   => esc_html__('Date Icon', 'the-bricksfly'),
             'type'    => 'icon',
             'default' => [
                 'library' => 'fontawesome',
@@ -82,24 +82,24 @@ class Aae_Bricks_Timeline extends \Bricks\Element
 
         $this->controls['imageSize'] = [
             'group'   => 'layout',
-            'label'   => esc_html__('Image Size', 'bricksfly'),
+            'label'   => esc_html__('Image Size', 'the-bricksfly'),
             'type'    => 'select',
             'options' => $this->control_options['imageSizes'] ?? [
-                'thumbnail' => esc_html__('Thumbnail', 'bricksfly'),
-                'medium'    => esc_html__('Medium', 'bricksfly'),
-                'large'     => esc_html__('Large', 'bricksfly'),
-                'full'      => esc_html__('Full', 'bricksfly'),
+                'thumbnail' => esc_html__('Thumbnail', 'the-bricksfly'),
+                'medium'    => esc_html__('Medium', 'the-bricksfly'),
+                'large'     => esc_html__('Large', 'the-bricksfly'),
+                'full'      => esc_html__('Full', 'the-bricksfly'),
             ],
             'default' => 'full',
         ];
 
         $this->controls['imagePosition'] = [
             'group'   => 'layout',
-            'label'   => esc_html__('Image Position', 'bricksfly'),
+            'label'   => esc_html__('Image Position', 'the-bricksfly'),
             'type'    => 'select',
             'options' => [
-                'column' => esc_html__('Top', 'bricksfly'),
-                'row'    => esc_html__('Aside', 'bricksfly'),
+                'column' => esc_html__('Top', 'the-bricksfly'),
+                'row'    => esc_html__('Aside', 'the-bricksfly'),
             ],
             'default' => 'column',
             'inline'  => true,
@@ -108,14 +108,14 @@ class Aae_Bricks_Timeline extends \Bricks\Element
 
         $this->controls['align'] = [
             'group' => 'layout',
-            'label' => esc_html__('Alignment', 'bricksfly'),
+            'label' => esc_html__('Alignment', 'the-bricksfly'),
             'type'  => 'text-align',
             'css'   => [['property' => 'text-align', 'selector' => '']],
         ];
 
         $this->controls['showIndicator'] = [
             'group'   => 'layout',
-            'label'   => esc_html__('Indicator', 'bricksfly'),
+            'label'   => esc_html__('Indicator', 'the-bricksfly'),
             'type'    => 'checkbox',
             'default' => true,
         ];
@@ -123,72 +123,72 @@ class Aae_Bricks_Timeline extends \Bricks\Element
         // === TIMELINE (repeater) ===
         $this->controls['timelineItems'] = [
             'group'         => 'timeline',
-            'label'         => esc_html__('Timelines', 'bricksfly'),
+            'label'         => esc_html__('Timelines', 'the-bricksfly'),
             'type'          => 'repeater',
             'titleProperty' => 'timelineTitle',
             'fields'        => [
                 'stepType' => [
-                    'label'   => esc_html__('Step Type', 'bricksfly'),
+                    'label'   => esc_html__('Step Type', 'the-bricksfly'),
                     'type'    => 'select',
                     'options' => [
-                        'icon' => esc_html__('Icon', 'bricksfly'),
-                        'text' => esc_html__('Text', 'bricksfly'),
+                        'icon' => esc_html__('Icon', 'the-bricksfly'),
+                        'text' => esc_html__('Text', 'the-bricksfly'),
                     ],
                     'default' => 'icon',
                     'inline'  => true,
                 ],
                 'stepIcon' => [
-                    'label'    => esc_html__('Step Icon', 'bricksfly'),
+                    'label'    => esc_html__('Step Icon', 'the-bricksfly'),
                     'type'     => 'icon',
                     'default'  => ['library' => 'fontawesome', 'icon' => 'fas fa-dot-circle'],
                     'required' => ['stepType', '=', 'icon'],
                 ],
                 'stepText' => [
-                    'label'    => esc_html__('Step Text', 'bricksfly'),
+                    'label'    => esc_html__('Step Text', 'the-bricksfly'),
                     'type'     => 'text',
                     'default'  => '01',
                     'required' => ['stepType', '=', 'text'],
                 ],
                 'timelineImage' => [
-                    'label' => esc_html__('Choose Image', 'bricksfly'),
+                    'label' => esc_html__('Choose Image', 'the-bricksfly'),
                     'type'  => 'image',
                 ],
                 'timelineDate' => [
-                    'label'   => esc_html__('Date', 'bricksfly'),
+                    'label'   => esc_html__('Date', 'the-bricksfly'),
                     'type'    => 'text',
-                    'default' => esc_html__( 'Jan 01, 2021', 'bricksfly' ),
+                    'default' => esc_html__( 'Jan 01, 2021', 'the-bricksfly' ),
                 ],
                 'timelineTitle' => [
-                    'label'   => esc_html__('Title', 'bricksfly'),
+                    'label'   => esc_html__('Title', 'the-bricksfly'),
                     'type'    => 'text',
-                    'default' => esc_html__( 'Journey Started at New York', 'bricksfly' ),
+                    'default' => esc_html__( 'Journey Started at New York', 'the-bricksfly' ),
                 ],
                 'timelineSub' => [
-                    'label'   => esc_html__('Sub Title', 'bricksfly'),
+                    'label'   => esc_html__('Sub Title', 'the-bricksfly'),
                     'type'    => 'text',
-                    'default' => esc_html__( 'Designer', 'bricksfly' ),
+                    'default' => esc_html__( 'Designer', 'the-bricksfly' ),
                 ],
                 'timelineDesc' => [
-                    'label'   => esc_html__('Content', 'bricksfly'),
+                    'label'   => esc_html__('Content', 'the-bricksfly'),
                     'type'    => 'textarea',
-                    'default' => esc_html__('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', 'bricksfly'),
+                    'default' => esc_html__('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', 'the-bricksfly'),
                 ],
                 'link' => [
-                    'label' => esc_html__('Link', 'bricksfly'),
+                    'label' => esc_html__('Link', 'the-bricksfly'),
                     'type'  => 'link',
                 ],
             ],
             'default' => [
-                ['timelineTitle' => esc_html__( 'Journey Started at New York', 'bricksfly' ), 'timelineSub' => esc_html__( 'Designer', 'bricksfly' ), 'timelineDate' => esc_html__( 'Jan 01, 2021', 'bricksfly' ), 'stepType' => 'icon'],
-                ['timelineTitle' => esc_html__( 'Moved to San Francisco', 'bricksfly' ), 'timelineSub' => esc_html__( 'Developer', 'bricksfly' ), 'timelineDate' => esc_html__( 'Mar 15, 2022', 'bricksfly' ), 'stepType' => 'icon'],
-                ['timelineTitle' => esc_html__( 'Launched First Product', 'bricksfly' ), 'timelineSub' => esc_html__( 'Founder', 'bricksfly' ), 'timelineDate' => esc_html__( 'Jun 20, 2023', 'bricksfly' ), 'stepType' => 'icon'],
+                ['timelineTitle' => esc_html__( 'Journey Started at New York', 'the-bricksfly' ), 'timelineSub' => esc_html__( 'Designer', 'the-bricksfly' ), 'timelineDate' => esc_html__( 'Jan 01, 2021', 'the-bricksfly' ), 'stepType' => 'icon'],
+                ['timelineTitle' => esc_html__( 'Moved to San Francisco', 'the-bricksfly' ), 'timelineSub' => esc_html__( 'Developer', 'the-bricksfly' ), 'timelineDate' => esc_html__( 'Mar 15, 2022', 'the-bricksfly' ), 'stepType' => 'icon'],
+                ['timelineTitle' => esc_html__( 'Launched First Product', 'the-bricksfly' ), 'timelineSub' => esc_html__( 'Founder', 'the-bricksfly' ), 'timelineDate' => esc_html__( 'Jun 20, 2023', 'the-bricksfly' ), 'stepType' => 'icon'],
             ],
         ];
 
         // === STYLE: TIMELINE ===
         $this->controls['contentGap'] = [
             'group' => 'timeline_style',
-            'label' => esc_html__('Space', 'bricksfly'),
+            'label' => esc_html__('Space', 'the-bricksfly'),
             'type'  => 'number',
             'default' => 60,
             'placeholder' => '60',
@@ -198,7 +198,7 @@ class Aae_Bricks_Timeline extends \Bricks\Element
 
         $this->controls['contentBottomSpace'] = [
             'group' => 'timeline_style',
-            'label' => esc_html__('Content bottom space', 'bricksfly'),
+            'label' => esc_html__('Content bottom space', 'the-bricksfly'),
             'type'  => 'number',
             'default' => '10px',
             'placeholder' => '10',
@@ -209,35 +209,35 @@ class Aae_Bricks_Timeline extends \Bricks\Element
         // === STYLE: CONTENT ===
         $this->controls['contentBg'] = [
             'group' => 'content_style',
-            'label' => esc_html__('Background', 'bricksfly'),
+            'label' => esc_html__('Background', 'the-bricksfly'),
             'type'  => 'color',
             'css'   => [['property' => 'background-color', 'selector' => '.content-wrap']],
         ];
 
         $this->controls['contentWrapperPadding'] = [
             'group' => 'content_style',
-            'label' => esc_html__('Wrapper padding', 'bricksfly'),
+            'label' => esc_html__('Wrapper padding', 'the-bricksfly'),
             'type'  => 'dimensions',
             'css'   => [['property' => 'padding', 'selector' => '.content-wrap']],
         ];
 
         $this->controls['contentPadding'] = [
             'group' => 'content_style',
-            'label' => esc_html__('Content padding', 'bricksfly'),
+            'label' => esc_html__('Content padding', 'the-bricksfly'),
             'type'  => 'dimensions',
             'css'   => [['property' => 'padding', 'selector' => '.content-wrap .content']],
         ];
 
         // $this->controls['contentBorderRadius'] = [
         //     'group' => 'content_style',
-        //     'label' => esc_html__('Border Radius', 'bricksfly'),
+        //     'label' => esc_html__('Border Radius', 'the-bricksfly'),
         //     'type'  => 'dimensions',
         //     'css'   => [['property' => 'border-radius', 'selector' => '.content-wrap']],
         // ];
 
         $this->controls['contentBorder'] = [
             'group' => 'content_style',
-            'label' => esc_html__('Border', 'bricksfly'),
+            'label' => esc_html__('Border', 'the-bricksfly'),
             'type'  => 'border',
             'css'   => [['property' => 'border', 'selector' => '.content-wrap']],
         ];
@@ -246,13 +246,13 @@ class Aae_Bricks_Timeline extends \Bricks\Element
 
         $this->controls['headingImage'] = [
             'group' => 'content_style',
-            'label' => esc_html__('Image', 'bricksfly'),
+            'label' => esc_html__('Image', 'the-bricksfly'),
             'type'  => 'separator',
         ];
 
         $this->controls['imgWidth'] = [
             'group' => 'content_style',
-            'label' => esc_html__('Width', 'bricksfly'),
+            'label' => esc_html__('Width', 'the-bricksfly'),
             'type'  => 'number',
             'units' => ['px' => ['min' => 1, 'max' => 500], '%' => ['min' => 1, 'max' => 100]],
             'css'   => [['property' => 'width', 'selector' => 'img']],
@@ -260,7 +260,7 @@ class Aae_Bricks_Timeline extends \Bricks\Element
 
         $this->controls['imgHeight'] = [
             'group' => 'content_style',
-            'label' => esc_html__('Height', 'bricksfly'),
+            'label' => esc_html__('Height', 'the-bricksfly'),
             'type'  => 'number',
             'units' => ['px' => ['min' => 1, 'max' => 500], 'vh' => ['min' => 1, 'max' => 100]],
             'css'   => [['property' => 'height', 'selector' => 'img']],
@@ -268,30 +268,30 @@ class Aae_Bricks_Timeline extends \Bricks\Element
 
         $this->controls['imgObjectFit'] = [
             'group'   => 'content_style',
-            'label'   => esc_html__('Object Fit', 'bricksfly'),
+            'label'   => esc_html__('Object Fit', 'the-bricksfly'),
             'type'    => 'select',
             'options' => [
-                'fill'    => esc_html__('Fill', 'bricksfly'),
-                'cover'   => esc_html__('Cover', 'bricksfly'),
-                'contain' => esc_html__('Contain', 'bricksfly'),
+                'fill'    => esc_html__('Fill', 'the-bricksfly'),
+                'cover'   => esc_html__('Cover', 'the-bricksfly'),
+                'contain' => esc_html__('Contain', 'the-bricksfly'),
             ],
             'css' => [['property' => 'object-fit', 'selector' => 'img']],
         ];
 
         $this->controls['imgObjectPosition'] = [
             'group'   => 'content_style',
-            'label'   => esc_html__('Object Position', 'bricksfly'),
+            'label'   => esc_html__('Object Position', 'the-bricksfly'),
             'type'    => 'select',
             'options' => [
-                'center center' => esc_html__('Center Center', 'bricksfly'),
-                'center left'   => esc_html__('Center Left', 'bricksfly'),
-                'center right'  => esc_html__('Center Right', 'bricksfly'),
-                'top center'    => esc_html__('Top Center', 'bricksfly'),
-                'top left'      => esc_html__('Top Left', 'bricksfly'),
-                'top right'     => esc_html__('Top Right', 'bricksfly'),
-                'bottom center' => esc_html__('Bottom Center', 'bricksfly'),
-                'bottom left'   => esc_html__('Bottom Left', 'bricksfly'),
-                'bottom right'  => esc_html__('Bottom Right', 'bricksfly'),
+                'center center' => esc_html__('Center Center', 'the-bricksfly'),
+                'center left'   => esc_html__('Center Left', 'the-bricksfly'),
+                'center right'  => esc_html__('Center Right', 'the-bricksfly'),
+                'top center'    => esc_html__('Top Center', 'the-bricksfly'),
+                'top left'      => esc_html__('Top Left', 'the-bricksfly'),
+                'top right'     => esc_html__('Top Right', 'the-bricksfly'),
+                'bottom center' => esc_html__('Bottom Center', 'the-bricksfly'),
+                'bottom left'   => esc_html__('Bottom Left', 'the-bricksfly'),
+                'bottom right'  => esc_html__('Bottom Right', 'the-bricksfly'),
             ],
             'css'      => [['property' => 'object-position', 'selector' => 'img']],
             'required' => ['imgObjectFit', '=', 'cover'],
@@ -299,21 +299,21 @@ class Aae_Bricks_Timeline extends \Bricks\Element
 
         $this->controls['imgBorder'] = [
             'group' => 'content_style',
-            'label' => esc_html__('Border', 'bricksfly'),
+            'label' => esc_html__('Border', 'the-bricksfly'),
             'type'  => 'border',
             'css'   => [['property' => 'border', 'selector' => 'img']],
         ];
 
         // $this->controls['imgBorderRadius'] = [
         //     'group' => 'content_style',
-        //     'label' => esc_html__('Image Border Radius', 'bricksfly'),
+        //     'label' => esc_html__('Image Border Radius', 'the-bricksfly'),
         //     'type'  => 'spacing',
         //     'css'   => [['property' => 'border-radius', 'selector' => 'img']],
         // ];
 
         $this->controls['imageSpace'] = [
             'group'   => 'content_style',
-            'label'   => esc_html__('Spacing', 'bricksfly'),
+            'label'   => esc_html__('Spacing', 'the-bricksfly'),
             'type'    => 'number',
             'units'   => ['px' => ['min' => 0, 'max' => 100]],
             'css'     => [['property' => 'gap', 'selector' => '.content-wrap']],
@@ -321,27 +321,27 @@ class Aae_Bricks_Timeline extends \Bricks\Element
 
         $this->controls['headingDate'] = [
             'group' => 'content_style',
-            'label' => esc_html__('Date', 'bricksfly'),
+            'label' => esc_html__('Date', 'the-bricksfly'),
             'type'  => 'separator',
         ];
 
         $this->controls['dateColor'] = [
             'group' => 'content_style',
-            'label' => esc_html__('Color', 'bricksfly'),
+            'label' => esc_html__('Color', 'the-bricksfly'),
             'type'  => 'color',
             'css'   => [['property' => 'color', 'selector' => '.date']],
         ];
 
         $this->controls['dateTypography'] = [
             'group' => 'content_style',
-            'label' => esc_html__('Typography', 'bricksfly'),
+            'label' => esc_html__('Typography', 'the-bricksfly'),
             'type'  => 'typography',
             'css'   => [['property' => 'font', 'selector' => '.date']],
         ];
 
         $this->controls['dateSpacing'] = [
             'group'   => 'content_style',
-            'label'   => esc_html__('Date Spacing', 'bricksfly'),
+            'label'   => esc_html__('Date Spacing', 'the-bricksfly'),
             'type'    => 'number',
             'units'   => ['px' => ['min' => 0, 'max' => 100]],
             'css'     => [['property' => 'margin-bottom', 'selector' => '.date']],
@@ -349,27 +349,27 @@ class Aae_Bricks_Timeline extends \Bricks\Element
 
         $this->controls['headingTitle'] = [
             'group' => 'content_style',
-            'label' => esc_html__('Title', 'bricksfly'),
+            'label' => esc_html__('Title', 'the-bricksfly'),
             'type'  => 'separator',
         ];
 
         $this->controls['titleColor'] = [
             'group' => 'content_style',
-            'label' => esc_html__('Color', 'bricksfly'),
+            'label' => esc_html__('Color', 'the-bricksfly'),
             'type'  => 'color',
             'css'   => [['property' => 'color', 'selector' => '.title']],
         ];
 
         $this->controls['titleTypography'] = [
             'group' => 'content_style',
-            'label' => esc_html__('Typography', 'bricksfly'),
+            'label' => esc_html__('Typography', 'the-bricksfly'),
             'type'  => 'typography',
             'css'   => [['property' => 'font', 'selector' => '.title']],
         ];
 
         $this->controls['titleSpacing'] = [
             'group'   => 'content_style',
-            'label'   => esc_html__('Title Spacing', 'bricksfly'),
+            'label'   => esc_html__('Title Spacing', 'the-bricksfly'),
             'type'    => 'number',
             'units'   => ['px' => ['min' => 0, 'max' => 100]],
             'css'     => [['property' => 'margin-bottom', 'selector' => '.title']],
@@ -377,27 +377,27 @@ class Aae_Bricks_Timeline extends \Bricks\Element
 
         $this->controls['headingSubtitle'] = [
             'group' => 'content_style',
-            'label' => esc_html__('Subtitle', 'bricksfly'),
+            'label' => esc_html__('Subtitle', 'the-bricksfly'),
             'type'  => 'separator',
         ];
 
         $this->controls['subtitleColor'] = [
             'group' => 'content_style',
-            'label' => esc_html__('Color', 'bricksfly'),
+            'label' => esc_html__('Color', 'the-bricksfly'),
             'type'  => 'color',
             'css'   => [['property' => 'color', 'selector' => '.subtitle']],
         ];
 
         $this->controls['subtitleTypography'] = [
             'group' => 'content_style',
-            'label' => esc_html__('Typography', 'bricksfly'),
+            'label' => esc_html__('Typography', 'the-bricksfly'),
             'type'  => 'typography',
             'css'   => [['property' => 'font', 'selector' => '.subtitle']],
         ];
 
         $this->controls['subtitleSpacing'] = [
             'group'   => 'content_style',
-            'label'   => esc_html__('Subtitle Spacing', 'bricksfly'),
+            'label'   => esc_html__('Subtitle Spacing', 'the-bricksfly'),
             'type'    => 'number',
             'units'   => ['px' => ['min' => 0, 'max' => 100]],
             'css'     => [['property' => 'margin-bottom', 'selector' => '.subtitle']],
@@ -405,20 +405,20 @@ class Aae_Bricks_Timeline extends \Bricks\Element
 
         $this->controls['headingDescription'] = [
             'group' => 'content_style',
-            'label' => esc_html__('Description', 'bricksfly'),
+            'label' => esc_html__('Description', 'the-bricksfly'),
             'type'  => 'separator',
         ];
 
         $this->controls['descriptionColor'] = [
             'group' => 'content_style',
-            'label' => esc_html__('Color', 'bricksfly'),
+            'label' => esc_html__('Color', 'the-bricksfly'),
             'type'  => 'color',
             'css'   => [['property' => 'color', 'selector' => '.description']],
         ];
 
         $this->controls['descriptionTypography'] = [
             'group' => 'content_style',
-            'label' => esc_html__('Typography', 'bricksfly'),
+            'label' => esc_html__('Typography', 'the-bricksfly'),
             'type'  => 'typography',
             'css'   => [['property' => 'font', 'selector' => '.description']],
         ];
@@ -426,7 +426,7 @@ class Aae_Bricks_Timeline extends \Bricks\Element
         // === STYLE: STEP ===
         $this->controls['stepColor'] = [
             'group' => 'step_style',
-            'label' => esc_html__('Color', 'bricksfly'),
+            'label' => esc_html__('Color', 'the-bricksfly'),
             'type'  => 'color',
             'css'   => [
                 ['property' => 'color', 'selector' => '.step-box .icon'],
@@ -436,14 +436,14 @@ class Aae_Bricks_Timeline extends \Bricks\Element
 
         $this->controls['stepBgColor'] = [
             'group' => 'step_style',
-            'label' => esc_html__('Background Color', 'bricksfly'),
+            'label' => esc_html__('Background Color', 'the-bricksfly'),
             'type'  => 'color',
             'css'   => [['property' => 'background-color', 'selector' => '.step-box .icon']],
         ];
 
         $this->controls['stepTypography'] = [
             'group' => 'step_style',
-            'label' => esc_html__('Typography', 'bricksfly'),
+            'label' => esc_html__('Typography', 'the-bricksfly'),
             'type'  => 'typography',
             'css'   => [['property' => 'font', 'selector' => '.step-box .icon']],
             'exclude' => ['font-size', 'text-decoration', 'line-height'],   // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude -- Bricks control option, not a WP_Query arg
@@ -451,7 +451,7 @@ class Aae_Bricks_Timeline extends \Bricks\Element
 
         $this->controls['stepSize'] = [
             'group' => 'step_style',
-            'label' => esc_html__('Icon Size (Width/Height)', 'bricksfly'),
+            'label' => esc_html__('Icon Size (Width/Height)', 'the-bricksfly'),
             'type'  => 'number',
             'units' => ['px' => ['min' => 6, 'max' => 300]],
             'css'   => [['property' => '--icon-size', 'selector' => '&.aae-timeline']],
@@ -459,7 +459,7 @@ class Aae_Bricks_Timeline extends \Bricks\Element
 
         $this->controls['stepTextSize'] = [
             'group'   => 'step_style',
-            'label'   => esc_html__('Text Font Size', 'bricksfly'),
+            'label'   => esc_html__('Text Font Size', 'the-bricksfly'),
             'type'    => 'number',
             'unit'    => 'px',
             'css'     => [['property' => 'font-size', 'selector' => '.step-box .icon']],
@@ -467,7 +467,7 @@ class Aae_Bricks_Timeline extends \Bricks\Element
 
         $this->controls['stepPadding'] = [
             'group' => 'step_style',
-            'label' => esc_html__('Padding', 'bricksfly'),
+            'label' => esc_html__('Padding', 'the-bricksfly'),
             'type'  => 'number',
             'units' => ['px' => ['min' => 1, 'max' => 300]],
             'css'   => [['property' => '--icon-padding', 'selector' => '&.aae-timeline']],
@@ -475,14 +475,14 @@ class Aae_Bricks_Timeline extends \Bricks\Element
 
         $this->controls['stepBorder'] = [
             'group' => 'step_style',
-            'label' => esc_html__('Border', 'bricksfly'),
+            'label' => esc_html__('Border', 'the-bricksfly'),
             'type'  => 'border',
             'css'   => [['property' => 'border', 'selector' => '.step-box .icon']],
         ];
 
         $this->controls['stepBorderRadius'] = [
             'group' => 'step_style',
-            'label' => esc_html__('Border Radius', 'bricksfly'),
+            'label' => esc_html__('Border Radius', 'the-bricksfly'),
             'type'  => 'number',
             'units' => ['px' => ['min' => 0, 'max' => 300], '%' => ['min' => 0, 'max' => 100]],
             'css'   => [['property' => 'border-radius', 'selector' => '.step-box .icon']],
@@ -490,7 +490,7 @@ class Aae_Bricks_Timeline extends \Bricks\Element
 
         $this->controls['stepPositionX'] = [
             'group' => 'step_style',
-            'label' => esc_html__('Step icon position-x', 'bricksfly'),
+            'label' => esc_html__('Step icon position-x', 'the-bricksfly'),
             'type'  => 'number',
             'units' => ['px' => ['min' => 0, 'max' => 300], '%' => ['min' => 0, 'max' => 100]],
             'css'   => [['property' => 'top', 'selector' => '.step-box .icon']],
@@ -498,20 +498,20 @@ class Aae_Bricks_Timeline extends \Bricks\Element
 
         $this->controls['headingStepLine'] = [
             'group' => 'step_style',
-            'label' => esc_html__('Step Line', 'bricksfly'),
+            'label' => esc_html__('Step Line', 'the-bricksfly'),
             'type'  => 'separator',
         ];
 
         $this->controls['stepLineStyle'] = [
             'group'   => 'step_style',
-            'label'   => esc_html__('Line Style', 'bricksfly'),
+            'label'   => esc_html__('Line Style', 'the-bricksfly'),
             'type'    => 'select',
             'options' => [
-                'none'   => esc_html__('None', 'bricksfly'),
-                'solid'  => esc_html__('Solid', 'bricksfly'),
-                'dashed' => esc_html__('Dashed', 'bricksfly'),
-                'dotted' => esc_html__('Dotted', 'bricksfly'),
-                'double' => esc_html__('Double', 'bricksfly'),
+                'none'   => esc_html__('None', 'the-bricksfly'),
+                'solid'  => esc_html__('Solid', 'the-bricksfly'),
+                'dashed' => esc_html__('Dashed', 'the-bricksfly'),
+                'dotted' => esc_html__('Dotted', 'the-bricksfly'),
+                'double' => esc_html__('Double', 'the-bricksfly'),
             ],
             'default' => 'dashed',
             'css'     => [['property' => 'border-left-style', 'selector' => '.line']],
@@ -519,7 +519,7 @@ class Aae_Bricks_Timeline extends \Bricks\Element
 
         $this->controls['stepLineThickness'] = [
             'group'    => 'step_style',
-            'label'    => esc_html__('Line Thickness', 'bricksfly'),
+            'label'    => esc_html__('Line Thickness', 'the-bricksfly'),
             'type'     => 'number',
             'units'    => ['px' => ['min' => 0, 'max' => 10]],
             'css'      => [['property' => 'border-left-width', 'selector' => '.line']],
@@ -528,7 +528,7 @@ class Aae_Bricks_Timeline extends \Bricks\Element
 
         $this->controls['stepLineColor'] = [
             'group'    => 'step_style',
-            'label'    => esc_html__('Line Color', 'bricksfly'),
+            'label'    => esc_html__('Line Color', 'the-bricksfly'),
             'type'     => 'color',
             'css'      => [['property' => 'border-left-color', 'selector' => '.line']],
             'required' => ['stepLineStyle', '!=', 'none'],
@@ -536,14 +536,14 @@ class Aae_Bricks_Timeline extends \Bricks\Element
 
         $this->controls['headingIndicator'] = [
             'group'    => 'step_style',
-            'label'    => esc_html__('Indicator', 'bricksfly'),
+            'label'    => esc_html__('Indicator', 'the-bricksfly'),
             'type'     => 'separator',
             'required' => ['showIndicator', '!=', ''],
         ];
 
         $this->controls['indicatorColor'] = [
             'group'    => 'step_style',
-            'label'    => esc_html__('Indicator Color', 'bricksfly'),
+            'label'    => esc_html__('Indicator Color', 'the-bricksfly'),
             'type'     => 'color',
             'css'      => [['property' => 'background-color', 'selector' => '.indicator']],
             'required' => ['showIndicator', '!=', ''],
@@ -551,7 +551,7 @@ class Aae_Bricks_Timeline extends \Bricks\Element
 
         $this->controls['indicatorWidth'] = [
             'group'    => 'step_style',
-            'label'    => esc_html__('Indicator Width', 'bricksfly'),
+            'label'    => esc_html__('Indicator Width', 'the-bricksfly'),
             'type'     => 'number',
             'units'    => ['px' => ['min' => 1, 'max' => 500]],
             'css'      => [['property' => 'width', 'selector' => '.indicator']],
@@ -560,7 +560,7 @@ class Aae_Bricks_Timeline extends \Bricks\Element
 
         $this->controls['indicatorHeight'] = [
             'group'    => 'step_style',
-            'label'    => esc_html__('Indicator Height', 'bricksfly'),
+            'label'    => esc_html__('Indicator Height', 'the-bricksfly'),
             'type'     => 'number',
             'units'    => ['px' => ['min' => 1, 'max' => 50]],
             'css'      => [['property' => 'height', 'selector' => '.indicator']],
@@ -569,7 +569,7 @@ class Aae_Bricks_Timeline extends \Bricks\Element
 
         $this->controls['indicatorGap'] = [
             'group'    => 'step_style',
-            'label'    => esc_html__('Indicator Gap', 'bricksfly'),
+            'label'    => esc_html__('Indicator Gap', 'the-bricksfly'),
             'type'     => 'number',
             'units'    => ['px' => ['min' => 1, 'max' => 500]],
             'css'      => [['property' => '--indicator-gap', 'selector' => '.indicator']],
@@ -596,7 +596,7 @@ class Aae_Bricks_Timeline extends \Bricks\Element
         $items    = $settings['timelineItems'] ?? [];
 
         if (empty($items)) {
-            echo $this->render_element_placeholder(['title' => esc_html__('Add timeline items.', 'bricksfly')]); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            echo $this->render_element_placeholder(['title' => esc_html__('Add timeline items.', 'the-bricksfly')]); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
             return;
         }
 

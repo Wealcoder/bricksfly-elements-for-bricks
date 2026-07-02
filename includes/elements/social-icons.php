@@ -13,7 +13,7 @@ class AAB_Bricks_Social_Icons extends \Bricks\Element
 
 	public function get_label()
 	{
-		return esc_html__('Social Icons', 'bricksfly');
+		return esc_html__('Social Icons', 'the-bricksfly');
 	}
 
 	public function get_keywords()
@@ -37,17 +37,17 @@ class AAB_Bricks_Social_Icons extends \Bricks\Element
 	public function set_control_groups()
 	{
 		$this->control_groups['icons'] = [
-			'title' => esc_html__('Icons', 'bricksfly'),
+			'title' => esc_html__('Icons', 'the-bricksfly'),
 			'tab'   => 'content',
 		];
 
 		$this->control_groups['icon_style'] = [
-			'title' => esc_html__('Icon', 'bricksfly'),
+			'title' => esc_html__('Icon', 'the-bricksfly'),
 			'tab'   => 'style',
 		];
 
 		$this->control_groups['icon_hover'] = [
-			'title' => esc_html__('Icon Hover', 'bricksfly'),
+			'title' => esc_html__('Icon Hover', 'the-bricksfly'),
 			'tab'   => 'style',
 		];
 	}
@@ -60,12 +60,12 @@ class AAB_Bricks_Social_Icons extends \Bricks\Element
 		$this->controls['socialIcons'] = [
 			'tab'           => 'content',
 			'group'         => 'icons',
-			'label'         => esc_html__('Social Icons', 'bricksfly'),
+			'label'         => esc_html__('Social Icons', 'the-bricksfly'),
 			'type'          => 'repeater',
 			'titleProperty' => 'label',
 			'fields'        => [
 				'icon' => [
-					'label'   => esc_html__('Icon', 'bricksfly'),
+					'label'   => esc_html__('Icon', 'the-bricksfly'),
 					'type'    => 'icon',
 					'default' => [
 						'library' => 'fontawesome',
@@ -73,20 +73,20 @@ class AAB_Bricks_Social_Icons extends \Bricks\Element
 					],
 				],
 				'link' => [
-					'label' => esc_html__('Link', 'bricksfly'),
+					'label' => esc_html__('Link', 'the-bricksfly'),
 					'type'  => 'link',
 				],
 				'label' => [
-					'label'   => esc_html__('Label', 'bricksfly'),
+					'label'   => esc_html__('Label', 'the-bricksfly'),
 					'type'    => 'text',
-					'default' => esc_html__('Social', 'bricksfly'),
+					'default' => esc_html__('Social', 'the-bricksfly'),
 				],
 				'itemColor' => [
-					'label' => esc_html__('Color', 'bricksfly'),
+					'label' => esc_html__('Color', 'the-bricksfly'),
 					'type'  => 'color',
 				],
 				'itemBgColor' => [
-					'label' => esc_html__('Background Color', 'bricksfly'),
+					'label' => esc_html__('Background Color', 'the-bricksfly'),
 					'type'  => 'color',
 				],
 			],
@@ -109,7 +109,7 @@ class AAB_Bricks_Social_Icons extends \Bricks\Element
 		// $this->controls['iconAlign'] = [
 		// 	'tab'   => 'content',
 		// 	'group' => 'icons',
-		// 	'label' => esc_html__('Alignment', 'bricksfly'),
+		// 	'label' => esc_html__('Alignment', 'the-bricksfly'),
 		// 	'type'  => 'justify-content',
 		// 	'css'   => [
 		// 		[
@@ -122,12 +122,12 @@ class AAB_Bricks_Social_Icons extends \Bricks\Element
 		// $this->controls['iconDirection'] = [
 		// 	'tab'     => 'content',
 		// 	'group'   => 'icons',
-		// 	'label'   => esc_html__('Direction', 'bricksfly'),
+		// 	'label'   => esc_html__('Direction', 'the-bricksfly'),
 		// 	'type'    => 'select',
 		// 	'inline'  => true,
 		// 	'options' => [
-		// 		'row'    => esc_html__('Row', 'bricksfly'),
-		// 		'column' => esc_html__('Column', 'bricksfly'),
+		// 		'row'    => esc_html__('Row', 'the-bricksfly'),
+		// 		'column' => esc_html__('Column', 'the-bricksfly'),
 		// 	],
 		// 	'default' => 'row',
 		// 	'css'     => [
@@ -142,12 +142,12 @@ class AAB_Bricks_Social_Icons extends \Bricks\Element
 		$this->controls['iconDirection'] = [
 			'tab'     => 'content',
 			'group'   => 'icons',
-			'label'   => esc_html__('Direction', 'bricksfly'),
+			'label'   => esc_html__('Direction', 'the-bricksfly'),
 			'type'    => 'select',
 			'inline'  => true,
 			'options' => [
-				'row'    => esc_html__('Row', 'bricksfly'),
-				'column' => esc_html__('Column', 'bricksfly'),
+				'row'    => esc_html__('Row', 'the-bricksfly'),
+				'column' => esc_html__('Column', 'the-bricksfly'),
 			],
 			'default' => 'row',
 			'css'     => [
@@ -164,7 +164,7 @@ class AAB_Bricks_Social_Icons extends \Bricks\Element
 		$this->controls['iconAlign'] = [
 			'tab'   => 'content',
 			'group' => 'icons',
-			'label' => esc_html__('Alignment', 'bricksfly'),
+			'label' => esc_html__('Alignment', 'the-bricksfly'),
 			'type'  => 'justify-content',
 			'required' => [['iconDirection', '!=', 'column']],
 			'css'   => [
@@ -179,7 +179,7 @@ class AAB_Bricks_Social_Icons extends \Bricks\Element
 		$this->controls['iconAlignColumn'] = [
 			'tab'   => 'content',
 			'group' => 'icons',
-			'label' => esc_html__('Alignment', 'bricksfly'),
+			'label' => esc_html__('Alignment', 'the-bricksfly'),
 			'type'  => 'align-items',
 			'required' => [['iconDirection', '=', 'column']],
 			'css'   => [
@@ -195,7 +195,7 @@ class AAB_Bricks_Social_Icons extends \Bricks\Element
 		$this->controls['iconColor'] = [
 			'tab'   => 'style',
 			'group' => 'icon_style',
-			'label' => esc_html__('Color', 'bricksfly'),
+			'label' => esc_html__('Color', 'the-bricksfly'),
 			'type'  => 'color',
 			'css'   => [
 				[
@@ -212,7 +212,7 @@ class AAB_Bricks_Social_Icons extends \Bricks\Element
 		$this->controls['iconBgColor'] = [
 			'tab'   => 'style',
 			'group' => 'icon_style',
-			'label' => esc_html__('Background Color', 'bricksfly'),
+			'label' => esc_html__('Background Color', 'the-bricksfly'),
 			'type'  => 'color',
 			'css'   => [
 				[
@@ -225,7 +225,7 @@ class AAB_Bricks_Social_Icons extends \Bricks\Element
 		$this->controls['iconSize'] = [
 			'tab'   => 'style',
 			'group' => 'icon_style',
-			'label' => esc_html__('Size', 'bricksfly'),
+			'label' => esc_html__('Size', 'the-bricksfly'),
 			'type'  => 'number',
 			'units' => [
 				'px' => ['min' => 6, 'max' => 300],
@@ -241,7 +241,7 @@ class AAB_Bricks_Social_Icons extends \Bricks\Element
 		$this->controls['iconPadding'] = [
 			'tab'   => 'style',
 			'group' => 'icon_style',
-			'label' => esc_html__('Padding', 'bricksfly'),
+			'label' => esc_html__('Padding', 'the-bricksfly'),
 			'type'  => 'number',
 			'units' => [
 				'px' => ['min' => 1, 'max' => 300],
@@ -257,7 +257,7 @@ class AAB_Bricks_Social_Icons extends \Bricks\Element
 		$this->controls['iconSpacing'] = [
 			'tab'   => 'style',
 			'group' => 'icon_style',
-			'label' => esc_html__('Spacing', 'bricksfly'),
+			'label' => esc_html__('Spacing', 'the-bricksfly'),
 			'type'  => 'number',
 			'units' => [
 				'px' => ['min' => 0, 'max' => 100],
@@ -273,7 +273,7 @@ class AAB_Bricks_Social_Icons extends \Bricks\Element
 		$this->controls['iconBorder'] = [
 			'tab'   => 'style',
 			'group' => 'icon_style',
-			'label' => esc_html__('Border', 'bricksfly'),
+			'label' => esc_html__('Border', 'the-bricksfly'),
 			'type'  => 'border',
 			'css'   => [
 				[
@@ -286,7 +286,7 @@ class AAB_Bricks_Social_Icons extends \Bricks\Element
 		$this->controls['iconBorderRadius'] = [
 			'tab'   => 'style',
 			'group' => 'icon_style',
-			'label' => esc_html__('Border Radius', 'bricksfly'),
+			'label' => esc_html__('Border Radius', 'the-bricksfly'),
 			'type'  => 'number',
 			'units' => [
 				'px' => ['min' => 0, 'max' => 300],
@@ -305,7 +305,7 @@ class AAB_Bricks_Social_Icons extends \Bricks\Element
 		$this->controls['hoverIconColor'] = [
 			'tab'   => 'style',
 			'group' => 'icon_hover',
-			'label' => esc_html__('Color', 'bricksfly'),
+			'label' => esc_html__('Color', 'the-bricksfly'),
 			'type'  => 'color',
 			'css'   => [
 				[
@@ -322,7 +322,7 @@ class AAB_Bricks_Social_Icons extends \Bricks\Element
 		$this->controls['hoverIconBgColor'] = [
 			'tab'   => 'style',
 			'group' => 'icon_hover',
-			'label' => esc_html__('Background Color', 'bricksfly'),
+			'label' => esc_html__('Background Color', 'the-bricksfly'),
 			'type'  => 'color',
 			'css'   => [
 				[
@@ -335,7 +335,7 @@ class AAB_Bricks_Social_Icons extends \Bricks\Element
 		$this->controls['hoverBorderColor'] = [
 			'tab'   => 'style',
 			'group' => 'icon_hover',
-			'label' => esc_html__('Border Color', 'bricksfly'),
+			'label' => esc_html__('Border Color', 'the-bricksfly'),
 			'type'  => 'color',
 			'css'   => [
 				[
@@ -348,15 +348,15 @@ class AAB_Bricks_Social_Icons extends \Bricks\Element
 		$this->controls['hoverAnimation'] = [
 			'tab'     => 'style',
 			'group'   => 'icon_hover',
-			'label'   => esc_html__('Hover Animation', 'bricksfly'),
+			'label'   => esc_html__('Hover Animation', 'the-bricksfly'),
 			'type'    => 'select',
 			'inline'  => true,
 			'options' => [
-				''          => esc_html__('None', 'bricksfly'),
-				'grow'      => esc_html__('Grow', 'bricksfly'),
-				'shrink'    => esc_html__('Shrink', 'bricksfly'),
-				'pulse'     => esc_html__('Pulse', 'bricksfly'),
-				'float-up'  => esc_html__('Float Up', 'bricksfly'),
+				''          => esc_html__('None', 'the-bricksfly'),
+				'grow'      => esc_html__('Grow', 'the-bricksfly'),
+				'shrink'    => esc_html__('Shrink', 'the-bricksfly'),
+				'pulse'     => esc_html__('Pulse', 'the-bricksfly'),
+				'float-up'  => esc_html__('Float Up', 'the-bricksfly'),
 			],
 			'default' => '',
 		];
@@ -396,7 +396,7 @@ class AAB_Bricks_Social_Icons extends \Bricks\Element
 		if (empty($icons)) {
 			return $this->render_element_placeholder([
 				'icon-class' => 'ti-share',
-				'text'       => esc_html__('No social icons added.', 'bricksfly'),
+				'text'       => esc_html__('No social icons added.', 'the-bricksfly'),
 			]);
 		}
 
@@ -445,7 +445,7 @@ class AAB_Bricks_Social_Icons extends \Bricks\Element
 				$this->set_attribute($link_key, 'href', '#');
 			}
 
-			$label = ! empty($item['label']) ? $item['label'] : esc_html__('Social', 'bricksfly');
+			$label = ! empty($item['label']) ? $item['label'] : esc_html__('Social', 'the-bricksfly');
 
 			echo '<li>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo '<a ' . $this->render_attributes($link_key) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped

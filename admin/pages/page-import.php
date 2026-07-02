@@ -70,7 +70,7 @@ class AAB_Page_Importer {
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading URL parameter for view display only, not processing form data.
 		$class                     = ( isset( $_GET['aae-latest-import'] ) && $_GET['aae-latest-import'] === 'import' ) ? 'current' : '';
 		$url                       = add_query_arg( 'aae-latest-import', 'import', admin_url( 'edit.php?post_type=page' ) );
-		$views['latest-import']    = "<a href='" . esc_url( $url ) . "' class='" . esc_attr( $class ) . "' style='color: #fc6848; font-weight: 500'>" . esc_html__( 'AAB Imported', 'bricksfly' ) . " <span class='count'>(" . (int) $count . ")</span></a>";
+		$views['latest-import']    = "<a href='" . esc_url( $url ) . "' class='" . esc_attr( $class ) . "' style='color: #fc6848; font-weight: 500'>" . esc_html__( 'AAB Imported', 'the-bricksfly' ) . " <span class='count'>(" . (int) $count . ")</span></a>";
 
 		return $views;
 	}
@@ -113,8 +113,8 @@ class AAB_Page_Importer {
 
 		add_submenu_page(
 			\AAB\Admin\Pages\AAB_Admin_Init::MENU_PAGE_SLUG,
-			__( 'Page Import', 'bricksfly' ),
-			__( 'Page Import', 'bricksfly' ),
+			__( 'Page Import', 'the-bricksfly' ),
+			__( 'Page Import', 'the-bricksfly' ),
 			'manage_options',
 			'bf-page-importer',
 			[ $this, 'page_html' ]

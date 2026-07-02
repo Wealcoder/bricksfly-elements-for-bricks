@@ -1,5 +1,5 @@
 {
-  "name": "bricks-animation-addons",
+  "name": "the-bricksfly",
   "version": "1.0.0",
   "description": "",
   "main": "vite.config.js",
@@ -112,14 +112,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Wealcoder/bricks-animation-addons.git"
+    "url": "git+https://github.com/Wealcoder/the-bricksfly.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/Wealcoder/bricks-animation-addons/issues"
+    "url": "https://github.com/Wealcoder/the-bricksfly/issues"
   },
-  "homepage": "https://github.com/Wealcoder/bricks-animation-addons#readme"
+  "homepage": "https://github.com/Wealcoder/the-bricksfly#readme"
 }

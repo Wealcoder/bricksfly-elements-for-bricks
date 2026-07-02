@@ -11,7 +11,7 @@ class AAB_Bricks_Image_Accordion extends \Bricks\Element {
 	public $scripts      = [ 'aabImageAccordion' ];
 
 	public function get_label() {
-		return esc_html__('Image Accordion', 'bricksfly');
+		return esc_html__('Image Accordion', 'the-bricksfly');
 	}
 
 	public function get_keywords() {
@@ -37,42 +37,42 @@ class AAB_Bricks_Image_Accordion extends \Bricks\Element {
 
 	public function set_control_groups() {
 		$this->control_groups['accordion_items'] = [
-			'title' => esc_html__('Accordion Items', 'bricksfly'),
+			'title' => esc_html__('Accordion Items', 'the-bricksfly'),
 			'tab'   => 'content',
 		];
 
 		$this->control_groups['settings'] = [
-			'title' => esc_html__('Settings', 'bricksfly'),
+			'title' => esc_html__('Settings', 'the-bricksfly'),
 			'tab'   => 'content',
 		];
 
 		$this->control_groups['button'] = [
-			'title' => esc_html__('Button', 'bricksfly'),
+			'title' => esc_html__('Button', 'the-bricksfly'),
 			'tab'   => 'content',
 		];
 
 		$this->control_groups['content_style'] = [
-			'title' => esc_html__('Content', 'bricksfly'),
+			'title' => esc_html__('Content', 'the-bricksfly'),
 			'tab'   => 'style',
 		];
 
 		$this->control_groups['title_style'] = [
-			'title' => esc_html__('Title', 'bricksfly'),
+			'title' => esc_html__('Title', 'the-bricksfly'),
 			'tab'   => 'style',
 		];
 
 		$this->control_groups['subtitle_style'] = [
-			'title' => esc_html__('Sub Title', 'bricksfly'),
+			'title' => esc_html__('Sub Title', 'the-bricksfly'),
 			'tab'   => 'style',
 		];
 
 		$this->control_groups['desc_style'] = [
-			'title' => esc_html__('Description', 'bricksfly'),
+			'title' => esc_html__('Description', 'the-bricksfly'),
 			'tab'   => 'style',
 		];
 
 		$this->control_groups['button_style'] = [
-			'title' => esc_html__('Button', 'bricksfly'),
+			'title' => esc_html__('Button', 'the-bricksfly'),
 			'tab'   => 'style',
 		];
 	}
@@ -84,59 +84,59 @@ class AAB_Bricks_Image_Accordion extends \Bricks\Element {
 		$this->controls['items'] = [
 			'tab'           => 'content',
 			'group'         => 'accordion_items',
-			'label'         => esc_html__( 'Items', 'bricksfly' ),
+			'label'         => esc_html__( 'Items', 'the-bricksfly' ),
 			'type'          => 'repeater',
 			'titleProperty' => 'title',
 			'fields'        => [
 				'image' => [
-					'label' => esc_html__( 'Image', 'bricksfly' ),
+					'label' => esc_html__( 'Image', 'the-bricksfly' ),
 					'type'  => 'image',
 				],
 				'title' => [
-					'label'   => esc_html__( 'Title', 'bricksfly' ),
+					'label'   => esc_html__( 'Title', 'the-bricksfly' ),
 					'type'    => 'text',
-					'default' => esc_html__( 'Siyantika Glory', 'bricksfly' ),
+					'default' => esc_html__( 'Siyantika Glory', 'the-bricksfly' ),
 				],
 				'subtitle' => [
-					'label'   => esc_html__( 'Sub Title', 'bricksfly' ),
+					'label'   => esc_html__( 'Sub Title', 'the-bricksfly' ),
 					'type'    => 'text',
-					'default' => esc_html__( 'Modelling - 2012', 'bricksfly' ),
+					'default' => esc_html__( 'Modelling - 2012', 'the-bricksfly' ),
 				],
 				'description' => [
-					'label'   => esc_html__( 'Description', 'bricksfly' ),
+					'label'   => esc_html__( 'Description', 'the-bricksfly' ),
 					'type'    => 'textarea',
-					'default' => esc_html__( 'Hatha yoga built on a harmonious balance between body strength and softness', 'bricksfly' ),
+					'default' => esc_html__( 'Hatha yoga built on a harmonious balance between body strength and softness', 'the-bricksfly' ),
 				],
 				'link' => [
-					'label' => esc_html__( 'Link', 'bricksfly' ),
+					'label' => esc_html__( 'Link', 'the-bricksfly' ),
 					'type'  => 'link',
 				],
 			],
 			'default' => [
 				[
-					'title'       => esc_html__( 'Siyantika Glory', 'bricksfly' ),
-					'subtitle'    => esc_html__( 'Modelling - 2012', 'bricksfly' ),
-					'description' => esc_html__( 'Hatha yoga built on a harmonious balance between body strength and softness', 'bricksfly' ),
+					'title'       => esc_html__( 'Siyantika Glory', 'the-bricksfly' ),
+					'subtitle'    => esc_html__( 'Modelling - 2012', 'the-bricksfly' ),
+					'description' => esc_html__( 'Hatha yoga built on a harmonious balance between body strength and softness', 'the-bricksfly' ),
 				],
 				[
-					'title'       => esc_html__( 'Siyantika Glory', 'bricksfly' ),
-					'subtitle'    => esc_html__( 'Modelling - 2012', 'bricksfly' ),
-					'description' => esc_html__( 'Hatha yoga built on a harmonious balance between body strength and softness', 'bricksfly' ),
+					'title'       => esc_html__( 'Siyantika Glory', 'the-bricksfly' ),
+					'subtitle'    => esc_html__( 'Modelling - 2012', 'the-bricksfly' ),
+					'description' => esc_html__( 'Hatha yoga built on a harmonious balance between body strength and softness', 'the-bricksfly' ),
 				],
 				[
-					'title'       => esc_html__( 'Siyantika Glory', 'bricksfly' ),
-					'subtitle'    => esc_html__( 'Modelling - 2012', 'bricksfly' ),
-					'description' => esc_html__( 'Hatha yoga built on a harmonious balance between body strength and softness', 'bricksfly' ),
+					'title'       => esc_html__( 'Siyantika Glory', 'the-bricksfly' ),
+					'subtitle'    => esc_html__( 'Modelling - 2012', 'the-bricksfly' ),
+					'description' => esc_html__( 'Hatha yoga built on a harmonious balance between body strength and softness', 'the-bricksfly' ),
 				],
 				[
-					'title'       => esc_html__( 'Siyantika Glory', 'bricksfly' ),
-					'subtitle'    => esc_html__( 'Modelling - 2012', 'bricksfly' ),
-					'description' => esc_html__( 'Hatha yoga built on a harmonious balance between body strength and softness', 'bricksfly' ),
+					'title'       => esc_html__( 'Siyantika Glory', 'the-bricksfly' ),
+					'subtitle'    => esc_html__( 'Modelling - 2012', 'the-bricksfly' ),
+					'description' => esc_html__( 'Hatha yoga built on a harmonious balance between body strength and softness', 'the-bricksfly' ),
 				],
 				[
-					'title'       => esc_html__( 'Siyantika Glory', 'bricksfly' ),
-					'subtitle'    => esc_html__( 'Modelling - 2012', 'bricksfly' ),
-					'description' => esc_html__( 'Hatha yoga built on a harmonious balance between body strength and softness', 'bricksfly' ),
+					'title'       => esc_html__( 'Siyantika Glory', 'the-bricksfly' ),
+					'subtitle'    => esc_html__( 'Modelling - 2012', 'the-bricksfly' ),
+					'description' => esc_html__( 'Hatha yoga built on a harmonious balance between body strength and softness', 'the-bricksfly' ),
 				],
 			],
 		];
@@ -144,7 +144,7 @@ class AAB_Bricks_Image_Accordion extends \Bricks\Element {
 		$this->controls['imageSize'] = [
 			'tab'     => 'content',
 			'group'   => 'accordion_items',
-			'label'   => esc_html__( 'Image Size', 'bricksfly' ),
+			'label'   => esc_html__( 'Image Size', 'the-bricksfly' ),
 			'type'    => 'select',
 			'options' => $this->get_image_sizes(),
 			'default' => 'full',
@@ -155,7 +155,7 @@ class AAB_Bricks_Image_Accordion extends \Bricks\Element {
 		$this->controls['titleTag'] = [
 			'tab'     => 'content',
 			'group'   => 'settings',
-			'label'   => esc_html__( 'Title HTML Tag', 'bricksfly' ),
+			'label'   => esc_html__( 'Title HTML Tag', 'the-bricksfly' ),
 			'type'    => 'select',
 			'options' => [
 				'h1'   => 'H1',
@@ -175,11 +175,11 @@ class AAB_Bricks_Image_Accordion extends \Bricks\Element {
 		$this->controls['accordionLayout'] = [
 			'tab'     => 'content',
 			'group'   => 'settings',
-			'label'   => esc_html__( 'Layout', 'bricksfly' ),
+			'label'   => esc_html__( 'Layout', 'the-bricksfly' ),
 			'type'    => 'select',
 			'options' => [
-				'horizontal' => esc_html__( 'Horizontal', 'bricksfly' ),
-				'vertical'   => esc_html__( 'Vertical', 'bricksfly' ),
+				'horizontal' => esc_html__( 'Horizontal', 'the-bricksfly' ),
+				'vertical'   => esc_html__( 'Vertical', 'the-bricksfly' ),
 			],
 			'default' => 'horizontal',
 			'inline'  => true,
@@ -188,21 +188,21 @@ class AAB_Bricks_Image_Accordion extends \Bricks\Element {
 		$this->controls['mobileBreakpoint'] = [
 			'tab'         => 'content',
 			'group'       => 'settings',
-			'label'       => esc_html__( 'Stack Below (px)', 'bricksfly' ),
+			'label'       => esc_html__( 'Stack Below (px)', 'the-bricksfly' ),
 			'type'        => 'number',
 			'default'     => 768,
-			'description' => esc_html__( 'Horizontal layout stacks vertically below this width. Set 0 to disable.', 'bricksfly' ),
+			'description' => esc_html__( 'Horizontal layout stacks vertically below this width. Set 0 to disable.', 'the-bricksfly' ),
 			'required'    => [ 'accordionLayout', '=', 'horizontal' ],
 		];
 
 		$this->controls['expandStyle'] = [
 			'tab'     => 'content',
 			'group'   => 'settings',
-			'label'   => esc_html__( 'Expand On', 'bricksfly' ),
+			'label'   => esc_html__( 'Expand On', 'the-bricksfly' ),
 			'type'    => 'select',
 			'options' => [
-				'hover' => esc_html__( 'Hover', 'bricksfly' ),
-				'click' => esc_html__( 'Click', 'bricksfly' ),
+				'hover' => esc_html__( 'Hover', 'the-bricksfly' ),
+				'click' => esc_html__( 'Click', 'the-bricksfly' ),
 			],
 			'default' => 'hover',
 			'inline'  => true,
@@ -211,8 +211,8 @@ class AAB_Bricks_Image_Accordion extends \Bricks\Element {
 		$this->controls['defaultActiveItem'] = [
 			'tab'         => 'content',
 			'group'       => 'settings',
-			'label'       => esc_html__( 'Default Open Item', 'bricksfly' ),
-			'description' => esc_html__( '1-based index. Switch this in the builder to preview each item\'s expanded state while designing.', 'bricksfly' ),
+			'label'       => esc_html__( 'Default Open Item', 'the-bricksfly' ),
+			'description' => esc_html__( '1-based index. Switch this in the builder to preview each item\'s expanded state while designing.', 'the-bricksfly' ),
 			'type'        => 'number',
 			'default'     => 1,
 			'min'         => 1,
@@ -221,7 +221,7 @@ class AAB_Bricks_Image_Accordion extends \Bricks\Element {
 		$this->controls['accordionHeight'] = [
 			'tab'   => 'content',
 			'group' => 'settings',
-			'label' => esc_html__( 'Height', 'bricksfly' ),
+			'label' => esc_html__( 'Height', 'the-bricksfly' ),
 			'type'  => 'number',
 			'units' => [
 				'px' => [ 'min' => 0, 'max' => 1000, 'step' => 5 ],
@@ -239,7 +239,7 @@ class AAB_Bricks_Image_Accordion extends \Bricks\Element {
 		$this->controls['contentAlign'] = [
 			'tab'   => 'content',
 			'group' => 'settings',
-			'label' => esc_html__( 'Horizontal Align', 'bricksfly' ),
+			'label' => esc_html__( 'Horizontal Align', 'the-bricksfly' ),
 			'type'  => 'justify-content',
 			'css'   => [
 				[
@@ -252,7 +252,7 @@ class AAB_Bricks_Image_Accordion extends \Bricks\Element {
 		$this->controls['itemAlign'] = [
 			'tab'   => 'content',
 			'group' => 'settings',
-			'label' => esc_html__( 'Vertical Align', 'bricksfly' ),
+			'label' => esc_html__( 'Vertical Align', 'the-bricksfly' ),
 			'type'  => 'align-items',
 			'css'   => [
 				[
@@ -265,7 +265,7 @@ class AAB_Bricks_Image_Accordion extends \Bricks\Element {
 		$this->controls['textAlign'] = [
 			'tab'   => 'content',
 			'group' => 'settings',
-			'label' => esc_html__( 'Text Align', 'bricksfly' ),
+			'label' => esc_html__( 'Text Align', 'the-bricksfly' ),
 			'type'  => 'text-align',
 			'css'   => [
 				[
@@ -280,11 +280,11 @@ class AAB_Bricks_Image_Accordion extends \Bricks\Element {
 		$this->controls['linkType'] = [
 			'tab'     => 'content',
 			'group'   => 'button',
-			'label'   => esc_html__( 'Link Type', 'bricksfly' ),
+			'label'   => esc_html__( 'Link Type', 'the-bricksfly' ),
 			'type'    => 'select',
 			'options' => [
-				'none'   => esc_html__( 'None', 'bricksfly' ),
-				'button' => esc_html__( 'Button', 'bricksfly' ),
+				'none'   => esc_html__( 'None', 'the-bricksfly' ),
+				'button' => esc_html__( 'Button', 'the-bricksfly' ),
 			],
 			'default' => 'button',
 			'inline'  => true,
@@ -293,9 +293,9 @@ class AAB_Bricks_Image_Accordion extends \Bricks\Element {
 		$this->controls['btnText'] = [
 			'tab'      => 'content',
 			'group'    => 'button',
-			'label'    => esc_html__( 'Button Text', 'bricksfly' ),
+			'label'    => esc_html__( 'Button Text', 'the-bricksfly' ),
 			'type'     => 'text',
-			'default'  => esc_html__( 'Read More', 'bricksfly' ),
+			'default'  => esc_html__( 'Read More', 'the-bricksfly' ),
 			'required' => [ 'linkType', '=', 'button' ],
 		];
 
@@ -304,7 +304,7 @@ class AAB_Bricks_Image_Accordion extends \Bricks\Element {
 		$this->controls['overlayColor'] = [
 			'tab'   => 'style',
 			'group' => 'content_style',
-			'label' => esc_html__( 'Overlay Color', 'bricksfly' ),
+			'label' => esc_html__( 'Overlay Color', 'the-bricksfly' ),
 			'type'  => 'color',
 			'css'   => [
 				[
@@ -317,7 +317,7 @@ class AAB_Bricks_Image_Accordion extends \Bricks\Element {
 		$this->controls['contentPadding'] = [
 			'tab'   => 'style',
 			'group' => 'content_style',
-			'label' => esc_html__( 'Padding', 'bricksfly' ),
+			'label' => esc_html__( 'Padding', 'the-bricksfly' ),
 			'type'  => 'dimensions',
 			'css'   => [
 				[
@@ -332,7 +332,7 @@ class AAB_Bricks_Image_Accordion extends \Bricks\Element {
 		$this->controls['titleSpacing'] = [
 			'tab'   => 'style',
 			'group' => 'title_style',
-			'label' => esc_html__( 'Spacing', 'bricksfly' ),
+			'label' => esc_html__( 'Spacing', 'the-bricksfly' ),
 			'type'  => 'number',
 			'units' => [
 				'px' => [ 'min' => -200, 'max' => 200 ],
@@ -348,7 +348,7 @@ class AAB_Bricks_Image_Accordion extends \Bricks\Element {
 		$this->controls['titleColor'] = [
 			'tab'   => 'style',
 			'group' => 'title_style',
-			'label' => esc_html__( 'Color', 'bricksfly' ),
+			'label' => esc_html__( 'Color', 'the-bricksfly' ),
 			'type'  => 'color',
 			'css'   => [
 				[
@@ -361,7 +361,7 @@ class AAB_Bricks_Image_Accordion extends \Bricks\Element {
 		$this->controls['titleTypography'] = [
 			'tab'   => 'style',
 			'group' => 'title_style',
-			'label' => esc_html__( 'Typography', 'bricksfly' ),
+			'label' => esc_html__( 'Typography', 'the-bricksfly' ),
 			'type'  => 'typography',
 			'css'   => [
 				[
@@ -376,7 +376,7 @@ class AAB_Bricks_Image_Accordion extends \Bricks\Element {
 		$this->controls['subtitleSpacing'] = [
 			'tab'   => 'style',
 			'group' => 'subtitle_style',
-			'label' => esc_html__( 'Spacing', 'bricksfly' ),
+			'label' => esc_html__( 'Spacing', 'the-bricksfly' ),
 			'type'  => 'number',
 			'units' => [
 				'px' => [ 'min' => 0, 'max' => 200 ],
@@ -392,7 +392,7 @@ class AAB_Bricks_Image_Accordion extends \Bricks\Element {
 		$this->controls['subtitleColor'] = [
 			'tab'   => 'style',
 			'group' => 'subtitle_style',
-			'label' => esc_html__( 'Color', 'bricksfly' ),
+			'label' => esc_html__( 'Color', 'the-bricksfly' ),
 			'type'  => 'color',
 			'css'   => [
 				[
@@ -405,7 +405,7 @@ class AAB_Bricks_Image_Accordion extends \Bricks\Element {
 		$this->controls['subtitleTypography'] = [
 			'tab'   => 'style',
 			'group' => 'subtitle_style',
-			'label' => esc_html__( 'Typography', 'bricksfly' ),
+			'label' => esc_html__( 'Typography', 'the-bricksfly' ),
 			'type'  => 'typography',
 			'css'   => [
 				[
@@ -420,7 +420,7 @@ class AAB_Bricks_Image_Accordion extends \Bricks\Element {
 		$this->controls['descSpacing'] = [
 			'tab'   => 'style',
 			'group' => 'desc_style',
-			'label' => esc_html__( 'Spacing', 'bricksfly' ),
+			'label' => esc_html__( 'Spacing', 'the-bricksfly' ),
 			'type'  => 'number',
 			'units' => [
 				'px' => [ 'min' => 0, 'max' => 200 ],
@@ -436,7 +436,7 @@ class AAB_Bricks_Image_Accordion extends \Bricks\Element {
 		$this->controls['descColor'] = [
 			'tab'   => 'style',
 			'group' => 'desc_style',
-			'label' => esc_html__( 'Color', 'bricksfly' ),
+			'label' => esc_html__( 'Color', 'the-bricksfly' ),
 			'type'  => 'color',
 			'css'   => [
 				[
@@ -449,7 +449,7 @@ class AAB_Bricks_Image_Accordion extends \Bricks\Element {
 		$this->controls['descTypography'] = [
 			'tab'   => 'style',
 			'group' => 'desc_style',
-			'label' => esc_html__( 'Typography', 'bricksfly' ),
+			'label' => esc_html__( 'Typography', 'the-bricksfly' ),
 			'type'  => 'typography',
 			'css'   => [
 				[
@@ -464,7 +464,7 @@ class AAB_Bricks_Image_Accordion extends \Bricks\Element {
 		$this->controls['btnTypography'] = [
 			'tab'      => 'style',
 			'group'    => 'button_style',
-			'label'    => esc_html__( 'Typography', 'bricksfly' ),
+			'label'    => esc_html__( 'Typography', 'the-bricksfly' ),
 			'type'     => 'typography',
 			'css'      => [
 				[
@@ -478,7 +478,7 @@ class AAB_Bricks_Image_Accordion extends \Bricks\Element {
 		$this->controls['btnColor'] = [
 			'tab'      => 'style',
 			'group'    => 'button_style',
-			'label'    => esc_html__( 'Color', 'bricksfly' ),
+			'label'    => esc_html__( 'Color', 'the-bricksfly' ),
 			'type'     => 'color',
 			'css'      => [
 				[
@@ -492,7 +492,7 @@ class AAB_Bricks_Image_Accordion extends \Bricks\Element {
 		$this->controls['btnColorHover'] = [
 			'tab'      => 'style',
 			'group'    => 'button_style',
-			'label'    => esc_html__( 'Color (Hover)', 'bricksfly' ),
+			'label'    => esc_html__( 'Color (Hover)', 'the-bricksfly' ),
 			'type'     => 'color',
 			'css'      => [
 				[
@@ -506,7 +506,7 @@ class AAB_Bricks_Image_Accordion extends \Bricks\Element {
 		$this->controls['btnBackground'] = [
 			'tab'      => 'style',
 			'group'    => 'button_style',
-			'label'    => esc_html__( 'Background', 'bricksfly' ),
+			'label'    => esc_html__( 'Background', 'the-bricksfly' ),
 			'type'     => 'background',
 			'css'      => [
 				[
@@ -520,7 +520,7 @@ class AAB_Bricks_Image_Accordion extends \Bricks\Element {
 		$this->controls['btnBackgroundHover'] = [
 			'tab'      => 'style',
 			'group'    => 'button_style',
-			'label'    => esc_html__( 'Background (Hover)', 'bricksfly' ),
+			'label'    => esc_html__( 'Background (Hover)', 'the-bricksfly' ),
 			'type'     => 'background',
 			'css'      => [
 				[
@@ -534,7 +534,7 @@ class AAB_Bricks_Image_Accordion extends \Bricks\Element {
 		$this->controls['btnBorder'] = [
 			'tab'      => 'style',
 			'group'    => 'button_style',
-			'label'    => esc_html__( 'Border', 'bricksfly' ),
+			'label'    => esc_html__( 'Border', 'the-bricksfly' ),
 			'type'     => 'border',
 			'css'      => [
 				[
@@ -548,7 +548,7 @@ class AAB_Bricks_Image_Accordion extends \Bricks\Element {
 		$this->controls['btnPadding'] = [
 			'tab'      => 'style',
 			'group'    => 'button_style',
-			'label'    => esc_html__( 'Padding', 'bricksfly' ),
+			'label'    => esc_html__( 'Padding', 'the-bricksfly' ),
 			'type'     => 'dimensions',
 			'css'      => [
 				[
@@ -571,7 +571,7 @@ class AAB_Bricks_Image_Accordion extends \Bricks\Element {
 			$options[ $size ] = ucwords( str_replace( [ '-', '_' ], ' ', $size ) );
 		}
 
-		$options['full'] = esc_html__( 'Full', 'bricksfly' );
+		$options['full'] = esc_html__( 'Full', 'the-bricksfly' );
 
 		return $options;
 	}
@@ -586,7 +586,7 @@ class AAB_Bricks_Image_Accordion extends \Bricks\Element {
 		if ( empty( $items ) ) {
 			return $this->render_element_placeholder( [
 				'icon-class' => 'ti-layout-accordion-merged',
-				'text'       => esc_html__( 'No accordion items added.', 'bricksfly' ),
+				'text'       => esc_html__( 'No accordion items added.', 'the-bricksfly' ),
 			] );
 		}
 

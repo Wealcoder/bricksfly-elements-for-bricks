@@ -2,8 +2,8 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Bricks Animation addons 1.0.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bricks-animation-addons\n"
+"Project-Id-Version: The Bricksfly 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-bricksfly\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -12,7 +12,7 @@ msgstr ""
 "POT-Creation-Date: 2026-04-08T09:37:01+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
-"X-Domain: bricksfly\n"
+"X-Domain: the-bricksfly\n"
 
 #. Plugin Name of the plugin
 #: bricks-animation-addons.php:16

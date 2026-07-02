@@ -79,7 +79,7 @@ class Bricks_Theme_Dependency
 	{
 		$message = sprintf(
 			/* translators: %s: Plugin name */
-			esc_html__('Theme switch was cancelled. %s requires the Bricks theme to remain active. Please deactivate the plugin before switching to another theme.', 'bricksfly'),
+			esc_html__('Theme switch was cancelled. %s requires the Bricks theme to remain active. Please deactivate the plugin before switching to another theme.', 'the-bricksfly'),
 			'<strong>' . esc_html(self::PLUGIN_NAME) . '</strong>'
 		);
 ?>
@@ -96,19 +96,19 @@ class Bricks_Theme_Dependency
 				admin_url('themes.php?action=activate&stylesheet=' . self::THEME_SLUG),
 				'switch-theme_' . self::THEME_SLUG
 			);
-			$action_label = __('Activate Bricks', 'bricksfly');
+			$action_label = __('Activate Bricks', 'the-bricksfly');
 			$message      = sprintf(
 				/* translators: %s: Plugin name */
-				esc_html__('%s requires the Bricks theme to be active. Please activate it to use this plugin.', 'bricksfly'),
+				esc_html__('%s requires the Bricks theme to be active. Please activate it to use this plugin.', 'the-bricksfly'),
 				'<strong>' . esc_html(self::PLUGIN_NAME) . '</strong>'
 			);
 			$is_external = false;
 		} else {
 			$action_url   = self::BRICKS_URL;
-			$action_label = __('Get Bricks', 'bricksfly');
+			$action_label = __('Get Bricks', 'the-bricksfly');
 			$message      = sprintf(
 				/* translators: %s: Plugin name */
-				esc_html__('%s requires the Bricks theme. Please install and activate Bricks to use this plugin.', 'bricksfly'),
+				esc_html__('%s requires the Bricks theme. Please install and activate Bricks to use this plugin.', 'the-bricksfly'),
 				'<strong>' . esc_html(self::PLUGIN_NAME) . '</strong>'
 			);
 			$is_external = true;

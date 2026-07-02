@@ -15,7 +15,7 @@ class AAB_Bricks_Floating_Elements extends \Bricks\Element
 
 	public function get_label()
 	{
-		return esc_html__('Floating Elements', 'bricksfly');
+		return esc_html__('Floating Elements', 'the-bricksfly');
 	}
 
 	public function get_keywords()
@@ -48,7 +48,7 @@ class AAB_Bricks_Floating_Elements extends \Bricks\Element
 	public function set_control_groups()
 	{
 		$this->control_groups['elements'] = [
-			'title' => esc_html__('Elements', 'bricksfly'),
+			'title' => esc_html__('Elements', 'the-bricksfly'),
 			'tab'   => 'content',
 		];
 	}
@@ -171,7 +171,7 @@ class AAB_Bricks_Floating_Elements extends \Bricks\Element
 		$fields = [
 
 			'image' => [
-				'label' => esc_html__('Image', 'bricksfly'),
+				'label' => esc_html__('Image', 'the-bricksfly'),
 				'type'  => 'image',
 			],
 
@@ -179,7 +179,7 @@ class AAB_Bricks_Floating_Elements extends \Bricks\Element
 			// No 'css' array: changing this fires Bricks' full PHP re-render,
 			// which rebuilds the per-item <style> block in render_responsive_styles().
 			'size' => [
-				'label'      => esc_html__('Size', 'bricksfly'),
+				'label'      => esc_html__('Size', 'the-bricksfly'),
 				'type'       => 'number',
 				'units'      => true,
 				'responsive' => true,
@@ -188,18 +188,18 @@ class AAB_Bricks_Floating_Elements extends \Bricks\Element
 			// ── Horizontal offset ──────────────────────────────────────────────
 
 			'horizontalOrientation' => [
-				'label'   => esc_html__('Horizontal Orientation', 'bricksfly'),
+				'label'   => esc_html__('Horizontal Orientation', 'the-bricksfly'),
 				'type'    => 'select',
 				'inline'  => true,
 				'options' => [
-					'left'  => esc_html__('Left', 'bricksfly'),
-					'right' => esc_html__('Right', 'bricksfly'),
+					'left'  => esc_html__('Left', 'the-bricksfly'),
+					'right' => esc_html__('Right', 'the-bricksfly'),
 				],
 				'default' => 'left',
 			],
 
 			'offsetX' => [
-				'label'      => esc_html__('Offset', 'bricksfly'),
+				'label'      => esc_html__('Offset', 'the-bricksfly'),
 				'type'       => 'number',
 				'units'      => true,
 				'responsive' => true,
@@ -207,7 +207,7 @@ class AAB_Bricks_Floating_Elements extends \Bricks\Element
 			],
 
 			'offsetXEnd' => [
-				'label'      => esc_html__('Offset', 'bricksfly'),
+				'label'      => esc_html__('Offset', 'the-bricksfly'),
 				'type'       => 'number',
 				'units'      => true,
 				'responsive' => true,
@@ -217,18 +217,18 @@ class AAB_Bricks_Floating_Elements extends \Bricks\Element
 			// ── Vertical offset ────────────────────────────────────────────────
 
 			'verticalOrientation' => [
-				'label'   => esc_html__('Vertical Orientation', 'bricksfly'),
+				'label'   => esc_html__('Vertical Orientation', 'the-bricksfly'),
 				'type'    => 'select',
 				'inline'  => true,
 				'options' => [
-					'top'    => esc_html__('Top', 'bricksfly'),
-					'bottom' => esc_html__('Bottom', 'bricksfly'),
+					'top'    => esc_html__('Top', 'the-bricksfly'),
+					'bottom' => esc_html__('Bottom', 'the-bricksfly'),
 				],
 				'default' => 'top',
 			],
 
 			'offsetY' => [
-				'label'      => esc_html__('Offset', 'bricksfly'),
+				'label'      => esc_html__('Offset', 'the-bricksfly'),
 				'type'       => 'number',
 				'units'      => true,
 				'responsive' => true,
@@ -236,7 +236,7 @@ class AAB_Bricks_Floating_Elements extends \Bricks\Element
 			],
 
 			'offsetYEnd' => [
-				'label'      => esc_html__('Offset', 'bricksfly'),
+				'label'      => esc_html__('Offset', 'the-bricksfly'),
 				'type'       => 'number',
 				'units'      => true,
 				'responsive' => true,
@@ -244,21 +244,21 @@ class AAB_Bricks_Floating_Elements extends \Bricks\Element
 			],
 
 			'zIndex' => [
-				'label'   => esc_html__('Z-Index', 'bricksfly'),
+				'label'   => esc_html__('Z-Index', 'the-bricksfly'),
 				'type'    => 'number',
 				'default' => 1,
 			],
 
 			'liveAnimation' => [
-				'label'   => esc_html__('Live Animation', 'bricksfly'),
+				'label'   => esc_html__('Live Animation', 'the-bricksfly'),
 				'type'    => 'select',
 				'options' => [
-					''        => esc_html__('None', 'bricksfly'),
-					'float'   => esc_html__('Float Y', 'bricksfly'),
-					'float-x' => esc_html__('Float X', 'bricksfly'),
-					'spin'    => esc_html__('Spin', 'bricksfly'),
-					'scale'   => esc_html__('Scale', 'bricksfly'),
-					'wiggle'  => esc_html__('Wiggle', 'bricksfly'),
+					''        => esc_html__('None', 'the-bricksfly'),
+					'float'   => esc_html__('Float Y', 'the-bricksfly'),
+					'float-x' => esc_html__('Float X', 'the-bricksfly'),
+					'spin'    => esc_html__('Spin', 'the-bricksfly'),
+					'scale'   => esc_html__('Scale', 'the-bricksfly'),
+					'wiggle'  => esc_html__('Wiggle', 'the-bricksfly'),
 				],
 				'default' => '',
 			],
@@ -266,13 +266,13 @@ class AAB_Bricks_Floating_Elements extends \Bricks\Element
 			// ── Scroll Smoother ────────────────────────────────────────────────
 
 			'enableScrollSmoother' => [
-				'label'       => esc_html__('Enable Scroll Smoother', 'bricksfly'),
-				'description' => esc_html__('If you want to use scroll smooth, please enable global settings first', 'bricksfly'),
+				'label'       => esc_html__('Enable Scroll Smoother', 'the-bricksfly'),
+				'description' => esc_html__('If you want to use scroll smooth, please enable global settings first', 'the-bricksfly'),
 				'type'        => 'checkbox',
 			],
 
 			'dataSpeed' => [
-				'label'    => esc_html__('Data Speed', 'bricksfly'),
+				'label'    => esc_html__('Data Speed', 'the-bricksfly'),
 				'type'     => 'number',
 				'step'     => 0.1,
 				'default'  => 0.9,
@@ -280,7 +280,7 @@ class AAB_Bricks_Floating_Elements extends \Bricks\Element
 			],
 
 			'dataLag' => [
-				'label'    => esc_html__('Data Lag', 'bricksfly'),
+				'label'    => esc_html__('Data Lag', 'the-bricksfly'),
 				'type'     => 'number',
 				'step'     => 0.1,
 				'default'  => 0.5,
@@ -292,7 +292,7 @@ class AAB_Bricks_Floating_Elements extends \Bricks\Element
 		$this->controls['floating_items'] = [
 			'tab'     => 'content',
 			'group'   => 'elements',
-			'label'   => esc_html__('Elements', 'bricksfly'),
+			'label'   => esc_html__('Elements', 'the-bricksfly'),
 			'type'    => 'repeater',
 			'fields'  => $fields,
 			// Start with one item so the element renders a real (dummy) image on insert
@@ -322,7 +322,7 @@ class AAB_Bricks_Floating_Elements extends \Bricks\Element
 		if (empty($items)) {
 			return $this->render_element_placeholder([
 				'icon-class' => 'ti-layout-media-overlay',
-				'text'       => esc_html__('No floating elements added.', 'bricksfly'),
+				'text'       => esc_html__('No floating elements added.', 'the-bricksfly'),
 			]);
 		}
 
