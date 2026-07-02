@@ -53,7 +53,7 @@ class AAB_Admin_Init
 
 	public function __construct()
 	{
-		$this->plugin_file = WP_PLUGIN_DIR . '/bricksfly-pro/bricksfly-pro.php';
+		$this->plugin_file = WP_PLUGIN_DIR . '/the-bricksfly-pro/the-bricksfly-pro.php';
 
 		$this->remove_all_notices();
 		$this->include();
@@ -299,7 +299,7 @@ class AAB_Admin_Init
 		// License link — opens the React License dialog via ?bf-license=1.
 		// Registered via $submenu directly so the query string is preserved
 		// (add_submenu_page URL-encodes `&` in the slug, breaking the param).
-		if (is_plugin_active('bricksfly-pro/bricksfly-pro.php')) {
+		if (is_plugin_active('the-bricksfly-pro/the-bricksfly-pro.php')) {
 			$license_active = function_exists('aab_addons_sl_is_valid') && aab_addons_sl_is_valid();
 			$license_label  = esc_html__('License', 'the-bricksfly');
 			if ($license_active) {
@@ -454,7 +454,7 @@ class AAB_Admin_Init
 	 */
 	private function get_pro_dialog_copy($license_status, $license_key)
 	{
-		$pro_basename  = 'bricksfly-pro/bricksfly-pro.php';
+		$pro_basename  = 'the-bricksfly-pro/the-bricksfly-pro.php';
 		$pro_installed = file_exists(WP_PLUGIN_DIR . '/' . $pro_basename);
 		$pro_active    = (function_exists('aab_is_pro_active') && aab_is_pro_active());
 

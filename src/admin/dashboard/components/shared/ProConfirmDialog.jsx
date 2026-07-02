@@ -27,7 +27,7 @@ const ProConfirmDialog = ({ open, setOpen }) => {
 
       body: new URLSearchParams({
         action: "aab_active_plugin",
-        action_base: "bricksfly-pro/bricksfly-pro.php",
+        action_base: "the-bricksfly-pro/the-bricksfly-pro.php",
         nonce: AAB_ADDONS_ADMIN.nonce,
       }),
     })
@@ -70,7 +70,7 @@ const ProConfirmDialog = ({ open, setOpen }) => {
                 <span dir="ltr">Upgrade and get access to every feature.</span>
               </p>
 
-              {activated.integrations.plugins.elements["bricksfly-pro"]
+              {activated.integrations.plugins.elements["the-bricksfly-pro"]
                 .action === "Active" ? (
                 <Button
                   variant="pro"
@@ -82,7 +82,7 @@ const ProConfirmDialog = ({ open, setOpen }) => {
                   </span>
                   Active Plugin
                 </Button>
-              ) : activated.integrations.plugins.elements["bricksfly-pro"]
+              ) : activated.integrations.plugins.elements["the-bricksfly-pro"]
                   .action === "Download" ? (
                 <a
                   href="https://bricksfly.com/"

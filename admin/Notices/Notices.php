@@ -35,7 +35,7 @@ class Notices {
 	public function add_admin_notices() {
 		$installed_time = absint( get_option( 'aab_installed' ) );
 		$current_time   = absint( wp_date( 'U' ) );
-		$plugin_file    = WP_PLUGIN_DIR . '/bricksfly-pro/bricksfly-pro.php';
+		$plugin_file    = WP_PLUGIN_DIR . '/the-bricksfly-pro/the-bricksfly-pro.php';
 
 		if ( ! file_exists( $plugin_file ) ) {
 			// Add promotional notices here when needed.

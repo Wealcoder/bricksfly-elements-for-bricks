@@ -25,7 +25,7 @@ const GetProButton = ({ btnClassName, showLicense }) => {
 
       body: new URLSearchParams({
         action: "aab_active_plugin",
-        action_base: "bricksfly-pro/bricksfly-pro.php",
+        action_base: "the-bricksfly-pro/the-bricksfly-pro.php",
         nonce: AAB_ADDONS_ADMIN.nonce,
       }),
     })
@@ -45,7 +45,7 @@ const GetProButton = ({ btnClassName, showLicense }) => {
   return (
     <div>
       {role.includes("administrator") &&
-        (activated.integrations.plugins.elements["bricksfly-pro"].action ===
+        (activated.integrations.plugins.elements["the-bricksfly-pro"].action ===
         "Active" ? (
           <Button
             variant="pro"
@@ -57,7 +57,7 @@ const GetProButton = ({ btnClassName, showLicense }) => {
             </span>
             Active Plugin
           </Button>
-        ) : activated.integrations.plugins.elements["bricksfly-pro"].action ===
+        ) : activated.integrations.plugins.elements["the-bricksfly-pro"].action ===
           "Download" ? (
           <a
             href="https://bricksfly.com/"

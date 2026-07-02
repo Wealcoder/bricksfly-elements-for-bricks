@@ -315,7 +315,7 @@ if (! function_exists('aab_is_pro_active')) {
       include_once ABSPATH . 'wp-admin/includes/plugin.php';
     }
 
-    return is_plugin_active('bricksfly-pro/bricksfly-pro.php');
+    return is_plugin_active('the-bricksfly-pro/the-bricksfly-pro.php');
   }
 }
 
@@ -331,7 +331,7 @@ if (! function_exists('aab_is_pro_installed')) {
    */
   function aab_is_pro_installed()
   {
-    return file_exists(WP_PLUGIN_DIR . '/bricksfly-pro/bricksfly-pro.php');
+    return file_exists(WP_PLUGIN_DIR . '/the-bricksfly-pro/the-bricksfly-pro.php');
   }
 }
 

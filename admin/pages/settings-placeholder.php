@@ -18,7 +18,7 @@ class AAB_Settings_Placeholder
 	const MENU_PAGE_SLUG  = 'aab_addons_page';
 	const SETTINGS_SLUG   = 'bf-site-settings';
 	const MENU_CAPABILITY = 'manage_options';
-	const PRO_BASENAME    = 'bricksfly-pro/bricksfly-pro.php';
+	const PRO_BASENAME    = 'the-bricksfly-pro/the-bricksfly-pro.php';
 
 	private static ?self $_instance = null;
 
@@ -95,7 +95,7 @@ class AAB_Settings_Placeholder
 
 		$cta_url = $pro_active
 			? admin_url('admin.php?page=bf_addons_settings&bf-license=1')
-			: admin_url('plugin-install.php?s=bricksfly-pro&tab=search&type=term');
+			: admin_url('plugin-install.php?s=the-bricksfly-pro&tab=search&type=term');
 
 		$cta_label = $pro_active
 			? __('Activate License', 'the-bricksfly')

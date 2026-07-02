@@ -72,7 +72,7 @@ class AABAddon_Row_Actions {
 
 		$meta[] = '<a href="#/" target="_blank">' . esc_html__( 'Documentation', 'the-bricksfly' ) . '</a>';
 		$meta[] = '<a href="#" target="_blank">' . esc_html__( 'Support', 'the-bricksfly' ) . '</a>';
-		if ( ! file_exists( WP_PLUGIN_DIR . '/' . 'bricksfly-pro/bricksfly-pro.php' ) ) {
+		if ( ! file_exists( WP_PLUGIN_DIR . '/' . 'the-bricksfly-pro/the-bricksfly-pro.php' ) ) {
 			$meta[] = '<a href="https://bricksfly.com" style="color:#ff7a00; font-weight: bold;" target="_blank">' . esc_html__( 'Upgrade to Pro', 'the-bricksfly' ) . '</a>';
 		}
 		$meta[] = '<a href="https://wordpress.org/support/plugin/bricksfly/reviews/#new-post" target="_blank">' . esc_html__( ' Rate the plugin', 'the-bricksfly' ) . '</a>';

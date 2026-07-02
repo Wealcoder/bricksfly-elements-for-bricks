@@ -1191,13 +1191,13 @@ $config = array(
 		'plugins' => array(
 			'title'    => 'Plugins',
 			'elements' => array(
-				// The React bundle keys off "bricksfly-pro"
+				// The React bundle keys off "the-bricksfly-pro"
 				// when deciding which plugin counts as "the Pro". We keep that
 				// key for UI compatibility but point the basename at the
 				// Bricks Pro plugin so the detected state is correct.
-				'bricksfly-pro' => array(
+				'the-bricksfly-pro' => array(
 					'label'        => ' Pro',
-					'basename'     => 'bricksfly-pro/bricksfly-pro.php',
+					'basename'     => 'the-bricksfly-pro/the-bricksfly-pro.php',
 					'source'       => 'custom',
 					'is_pro'       => false,
 					'slug'         => '',
