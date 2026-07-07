@@ -1,4 +1,4 @@
-=== The Bricksfly ===
+=== The BricksFly – Bricks Elements, Bricks Templates & GSAP Animation ===
 Contributors: wealcoder, raselsec
 Tags: bricks, bricks builder, gsap, animation, templates
 Requires at least: 6.6
