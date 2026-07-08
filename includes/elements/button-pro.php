@@ -610,7 +610,7 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 			],
 			
 			'required' =>[
-							['btnStyle', '=', [ 'base-default', 'base-square', 'base-ellipse', 'pro-5','pro-6']],
+							['btnStyle', '=', [ 'base-default', 'base-square', 'base-ellipse','pro-3', 'pro-5','pro-6']],
 							['btnHoverVariant', '=', ['hover-none']],
 						],
 
