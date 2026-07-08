@@ -72,14 +72,14 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 				'base-oval'      => esc_html__('Oval', 'the-bricksfly'),
 				'base-circle'    => esc_html__('Circle', 'the-bricksfly'),
 				'base-ellipse'   => esc_html__('Ellipse', 'the-bricksfly'),
-				'pro-1'          => esc_html__('Pro 1 — Border Divide', 'the-bricksfly'),
-				'pro-2'          => esc_html__('Pro 2 — Shadow Offset', 'the-bricksfly'),
-				'pro-3'          => esc_html__('Pro 3 — Text Flip', 'the-bricksfly'),
-				'pro-4'          => esc_html__('Pro 4 — Radial Reveal', 'the-bricksfly'),
-				'pro-5'          => esc_html__('Pro 5 — Icon Swap L→R', 'the-bricksfly'),
-				'pro-6'          => esc_html__('Pro 6 — Icon Swap R→L', 'the-bricksfly'),
-				'pro-7'          => esc_html__('Pro 7 — Outline Pill', 'the-bricksfly'),
-				'pro-8'          => esc_html__('Pro 8 — Slide Reveal', 'the-bricksfly'),
+				'pro-1'          => esc_html__('Border Divide', 'the-bricksfly'),
+				'pro-2'          => esc_html__('Shadow Offset', 'the-bricksfly'),
+				'pro-3'          => esc_html__('Text Flip', 'the-bricksfly'),
+				'pro-4'          => esc_html__('Radial Reveal', 'the-bricksfly'),
+				'pro-5'          => esc_html__('Icon Swap L→R', 'the-bricksfly'),
+				'pro-6'          => esc_html__('Icon Swap R→L', 'the-bricksfly'),
+				'pro-7'          => esc_html__('Outline Pill', 'the-bricksfly'),
+				'pro-8'          => esc_html__('Slide Reveal', 'the-bricksfly'),
 			],
 			'default' => 'base-default',
 		];
@@ -137,6 +137,7 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 			'label'       => esc_html__('Circle Size', 'the-bricksfly'),
 			'type'        => 'number',
 			'units'       => true,
+			'default'     => '130px',
 			'breakpoints' => true,
 			'required'    => ['btnStyle', '=', 'base-circle'],
 			'css'         => [
@@ -419,28 +420,33 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 			],
 		];
 
-		// $this->controls['btnIconSizeWidth'] = [
-		// 	'tab'      => 'style',
-		// 	'group'    => 'button_style',
-		// 	'label'    => esc_html__('Icon Width', 'the-bricksfly'),
-		// 	'type'     => 'number',
-		// 	'units'    => true,
-		// 	'required' => ['btnStyle', '=', ['pro-5', 'pro-6']],
-		// 	'css'      => [
-		// 		[
-		// 			'property' => 'width',
-		// 			'selector' => '.g-btn-icon',
-		// 		],
-		// 		[
-		// 			'property' => 'height',
-		// 			'selector' => '.g-btn-icon',
-		// 		],
-		// 		[
-		// 			'property' => '--icon-width',
-		// 			'selector' => '.g-btn-icon',
-		// 		],
-		// 	],
-		// ];
+		// Icon container size for the icon-swap pill styles (Pro 5 / Pro 6). Sets
+		// the .g-btn-icon box (width + height for a square) and the --icon-width
+		// variable the swap animation reads for its slide-out margin, so the
+		// motion stays in sync with the box size.
+		$this->controls['btnIconContainerSize'] = [
+			'tab'      => 'style',
+			'group'    => 'button_style',
+			'label'    => esc_html__('Icon Container Size', 'the-bricksfly'),
+			'type'     => 'number',
+			'units'    => true,
+			'default'  => '60px',
+			'required' => ['btnStyle', '=', ['pro-5', 'pro-6']],
+			'css'      => [
+				[
+					'property' => 'width',
+					'selector' => '.g-btn-icon',
+				],
+				[
+					'property' => 'height',
+					'selector' => '.g-btn-icon',
+				],
+				[
+					'property' => '--icon-width',
+					'selector' => '.g-btn-icon',
+				],
+			],
+		];
 
 		$this->controls['btnGap'] = [
 			'tab'      => 'style',

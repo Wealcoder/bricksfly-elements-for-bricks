@@ -73,9 +73,19 @@ class AAB_Bricks_Brand_Slider extends \Bricks\Element
 			'required' => ['slideContent', '=', 'text'],
 		];
 
+		// Bricks' `required` evaluator supports only single-key conditions (AND
+		// across multiple, no `relation => or`), so navigation and pagination get
+		// their own groups, each gated on a single toggle.
 		$this->control_groups['nav_style'] = [
-			'title' => esc_html__('Navigation', 'the-bricksfly'),
-			'tab'   => 'content',
+			'title'    => esc_html__('Navigation', 'the-bricksfly'),
+			'tab'      => 'content',
+			'required' => ['showNavigation', '=', 'on'],
+		];
+
+		$this->control_groups['pagination_style'] = [
+			'title'    => esc_html__('Pagination', 'the-bricksfly'),
+			'tab'      => 'content',
+			'required' => ['showPagination', '=', 'on'],
 		];
 	}
 
@@ -481,7 +491,7 @@ class AAB_Bricks_Brand_Slider extends \Bricks\Element
 			'css'      => [
 				['property' => 'color', 'selector' => '.aab-arrow-prev, .aab-arrow-next'],
 			],
-			'required' => ['showNavigation', '!=', ''],
+			'required' => ['showNavigation', '=', 'on'],
 		];
 
 		$this->controls['navBg'] = [
@@ -492,7 +502,7 @@ class AAB_Bricks_Brand_Slider extends \Bricks\Element
 			'css'      => [
 				['property' => 'background-color', 'selector' => '.aab-arrow-prev, .aab-arrow-next'],
 			],
-			'required' => ['showNavigation', '!=', ''],
+			'required' => ['showNavigation', '=', 'on'],
 		];
 
 		$this->controls['navSize'] = [
@@ -505,7 +515,7 @@ class AAB_Bricks_Brand_Slider extends \Bricks\Element
 				['property' => 'width', 'selector' => '.aab-arrow-prev, .aab-arrow-next'],
 				['property' => 'height', 'selector' => '.aab-arrow-prev, .aab-arrow-next'],
 			],
-			'required' => ['showNavigation', '!=', ''],
+			'required' => ['showNavigation', '=', 'on'],
 		];
 
 		$this->controls['navBorder'] = [
@@ -516,7 +526,7 @@ class AAB_Bricks_Brand_Slider extends \Bricks\Element
 			'css'      => [
 				['property' => 'border', 'selector' => '.aab-arrow-prev, .aab-arrow-next'],
 			],
-			'required' => ['showNavigation', '!=', ''],
+			'required' => ['showNavigation', '=', 'on'],
 		];
 
 		// --- Arrow Position ---
@@ -526,7 +536,7 @@ class AAB_Bricks_Brand_Slider extends \Bricks\Element
 			'group'    => 'nav_style',
 			'label'    => esc_html__('Arrow Position', 'the-bricksfly'),
 			'type'     => 'separator',
-			'required' => ['showNavigation', '!=', ''],
+			'required' => ['showNavigation', '=', 'on'],
 		];
 
 		$this->controls['arrowHOffset'] = [
@@ -543,7 +553,7 @@ class AAB_Bricks_Brand_Slider extends \Bricks\Element
 				['property' => 'left',  'selector' => '.aab-arrow-prev'],
 				['property' => 'right', 'selector' => '.aab-arrow-next'],
 			],
-			'required'    => ['showNavigation', '!=', ''],
+			'required'    => ['showNavigation', '=', 'on'],
 		];
 
 		$this->controls['arrowVOffset'] = [
@@ -558,34 +568,34 @@ class AAB_Bricks_Brand_Slider extends \Bricks\Element
 			'css'      => [
 				['property' => 'top', 'selector' => '.aab-arrow-prev, .aab-arrow-next'],
 			],
-			'required' => ['showNavigation', '!=', ''],
+			'required' => ['showNavigation', '=', 'on'],
 		];
 
 		$this->controls['paginationColor'] = [
 			'tab'      => 'style',
-			'group'    => 'nav_style',
+			'group'    => 'pagination_style',
 			'label'    => esc_html__('Pagination Color', 'the-bricksfly'),
 			'type'     => 'color',
 			'css'      => [
 				['property' => 'background-color', 'selector' => '.swiper-pagination-bullet'],
 			],
-			'required' => ['showPagination', '!=', ''],
+			'required' => ['showPagination', '=', 'on'],
 		];
 
 		$this->controls['paginationActiveColor'] = [
 			'tab'      => 'style',
-			'group'    => 'nav_style',
+			'group'    => 'pagination_style',
 			'label'    => esc_html__('Pagination Active Color', 'the-bricksfly'),
 			'type'     => 'color',
 			'css'      => [
 				['property' => 'background-color', 'selector' => '.swiper-pagination-bullet-active'],
 			],
-			'required' => ['showPagination', '!=', ''],
+			'required' => ['showPagination', '=', 'on'],
 		];
 
 		$this->controls['paginationSize'] = [
 			'tab'      => 'style',
-			'group'    => 'nav_style',
+			'group'    => 'pagination_style',
 			'label'    => esc_html__('Pagination Dot Size', 'the-bricksfly'),
 			'type'     => 'number',
 			'units'    => ['px' => ['min' => 2, 'max' => 60]],
@@ -593,12 +603,12 @@ class AAB_Bricks_Brand_Slider extends \Bricks\Element
 				['property' => 'width',  'selector' => '.swiper-pagination-bullet'],
 				['property' => 'height', 'selector' => '.swiper-pagination-bullet'],
 			],
-			'required' => ['showPagination', '!=', ''],
+			'required' => ['showPagination', '=', 'on'],
 		];
 
 		$this->controls['paginationActiveSize'] = [
 			'tab'      => 'style',
-			'group'    => 'nav_style',
+			'group'    => 'pagination_style',
 			'label'    => esc_html__('Active Dot Size', 'the-bricksfly'),
 			'type'     => 'number',
 			'units'    => ['px' => ['min' => 2, 'max' => 80]],
@@ -606,12 +616,12 @@ class AAB_Bricks_Brand_Slider extends \Bricks\Element
 				['property' => 'width',  'selector' => '.swiper-pagination-bullet-active'],
 				['property' => 'height', 'selector' => '.swiper-pagination-bullet-active'],
 			],
-			'required' => ['showPagination', '!=', ''],
+			'required' => ['showPagination', '=', 'on'],
 		];
 
 		$this->controls['paginationAlign'] = [
 			'tab'      => 'style',
-			'group'    => 'nav_style',
+			'group'    => 'pagination_style',
 			'label'    => esc_html__('Pagination Alignment', 'the-bricksfly'),
 			'type'     => 'select',
 			'inline'   => true,
@@ -624,7 +634,7 @@ class AAB_Bricks_Brand_Slider extends \Bricks\Element
 			'css'      => [
 				['property' => 'justify-content', 'selector' => '.swiper-pagination-bullets'],
 			],
-			'required' => ['showPagination', '!=', ''],
+			'required' => ['showPagination', '=', 'on'],
 		];
 	}
 
