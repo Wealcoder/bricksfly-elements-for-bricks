@@ -131,6 +131,29 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 			],
 		];
 
+		$this->controls['btnCircleSize'] = [
+			'tab'   => 'content',
+			'group' => 'button',
+			'label'       => esc_html__('Circle Size', 'the-bricksfly'),
+			'type'        => 'number',
+			'units'       => true,
+			'breakpoints' => true,
+			'required'    => ['btnStyle', '=', 'base-circle'],
+			'css'         => [
+				// Override both width and the min-width default, so any value (even
+				// smaller than the 215px default) takes effect.
+				[
+					'property' => 'width',
+					'selector' => '.wcf-btn-circle',
+				],
+				[
+					'property' => 'height',
+					'selector' => '.wcf-btn-circle',
+				],
+			],
+		];
+
+
 
 		$this->controls['btnHoverVariant'] = [
 			'tab'      => 'content',

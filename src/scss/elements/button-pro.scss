@@ -578,12 +578,17 @@
 :where(.aae--btn-pro-wrapper) .btn-hover-bgchange span {
     position: absolute;
     content: "";
-    /* Sized as a % of the button itself (not a fixed 400px), so it scales with the
-       button when font-size grows. At rest scale(0); on hover it expands past √2×
-       each side (150% > 141%), guaranteeing the rounded fill covers the whole button
-       in both axes regardless of size or aspect ratio. */
-    width: 150%;
-    height: 150%;
+    /* Cursor-origin circular fill. JS sets left/top to the mouse position on
+       enter/leave; translate(-50%,-50%) centres the circle on that point and it
+       scales outward from there, so the reveal grows from where the cursor
+       enters. Sized at 300% of the button width (true circle via aspect-ratio)
+       so its radius (150% of the width) always exceeds the full diagonal of the
+       circle and oval shapes — guaranteeing full coverage even when entering at
+       a corner. overflow:hidden on the button clips the excess. */
+    width: 300%;
+    aspect-ratio: 1 / 1;
+    height: auto;
+    /* Default origin before the pointer moves; JS overrides with the real point. */
     left: 50%;
     top: 50%;
     z-index: -1;
