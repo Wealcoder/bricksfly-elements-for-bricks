@@ -133,7 +133,12 @@ class AAB_Builder_Template_Library {
 				'config'          => apply_filters(
 					'aab_builder_template_library_config',
 					[
-						'wcf_valid' => $license_valid,
+						'wcf_valid'      => $license_valid,
+						// Section import is gated by this flag (also enforced
+						// server-side in ajax_insert_template()). The JS uses it
+						// to show an upsell popup before the request is sent.
+						'section_import' => function_exists( 'aab_is_feature_allowed' ) && aab_is_feature_allowed( 'section_import' ),
+						'limitations'    => function_exists( 'aab_get_license_limitations' ) ? aab_get_license_limitations() : [],
 					]
 				),
 				'i18n'            => [
@@ -144,6 +149,8 @@ class AAB_Builder_Template_Library {
 					'go_premium'      => esc_html__( 'Go Premium', 'the-bricksfly' ),
 					'activate'        => esc_html__( 'Activate License', 'the-bricksfly' ),
 					'install_pro'     => esc_html__( 'Install Pro', 'the-bricksfly' ),
+					'upgrade_plan'    => esc_html__( 'Upgrade Plan', 'the-bricksfly' ),
+					'section_locked'  => esc_html__( 'Section import is not included in your current license plan. Please upgrade your plan to import sections.', 'the-bricksfly' ),
 					'search'          => esc_html__( 'Search', 'the-bricksfly' ),
 					'category'        => esc_html__( 'Category', 'the-bricksfly' ),
 					'all_colors'      => esc_html__( 'All', 'the-bricksfly' ),
@@ -212,6 +219,22 @@ class AAB_Builder_Template_Library {
 
 		if ( ! $post_id || ! current_user_can( 'edit_post', $post_id ) ) {
 			wp_send_json_error( [ 'message' => __( 'Permission denied for this post.', 'the-bricksfly' ) ], 403 );
+		}
+
+		// License limitation gate — Section import requires the `section_import`
+		// flag on the active license. Enforced server-side so the client lock
+		// (AAB_TEMPLATE_LIBRARY.config.section_import) can't be bypassed by a
+		// forged AJAX call. `limited:true` lets the JS show the upsell popup.
+		if ( function_exists( 'aab_is_feature_allowed' ) && ! aab_is_feature_allowed( 'section_import' ) ) {
+			$message = function_exists( 'aab_feature_denied_message' )
+				? aab_feature_denied_message( 'section_import' )
+				: __( 'Section import is not included in your current license plan.', 'the-bricksfly' );
+
+			wp_send_json_error( [
+				'limited' => true,
+				'feature' => 'section_import',
+				'message' => $message,
+			], 403 );
 		}
 
 		$template_id = isset( $_POST['template_id'] ) ? absint( $_POST['template_id'] ) : 0;

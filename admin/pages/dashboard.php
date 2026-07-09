@@ -401,11 +401,21 @@ class AAB_Admin_Init
 		// to "Deactivate License" and to pick the deactivate AJAX action. We send 13
 		// when the license is valid so the bundled UI recognises the activated state —
 		// the actual EDD API request uses our real item ID (AAB_ADDON_PRO_ITEM_ID).
+		// Per-feature license limitations (Template / Section / Page import etc.).
+		// Empty array when the license isn't valid — the React import gate treats
+		// a missing/false flag as "not allowed" and shows the upsell popup.
+		$aab_limitations = function_exists('aab_get_license_limitations') ? aab_get_license_limitations() : array();
+
 		$addons_config['product_status'] = [
 			'item_id'      => $aab_license_valid ? 13 : 0,
 			'status'       => $aab_license_status,
 			'real_item_id' => AAB_ADDON_PRO_ITEM_ID,
+			'limitations'  => $aab_limitations,
 		];
+
+		// Also expose at the top level so components that read the config
+		// directly (not via product_status) can reach it.
+		$addons_config['limitations'] = $aab_limitations;
 
 		$localize_data = array(
 			'ajaxurl'             => admin_url('admin-ajax.php'),

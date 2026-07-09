@@ -181,11 +181,18 @@ class AAB_Page_Importer {
 		// The compiled React UI unlocks Pro items on `product_status.item_id === 13`.
 		// Send 13 only when the license is valid (mirrors the Dashboard); the real
 		// EDD item id is carried separately for the actual API verification flow.
+		// Per-feature license limitations — same single source of truth as the
+		// Dashboard so the Page Importer's Pro gate reads identical state.
+		$limitations = function_exists( 'aab_get_license_limitations' ) ? aab_get_license_limitations() : array();
+
 		$addons_config['product_status'] = [
 			'item_id'      => $license_valid ? 13 : 0,
 			'status'       => $license_status,
 			'real_item_id' => defined( 'AAB_ADDON_PRO_ITEM_ID' ) ? AAB_ADDON_PRO_ITEM_ID : 0,
+			'limitations'  => $limitations,
 		];
+
+		$addons_config['limitations'] = $limitations;
 
 		$localize_data = [
 			'plugin_url'         => AAB_ADDONS_URL,
