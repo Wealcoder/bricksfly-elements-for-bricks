@@ -565,7 +565,7 @@ $aabaddons_config = array(
 						),
 						'is_active'    => false,
 						'is_pro'       => true,
-						'is_extension' => true,
+						'is_extension' => false,
 						'is_upcoming'  => false,
 						'keywords'     => array(
 							'video lightbox',
@@ -594,7 +594,7 @@ $aabaddons_config = array(
 						),
 						'is_active'    => false,
 						'is_pro'       => false,
-						'is_extension' => true,
+						'is_extension' => false,
 						'is_upcoming'  => false,
 						'keywords'     => array(
 							'video embed',
@@ -622,7 +622,7 @@ $aabaddons_config = array(
 						),
 						'is_active'    => false,
 						'is_pro'       => false,
-						'is_extension' => true,
+						'is_extension' => false,
 						'is_upcoming'  => false,
 						'keywords'     => array(
 							'masked video',
@@ -650,7 +650,7 @@ $aabaddons_config = array(
 						),
 						'is_active'    => false,
 						'is_pro'       => true,
-						'is_extension' => true,
+						'is_extension' => false,
 						'is_upcoming'  => false,
 						'keywords'     => array(
 							'youtube embed',
@@ -679,7 +679,7 @@ $aabaddons_config = array(
 						),
 						'is_active'    => false,
 						'is_pro'       => false,
-						'is_extension' => true,
+						'is_extension' => false,
 						'is_upcoming'  => false,
 						'keywords'     => array(
 							'Video Story',
@@ -730,7 +730,7 @@ $aabaddons_config = array(
 						),
 						'is_active'    => false,
 						'is_pro'       => false,
-						'is_extension' => true,
+						'is_extension' => false,
 						'is_upcoming'  => false,
 						'keywords'     => array(
 							'video slider',
