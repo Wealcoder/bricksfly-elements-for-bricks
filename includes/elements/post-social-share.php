@@ -686,7 +686,7 @@ class AAB_Bricks_Post_Social_Share extends \Bricks\Element {
 		$show_separator = ! empty( $settings['showSeparator'] );
 
 		$post_id        = get_the_ID();
-		$current_shares = $show_count ? get_post_meta( $post_id, 'aae_post_shares', true ) : [];
+		$current_shares = $show_count ? get_post_meta( $post_id, 'aab_post_shares', true ) : [];
 
 		$this->set_attribute( '_root', 'class', [ 'aab-social-share', 'aab-share-' . $style ] );
 

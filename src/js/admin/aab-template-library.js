@@ -445,7 +445,7 @@ import "../../scss/admin/aab-template-library.scss";
 	 * proper boolean (the legacy API used strings, so accept both).
 	 */
 	function validateTemplates(list) {
-		var configValid = !!(CFG.config && CFG.config.wcf_valid);
+		var configValid = !!(CFG.config && CFG.config.aab_valid);
 		return list.map(function (item) {
 			var isPro = item.is_pro === true || String(item.is_pro) === '1';
 			if (configValid || !isPro) {
@@ -492,7 +492,7 @@ import "../../scss/admin/aab-template-library.scss";
 				'<a class="aab-tl-card__pro" href="https://animation-addons.com" target="_blank" rel="noopener">' +
 					escapeHtml(I18N.go_premium || 'Go Premium') +
 				'</a>';
-		} else if (CFG.pro_installed && CFG.pro_active && !(CFG.config && CFG.config.wcf_valid)) {
+		} else if (CFG.pro_installed && CFG.pro_active && !(CFG.config && CFG.config.aab_valid)) {
 			actionBtn =
 				'<a class="aab-tl-card__pro" href="' + escapeAttr(CFG.dashboard_link) + '" target="_blank" rel="noopener">' +
 					escapeHtml(I18N.activate || 'Activate License') +

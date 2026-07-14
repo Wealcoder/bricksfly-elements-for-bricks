@@ -1,6 +1,6 @@
 <?php
 
-namespace AAB\Admin\Base;
+namespace AABAddons\Admin\Base;
 
 use WP_Error;
 use XMLReader;
@@ -66,7 +66,9 @@ class AABImporter extends WXRImporter {
 
 				register_taxonomy(
 					$data['taxonomy'],
+					// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WooCommerce taxonomy API hook.
 					apply_filters( 'woocommerce_taxonomy_objects_' . $data['taxonomy'], array( 'product' ) ),
+					// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WooCommerce taxonomy API hook.
 					apply_filters( 'woocommerce_taxonomy_args_' . $data['taxonomy'], array(
 						'hierarchical' => true,
 						'show_ui'      => false,

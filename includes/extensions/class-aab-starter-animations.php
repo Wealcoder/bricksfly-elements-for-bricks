@@ -12,9 +12,9 @@
  * @package Bricks_Animation_Addons
  */
 
-namespace AAB\Includes\Extensions;
+namespace AABAddons\Includes\Extensions;
 
-use AAB\Includes\Extensions\Helpers\Label_Name_Helper;
+use AABAddons\Includes\Extensions\Helpers\Label_Name_Helper;
 
 if (! defined('ABSPATH')) {
 	exit;
@@ -1042,7 +1042,7 @@ public function apply_render_classes($attributes, $key, $element)
 
 	public function enqueue_assets()
 	{
-		$css_path = AAB_ADDONS_PATH . 'public/build/extensions/starter-animations.css';
+		$css_path = AAB_ADDONS_PATH . 'public/build/extensions/starter-animations-client.css';
 		$css_ver  = file_exists($css_path) ? filemtime($css_path) : AAB_ADDONS_VERSION;
 
 		// Animation CSS is needed in every context.

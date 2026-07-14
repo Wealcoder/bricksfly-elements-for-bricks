@@ -1,4 +1,4 @@
-const isValid = AAB_ADDONS_ADMIN.addons_config.wcf_valid;
+const isValid = AAB_ADDONS_ADMIN.addons_config.aab_valid;
 const isOnlyPro =
   AAB_ADDONS_ADMIN.addons_config?.product_status?.item_id === 13;
 

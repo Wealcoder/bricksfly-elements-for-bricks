@@ -1,6 +1,6 @@
 <?php
 
-namespace AAB\Admin;
+namespace AABAddons\Admin;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -58,7 +58,7 @@ class CPT_Builder {
 	public function __construct() {
 		add_action( 'admin_menu', [ $this, 'register_sub_menu' ], 30 );
 		add_action( 'admin_enqueue_scripts', [ $this, 'admin_scripts' ] );
-		add_action( 'wp_ajax_save_global_settings', [ $this, 'save_global_settings' ] );
+		add_action( 'wp_ajax_aab_save_global_settings', [ $this, 'save_global_settings' ] );
 		add_action( 'wp_ajax_aab_add_or_update_new_post_type_builder', [ $this, 'aab_add_or_update' ] );
 		add_action( 'wp_ajax_aab_delete_post_type_builder', [ $this, 'aab_delete_post_type' ] );
 		add_action( 'wp_ajax_aab_post_type_builder_list', [ $this, 'aab_list' ] );
@@ -414,7 +414,7 @@ class CPT_Builder {
 	}
 
 	public function save_global_settings() {
-		check_ajax_referer( 'wcf_admin_nonce', 'nonce' );
+		check_ajax_referer( 'aab_admin_nonce', 'nonce' );
 
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( esc_html__( 'You are not allowed to perform this action.', 'the-bricksfly' ) );
@@ -456,7 +456,7 @@ class CPT_Builder {
 	}
 
 	public function aab_add_or_update() {
-		check_ajax_referer( 'wcf_admin_nonce', 'nonce' );
+		check_ajax_referer( 'aab_admin_nonce', 'nonce' );
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( esc_html__( 'You are not allowed to perform this action.', 'the-bricksfly' ) );
 		}
@@ -493,7 +493,7 @@ class CPT_Builder {
 	}
 
 	public function aab_delete_post_type() {
-		check_ajax_referer( 'wcf_admin_nonce', 'nonce' );
+		check_ajax_referer( 'aab_admin_nonce', 'nonce' );
 
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( esc_html__( 'You are not allowed to perform this action.', 'the-bricksfly' ) );
@@ -511,8 +511,8 @@ class CPT_Builder {
 	}
 
 	public function aab_list() {
-		$nonce = isset( $_REQUEST['wcf_nonce'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['wcf_nonce'] ) ) : null;
-		if ( ! wp_verify_nonce( $nonce, 'wcf_admin_nonce' ) ) {
+		$nonce = isset( $_REQUEST['aab_nonce'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['aab_nonce'] ) ) : null;
+		if ( ! wp_verify_nonce( $nonce, 'aab_admin_nonce' ) ) {
 			wp_send_json_error( esc_html__( 'Invalid nonce', 'the-bricksfly' ) );
 		}
 
@@ -525,7 +525,7 @@ class CPT_Builder {
 	}
 
 	public function aab_single_item() {
-		check_ajax_referer( 'wcf_admin_nonce', 'nonce' );
+		check_ajax_referer( 'aab_admin_nonce', 'nonce' );
 
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( esc_html__( 'You are not allowed to perform this action.', 'the-bricksfly' ) );
@@ -541,7 +541,7 @@ class CPT_Builder {
 	}
 
 	public function post_type_exist() {
-		check_ajax_referer( 'wcf_admin_nonce', 'nonce' );
+		check_ajax_referer( 'aab_admin_nonce', 'nonce' );
 
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( esc_html__( 'You are not allowed to perform this action.', 'the-bricksfly' ) );
@@ -553,7 +553,7 @@ class CPT_Builder {
 	}
 
 	public function aab_add_or_update_taxonomy() {
-		check_ajax_referer( 'wcf_admin_nonce', 'nonce' );
+		check_ajax_referer( 'aab_admin_nonce', 'nonce' );
 
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( esc_html__( 'You are not allowed to perform this action.', 'the-bricksfly' ) );
@@ -590,7 +590,7 @@ class CPT_Builder {
 	}
 
 	public function aab_delete_taxonomy() {
-		check_ajax_referer( 'wcf_admin_nonce', 'nonce' );
+		check_ajax_referer( 'aab_admin_nonce', 'nonce' );
 
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( esc_html__( 'You are not allowed to perform this action.', 'the-bricksfly' ) );
@@ -607,8 +607,8 @@ class CPT_Builder {
 	}
 
 	public function aab_taxonomy_list() {
-		$nonce = isset( $_REQUEST['wcf_nonce'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['wcf_nonce'] ) ) : null;
-		if ( ! wp_verify_nonce( $nonce, 'wcf_admin_nonce' ) ) {
+		$nonce = isset( $_REQUEST['aab_nonce'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['aab_nonce'] ) ) : null;
+		if ( ! wp_verify_nonce( $nonce, 'aab_admin_nonce' ) ) {
 			wp_send_json_error( esc_html__( 'Invalid nonce', 'the-bricksfly' ) );
 		}
 
@@ -620,7 +620,7 @@ class CPT_Builder {
 	}
 
 	public function aab_taxonomy_single_item() {
-		check_ajax_referer( 'wcf_admin_nonce', 'nonce' );
+		check_ajax_referer( 'aab_admin_nonce', 'nonce' );
 
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( esc_html__( 'You are not allowed to perform this action.', 'the-bricksfly' ) );
@@ -653,7 +653,7 @@ class CPT_Builder {
 	}
 
 	public function taxonomy_exist() {
-		check_ajax_referer( 'wcf_admin_nonce', 'nonce' );
+		check_ajax_referer( 'aab_admin_nonce', 'nonce' );
 
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( esc_html__( 'You are not allowed to perform this action.', 'the-bricksfly' ) );
@@ -687,7 +687,7 @@ class CPT_Builder {
 
 		wp_localize_script( 'aab-cpt-builder', 'AAB_ADDONS_ADMIN', [
 			'ajaxurl' => admin_url( 'admin-ajax.php' ),
-			'nonce'   => wp_create_nonce( 'wcf_admin_nonce' ),
+			'nonce'   => wp_create_nonce( 'aab_admin_nonce' ),
 		] );
 	}
 }

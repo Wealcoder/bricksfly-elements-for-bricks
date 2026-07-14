@@ -2,7 +2,7 @@
 
 if (! defined('ABSPATH')) exit;
 
-use AAB\Includes\Extensions\Helpers\ResponsiveHelper;
+use AABAddons\Includes\Extensions\Helpers\ResponsiveHelper;
 
 class AAB_Bricks_Floating_Elements extends \Bricks\Element
 {
@@ -32,6 +32,8 @@ class AAB_Bricks_Floating_Elements extends \Bricks\Element
 			[],
 			'1.0.0'
 		);
+
+		$this->enqueue_responsive_styles();
 
 
 		if (bricks_is_builder()) {
@@ -70,7 +72,7 @@ class AAB_Bricks_Floating_Elements extends \Bricks\Element
 	}
 
 	/**
-	 * Build a <style> block for a single floating-element item.
+	 * Build responsive CSS for a single floating-element item.
 	 *
 	 * Uses ResponsiveHelper::normalize() to read all breakpoint values from
 	 * the repeater item array (Bricks stores them as "fieldKey:bp_key"),
@@ -88,7 +90,7 @@ class AAB_Bricks_Floating_Elements extends \Bricks\Element
 	 * @param string $h_orient      'left' | 'right'
 	 * @param string $v_orient      'top'  | 'bottom'
 	 */
-	private function render_responsive_styles(
+	private function get_responsive_css(
 		string $uid_selector,
 		array  $item,
 		string $h_orient,
@@ -163,7 +165,31 @@ class AAB_Bricks_Floating_Elements extends \Bricks\Element
 			}
 		}
 
-		return '<style>' . implode('', $rules) . '</style>';
+		return implode('', $rules);
+	}
+
+	/**
+	 * Add instance-specific responsive rules through WordPress' style API.
+	 */
+	private function enqueue_responsive_styles(): void
+	{
+		$items = ! empty($this->settings['floating_items']) ? $this->settings['floating_items'] : [];
+
+		if (empty($items)) {
+			return;
+		}
+
+		$css = '';
+		foreach ($items as $index => $item) {
+			$h_orient   = ! empty($item['horizontalOrientation']) ? $item['horizontalOrientation'] : 'left';
+			$v_orient   = ! empty($item['verticalOrientation']) ? $item['verticalOrientation'] : 'top';
+			$item_class = 'aab-fe-' . sanitize_html_class($this->id) . '-' . $index;
+			$css       .= $this->get_responsive_css('.' . $item_class, $item, $h_orient, $v_orient);
+		}
+
+		if ($css !== '') {
+			wp_add_inline_style('aab-floating-elements', $css);
+		}
 	}
 
 	public function set_controls()
@@ -177,7 +203,7 @@ class AAB_Bricks_Floating_Elements extends \Bricks\Element
 
 			// ── Size (responsive) ──────────────────────────────────────────────
 			// No 'css' array: changing this fires Bricks' full PHP re-render,
-			// which rebuilds the per-item <style> block in render_responsive_styles().
+			// which rebuilds the per-item rules in enqueue_responsive_styles().
 			'size' => [
 				'label'      => esc_html__('Size', 'the-bricksfly'),
 				'type'       => 'number',
@@ -336,9 +362,8 @@ class AAB_Bricks_Floating_Elements extends \Bricks\Element
 			$v_orient = ! empty($item['verticalOrientation'])   ? $item['verticalOrientation']   : 'top';
 			$anim     = ! empty($item['liveAnimation'])         ? $item['liveAnimation']         : '';
 
-			// Unique class used as the CSS selector target in the <style> block.
-			$item_class   = 'aab-fe-' . sanitize_html_class($element_id) . '-' . $index;
-			$uid_selector = '.' . $item_class;
+			// Unique class used as the responsive CSS selector target.
+			$item_class = 'aab-fe-' . sanitize_html_class($element_id) . '-' . $index;
 
 			$classes   = ['floating-element', $item_class];
 			$classes[] = $h_orient === 'right'  ? 'h-right'  : 'h-left';
@@ -349,14 +374,11 @@ class AAB_Bricks_Floating_Elements extends \Bricks\Element
 			}
 
 			// Only z-index goes in the inline style — all responsive values
-			// are handled by the <style> block via CSS custom properties.
+			// are handled through the enqueued CSS custom properties.
 			$z_index    = isset($item['zIndex']) && $item['zIndex'] !== '' ? intval($item['zIndex']) : 1;
 			$style_attr = ' style="z-index:' . $z_index . '"';
 
-			// ── Responsive <style> block ───────────────────────────────────────
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			echo $this->render_responsive_styles($uid_selector, $item, $h_orient, $v_orient);
-
+			// ── Responsive rules ───────────────────────────────────────────────
 			// ── Image ──────────────────────────────────────────────────────────
 			$image_data = $item['image'] ?? '';
 			$image_url  = '';

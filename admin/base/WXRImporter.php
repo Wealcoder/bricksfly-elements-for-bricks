@@ -1,6 +1,6 @@
 <?php
 
-namespace AAB\Admin\Base;
+namespace AABAddons\Admin\Base;
 
 use WP_Error;
 use XMLReader;
@@ -217,7 +217,7 @@ class WXRImporter extends \WP_Importer {
 	}
 
 	public function import( $file ) {
-		add_filter( 'aae_import_post_meta_key', array( $this, 'is_valid_meta_key' ) );
+		add_filter( 'aabaddons_import_post_meta_key', array( $this, 'is_valid_meta_key' ) );
 		add_filter( 'http_request_timeout', array( &$this, 'bump_request_timeout' ) );
 
 		$result = $this->import_start( $file );
@@ -270,7 +270,7 @@ class WXRImporter extends \WP_Importer {
 					$node   = $reader->expand();
 					$parsed = $this->parse_post_node( $node );
 					$aae_counter_progress += 1;
-					update_option( 'aaeaddon_template_import_progress', [
+					update_option( 'aab_template_import_progress', [
 						'type'        => 'single',
 						'total_items' => $total_init,
 						'title'       => $temp_title,
@@ -295,7 +295,7 @@ class WXRImporter extends \WP_Importer {
 						$reader->next();
 						break;
 					}
-					update_option( 'aaeaddon_template_import_progress', [
+					update_option( 'aab_template_import_progress', [
 						'type'        => 'single',
 						'total_items' => $total_init,
 						'title'       => $temp_title,
@@ -318,7 +318,7 @@ class WXRImporter extends \WP_Importer {
 						break;
 					}
 					$aae_counter_progress += 1;
-					update_option( 'aaeaddon_template_import_progress', [
+					update_option( 'aab_template_import_progress', [
 						'type'        => 'single',
 						'total_items' => $total_init,
 						'title'       => $temp_title,
@@ -333,7 +333,7 @@ class WXRImporter extends \WP_Importer {
 					$node   = $reader->expand();
 					$parsed = $this->parse_term_node( $node, 'tag' );
 					$aae_counter_progress += 1;
-					update_option( 'aaeaddon_template_import_progress', [
+					update_option( 'aab_template_import_progress', [
 						'type'        => 'single',
 						'total_items' => $total_init,
 						'title'       => $temp_title,
@@ -358,7 +358,7 @@ class WXRImporter extends \WP_Importer {
 						$reader->next();
 						break;
 					}
-					update_option( 'aaeaddon_template_import_progress', [
+					update_option( 'aab_template_import_progress', [
 						'type'        => 'single',
 						'progress'    => $aae_counter_progress,
 						'title'       => $temp_title,
@@ -407,6 +407,7 @@ class WXRImporter extends \WP_Importer {
 			$this->prefill_existing_terms();
 		}
 
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
 		do_action( 'import_start' );
 	}
 
@@ -424,6 +425,7 @@ class WXRImporter extends \WP_Importer {
 
 		flush_rewrite_rules();
 
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
 		do_action( 'import_end' );
 	}
 
@@ -509,6 +511,7 @@ class WXRImporter extends \WP_Importer {
 	}
 
 	protected function process_post( $data, $meta, $comments, $terms ) {
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
 		$data = apply_filters( 'wxr_importer.pre_process.post', $data, $meta, $comments, $terms );
 		if ( empty( $data ) ) {
 			return false;
@@ -529,6 +532,7 @@ class WXRImporter extends \WP_Importer {
 		$post_exists = $this->post_exists( $data );
 		if ( $post_exists ) {
 			$this->process_comments( $comments, $original_id, $data, $post_exists );
+			do_action( 'aabaddons_import_existing_post', $post_exists, $original_id, $data, $data );
 			return false;
 		}
 
@@ -572,22 +576,25 @@ class WXRImporter extends \WP_Importer {
 			$postdata[ $key ] = $data[ $key ];
 		}
 
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
 		$postdata = apply_filters( 'wp_import_post_data_processed', wp_slash( $postdata ), $data );
 
 		if ( 'attachment' === $postdata['post_type'] ) {
 			$remote_url = ! empty( $data['attachment_url'] ) ? $data['attachment_url'] : $data['guid'];
 			if ( ! $this->options['fetch_attachments'] ) {
-				update_option( 'aaeaddon_template_import_state', __( 'fetching attachments disabled', 'the-bricksfly' ) );
+				update_option( 'aab_template_import_state', __( 'fetching attachments disabled', 'the-bricksfly' ) );
 				return false;
 			}
 			$post_id = $this->process_attachment( $postdata, $meta, $remote_url );
 		} else {
 			$post_id = wp_insert_post( $postdata, true );
+			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
 			do_action( 'wp_import_insert_post', $post_id, $original_id, $postdata, $data );
 		}
 
 		if ( is_wp_error( $post_id ) ) {
 			$this->logger->debug( $post_id->get_error_message() );
+			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
 			do_action( 'wxr_importer.process_failed.post', $post_id, $data, $meta, $comments, $terms );
 			return false;
 		}
@@ -602,6 +609,7 @@ class WXRImporter extends \WP_Importer {
 		}
 		$this->mark_post_exists( $data, $post_id );
 
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
 		$terms = apply_filters( 'wp_import_post_terms', $terms, $post_id, $data );
 
 		if ( ! empty( $terms ) ) {
@@ -637,6 +645,7 @@ class WXRImporter extends \WP_Importer {
 
 			foreach ( $term_ids as $tax => $ids ) {
 				$tt_ids = wp_set_post_terms( $post_id, $ids, $tax );
+				// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
 				do_action( 'wp_import_set_post_terms', $tt_ids, $ids, $tax, $post_id, $data );
 			}
 		}
@@ -648,6 +657,7 @@ class WXRImporter extends \WP_Importer {
 			$this->process_menu_item_meta( $post_id, $data, $meta );
 		}
 
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
 		do_action( 'wxr_importer.processed.post', $post_id, $data, $meta, $comments, $terms );
 	}
 
@@ -760,10 +770,11 @@ class WXRImporter extends \WP_Importer {
 		if ( empty( $meta ) ) { return true; }
 
 		foreach ( $meta as $meta_item ) {
+			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
 			$meta_item = apply_filters( 'wxr_importer.pre_process.post_meta', $meta_item, $post_id );
 			if ( empty( $meta_item ) ) { return false; }
 
-			$key   = apply_filters( 'aae_import_post_meta_key', $meta_item['key'], $post_id, $post );
+			$key   = apply_filters( 'aabaddons_import_post_meta_key', $meta_item['key'], $post_id, $post );
 			$value = false;
 
 			if ( '_edit_last' === $key ) {
@@ -777,7 +788,7 @@ class WXRImporter extends \WP_Importer {
 					$value = maybe_unserialize( $meta_item['value'] );
 				}
 				add_post_meta( $post_id, wp_slash( $key ), wp_slash( $value ) );
-				do_action( 'aae_import_post_meta', $post_id, $key, $value );
+				do_action( 'aabaddons_import_post_meta', $post_id, $key, $value );
 				if ( '_thumbnail_id' === $key ) {
 					$this->featured_images[ $post_id ] = (int) $value;
 				}
@@ -814,6 +825,7 @@ class WXRImporter extends \WP_Importer {
 	}
 
 	protected function process_comments( $comments, $post_id, $post, $post_exists = false ) {
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
 		$comments = apply_filters( 'wp_import_post_comments', $comments, $post_id, $post );
 		if ( empty( $comments ) ) { return 0; }
 
@@ -821,6 +833,7 @@ class WXRImporter extends \WP_Importer {
 		usort( $comments, array( $this, 'sort_comments_by_id' ) );
 
 		foreach ( $comments as $key => $comment ) {
+			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
 			$comment = apply_filters( 'wxr_importer.pre_process.comment', $comment, $post_id );
 			if ( empty( $comment ) ) { return false; }
 
@@ -869,6 +882,7 @@ class WXRImporter extends \WP_Importer {
 			}
 			$this->mark_comment_exists( $comment, $comment_id );
 
+			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
 			do_action( 'wp_import_insert_comment', $comment_id, $comment, $post_id, $post );
 
 			foreach ( $meta as $meta_item ) {
@@ -876,6 +890,7 @@ class WXRImporter extends \WP_Importer {
 				add_comment_meta( $comment_id, wp_slash( $meta_item['key'] ), wp_slash( $value ) );
 			}
 
+			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
 			do_action( 'wxr_importer.processed.comment', $comment_id, $comment, $meta, $post_id );
 			$num_comments++;
 		}
@@ -917,6 +932,7 @@ class WXRImporter extends \WP_Importer {
 	}
 
 	protected function process_author( $data, $meta ) {
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
 		$data = apply_filters( 'wxr_importer.pre_process.user', $data, $meta );
 		if ( empty( $data ) ) { return false; }
 
@@ -955,6 +971,7 @@ class WXRImporter extends \WP_Importer {
 		$user_id = wp_insert_user( wp_slash( $userdata ) );
 		if ( is_wp_error( $user_id ) ) {
 			$this->logger->debug( $user_id->get_error_message() );
+			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
 			do_action( 'wxr_importer.process_failed.user', $user_id, $userdata );
 			return false;
 		}
@@ -964,6 +981,7 @@ class WXRImporter extends \WP_Importer {
 		}
 		$this->mapping['user_slug'][ $original_slug ] = $user_id;
 
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
 		do_action( 'wxr_importer.processed.user', $user_id, $userdata );
 	}
 
@@ -1015,6 +1033,7 @@ class WXRImporter extends \WP_Importer {
 	}
 
 	protected function process_term( $data, $meta ) {
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
 		$data = apply_filters( 'wxr_importer.pre_process.term', $data, $meta );
 		if ( empty( $data ) ) { return false; }
 
@@ -1054,7 +1073,9 @@ class WXRImporter extends \WP_Importer {
 		$result = wp_insert_term( $data['name'], $data['taxonomy'], $termdata );
 		if ( is_wp_error( $result ) ) {
 			$this->logger->debug( $result->get_error_message() );
+			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
 			do_action( 'wp_import_insert_term_failed', $result, $data );
+			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
 			do_action( 'wxr_importer.process_failed.term', $result, $data, $meta );
 			return false;
 		}
@@ -1071,7 +1092,9 @@ class WXRImporter extends \WP_Importer {
 
 		$this->process_term_meta( $meta, $term_id, $data );
 
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
 		do_action( 'wp_import_insert_term', $term_id, $data );
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
 		do_action( 'wxr_importer.processed.term', $term_id, $data );
 	}
 
@@ -1079,17 +1102,21 @@ class WXRImporter extends \WP_Importer {
 		if ( empty( $meta ) ) { return true; }
 
 		foreach ( $meta as $meta_item ) {
+			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
 			$meta_item = apply_filters( 'wxr_importer.pre_process.term_meta', $meta_item, $term_id );
 			if ( empty( $meta_item ) ) { continue; }
 
+			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
 			$key   = apply_filters( 'import_term_meta_key', $meta_item['key'], $term_id, $term );
 			$value = false;
 			if ( $key ) {
 				if ( ! $value ) { $value = maybe_unserialize( $meta_item['value'] ); }
 				$result = add_term_meta( $term_id, $key, $value );
 				if ( is_wp_error( $result ) ) {
+					// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
 					do_action( 'wxr_importer.process_failed.termmeta', $result, $meta_item, $term_id, $term );
 				}
+				// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
 				do_action( 'import_term_meta', $term_id, $key, $value );
 			}
 		}
@@ -1135,15 +1162,15 @@ class WXRImporter extends \WP_Importer {
 
 	protected function post_process() {
 		if ( ! empty( $this->requires_remapping['post'] ) ) {
-			update_option( 'aaeaddon_template_import_state', esc_html__( 'Processing Posts', 'the-bricksfly' ) );
+			update_option( 'aab_template_import_state', esc_html__( 'Processing Posts', 'the-bricksfly' ) );
 			$this->post_process_posts( $this->requires_remapping['post'] );
 		}
 		if ( ! empty( $this->requires_remapping['comment'] ) ) {
-			update_option( 'aaeaddon_template_import_state', esc_html__( 'Processing Comments', 'the-bricksfly' ) );
+			update_option( 'aab_template_import_state', esc_html__( 'Processing Comments', 'the-bricksfly' ) );
 			$this->post_process_comments( $this->requires_remapping['comment'] );
 		}
 		if ( ! empty( $this->requires_remapping['term'] ) ) {
-			update_option( 'aaeaddon_template_import_state', esc_html__( 'Processing Terms', 'the-bricksfly' ) );
+			update_option( 'aab_template_import_state', esc_html__( 'Processing Terms', 'the-bricksfly' ) );
 			$this->post_process_terms( $this->requires_remapping['term'] );
 		}
 	}
@@ -1270,7 +1297,7 @@ class WXRImporter extends \WP_Importer {
 
 	function remap_featured_images() {
 		if ( empty( $this->featured_images ) ) { return; }
-		update_option( 'aaeaddon_template_import_state', esc_html__( 'Starting remapping of featured images', 'the-bricksfly' ) );
+		update_option( 'aab_template_import_state', esc_html__( 'Starting remapping of featured images', 'the-bricksfly' ) );
 		foreach ( $this->featured_images as $post_id => $value ) {
 			if ( isset( $this->mapping['post'][ $value ] ) ) {
 				$new_id = $this->mapping['post'][ $value ];
@@ -1285,6 +1312,7 @@ class WXRImporter extends \WP_Importer {
 	}
 
 	protected function max_attachment_size() {
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
 		return apply_filters( 'import_attachment_size_limit', 0 );
 	}
 
@@ -1318,7 +1346,7 @@ class WXRImporter extends \WP_Importer {
 
 	protected function prefill_existing_comments() {
 		global $wpdb;
-		update_option( 'aaeaddon_template_import_state', esc_html__( 'Comment checking', 'the-bricksfly' ) );
+		update_option( 'aab_template_import_state', esc_html__( 'Comment checking', 'the-bricksfly' ) );
 		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- table-name interpolation only, no user input.
 		$posts = $wpdb->get_results( "SELECT comment_ID, comment_author, comment_date FROM {$wpdb->comments}" );
 		foreach ( $posts as $item ) {

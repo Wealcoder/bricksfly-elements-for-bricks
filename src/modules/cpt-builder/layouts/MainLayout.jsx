@@ -46,7 +46,7 @@ const MainLayout = () => {
         },
         body: new URLSearchParams({
           action: "aab_post_type_builder_list",
-          wcf_nonce: AAB_ADDONS_ADMIN.nonce,
+          aab_nonce: AAB_ADDONS_ADMIN.nonce,
         }),
       })
         .then((response) => {
@@ -70,7 +70,7 @@ const MainLayout = () => {
         },
         body: new URLSearchParams({
           action: "aab_taxonomy_builder_list",
-          wcf_nonce: AAB_ADDONS_ADMIN.nonce,
+          aab_nonce: AAB_ADDONS_ADMIN.nonce,
         }),
       })
         .then((response) => {

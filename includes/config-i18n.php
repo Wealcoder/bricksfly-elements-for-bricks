@@ -7,13 +7,9 @@
  * cannot wrap label/title/description values with `__()` directly without
  * triggering "translation loaded too early" notices in WP 6.7+.
  *
- * This file mirrors every translatable string from config.php as a literal
- * `__()` call so .pot extraction tools (WP-CLI i18n make-pot) pick them up.
- * The actual runtime translation happens via `aab_translate_config_tree()`
- * in includes/helper.php, hooked to the `wcf_addons_dashboard_config` filter.
- *
- * Loaded on `init` so translations resolve correctly. The function calls
- * here are no-ops at runtime — their only purpose is .pot extraction.
+ * This file maps every config string to a literal `__()` call. That keeps
+ * the strings visible to static .pot extractors and provides the translated
+ * values used by `aab_translate_config_tree()` at runtime.
  *
  * Keep this file in sync with config.php whenever a label, title, or
  * description string is added, removed, or changed.
@@ -21,103 +17,129 @@
 
 defined('ABSPATH') || exit;
 
-add_action('init', function () {
-	__('Add floating items to your page, such as buttons or icons, that stay in view as users scroll', 'the-bricksfly');
-	__('Add stunning movement to your headlines and capture attention in just a second.', 'the-bricksfly');
-	__('Advanced Accordion', 'the-bricksfly');
-	__('Advanced Button', 'the-bricksfly');
-	__('Advanced Button Pro', 'the-bricksfly');
-	__('Advanced Button Pro widget with enhanced styling and animation options to create eye-catching call-to-action buttons that drive engagement and conversions on your website.', 'the-bricksfly');
-	__('Advanced Tooltip', 'the-bricksfly');
-	__('Advanced Widgets', 'the-bricksfly');
-	__('Animated Heading', 'the-bricksfly');
-	__('Animated Off-Canvas', 'the-bricksfly');
-	__('Animation', 'the-bricksfly');
-	__('Animations', 'the-bricksfly');
-	__('Boost credibility and visibility by highlighting trusted logos with a smooth, auto-scrolling slider.', 'the-bricksfly');
-	__('Brand Slider', 'the-bricksfly');
-	__('Bricksfly Pro', 'the-bricksfly');
-	__('Captivate your audience with stunning off-canvas reveals that keep users engaged longer on site!', 'the-bricksfly');
-	__('Classic Testimonial', 'the-bricksfly');
-	__('Counter', 'the-bricksfly');
-	__('Cursor', 'the-bricksfly');
-	__('Cursor Hover Effect', 'the-bricksfly');
-	__('Cursor Move Effect', 'the-bricksfly');
-	__('Customize social share icons to match your design and encourage content sharing with ease.', 'the-bricksfly');
-	__('Customize the featured image of any post for a perfect fit across all device screens.', 'the-bricksfly');
-	__('Draggable', 'the-bricksfly');
-	__('DrawSVG', 'the-bricksfly');
-	__('Dynamic Widgets', 'the-bricksfly');
-	__('Easel', 'the-bricksfly');
-	__('Effects', 'the-bricksfly');
-	__('Elevate your website’s look by incorporating a video box that blends seamlessly with your style.', 'the-bricksfly');
-	__('Flip', 'the-bricksfly');
-	__('Floating Elements', 'the-bricksfly');
-	__('Form Widgets', 'the-bricksfly');
-	__('GSAP Extensions', 'the-bricksfly');
-	__('GSAP Library', 'the-bricksfly');
-	__('GSDevTools', 'the-bricksfly');
-	__('General Extensions', 'the-bricksfly');
-	__('General Settings', 'the-bricksfly');
-	__('General Widgets', 'the-bricksfly');
-	__('Header & Footer Widgets', 'the-bricksfly');
-	__('Help visitors meet your team with photos, job titles, and clickable social media icons.', 'the-bricksfly');
-	__('Highlight customer feedback with modern layouts, smooth sliders, and customizable design elements.', 'the-bricksfly');
-	__('Horizontal', 'the-bricksfly');
-	__('Icon Box', 'the-bricksfly');
-	__('Image Accordion', 'the-bricksfly');
-	__('Image Animation', 'the-bricksfly');
-	__('Image Reveal on Hover', 'the-bricksfly');
-	__('Impress visitors with live stats and milestones using fully animated number counters.', 'the-bricksfly');
-	__('Inertia', 'the-bricksfly');
-	__('Keep your pages clean and visitors happy with smart, collapsible advanced accordion designs.', 'the-bricksfly');
-	__('Library', 'the-bricksfly');
-	__('Link your social accounts and customize the look to perfectly match your branding.', 'the-bricksfly');
-	__('Modern Testimonial', 'the-bricksfly');
-	__('MorphSVG', 'the-bricksfly');
-	__('MotionPath', 'the-bricksfly');
-	__('MotionPathHelper', 'the-bricksfly');
-	__('Observer', 'the-bricksfly');
-	__('Parallax Effect', 'the-bricksfly');
-	__('Physics2D', 'the-bricksfly');
-	__('PhysicsProps', 'the-bricksfly');
-	__('Pixi', 'the-bricksfly');
-	__('Plugins', 'the-bricksfly');
-	__('Post Featured Image', 'the-bricksfly');
-	__('Preloader', 'the-bricksfly');
-	__('Present images creatively with collapsible sections, enhancing user experience and saving screen space.', 'the-bricksfly');
-	__('Refine your content presentation with flexible icon styling, typography, and layout options.', 'the-bricksfly');
-	__('ScrambleText', 'the-bricksfly');
-	__('Scroll Indicator', 'the-bricksfly');
-	__('Scroll Smoother', 'the-bricksfly');
-	__('Scroll To Top', 'the-bricksfly');
-	__('ScrollSmoother', 'the-bricksfly');
-	__('ScrollTo', 'the-bricksfly');
-	__('ScrollTrigger', 'the-bricksfly');
-	__('Share engaging video content with smooth transitions to tell your story effectively.', 'the-bricksfly');
-	__('Share real stories and success quotes using animated testimonial sliders and flexible content settings.', 'the-bricksfly');
-	__('Showcase real stories and client praise with a sleek, responsive testimonial carousel.', 'the-bricksfly');
-	__('Site Settings', 'the-bricksfly');
-	__('Slider', 'the-bricksfly');
-	__('Social Icons', 'the-bricksfly');
-	__('Social Share', 'the-bricksfly');
-	__('SplitText', 'the-bricksfly');
-	__('Sticky/Pin Element', 'the-bricksfly');
-	__('Team', 'the-bricksfly');
-	__('Testimonial', 'the-bricksfly');
-	__('Text', 'the-bricksfly');
-	__('Text Animation', 'the-bricksfly');
-	__('Tilt Effect', 'the-bricksfly');
-	__('Timeline', 'the-bricksfly');
-	__('Use animated timelines to present events or project stages in a clear, organized progression.', 'the-bricksfly');
-	__('Use the Video Mask Widget to bring artistic, interactive flair to your sites videos.', 'the-bricksfly');
-	__('Use the Video Popup Widget to display videos in popups, making content more engaging.', 'the-bricksfly');
-	__('Use the Youtube Video Widget to bring artistic, interactive flair to your sites videos.', 'the-bricksfly');
-	__('Video Box', 'the-bricksfly');
-	__('Video Mask', 'the-bricksfly');
-	__('Video Popup', 'the-bricksfly');
-	__('Video Story', 'the-bricksfly');
-	__('Video Widgets', 'the-bricksfly');
-	__('Wrapper Link', 'the-bricksfly');
-	__('Youtube Video', 'the-bricksfly');
-}, 0);
+function aab_get_config_translations() {
+	return array(
+		'Add floating items to your page, such as buttons or icons, that stay in view as users scroll' => __( 'Add floating items to your page, such as buttons or icons, that stay in view as users scroll', 'the-bricksfly' ),
+		'Add stunning movement to your headlines and capture attention in just a second.' => __( 'Add stunning movement to your headlines and capture attention in just a second.', 'the-bricksfly' ),
+		'Advanced Accordion' => __( 'Advanced Accordion', 'the-bricksfly' ),
+		'Advanced Button' => __( 'Advanced Button', 'the-bricksfly' ),
+		'Advanced Button Pro' => __( 'Advanced Button Pro', 'the-bricksfly' ),
+		'Advanced Button Pro widget with enhanced styling and animation options to create eye-catching call-to-action buttons that drive engagement and conversions on your website.' => __( 'Advanced Button Pro widget with enhanced styling and animation options to create eye-catching call-to-action buttons that drive engagement and conversions on your website.', 'the-bricksfly' ),
+		'Advanced Tooltip' => __( 'Advanced Tooltip', 'the-bricksfly' ),
+		'Advanced Widgets' => __( 'Advanced Widgets', 'the-bricksfly' ),
+		'Animated Heading' => __( 'Animated Heading', 'the-bricksfly' ),
+		'Animated Off-Canvas' => __( 'Animated Off-Canvas', 'the-bricksfly' ),
+		'Animation' => __( 'Animation', 'the-bricksfly' ),
+		'Animations' => __( 'Animations', 'the-bricksfly' ),
+		'Boost credibility and visibility by highlighting trusted logos with a smooth, auto-scrolling slider.' => __( 'Boost credibility and visibility by highlighting trusted logos with a smooth, auto-scrolling slider.', 'the-bricksfly' ),
+		'Brand Slider' => __( 'Brand Slider', 'the-bricksfly' ),
+		'Bricksfly Pro' => __( 'Bricksfly Pro', 'the-bricksfly' ),
+		'Captivate your audience with stunning off-canvas reveals that keep users engaged longer on site!' => __( 'Captivate your audience with stunning off-canvas reveals that keep users engaged longer on site!', 'the-bricksfly' ),
+		'Classic Testimonial' => __( 'Classic Testimonial', 'the-bricksfly' ),
+		'Counter' => __( 'Counter', 'the-bricksfly' ),
+		'Cursor' => __( 'Cursor', 'the-bricksfly' ),
+		'Cursor Hover Effect' => __( 'Cursor Hover Effect', 'the-bricksfly' ),
+		'Cursor Move Effect' => __( 'Cursor Move Effect', 'the-bricksfly' ),
+		'Customize social share icons to match your design and encourage content sharing with ease.' => __( 'Customize social share icons to match your design and encourage content sharing with ease.', 'the-bricksfly' ),
+		'Customize the featured image of any post for a perfect fit across all device screens.' => __( 'Customize the featured image of any post for a perfect fit across all device screens.', 'the-bricksfly' ),
+		'Draggable' => __( 'Draggable', 'the-bricksfly' ),
+		'DrawSVG' => __( 'DrawSVG', 'the-bricksfly' ),
+		'Dynamic Widgets' => __( 'Dynamic Widgets', 'the-bricksfly' ),
+		'Easel' => __( 'Easel', 'the-bricksfly' ),
+		'Effects' => __( 'Effects', 'the-bricksfly' ),
+		'Elevate your website’s look by incorporating a video box that blends seamlessly with your style.' => __( 'Elevate your website’s look by incorporating a video box that blends seamlessly with your style.', 'the-bricksfly' ),
+		'Flip' => __( 'Flip', 'the-bricksfly' ),
+		'Floating Elements' => __( 'Floating Elements', 'the-bricksfly' ),
+		'Form Widgets' => __( 'Form Widgets', 'the-bricksfly' ),
+		'GSAP Extensions' => __( 'GSAP Extensions', 'the-bricksfly' ),
+		'GSAP Library' => __( 'GSAP Library', 'the-bricksfly' ),
+		'GSDevTools' => __( 'GSDevTools', 'the-bricksfly' ),
+		'General Extensions' => __( 'General Extensions', 'the-bricksfly' ),
+		'General Settings' => __( 'General Settings', 'the-bricksfly' ),
+		'General Widgets' => __( 'General Widgets', 'the-bricksfly' ),
+		'Header & Footer Widgets' => __( 'Header & Footer Widgets', 'the-bricksfly' ),
+		'Help visitors meet your team with photos, job titles, and clickable social media icons.' => __( 'Help visitors meet your team with photos, job titles, and clickable social media icons.', 'the-bricksfly' ),
+		'Highlight customer feedback with modern layouts, smooth sliders, and customizable design elements.' => __( 'Highlight customer feedback with modern layouts, smooth sliders, and customizable design elements.', 'the-bricksfly' ),
+		'Horizontal' => __( 'Horizontal', 'the-bricksfly' ),
+		'Icon Box' => __( 'Icon Box', 'the-bricksfly' ),
+		'Image Accordion' => __( 'Image Accordion', 'the-bricksfly' ),
+		'Image Animation' => __( 'Image Animation', 'the-bricksfly' ),
+		'Image Reveal on Hover' => __( 'Image Reveal on Hover', 'the-bricksfly' ),
+		'Impress visitors with live stats and milestones using fully animated number counters.' => __( 'Impress visitors with live stats and milestones using fully animated number counters.', 'the-bricksfly' ),
+		'Inertia' => __( 'Inertia', 'the-bricksfly' ),
+		'Keep your pages clean and visitors happy with smart, collapsible advanced accordion designs.' => __( 'Keep your pages clean and visitors happy with smart, collapsible advanced accordion designs.', 'the-bricksfly' ),
+		'Library' => __( 'Library', 'the-bricksfly' ),
+		'Link your social accounts and customize the look to perfectly match your branding.' => __( 'Link your social accounts and customize the look to perfectly match your branding.', 'the-bricksfly' ),
+		'Modern Testimonial' => __( 'Modern Testimonial', 'the-bricksfly' ),
+		'MorphSVG' => __( 'MorphSVG', 'the-bricksfly' ),
+		'MotionPath' => __( 'MotionPath', 'the-bricksfly' ),
+		'MotionPathHelper' => __( 'MotionPathHelper', 'the-bricksfly' ),
+		'Observer' => __( 'Observer', 'the-bricksfly' ),
+		'Parallax Effect' => __( 'Parallax Effect', 'the-bricksfly' ),
+		'Physics2D' => __( 'Physics2D', 'the-bricksfly' ),
+		'PhysicsProps' => __( 'PhysicsProps', 'the-bricksfly' ),
+		'Pixi' => __( 'Pixi', 'the-bricksfly' ),
+		'Plugins' => __( 'Plugins', 'the-bricksfly' ),
+		'Post Featured Image' => __( 'Post Featured Image', 'the-bricksfly' ),
+		'Preloader' => __( 'Preloader', 'the-bricksfly' ),
+		'Present images creatively with collapsible sections, enhancing user experience and saving screen space.' => __( 'Present images creatively with collapsible sections, enhancing user experience and saving screen space.', 'the-bricksfly' ),
+		'Refine your content presentation with flexible icon styling, typography, and layout options.' => __( 'Refine your content presentation with flexible icon styling, typography, and layout options.', 'the-bricksfly' ),
+		'ScrambleText' => __( 'ScrambleText', 'the-bricksfly' ),
+		'Scroll Indicator' => __( 'Scroll Indicator', 'the-bricksfly' ),
+		'Scroll Smoother' => __( 'Scroll Smoother', 'the-bricksfly' ),
+		'Scroll To Top' => __( 'Scroll To Top', 'the-bricksfly' ),
+		'ScrollSmoother' => __( 'ScrollSmoother', 'the-bricksfly' ),
+		'ScrollTo' => __( 'ScrollTo', 'the-bricksfly' ),
+		'ScrollTrigger' => __( 'ScrollTrigger', 'the-bricksfly' ),
+		'Share engaging video content with smooth transitions to tell your story effectively.' => __( 'Share engaging video content with smooth transitions to tell your story effectively.', 'the-bricksfly' ),
+		'Share real stories and success quotes using animated testimonial sliders and flexible content settings.' => __( 'Share real stories and success quotes using animated testimonial sliders and flexible content settings.', 'the-bricksfly' ),
+		'Showcase real stories and client praise with a sleek, responsive testimonial carousel.' => __( 'Showcase real stories and client praise with a sleek, responsive testimonial carousel.', 'the-bricksfly' ),
+		'Site Settings' => __( 'Site Settings', 'the-bricksfly' ),
+		'Slider' => __( 'Slider', 'the-bricksfly' ),
+		'Social Icons' => __( 'Social Icons', 'the-bricksfly' ),
+		'Social Share' => __( 'Social Share', 'the-bricksfly' ),
+		'SplitText' => __( 'SplitText', 'the-bricksfly' ),
+		'Sticky/Pin Element' => __( 'Sticky/Pin Element', 'the-bricksfly' ),
+		'Team' => __( 'Team', 'the-bricksfly' ),
+		'Testimonial' => __( 'Testimonial', 'the-bricksfly' ),
+		'Text' => __( 'Text', 'the-bricksfly' ),
+		'Text Animation' => __( 'Text Animation', 'the-bricksfly' ),
+		'Tilt Effect' => __( 'Tilt Effect', 'the-bricksfly' ),
+		'Timeline' => __( 'Timeline', 'the-bricksfly' ),
+		'Use animated timelines to present events or project stages in a clear, organized progression.' => __( 'Use animated timelines to present events or project stages in a clear, organized progression.', 'the-bricksfly' ),
+		'Use the Video Mask Widget to bring artistic, interactive flair to your sites videos.' => __( 'Use the Video Mask Widget to bring artistic, interactive flair to your sites videos.', 'the-bricksfly' ),
+		'Use the Video Popup Widget to display videos in popups, making content more engaging.' => __( 'Use the Video Popup Widget to display videos in popups, making content more engaging.', 'the-bricksfly' ),
+		'Use the Youtube Video Widget to bring artistic, interactive flair to your sites videos.' => __( 'Use the Youtube Video Widget to bring artistic, interactive flair to your sites videos.', 'the-bricksfly' ),
+		'Video Box' => __( 'Video Box', 'the-bricksfly' ),
+		'Video Mask' => __( 'Video Mask', 'the-bricksfly' ),
+		'Video Popup' => __( 'Video Popup', 'the-bricksfly' ),
+		'Video Story' => __( 'Video Story', 'the-bricksfly' ),
+		'Video Widgets' => __( 'Video Widgets', 'the-bricksfly' ),
+		'Wrapper Link' => __( 'Wrapper Link', 'the-bricksfly' ),
+		'Youtube Video' => __( 'Youtube Video', 'the-bricksfly' ),
+		' Pro' => __( ' Pro', 'the-bricksfly' ),
+		'Advanced' => __( 'Advanced', 'the-bricksfly' ),
+		'Advanced Animation' => __( 'Advanced Animation', 'the-bricksfly' ),
+		'Display rich post meta — author, date, categories, comments, reading time, view count, and more.' => __( 'Display rich post meta — author, date, categories, comments, reading time, view count, and more.', 'the-bricksfly' ),
+		'Draggable Items' => __( 'Draggable Items', 'the-bricksfly' ),
+		'Dynamic' => __( 'Dynamic', 'the-bricksfly' ),
+		'Flips' => __( 'Flips', 'the-bricksfly' ),
+		'Floating' => __( 'Floating', 'the-bricksfly' ),
+		'Gallery Progress' => __( 'Gallery Progress', 'the-bricksfly' ),
+		'General' => __( 'General', 'the-bricksfly' ),
+		'Header & Footer' => __( 'Header & Footer', 'the-bricksfly' ),
+		'Let visitors drag and rearrange interactive items freely around the page.' => __( 'Let visitors drag and rearrange interactive items freely around the page.', 'the-bricksfly' ),
+		'Popup' => __( 'Popup', 'the-bricksfly' ),
+		'Portfolio Filter' => __( 'Portfolio Filter', 'the-bricksfly' ),
+		'Post Meta' => __( 'Post Meta', 'the-bricksfly' ),
+		'Progress Bar' => __( 'Progress Bar', 'the-bricksfly' ),
+		'Scrollable Video' => __( 'Scrollable Video', 'the-bricksfly' ),
+		'Showcase multiple videos in a Swiper-powered carousel with click-to-play popups and rich styling.' => __( 'Showcase multiple videos in a Swiper-powered carousel with click-to-play popups and rich styling.', 'the-bricksfly' ),
+		'Switch between two content panes (or saved Bricks templates) with a stylish toggle.' => __( 'Switch between two content panes (or saved Bricks templates) with a stylish toggle.', 'the-bricksfly' ),
+		'Toggle Switch' => __( 'Toggle Switch', 'the-bricksfly' ),
+		'Use the Scrollable Video Widget to play a video frame-by-frame as the user scrolls.' => __( 'Use the Scrollable Video Widget to play a video frame-by-frame as the user scrolls.', 'the-bricksfly' ),
+		'Video' => __( 'Video', 'the-bricksfly' ),
+		'Video Box Slider' => __( 'Video Box Slider', 'the-bricksfly' ),
+		'Visualize stats and skills with animated line, circle, or dot-style progress bars.' => __( 'Visualize stats and skills with animated line, circle, or dot-style progress bars.', 'the-bricksfly' ),
+	);
+}

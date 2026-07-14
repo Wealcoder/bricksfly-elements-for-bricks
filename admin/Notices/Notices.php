@@ -1,6 +1,6 @@
 <?php
 
-namespace AAB\Admin\Notices;
+namespace AABAddons\Admin\Notices;
 
 defined( 'ABSPATH' ) || exit();
 
@@ -19,17 +19,11 @@ class Notices {
 	protected $notices = array();
 
 	public function __construct() {
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		add_action( 'admin_init', array( $this, 'add_admin_notices' ) );
 
-		$this->plugin_prefix = 'aae_notice_';
+		$this->plugin_prefix = 'aab_notice_';
 		add_action( 'wp_ajax_' . $this->plugin_prefix . '_dismiss_notice', array( $this, 'ajax_dismiss_notice' ) );
 		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
-	}
-
-	public function enqueue_scripts() {
-		wp_register_style( 'aab-notice', AAB_ADDONS_URL . 'assets/css/css/notice.css', array(), AAB_ADDONS_VERSION );
-		wp_register_script( 'aab-notice', AAB_ADDONS_URL . 'assets/js/js/notice.js', array( 'jquery' ), AAB_ADDONS_VERSION, true );
 	}
 
 	public function add_admin_notices() {
@@ -70,15 +64,12 @@ class Notices {
 			return;
 		}
 
-		wp_enqueue_script( 'aab-notice' );
-
 		foreach ( $this->notices as $notice ) {
 			if ( $this->should_display( $notice ) ) {
 				$classes = array_unique( array_filter( wp_parse_list( $notice['class'] ) ) );
 				$style   = ! empty( $notice['style'] ) ? $notice['style'] : '';
 				$message = $notice['message'];
-				if ( str_ends_with( $message, '.php' ) ) {
-					wp_enqueue_style( 'aab-notice' );
+				if ( '.php' === substr( $message, -4 ) ) {
 					$path = wp_normalize_path( $message );
 					if ( file_exists( $path ) ) {
 						ob_start();

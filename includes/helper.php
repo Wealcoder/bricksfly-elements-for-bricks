@@ -145,7 +145,7 @@ if (! function_exists('aab_addons_get_local_plugin_data')) :
     }
 
     if (! function_exists('get_plugins')) {
-      include_once ABSPATH . 'wp-admin/includes/plugin.php';
+      require_once ABSPATH . 'wp-admin/includes/plugin.php';
     }
 
     $plugins = get_plugins();
@@ -242,7 +242,7 @@ if (! function_exists('aab_addons_get_config')) {
       ? $GLOBALS['aab_addons_config']
       : array();
 
-    return apply_filters('wcf_addons_dashboard_config', $config);
+    return apply_filters('aabaddons_dashboard_config', $config);
   }
 }
 
@@ -255,14 +255,14 @@ if (! function_exists('aab_translate_config_tree')) {
    * cannot call `__()` directly without triggering WP 6.7+ "translation
    * loaded too early" notices. Instead, the labels stay raw English in the
    * static array and are translated on demand here — wired into the
-   * `wcf_addons_dashboard_config` filter so the React dashboard receives
+   * `aab_addons_dashboard_config` filter so the React dashboard receives
    * translated strings.
    *
    * Translatable keys: `label`, `title`, `description`. Slugs, icons,
    * URLs, booleans and other non-display values are left untouched.
    *
-   * For .pot extraction these literal English strings are mirrored in
-   * `includes/config-i18n.php` (loaded on `init`).
+    * Literal source and translated values are mapped in
+    * `includes/config-i18n.php`.
    *
    * @param array $node
    * @return array
@@ -283,12 +283,18 @@ if (! function_exists('aab_translate_config_tree')) {
 
     static $translatable_keys = array('label', 'title', 'description');
 
+    static $translations = null;
+    if (null === $translations) {
+      $translations = function_exists('aab_get_config_translations')
+        ? aab_get_config_translations()
+        : array();
+    }
+
     foreach ($node as $key => $value) {
       if (is_array($value)) {
         $node[$key] = aab_translate_config_tree($value);
       } elseif (is_string($value) && in_array($key, $translatable_keys, true) && $value !== '') {
-        // phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
-        $node[$key] = __($value, 'the-bricksfly');
+        $node[$key] = isset($translations[$value]) ? $translations[$value] : $value;
       }
     }
 
@@ -296,7 +302,7 @@ if (! function_exists('aab_translate_config_tree')) {
   }
 }
 
-add_filter('wcf_addons_dashboard_config', 'aab_translate_config_tree', 5);
+add_filter('aabaddons_dashboard_config', 'aab_translate_config_tree', 5);
 
 if (! function_exists('aab_is_pro_active')) {
 
@@ -312,7 +318,7 @@ if (! function_exists('aab_is_pro_active')) {
     }
 
     if (! function_exists('is_plugin_active')) {
-      include_once ABSPATH . 'wp-admin/includes/plugin.php';
+      require_once ABSPATH . 'wp-admin/includes/plugin.php';
     }
 
     return is_plugin_active('the-bricksfly-pro/the-bricksfly-pro.php');

@@ -8,7 +8,6 @@ const DemoImporting = () => {
   const [currenTemplate, setCurrenTemplate] = useState(false);
   const [msg, setMsg] = useState("");
   const [templateTitle, setTemplateTitle] = useState("");
-  const [tempstate, setTempState] = useState(null);
   const [progress, setProgress] = useState(0);
 
   const { setTabKey } = useContext(AppContext);
@@ -31,6 +30,7 @@ const DemoImporting = () => {
     if (meta.plugins) url.searchParams.set("plugins", meta.plugins);
     if (meta.theme) url.searchParams.set("theme", meta.theme);
     url.searchParams.set("attachment", meta.attachment);
+    if (meta.msg) url.searchParams.set("msg", meta.msg);
     window.history.replaceState({}, "", url);
     setTabKey(value);
   };
@@ -91,7 +91,7 @@ const DemoImporting = () => {
     if (tab && tab === "complete-import") return;
 
     const formData = new URLSearchParams();
-    formData.append("action", "aaeaddon_heartbeat_data");
+    formData.append("action", "aab_heartbeat_data");
     formData.append("nonce", AAB_ADDONS_ADMIN.nonce);
 
     const response = await fetch(AAB_ADDONS_ADMIN.ajaxurl, {
@@ -141,14 +141,12 @@ const DemoImporting = () => {
         delete tpldata.downloads;
         delete tpldata.is_pro;
         delete tpldata.excerpt;
-        setTempState(tpldata);
-
         const formData = new URLSearchParams();
 
         if (tpldata?.next_step && tpldata.next_step === "download-xml-file") {
-          formData.append("action", "aaeaddon_upload_manual_import_file");
+          formData.append("action", "aab_upload_manual_import_file");
         } else {
-          formData.append("action", "aaeaddon_template_installer");
+          formData.append("action", "aab_template_installer");
         }
         formData.append("import_type", "page");
         formData.append("template_data", JSON.stringify(tpldata));
@@ -191,7 +189,12 @@ const DemoImporting = () => {
             if (completed) {
               changeCompleteRoute("complete-import");
             } else if (data.template.next_step === "fail") {
-              changeRoute("fail-import", { plugins, theme, attachment });
+              changeRoute("fail-import", {
+                plugins,
+                theme,
+                attachment,
+                msg: data.msg,
+              });
             } else {
               runImport(data.template);
               if (data?.template?.next_step) setStep(data.template.next_step);
@@ -204,16 +207,12 @@ const DemoImporting = () => {
       } catch (error) {
         console.error("Fetch failed:", error.message);
         setMsg(error.message);
-        if (tempstate) {
-          runImport(tempstate);
-        } else {
-          changeRoute("fail-import", {
-            plugins,
-            theme,
-            attachment,
-            msg: error.message,
-          });
-        }
+        changeRoute("fail-import", {
+          plugins,
+          theme,
+          attachment,
+          msg: error.message,
+        });
       }
     }, 300),
     []

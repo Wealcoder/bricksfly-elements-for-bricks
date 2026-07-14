@@ -114,26 +114,26 @@ class AAB_Builder_Template_Library {
 				'post_id'         => $post_id,
 				'template_types'  => self::get_template_types(),
 				'remote_api'      => apply_filters(
-					'aab_builder_template_library_remote_api',
+					'aabaddons_builder_template_library_remote_api',
 					'https://www.themecrowdy.com/wp-json/wp/v2/bricks-sections'
 				),
 				'remote_category' => apply_filters(
-					'aab_builder_template_library_remote_category_api',
+					'aabaddons_builder_template_library_remote_category_api',
 					'https://www.themecrowdy.com/wp-json/wp/v2/bricks-sections-category',
 				),
 
 			   'remote_download' => apply_filters(
-					'aab_builder_template_library_remote_section_download_api',
+					'aabaddons_builder_template_library_remote_section_download_api',
 					'https://www.themecrowdy.com/wp-json/bricks-sections/v1/download?id=',
 				),
-				'default_type'    => apply_filters( 'aab_builder_template_library_default_type', 'block' ),
+				'default_type'    => apply_filters( 'aabaddons_builder_template_library_default_type', 'block' ),
 				'dashboard_link'  => admin_url( 'admin.php?page=bf_addons_settings' ),
 				'pro_installed'   => $pro_installed,
 				'pro_active'      => $pro_active,
 				'config'          => apply_filters(
-					'aab_builder_template_library_config',
+					'aabaddons_builder_template_library_config',
 					[
-						'wcf_valid' => $license_valid,
+						'aab_valid' => $license_valid,
 					]
 				),
 				'i18n'            => [
@@ -168,7 +168,7 @@ class AAB_Builder_Template_Library {
 	 */
 	public static function get_template_types() {
 		return apply_filters(
-			'aab_builder_template_library_types',
+			'aabaddons_builder_template_library_types',
 			[
 				'block' => [
 					'label' => esc_html__( 'Block', 'the-bricksfly' ),
@@ -238,7 +238,7 @@ class AAB_Builder_Template_Library {
 		 * @param int   $post_id   The post being edited.
 		 * @param array $elements  The resolved element array (not yet saved).
 		 */
-		do_action( 'aab_builder_template_library_inserted', $post_id, $elements );
+		do_action( 'aabaddons_builder_template_library_inserted', $post_id, $elements );
 
 		// Return the full Bricks export shape so the client can build the native
 		// paste envelope. Ids are NOT remapped here — Bricks' paste regenerates
@@ -271,7 +271,7 @@ class AAB_Builder_Template_Library {
 	 */
 	private function resolve_template_payload( $template_id ) {
 		$meta_endpoint = apply_filters(
-			'aab_builder_template_library_remote_single_api',
+			'aabaddons_builder_template_library_remote_single_api',
 			'https://www.themecrowdy.com/wp-json/bricks-sections/v1/list/' . $template_id,
 			$template_id
 		);

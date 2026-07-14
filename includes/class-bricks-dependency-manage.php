@@ -1,5 +1,5 @@
 <?php
-namespace AAB\Includes;
+namespace AABAddons\Includes;
 defined( 'ABSPATH' ) || exit;
 
 class WBAA_Dependency_Manager {

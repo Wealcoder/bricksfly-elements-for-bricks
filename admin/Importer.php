@@ -1,6 +1,6 @@
 <?php
 
-namespace AAB\Admin\Base;
+namespace AABAddons\Admin\Base;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit();
@@ -12,12 +12,6 @@ class Importer {
 	private $microtime;
 	public $logger;
 	private $wcfio;
-
-	private function include_required_files() {
-		if ( ! class_exists( '\WP_Importer' ) ) {
-			require ABSPATH . '/wp-admin/includes/class-wp-importer.php';
-		}
-	}
 
 	public function import( $data_file ) {
 		$this->importer->import( $data_file );
@@ -39,13 +33,13 @@ class Importer {
 		$this->microtime = microtime( true );
 
 		if ( ! empty( ini_get( 'disable_functions' ) ) && strpos( ini_get( 'disable_functions' ), 'set_time_limit' ) === false ) {
-			set_time_limit( Helpers::apply_filters( 'aaeaddon/set_time_limit_for_demo_data_import', 60 ) );
+			set_time_limit( Helpers::apply_filters( 'aabaddons/set_time_limit_for_demo_data_import', 60 ) );
 		}
 
 		add_filter( 'wxr_importer.pre_process.user', '__return_false' );
 		add_filter( 'wxr_importer.pre_process.post', array( $this, 'new_ajax_request_maybe' ) );
 
-		if ( ! Helpers::apply_filters( 'aaeaddon/regenerate_thumbnails_in_content_import', true ) ) {
+		if ( ! Helpers::apply_filters( 'aabaddons/regenerate_thumbnails_in_content_import', true ) ) {
 			add_filter( 'intermediate_image_sizes_advanced', '__return_null' );
 		}
 
@@ -65,7 +59,7 @@ class Importer {
 
 		$time = microtime( true ) - $this->microtime;
 
-		if ( $time > Helpers::apply_filters( 'aaeaddon/time_for_one_ajax_call', 25 ) ) {
+		if ( $time > Helpers::apply_filters( 'aabaddons/time_for_one_ajax_call', 25 ) ) {
 			$response = array(
 				'status'  => 'newAJAX',
 				'message' => 'Time for new AJAX request!: ' . $time,
@@ -84,7 +78,7 @@ class Importer {
 			);
 
 			$this->set_current_importer_data();
-			$response['state'] = get_option( 'aaeaddon_template_import_state' );
+			$response['state'] = get_option( 'aab_template_import_state' );
 			wp_send_json( $response );
 		}
 
@@ -100,7 +94,6 @@ class Importer {
 	}
 
 	public function __construct( $importer_options = array(), $logger = null ) {
-		$this->include_required_files();
 		$this->importer = new AABImporter( $importer_options );
 		$this->logger   = $logger;
 		if ( ! empty( $this->logger ) ) {

@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @subpackage Bricks_Animation_Addons/admin
  * @author     Zilani <zilani.wealcoder@gmail.com>
  */
-class Bricks_Animation_Addons_Admin {
+class AABAddons_Admin {
 
 	/**
 	 * The ID of this plugin.

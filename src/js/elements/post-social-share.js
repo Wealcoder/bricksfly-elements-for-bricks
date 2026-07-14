@@ -38,7 +38,7 @@ import "../../scss/elements/post-social-share.scss";
           };
 
           xhr.send(
-            'action=aae_post_shares' +
+            'action=aab_post_shares' +
             '&post_id=' + encodeURIComponent(AAB_ADDONS_JS.post_id) +
             '&nonce=' + encodeURIComponent(AAB_ADDONS_JS._wpnonce || '') +
             '&social=' + encodeURIComponent(type)

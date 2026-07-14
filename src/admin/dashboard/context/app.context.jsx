@@ -246,7 +246,7 @@ const useMainContext = (state) => {
         },
 
         body: new URLSearchParams({
-          action: "wcf_dashboard_notice_store",
+          action: "aab_dashboard_notice_store",
           notice: JSON.stringify(result),
           nonce: AAB_ADDONS_ADMIN.nonce,
         }),
@@ -277,7 +277,7 @@ const useMainContext = (state) => {
           Accept: "application/json",
         },
         body: new URLSearchParams({
-          action: "wcf_dashboard_notice_store",
+          action: "aab_dashboard_notice_store",
           notice: JSON.stringify(result),
           nonce: AAB_ADDONS_ADMIN.nonce,
         }),

@@ -1,6 +1,6 @@
 <?php
 
-namespace AAB\Admin\Notices;
+namespace AABAddons\Admin\Notices;
 
 defined( 'ABSPATH' ) || exit();
 
@@ -19,7 +19,7 @@ class ShowNotices {
 	protected $messages = array();
 
 	public function __construct() {
-		$this->plugin_prefix = 'aae_notice_';
+		$this->plugin_prefix = 'aab_notice_';
 		add_action( 'admin_init', array( $this, 'load_messages' ), 1 );
 		add_filter( 'wp_redirect', array( $this, 'save_messages' ), 1 );
 		add_action( 'admin_notices', array( $this, 'display_messages' ) );

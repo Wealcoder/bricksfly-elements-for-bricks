@@ -1,6 +1,6 @@
 <?php
 
-namespace AAB\Includes\Traits;
+namespace AABAddons\Includes\Traits;
 
 if (! defined('ABSPATH')) {
 	exit;

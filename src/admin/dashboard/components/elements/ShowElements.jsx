@@ -8,7 +8,6 @@ import { deviceMediaMatch, filterElements, isEqual } from "@/lib/utils";
 import { useActiveItem, useNotification, useElements } from "@/hooks/app.hooks";
 import { toast } from "sonner";
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
-import { ElementSettingConfig } from "@/config/elementSettingConfig";
 
 const ShowElements = ({
   searchKey,
@@ -18,7 +17,6 @@ const ShowElements = ({
   setElementCount,
   settingOpen,
 }) => {
-  const elementSettings = ElementSettingConfig;
   const { allElements } = useElements();
   const { updateNotice } = useNotification();
   const { updateActiveElement, updateActiveGroupElement } = useActiveItem();
@@ -127,7 +125,7 @@ const ShowElements = ({
       },
 
       body: new URLSearchParams({
-        action: "save_settings_with_ajax",
+        action: "aab_save_settings",
         fields: JSON.stringify(allElements),
         nonce: AAB_ADDONS_ADMIN.nonce,
         settings: "aab_save_widgets",
@@ -205,10 +203,6 @@ const ShowElements = ({
                       updateActiveItem={updateActiveElement}
                       className="rounded p-5"
                       settingOpen={settingOpen}
-                      exSettings={
-                        elementSettings?.find((item) => item.key === content)
-                          ?.component
-                      }
                     />
                   </React.Fragment>
                 ))}
@@ -260,10 +254,6 @@ const ShowElements = ({
                     slug={content}
                     updateActiveItem={updateActiveElement}
                     className="rounded p-5"
-                    exSettings={
-                      elementSettings?.find((item) => item.key === content)
-                        ?.component
-                    }
                   />
                 </React.Fragment>
               ))}

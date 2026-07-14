@@ -35,10 +35,9 @@ const AddonProElement = () => {
       },
 
       body: new URLSearchParams({
-        action: "save_settings_with_ajax_dashboard",
+        action: "aab_save_dashboard_settings",
         fields: JSON.stringify(result),
         nonce: AAB_ADDONS_ADMIN.nonce,
-        settings: "wcf_save_widgets",
       }),
     })
       .then((response) => {

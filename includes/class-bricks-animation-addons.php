@@ -33,7 +33,7 @@ if (! defined('ABSPATH')) {
  */
 class Bricks_Animation_Addons
 {
-	use \AAB\Includes\Traits\Extension_Widgets_Trait;
+	use \AABAddons\Includes\Traits\Extension_Widgets_Trait;
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -67,22 +67,21 @@ class Bricks_Animation_Addons
 	 * Define the core functionality of the plugin.
 	 *
 	 * Set the plugin name and the plugin version that can be used throughout the plugin.
-	 * Load the dependencies, define the locale, and set the hooks for the admin area and
+	 * Load the dependencies and set the hooks for the admin area and
 	 * the public-facing side of the site.
 	 *
 	 * @since    1.0.0
 	 */
 	public function __construct()
 	{
-		if (defined('BRICKS_ANIMATION_ADDONS_VERSION')) {
-			$this->version = BRICKS_ANIMATION_ADDONS_VERSION;
+		if (defined('AAB_ADDONS_VERSION')) {
+			$this->version = AAB_ADDONS_VERSION;
 		} else {
 			$this->version = '1.0.0';
 		}
 		$this->plugin_name = 'bricksfly';
 
 		$this->load_dependencies();
-		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 	}
@@ -93,8 +92,7 @@ class Bricks_Animation_Addons
 	 * Include the following files that make up the plugin:
 	 *
 	 * - Bricks_Animation_Addons_Loader. Orchestrates the hooks of the plugin.
-	 * - Bricks_Animation_Addons_i18n. Defines internationalization functionality.
-	 * - Bricks_Animation_Addons_Admin. Defines all hooks for the admin area.
+	 * - AABAddons_Admin. Defines all hooks for the admin area.
 	 * - Bricks_Animation_Addons_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
@@ -107,7 +105,6 @@ class Bricks_Animation_Addons
 	{
 		// Core classes.
 		require_once AAB_ADDONS_PATH . 'includes/class-bricks-animation-addons-loader.php';
-		require_once AAB_ADDONS_PATH . 'includes/class-bricks-animation-addons-i18n.php';
 		require_once AAB_ADDONS_PATH . 'admin/class-bricks-animation-addons-admin.php';
 		require_once AAB_ADDONS_PATH . 'public/class-bricks-animation-addons-public.php';
 
@@ -152,10 +149,10 @@ class Bricks_Animation_Addons
 
 		// Dispatch the Pro plugin bootstrap action once every plugin file has
 		// been parsed (so the pro plugin has had a chance to register its
-		// add_action('aab_addons/pro/register', …) handler).
+		// add_action('aabaddons/pro/register', …) handler).
 		add_action('plugins_loaded', function () {
 			if (function_exists('aab_is_pro_active') && aab_is_pro_active()) {
-				do_action('aab_addons/pro/register');
+				do_action('aabaddons/pro/register');
 			}
 		}, 20);
 
@@ -253,23 +250,6 @@ class Bricks_Animation_Addons
 	}
 
 	/**
-	 * Define the locale for this plugin for internationalization.
-	 *
-	 * Uses the Bricks_Animation_Addons_i18n class in order to set the domain and to register the hook
-	 * with WordPress.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 */
-	private function set_locale()
-	{
-
-		$plugin_i18n = new Bricks_Animation_Addons_i18n();
-
-		$this->loader->add_action('init', $plugin_i18n, 'load_plugin_textdomain');
-	}
-
-	/**
 	 * Register all of the hooks related to the admin area functionality
 	 * of the plugin.
 	 *
@@ -279,7 +259,7 @@ class Bricks_Animation_Addons
 	private function define_admin_hooks()
 	{
 
-		$plugin_admin = new Bricks_Animation_Addons_Admin($this->get_plugin_name(), $this->get_version());
+		$plugin_admin = new AABAddons_Admin($this->get_plugin_name(), $this->get_version());
 
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');

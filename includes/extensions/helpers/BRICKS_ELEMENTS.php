@@ -1,10 +1,10 @@
 <?php
 
-namespace AAB\Includes\Extensions\Helpers;
+namespace AABAddons\Includes\Extensions\Helpers;
 
 defined('ABSPATH') || exit;
 
-define('BRICKS_ELEMENTS', [
+define('AAB_BRICKS_ELEMENTS', [
   'section',
   'container',
   'block',

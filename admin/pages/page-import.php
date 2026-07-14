@@ -63,7 +63,7 @@ class AAB_Page_Importer {
 			AND post_status = 'publish'
 			AND ID IN (
 				SELECT post_id FROM $wpdb->postmeta
-				WHERE meta_key = 'aae_imported' AND meta_value = '1'
+				WHERE meta_key = 'aab_imported' AND meta_value = '1'
 			)
 		" );
 
@@ -81,7 +81,7 @@ class AAB_Page_Importer {
 		if ( is_admin() && $pagenow === 'edit.php' && $query->get( 'post_type' ) === 'page' ) {
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading URL parameter for query filtering only, not processing form data.
 			if ( isset( $_GET['aae-latest-import'] ) && $_GET['aae-latest-import'] === 'import' ) {
-				$query->set( 'meta_key', 'aae_imported' );
+				$query->set( 'meta_key', 'aab_imported' );
 				$query->set( 'meta_value', '1' );
 			}
 		}
@@ -112,7 +112,7 @@ class AAB_Page_Importer {
 		}
 
 		add_submenu_page(
-			\AAB\Admin\Pages\AAB_Admin_Init::MENU_PAGE_SLUG,
+			\AABAddons\Admin\Pages\AAB_Admin_Init::MENU_PAGE_SLUG,
 			__( 'Page Import', 'the-bricksfly' ),
 			__( 'Page Import', 'the-bricksfly' ),
 			'manage_options',
@@ -163,7 +163,7 @@ class AAB_Page_Importer {
 		// Reading the options here (on every importer page load) means the state
 		// is always freshly fetched — never a stale cached value — so activation
 		// done elsewhere is reflected on the next load of this page.
-		$addons_config = apply_filters( 'wcf_addons_dashboard_config', $GLOBALS['aab_addons_config'] ?? [] );
+		$addons_config = apply_filters( 'aabaddons_dashboard_config', $GLOBALS['aab_addons_config'] ?? [] );
 
 		$license_status = (string) get_option( 'wcf_addon_sl_license_status', '' );
 		$license_key    = (string) get_option( 'wcf_addon_sl_license_key', '' );
@@ -176,7 +176,7 @@ class AAB_Page_Importer {
 
 		$addons_config['sl_lic']    = $license_key;
 		$addons_config['is_pro']    = $pro_installed;
-		$addons_config['wcf_valid'] = $license_valid;
+		$addons_config['aab_valid'] = $license_valid;
 
 		// The compiled React UI unlocks Pro items on `product_status.item_id === 13`.
 		// Send 13 only when the license is valid (mirrors the Dashboard); the real

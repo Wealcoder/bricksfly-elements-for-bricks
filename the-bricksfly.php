@@ -38,8 +38,6 @@ if (! defined('ABSPATH')) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define('BRICKS_ANIMATION_ADDONS_VERSION', '1.0.0');
-
 if (! defined('AAB_ADDONS_FILE')) {
 	/**
 	 * Plugin File Ref.
@@ -103,7 +101,7 @@ if (! defined('AAB_ADDON_PRO_ITEM_NAME')) {
  * The code that runs during plugin activation
  * This action is documented in includes/class-bricks-animation-addons-activator.php
  */
-function activate_bricks_animation_addons($network_wide = false)
+function aab_activate_bricks_animation_addons($network_wide = false)
 {
 	require_once plugin_dir_path(__FILE__) . 'includes/class-bricks-animation-addons-activator.php';
 	Bricks_Animation_Addons_Activator::activate($network_wide);
@@ -113,14 +111,14 @@ function activate_bricks_animation_addons($network_wide = false)
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-bricks-animation-addons-deactivator.php
  */
-function deactivate_bricks_animation_addons()
+function aab_deactivate_bricks_animation_addons()
 {
 	require_once plugin_dir_path(__FILE__) . 'includes/class-bricks-animation-addons-deactivator.php';
 	Bricks_Animation_Addons_Deactivator::deactivate();
 }
 
-register_activation_hook(__FILE__, 'activate_bricks_animation_addons');
-register_deactivation_hook(__FILE__, 'deactivate_bricks_animation_addons');
+register_activation_hook(__FILE__, 'aab_activate_bricks_animation_addons');
+register_deactivation_hook(__FILE__, 'aab_deactivate_bricks_animation_addons');
 
 // Bootstrap: config, helpers, trait loaded before the main class.
 require_once AAB_ADDONS_PATH . 'config.php';
@@ -129,9 +127,8 @@ require_once AAB_ADDONS_PATH . 'includes/hook.php';
 require_once AAB_ADDONS_PATH . 'includes/traits/Extension_Widgets_Trait.php';
 require_once AAB_ADDONS_PATH . 'includes/class-bricks-theme-dependency.php';
 
-// Translatable-strings stub for config.php. Self-defers to `init` so the
-// __() calls fire after WP loads the text domain. Sole purpose is .pot
-// extraction — runtime translation happens in aab_translate_config_tree().
+// Literal translation map for config.php labels, titles, and descriptions.
+// The map is evaluated only when the dashboard config filter runs on init.
 require_once AAB_ADDONS_PATH . 'includes/config-i18n.php';
 
 // Group Icon Helper: single source of truth for the plugin-branded
@@ -159,7 +156,7 @@ require_once AAB_ADDONS_PATH . 'includes/class-bricks-animation-addons.php';
  *
  * @since    1.0.0
  */
-function run_bricks_animation_addons()
+function aab_run_bricks_animation_addons()
 {
 
 	$plugin = new Bricks_Animation_Addons();
@@ -172,7 +169,7 @@ function run_bricks_animation_addons()
 	// scrollto extension.
 	add_action('wp_enqueue_scripts', function () {
 		$data = apply_filters(
-			'aab-addons/js/data',
+			'aabaddons_js_data',
 			array(
 				'ajaxUrl'        => admin_url('admin-ajax.php'),
 				'post_id'        => get_the_ID(),
@@ -195,4 +192,4 @@ function run_bricks_animation_addons()
 		wp_localize_script('bricksfly', 'AAB_ADDONS_JS', $data);
 	}, 20);
 }
-run_bricks_animation_addons();
+aab_run_bricks_animation_addons();
