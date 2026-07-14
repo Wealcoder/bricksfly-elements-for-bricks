@@ -99,9 +99,9 @@ class AAB_Builder_Template_Library {
 		$post_id = (int) get_the_ID();
 		if ( ! $post_id ) {
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading URL parameters for context only, not processing form data.
-			$post_id = isset( $_GET['post_id'] ) ? absint( $_GET['post_id'] ) : (
+			$post_id = isset( $_GET['post_id'] ) ? absint( wp_unslash( $_GET['post_id'] ) ) : (
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading URL parameters for context only, not processing form data.
-				isset( $_GET['p'] ) ? absint( $_GET['p'] ) : 0
+				isset( $_GET['p'] ) ? absint( wp_unslash( $_GET['p'] ) ) : 0
 			);
 		}
 
@@ -208,13 +208,13 @@ class AAB_Builder_Template_Library {
 	public function ajax_insert_template() {
 		check_ajax_referer( 'aab-builder-template-library', 'nonce' );
 
-		$post_id = isset( $_POST['post_id'] ) ? absint( $_POST['post_id'] ) : 0;
+		$post_id = isset( $_POST['post_id'] ) ? absint( wp_unslash( $_POST['post_id'] ) ) : 0;
 
 		if ( ! $post_id || ! current_user_can( 'edit_post', $post_id ) ) {
 			wp_send_json_error( [ 'message' => __( 'Permission denied for this post.', 'the-bricksfly' ) ], 403 );
 		}
 
-		$template_id = isset( $_POST['template_id'] ) ? absint( $_POST['template_id'] ) : 0;
+		$template_id = isset( $_POST['template_id'] ) ? absint( wp_unslash( $_POST['template_id'] ) ) : 0;
 
 		if ( ! $template_id ) {
 			wp_send_json_error( [ 'message' => __( 'No template id provided.', 'the-bricksfly' ) ], 400 );

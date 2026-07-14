@@ -1180,30 +1180,7 @@ $aabaddons_config = array(
 								'youtube_url'  => '',
 							),
 						),
-					),
-					// 'flip' => array(
-					// 	'title'     => 'Flips',
-					// 	'doc_url'   => 'https://support.crowdytheme.com/docs/advanced-settings/advanced-settings/wcf-custom-css/',
-					// 	'is_pro'    => true,
-					// 	'is_active' => false,
-					// 	'elements'  => array(
-					// 		'portfolio-filter' => array(
-					// 			'label'        => 'Portfolio Filter',
-					// 			'location'     => array(
-					// 				'cTab'     => 'gsap',
-					// 				'pluginId' => 'flip',
-					// 			),
-					// 			'is_pro'       => false,
-					// 			'is_active'    => true,
-					// 			'is_extension' => true,
-					// 			'is_upcoming'  => false,
-					// 			'icon'         => 'wcf-icon-Portfolio-Filter',
-					// 			'demo_url'     => 'https://bricksfly.com/docs/gsap-extensions/portfolio-filter/',
-					// 			'doc_url'      => 'https://bricksfly.com/docs/gsap-extensions/portfolio-filter/',
-					// 			'youtube_url'  => '',
-					// 		),
-					// 	),
-					// ),
+					),	
 
 
 				),

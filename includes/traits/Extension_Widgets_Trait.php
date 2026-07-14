@@ -57,7 +57,6 @@ trait Extension_Widgets_Trait
 		$active    = [];
 		aabaddons_get_search_active_keys($GLOBALS['aabaddons_config']['extensions'] ?? [], $saved_extensions, $foundKeys, $active);
 
-
 		return is_array($active) ? $active : [];
 	}
 
