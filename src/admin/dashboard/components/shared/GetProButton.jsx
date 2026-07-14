@@ -11,6 +11,11 @@ const GetProButton = ({ btnClassName, showLicense }) => {
   const [openLicense, setOpenLicense] = useState(false);
   const role = AAB_ADDONS_ADMIN.user_role;
 
+  // Demo build: no licensing — hide the license/Pro button and dialog entirely.
+  if (typeof AAB_ADDONS_ADMIN !== "undefined" && AAB_ADDONS_ADMIN.is_demo) {
+    return null;
+  }
+
   useEffect(() => {
     setOpenLicense(showLicense);
   }, [showLicense]);

@@ -390,6 +390,9 @@ class AAB_Admin_Init
 		// whatever license status survives in the database.
 		$pro_installed      = function_exists('aab_is_pro_installed') ? aab_is_pro_installed() : file_exists($this->plugin_file);
 		$aab_license_valid  = $pro_installed && ('valid' === $aab_license_status);
+		/* DEMO:WITH
+		$aab_license_valid = true; // Demo build: unlock every Pro feature in the UI.
+		DEMO:END */
 
 		$addons_config = apply_filters('wcf_addons_dashboard_config', $GLOBALS['aab_addons_config']);
 		$addons_config['sl_lic']    = $aab_license_key;
@@ -421,6 +424,9 @@ class AAB_Admin_Init
 			'ajaxurl'             => admin_url('admin-ajax.php'),
 			'isSettingsPage' => true, // 🔥 IMPORTANT
 			'nonce'               => wp_create_nonce('aab_admin_nonce'),
+			/* DEMO:WITH
+			'is_demo'             => true, // Demo build: hide all license UI.
+			DEMO:END */
 			'addons_config'       => $addons_config,
 			'adminURL'            => admin_url(),
 			'smoothScroller'      => json_decode(get_option('aab_smooth_scroller')),

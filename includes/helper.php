@@ -349,8 +349,13 @@ if (! function_exists('aab_is_license_valid')) {
    */
   function aab_is_license_valid()
   {
+    /* DEMO:REPLACE-START */
     return aab_is_pro_installed()
       && ('valid' === get_option('wcf_addon_sl_license_status'));
+    /* DEMO:REPLACE-END */
+    /* DEMO:WITH
+    return true; // Demo build: licensing removed, always licensed.
+    DEMO:END */
   }
 }
 
@@ -378,6 +383,7 @@ if (! function_exists('aab_get_license_limitations')) {
    */
   function aab_get_license_limitations()
   {
+    /* DEMO:REPLACE-START */
     if (! aab_is_license_valid()) {
       return array();
     }
@@ -385,6 +391,20 @@ if (! function_exists('aab_get_license_limitations')) {
     $limitations = get_option('wcf_addon_sl_license_limitations', array());
 
     return is_array($limitations) ? $limitations : array();
+    /* DEMO:REPLACE-END */
+    /* DEMO:WITH
+    // Demo build: grant every per-feature flag so all Pro features unlock.
+    return array(
+      'starter_tpl_import'  => true,
+      'section_import'      => true,
+      'starter_page_import' => true,
+      'live_copy'           => true,
+      'widget'              => true,
+      'animation'           => true,
+      'dynamic_data'        => true,
+      'ai'                  => true,
+    );
+    DEMO:END */
   }
 }
 
@@ -406,9 +426,14 @@ if (! function_exists('aab_is_feature_allowed')) {
    */
   function aab_is_feature_allowed($feature)
   {
+    /* DEMO:REPLACE-START */
     $limitations = aab_get_license_limitations();
 
     return ! empty($limitations[$feature]);
+    /* DEMO:REPLACE-END */
+    /* DEMO:WITH
+    return true; // Demo build: every license-gated feature is allowed.
+    DEMO:END */
   }
 }
 

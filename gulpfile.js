@@ -15,9 +15,11 @@ const gulp    = require('gulp');
 const zip     = require('gulp-zip');
 const del     = require('del');
 const through = require('through2');
+const { demoTransformStream } = require('./demo-transform');
 
 const PLUGIN_SLUG = 'the-bricksfly';
 const DIST_DIR    = 'dist';
+const DEMO_DIR    = `${DIST_DIR}/demo`;
 
 const sources = [
     '**/*',
@@ -72,5 +74,22 @@ gulp.task('watch:zip', () => {
         gulp.series('zip')
     );
 });
+
+// ── Demo build ───────────────────────────────────────────────────────────────
+// Same source set, but PHP files pass through the demo transform (which strips
+// licensing via the DEMO:* markers). Output → dist/demo/the-bricksfly.zip.
+// Production `zip` is untouched.
+
+gulp.task('clean:demo', () => {
+    return del([`${DEMO_DIR}/${PLUGIN_SLUG}.zip`]);
+});
+
+gulp.task('demo', gulp.series('clean:demo', () => {
+    return gulp.src(sources, { base: '.', dot: false })
+        .pipe(demoTransformStream())
+        .pipe(prefixFolder(PLUGIN_SLUG))
+        .pipe(zip(`${PLUGIN_SLUG}.zip`))
+        .pipe(gulp.dest(DEMO_DIR));
+}));
 
 gulp.task('default', gulp.series('zip'));
