@@ -101,24 +101,24 @@ if (! defined('AAB_ADDON_PRO_ITEM_NAME')) {
  * The code that runs during plugin activation
  * This action is documented in includes/class-bricks-animation-addons-activator.php
  */
-function aab_activate_bricks_animation_addons($network_wide = false)
+function aabaddons_activate_bricks_animation_addons($network_wide = false)
 {
 	require_once plugin_dir_path(__FILE__) . 'includes/class-bricks-animation-addons-activator.php';
-	Bricks_Animation_Addons_Activator::activate($network_wide);
+	AABAddons_Activator::activate($network_wide);
 }
 
 /**
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-bricks-animation-addons-deactivator.php
  */
-function aab_deactivate_bricks_animation_addons()
+function aabaddons_deactivate_bricks_animation_addons()
 {
 	require_once plugin_dir_path(__FILE__) . 'includes/class-bricks-animation-addons-deactivator.php';
-	Bricks_Animation_Addons_Deactivator::deactivate();
+	AABAddons_Deactivator::deactivate();
 }
 
-register_activation_hook(__FILE__, 'aab_activate_bricks_animation_addons');
-register_deactivation_hook(__FILE__, 'aab_deactivate_bricks_animation_addons');
+register_activation_hook(__FILE__, 'aabaddons_activate_bricks_animation_addons');
+register_deactivation_hook(__FILE__, 'aabaddons_deactivate_bricks_animation_addons');
 
 // Bootstrap: config, helpers, trait loaded before the main class.
 require_once AAB_ADDONS_PATH . 'config.php';
@@ -156,10 +156,10 @@ require_once AAB_ADDONS_PATH . 'includes/class-bricks-animation-addons.php';
  *
  * @since    1.0.0
  */
-function aab_run_bricks_animation_addons()
+function aabaddons_run_bricks_animation_addons()
 {
 
-	$plugin = new Bricks_Animation_Addons();
+	$plugin = new AABAddons_Plugin();
 	$plugin->run();
 
 	// Localize AAB_ADDONS_JS against the always-enqueued public script so the
@@ -192,4 +192,4 @@ function aab_run_bricks_animation_addons()
 		wp_localize_script('bricksfly', 'AAB_ADDONS_JS', $data);
 	}, 20);
 }
-aab_run_bricks_animation_addons();
+aabaddons_run_bricks_animation_addons();

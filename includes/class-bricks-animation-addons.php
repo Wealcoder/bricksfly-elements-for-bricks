@@ -31,7 +31,7 @@ if (! defined('ABSPATH')) {
  * @subpackage Bricks_Animation_Addons/includes
  * @author     Zilani <zilani.wealcoder@gmail.com>
  */
-class Bricks_Animation_Addons
+class AABAddons_Plugin
 {
 	use \AABAddons\Includes\Traits\Extension_Widgets_Trait;
 
@@ -41,7 +41,7 @@ class Bricks_Animation_Addons
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      Bricks_Animation_Addons_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      AABAddons_Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -91,9 +91,9 @@ class Bricks_Animation_Addons
 	 *
 	 * Include the following files that make up the plugin:
 	 *
-	 * - Bricks_Animation_Addons_Loader. Orchestrates the hooks of the plugin.
+	 * - AABAddons_Loader. Orchestrates the hooks of the plugin.
 	 * - AABAddons_Admin. Defines all hooks for the admin area.
-	 * - Bricks_Animation_Addons_Public. Defines all hooks for the public side of the site.
+	 * - AABAddons_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
@@ -116,7 +116,7 @@ class Bricks_Animation_Addons
 		// License AJAX endpoints + admin status notice live in the Pro plugin
 		// (includes/license/update.php) — Pro must be active to activate or
 		// deactivate a license. The free plugin only reads the resulting
-		// option value via aab_is_license_valid() / aab_is_pro_active().
+		// option value via aabaddons_is_license_valid() / aabaddons_is_pro_active().
 
 		// CPT Builder must load on every request (admin + frontend) so the
 		// init hooks that register user-defined CPTs/taxonomies fire on the
@@ -151,12 +151,12 @@ class Bricks_Animation_Addons
 		// been parsed (so the pro plugin has had a chance to register its
 		// add_action('aabaddons/pro/register', …) handler).
 		add_action('plugins_loaded', function () {
-			if (function_exists('aab_is_pro_active') && aab_is_pro_active()) {
+			if (function_exists('aabaddons_is_pro_active') && aabaddons_is_pro_active()) {
 				do_action('aabaddons/pro/register');
 			}
 		}, 20);
 
-		$this->loader = new Bricks_Animation_Addons_Loader();
+		$this->loader = new AABAddons_Loader();
 	}
 
 	/**
@@ -275,7 +275,7 @@ class Bricks_Animation_Addons
 	private function define_public_hooks()
 	{
 
-		$plugin_public = new Bricks_Animation_Addons_Public($this->get_plugin_name(), $this->get_version());
+		$plugin_public = new AABAddons_Public($this->get_plugin_name(), $this->get_version());
 
 		add_action('bricks/frontend/enqueue_scripts', $plugin_public, 'enqueue_scripts');
 
@@ -311,7 +311,7 @@ class Bricks_Animation_Addons
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
 	 * @since     1.0.0
-	 * @return    Bricks_Animation_Addons_Loader    Orchestrates the hooks of the plugin.
+	 * @return    AABAddons_Loader    Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader()
 	{

@@ -4,7 +4,7 @@ if (! defined('ABSPATH')) {
 	exit;  // Exit if accessed directly.
 }
 
-$config = array(
+$aabaddons_config = array(
 	'widgets'            => array(
 		'is_active' => false,
 		'elements'  => array(
@@ -1376,7 +1376,7 @@ $config = array(
 	),
 );
 
-$dashboard_pro_widget_slugs = array(
+$aabaddons_dashboard_pro_widget_slugs = array(
 	'animated-heading',
 	'icon-box',
 	'social-icons',
@@ -1384,23 +1384,23 @@ $dashboard_pro_widget_slugs = array(
 	'testimonial-1',
 	'button-pro',
 );
-$widget_index = array();
-if (! empty($config['widgets']['elements']) && is_array($config['widgets']['elements'])) {
-	foreach ($config['widgets']['elements'] as $group) {
-		if (empty($group['elements']) || ! is_array($group['elements'])) {
+$aabaddons_widget_index = array();
+if (! empty($aabaddons_config['widgets']['elements']) && is_array($aabaddons_config['widgets']['elements'])) {
+	foreach ($aabaddons_config['widgets']['elements'] as $aabaddons_group) {
+		if (empty($aabaddons_group['elements']) || ! is_array($aabaddons_group['elements'])) {
 			continue;
 		}
-		foreach ($group['elements'] as $slug => $widget) {
-			$widget_index[$slug] = $widget;
+		foreach ($aabaddons_group['elements'] as $aabaddons_slug => $aabaddons_widget) {
+			$aabaddons_widget_index[$aabaddons_slug] = $aabaddons_widget;
 		}
 	}
 }
-$dashboard_pro_widgets = array();
-foreach ($dashboard_pro_widget_slugs as $slug) {
-	if (isset($widget_index[$slug])) {
-		$dashboard_pro_widgets[$slug] = $widget_index[$slug];
+$aabaddons_dashboard_pro_widgets = array();
+foreach ($aabaddons_dashboard_pro_widget_slugs as $aabaddons_slug) {
+	if (isset($aabaddons_widget_index[$aabaddons_slug])) {
+		$aabaddons_dashboard_pro_widgets[$aabaddons_slug] = $aabaddons_widget_index[$aabaddons_slug];
 	}
 }
-$config['dashboardProWidget'] = $dashboard_pro_widgets;
+$aabaddons_config['dashboardProWidget'] = $aabaddons_dashboard_pro_widgets;
 
-$GLOBALS['aab_addons_config'] = $config;
+$GLOBALS['aabaddons_config'] = $aabaddons_config;

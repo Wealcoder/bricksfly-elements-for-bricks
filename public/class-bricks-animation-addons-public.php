@@ -24,7 +24,7 @@ if (! defined('ABSPATH')) {
  * @subpackage Bricks_Animation_Addons/public
  * @author     Zilani <zilani.wealcoder@gmail.com>
  */
-class Bricks_Animation_Addons_Public
+class AABAddons_Public
 {
 
 	/**

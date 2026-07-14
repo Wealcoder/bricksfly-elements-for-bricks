@@ -2,7 +2,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class AAB_Bricks_Draggable_Items extends \Bricks\Element {
+class AABAddons_Draggable_Items extends \Bricks\Element {
 
 	public $category     = 'bricks fly';
 	public $name         = 'aab-draggable-items';

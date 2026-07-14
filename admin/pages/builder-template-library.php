@@ -88,9 +88,9 @@ class AAB_Builder_Template_Library {
 			true
 		);
 
-		$pro_installed = function_exists( 'aab_is_pro_installed' ) ? aab_is_pro_installed() : false;
-		$pro_active    = function_exists( 'aab_is_pro_active' ) ? aab_is_pro_active() : false;
-		$license_valid = function_exists( 'aab_is_license_valid' ) ? aab_is_license_valid() : false;
+		$pro_installed = function_exists( 'aabaddons_is_pro_installed' ) ? aabaddons_is_pro_installed() : false;
+		$pro_active    = function_exists( 'aabaddons_is_pro_active' ) ? aabaddons_is_pro_active() : false;
+		$license_valid = function_exists( 'aabaddons_is_license_valid' ) ? aabaddons_is_license_valid() : false;
 
 		// In the Bricks builder context, `get_the_ID()` resolves to the post
 		// being edited (Bricks loads the front-end template chain just like

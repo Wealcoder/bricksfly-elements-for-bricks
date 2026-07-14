@@ -5,23 +5,23 @@ if (! defined('ABSPATH')) {
 }
 
 // smooth scroller
-function aab_add_header_smoother_start()
+function aabaddons_add_header_smoother_start()
 {
   echo '<div id="smooth-wrapper"><div id="smooth-content">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 }
 
-function aab_add_header_smoother_end()
+function aabaddons_add_header_smoother_end()
 {
   echo '</div></div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 }
 
-add_action('wp_body_open', 'aab_add_header_smoother_start');
+add_action('wp_body_open', 'aabaddons_add_header_smoother_start');
 
-add_action('wp_footer', 'aab_add_header_smoother_end', -1);
+add_action('wp_footer', 'aabaddons_add_header_smoother_end', -1);
 
 // Plugin-logo branding for the plugin's custom Bricks elements (left-side
 // elements drawer in the Bricks builder).
-function aab_enqueue_element_logo_css()
+function aabaddons_enqueue_element_logo_css()
 {
   if (! function_exists('bricks_is_builder_main') || ! bricks_is_builder_main()) {
     return;
@@ -58,4 +58,4 @@ function aab_enqueue_element_logo_css()
   wp_enqueue_style('aab-element-logo');
   wp_add_inline_style('aab-element-logo', $css);
 }
-add_action('wp_enqueue_scripts', 'aab_enqueue_element_logo_css', 100);
+add_action('wp_enqueue_scripts', 'aabaddons_enqueue_element_logo_css', 100);

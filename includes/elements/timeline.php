@@ -596,7 +596,7 @@ class Aae_Bricks_Timeline extends \Bricks\Element
         $items    = $settings['timelineItems'] ?? [];
 
         if (empty($items)) {
-            echo $this->render_element_placeholder(['title' => esc_html__('Add timeline items.', 'the-bricksfly')]); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            echo wp_kses_post( $this->render_element_placeholder(['title' => esc_html__('Add timeline items.', 'the-bricksfly')]) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
             return;
         }
 
@@ -710,7 +710,7 @@ class Aae_Bricks_Timeline extends \Bricks\Element
         if ($has_link) {
             echo '<a ' . $this->render_attributes($link_key) . '>' . $image_html . '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         } else {
-            echo $image_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            echo wp_kses_post( $image_html ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         }
         echo '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     }

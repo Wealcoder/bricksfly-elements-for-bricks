@@ -9,7 +9,7 @@
  *
  * This file maps every config string to a literal `__()` call. That keeps
  * the strings visible to static .pot extractors and provides the translated
- * values used by `aab_translate_config_tree()` at runtime.
+ * values used by `aabaddons_translate_config_tree()` at runtime.
  *
  * Keep this file in sync with config.php whenever a label, title, or
  * description string is added, removed, or changed.
@@ -17,7 +17,7 @@
 
 defined('ABSPATH') || exit;
 
-function aab_get_config_translations() {
+function aabaddons_get_config_translations() {
 	return array(
 		'Add floating items to your page, such as buttons or icons, that stay in view as users scroll' => __( 'Add floating items to your page, such as buttons or icons, that stay in view as users scroll', 'the-bricksfly' ),
 		'Add stunning movement to your headlines and capture attention in just a second.' => __( 'Add stunning movement to your headlines and capture attention in just a second.', 'the-bricksfly' ),

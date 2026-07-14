@@ -194,7 +194,7 @@ class CPT_Builder {
 
 					if ( isset( $meta['show_in_rest'] ) && $meta['show_in_rest'] == 1 ) {
 						if ( isset( $meta['template'] ) && $meta['template'] != '' ) {
-							if ( $template = aab_validate_content_json( $meta['template'] ) ) {
+							if ( $template = aabaddons_validate_content_json( $meta['template'] ) ) {
 								$args['template'] = $template;
 								unset( $meta['template'] );
 							}

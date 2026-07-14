@@ -163,15 +163,15 @@ class AAB_Page_Importer {
 		// Reading the options here (on every importer page load) means the state
 		// is always freshly fetched — never a stale cached value — so activation
 		// done elsewhere is reflected on the next load of this page.
-		$addons_config = apply_filters( 'aabaddons_dashboard_config', $GLOBALS['aab_addons_config'] ?? [] );
+		$addons_config = apply_filters( 'aabaddons_dashboard_config', $GLOBALS['aabaddons_config'] ?? [] );
 
 		$license_status = (string) get_option( 'wcf_addon_sl_license_status', '' );
 		$license_key    = (string) get_option( 'wcf_addon_sl_license_key', '' );
 
 		// Valid only when the Pro plugin folder exists AND the stored status is
-		// "valid" — the same combined check used by aab_is_license_valid() and
+		// "valid" — the same combined check used by aabaddons_is_license_valid() and
 		// the Dashboard, so deleting the Pro folder relocks Pro instantly.
-		$pro_installed = function_exists( 'aab_is_pro_installed' ) ? aab_is_pro_installed() : false;
+		$pro_installed = function_exists( 'aabaddons_is_pro_installed' ) ? aabaddons_is_pro_installed() : false;
 		$license_valid = $pro_installed && ( 'valid' === $license_status );
 
 		$addons_config['sl_lic']    = $license_key;
@@ -194,7 +194,7 @@ class AAB_Page_Importer {
 			'addons_config'      => $addons_config,
 			'adminURL'           => admin_url(),
 			'page_url'           => esc_url( admin_url( 'edit.php?post_type=page' ) ),
-			'user_role'          => function_exists( 'aabaddon_get_current_user_roles' ) ? aabaddon_get_current_user_roles() : [],
+			'user_role'          => function_exists( 'aabaddons_get_current_user_roles' ) ? aabaddons_get_current_user_roles() : [],
 			'version'            => AAB_ADDONS_VERSION,
 			'st_template_domain' => AAB_TEMPLATE_STARTER_BASE_URL,
 			'home_url'           => home_url( '/' ),

@@ -872,7 +872,7 @@ class Aae_Bricks_Testimonial extends \Bricks\Element
             if ($has_link && $image_html) {
                 echo '<a' . $link_attrs . '>' . $image_html . '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
             } else {
-                echo $image_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                echo wp_kses_post( $image_html ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
             }
             echo '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
