@@ -112,6 +112,9 @@ class AAB_Builder_Template_Library {
 				'ajaxurl'         => admin_url( 'admin-ajax.php' ),
 				'nonce'           => wp_create_nonce( 'aab-builder-template-library' ),
 				'post_id'         => $post_id,
+				// BricksFly brand mark shown inside the toolbar "Import Section"
+				// button. Uses the same canonical logo the rest of the admin uses.
+				'logo_url'        => esc_url( AAB_ADDONS_URL . 'public/images/plugin_logo.png' ),
 				'template_types'  => self::get_template_types(),
 				'remote_api'      => apply_filters(
 					'aabaddons_builder_template_library_remote_api',
@@ -137,10 +140,11 @@ class AAB_Builder_Template_Library {
 					]
 				),
 				'i18n'            => [
-					'modal_title'     => esc_html__( 'Animation Addons — Section Library', 'the-bricksfly' ),
+					'modal_title'     => esc_html__( 'BrickFly Addons — Section Library', 'the-bricksfly' ),
 					'button_label'    => esc_html__( 'Import Section', 'the-bricksfly' ),
 					'insert'          => esc_html__( 'Insert', 'the-bricksfly' ),
 					'inserting'       => esc_html__( 'Inserting…', 'the-bricksfly' ),
+					'preview'         => esc_html__( 'Preview', 'the-bricksfly' ),
 					'go_premium'      => esc_html__( 'Go Premium', 'the-bricksfly' ),
 					'activate'        => esc_html__( 'Activate License', 'the-bricksfly' ),
 					'install_pro'     => esc_html__( 'Install Pro', 'the-bricksfly' ),
@@ -171,11 +175,11 @@ class AAB_Builder_Template_Library {
 			'aabaddons_builder_template_library_types',
 			[
 				'block' => [
-					'label' => esc_html__( 'Block', 'the-bricksfly' ),
+					'label' => esc_html__( 'Section Block', 'the-bricksfly' ),
 				],
-				'page'  => [
-					'label' => esc_html__( 'Page', 'the-bricksfly' ),
-				],
+				// 'page'  => [
+				// 	'label' => esc_html__( 'Page', 'the-bricksfly' ),
+				// ],
 			]
 		);
 	}

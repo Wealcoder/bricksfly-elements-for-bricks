@@ -14,11 +14,12 @@
 
 /* === Toolbar button ===============================================
  *
- * Matches the visual footprint of Bricks' native toolbar actions
- * (undo / redo / save / preview): a square, icon-only target that
- * inherits the toolbar height and shows its label only via the
- * `data-balloon` tooltip on hover. Anything wider would break the
- * uniform spacing of the toolbar.
+ * A branded pill that sits among Bricks' native toolbar actions
+ * (undo / redo / save / preview) but reads as a first-class entry
+ * point: the BricksFly logo mark to the left of a visible
+ * "Import Section" label, on the plugin's amber wash. It inherits the
+ * toolbar height and auto-sizes to its content, so the icon + text stay
+ * on one line and vertically centred at any toolbar scale.
  */
 
 .aab-import-section-button {
@@ -29,58 +30,62 @@
 	margin: 0;
 	padding: 0;
 	list-style: none;
+	width: 130px !important;
 }
 
 .aab-import-section-button .aab-import-section-button__inner {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	width: 32px;
+	gap: 6px;
+	width: 100%;
 	height: 28px;
 	margin: 0 4px;
-	padding: 0;
+	padding: 0 10px 0 8px;
 	border: 1px solid rgba(250, 204, 21, 0.55);
 	border-radius: 4px;
-	/* Warm amber wash — bright enough to be the most legible non-action
-	   item in the toolbar, dark enough to not compete with the primary
-	   Save / Preview controls. */
-	color: #1e1e22;
-	background: #facc15;
+	/* Dark pill with the amber logo mark — sits distinctly among the
+	   native toolbar controls without competing with the primary
+	   Save / Preview actions. */
+	color: #fff;
+	background: #1e1e22;
+	font-size: 12px;
+	font-weight: 600;
+	line-height: 1;
+	white-space: nowrap;
 	text-decoration: none;
 	cursor: pointer;
 	transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
-}
-
-.aab-import-section-button .aab-import-section-button__inner:hover,
-.aab-import-section-button .aab-import-section-button__inner:focus-visible {
-	color: #1e1e22;
-	background: #fde047;
-	border-color: #fde047;
-	outline: none;
 }
 
 .aab-import-section-button .aab-import-section-button__inner:active {
 	transform: translateY(1px);
 }
 
+/* BricksFly logo mark. Sized in em so it scales with the label font and
+   stays optically aligned with the text baseline. `object-fit: contain`
+   preserves the logo's aspect ratio across screen sizes. */
+.aab-import-section-button__logo {
+	display: block;
+	width: 1.5em;
+	height: 1.5em;
+	flex: 0 0 auto;
+	object-fit: contain;
+}
+
+/* Fallback glyph (only rendered when the logo URL is unavailable). */
 .aab-import-section-button__icon {
-	width: 18px;
-	height: 18px;
+	width: 16px;
+	height: 16px;
+	flex: 0 0 auto;
 	fill: currentColor;
 	display: block;
 }
 
-/* Screen-reader-only label (mirrors WP core `.screen-reader-text`). */
-.aab-import-section-button .screen-reader-text {
-	position: absolute;
-	width: 1px;
-	height: 1px;
-	margin: -1px;
-	padding: 0;
+.aab-import-section-button__label {
+	display: inline-block;
 	overflow: hidden;
-	clip: rect(0 0 0 0);
-	border: 0;
-	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 /* === Modal ======================================================= */
@@ -162,7 +167,7 @@
 
 .aab-tl-tab.is-active {
 	color: #fff;
-	border-color: #fc6848;
+	border-color: #ffd53e;
 	background: rgba(252, 104, 72, 0.15);
 }
 
@@ -178,7 +183,7 @@
 }
 
 .aab-tl-modal__close:hover {
-	color: #fc6848;
+	color: #ffd53e;
 }
 
 /* Filters */
@@ -218,7 +223,7 @@
 
 .aab-tl-filter select:focus,
 .aab-tl-search input[type='search']:focus {
-	border-color: #fc6848;
+	border-color: #ffd53e;
 	box-shadow: 0 0 0 3px rgba(252, 104, 72, 0.18);
 }
 
@@ -250,7 +255,7 @@
 .aab-tl-card:hover {
 	transform: translateY(-2px);
 	box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.25);
-	border-color: #fc6848;
+	border-color: #ffd53e;
 }
 
 .aab-tl-card__thumb {
@@ -272,6 +277,47 @@
 
 .aab-tl-card:hover .aab-tl-card__thumb img {
 	transform: scale(1.03);
+}
+
+/* Live-preview link overlaid on the thumbnail. Hidden until the card is
+   hovered/focused so it doesn't clutter the grid; revealed with a subtle
+   scrim behind it for legibility over any thumbnail. */
+.aab-tl-card__preview {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	margin: 0;
+	color: #fff;
+	font-size: 13px;
+	font-weight: 600;
+	text-decoration: none;
+	background: rgba(15, 15, 18, 0.45);
+	opacity: 0;
+	transition: opacity 0.18s ease;
+}
+
+.aab-tl-card:hover .aab-tl-card__preview,
+.aab-tl-card__preview:focus-visible {
+	opacity: 1;
+	outline: none;
+}
+
+.aab-tl-card__preview:focus-visible {
+	box-shadow: inset 0 0 0 2px #ffd53e;
+}
+
+.aab-tl-card__preview-icon {
+	width: 18px;
+	height: 18px;
+	fill: currentColor;
+	display: block;
+}
+
+.aab-tl-card__preview-label {
+	line-height: 1;
 }
 
 .aab-tl-card__footer {
@@ -299,8 +345,8 @@
 	display: inline-flex;
 	align-items: center;
 	gap: 4px;
-	background: #fc6848;
-	color: #fff;
+	background: #ffd53e;
+	color: #18181A;
 	border: 0;
 	border-radius: 4px;
 	padding: 6px 12px;
@@ -316,11 +362,12 @@
 }
 
 .aab-tl-card__insert:hover {
-	background: #e85630;
+	background: #fff;
 }
 
 .aab-tl-card__pro:hover {
 	background: #2c2c30;
+	color: #fff;
 }
 
 .aab-tl-card__insert:disabled {
@@ -376,7 +423,7 @@
 	width: 14px;
 	height: 14px;
 	border: 2px solid #d5d5d8;
-	border-top-color: #fc6848;
+	border-top-color: #ffd53e;
 	border-radius: 50%;
 	animation: aab-tl-spin 0.8s linear infinite;
 }
