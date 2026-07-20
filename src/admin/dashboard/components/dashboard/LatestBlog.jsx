@@ -1,11 +1,13 @@
-import { RiArrowRightUpLine, RiNewsLine } from "react-icons/ri";
+import { RiArrowRightUpLine } from "react-icons/ri";
 import { Separator } from "../ui/separator";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "../ui/button";
 import { LatestBlogList } from "@/config/data/latestBlogList";
+import { API_ENDPOINTS } from "@/config/api";
+import { useRemoteData } from "@/hooks/useRemoteData";
 
 const LatestBlog = () => {
-  const blogs = LatestBlogList;
+  const { data: blogs } = useRemoteData(API_ENDPOINTS.blogs, LatestBlogList);
   const hash = window.location.hash;
   const hashValue = hash?.replace("#", "");
 
@@ -20,51 +22,42 @@ const LatestBlog = () => {
       id="wcf-blog"
     >
       <div className="flex justify-between gap-11">
-        <div className="flex gap-2 items-center">
-          <RiNewsLine size={20} color="#47C2FF" />
-          <p className="font-medium">Latest Blogs & Articles</p>
-        </div>
+        <p className="font-medium text-text">Blogs</p>
         <div>
           <a
             href={"https://bricksfly.com/blog"}
             target="_blank"
             className={cn(buttonVariants({ variant: "secondary", size: "sm" }))}
           >
-            View all{" "}
+            View all
             <RiArrowRightUpLine
               size={18}
-              className="ml-1 rtl:rotate-360 rtl:scale-x-[-1]"
+              className="rtl:rotate-360 rtl:scale-x-[-1]"
             />
           </a>
         </div>
       </div>
       <Separator className="mt-4 mb-5" />
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
         {blogs?.map((blog, i) => (
-          <div key={`latest_blog-${i}`} className="group">
-            <div className="overflow-hidden h-[170px] rounded-lg">
+          <div key={`latest_blog-${i}`} className="group flex flex-col gap-[19px]">
+            <div className="overflow-hidden rounded-lg">
               <img
-                className="transition-all group-hover:scale-110 h-[170px] object-cover"
+                className="w-full h-auto transition-all group-hover:scale-110"
                 src={blog.thumbnail}
-                onError={(e) => {
-                  e.currentTarget.src = `${AAB_ADDONS_ADMIN.plugin_url}public/images/latest-blog/b1.png`;
-                }}
-                alt="Thumbnail"
+                alt=""
               />
             </div>
-            <div className="mt-3">
+            <div className="flex flex-col gap-[18px]">
               <a href={blog.url} target="_blank">
-                <h3 className="text-sm font-medium group-hover:text-brand">
+                <h3 className="text-sm font-medium text-text group-hover:text-brand line-clamp-2">
                   <span dir="ltr">{blog.title}</span>
                 </h3>
               </a>
-              <div className="flex h-5 items-center gap-x-1.5 text-xs text-text-secondary mt-2">
-                <div>{blog.createAt}</div>
-                <Separator
-                  orientation="vertical"
-                  className="h-3 text-label bg-label"
-                />
-                <div>{blog.readingTime}</div>
+              <div className="flex items-center gap-1.5 text-sm text-text-secondary">
+                <span>{blog.createAt}</span>
+                <span className="w-1 h-1 rounded-full bg-[#717784] shrink-0" />
+                <span>{blog.readingTime}</span>
               </div>
             </div>
           </div>

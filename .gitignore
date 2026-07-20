@@ -12,3 +12,4 @@ package-lock.json
 .DS_Store
 .project
 Thumbs.db
+z_temp/

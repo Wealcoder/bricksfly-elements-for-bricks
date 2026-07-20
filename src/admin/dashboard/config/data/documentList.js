@@ -1,14 +1,23 @@
+const icon = (name) =>
+  `${AAB_ADDONS_ADMIN.plugin_url}public/images/documentation/${name}`;
+
 export const DocumentList = [
   {
-    title: "Image Reveal on Hover",
-    subTitle:
-      "The Image Reveal on Hover Element in Animation Addons for Bricks adds engaging...",
-    url: "https://bricksfly.com/docs/gsap-extensions/image-reveal-on-hover/",
+    title: "GSAP Extensions",
+    subTitle: "Enhance your animations with additional GSAP features",
+    url: "https://bricksfly.com/docs/gsap-extensions/",
+    icon: icon("icon-gsap-extensions.png"),
   },
   {
-    title: "Parallax Effect",
-    subTitle:
-      "The Parallax Effect in Animation Addons for Bricks adds engaging...",
-    url: "https://bricksfly.com/docs/gsap-extensions/parallax-effect/",
+    title: "Animation Widgets",
+    subTitle: "Prebuilt widgets to add motion and interactivity with ease",
+    url: "https://bricksfly.com/docs/animation-widgets/",
+    icon: icon("icon-animation-widgets.png"),
+  },
+  {
+    title: "General extensions",
+    subTitle: "Essential tools and utilities that enhance core functionality",
+    url: "https://bricksfly.com/docs/general-extensions/",
+    icon: icon("icon-general-extensions.png"),
   },
 ];

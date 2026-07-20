@@ -1,34 +1,33 @@
+const img = (name) => `${AAB_ADDONS_ADMIN.plugin_url}public/images/latest-blog/${name}`;
+
 export const LatestBlogList = [
   {
-    title: "How to Build Animated Portfolio Websites in Bricks",
-    thumbnail:
-      "https://bricksfly.com/blog/wp-content/uploads/2026/07/How-to-Build-Animated-Portfolio-Websites-in-Bricks.webp",
-    createAt: "June 22, 2026",
-    readingTime: "10 min read",
-    url: "https://bricksfly.com/blog/animated-portfolio-website-bricks/",
+    title: "Animation addons vs royal addons: full features comparison",
+    thumbnail: img("blog-01-animation-vs-royal-addons.png"),
+    createAt: "Nov 3, 2025",
+    readingTime: "5 min read",
+    url: "https://bricksfly.com/blog/animation-addons-vs-royal-addons/",
   },
   {
     title:
-      "How to Use Copy Paste Sections in Bricks Builder: A Step-by-Step Guide",
-    thumbnail:
-      "https://bricksfly.com/blog/wp-content/uploads/2026/07/How-to-Use-Copy-Paste-Sections-in-Bricks-Builder.webp",
-    createAt: "October 16, 2026",
-    readingTime: "10 min read",
-    url: "https://bricksfly.com/blog/bricks-copy-paste-sections/",
+      "How to add gsap animation in wordpress: a guide to creating smooth animations",
+    thumbnail: img("blog-02-gsap-animation-wordpress.png"),
+    createAt: "Nov 3, 2025",
+    readingTime: "5 min read",
+    url: "https://bricksfly.com/blog/gsap-animation-in-wordpress/",
   },
   {
-    title: "GSAP vs CSS Animation in Bricks Builder: Which Should You Use?",
-    thumbnail: "https://bricksfly.com/blog/wp-content/uploads/2026/07/GSAP-vs-CSS-Animation-in-Bricks-Builder-Which-Should-You-Use.webp",
-    createAt: "june 9, 2026",
-    readingTime: "10 min read",
-    url: "https://bricksfly.com/blog/gsap-vs-css-animation-bricks/",
+    title: "How to use animation to improve user engagement on a website",
+    thumbnail: img("blog-03-improve-user-engagement.png"),
+    createAt: "Nov 3, 2025",
+    readingTime: "5 min read",
+    url: "https://bricksfly.com/blog/improve-user-engagement-with-animation/",
   },
   {
-    title: "Best Bricks Website Templates for Agencies",
-    thumbnail:
-      "https://bricksfly.com/blog/wp-content/uploads/2026/07/Best-Bricks-Website-Templates-for-Agencies.webp",
-    createAt: "july 3, 2026",
-    readingTime: "10 min read",
-    url: "https://bricksfly.com/blog/bricks-templates-for-agencies/",
+    title: "How to use gsap scrolltrigger in wordpress & elementor",
+    thumbnail: img("blog-04-gsap-scrolltrigger.png"),
+    createAt: "Nov 3, 2025",
+    readingTime: "5 min read",
+    url: "https://bricksfly.com/blog/gsap-scrolltrigger-wordpress-elementor/",
   },
 ];
