@@ -13,25 +13,9 @@ import { useState } from "react";
 import { useActivate } from "@/hooks/app.hooks";
 import { toast } from "sonner";
 
-const ProConfirmDialog = ({ open, setOpen, reason }) => {
+const ProConfirmDialog = ({ open, setOpen }) => {
   const { activated } = useActivate();
   const [openLicense, setOpenLicense] = useState(false);
-
-  // Distinguish two block reasons:
-  //  - "license": Pro not installed / not active / not licensed for this site.
-  //  - "limitation": licensed for this site, but the plan tier doesn't include
-  //    the requested feature (e.g. starter_tpl_import / starter_page_import).
-  // A limitation block is shown as a plan-upgrade prompt, since re-activating
-  // the same key won't unlock the feature.
-  const isLicensed = activated?.product_status?.item_id === 13;
-  const isLimitation = reason === "limitation" || (isLicensed && open);
-
-  const heading = isLimitation
-    ? "This feature isn’t included in your current plan"
-    : "Upgrade to premium plan and unlock every features!";
-  const subtext = isLimitation
-    ? "Upgrade your license plan to unlock this import feature."
-    : "Upgrade and get access to every feature.";
 
   const activePlugin = async () => {
     await fetch(AAB_ADDONS_ADMIN.ajaxurl, {
@@ -77,28 +61,16 @@ const ProConfirmDialog = ({ open, setOpen, reason }) => {
             />
             <div className="p-6 pt-2">
               <h2 className="text-xl text-center font-medium">
-                <span dir="ltr">{heading}</span>
+                <span dir="ltr">
+                  Upgrade to premium plan and unlock every features!
+                </span>
               </h2>
 
               <p className="mt-2.5 text-sm text-text-secondary text-center">
-                <span dir="ltr">{subtext}</span>
+                <span dir="ltr">Upgrade and get access to every feature.</span>
               </p>
 
-              {isLimitation ? (
-                <a
-                  href="https://bricksfly.com/"
-                  target="_blank"
-                  className={cn(
-                    buttonVariants({ variant: "pro" }),
-                    "w-full mt-6",
-                  )}
-                >
-                  <span className="me-2 flex">
-                    <RiVipCrown2Line size={20} />
-                  </span>
-                  Upgrade Plan
-                </a>
-              ) : activated.integrations.plugins.elements["the-bricksfly-pro"]
+              {activated.integrations.plugins.elements["the-bricksfly-pro"]
                 .action === "Active" ? (
                 <Button
                   variant="pro"

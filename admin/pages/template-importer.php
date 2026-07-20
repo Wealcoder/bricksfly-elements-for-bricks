@@ -134,62 +134,12 @@ class AAB_Template_Importer {
 		wp_send_json_success( [ 'dependencies' => $dependencies ] );
 	}
 
-	/**
-	 * Enforce a license limitation on an import AJAX request.
-	 *
-	 * Sends a JSON error and halts (wp_send_json) when the feature is not
-	 * allowed for the active license. The response shape lets the client
-	 * distinguish a license block from a generic failure:
-	 *   { success:false, limited:true, feature:<key>, message:<string> }
-	 *
-	 * Fail-open only if the free plugin's helper is somehow missing (should
-	 * never happen — it's loaded before the admin pages), to avoid hard-
-	 * breaking imports on a partial deploy.
-	 *
-	 * @param string $feature Feature key (e.g. 'starter_tpl_import').
-	 * @return void
-	 */
-	public static function guard_import_feature( $feature ) {
-		if ( ! function_exists( 'aab_is_feature_allowed' ) ) {
-			return;
-		}
-
-		if ( aab_is_feature_allowed( $feature ) ) {
-			return;
-		}
-
-		$message = function_exists( 'aab_feature_denied_message' )
-			? aab_feature_denied_message( $feature )
-			: __( 'This feature is not included in your current license plan.', 'the-bricksfly' );
-
-		wp_send_json( array(
-			'success'  => false,
-			'limited'  => true,
-			'feature'  => $feature,
-			'message'  => $message,
-			// Mirror the importer's own failure envelope so any client path
-			// that only checks `next_step`/`progress` still stops cleanly.
-			'progress' => 0,
-			'template' => array( 'next_step' => 'fail' ),
-		) );
-	}
-
 	public function template_installer() {
 		check_ajax_referer( 'aab_admin_nonce', 'nonce' );
 
 		if ( ! current_user_can( 'install_plugins' ) ) {
 			wp_send_json_error( __( 'You are not allowed to do this action', 'the-bricksfly' ) );
 		}
-
-		// License limitation gate. Page import (import_type=page) requires the
-		// `starter_page_import` flag; every other import type (full-demo /
-		// starter template) requires `starter_tpl_import`. Enforced here so a
-		// forged AJAX request can't bypass the React UI's lock. The gate returns
-		// `limited:true` + the feature key so the client can show the upsell
-		// popup instead of a generic failure.
-		$import_type = isset( $_POST['import_type'] ) ? sanitize_text_field( wp_unslash( $_POST['import_type'] ) ) : 'full-demo';
-		$feature     = ( 'page' === $import_type ) ? 'starter_page_import' : 'starter_tpl_import';
-		self::guard_import_feature( $feature );
 
 		$progress      = '25';
 		$msg           = '';

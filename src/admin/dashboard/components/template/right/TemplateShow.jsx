@@ -13,22 +13,11 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-// Starter-template import is gated by the license plan's `starter_tpl_import`
-// feature flag (also enforced server-side in admin/pages/template-importer.php
-// + admin/st-init.php). A missing/false flag means the tier doesn't include
-// starter template import.
-const STARTER_TPL_FEATURE = "starter_tpl_import";
-
 const TemplateShow = ({ allTemplate, metaData, setMetaData }) => {
   const [open, setOpen] = useState(false);
 
   const { setTabKey } = useTNavigation();
   const { activated } = useActivate();
-
-  const isLicensed = activated?.product_status?.item_id === 13;
-  const starterTplAllowed =
-    isLicensed &&
-    !!activated?.product_status?.limitations?.[STARTER_TPL_FEATURE];
 
   const changeRoute = (value, slug, id, is_pro) => {
     const url = new URL(window.location.href);
@@ -42,17 +31,17 @@ const TemplateShow = ({ allTemplate, metaData, setMetaData }) => {
     url.searchParams.set("template", slug);
     url.searchParams.set("templateid", id);
 
-    // Pro templates require a valid license; ALL starter-template imports
-    // additionally require the `starter_tpl_import` plan entitlement (the
-    // import machinery itself is the licensed feature). Free templates still
-    // need that entitlement, so gate on it regardless of is_pro.
-    if (!starterTplAllowed) {
-      setOpen(value || true);
-      return;
+    if (is_pro) {
+      if (activated?.product_status?.item_id === 13) {
+        window.history.replaceState({}, "", url);
+        setTabKey(value);
+      } else {
+        setOpen(value);
+      }
+    } else {
+      window.history.replaceState({}, "", url);
+      setTabKey(value);
     }
-
-    window.history.replaceState({}, "", url);
-    setTabKey(value);
   };
 
   const saveWishlist = async (data) => {
@@ -293,11 +282,7 @@ const TemplateShow = ({ allTemplate, metaData, setMetaData }) => {
           <p className="text-lg font-semibold">No Item Found</p>
         </div>
       )}
-      <ProConfirmDialog
-        open={open}
-        setOpen={setOpen}
-        reason={isLicensed ? "limitation" : "license"}
-      />
+      <ProConfirmDialog open={open} setOpen={setOpen} />
     </>
   );
 };

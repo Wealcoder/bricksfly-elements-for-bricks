@@ -184,20 +184,11 @@ const DemoImporting = () => {
         if (contentType && contentType.includes("application/json")) {
           const data = await response.json();
 
-          // Server-side license limitation block (starter_tpl_import). Stop
-          // cleanly and surface the reason instead of retrying the rejected
-          // step forever.
-          if (data?.limited) {
-            setMsg(data.message || "This feature is not included in your license plan.");
-            changeRoute("fail-import", { plugins, theme, attachment, msg: data.message });
-            return;
-          }
-
           if ("undefined" !== typeof data.status && "newAJAX" === data.status) {
             if (data?.state && data.state !== "") {
               setMsg(data.state);
             }
-
+             
             runImport(tpldata);
           }
 
