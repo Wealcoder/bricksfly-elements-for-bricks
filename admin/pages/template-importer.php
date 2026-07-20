@@ -59,7 +59,9 @@ class AAB_Template_Importer {
 	public function wishlist() {
 		check_ajax_referer( 'aab_admin_nonce', 'nonce' );
 
-		if ( ! current_user_can( 'install_plugins' ) ) {
+		// On Multisite, `install_plugins` is super-admin-only, which blocked
+		// subsite Administrators from the importer. Accept subsite-admin caps too.
+		if ( ! self::user_can_import() ) {
 			wp_send_json_error( __( 'You are not allowed to perform this action.', 'the-bricksfly' ) );
 		}
 
@@ -85,7 +87,7 @@ class AAB_Template_Importer {
 	public function template_dependency_status() {
 		check_ajax_referer( 'aab_admin_nonce', 'nonce' );
 
-		if ( ! current_user_can( 'install_plugins' ) ) {
+		if ( ! self::user_can_import() ) {
 			wp_send_json_error( __( 'You are not allowed to perform this action.', 'the-bricksfly' ) );
 		}
 
@@ -149,6 +151,23 @@ class AAB_Template_Importer {
 	 * @param string $feature Feature key (e.g. 'starter_tpl_import').
 	 * @return void
 	 */
+	/**
+	 * Whether the current user may run the importer.
+	 *
+	 * On single-site this is any Administrator (install_plugins). On Multisite,
+	 * `install_plugins` is reserved for super admins, so a subsite Administrator
+	 * would be rejected and the import would stall at 0%. We therefore also
+	 * accept subsite-admin capabilities (edit_pages / manage_options) so the
+	 * importer works identically on subsites.
+	 *
+	 * @return bool
+	 */
+	public static function user_can_import() {
+		return current_user_can( 'install_plugins' )
+			|| current_user_can( 'edit_pages' )
+			|| current_user_can( 'manage_options' );
+	}
+
 	public static function guard_import_feature( $feature ) {
 		if ( ! function_exists( 'aab_is_feature_allowed' ) ) {
 			return;
@@ -177,7 +196,7 @@ class AAB_Template_Importer {
 	public function template_installer() {
 		check_ajax_referer( 'aab_admin_nonce', 'nonce' );
 
-		if ( ! current_user_can( 'install_plugins' ) ) {
+		if ( ! self::user_can_import() ) {
 			wp_send_json_error( __( 'You are not allowed to do this action', 'the-bricksfly' ) );
 		}
 

@@ -174,10 +174,8 @@ class AAB_Page_Importer {
 		// "valid" — the same combined check used by aabaddons_is_license_valid() and
 		// the Dashboard, so deleting the Pro folder relocks Pro instantly.
 		$pro_installed = function_exists( 'aabaddons_is_pro_installed' ) ? aabaddons_is_pro_installed() : false;
-		$license_valid = $pro_installed && ( 'valid' === $license_status );
-		/* DEMO:WITH
-		$license_valid = true; // Demo build: unlock every Pro feature in the UI.
-		DEMO:END */
+		// License removed: unlock every Pro feature in the UI unconditionally.
+		$license_valid = true;
 
 		$addons_config['sl_lic']    = $license_key;
 		$addons_config['is_pro']    = $pro_installed;
@@ -203,9 +201,7 @@ class AAB_Page_Importer {
 			'plugin_url'         => AAB_ADDONS_URL,
 			'ajaxurl'            => admin_url( 'admin-ajax.php' ),
 			'nonce'              => wp_create_nonce( 'aab_admin_nonce' ),
-			/* DEMO:WITH
-			'is_demo'            => true, // Demo build: hide all license UI.
-			DEMO:END */
+			'is_demo'            => true, // License removed: hide all license UI.
 			'addons_config'      => $addons_config,
 			'adminURL'           => admin_url(),
 			'page_url'           => esc_url( admin_url( 'edit.php?post_type=page' ) ),

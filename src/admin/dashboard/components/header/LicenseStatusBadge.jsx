@@ -11,10 +11,8 @@ import { RiCheckboxCircleFill, RiErrorWarningFill } from "react-icons/ri";
  * server-side in page-import.php / dashboard.php from the live license option).
  */
 const LicenseStatusBadge = () => {
-  // Demo build: no licensing — hide the license status badge entirely.
-  if (typeof AAB_ADDONS_ADMIN !== "undefined" && AAB_ADDONS_ADMIN.is_demo) {
-    return null;
-  }
+  // License removed: never render the license status badge.
+  return null;
 
   const config =
     (typeof AAB_ADDONS_ADMIN !== "undefined" && AAB_ADDONS_ADMIN.addons_config) ||

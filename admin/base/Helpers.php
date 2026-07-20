@@ -219,7 +219,16 @@ class Helpers {
 	public static function verify_ajax_call() {
 		check_ajax_referer( 'aab_admin_nonce', 'nonce' );
 
-		if ( ! current_user_can( 'import' ) ) {
+		// On Multisite, the `import` capability is not granted to regular site
+		// Administrators (only super admins), which blocked demo imports on
+		// subsites. Accept any user who can edit pages / manage options too, so
+		// a subsite Administrator can run the importer exactly like on the main
+		// site. Nonce is already verified above.
+		if (
+			! current_user_can( 'import' )
+			&& ! current_user_can( 'edit_pages' )
+			&& ! current_user_can( 'manage_options' )
+		) {
 			wp_die(
 				esc_html__( 'Your user role isn\'t high enough. You don\'t have permission to import demo data.', 'the-bricksfly' )
 			);

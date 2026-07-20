@@ -6,15 +6,17 @@ import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import LicenseDialog from "./LicenseDialog";
 
-const GetProButton = ({ btnClassName, showLicense }) => {
+const GetProButton = () => {
+  // License removed: never render the license / "Activate License" button or its
+  // dialog. Returned before any hooks so the Rules of Hooks are not violated.
+  return null;
+};
+
+// eslint-disable-next-line no-unused-vars
+const GetProButtonLegacy = ({ btnClassName, showLicense }) => {
   const { activated } = useActivate();
   const [openLicense, setOpenLicense] = useState(false);
   const role = AAB_ADDONS_ADMIN.user_role;
-
-  // Demo build: no licensing — hide the license/Pro button and dialog entirely.
-  if (typeof AAB_ADDONS_ADMIN !== "undefined" && AAB_ADDONS_ADMIN.is_demo) {
-    return null;
-  }
 
   useEffect(() => {
     setOpenLicense(showLicense);

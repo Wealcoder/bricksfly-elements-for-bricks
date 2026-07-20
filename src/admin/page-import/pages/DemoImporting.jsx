@@ -62,24 +62,64 @@ const DemoImporting = () => {
 
   const getTemplate = useCallback(
     debounceFn(async (id) => {
-      try {
-        const url = new URL(
-          `${AAB_ADDONS_ADMIN?.st_template_domain}wp-json/wp/v2/brk-starter-page`
-        );
-        if (id) url.searchParams.append("tplid", id);
+      // Resolve the page from the remote catalog with a timeout, retries, and
+      // explicit error handling so the importer never dead-ends at
+      // "Page finding... 0%" (e.g. on a Multisite subsite). On repeated failure
+      // it routes to fail-import with a clear message instead of hanging.
+      const base = AAB_ADDONS_ADMIN?.st_template_domain;
+      if (!base) {
+        console.error("BricksFly import: st_template_domain is missing.");
+        setMsg("Template server is not configured. Please reload the page.");
+        changeRoute("fail-import", { plugins, theme, attachment, msg: "config" });
+        return;
+      }
+      const CATALOG_URL = `${base}wp-json/wp/v2/brk-starter-page`;
+      const MAX_TRIES = 3;
 
-        await fetch(url.toString())
-          .then((response) => response.json())
-          .then((data) => {
-            if (data?.templates) {
-              const result = Object.entries(data.templates).find(
-                ([key, value]) => value.id == id
-              )?.[1];
+      const fetchCatalog = async () => {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), 30000);
+        try {
+          const u = new URL(CATALOG_URL);
+          if (id) u.searchParams.append("tplid", id);
+          const response = await fetch(u.toString(), { signal: controller.signal });
+          if (!response.ok) {
+            throw new Error(`Template server returned ${response.status}`);
+          }
+          return await response.json();
+        } finally {
+          clearTimeout(timer);
+        }
+      };
+
+      for (let attempt = 1; attempt <= MAX_TRIES; attempt++) {
+        try {
+          const data = await fetchCatalog();
+          const list = data?.templates;
+          if (list) {
+            const entries = Object.values(list);
+            const result =
+              entries.find((value) => value && value.id == id) || entries[0];
+            if (result) {
               setCurrenTemplate(result);
+              return;
             }
-          });
-      } catch (error) {
-        console.error(error);
+          }
+          throw new Error("Page not found on the server.");
+        } catch (error) {
+          console.error(`getTemplate attempt ${attempt} failed:`, error.message);
+          if (attempt === MAX_TRIES) {
+            setMsg(`Could not load the page: ${error.message}`);
+            changeRoute("fail-import", {
+              plugins,
+              theme,
+              attachment,
+              msg: error.message,
+            });
+            return;
+          }
+          await new Promise((r) => setTimeout(r, 1000 * attempt));
+        }
       }
     }),
     []
