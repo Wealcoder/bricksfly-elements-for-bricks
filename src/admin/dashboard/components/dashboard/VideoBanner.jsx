@@ -3,7 +3,7 @@ import TutorialDialog from "./dialog/TutorialDialog";
 
 const VideoBanner = ({
   thumbnail = `${AAB_ADDONS_ADMIN.plugin_url}public/images/animation-addons-video-banner.jpg`,
-  videoUrl = "https://www.youtube.com/embed/tRbvgq2gJF4?si=Ft1slmDRA316RZCr",
+  videoUrl = "https://youtu.be/5wno9t4gR64?si=qgM8L6HyQHIouiyI",
   title = "Animation Addons",
 }) => {
   const [open, setOpen] = useState(false);

@@ -6,20 +6,20 @@ export const TutorialList = [
       "How to Install Animation Addons for Elementor | Step-by-Step Setup Guide (Full Tutorial)",
     duration: "4 min 43 sec",
     thumbnail: img("tutorial-thumb-01.png"),
-    videoUrl: "https://www.youtube.com/embed/tRbvgq2gJF4?si=Ft1slmDRA316RZCr",
+    videoUrl: "https://youtu.be/5wno9t4gR64?si=qgM8L6HyQHIouiyI",
   },
   {
     title:
       "How to Install Animation Addons for Elementor | Step-by-Step Setup Guide (Full Tutorial)",
     duration: "4 min 43 sec",
     thumbnail: img("tutorial-thumb-02.png"),
-    videoUrl: "https://www.youtube.com/embed/tRbvgq2gJF4?si=Ft1slmDRA316RZCr",
+    videoUrl: "https://youtu.be/5wno9t4gR64?si=qgM8L6HyQHIouiyI",
   },
   {
     title:
       "How to Install Animation Addons for Elementor | Step-by-Step Setup Guide (Full Tutorial)",
     duration: "4 min 43 sec",
     thumbnail: img("tutorial-thumb-03.png"),
-    videoUrl: "https://www.youtube.com/embed/tRbvgq2gJF4?si=Ft1slmDRA316RZCr",
+    videoUrl: "https://youtu.be/5wno9t4gR64?si=qgM8L6HyQHIouiyI",
   },
 ];

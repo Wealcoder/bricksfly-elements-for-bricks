@@ -5,13 +5,16 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { toYoutubeEmbedUrl } from "@/lib/utils";
 
 const TutorialDialog = ({
   open,
   setOpen,
-  videoUrl = "https://www.youtube.com/embed/tRbvgq2gJF4?si=Ft1slmDRA316RZCr",
+  videoUrl = "https://youtu.be/5wno9t4gR64?si=qgM8L6HyQHIouiyI",
   title = "Video player",
 }) => {
+  const embedUrl = toYoutubeEmbedUrl(videoUrl, { autoplay: true });
+
   return (
     <Dialog open={open} onOpenChange={(value) => setOpen(value)}>
       <DialogContent className={"max-w-[1000px]"} hideClose>
@@ -20,10 +23,10 @@ const TutorialDialog = ({
           <DialogDescription>
             {open && (
               <iframe
-                key={videoUrl}
+                key={embedUrl}
                 width="100%"
                 height="100%"
-                src={videoUrl}
+                src={embedUrl}
                 title={title}
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

@@ -319,6 +319,35 @@ export const hideElements = () => {
   if (wcfAnim2024) wcfAnim2024.style.overflow = "hidden";
 };
 
+export function toYoutubeEmbedUrl(url, { autoplay = false } = {}) {
+  if (!url) return url;
+
+  try {
+    const parsed = new URL(url);
+    let embedUrl;
+
+    if (parsed.pathname.startsWith("/embed/")) {
+      embedUrl = new URL(url);
+    } else {
+      let videoId = null;
+      if (parsed.hostname === "youtu.be") {
+        videoId = parsed.pathname.slice(1);
+      } else if (parsed.pathname === "/watch") {
+        videoId = parsed.searchParams.get("v");
+      }
+
+      if (!videoId) return url;
+      embedUrl = new URL(`https://www.youtube.com/embed/${videoId}`);
+    }
+
+    if (autoplay) embedUrl.searchParams.set("autoplay", "1");
+
+    return embedUrl.toString();
+  } catch {
+    return url;
+  }
+}
+
 export function formatNumber(value) {
   // convert string to number if needed
   const num = typeof value === "string" ? parseFloat(value) : value;
