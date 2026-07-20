@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 
 const SplitRow = ({ columns = [50, 50], gap = "gap-3", className, children }) => {
-  const template = columns.map((col) => `${col}fr`).join(" ");
+  const template = columns.map((col) => `minmax(0, ${col}fr)`).join(" ");
 
   return (
     <div
