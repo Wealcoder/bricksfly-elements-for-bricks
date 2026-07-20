@@ -451,14 +451,33 @@ import "../../scss/admin/aab-template-library.scss";
 
 	/**
 	 * Mark each template as valid (Insert button enabled) if it is free or
-	 * the user has a valid Pro license. `is_pro` from the new API is a
-	 * proper boolean (the legacy API used strings, so accept both).
+	 * the user has a valid Pro license AND the license plan includes section
+	 * import. `is_pro` from the new API is a proper boolean (the legacy API
+	 * used strings, so accept both).
+	 *
+	 * Two independent gates:
+	 *   - wcf_valid:      Pro installed + license active for this site.
+	 *   - section_import: the license tier includes the Section Import feature
+	 *                     (server-authoritative; also enforced on insert).
+	 * A Pro section needs both; a free section only needs the site to be able
+	 * to import at all, which still requires the section_import entitlement.
 	 */
+	function sectionImportAllowed() {
+		// Fall back to true only when the flag was never localized (older PHP),
+		// so we never hard-lock on a partial deploy — the server still guards.
+		if (!CFG.config || typeof CFG.config.section_import === 'undefined') {
+			return true;
+		}
+		return !!CFG.config.section_import;
+	}
+
 	function validateTemplates(list) {
-		var configValid = !!(CFG.config && CFG.config.aab_valid);
+		var configValid = !!(CFG.config && CFG.config.wcf_valid);
+		var canImport   = sectionImportAllowed();
 		return list.map(function (item) {
 			var isPro = item.is_pro === true || String(item.is_pro) === '1';
-			if (configValid || !isPro) {
+			// The plan must include section import regardless of pro/free item.
+			if (canImport && (configValid || !isPro)) {
 				item.valid = 'yes';
 			}
 			return item;
@@ -497,6 +516,13 @@ import "../../scss/admin/aab-template-library.scss";
 					'<span class="aab-tl-card__insert-icon" aria-hidden="true">+</span>' +
 					escapeHtml(I18N.insert || 'Insert') +
 				'</button>';
+		} else if (CFG.pro_installed && CFG.pro_active && (CFG.config && CFG.config.wcf_valid) && !sectionImportAllowed()) {
+			// Licensed for this site, but the plan doesn't include Section
+			// Import. Offer an upgrade rather than a re-activate prompt.
+			actionBtn =
+				'<a class="aab-tl-card__pro" href="https://bricksfly.com/" target="_blank" rel="noopener">' +
+					escapeHtml(I18N.upgrade_plan || 'Upgrade Plan') +
+				'</a>';
 		} else if (!CFG.pro_installed) {
 			actionBtn =
 				'<a class="aab-tl-card__pro" href="https://animation-addons.com" target="_blank" rel="noopener">' +
@@ -611,6 +637,14 @@ import "../../scss/admin/aab-template-library.scss";
 			.then(function (r) { return r.json(); })
 			.then(function (resp) {
 				if (!resp || !resp.success || !resp.data) {
+					// Server-authoritative license block — show the upsell popup
+					// instead of a generic failure so the user knows to upgrade.
+					if (resp && resp.data && resp.data.limited) {
+						btn.disabled = false;
+						btn.innerHTML = originalLabel;
+						window.alert(resp.data.message || I18N.section_locked || 'Section import is not included in your license plan.');
+						return;
+					}
 					return fail(resp && resp.data && resp.data.message);
 				}
 
