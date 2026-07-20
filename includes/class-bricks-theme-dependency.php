@@ -1,6 +1,6 @@
 <?php
 
-namespace AAB\Includes;
+namespace AABAddons\Includes;
 
 defined('ABSPATH') || exit;
 

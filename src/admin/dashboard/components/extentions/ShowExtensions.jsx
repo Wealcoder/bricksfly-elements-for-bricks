@@ -113,7 +113,7 @@ const ShowExtensions = ({
       },
 
       body: new URLSearchParams({
-        action: "save_settings_with_ajax",
+        action: "aab_save_settings",
         fields: JSON.stringify(allExtensions),
         nonce: AAB_ADDONS_ADMIN.nonce,
         settings: "aab_save_extensions",

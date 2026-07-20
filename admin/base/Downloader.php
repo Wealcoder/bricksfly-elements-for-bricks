@@ -1,6 +1,6 @@
 <?php
 
-namespace AAB\Admin\Base;
+namespace AABAddons\Admin\Base;
 
 defined( 'ABSPATH' ) || die();
 
@@ -13,16 +13,6 @@ class Downloader {
 	}
 
 	public function download_file( $url, $filename ) {
-		$content = $this->get_content_from_url( $url );
-
-		if ( is_wp_error( $content ) ) {
-			return $content;
-		}
-
-		return Helpers::write_to_file( $content, $this->download_directory_path . $filename );
-	}
-
-	private function get_content_from_url( $url ) {
 		if ( empty( $url ) ) {
 			return new \WP_Error(
 				'missing_url',
@@ -30,31 +20,74 @@ class Downloader {
 			);
 		}
 
-		$response = wp_remote_get(
-			$url,
-			array( 'timeout' => Helpers::apply_filters( 'aaeaddon/timeout_for_downloading_import_file', 45 ) )
+		$destination = $this->download_directory_path . sanitize_file_name( $filename );
+		$timeout     = max( 45, (int) Helpers::apply_filters( 'aabaddons/timeout_for_downloading_import_file', 180 ) );
+		$attempts    = max( 1, min( 3, (int) Helpers::apply_filters( 'aabaddons/import_file_download_attempts', 2 ) ) );
+		$response    = null;
+
+		for ( $attempt = 1; $attempt <= $attempts; $attempt++ ) {
+			if ( file_exists( $destination ) ) {
+				wp_delete_file( $destination );
+			}
+
+			$response = wp_safe_remote_get(
+				$url,
+				array(
+					'timeout'     => $timeout,
+					'redirection' => 5,
+					'stream'      => true,
+					'filename'    => $destination,
+				)
+			);
+
+			$response_code = is_wp_error( $response ) ? 0 : (int) wp_remote_retrieve_response_code( $response );
+			if ( 200 === $response_code && file_exists( $destination ) && filesize( $destination ) > 0 ) {
+				return $destination;
+			}
+
+			// Retry transport errors, timeouts, rate limiting, and server errors.
+			if ( ! is_wp_error( $response ) && 429 !== $response_code && $response_code < 500 ) {
+				break;
+			}
+		}
+
+		if ( file_exists( $destination ) ) {
+			wp_delete_file( $destination );
+		}
+
+		if ( ! is_wp_error( $response ) && 200 === (int) wp_remote_retrieve_response_code( $response ) ) {
+			$response = new \WP_Error( 'empty_download', __( 'The downloaded file is empty.', 'the-bricksfly' ) );
+		}
+
+		$response_error = $this->get_error_from_response( $response );
+		$error_message  = $this->get_actionable_error_message( $response_error );
+
+		return new \WP_Error(
+			'download_error',
+			$error_message . Helpers::apply_filters( 'aabaddons/message_after_file_fetching_error', '' )
 		);
+	}
 
-		if ( is_wp_error( $response ) || 200 !== $response['response']['code'] ) {
-			$response_error = $this->get_error_from_response( $response );
+	private function get_actionable_error_message( $response_error ) {
+		$error_code    = sanitize_text_field( (string) $response_error['error_code'] );
+		$error_message = sanitize_text_field( (string) $response_error['error_message'] );
+		$is_timeout    = false !== stripos( $error_message, 'timed out' ) || false !== stripos( $error_message, 'cURL error 28' );
 
-			return new \WP_Error(
-				'download_error',
-				sprintf(
-					/* translators: 1: opening <strong> tag, 2: file URL, 3: closing </strong> tag, 4: line break, 5: error code, 6: error message. */
-					__( 'An error occurred while fetching file from: %1$s%2$s%3$s!%4$sReason: %5$s - %6$s.', 'the-bricksfly' ),
-					'<strong>',
-					$url,
-					'</strong>',
-					'<br>',
-					$response_error['error_code'],
-					$response_error['error_message']
-				) . '<br>' .
-				Helpers::apply_filters( 'aaeaddon/message_after_file_fetching_error', '' )
+		if ( $is_timeout ) {
+			return sprintf(
+				/* translators: 1: technical error code, 2: technical error message. */
+				__( 'The template file download timed out. Check this server\'s internet connection, then click Retry. If it happens again, ask your hosting provider to allow longer outbound HTTPS requests. Technical details: %1$s - %2$s.', 'the-bricksfly' ),
+				$error_code,
+				$error_message
 			);
 		}
 
-		return wp_remote_retrieve_body( $response );
+		return sprintf(
+			/* translators: 1: technical error code, 2: technical error message. */
+			__( 'The template file could not be downloaded. Check this server\'s internet connection, then click Retry. If the problem continues, contact your hosting provider. Technical details: %1$s - %2$s.', 'the-bricksfly' ),
+			$error_code,
+			$error_message
+		);
 	}
 
 	private function get_error_from_response( $response ) {
@@ -80,7 +113,7 @@ class Downloader {
 			$this->download_directory_path = $download_directory_path;
 		} else {
 			$upload_dir = wp_upload_dir();
-			$this->download_directory_path = Helpers::apply_filters( 'aaeaddon/upload_file_path', trailingslashit( $upload_dir['path'] ) );
+			$this->download_directory_path = Helpers::apply_filters( 'aabaddons/upload_file_path', trailingslashit( $upload_dir['path'] ) );
 		}
 	}
 }

@@ -24,7 +24,7 @@ if (! defined('ABSPATH')) {
  * @subpackage Bricks_Animation_Addons/includes
  * @author     Zilani <zilani.wealcoder@gmail.com>
  */
-class Bricks_Animation_Addons_Activator
+class AABAddons_Activator
 {
 
 	/**
@@ -81,12 +81,12 @@ class Bricks_Animation_Addons_Activator
 			return;
 		}
 
-		if (! isset($GLOBALS['aab_addons_config']) && defined('AAB_ADDONS_PATH')) {
+		if (! isset($GLOBALS['aabaddons_config']) && defined('AAB_ADDONS_PATH')) {
 			require_once AAB_ADDONS_PATH . 'config.php';
 		}
 
-		$widgets_config = isset($GLOBALS['aab_addons_config']['widgets'])
-			? $GLOBALS['aab_addons_config']['widgets']
+		$widgets_config = isset($GLOBALS['aabaddons_config']['widgets'])
+			? $GLOBALS['aabaddons_config']['widgets']
 			: array();
 
 		$map = array();
@@ -144,12 +144,12 @@ class Bricks_Animation_Addons_Activator
 			return;
 		}
 
-		if (! isset($GLOBALS['aab_addons_config']) && defined('AAB_ADDONS_PATH')) {
+		if (! isset($GLOBALS['aabaddons_config']) && defined('AAB_ADDONS_PATH')) {
 			require_once AAB_ADDONS_PATH . 'config.php';
 		}
 
-		$extensions_config = isset($GLOBALS['aab_addons_config']['extensions'])
-			? $GLOBALS['aab_addons_config']['extensions']
+		$extensions_config = isset($GLOBALS['aabaddons_config']['extensions'])
+			? $GLOBALS['aabaddons_config']['extensions']
 			: array();
 
 		$map = array();

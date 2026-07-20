@@ -117,11 +117,12 @@ import "../../scss/admin/aab-template-library.scss";
 		}
 
 		// Match Bricks' own toolbar buttons: an `<li>` wrapping an `<a>`
-		// with the same `action` class. The label is hidden visually
-		// (Bricks shows it as a tooltip via `data-balloon`), so the
-		// button takes the same compact icon-only footprint as the
-		// undo/redo/save controls next to it.
+		// with the same `action` class. Unlike the surrounding icon-only
+		// controls, this one is branded: it shows the BricksFly logo to the
+		// left of a visible "Import Section" label so the entry point reads
+		// as a first-class, recognisable action rather than a bare glyph.
 		var label = I18N.button_label || 'Import Section';
+		var logoUrl = I18N.logo_url || (window.AAB_TEMPLATE_LIBRARY && window.AAB_TEMPLATE_LIBRARY.logo_url) || '';
 		var tag = host.tagName === 'UL' ? 'li' : 'div';
 		var btn = document.createElement(tag);
 		btn.id = 'aab-import-section-button';
@@ -129,12 +130,21 @@ import "../../scss/admin/aab-template-library.scss";
 		btn.setAttribute('title', label);
 		btn.setAttribute('data-balloon', label);
 		btn.setAttribute('data-balloon-pos', 'bottom');
+
+		// The logo is decorative (the adjacent text already names the action),
+		// so it's marked aria-hidden and the accessible name comes from the
+		// visible label + aria-label on the anchor. Fall back to a "+" glyph
+		// only if the logo URL wasn't localized for some reason.
+		var mark = logoUrl
+			? '<img class="aab-import-section-button__logo" src="' + escapeAttr(logoUrl) + '" alt="" aria-hidden="true" decoding="async" />'
+			: '<svg class="aab-import-section-button__icon" viewBox="0 0 24 24" aria-hidden="true">' +
+					'<path d="M12 3a1 1 0 0 1 1 1v7h7a1 1 0 1 1 0 2h-7v7a1 1 0 1 1-2 0v-7H4a1 1 0 1 1 0-2h7V4a1 1 0 0 1 1-1z"/>' +
+				'</svg>';
+
 		btn.innerHTML =
 			'<a href="#" class="aab-import-section-button__inner" aria-label="' + escapeAttr(label) + '">' +
-				'<svg class="aab-import-section-button__icon" viewBox="0 0 24 24" aria-hidden="true">' +
-					'<path d="M12 3a1 1 0 0 1 1 1v7h7a1 1 0 1 1 0 2h-7v7a1 1 0 1 1-2 0v-7H4a1 1 0 1 1 0-2h7V4a1 1 0 0 1 1-1z"/>' +
-				'</svg>' +
-				'<span class="screen-reader-text">' + escapeHtml(label) + '</span>' +
+				mark +
+				'<span class="aab-import-section-button__label">' + escapeHtml(label) + '</span>' +
 			'</a>';
 
 		if (undoItem && undoItem.parentNode === host) {
@@ -518,7 +528,7 @@ import "../../scss/admin/aab-template-library.scss";
 				'<a class="aab-tl-card__pro" href="https://animation-addons.com" target="_blank" rel="noopener">' +
 					escapeHtml(I18N.go_premium || 'Go Premium') +
 				'</a>';
-		} else if (CFG.pro_installed && CFG.pro_active && !(CFG.config && CFG.config.wcf_valid)) {
+		} else if (CFG.pro_installed && CFG.pro_active && !(CFG.config && CFG.config.aab_valid)) {
 			actionBtn =
 				'<a class="aab-tl-card__pro" href="' + escapeAttr(CFG.dashboard_link) + '" target="_blank" rel="noopener">' +
 					escapeHtml(I18N.activate || 'Activate License') +
@@ -530,12 +540,29 @@ import "../../scss/admin/aab-template-library.scss";
 				'</a>';
 		}
 
+		// Live preview link — only when the section provides a `demo_url`.
+		// Opens the demo in a new tab; overlaid on the thumbnail so it never
+		// competes with the footer's insert/upsell action.
+		var previewLabel = I18N.preview || 'Preview';
+		var previewLink = demoUrl
+			? '<a class="aab-tl-card__preview" href="' + escapeAttr(demoUrl) + '" ' +
+					'target="_blank" rel="noopener noreferrer" ' +
+					'title="' + escapeAttr(previewLabel) + '" ' +
+					'aria-label="' + escapeAttr(previewLabel + ': ' + title) + '">' +
+					'<svg class="aab-tl-card__preview-icon" viewBox="0 0 24 24" aria-hidden="true">' +
+						'<path d="M12 5c-5 0-9 4.5-10 7 1 2.5 5 7 10 7s9-4.5 10-7c-1-2.5-5-7-10-7zm0 11a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>' +
+					'</svg>' +
+					'<span class="aab-tl-card__preview-label">' + escapeHtml(previewLabel) + '</span>' +
+				'</a>'
+			: '';
+
 		return (
 			'<div class="aab-tl-card" ' +
 				'data-id="' + escapeAttr(item.id) + '" ' +
 				'data-demo="' + escapeAttr(demoUrl) + '">' +
 				'<div class="aab-tl-card__thumb">' +
 					(preview ? '<img loading="lazy" src="' + escapeAttr(preview) + '" alt="' + escapeAttr(title) + '">' : '') +
+					previewLink +
 				'</div>' +
 				'<div class="aab-tl-card__footer">' +
 					'<p class="aab-tl-card__title">' + escapeHtml(title) + '</p>' +

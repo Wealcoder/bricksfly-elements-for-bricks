@@ -321,7 +321,7 @@ class Aae_Bricks_Testimonial3 extends \Bricks\Element
         ];
 
         // Driven through Bricks's `'css'` array so the builder patches the
-        // <style> tag live as the slider is dragged.
+        // generated CSS live as the slider is dragged.
         $this->controls['arrowsOffset'] = [
             'group'       => 'navigation_style',
             'label'       => esc_html__('Arrows Offset', 'the-bricksfly'),
@@ -541,7 +541,7 @@ class Aae_Bricks_Testimonial3 extends \Bricks\Element
 
         // filemtime() so the URL changes whenever the file does — without
         // this the browser caches the old file forever (hardcoded '1.0.0').
-        $css_file = AAB_ADDONS_PATH . 'public/css/testimonial-3.css';
+        $css_file = AAB_ADDONS_PATH . 'public/build/elements/testimonial-3.css';
         wp_enqueue_style(
             'aae-testimonial-3',
             AAB_ADDONS_URL . 'public/build/elements/testimonial-3.css',
@@ -549,7 +549,7 @@ class Aae_Bricks_Testimonial3 extends \Bricks\Element
             file_exists($css_file) ? filemtime($css_file) : AAB_ADDONS_VERSION
         );
 
-        $js_file = AAB_ADDONS_PATH . 'public/js/testimonial-3.js';
+        $js_file = AAB_ADDONS_PATH . 'public/build/elements/testimonial-3.js';
         wp_enqueue_script(
             'aae-testimonial-3',
             AAB_ADDONS_URL . 'public/build/elements/testimonial-3.js',

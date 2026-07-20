@@ -1,6 +1,6 @@
 <?php
 
-namespace AAB\Admin\Pages;
+namespace AABAddons\Admin\Pages;
 
 if (! defined('ABSPATH')) {
 	exit();
@@ -10,7 +10,7 @@ class AAB_Admin_Init
 {
 
 
-	use \AAB\Includes\Traits\Extension_Widgets_Trait;
+	use \AABAddons\Includes\Traits\Extension_Widgets_Trait;
 
 	/**
 	 * Parent Menu Page Slug
@@ -118,27 +118,25 @@ class AAB_Admin_Init
 
 		add_action('admin_menu', array($this, 'add_menu'), 25);
 		add_action('admin_enqueue_scripts', array($this, 'enqueue_scripts'));
-		add_action('wp_ajax_aae_save_dynamic_settings', array($this, 'save_dynamic_settings'));
-		add_action('wp_ajax_aae_get_dynamic_settings', array($this, 'get_dynamic_settings'));
-		add_action('wp_ajax_save_settings_with_ajax', array($this, 'save_settings'));
-		add_action('wp_ajax_wcf_dashboard_notice_store', array($this, 'notice_store'));
-		add_action('wp_ajax_wcf_get_changelog_data', array($this, 'get_changelog'));
+		add_action('wp_ajax_aab_save_settings', array($this, 'save_settings'));
+		add_action('wp_ajax_aab_dashboard_notice_store', array($this, 'notice_store'));
+		add_action('wp_ajax_aab_get_changelog_data', array($this, 'get_changelog'));
 		add_action('wp_ajax_aab_get_notice_data', array($this, 'get_notice'));
-		add_action('wp_ajax_save_settings_with_ajax_dashboard', array($this, 'save_settings_dashboard'));
+		add_action('wp_ajax_aab_save_dashboard_settings', array($this, 'save_settings_dashboard'));
 
-		add_action('wp_ajax_save_smooth_scroller_settings', array($this, 'save_smooth_scroller_settings'));
+		add_action('wp_ajax_aab_save_smooth_scroller_settings', array($this, 'save_smooth_scroller_settings'));
 
 		add_filter('admin_body_class', array($this, 'admin_classes'), 100);
-		add_filter('wcf_addons_dashboard_config', array($this, 'dashboard_db_widgets_config'), 11);
-		add_filter('wcf_addons_dashboard_config', array($this, 'dashboard_db_extnsions_config'), 10);
-		add_filter('wcf_addons_dashboard_config', array($this, 'dashboard_integrations_config'), 10);
+		add_filter('aabaddons_dashboard_config', array($this, 'dashboard_db_widgets_config'), 11);
+		add_filter('aabaddons_dashboard_config', array($this, 'dashboard_db_extnsions_config'), 10);
+		add_filter('aabaddons_dashboard_config', array($this, 'dashboard_integrations_config'), 10);
 
 		add_action('admin_footer', array($this, 'admin_footer'));
 		// Bust the remote-menu transient whenever the builder clears its
 		// cache. Bricks has no exact equivalent of Elementor's files-cache
 		// hook, so the safest generic hook is `switch_theme`.
 		add_action('switch_theme', function () {
-			delete_transient('wcf_menu_42_data');
+			delete_transient('aab_menu_42_data');
 		});
 
 		//add_action('wp_dashboard_setup', [$this, 'dashboard_widget'], 999);
@@ -197,7 +195,7 @@ class AAB_Admin_Init
 		$wgt           = get_option('aab_save_widgets');
 		$saved_widgets = is_array($wgt) ? array_keys(array_filter($wgt)) : array();
 		$widgets       = $configs['widgets'];
-		aab_get_db_updated_config($widgets, $saved_widgets);
+		aabaddons_get_db_updated_config($widgets, $saved_widgets);
 		$configs['widgets'] = $widgets;
 		return $configs;
 	}
@@ -212,7 +210,7 @@ class AAB_Admin_Init
 		$ext        = get_option('aab_save_extensions');
 		$saved_ext  = is_array($ext) ? array_keys(array_filter($ext)) : array();
 		$extensions = $configs['extensions'];
-		aab_get_db_updated_config($extensions, $saved_ext);
+		aabaddons_get_db_updated_config($extensions, $saved_ext);
 		$configs['extensions'] = $extensions;
 		return $configs;
 	}
@@ -238,7 +236,7 @@ class AAB_Admin_Init
 		require_once $admin_dir . 'base/WXRImportInfo.php';
 
 		if (! class_exists('\WP_Importer')) {
-			require ABSPATH . '/wp-admin/includes/class-wp-importer.php';
+			require_once ABSPATH . 'wp-admin/includes/class-wp-importer.php';
 		}
 
 		require_once $admin_dir . 'base/WXRImporter.php';
@@ -251,14 +249,11 @@ class AAB_Admin_Init
 		require_once $admin_dir . 'Notices/Notices.php';
 		require_once $admin_dir . 'Notices/ShowNotices.php';
 
-		// Image preload.
-		require_once $admin_dir . 'image-cache.php';
-
 		// CPT Builder.
 		require_once $admin_dir . 'cpt-builder.php';
 
 		// Initialize OneClickImport.
-		$oneimport = \AAB\Admin\Base\OneClickImport::get_instance();
+		$oneimport = \AABAddons\Admin\Base\OneClickImport::get_instance();
 	}
 
 
@@ -277,7 +272,7 @@ class AAB_Admin_Init
 			self::MENU_CAPABILITY,
 			self::MENU_PAGE_SLUG,
 			'',
-			AAB_ADDONS_URL . '/assets/images/aab.png',
+			AAB_ADDONS_URL . 'assets/images/aab.png',
 			8
 		);
 
@@ -355,18 +350,18 @@ class AAB_Admin_Init
 		);
 
 		wp_enqueue_script('aab-admin', AAB_ADDONS_URL . 'public/build/admin/dashboard.js', array('wp-element'), $dashboard_js_ver, true);
-		aab_get_total_config_elements_by_key($GLOBALS['aab_addons_config']['extensions'], $total_extensions);
-		aab_get_total_config_elements_by_key($GLOBALS['aab_addons_config']['widgets'], $total_widgets);
+		aabaddons_get_total_config_elements_by_key($GLOBALS['aabaddons_config']['extensions'], $total_extensions);
+		aabaddons_get_total_config_elements_by_key($GLOBALS['aabaddons_config']['widgets'], $total_widgets);
 
 		$widgets       = get_option('aab_save_widgets');
 		$saved_widgets = is_array($widgets) ? array_keys(array_filter($widgets)) : array();
 
-		aab_get_search_active_keys($GLOBALS['aab_addons_config']['widgets'], $saved_widgets, $foundKeys, $awidgets);
+		aabaddons_get_search_active_keys($GLOBALS['aabaddons_config']['widgets'], $saved_widgets, $foundKeys, $awidgets);
 
 		$extensions       = get_option('aab_save_extensions');
 		$saved_extensions = is_array($extensions) ? array_keys(array_filter($extensions)) : array();
 
-		aab_get_search_active_keys($GLOBALS['aab_addons_config']['extensions'], $saved_extensions, $foundext, $activeext);
+		aabaddons_get_search_active_keys($GLOBALS['aabaddons_config']['extensions'], $saved_extensions, $foundext, $activeext);
 
 
 		$active_widgets = self::get_widgets();
@@ -376,7 +371,7 @@ class AAB_Admin_Init
 		// All Bricks breakpoints (defaults + custom). Routed through the shared
 		// ResponsiveHelper so the no-Bricks fallback (with label/icon) lives in
 		// one place — same source the frontend ResponsiveHelper consumers use.
-		$bricks_breakpoints = \AAB\Includes\Extensions\Helpers\ResponsiveHelper::getBreakpoints();
+		$bricks_breakpoints = \AABAddons\Includes\Extensions\Helpers\ResponsiveHelper::getBreakpoints();
 
 		// License info for the React LicenseDialog (mirrors the shared contract
 		// from animation-addons-for-elementor-pro).
@@ -388,16 +383,16 @@ class AAB_Admin_Init
 		// React UI so that deleting the Pro plugin folder (or installing just
 		// the free plugin) immediately locks every pro toggle — regardless of
 		// whatever license status survives in the database.
-		$pro_installed      = function_exists('aab_is_pro_installed') ? aab_is_pro_installed() : file_exists($this->plugin_file);
+		$pro_installed      = function_exists('aabaddons_is_pro_installed') ? aabaddons_is_pro_installed() : file_exists($this->plugin_file);
 		$aab_license_valid  = $pro_installed && ('valid' === $aab_license_status);
 		/* DEMO:WITH
 		$aab_license_valid = true; // Demo build: unlock every Pro feature in the UI.
 		DEMO:END */
 
-		$addons_config = apply_filters('wcf_addons_dashboard_config', $GLOBALS['aab_addons_config']);
+		$addons_config = apply_filters('aabaddons_dashboard_config', $GLOBALS['aabaddons_config']);
 		$addons_config['sl_lic']    = $aab_license_key;
 		$addons_config['is_pro']    = $pro_installed;
-		$addons_config['wcf_valid'] = $aab_license_valid;
+		$addons_config['aab_valid'] = $aab_license_valid;
 
 		// NOTE: the compiled React dashboard (shared with animation-addons-for-elementor)
 		// uses a strict `13 === product_status.item_id` check to flip the header button
@@ -441,7 +436,7 @@ class AAB_Admin_Init
 			),
 			'global_settings_url' => $this->get_elementor_active_edit_url(),
 			'theme_builder_url'   => admin_url('edit.php?post_type=wcf-addons-template'),
-			'user_role'           => aabaddon_get_current_user_roles(),
+			'user_role'           => aabaddons_get_current_user_roles(),
 			'version'             => AAB_ADDONS_VERSION,
 			'st_template_domain'  => AAB_TEMPLATE_STARTER_BASE_URL,
 			'home_url' => add_query_arg(['aab-cache' => 1], home_url('/')),
@@ -472,7 +467,7 @@ class AAB_Admin_Init
 	{
 		$pro_basename  = 'the-bricksfly-pro/the-bricksfly-pro.php';
 		$pro_installed = file_exists(WP_PLUGIN_DIR . '/' . $pro_basename);
-		$pro_active    = (function_exists('aab_is_pro_active') && aab_is_pro_active());
+		$pro_active    = (function_exists('aabaddons_is_pro_active') && aabaddons_is_pro_active());
 
 		// Case 1 — Pro plugin isn't installed: keep the default "Upgrade…" copy.
 		if (! $pro_installed) {
@@ -618,7 +613,7 @@ class AAB_Admin_Init
 
 	public function get_template_menu_data()
 	{
-		$transient_key = 'wcf_menu_42_data';
+		$transient_key = 'aab_menu_42_data';
 		$cached_data   = get_transient($transient_key);
 
 		// ✅ Return cached data if available
@@ -682,7 +677,7 @@ class AAB_Admin_Init
 		$data_base = '';
 		foreach ($configs['integrations']['plugins']['elements'] as &$plugin) {
 
-			if (aab_addons_get_local_plugin_data($plugin['basename']) === false) {
+			if (aabaddons_get_local_plugin_data($plugin['basename']) === false) {
 				$action    = 'Download';
 				$data_base = $plugin['download_url'];
 			} elseif (is_plugin_active($plugin['basename'])) {
@@ -782,21 +777,21 @@ class AAB_Admin_Init
 		}
 
 		$actives       = $foundkeys = array();
-		$option_name   = isset($_POST['settings']) ? sanitize_text_field(wp_unslash($_POST['settings'])) : '';
+		$option_name   = isset($_POST['settings']) ? sanitize_key(wp_unslash($_POST['settings'])) : '';
 		$sanitize_data = sanitize_text_field(wp_unslash($_POST['fields']));
 		$settings      = json_decode($sanitize_data, true);
-		aab_get_nested_active_config_keys($settings, $found, $actives);
+		aabaddons_get_nested_active_config_keys($settings, $found, $actives);
 
 
-		aab_get_nested_config_keys($settings, $foundkeys, $updatedSettings);
+		aabaddons_get_nested_config_keys($settings, $foundkeys, $updatedSettings);
 
 		// License gate: force Pro-only slugs to false when the license is not
 		// valid. Guards against forged AJAX payloads that would otherwise
 		// bypass the React UI's pro-toggle lockout. Pro slugs stay in the
 		// map (as false) so the saved option remains a complete slug list.
-		$license_valid = function_exists('aab_is_license_valid') && aab_is_license_valid();
+		$license_valid = function_exists('aabaddons_is_license_valid') && aabaddons_is_license_valid();
 		if (! $license_valid && is_array($updatedSettings)) {
-			$pro_slugs = self::aab_collect_pro_slugs(isset($GLOBALS['aab_addons_config']) ? $GLOBALS['aab_addons_config'] : array());
+			$pro_slugs = self::aab_collect_pro_slugs(isset($GLOBALS['aabaddons_config']) ? $GLOBALS['aabaddons_config'] : array());
 			foreach (array_keys($updatedSettings) as $slug) {
 				if (isset($pro_slugs[$slug])) {
 					$updatedSettings[$slug] = false;
@@ -804,81 +799,17 @@ class AAB_Admin_Init
 			}
 		}
 
-		// update new settings
-		if (! empty($option_name)) {
-
-			$updated = update_option($option_name, $updatedSettings);
-
-			$return_message = array(
-				'status' => $updated,
-				'total'  => is_array($actives) ? count($actives) : 0,
-
-			);
-			wp_send_json($return_message);
+		if ('aab_save_widgets' === $option_name) {
+			$updated = update_option('aab_save_widgets', $updatedSettings);
+		} elseif ('aab_save_extensions' === $option_name) {
+			$updated = update_option('aab_save_extensions', $updatedSettings);
+		} else {
+			wp_send_json_error(esc_html__('Invalid settings type.', 'the-bricksfly'), 400);
 		}
-
-		wp_send_json(esc_html__('Option name not found!', 'the-bricksfly'));
-	}
-
-	public function get_dynamic_settings()
-	{
-		check_ajax_referer('aab_admin_nonce', 'nonce');
-
-		if (! current_user_can('manage_options')) {
-			wp_send_json_error(esc_html__('You are not allowed to do this action', 'the-bricksfly'));
-		}
-
-		if (empty($_POST['setting_name'])) {
-			wp_send_json_error(esc_html__('Missing setting name.', 'the-bricksfly'));
-		}
-
-		$setting_name = sanitize_text_field(wp_unslash($_POST['setting_name']));
-		$settings     = get_option($setting_name);
-
-		// If the option was stored as JSON, decode it
-		if (is_string($settings) && $this->is_json($settings)) {
-			$settings = json_decode($settings, true);
-		}
-
-		wp_send_json(
-			array(
-				'settings' => $settings,
-			)
-		);
-	}
-
-	/**
-	 * Check if a string is a valid JSON.
-	 */
-	private function is_json($string)
-	{
-		json_decode($string);
-		return json_last_error() === JSON_ERROR_NONE;
-	}
-
-	public function save_dynamic_settings()
-	{
-
-		check_ajax_referer('aab_admin_nonce', 'nonce');
-
-		if (! current_user_can('manage_options')) {
-			wp_send_json_error(esc_html__('you are not allowed to do this action', 'the-bricksfly'));
-		}
-
-		if (! isset($_POST['form_fields'])) {
-			return;
-		}
-
-		if (! isset($_POST['setting_name'])) {
-			return;
-		}
-
-		$form_data    = sanitize_text_field(wp_unslash($_POST['form_fields']));
-		$setting_name = sanitize_text_field(wp_unslash($_POST['setting_name']));
-		update_option($setting_name, $form_data);
 
 		$return_message = array(
-			'message' => esc_html__('Settings Updated', 'the-bricksfly'),
+			'status' => $updated,
+			'total'  => is_array($actives) ? count($actives) : 0,
 		);
 		wp_send_json($return_message);
 	}
@@ -914,7 +845,7 @@ class AAB_Admin_Init
 			wp_send_json_error(esc_html__('you are not allowed to do this action', 'the-bricksfly'));
 		}
 
-		$transient      = get_transient('wcf_changelog_notice_cache3');
+		$transient      = get_transient('aab_changelog_notice_cache3');
 		$return_message = array(
 			'changelog' => '',
 		);
@@ -934,7 +865,7 @@ class AAB_Admin_Init
 			$body                        = wp_remote_retrieve_body($out);
 			$decode_data                 = json_decode($body);
 			$return_message['changelog'] = $decode_data;
-			set_transient('wcf_changelog_notice_cache3', $decode_data, 12 * HOUR_IN_SECONDS);
+			set_transient('aab_changelog_notice_cache3', $decode_data, 12 * HOUR_IN_SECONDS);
 		}
 
 		wp_send_json($return_message);
@@ -968,7 +899,6 @@ class AAB_Admin_Init
 			return;
 		}
 
-		$option_name   = isset($_POST['settings']) ? sanitize_text_field(wp_unslash($_POST['settings'])) : '';
 		$sanitize_data = sanitize_text_field(wp_unslash($_POST['fields']));
 		$settings      = json_decode($sanitize_data, true);
 		$actives       = get_option('aab_save_widgets');
@@ -976,9 +906,9 @@ class AAB_Admin_Init
 			$actives = array();
 		}
 
-		$license_valid = function_exists('aab_is_license_valid') && aab_is_license_valid();
+		$license_valid = function_exists('aabaddons_is_license_valid') && aabaddons_is_license_valid();
 		$pro_slugs     = ! $license_valid
-			? self::aab_collect_pro_slugs(isset($GLOBALS['aab_addons_config']) ? $GLOBALS['aab_addons_config'] : array())
+			? self::aab_collect_pro_slugs(isset($GLOBALS['aabaddons_config']) ? $GLOBALS['aabaddons_config'] : array())
 			: array();
 
 		// Merge the incoming payload into the stored map. Every slug from the
@@ -1009,18 +939,14 @@ class AAB_Admin_Init
 			}
 		}
 
-		if (! empty($option_name)) {
+		$updated  = update_option('aab_save_widgets', $actives);
+		$elements = get_option('aab_save_widgets');
 
-			$updated  = update_option($option_name, $actives);
-			$elements = get_option($option_name);
-
-			$return_message = array(
-				'status' => $updated,
-				'total'  => is_array($elements) ? count(array_filter($elements)) : 0,
-			);
-			wp_send_json($return_message);
-		}
-		wp_send_json(esc_html__('Option name not found!', 'the-bricksfly'));
+		$return_message = array(
+			'status' => $updated,
+			'total'  => is_array($elements) ? count(array_filter($elements)) : 0,
+		);
+		wp_send_json($return_message);
 	}
 
 	/**

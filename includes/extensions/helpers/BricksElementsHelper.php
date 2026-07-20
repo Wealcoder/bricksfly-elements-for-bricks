@@ -1,6 +1,6 @@
 <?php
 
-namespace AAB\Includes\Extensions\Helpers;
+namespace AABAddons\Includes\Extensions\Helpers;
 
 use Bricks\Elements;
 

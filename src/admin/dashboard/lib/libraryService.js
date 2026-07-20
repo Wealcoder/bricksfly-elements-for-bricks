@@ -1,4 +1,4 @@
-const isValid = AAB_ADDONS_ADMIN.addons_config.wcf_valid;
+const isValid = AAB_ADDONS_ADMIN.addons_config.aab_valid;
 
 export const libraryFn = (mainContent, data, dispatch) => {
   const result = Object.fromEntries(

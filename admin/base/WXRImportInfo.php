@@ -1,6 +1,6 @@
 <?php
 
-namespace AAB\Admin\Base;
+namespace AABAddons\Admin\Base;
 
 defined( 'ABSPATH' ) || die();
 

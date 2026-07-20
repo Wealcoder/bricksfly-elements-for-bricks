@@ -129,7 +129,7 @@ const ScrollSmootherSettings = () => {
       },
       credentials: "same-origin",
       body: new URLSearchParams({
-        action: "save_smooth_scroller_settings",
+        action: "aab_save_smooth_scroller_settings",
         smooth: JSON.stringify(formData),
         nonce: AAB_ADDONS_ADMIN.nonce,
       }),

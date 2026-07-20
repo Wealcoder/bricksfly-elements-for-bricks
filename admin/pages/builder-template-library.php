@@ -88,9 +88,9 @@ class AAB_Builder_Template_Library {
 			true
 		);
 
-		$pro_installed = function_exists( 'aab_is_pro_installed' ) ? aab_is_pro_installed() : false;
-		$pro_active    = function_exists( 'aab_is_pro_active' ) ? aab_is_pro_active() : false;
-		$license_valid = function_exists( 'aab_is_license_valid' ) ? aab_is_license_valid() : false;
+		$pro_installed = function_exists( 'aabaddons_is_pro_installed' ) ? aabaddons_is_pro_installed() : false;
+		$pro_active    = function_exists( 'aabaddons_is_pro_active' ) ? aabaddons_is_pro_active() : false;
+		$license_valid = function_exists( 'aabaddons_is_license_valid' ) ? aabaddons_is_license_valid() : false;
 
 		// In the Bricks builder context, `get_the_ID()` resolves to the post
 		// being edited (Bricks loads the front-end template chain just like
@@ -99,9 +99,9 @@ class AAB_Builder_Template_Library {
 		$post_id = (int) get_the_ID();
 		if ( ! $post_id ) {
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading URL parameters for context only, not processing form data.
-			$post_id = isset( $_GET['post_id'] ) ? absint( $_GET['post_id'] ) : (
+			$post_id = isset( $_GET['post_id'] ) ? absint( wp_unslash( $_GET['post_id'] ) ) : (
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading URL parameters for context only, not processing form data.
-				isset( $_GET['p'] ) ? absint( $_GET['p'] ) : 0
+				isset( $_GET['p'] ) ? absint( wp_unslash( $_GET['p'] ) ) : 0
 			);
 		}
 
@@ -112,26 +112,29 @@ class AAB_Builder_Template_Library {
 				'ajaxurl'         => admin_url( 'admin-ajax.php' ),
 				'nonce'           => wp_create_nonce( 'aab-builder-template-library' ),
 				'post_id'         => $post_id,
+				// BricksFly brand mark shown inside the toolbar "Import Section"
+				// button. Uses the same canonical logo the rest of the admin uses.
+				'logo_url'        => esc_url( AAB_ADDONS_URL . 'public/images/plugin_logo.png' ),
 				'template_types'  => self::get_template_types(),
 				'remote_api'      => apply_filters(
-					'aab_builder_template_library_remote_api',
+					'aabaddons_builder_template_library_remote_api',
 					'https://www.themecrowdy.com/wp-json/wp/v2/bricks-sections'
 				),
 				'remote_category' => apply_filters(
-					'aab_builder_template_library_remote_category_api',
+					'aabaddons_builder_template_library_remote_category_api',
 					'https://www.themecrowdy.com/wp-json/wp/v2/bricks-sections-category',
 				),
 
 			   'remote_download' => apply_filters(
-					'aab_builder_template_library_remote_section_download_api',
+					'aabaddons_builder_template_library_remote_section_download_api',
 					'https://www.themecrowdy.com/wp-json/bricks-sections/v1/download?id=',
 				),
-				'default_type'    => apply_filters( 'aab_builder_template_library_default_type', 'block' ),
+				'default_type'    => apply_filters( 'aabaddons_builder_template_library_default_type', 'block' ),
 				'dashboard_link'  => admin_url( 'admin.php?page=bf_addons_settings' ),
 				'pro_installed'   => $pro_installed,
 				'pro_active'      => $pro_active,
 				'config'          => apply_filters(
-					'aab_builder_template_library_config',
+					'aabaddons_builder_template_library_config',
 					[
 						'wcf_valid'      => $license_valid,
 						// Section import is gated by this flag (also enforced
@@ -142,10 +145,11 @@ class AAB_Builder_Template_Library {
 					]
 				),
 				'i18n'            => [
-					'modal_title'     => esc_html__( 'Animation Addons — Section Library', 'the-bricksfly' ),
+					'modal_title'     => esc_html__( 'BrickFly Addons — Section Library', 'the-bricksfly' ),
 					'button_label'    => esc_html__( 'Import Section', 'the-bricksfly' ),
 					'insert'          => esc_html__( 'Insert', 'the-bricksfly' ),
 					'inserting'       => esc_html__( 'Inserting…', 'the-bricksfly' ),
+					'preview'         => esc_html__( 'Preview', 'the-bricksfly' ),
 					'go_premium'      => esc_html__( 'Go Premium', 'the-bricksfly' ),
 					'activate'        => esc_html__( 'Activate License', 'the-bricksfly' ),
 					'install_pro'     => esc_html__( 'Install Pro', 'the-bricksfly' ),
@@ -175,14 +179,14 @@ class AAB_Builder_Template_Library {
 	 */
 	public static function get_template_types() {
 		return apply_filters(
-			'aab_builder_template_library_types',
+			'aabaddons_builder_template_library_types',
 			[
 				'block' => [
-					'label' => esc_html__( 'Block', 'the-bricksfly' ),
+					'label' => esc_html__( 'Section Block', 'the-bricksfly' ),
 				],
-				'page'  => [
-					'label' => esc_html__( 'Page', 'the-bricksfly' ),
-				],
+				// 'page'  => [
+				// 	'label' => esc_html__( 'Page', 'the-bricksfly' ),
+				// ],
 			]
 		);
 	}
@@ -215,7 +219,7 @@ class AAB_Builder_Template_Library {
 	public function ajax_insert_template() {
 		check_ajax_referer( 'aab-builder-template-library', 'nonce' );
 
-		$post_id = isset( $_POST['post_id'] ) ? absint( $_POST['post_id'] ) : 0;
+		$post_id = isset( $_POST['post_id'] ) ? absint( wp_unslash( $_POST['post_id'] ) ) : 0;
 
 		if ( ! $post_id || ! current_user_can( 'edit_post', $post_id ) ) {
 			wp_send_json_error( [ 'message' => __( 'Permission denied for this post.', 'the-bricksfly' ) ], 403 );
@@ -261,7 +265,7 @@ class AAB_Builder_Template_Library {
 		 * @param int   $post_id   The post being edited.
 		 * @param array $elements  The resolved element array (not yet saved).
 		 */
-		do_action( 'aab_builder_template_library_inserted', $post_id, $elements );
+		do_action( 'aabaddons_builder_template_library_inserted', $post_id, $elements );
 
 		// Return the full Bricks export shape so the client can build the native
 		// paste envelope. Ids are NOT remapped here — Bricks' paste regenerates
@@ -294,7 +298,7 @@ class AAB_Builder_Template_Library {
 	 */
 	private function resolve_template_payload( $template_id ) {
 		$meta_endpoint = apply_filters(
-			'aab_builder_template_library_remote_single_api',
+			'aabaddons_builder_template_library_remote_single_api',
 			'https://www.themecrowdy.com/wp-json/bricks-sections/v1/list/' . $template_id,
 			$template_id
 		);

@@ -14,7 +14,7 @@
  * @package Bricks_Animation_Addons
  */
 
-namespace AAB\Includes\Extensions\Helpers;
+namespace AABAddons\Includes\Extensions\Helpers;
 
 defined('ABSPATH') || exit;
 

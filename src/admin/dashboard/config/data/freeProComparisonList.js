@@ -9,7 +9,7 @@ export const freeProComparisonList = [
       icon: "",
     },
     pro1: {
-      text: "20 Templates",
+      text: "30 Templates",
       icon: "",
     },
   },

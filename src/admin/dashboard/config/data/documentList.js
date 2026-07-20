@@ -1,14 +1,14 @@
 export const DocumentList = [
   {
-    title: "Typewriter",
+    title: "Image Reveal on Hover",
     subTitle:
-      "The Typewriter Element in Animation Addons for Bricks adds engaging...",
-    url: "https://bricksfly.com/docs/animations-widgets/typewriter",
+      "The Image Reveal on Hover Element in Animation Addons for Bricks adds engaging...",
+    url: "https://bricksfly.com/docs/gsap-extensions/image-reveal-on-hover/",
   },
   {
-    title: "Animated Text",
+    title: "Parallax Effect",
     subTitle:
-      "Animated text in Bricks addon lets users easily add dynamic text effects...",
-    url: "https://bricksfly.com/docs/animations-widgets/animated-text",
+      "The Parallax Effect in Animation Addons for Bricks adds engaging...",
+    url: "https://bricksfly.com/docs/gsap-extensions/parallax-effect/",
   },
 ];

@@ -126,7 +126,7 @@ const ConnectWithUs = () => {
         </div>
         <div>
           <a
-            href="https://www.facebook.com/groups/animationaddons"
+            href="https://www.facebook.com/bricksfly"
             target="_blank"
             className={cn(buttonVariants({ variant: "secondary" }), "w-full")}
           >

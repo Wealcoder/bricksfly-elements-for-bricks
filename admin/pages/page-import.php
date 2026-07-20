@@ -63,12 +63,13 @@ class AAB_Page_Importer {
 			AND post_status = 'publish'
 			AND ID IN (
 				SELECT post_id FROM $wpdb->postmeta
-				WHERE meta_key = 'aae_imported' AND meta_value = '1'
+				WHERE meta_key = 'aab_imported' AND meta_value = '1'
 			)
 		" );
 
-			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading URL parameter for view display only, not processing form data.
-		$class                     = ( isset( $_GET['aae-latest-import'] ) && $_GET['aae-latest-import'] === 'import' ) ? 'current' : '';
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading URL parameter for view display only, not processing form data.
+		$latest_import             = isset( $_GET['aae-latest-import'] ) ? sanitize_key( wp_unslash( $_GET['aae-latest-import'] ) ) : '';
+		$class                     = 'import' === $latest_import ? 'current' : '';
 		$url                       = add_query_arg( 'aae-latest-import', 'import', admin_url( 'edit.php?post_type=page' ) );
 		$views['latest-import']    = "<a href='" . esc_url( $url ) . "' class='" . esc_attr( $class ) . "' style='color: #fc6848; font-weight: 500'>" . esc_html__( 'AAB Imported', 'the-bricksfly' ) . " <span class='count'>(" . (int) $count . ")</span></a>";
 
@@ -80,8 +81,9 @@ class AAB_Page_Importer {
 
 		if ( is_admin() && $pagenow === 'edit.php' && $query->get( 'post_type' ) === 'page' ) {
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading URL parameter for query filtering only, not processing form data.
-			if ( isset( $_GET['aae-latest-import'] ) && $_GET['aae-latest-import'] === 'import' ) {
-				$query->set( 'meta_key', 'aae_imported' );
+			$latest_import = isset( $_GET['aae-latest-import'] ) ? sanitize_key( wp_unslash( $_GET['aae-latest-import'] ) ) : '';
+			if ( 'import' === $latest_import ) {
+				$query->set( 'meta_key', 'aab_imported' );
 				$query->set( 'meta_value', '1' );
 			}
 		}
@@ -112,7 +114,7 @@ class AAB_Page_Importer {
 		}
 
 		add_submenu_page(
-			\AAB\Admin\Pages\AAB_Admin_Init::MENU_PAGE_SLUG,
+			\AABAddons\Admin\Pages\AAB_Admin_Init::MENU_PAGE_SLUG,
 			__( 'Page Import', 'the-bricksfly' ),
 			__( 'Page Import', 'the-bricksfly' ),
 			'manage_options',
@@ -163,15 +165,15 @@ class AAB_Page_Importer {
 		// Reading the options here (on every importer page load) means the state
 		// is always freshly fetched — never a stale cached value — so activation
 		// done elsewhere is reflected on the next load of this page.
-		$addons_config = apply_filters( 'wcf_addons_dashboard_config', $GLOBALS['aab_addons_config'] ?? [] );
+		$addons_config = apply_filters( 'aabaddons_dashboard_config', $GLOBALS['aabaddons_config'] ?? [] );
 
 		$license_status = (string) get_option( 'wcf_addon_sl_license_status', '' );
 		$license_key    = (string) get_option( 'wcf_addon_sl_license_key', '' );
 
 		// Valid only when the Pro plugin folder exists AND the stored status is
-		// "valid" — the same combined check used by aab_is_license_valid() and
+		// "valid" — the same combined check used by aabaddons_is_license_valid() and
 		// the Dashboard, so deleting the Pro folder relocks Pro instantly.
-		$pro_installed = function_exists( 'aab_is_pro_installed' ) ? aab_is_pro_installed() : false;
+		$pro_installed = function_exists( 'aabaddons_is_pro_installed' ) ? aabaddons_is_pro_installed() : false;
 		$license_valid = $pro_installed && ( 'valid' === $license_status );
 		/* DEMO:WITH
 		$license_valid = true; // Demo build: unlock every Pro feature in the UI.
@@ -179,7 +181,7 @@ class AAB_Page_Importer {
 
 		$addons_config['sl_lic']    = $license_key;
 		$addons_config['is_pro']    = $pro_installed;
-		$addons_config['wcf_valid'] = $license_valid;
+		$addons_config['aab_valid'] = $license_valid;
 
 		// The compiled React UI unlocks Pro items on `product_status.item_id === 13`.
 		// Send 13 only when the license is valid (mirrors the Dashboard); the real
@@ -207,7 +209,7 @@ class AAB_Page_Importer {
 			'addons_config'      => $addons_config,
 			'adminURL'           => admin_url(),
 			'page_url'           => esc_url( admin_url( 'edit.php?post_type=page' ) ),
-			'user_role'          => function_exists( 'aabaddon_get_current_user_roles' ) ? aabaddon_get_current_user_roles() : [],
+			'user_role'          => function_exists( 'aabaddons_get_current_user_roles' ) ? aabaddons_get_current_user_roles() : [],
 			'version'            => AAB_ADDONS_VERSION,
 			'st_template_domain' => AAB_TEMPLATE_STARTER_BASE_URL,
 			'home_url'           => home_url( '/' ),

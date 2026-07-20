@@ -1,6 +1,6 @@
 <?php
 
-namespace AAB\Admin;
+namespace AABAddons\Admin;
 
 if (! defined('ABSPATH')) {
 	exit();

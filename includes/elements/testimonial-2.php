@@ -320,7 +320,7 @@ class Aae_Bricks_Testimonial2 extends \Bricks\Element
         ];
 
         // Driven through Bricks's `'css'` array so the builder patches the
-        // <style> tag live as the slider is dragged. Inline style on
+        // generated CSS live as the slider is dragged. Inline style on
         // .ts-navigation would pin the value to the last server-rendered
         // state and break editor live preview.
         $this->controls['arrowsOffset'] = [
@@ -532,7 +532,7 @@ class Aae_Bricks_Testimonial2 extends \Bricks\Element
 
         // filemtime() so the URL changes whenever the file does — without
         // this the browser caches the old file forever (hardcoded '1.0.0').
-        $css_file = AAB_ADDONS_PATH . 'public/css/testimonial-2.css';
+        $css_file = AAB_ADDONS_PATH . 'public/build/elements/testimonial-2.css';
         wp_enqueue_style(
             'aae-testimonial-2',
             AAB_ADDONS_URL . 'public/build/elements/testimonial-2.css',
@@ -540,7 +540,7 @@ class Aae_Bricks_Testimonial2 extends \Bricks\Element
             file_exists($css_file) ? filemtime($css_file) : AAB_ADDONS_VERSION
         );
 
-        $js_file = AAB_ADDONS_PATH . 'public/js/testimonial-2.js';
+        $js_file = AAB_ADDONS_PATH . 'public/build/elements/testimonial-2.js';
         wp_enqueue_script(
             'aae-testimonial-2',
             AAB_ADDONS_URL . 'public/build/elements/testimonial-2.js',
@@ -644,7 +644,7 @@ class Aae_Bricks_Testimonial2 extends \Bricks\Element
                                     if ($has_link && $image_html) {
                                         echo '<a ' . $this->render_attributes("ts2-link-{$index}") . '>' . $image_html . '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                                     } else {
-                                        echo $image_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                                        echo wp_kses_post( $image_html ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                                     }
                                     ?>
                                 </div>

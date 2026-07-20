@@ -66,7 +66,7 @@ const TemplateShow = ({ allTemplate, metaData, setMetaData }) => {
         },
 
         body: new URLSearchParams({
-          action: "aaeaddon_wishlist_option",
+          action: "aab_wishlist_option",
           wishlist: JSON.stringify(data),
           nonce: AAB_ADDONS_ADMIN.nonce,
           settings: "wcf_save_widgets",

@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @subpackage Bricks_Animation_Addons/admin
  * @author     Zilani <zilani.wealcoder@gmail.com>
  */
-class Bricks_Animation_Addons_Admin {
+class AABAddons_Admin {
 
 	/**
 	 * The ID of this plugin.
@@ -69,10 +69,10 @@ class Bricks_Animation_Addons_Admin {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Bricks_Animation_Addons_Loader as all of the hooks are defined
+		 * defined in AABAddons_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Bricks_Animation_Addons_Loader will then create the relationship
+		 * The AABAddons_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
@@ -92,10 +92,10 @@ class Bricks_Animation_Addons_Admin {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Bricks_Animation_Addons_Loader as all of the hooks are defined
+		 * defined in AABAddons_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Bricks_Animation_Addons_Loader will then create the relationship
+		 * The AABAddons_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */

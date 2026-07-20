@@ -28,7 +28,7 @@ const CompleteImport = () => {
   const importedPage = async () => {
     try {
       const formData = new URLSearchParams();
-      formData.append("action", "aae_lite_get_latest_imported_pages");
+      formData.append("action", "aab_get_latest_imported_pages");
       formData.append("nonce", AAB_ADDONS_ADMIN.nonce);
       formData.append("per_page", 1);
 

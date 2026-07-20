@@ -91,7 +91,7 @@ const RequiredFeatures = () => {
         },
 
         body: new URLSearchParams({
-          action: "aaeaddon_template_dependency_status",
+          action: "aab_template_dependency_status",
           nonce: AAB_ADDONS_ADMIN.nonce,
           dependencies: JSON.stringify(mainContent?.dependencies),
         }),

@@ -4,7 +4,7 @@ if (! defined('ABSPATH')) {
 	exit;  // Exit if accessed directly.
 }
 
-$config = array(
+$aabaddons_config = array(
 	'widgets'            => array(
 		'is_active' => false,
 		'elements'  => array(
@@ -565,7 +565,7 @@ $config = array(
 						),
 						'is_active'    => false,
 						'is_pro'       => true,
-						'is_extension' => true,
+						'is_extension' => false,
 						'is_upcoming'  => false,
 						'keywords'     => array(
 							'video lightbox',
@@ -594,7 +594,7 @@ $config = array(
 						),
 						'is_active'    => false,
 						'is_pro'       => false,
-						'is_extension' => true,
+						'is_extension' => false,
 						'is_upcoming'  => false,
 						'keywords'     => array(
 							'video embed',
@@ -622,7 +622,7 @@ $config = array(
 						),
 						'is_active'    => false,
 						'is_pro'       => false,
-						'is_extension' => true,
+						'is_extension' => false,
 						'is_upcoming'  => false,
 						'keywords'     => array(
 							'masked video',
@@ -650,7 +650,7 @@ $config = array(
 						),
 						'is_active'    => false,
 						'is_pro'       => true,
-						'is_extension' => true,
+						'is_extension' => false,
 						'is_upcoming'  => false,
 						'keywords'     => array(
 							'youtube embed',
@@ -679,7 +679,7 @@ $config = array(
 						),
 						'is_active'    => false,
 						'is_pro'       => false,
-						'is_extension' => true,
+						'is_extension' => false,
 						'is_upcoming'  => false,
 						'keywords'     => array(
 							'Video Story',
@@ -730,7 +730,7 @@ $config = array(
 						),
 						'is_active'    => false,
 						'is_pro'       => false,
-						'is_extension' => true,
+						'is_extension' => false,
 						'is_upcoming'  => false,
 						'keywords'     => array(
 							'video slider',
@@ -1180,30 +1180,7 @@ $config = array(
 								'youtube_url'  => '',
 							),
 						),
-					),
-					// 'flip' => array(
-					// 	'title'     => 'Flips',
-					// 	'doc_url'   => 'https://support.crowdytheme.com/docs/advanced-settings/advanced-settings/wcf-custom-css/',
-					// 	'is_pro'    => true,
-					// 	'is_active' => false,
-					// 	'elements'  => array(
-					// 		'portfolio-filter' => array(
-					// 			'label'        => 'Portfolio Filter',
-					// 			'location'     => array(
-					// 				'cTab'     => 'gsap',
-					// 				'pluginId' => 'flip',
-					// 			),
-					// 			'is_pro'       => false,
-					// 			'is_active'    => true,
-					// 			'is_extension' => true,
-					// 			'is_upcoming'  => false,
-					// 			'icon'         => 'wcf-icon-Portfolio-Filter',
-					// 			'demo_url'     => 'https://bricksfly.com/docs/gsap-extensions/portfolio-filter/',
-					// 			'doc_url'      => 'https://bricksfly.com/docs/gsap-extensions/portfolio-filter/',
-					// 			'youtube_url'  => '',
-					// 		),
-					// 	),
-					// ),
+					),	
 
 
 				),
@@ -1241,133 +1218,133 @@ $config = array(
 							'is_pro'    => true,
 							'is_active' => false,
 							'icon'      => 'wcf-icon-Animation-Builder',
-							'doc_url'   => 'https://gsap.com/docs/v3/Plugins/Draggable',
+							'doc_url'   => '#',
 						),
 						'easel'              => array(
 							'label'     => 'Easel',
 							'is_pro'    => true,
 							'is_active' => false,
 							'icon'      => 'wcf-icon-Animation-Builder',
-							'doc_url'   => 'https://gsap.com/docs/v3/Plugins/EaselPlugin',
+							'doc_url'   => '#',
 						),
 						'flip'               => array(
 							'label'     => 'Flip',
 							'is_pro'    => true,
 							'is_active' => false,
 							'icon'      => 'wcf-icon-Animation-Builder',
-							'doc_url'   => 'https://gsap.com/docs/v3/Plugins/Flip',
+							'doc_url'   => '#',
 						),
 						'motion-path'        => array(
 							'label'     => 'MotionPath',
 							'is_pro'    => true,
 							'is_active' => false,
 							'icon'      => 'wcf-icon-Animation-Builder',
-							'doc_url'   => 'https://gsap.com/docs/v3/Plugins/MotionPathPlugin',
+							'doc_url'   => '#',
 						),
 						'observer'           => array(
 							'label'     => 'Observer',
 							'is_pro'    => true,
 							'is_active' => false,
 							'icon'      => 'wcf-icon-Animation-Builder',
-							'doc_url'   => 'https://gsap.com/docs/v3/Plugins/Observer',
+							'doc_url'   => '#',
 						),
 						'pixi'               => array(
 							'label'     => 'Pixi',
 							'is_pro'    => true,
 							'is_active' => false,
 							'icon'      => 'wcf-icon-Animation-Builder',
-							'doc_url'   => 'https://gsap.com/docs/v3/Plugins/PixiPlugin',
+							'doc_url'   => '#',
 						),
 						'scroll-to'          => array(
 							'label'     => 'ScrollTo',
 							'is_pro'    => true,
 							'is_active' => false,
 							'icon'      => 'wcf-icon-Animation-Builder',
-							'doc_url'   => 'https://gsap.com/docs/v3/Plugins/ScrollToPlugin',
+							'doc_url'   => '#',
 						),
 						'scroll-trigger'     => array(
 							'label'     => 'ScrollTrigger',
 							'is_pro'    => true,
 							'is_active' => false,
 							'icon'      => 'wcf-icon-Animation-Builder',
-							'doc_url'   => 'https://gsap.com/docs/v3/Plugins/ScrollTrigger/?page=1',
+							'doc_url'   => '#',
 						),
 						'text'               => array(
 							'label'     => 'Text',
 							'is_pro'    => true,
 							'is_active' => false,
 							'icon'      => 'wcf-icon-Animation-Builder',
-							'doc_url'   => 'https://gsap.com/docs/v3/Plugins/TextPlugin',
+							'doc_url'   => '#',
 						),
 						'draw-svg'           => array(
 							'label'     => 'DrawSVG',
 							'is_pro'    => true,
 							'is_active' => false,
 							'icon'      => 'wcf-icon-Animation-Builder',
-							'doc_url'   => 'https://gsap.com/docs/v3/Plugins/DrawSVGPlugin',
+							'doc_url'   => '#',
 						),
 						'physics-2d'         => array(
 							'label'     => 'Physics2D',
 							'is_pro'    => true,
 							'is_active' => false,
 							'icon'      => 'wcf-icon-Animation-Builder',
-							'doc_url'   => 'https://gsap.com/docs/v3/Plugins/Physics2DPlugin',
+							'doc_url'   => '#',
 						),
 						'physics-props'      => array(
 							'label'     => 'PhysicsProps',
 							'is_pro'    => true,
 							'is_active' => false,
 							'icon'      => 'wcf-icon-Animation-Builder',
-							'doc_url'   => 'https://gsap.com/docs/v3/Plugins/PhysicsPropsPlugin',
+							'doc_url'   => '#',
 						),
 						'scramble-text'      => array(
 							'label'     => 'ScrambleText',
 							'is_pro'    => true,
 							'is_active' => false,
 							'icon'      => 'wcf-icon-Animation-Builder',
-							'doc_url'   => 'https://gsap.com/docs/v3/Plugins/ScrambleTextPlugin',
+							'doc_url'   => '#',
 						),
 						'gs-dev-tools'       => array(
 							'label'     => 'GSDevTools',
 							'is_pro'    => true,
 							'is_active' => false,
 							'icon'      => 'wcf-icon-Animation-Builder',
-							'doc_url'   => 'https://gsap.com/docs/v3/Plugins/GSDevTools',
+							'doc_url'   => '#',
 						),
 						'inertia'            => array(
 							'label'     => 'Inertia',
 							'is_pro'    => true,
 							'is_active' => false,
 							'icon'      => 'wcf-icon-Animation-Builder',
-							'doc_url'   => 'https://gsap.com/docs/v3/Plugins/InertiaPlugin',
+							'doc_url'   => '#',
 						),
 						'morph-svg'          => array(
 							'label'     => 'MorphSVG',
 							'is_pro'    => true,
 							'is_active' => false,
 							'icon'      => 'wcf-icon-Animation-Builder',
-							'doc_url'   => 'https://gsap.com/docs/v3/Plugins/MorphSVGPlugin',
+							'doc_url'   => '#',
 						),
 						'motion-path-helper' => array(
 							'label'     => 'MotionPathHelper',
 							'is_pro'    => true,
 							'is_active' => false,
 							'icon'      => 'wcf-icon-Animation-Builder',
-							'doc_url'   => 'https://gsap.com/docs/v3/Plugins/MotionPathHelper',
+							'doc_url'   => '#',
 						),
 						'scroll-smoother'    => array(
 							'label'     => 'ScrollSmoother',
 							'is_pro'    => true,
 							'is_active' => false,
 							'icon'      => 'wcf-icon-Animation-Builder',
-							'doc_url'   => 'https://gsap.com/docs/v3/Plugins/ScrollSmoother',
+							'doc_url'   => '#',
 						),
 						'split-text'         => array(
 							'label'     => 'SplitText',
 							'is_pro'    => true,
 							'is_active' => false,
 							'icon'      => 'wcf-icon-Animation-Builder',
-							'doc_url'   => 'https://gsap.com/docs/v3/Plugins/SplitText',
+							'doc_url'   => '#',
 						),
 					),
 				),
@@ -1376,7 +1353,7 @@ $config = array(
 	),
 );
 
-$dashboard_pro_widget_slugs = array(
+$aabaddons_dashboard_pro_widget_slugs = array(
 	'animated-heading',
 	'icon-box',
 	'social-icons',
@@ -1384,23 +1361,23 @@ $dashboard_pro_widget_slugs = array(
 	'testimonial-1',
 	'button-pro',
 );
-$widget_index = array();
-if (! empty($config['widgets']['elements']) && is_array($config['widgets']['elements'])) {
-	foreach ($config['widgets']['elements'] as $group) {
-		if (empty($group['elements']) || ! is_array($group['elements'])) {
+$aabaddons_widget_index = array();
+if (! empty($aabaddons_config['widgets']['elements']) && is_array($aabaddons_config['widgets']['elements'])) {
+	foreach ($aabaddons_config['widgets']['elements'] as $aabaddons_group) {
+		if (empty($aabaddons_group['elements']) || ! is_array($aabaddons_group['elements'])) {
 			continue;
 		}
-		foreach ($group['elements'] as $slug => $widget) {
-			$widget_index[$slug] = $widget;
+		foreach ($aabaddons_group['elements'] as $aabaddons_slug => $aabaddons_widget) {
+			$aabaddons_widget_index[$aabaddons_slug] = $aabaddons_widget;
 		}
 	}
 }
-$dashboard_pro_widgets = array();
-foreach ($dashboard_pro_widget_slugs as $slug) {
-	if (isset($widget_index[$slug])) {
-		$dashboard_pro_widgets[$slug] = $widget_index[$slug];
+$aabaddons_dashboard_pro_widgets = array();
+foreach ($aabaddons_dashboard_pro_widget_slugs as $aabaddons_slug) {
+	if (isset($aabaddons_widget_index[$aabaddons_slug])) {
+		$aabaddons_dashboard_pro_widgets[$aabaddons_slug] = $aabaddons_widget_index[$aabaddons_slug];
 	}
 }
-$config['dashboardProWidget'] = $dashboard_pro_widgets;
+$aabaddons_config['dashboardProWidget'] = $aabaddons_dashboard_pro_widgets;
 
-$GLOBALS['aab_addons_config'] = $config;
+$GLOBALS['aabaddons_config'] = $aabaddons_config;

@@ -1,6 +1,6 @@
 <?php
 
-namespace AAB\Admin\Base;
+namespace AABAddons\Admin\Base;
 
 defined( 'ABSPATH' ) || die();
 
@@ -41,7 +41,7 @@ class WPImporterLogger {
 	}
 
 	public function log( $level, $message, array $context = array() ) {
-		update_option( 'aaeaddon_template_import_state', (string) $message );
+		update_option( 'aab_template_import_state', (string) $message );
 		$this->messages[] = array(
 			'timestamp' => time(),
 			'level'     => $level,

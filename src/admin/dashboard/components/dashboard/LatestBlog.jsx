@@ -26,7 +26,7 @@ const LatestBlog = () => {
         </div>
         <div>
           <a
-            href={"https://crowdytheme.com/blog"}
+            href={"https://bricksfly.com/blog"}
             target="_blank"
             className={cn(buttonVariants({ variant: "secondary", size: "sm" }))}
           >

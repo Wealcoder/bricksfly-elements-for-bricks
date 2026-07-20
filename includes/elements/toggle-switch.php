@@ -361,64 +361,7 @@ class Aae_Bricks_Toggle_Switch extends \Bricks\Element
                 ['property' => 'padding', 'selector' => '.after_label'],
             ],
             'required' => ['elementList', '=', '2'],
-        ];
-
-        // The active-title fill is the animated ::after pseudo-element, which Bricks
-        // can't reliably style directly. So Border + Radius are bridged through CSS
-        // custom properties set on the .before_label / .after_label elements, then
-        // consumed by the ::after in SCSS (see toggle-switch.scss).
-
-        // $this->controls['activeTitleBorderWidth'] = [
-        //     'group'    => 'active_title_style',
-        //     'label'    => esc_html__('Border Width', 'the-bricksfly'),
-        //     'type'     => 'dimensions',
-        //     'css'      => [
-        //         ['property' => '--label-after-border-width', 'selector' => '.before_label'],
-        //         ['property' => '--label-after-border-width', 'selector' => '.after_label'],
-        //     ],
-        //     'required' => ['elementList', '=', '2'],
-        // ];
-
-        // $this->controls['activeTitleBorderStyle'] = [
-        //     'group'    => 'active_title_style',
-        //     'label'    => esc_html__('Border Style', 'the-bricksfly'),
-        //     'type'     => 'select',
-        //     'inline'   => true,
-        //     'options'  => [
-        //         'solid'  => esc_html__('Solid', 'the-bricksfly'),
-        //         'dashed' => esc_html__('Dashed', 'the-bricksfly'),
-        //         'dotted' => esc_html__('Dotted', 'the-bricksfly'),
-        //         'double' => esc_html__('Double', 'the-bricksfly'),
-        //     ],
-        //     'css'      => [
-        //         ['property' => '--label-after-border-style', 'selector' => '.before_label'],
-        //         ['property' => '--label-after-border-style', 'selector' => '.after_label'],
-        //     ],
-        //     'required' => ['elementList', '=', '2'],
-        // ];
-
-        // $this->controls['activeTitleBorderColor'] = [
-        //     'group'    => 'active_title_style',
-        //     'label'    => esc_html__('Border Color', 'the-bricksfly'),
-        //     'type'     => 'color',
-        //     'css'      => [
-        //         ['property' => '--label-after-border-color', 'selector' => '.before_label'],
-        //         ['property' => '--label-after-border-color', 'selector' => '.after_label'],
-        //     ],
-        //     'required' => ['elementList', '=', '2'],
-        // ];
-
-        // $this->controls['activeTitleRadius'] = [
-        //     'group'    => 'active_title_style',
-        //     'label'    => esc_html__('Border Radius', 'the-bricksfly'),
-        //     'type'     => 'dimensions',
-        //     'css'      => [
-        //         ['property' => 'border-top-left-radius', 'selector' => '.before_label'],
-        //         ['property' => 'border-top-right-radius', 'selector' => '.before_label'],
-        //     ],
-        //     'required' => ['elementList', '=', '2'],
-        // ];
-
+        ];      
 
         $this->controls['activeTitleBorder'] = [
             'tab'   => 'style',

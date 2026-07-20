@@ -1,6 +1,6 @@
 <?php
 
-namespace AAB\Includes\Traits;
+namespace AABAddons\Includes\Traits;
 
 if (! defined('ABSPATH')) {
 	exit;
@@ -11,7 +11,7 @@ if (! defined('ABSPATH')) {
  *
  * Used by the main plugin class (and future pro plugin) to determine
  * which extensions/widgets the user has enabled in the dashboard.
- * Reads from `$GLOBALS['aab_addons_config']` and the saved WP options.
+ * Reads from `$GLOBALS['aabaddons_config']` and the saved WP options.
  */
 trait Extension_Widgets_Trait
 {
@@ -19,7 +19,7 @@ trait Extension_Widgets_Trait
 	/**
 	 * Get active widgets with their full config data.
 	 *
-	 * Recursively searches `$GLOBALS['aab_addons_config']['widgets']`
+	 * Recursively searches `$GLOBALS['aabaddons_config']['widgets']`
 	 * and returns only the widgets the user has activated.
 	 *
 	 * @return array<string, array> Slug-keyed array of active widgets with config data.
@@ -33,7 +33,7 @@ trait Extension_Widgets_Trait
 
 		$foundKeys = [];
 		$active    = [];
-		aab_get_search_active_keys($GLOBALS['aab_addons_config']['widgets'] ?? [], $saved_widgets, $foundKeys, $active);
+		aabaddons_get_search_active_keys($GLOBALS['aabaddons_config']['widgets'] ?? [], $saved_widgets, $foundKeys, $active);
 
 		return is_array($active) ? $active : [];
 	}
@@ -41,7 +41,7 @@ trait Extension_Widgets_Trait
 	/**
 	 * Get active extensions with their full config data.
 	 *
-	 * Recursively searches `$GLOBALS['aab_addons_config']['extensions']`
+	 * Recursively searches `$GLOBALS['aabaddons_config']['extensions']`
 	 * and returns only the extensions the user has activated.
 	 *
 	 * @return array<string, array> Slug-keyed array of active extensions with config data.
@@ -55,8 +55,7 @@ trait Extension_Widgets_Trait
 
 		$foundKeys = [];
 		$active    = [];
-		aab_get_search_active_keys($GLOBALS['aab_addons_config']['extensions'] ?? [], $saved_extensions, $foundKeys, $active);
-
+		aabaddons_get_search_active_keys($GLOBALS['aabaddons_config']['extensions'] ?? [], $saved_extensions, $foundKeys, $active);
 
 		return is_array($active) ? $active : [];
 	}
@@ -69,7 +68,7 @@ trait Extension_Widgets_Trait
 	 */
 	public static function is_extension_active($slug)
 	{
-		return (bool) aab_addons_get_settings('aab_save_extensions', $slug);
+		return (bool) aabaddons_get_settings('aab_save_extensions', $slug);
 	}
 
 	/**
@@ -80,6 +79,6 @@ trait Extension_Widgets_Trait
 	 */
 	public static function is_widget_active($slug)
 	{
-		return (bool) aab_addons_get_settings('aab_save_widgets', $slug);
+		return (bool) aabaddons_get_settings('aab_save_widgets', $slug);
 	}
 }

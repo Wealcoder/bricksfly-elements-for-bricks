@@ -1,35 +1,34 @@
 export const LatestBlogList = [
   {
-    title: "Best Insurance Consultancy Agency WordPress Themes",
+    title: "How to Build Animated Portfolio Websites in Bricks",
     thumbnail:
-      "https://crowdytheme.com/wp-content/uploads/2024/10/Best-Insurance-Consultancy-Agency-WordPress-Themes.webp",
-    createAt: "October 22, 2024",
+      "https://bricksfly.com/blog/wp-content/uploads/2026/07/How-to-Build-Animated-Portfolio-Websites-in-Bricks.webp",
+    createAt: "June 22, 2026",
     readingTime: "10 min read",
-    url: "https://crowdytheme.com/best-insurance-consultancy-agency-wordpress-themes",
+    url: "https://bricksfly.com/blog/animated-portfolio-website-bricks/",
   },
   {
     title:
-      "What are the Common Issues of WordPress Themes and How to Fix Them?",
+      "How to Use Copy Paste Sections in Bricks Builder: A Step-by-Step Guide",
     thumbnail:
-      "https://crowdytheme.com/wp-content/uploads/2024/09/What-are-the-Common-Issues-of-WordPress-Themes-and-How-to-Fix-Them.webp",
-    createAt: "October 16, 2024",
+      "https://bricksfly.com/blog/wp-content/uploads/2026/07/How-to-Use-Copy-Paste-Sections-in-Bricks-Builder.webp",
+    createAt: "October 16, 2026",
     readingTime: "10 min read",
-    url: "https://crowdytheme.com/what-are-the-common-issues-of-wordpress-themes",
+    url: "https://bricksfly.com/blog/bricks-copy-paste-sections/",
   },
   {
-    title: "Best AI Startup and Agency WordPress Themes",
-    thumbnail:
-      "https://crowdytheme.com/wp-content/uploads/2024/10/Best-AI-Startup-and-Agency-WordPress-Themes.webp",
-    createAt: "October 9, 2024",
+    title: "GSAP vs CSS Animation in Bricks Builder: Which Should You Use?",
+    thumbnail: "https://bricksfly.com/blog/wp-content/uploads/2026/07/GSAP-vs-CSS-Animation-in-Bricks-Builder-Which-Should-You-Use.webp",
+    createAt: "june 9, 2026",
     readingTime: "10 min read",
-    url: "https://crowdytheme.com/best-ai-startup-and-agency-wordpress-themes",
+    url: "https://bricksfly.com/blog/gsap-vs-css-animation-bricks/",
   },
   {
-    title: "Best Video Production Agency WordPress Themes",
+    title: "Best Bricks Website Templates for Agencies",
     thumbnail:
-      "https://crowdytheme.com/wp-content/uploads/2024/10/Best-Video-Production-Agency-WordPress-Themes.webp",
-    createAt: "October 3, 2024",
+      "https://bricksfly.com/blog/wp-content/uploads/2026/07/Best-Bricks-Website-Templates-for-Agencies.webp",
+    createAt: "july 3, 2026",
     readingTime: "10 min read",
-    url: "https://crowdytheme.com/best-video-production-agency-wordpress-themes",
+    url: "https://bricksfly.com/blog/bricks-templates-for-agencies/",
   },
 ];

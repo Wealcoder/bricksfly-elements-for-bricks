@@ -1,6 +1,6 @@
 <?php
 
-namespace AAB\Admin;
+namespace AABAddons\Admin;
 
 use WP_Error;
 
@@ -22,16 +22,7 @@ class AABAddon_Row_Actions {
 	public function __construct() {
 		add_filter( 'plugin_action_links', [ $this, 'add_plugin_link' ], 10, 2 );
 		add_filter( 'plugin_row_meta', [ $this, '_plugin_row_meta' ], 10, 2 );
-		add_action( 'admin_enqueue_scripts', [ $this, '_enqueue_admin_scripts' ] );
-		add_action( 'wp_ajax_aae_deactivate_feedback', [ $this, 'handle_deactivate_feedback' ] );
-	}
-
-	function _enqueue_admin_scripts( $hook ) {
-		if ( $hook === 'plugins.php' ) {
-			$css_path = AAB_ADDONS_PATH . 'assets/css/plugins.css';
-			$css_ver  = file_exists( $css_path ) ? filemtime( $css_path ) : AAB_ADDONS_VERSION;
-			wp_enqueue_style( 'aab-plugins-styles', AAB_ADDONS_URL . 'assets/css/plugins.css', [], $css_ver, 'all' );
-		}
+		add_action( 'wp_ajax_aab_deactivate_feedback', [ $this, 'handle_deactivate_feedback' ] );
 	}
 
 	public function handle_deactivate_feedback() {
@@ -39,7 +30,7 @@ class AABAddon_Row_Actions {
 			wp_send_json_error( esc_html__( 'Missing parameters', 'the-bricksfly' ) );
 		}
 		$nonce = sanitize_text_field( wp_unslash( $_POST['nonce'] ) );
-		if ( ! wp_verify_nonce( $nonce, 'aae_deactivate_feedback_nonce' ) ) {
+		if ( ! wp_verify_nonce( $nonce, 'aab_deactivate_feedback_nonce' ) ) {
 			wp_send_json_error( esc_html__( 'Invalid nonce', 'the-bricksfly' ) );
 		}
 		if ( ! current_user_can( 'activate_plugins' ) ) {
@@ -58,9 +49,9 @@ class AABAddon_Row_Actions {
 			'plugin_version' => AAB_ADDONS_VERSION,
 		);
 
-		$existing_feedback   = get_option( 'aae_deactivation_feedback', array() );
+		$existing_feedback   = get_option( 'aab_deactivation_feedback', array() );
 		$existing_feedback[] = $feedback_data;
-		update_option( 'aae_deactivation_feedback', $existing_feedback );
+		update_option( 'aab_deactivation_feedback', $existing_feedback );
 
 		wp_send_json_success( esc_html__( 'Feedback submitted successfully', 'the-bricksfly' ) );
 	}
@@ -70,12 +61,12 @@ class AABAddon_Row_Actions {
 			return $meta;
 		}
 
-		$meta[] = '<a href="#/" target="_blank">' . esc_html__( 'Documentation', 'the-bricksfly' ) . '</a>';
+		$meta[] = '<a href="https://bricksfly.com/docs/" target="_blank">' . esc_html__( 'Documentation', 'the-bricksfly' ) . '</a>';
 		$meta[] = '<a href="#" target="_blank">' . esc_html__( 'Support', 'the-bricksfly' ) . '</a>';
 		if ( ! file_exists( WP_PLUGIN_DIR . '/' . 'the-bricksfly-pro/the-bricksfly-pro.php' ) ) {
 			$meta[] = '<a href="https://bricksfly.com" style="color:#ff7a00; font-weight: bold;" target="_blank">' . esc_html__( 'Upgrade to Pro', 'the-bricksfly' ) . '</a>';
 		}
-		$meta[] = '<a href="https://wordpress.org/support/plugin/bricksfly/reviews/#new-post" target="_blank">' . esc_html__( ' Rate the plugin', 'the-bricksfly' ) . '</a>';
+		$meta[] = '<a href="https://wordpress.org/support/plugin/the-bricksfly/reviews/#new-post" target="_blank">' . esc_html__( ' Rate the plugin', 'the-bricksfly' ) . '</a>';
 		return $meta;
 	}
 

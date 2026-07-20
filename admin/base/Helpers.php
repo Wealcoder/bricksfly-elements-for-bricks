@@ -1,6 +1,6 @@
 <?php
 
-namespace AAB\Admin\Base;
+namespace AABAddons\Admin\Base;
 
 defined( 'ABSPATH' ) || die();
 
@@ -34,14 +34,14 @@ class Helpers {
 
 		$downloader = new Downloader();
 
-		$import_file_info = self::apply_filters( 'aaeaddon/pre_download_import_files', $import_file_info );
+		$import_file_info = self::apply_filters( 'aabaddons/pre_download_import_files', $import_file_info );
 
 		if ( empty( $import_file_info['import_file_url'] ) ) {
 			if ( file_exists( $import_file_info['local_import_file'] ) ) {
 				$downloaded_files['content'] = $import_file_info['local_import_file'];
 			}
 		} else {
-			$content_filename = self::apply_filters( 'aaeaddon/downloaded_content_file_prefix', 'demo-content-import-file_' ) . self::$demo_import_start_time . self::apply_filters( 'aaeaddon/downloaded_content_file_suffix_and_file_extension', '.xml' );
+			$content_filename = self::apply_filters( 'aabaddons/downloaded_content_file_prefix', 'demo-content-import-file_' ) . self::$demo_import_start_time . self::apply_filters( 'aabaddons/downloaded_content_file_suffix_and_file_extension', '.xml' );
 
 			$downloaded_files['content'] = $downloader->download_file( $import_file_info['import_file_url'], $content_filename );
 
@@ -83,7 +83,7 @@ class Helpers {
 		if ( is_wp_error( $verified_credentials ) ) {
 			return $verified_credentials;
 		}
-		update_option( 'aaeaddon_template_import_state', $content );
+		update_option( 'aab_template_import_state', $content );
 
 		global $wp_filesystem;
 
@@ -136,7 +136,7 @@ class Helpers {
 	}
 
 	public static function get_plugin_page_setup_data() {
-		return Helpers::apply_filters( 'aaeaddon/plugin_page_setup', array(
+		return Helpers::apply_filters( 'aabaddons/plugin_page_setup', array(
 			'parent_slug' => 'bf_addons_settings',
 			'capability'  => 'import',
 			'menu_slug'   => 'bf_addons_settings',
@@ -185,9 +185,9 @@ class Helpers {
 
 	public static function get_log_path() {
 		$upload_dir  = wp_upload_dir();
-		$upload_path = self::apply_filters( 'aaeaddon/upload_file_path', trailingslashit( $upload_dir['path'] ) );
+		$upload_path = self::apply_filters( 'aabaddons/upload_file_path', trailingslashit( $upload_dir['path'] ) );
 
-		$log_path = $upload_path . self::apply_filters( 'aaeaddon/log_file_prefix', 'log_file_' ) . self::$demo_import_start_time . self::apply_filters( 'aaeaddon/log_file_suffix_and_file_extension', '.txt' );
+		$log_path = $upload_path . self::apply_filters( 'aabaddons/log_file_prefix', 'log_file_' ) . self::$demo_import_start_time . self::apply_filters( 'aabaddons/log_file_suffix_and_file_extension', '.txt' );
 
 		self::register_file_as_media_attachment( $log_path );
 
@@ -196,12 +196,12 @@ class Helpers {
 
 	public static function register_file_as_media_attachment( $log_path ) {
 		$log_mimes = array( 'txt' => 'text/plain' );
-		$filetype  = wp_check_filetype( basename( $log_path ), self::apply_filters( 'aaeaddon/file_mimes', $log_mimes ) );
+		$filetype  = wp_check_filetype( basename( $log_path ), self::apply_filters( 'aabaddons/file_mimes', $log_mimes ) );
 
 		$attachment = array(
 			'guid'           => self::get_log_url( $log_path ),
 			'post_mime_type' => $filetype['type'],
-			'post_title'     => self::apply_filters( 'aaeaddon/attachment_prefix', esc_html__( 'Starter Template Import - ', 'the-bricksfly' ) ) . preg_replace( '/\.[^.]+$/', '', basename( $log_path ) ),
+			'post_title'     => self::apply_filters( 'aabaddons/attachment_prefix', esc_html__( 'Starter Template Import - ', 'the-bricksfly' ) ) . preg_replace( '/\.[^.]+$/', '', basename( $log_path ) ),
 			'post_content'   => '',
 			'post_status'    => 'inherit',
 		);
@@ -211,7 +211,7 @@ class Helpers {
 
 	public static function get_log_url( $log_path ) {
 		$upload_dir = wp_upload_dir();
-		$upload_url = self::apply_filters( 'aaeaddon/upload_file_url', trailingslashit( $upload_dir['url'] ) );
+		$upload_url = self::apply_filters( 'aabaddons/upload_file_url', trailingslashit( $upload_dir['url'] ) );
 
 		return $upload_url . basename( $log_path );
 	}
@@ -307,52 +307,34 @@ class Helpers {
 	}
 
 	public static function set_demo_import_start_time() {
-		self::$demo_import_start_time = gmdate( self::apply_filters( 'aaeaddon/date_format_for_file_names', 'Y-m-d__H-i-s' ) );
+		self::$demo_import_start_time = gmdate( self::apply_filters( 'aabaddons/date_format_for_file_names', 'Y-m-d__H-i-s' ) );
 	}
 
 	public static function set_st_import_data_transient( $data ) {
-		set_transient( 'aadaddon_st_importer_data', $data, 0.1 * HOUR_IN_SECONDS );
+		set_transient( 'aab_st_importer_data', $data, 0.1 * HOUR_IN_SECONDS );
 	}
 
 	public static function apply_filters( $hook, $default_data ) {
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound -- Central wrapper; callers provide prefixed hook names.
 		$new_data = apply_filters( $hook, $default_data );
-
-		if ( $new_data !== $default_data ) {
-			return $new_data;
-		}
-
-		$old_data = apply_filters( "st-$hook", $default_data );
-
-		if ( $old_data !== $default_data ) {
-			return $old_data;
-		}
-
-		return $default_data;
+		return $new_data;
 	}
 
 	public static function do_action( $hook, ...$arg ) {
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound -- Central wrapper; callers provide prefixed hook names.
 		do_action( $hook, ...$arg );
-
-		$args = [];
-		foreach ( $arg as $argument ) {
-			$args[] = $argument;
-		}
-
-		do_action_deprecated( "st-$hook", $args, '3.0.0', $hook );
 	}
 
 	public static function has_action( $hook, $function_to_check = false ) {
 		if ( has_action( $hook ) ) {
 			return has_action( $hook, $function_to_check );
-		} else if ( has_action( "st-$hook" ) ) {
-			return has_action( "st-$hook", $function_to_check );
 		}
 
 		return false;
 	}
 
 	public static function get_failed_attachment_imports() {
-		return get_transient( 'aaeaddon_st_importer_data_failed_attachment_imports' );
+		return get_transient( 'aab_st_importer_data_failed_attachment_imports' );
 	}
 
 	public static function set_failed_attachment_import( $attachment_url ) {
@@ -364,6 +346,6 @@ class Helpers {
 
 		$failed_media_imports[] = $attachment_url;
 
-		set_transient( 'aaeaddon_st_importer_data_failed_attachment_imports', $failed_media_imports, HOUR_IN_SECONDS );
+		set_transient( 'aab_st_importer_data_failed_attachment_imports', $failed_media_imports, HOUR_IN_SECONDS );
 	}
 }

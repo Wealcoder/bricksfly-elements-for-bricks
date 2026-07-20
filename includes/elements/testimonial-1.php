@@ -351,7 +351,7 @@ class Aae_Bricks_Testimonial extends \Bricks\Element
         //   "-50%" is a natural way to center over the slider.
         // % only — keeps the offsets responsive across viewports.
         // Driven through Bricks's `'css'` array (NOT inline style on
-        // .ts-navigation) so the builder patches the <style> tag live as the
+        // .ts-navigation) so the builder patches the generated CSS live as the
         // slider is dragged. Inline style would pin the value to the last
         // server-rendered state — that's what made editor and frontend
         // disagree before.
@@ -722,7 +722,7 @@ class Aae_Bricks_Testimonial extends \Bricks\Element
         wp_enqueue_style("bricks-font-awesome-6-brands");
 
         // Swiper CSS
-        $posts_slider_css = AAB_ADDONS_PATH . 'public/css/posts-slider.css';
+        $posts_slider_css = AAB_ADDONS_PATH . 'public/build/elements/posts-slider.css';
         wp_enqueue_style(
             'post-slider',
             AAB_ADDONS_URL . 'public/build/elements/posts-slider.css',
@@ -736,7 +736,7 @@ class Aae_Bricks_Testimonial extends \Bricks\Element
 
         // Testimonial CSS — use filemtime() so cache busts on every edit
         // (hardcoded '1.0.0' caused stale browser cache to mask updates).
-        $testimonial_css = AAB_ADDONS_PATH . 'public/css/testimonial.css';
+        $testimonial_css = AAB_ADDONS_PATH . 'public/build/elements/testimonial.css';
         wp_enqueue_style(
             'aae-testimonial',
             AAB_ADDONS_URL . 'public/build/elements/testimonial.css',
@@ -745,7 +745,7 @@ class Aae_Bricks_Testimonial extends \Bricks\Element
         );
 
         // Testimonial JS — same cache-bust treatment.
-        $testimonial_js = AAB_ADDONS_PATH . 'public/js/testimonial.js';
+        $testimonial_js = AAB_ADDONS_PATH . 'public/build/elements/testimonial.js';
         wp_enqueue_script(
             'aae-testimonial',
             AAB_ADDONS_URL . 'public/build/elements/testimonial.js',
@@ -872,7 +872,7 @@ class Aae_Bricks_Testimonial extends \Bricks\Element
             if ($has_link && $image_html) {
                 echo '<a' . $link_attrs . '>' . $image_html . '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
             } else {
-                echo $image_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                echo wp_kses_post( $image_html ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
             }
             echo '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
