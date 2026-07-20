@@ -341,6 +341,42 @@ if (! function_exists('aabaddons_is_pro_installed')) {
   }
 }
 
+
+if (! function_exists('aab_is_license_valid')) {
+
+  /**
+   * Whether the license is active AND the Pro plugin folder exists on disk.
+   *
+   * The stored license option is unreliable on its own: if the user removes
+   * the Pro plugin folder manually, `wcf_addon_sl_license_status` stays
+   * 'valid' until the next remote check. We require both to be true before
+   * unlocking Pro-gated UI / features.
+   *
+   * @return bool
+   */
+  function aab_is_license_valid()
+  {
+    return aab_is_pro_installed()
+      && ('valid' === get_option('wcf_addon_sl_license_status'));
+  }
+}
+
+if (! function_exists('aab_is_pro_installed')) {
+
+  /**
+   * Whether the Bricksfly Pro plugin folder + main file exist on
+   * disk. Independent of whether the plugin is currently activated — used to
+   * gate features that must not run at all when Pro isn't available, such as
+   * the site-settings extensions and pro extension toggles.
+   *
+   * @return bool
+   */
+  function aab_is_pro_installed()
+  {
+    return file_exists(WP_PLUGIN_DIR . '/the-bricksfly-pro/the-bricksfly-pro.php');
+  }
+}
+
 if (! function_exists('aabaddons_is_license_valid')) {
 
   /**
