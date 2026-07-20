@@ -9,8 +9,8 @@ const WhatsNew = () => {
   const { data } = useRemoteData(API_ENDPOINTS.whatsNew, WhatsNewData);
 
   return (
-    <div className="rounded-2xl bg-[linear-gradient(90deg,#FFF2DD_0%,#FFEDED_100%)] p-7 flex items-center gap-7">
-      <div className="shrink-0 bg-white/80 rounded-3xl flex flex-col items-center justify-center gap-5 px-9 py-10 w-[220px]">
+    <div className="rounded-2xl bg-[linear-gradient(90deg,#FFF2DD_0%,#FFEDED_100%)] p-7 flex flex-col sm:flex-row items-center gap-7">
+      <div className="shrink-0 mx-auto sm:mx-0 bg-white/80 rounded-3xl flex flex-col items-center justify-center gap-5 px-9 py-10 w-[220px]">
         <div className="w-[46px] h-[46px] rounded-full bg-[#FFF2E6] flex items-center justify-center">
           <img
             src={`${AAB_ADDONS_ADMIN.plugin_url}public/images/whats-new-bell.png`}
@@ -25,7 +25,7 @@ const WhatsNew = () => {
           <p className="text-sm text-text-secondary">{data.date}</p>
         </div>
       </div>
-      <div className="flex flex-col gap-[30px] flex-1 min-w-0">
+      <div className="flex flex-col gap-[30px] flex-1 min-w-0 w-full">
         <div className="flex flex-col gap-[22px]">
           <p className="text-lg font-medium text-text">What's New</p>
           <ul className="flex flex-col gap-[18px]">

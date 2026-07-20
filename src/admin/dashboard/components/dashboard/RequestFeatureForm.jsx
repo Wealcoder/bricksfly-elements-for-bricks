@@ -53,7 +53,7 @@ const RequestFeatureForm = () => {
     <div className="border rounded-2xl p-5 shadow-common h-full">
       <p className="text-lg font-medium text-text">Request New Feature</p>
       <form onSubmit={handleSubmit} className="flex flex-col gap-6 mt-6">
-        <div className="flex items-center gap-6">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-6">
           <div className="flex flex-col gap-3 flex-1">
             <Label htmlFor="feature-name" className="text-xs text-text">
               Name

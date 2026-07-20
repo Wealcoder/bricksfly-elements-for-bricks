@@ -30,7 +30,7 @@ const Tutorial = () => {
         </div>
         <div>
           <a
-            href={"https://www.youtube.com/@AnimationAddonsforElementor"}
+            href={"https://www.youtube.com/@gobricksfly"}
             target="_blank"
             className={cn(
               buttonVariants({ variant: "secondary", size: "sm" }),
@@ -61,7 +61,7 @@ const Tutorial = () => {
                 </p>
               </div>
               <div className="flex items-center gap-3 shrink-0">
-                <span className="text-sm text-text-secondary whitespace-nowrap">
+                <span className="hidden sm:inline text-sm text-text-secondary whitespace-nowrap">
                   {el.duration}
                 </span>
                 <button

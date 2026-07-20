@@ -14,21 +14,24 @@ const TutorialDialog = ({
 }) => {
   return (
     <Dialog open={open} onOpenChange={(value) => setOpen(value)}>
-      <DialogContent className={"max-w-[1000px]"}>
+      <DialogContent className={"max-w-[1000px]"} hideClose>
         <DialogHeader>
           <DialogTitle className="hidden"></DialogTitle>
           <DialogDescription>
-            <iframe
-              width="100%"
-              height="100%"
-              src={videoUrl}
-              title={title}
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen
-              className="rounded-md aspect-video"
-            ></iframe>
+            {open && (
+              <iframe
+                key={videoUrl}
+                width="100%"
+                height="100%"
+                src={videoUrl}
+                title={title}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+                className="rounded-md aspect-video"
+              ></iframe>
+            )}
           </DialogDescription>
         </DialogHeader>
       </DialogContent>

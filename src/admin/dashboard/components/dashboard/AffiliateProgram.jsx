@@ -4,7 +4,7 @@ import { buttonVariants } from "../ui/button";
 
 const AffiliateProgram = () => {
   return (
-    <div className="relative rounded-2xl overflow-hidden bg-[linear-gradient(90deg,#FFDFAA_0.01%,#FFC3C0_100%)] px-10 py-9 flex items-center justify-between gap-6">
+    <div className="relative rounded-2xl overflow-hidden bg-[linear-gradient(90deg,#FFDFAA_0.01%,#FFC3C0_100%)] px-6 py-8 md:px-10 md:py-9 flex items-center justify-between gap-6">
       <div className="flex flex-col gap-6 max-w-[384px]">
         <div className="flex flex-col gap-3">
           <h2 className="font-serif text-[32px] leading-tight text-[#181B25]">
