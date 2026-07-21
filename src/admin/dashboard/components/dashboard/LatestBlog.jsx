@@ -41,9 +41,9 @@ const LatestBlog = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
         {blogs?.map((blog, i) => (
           <div key={`latest_blog-${i}`} className="group flex flex-col gap-[19px]">
-            <div className="overflow-hidden rounded-lg">
+            <div className="overflow-hidden rounded-lg h-[174px]">
               <img
-                className="w-full h-auto transition-all group-hover:scale-110"
+                className="w-full h-full object-cover transition-all group-hover:scale-110"
                 src={blog.thumbnail}
                 alt=""
               />
@@ -56,8 +56,12 @@ const LatestBlog = () => {
               </a>
               <div className="flex items-center gap-1.5 text-sm text-text-secondary">
                 <span>{blog.createAt}</span>
-                <span className="w-1 h-1 rounded-full bg-[#717784] shrink-0" />
-                <span>{blog.readingTime}</span>
+                {blog.readingTime && (
+                  <>
+                    <span className="w-1 h-1 rounded-full bg-[#717784] shrink-0" />
+                    <span>{blog.readingTime}</span>
+                  </>
+                )}
               </div>
             </div>
           </div>
