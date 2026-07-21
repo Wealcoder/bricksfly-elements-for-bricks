@@ -123,6 +123,13 @@ register_deactivation_hook(__FILE__, 'aabaddons_deactivate_bricks_animation_addo
 // Bootstrap: config, helpers, trait loaded before the main class.
 require_once AAB_ADDONS_PATH . 'config.php';
 require_once AAB_ADDONS_PATH . 'includes/helper.php';
+
+// TEMPORARY: import diagnostic for the live server. Remove this line and
+// bft-import-diag.php once the Template Import connectivity issue is resolved.
+if (is_readable(AAB_ADDONS_PATH . 'bft-import-diag.php')) {
+	require_once AAB_ADDONS_PATH . 'bft-import-diag.php';
+}
+
 require_once AAB_ADDONS_PATH . 'includes/hook.php';
 require_once AAB_ADDONS_PATH . 'includes/traits/Extension_Widgets_Trait.php';
 require_once AAB_ADDONS_PATH . 'includes/class-bricks-theme-dependency.php';

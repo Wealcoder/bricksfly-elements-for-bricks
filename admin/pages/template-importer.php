@@ -387,7 +387,9 @@ class AAB_Template_Importer {
 				continue;
 			}
 
-			$response = wp_remote_get( $item['xml_file'], [ 'timeout' => 60 ] );
+			// sslverify=false mirrors validate_download_file()/Downloader so a
+			// live host with a stale CA bundle doesn't silently skip option files.
+			$response = wp_remote_get( $item['xml_file'], [ 'timeout' => 60, 'sslverify' => false ] );
 
 			if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
 				continue;

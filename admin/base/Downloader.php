@@ -25,16 +25,25 @@ class Downloader {
 		$attempts    = max( 1, min( 3, (int) Helpers::apply_filters( 'aabaddons/import_file_download_attempts', 2 ) ) );
 		$response    = null;
 
+		// Request args. We use wp_remote_get (not wp_safe_remote_get) so hosts
+		// that block "unsafe"/external URL validation don't reject the template
+		// server outright, and sslverify=false to survive live hosts with a stale
+		// CA bundle (mirrors the rest of the plugin's remote calls). Both are
+		// filterable if a site wants to tighten them back up.
+		$sslverify = (bool) Helpers::apply_filters( 'aabaddons/import_download_sslverify', false );
+
 		for ( $attempt = 1; $attempt <= $attempts; $attempt++ ) {
 			if ( file_exists( $destination ) ) {
 				wp_delete_file( $destination );
 			}
 
-			$response = wp_safe_remote_get(
+			// Primary: stream straight to disk (low memory).
+			$response = wp_remote_get(
 				$url,
 				array(
 					'timeout'     => $timeout,
 					'redirection' => 5,
+					'sslverify'   => $sslverify,
 					'stream'      => true,
 					'filename'    => $destination,
 				)
@@ -43,6 +52,32 @@ class Downloader {
 			$response_code = is_wp_error( $response ) ? 0 : (int) wp_remote_retrieve_response_code( $response );
 			if ( 200 === $response_code && file_exists( $destination ) && filesize( $destination ) > 0 ) {
 				return $destination;
+			}
+
+			// Fallback: some live hosts fail streamed writes (open_basedir,
+			// non-writable uploads, proxies that break chunked streaming). Fetch
+			// into memory and write the file ourselves.
+			if ( file_exists( $destination ) ) {
+				wp_delete_file( $destination );
+			}
+			$mem = wp_remote_get(
+				$url,
+				array(
+					'timeout'     => $timeout,
+					'redirection' => 5,
+					'sslverify'   => $sslverify,
+				)
+			);
+			$mem_code = is_wp_error( $mem ) ? 0 : (int) wp_remote_retrieve_response_code( $mem );
+			if ( 200 === $mem_code ) {
+				$body = wp_remote_retrieve_body( $mem );
+				if ( '' !== $body && false !== @file_put_contents( $destination, $body ) && filesize( $destination ) > 0 ) {
+					return $destination;
+				}
+			}
+			// Keep the more informative of the two responses for error reporting.
+			if ( is_wp_error( $mem ) && ! is_wp_error( $response ) ) {
+				$response = $mem;
 			}
 
 			// Retry transport errors, timeouts, rate limiting, and server errors.

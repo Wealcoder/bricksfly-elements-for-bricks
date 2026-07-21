@@ -84,6 +84,101 @@ class AABAddons_Plugin
 		$this->load_dependencies();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
+
+		// Licensing removed: ship with every extension AND widget enabled by
+		// default. The activator seeds these on a fresh install, but an install
+		// that predates this change (or where seeding never ran because it used
+		// to wait for a license) can still have them all off. Ensure the
+		// defaults exist on load — only when the option is entirely absent, so
+		// a user's deliberate on/off toggles are never overwritten.
+		add_action('admin_init', array($this, 'aab_ensure_default_enabled'), 1);
+	}
+
+	/**
+	 * Seed `aab_save_extensions` / `aab_save_widgets` with every shipped item
+	 * enabled when either option is missing. Idempotent and non-destructive:
+	 * once the option row exists (even as an empty array) it is left untouched.
+	 *
+	 * @return void
+	 */
+	public function aab_ensure_default_enabled()
+	{
+		if (! isset($GLOBALS['aabaddons_config']) && defined('AAB_ADDONS_PATH')) {
+			require_once AAB_ADDONS_PATH . 'config.php';
+		}
+		$config = isset($GLOBALS['aabaddons_config']) && is_array($GLOBALS['aabaddons_config'])
+			? $GLOBALS['aabaddons_config']
+			: array();
+
+		// Extensions — enable every leaf extension (has a `location`) plus its
+		// group/subgroup containers; skip `is_upcoming` placeholders.
+		if (false === get_option('aab_save_extensions', false)) {
+			$ext_map = array();
+			$this->aab_collect_default_slugs(
+				isset($config['extensions']) ? $config['extensions'] : array(),
+				$ext_map,
+				'location'
+			);
+			if (! empty($ext_map)) {
+				update_option('aab_save_extensions', $ext_map, false);
+			}
+		}
+
+		// Widgets — enable every leaf widget (is_extension === false); skip
+		// `is_upcoming` placeholders.
+		if (false === get_option('aab_save_widgets', false)) {
+			$wgt_map = array();
+			$this->aab_collect_default_slugs(
+				isset($config['widgets']) ? $config['widgets'] : array(),
+				$wgt_map,
+				'widget'
+			);
+			if (! empty($wgt_map)) {
+				update_option('aab_save_widgets', $wgt_map, false);
+			}
+		}
+	}
+
+	/**
+	 * Walk a config sub-tree and collect slugs to enable by default.
+	 *
+	 * @param mixed               $node Config sub-tree.
+	 * @param array<string,bool>  $map  Out-param accumulator (slug => true).
+	 * @param string              $mode 'location' for extensions, 'widget' for widgets.
+	 * @return void
+	 */
+	private function aab_collect_default_slugs($node, &$map, $mode)
+	{
+		if (! is_array($node)) {
+			return;
+		}
+		foreach ($node as $key => $value) {
+			if (! is_array($value)) {
+				continue;
+			}
+
+			if ('location' === $mode) {
+				// Leaf extension: has a `location` key.
+				if (array_key_exists('location', $value)) {
+					if (empty($value['is_upcoming'])) {
+						$map[$key] = true;
+					}
+					continue;
+				}
+				// Container (group/subgroup): enable it, then recurse.
+				$map[$key] = true;
+				$this->aab_collect_default_slugs($value, $map, $mode);
+			} else {
+				// Leaf widget: declares is_extension === false.
+				if (array_key_exists('is_extension', $value) && false === $value['is_extension']) {
+					if (empty($value['is_upcoming'])) {
+						$map[$key] = true;
+					}
+					continue;
+				}
+				$this->aab_collect_default_slugs($value, $map, $mode);
+			}
+		}
 	}
 
 	/**

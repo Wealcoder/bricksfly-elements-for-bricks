@@ -35,9 +35,9 @@ class AABAddons_Activator
 	 * is set on every subsite when the plugin is network-activated, so each
 	 * subsite re-flushes on its next `wp_loaded` (handled by the CPT Builder).
 	 *
-	 * Also seeds the `aab_save_widgets` option with every shipped widget set
-	 * to active — first install only, so reactivations don't clobber the
-	 * user's deliberate toggles.
+	 * Also seeds the `aab_save_widgets` AND `aab_save_extensions` options with
+	 * every shipped widget/extension set to active — first install only, so
+	 * reactivations don't clobber the user's deliberate toggles.
 	 *
 	 * @since 1.0.0
 	 *
@@ -51,6 +51,7 @@ class AABAddons_Activator
 				switch_to_blog($blog_id);
 				update_option('aab_needs_rewrite_flush', 1, false);
 				self::maybe_seed_widget_defaults();
+				self::maybe_seed_extension_defaults();
 				restore_current_blog();
 			}
 			return;
@@ -58,6 +59,7 @@ class AABAddons_Activator
 
 		update_option('aab_needs_rewrite_flush', 1, false);
 		self::maybe_seed_widget_defaults();
+		self::maybe_seed_extension_defaults();
 	}
 
 	/**
@@ -132,10 +134,9 @@ class AABAddons_Activator
 	/**
 	 * Seed `aab_save_extensions` with every shipped extension enabled.
 	 *
-	 * Called when a Pro license is successfully activated — not during plugin
-	 * activation — so extensions are only seeded once a valid license exists.
-	 * Skips seeding if the option already exists, so a user who deliberately
-	 * toggled extensions off isn't reset on license renewal/reactivation.
+	 * Called on plugin activation (licensing removed — every extension ships
+	 * enabled by default). Skips seeding if the option already exists, so a
+	 * user who deliberately toggled extensions off isn't reset on reactivation.
 	 */
 	public static function maybe_seed_extension_defaults()
 	{
