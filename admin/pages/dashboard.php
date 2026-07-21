@@ -1031,10 +1031,7 @@ class AAB_Admin_Init
 			),
 		);
 
-		// TODO: switch back to the production URL before deploying.
-		$api_site_url = 'https://bricksfly.com/api/request-new-feature';
-		$api_site_url = 'http://test-animation-elementor.test/api/request-new-feature';
-		$api_site_url = 'http://wpml.test/api/request-new-feature';
+		$api_site_url = 'https://my.bricksfly.com/api/request-new-feature';
 
 		$response = wp_remote_post($api_site_url, $args);
 
