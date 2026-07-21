@@ -950,23 +950,49 @@ class AAB_Admin_Init
 			wp_send_json_error(esc_html__('you are not allowed to do this action', 'the-bricksfly'));
 		}
 
-		if (! isset($_POST['smooth'])) {
-			return;
+		$raw_settings = isset($_POST['smooth']) ? sanitize_text_field(wp_unslash($_POST['smooth'])) : '';
+		if (! is_string($raw_settings) || '' === trim($raw_settings)) {
+			wp_send_json_error(esc_html__('Smooth scroller settings are required.', 'the-bricksfly'), 400);
 		}
 
-		$settings = sanitize_text_field(wp_unslash($_POST['smooth']));
-
-		$decode = json_decode($settings);
-		$option = wp_json_encode($decode);
-
-		// update new settings
-		if (! empty($_POST['smooth'])) {
-
-			update_option('aab_smooth_scroller', $option);
-			wp_send_json($option);
+		$settings = json_decode($raw_settings, true);
+		if (JSON_ERROR_NONE !== json_last_error() || ! is_array($settings)) {
+			wp_send_json_error(esc_html__('Invalid smooth scroller settings.', 'the-bricksfly'), 400);
 		}
 
-		wp_send_json(esc_html__('Option name not found!', 'the-bricksfly'));
+		$sanitized_settings = array();
+		foreach ($settings as $breakpoint => $breakpoint_settings) {
+			$breakpoint = sanitize_key($breakpoint);
+			if ('' === $breakpoint || ! is_array($breakpoint_settings)) {
+				continue;
+			}
+
+			$level = isset($breakpoint_settings['smotherLevel']) && is_numeric($breakpoint_settings['smotherLevel'])
+				? (float) $breakpoint_settings['smotherLevel']
+				: 1.35;
+			if (! is_finite($level)) {
+				$level = 1.35;
+			}
+
+			$sanitized_settings[$breakpoint] = array(
+				'enabled'      => isset($breakpoint_settings['enabled'])
+					? rest_sanitize_boolean($breakpoint_settings['enabled'])
+					: false,
+				'smotherLevel' => $level,
+			);
+		}
+
+		if (empty($sanitized_settings)) {
+			wp_send_json_error(esc_html__('No valid smooth scroller settings were provided.', 'the-bricksfly'), 400);
+		}
+
+		$option = wp_json_encode($sanitized_settings);
+		if (false === $option) {
+			wp_send_json_error(esc_html__('Could not encode smooth scroller settings.', 'the-bricksfly'), 500);
+		}
+
+		update_option('aab_smooth_scroller', $option);
+		wp_send_json($option);
 	}
 }
 
