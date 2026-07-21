@@ -21,7 +21,7 @@ const RequestFeatureForm = () => {
     setSubmitting(true);
 
     try {
-      await fetch(AAB_ADDONS_ADMIN.ajaxurl, {
+      const response = await fetch(AAB_ADDONS_ADMIN.ajaxurl, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
@@ -34,12 +34,20 @@ const RequestFeatureForm = () => {
           feature: form.feature,
           nonce: AAB_ADDONS_ADMIN.nonce,
         }),
-      }).then((response) => response.json());
+      }).then((res) => res.json());
 
-      toast.success("Thanks! Your feature request has been submitted.", {
-        position: "top-right",
-      });
-      setForm(initialForm);
+      if (response?.success) {
+        toast.success(
+          response.data || "Thanks! Your feature request has been submitted.",
+          { position: "top-right" },
+        );
+        setForm(initialForm);
+      } else {
+        toast.error(
+          response?.data || "Something went wrong. Please try again.",
+          { position: "top-right" },
+        );
+      }
     } catch (error) {
       toast.error("Something went wrong. Please try again.", {
         position: "top-right",
