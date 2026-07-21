@@ -9,9 +9,9 @@ export const DocumentList = [
     icon: icon("icon-gsap-extensions.png"),
   },
   {
-    title: "Animation Widgets",
-    subTitle: "Prebuilt widgets to add motion and interactivity with ease",
-    url: "https://bricksfly.com/docs/animation-widgets/",
+    title: "Animation Elements",
+    subTitle: "Prebuilt elements to add motion and interactivity with ease",
+    url: "https://bricksfly.com/docs/animations-widgets/",
     icon: icon("icon-animation-widgets.png"),
   },
   {

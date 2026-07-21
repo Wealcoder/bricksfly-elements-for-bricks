@@ -65,7 +65,7 @@ const Documentation = () => {
                   className="w-12 h-12 rounded-full shrink-0"
                 />
                 <div className="min-w-0">
-                  <p className="text-sm font-medium text-text group-hover:text-brand truncate">
+                  <p className="text-sm font-medium text-text group-hover:text-text-link truncate">
                     {el.title}
                   </p>
                   <p className="text-sm text-text-secondary mt-1 truncate">

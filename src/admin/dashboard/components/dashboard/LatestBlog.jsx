@@ -50,7 +50,7 @@ const LatestBlog = () => {
             </div>
             <div className="flex flex-col gap-[18px]">
               <a href={blog.url} target="_blank">
-                <h3 className="text-sm font-medium text-text group-hover:text-brand line-clamp-2">
+                <h3 className="text-sm font-medium text-text group-hover:text-text-link line-clamp-2">
                   <span dir="ltr">{blog.title}</span>
                 </h3>
               </a>

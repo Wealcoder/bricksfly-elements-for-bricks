@@ -2,7 +2,7 @@ import { useState } from "react";
 import TutorialDialog from "./dialog/TutorialDialog";
 
 const VideoBanner = ({
-  thumbnail = `${AAB_ADDONS_ADMIN.plugin_url}public/images/animation-addons-video-banner.jpg`,
+  thumbnail = `${AAB_ADDONS_ADMIN.plugin_url}public/images/bricksfly-video-banner.jpg`,
   videoUrl = "https://youtu.be/5wno9t4gR64?si=qgM8L6HyQHIouiyI",
   title = "Animation Addons",
 }) => {
