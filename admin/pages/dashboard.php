@@ -23,6 +23,14 @@ class AAB_Admin_Init
 	const MENU_CAPABILITY = 'manage_options';
 
 	/**
+	 * Shared key identifying requests as coming from a genuine BricksFly
+	 * plugin install, sent as the X-API-Key header on the
+	 * request_new_feature() call to bricksfly.com. The same value must
+	 * be defined on the receiving bricksfly-feature-request-api plugin.
+	 */
+	const BRICKSFLY_API_KEY = '00b14e06481808fa54bbfa81742b669dd6f501710be4c9a0eecc27c5ab83d349';
+
+	/**
 	 * [$parent_menu_hook] Parent Menu Hook
 	 *
 	 * @var string
@@ -1011,6 +1019,7 @@ class AAB_Admin_Init
 			'headers'   => array(
 				'Content-Type' => 'application/json',
 				'Accept'       => 'application/json',
+				'X-API-Key'    => self::BRICKSFLY_API_KEY,
 			),
 			'body'      => wp_json_encode(
 				array(
@@ -1022,7 +1031,12 @@ class AAB_Admin_Init
 			),
 		);
 
-		$response = wp_remote_post('https://bricksfly.com/api/request-new-feature', $args);
+		// TODO: switch back to the production URL before deploying.
+		$api_site_url = 'https://bricksfly.com/api/request-new-feature';
+		$api_site_url = 'http://test-animation-elementor.test/api/request-new-feature';
+		$api_site_url = 'http://wpml.test/api/request-new-feature';
+
+		$response = wp_remote_post($api_site_url, $args);
 
 		if (is_wp_error($response)) {
 			wp_send_json_error(esc_html__('Something went wrong while sending your request. Please try again.', 'the-bricksfly'));
