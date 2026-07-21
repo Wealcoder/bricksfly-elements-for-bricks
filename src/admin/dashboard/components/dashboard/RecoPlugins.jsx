@@ -57,7 +57,9 @@ const RecoPlugins = () => {
                 </div>
                 <div>
                   <p
-                    className={cn("text-sm font-medium group-hover:text-brand")}
+                    className={cn(
+                      "text-sm font-medium text-text group-hover:text-text-link",
+                    )}
                   >
                     {el.title}
                   </p>

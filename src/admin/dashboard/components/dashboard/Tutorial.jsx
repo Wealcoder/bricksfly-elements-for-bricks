@@ -1,52 +1,87 @@
 import { cn } from "@/lib/utils";
-import { RiPlayCircleLine } from "react-icons/ri";
+import { RiArrowRightUpLine, RiPlayFill, RiVideoLine } from "react-icons/ri";
 import { buttonVariants } from "../ui/button";
+import { Separator } from "../ui/separator";
+import { TutorialList } from "@/config/data/tutorialList";
+import { API_ENDPOINTS } from "@/config/api";
+import { useRemoteData } from "@/hooks/useRemoteData";
 import TutorialDialog from "./dialog/TutorialDialog";
 import { useState } from "react";
 
 const Tutorial = () => {
+  const { data: tutorials } = useRemoteData(
+    API_ENDPOINTS.tutorials,
+    TutorialList,
+  );
   const [open, setOpen] = useState(false);
+  const [activeVideo, setActiveVideo] = useState(tutorials[0]?.videoUrl);
+
+  const handlePlay = (videoUrl) => {
+    setActiveVideo(videoUrl);
+    setOpen(true);
+  };
+
   return (
-    <div className="col-span-2 border rounded-2xl p-5 ps-6 flex justify-between items-center gap-6 shadow-common">
-      <div className="w-[362px]">
-        <h2 className="text-xl font-medium ">
-          <span dir="ltr">
-            Watch The Beginner's Guide on How to Use Animation Addons.
-          </span>
-        </h2>
-        <p className="text-sm mt-[10px] text-text-secondary">
-          <span dir="ltr">
-            Get started with ease by watching our step-by-step beginner's
-            tutorial on Bricks.
-          </span>
-        </p>
-        <a
-          href={"https://www.youtube.com/@AnimationAddonsforElementor"}
-          className={cn(buttonVariants({ variant: "secondary" }), "mt-7")}
-          target="_blank"
-        >
-          <span className="me-1.5 flex">
-            <RiPlayCircleLine size={20} />
-          </span>
-          Watch Tutorials
-        </a>
-      </div>
-      <div className="flex-1">
-        <div className="relative">
-          <img
-            className="w-full h-full object-cover"
-            src={`${AAB_ADDONS_ADMIN.plugin_url}public/images/tutorial-thumb.png`}
-            alt="thumbnail"
-          />
-          <div
-            className="absolute top-[93px] left-0 right-0 mx-auto w-fit cursor-pointer"
-            onClick={() => setOpen(true)}
+    <div className="border rounded-2xl p-5 shadow-common">
+      <div className="flex justify-between gap-11">
+        <div className="flex gap-2 items-center">
+          <RiVideoLine size={20} color="#FC6848" />
+          <p className="font-medium">Tutorial</p>
+        </div>
+        <div>
+          <a
+            href={"https://www.youtube.com/@gobricksfly"}
+            target="_blank"
+            className={cn(
+              buttonVariants({ variant: "secondary", size: "sm" }),
+              "me-1",
+            )}
           >
-            <img width={50} height={50} src={`${AAB_ADDONS_ADMIN.plugin_url}public/images/play-button.png`} alt="play" />
-          </div>
+            View All
+            <RiArrowRightUpLine
+              size={18}
+              className="rtl:rotate-360 rtl:scale-x-[-1]"
+            />
+          </a>
         </div>
       </div>
-      <TutorialDialog open={open} setOpen={setOpen} />
+      <Separator className="mt-4 mb-5" />
+      <div>
+        {tutorials?.map((el, i) => (
+          <div key={`tutorial_list-${i}`}>
+            <div className="flex items-center justify-between gap-4">
+              <div className="flex items-center gap-[18px] flex-1 min-w-0">
+                <img
+                  src={el.thumbnail}
+                  alt=""
+                  className="w-[85px] h-12 rounded-lg object-cover shrink-0"
+                />
+                <p className="text-sm font-medium text-text line-clamp-2">
+                  {el.title}
+                </p>
+              </div>
+              <div className="flex items-center gap-3 shrink-0">
+                <span className="hidden sm:inline text-sm text-text-secondary whitespace-nowrap">
+                  {el.duration}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => handlePlay(el.videoUrl)}
+                  className="w-8 h-8 rounded-full border flex items-center justify-center text-icon-secondary hover:border-brand hover:text-brand"
+                >
+                  <RiPlayFill size={14} />
+                </button>
+              </div>
+            </div>
+            {i + 1 !== tutorials.length ? (
+              <Separator className="my-4 bg-border-secondary" />
+            ) : (
+              ""
+            )}
+          </div>
+        ))}
+      </div>
+      <TutorialDialog open={open} setOpen={setOpen} videoUrl={activeVideo} />
     </div>
   );
 };

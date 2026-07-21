@@ -1,34 +1,31 @@
 export const LatestBlogList = [
   {
+    title:
+      "Best Bricks Landing Page Templates for SaaS, Agency and Portfolio Websites",
+    thumbnail:
+      "https://bricksfly.com/blog/wp-content/uploads/2026/07/Why-Build-with-Templates-Instead-of-from-Scratch-1024x683.webp",
+    createAt: "July 20, 2026",
+    url: "https://bricksfly.com/blog/build-bricks-website-with-templates/",
+  },
+  {
+    title: "How to Build Animated Agency Websites in Bricks",
+    thumbnail:
+      "https://bricksfly.com/blog/wp-content/uploads/2026/07/Why-Agency-Websites-Need-Animation-1024x768.webp",
+    createAt: "July 13, 2026",
+    url: "https://bricksfly.com/blog/animated-agency-website-bricks/",
+  },
+  {
     title: "How to Build Animated Portfolio Websites in Bricks",
     thumbnail:
-      "https://bricksfly.com/blog/wp-content/uploads/2026/07/How-to-Build-Animated-Portfolio-Websites-in-Bricks.webp",
-    createAt: "June 22, 2026",
-    readingTime: "10 min read",
+      "https://bricksfly.com/blog/wp-content/uploads/2026/07/Why-Portfolios-Need-Animation-1024x768.webp",
+    createAt: "July 13, 2026",
     url: "https://bricksfly.com/blog/animated-portfolio-website-bricks/",
   },
   {
-    title:
-      "How to Use Copy Paste Sections in Bricks Builder: A Step-by-Step Guide",
+    title: "BricksFly vs Bricksmotion: Which Is Better for GSAP Animation?",
     thumbnail:
-      "https://bricksfly.com/blog/wp-content/uploads/2026/07/How-to-Use-Copy-Paste-Sections-in-Bricks-Builder.webp",
-    createAt: "October 16, 2026",
-    readingTime: "10 min read",
-    url: "https://bricksfly.com/blog/bricks-copy-paste-sections/",
-  },
-  {
-    title: "GSAP vs CSS Animation in Bricks Builder: Which Should You Use?",
-    thumbnail: "https://bricksfly.com/blog/wp-content/uploads/2026/07/GSAP-vs-CSS-Animation-in-Bricks-Builder-Which-Should-You-Use.webp",
-    createAt: "june 9, 2026",
-    readingTime: "10 min read",
-    url: "https://bricksfly.com/blog/gsap-vs-css-animation-bricks/",
-  },
-  {
-    title: "Best Bricks Website Templates for Agencies",
-    thumbnail:
-      "https://bricksfly.com/blog/wp-content/uploads/2026/07/Best-Bricks-Website-Templates-for-Agencies.webp",
-    createAt: "july 3, 2026",
-    readingTime: "10 min read",
-    url: "https://bricksfly.com/blog/bricks-templates-for-agencies/",
+      "https://bricksfly.com/blog/wp-content/uploads/2026/07/Why-BricksFly-Is-the-Better-Choice-for-Most-Users-1024x683.webp",
+    createAt: "July 15, 2026",
+    url: "https://bricksfly.com/blog/bricksfly-vs-bricksmotion/",
   },
 ];

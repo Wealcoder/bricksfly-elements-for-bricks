@@ -112,6 +112,9 @@ class AAB_Builder_Template_Library {
 				'ajaxurl'         => admin_url( 'admin-ajax.php' ),
 				'nonce'           => wp_create_nonce( 'aab-builder-template-library' ),
 				'post_id'         => $post_id,
+				// BricksFly brand mark shown inside the toolbar "Import Section"
+				// button. Uses the same canonical logo the rest of the admin uses.
+				'logo_url'        => esc_url( AAB_ADDONS_URL . 'public/images/plugin_logo.png' ),
 				'template_types'  => self::get_template_types(),
 				'remote_api'      => apply_filters(
 					'aabaddons_builder_template_library_remote_api',
@@ -133,17 +136,25 @@ class AAB_Builder_Template_Library {
 				'config'          => apply_filters(
 					'aabaddons_builder_template_library_config',
 					[
-						'aab_valid' => $license_valid,
+						'wcf_valid'      => $license_valid,
+						// Section import is gated by this flag (also enforced
+						// server-side in ajax_insert_template()). The JS uses it
+						// to show an upsell popup before the request is sent.
+						'section_import' => function_exists( 'aab_is_feature_allowed' ) && aab_is_feature_allowed( 'section_import' ),
+						'limitations'    => function_exists( 'aab_get_license_limitations' ) ? aab_get_license_limitations() : [],
 					]
 				),
 				'i18n'            => [
-					'modal_title'     => esc_html__( 'Animation Addons — Section Library', 'the-bricksfly' ),
+					'modal_title'     => esc_html__( 'BrickFly Addons — Section Library', 'the-bricksfly' ),
 					'button_label'    => esc_html__( 'Import Section', 'the-bricksfly' ),
 					'insert'          => esc_html__( 'Insert', 'the-bricksfly' ),
 					'inserting'       => esc_html__( 'Inserting…', 'the-bricksfly' ),
+					'preview'         => esc_html__( 'Preview', 'the-bricksfly' ),
 					'go_premium'      => esc_html__( 'Go Premium', 'the-bricksfly' ),
 					'activate'        => esc_html__( 'Activate License', 'the-bricksfly' ),
 					'install_pro'     => esc_html__( 'Install Pro', 'the-bricksfly' ),
+					'upgrade_plan'    => esc_html__( 'Upgrade Plan', 'the-bricksfly' ),
+					'section_locked'  => esc_html__( 'Section import is not included in your current license plan. Please upgrade your plan to import sections.', 'the-bricksfly' ),
 					'search'          => esc_html__( 'Search', 'the-bricksfly' ),
 					'category'        => esc_html__( 'Category', 'the-bricksfly' ),
 					'all_colors'      => esc_html__( 'All', 'the-bricksfly' ),
@@ -171,11 +182,11 @@ class AAB_Builder_Template_Library {
 			'aabaddons_builder_template_library_types',
 			[
 				'block' => [
-					'label' => esc_html__( 'Block', 'the-bricksfly' ),
+					'label' => esc_html__( 'Section Block', 'the-bricksfly' ),
 				],
-				'page'  => [
-					'label' => esc_html__( 'Page', 'the-bricksfly' ),
-				],
+				// 'page'  => [
+				// 	'label' => esc_html__( 'Page', 'the-bricksfly' ),
+				// ],
 			]
 		);
 	}
@@ -214,7 +225,23 @@ class AAB_Builder_Template_Library {
 			wp_send_json_error( [ 'message' => __( 'Permission denied for this post.', 'the-bricksfly' ) ], 403 );
 		}
 
-		$template_id = isset( $_POST['template_id'] ) ? absint( wp_unslash( $_POST['template_id'] ) ) : 0;
+		// License limitation gate — Section import requires the `section_import`
+		// flag on the active license. Enforced server-side so the client lock
+		// (AAB_TEMPLATE_LIBRARY.config.section_import) can't be bypassed by a
+		// forged AJAX call. `limited:true` lets the JS show the upsell popup.
+		if ( function_exists( 'aab_is_feature_allowed' ) && ! aab_is_feature_allowed( 'section_import' ) ) {
+			$message = function_exists( 'aab_feature_denied_message' )
+				? aab_feature_denied_message( 'section_import' )
+				: __( 'Section import is not included in your current license plan.', 'the-bricksfly' );
+
+			wp_send_json_error( [
+				'limited' => true,
+				'feature' => 'section_import',
+				'message' => $message,
+			], 403 );
+		}
+
+		$template_id = isset( $_POST['template_id'] ) ? absint( $_POST['template_id'] ) : 0;
 
 		if ( ! $template_id ) {
 			wp_send_json_error( [ 'message' => __( 'No template id provided.', 'the-bricksfly' ) ], 400 );

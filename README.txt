@@ -132,11 +132,11 @@ The plugin connects to the services below only when the related feature is used.
 
 = 1. Template library and starter-template services =
 
-Service domains: `https://www.themecrowdy.com/` and `https://block.animation-addons.com/`
+Service domains: `https://www.themecrowdy.com/` 
 
 * **Use:** Lists and downloads templates, sections, starter-site data, and related media.
 * **Data and timing:** When an administrator browses or imports a template, the request may send the IP address, user agent, site URL or referrer, search or filter values, and template ID. Imported media hosts receive normal request data. Passwords and WordPress account details are not sent.
-* **Provider:** Wealcoder / Animation Addons. [Terms and Conditions](https://animation-addons.com/terms-and-conditions/) | [Privacy Policy](https://animation-addons.com/privacy-policy/)
+* **Provider:** Wealcoder / BricksFly Addons. [Terms and Conditions](https://bricksfly.com/terms-condition/) | [Privacy Policy](https://bricksfly.com/privacy-policy/)
 
 = 2. Wealcoder content services =
 
@@ -144,7 +144,7 @@ Service domains: `https://store.wealcoder.com/`, `https://wealcoder.com/`, and `
 
 * **Use:** Loads the dashboard changelog and article images, and provides the default Video Mask demo video.
 * **Data and timing:** When the dashboard or related video loads, the request may send the IP address, user agent, site URL, and referrer. The free plugin does not send license keys.
-* **Provider:** Wealcoder / Animation Addons. [Terms and Conditions](https://animation-addons.com/terms-and-conditions/) | [Privacy Policy](https://animation-addons.com/privacy-policy/)
+* **Provider:** Wealcoder / BricksFly Addons. [Terms and Conditions](https://bricksfly.com/terms-condition/) | [Privacy Policy](https://bricksfly.com/privacy-policy/)
 
 = 3. YouTube embedded player =
 

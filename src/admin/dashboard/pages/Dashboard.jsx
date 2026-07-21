@@ -1,91 +1,49 @@
 import AddonProElement from "@/components/dashboard/AddonProElement";
+import AffiliateProgram from "@/components/dashboard/AffiliateProgram";
 import ConnectWithUs from "@/components/dashboard/ConnectWithUs";
 import Documentation from "@/components/dashboard/Documentation";
+import HeroBanner from "@/components/dashboard/HeroBanner";
 import LatestBlog from "@/components/dashboard/LatestBlog";
 import RecoPlugins from "@/components/dashboard/RecoPlugins";
+import RequestFeatureForm from "@/components/dashboard/RequestFeatureForm";
 import Tutorial from "@/components/dashboard/Tutorial";
-import { Badge } from "@/components/ui/badge";
+import VideoBanner from "@/components/dashboard/VideoBanner";
+import WhatsNew from "@/components/dashboard/WhatsNew";
 import QuickAccess from "@/components/dashboard/QuickAccess";
-
-function isInOfferPeriod() {
-  const today = new Date();
-  const currentYear = today.getFullYear();
-
-  // Note: Months are 0-indexed in JavaScript (0 = January, 10 = November, 11 = December)
-  const offerStart = new Date(2025, 11, 1); // 1 December 2025
-  const offerEnd = new Date(2025, 11, 7); // 7 December 2025
-
-  return today >= offerStart && today <= offerEnd;
-}
+import SplitRow from "@/components/shared/SplitRow";
 
 const Dashboard = () => {
+
   return (
     <div className="flex flex-col gap-6">
-      {AAB_ADDONS_ADMIN.has_pro ? (
-        <div className="relative">
-          <img
-            src={`${AAB_ADDONS_ADMIN.plugin_url}public/images/hero-banner.png`}
-            className="w-full h-full rounded-[10px]"
-            alt="Banner"
-          />
-          <Badge
-            className="absolute bottom-[34px] right-[20px] bg-white"
-            variant="version"
-          >
-            Ver. {AAB_ADDONS_ADMIN?.version}
-          </Badge>
-        </div>
-      ) : isInOfferPeriod() ? (
-        <a href="https://bricksfly.com/pricing" target="_blank">
-          <div className="relative">
-            <video
-              src={`${AAB_ADDONS_ADMIN.plugin_url}assets/video/cyber-sale.mp4`}
-              autoPlay
-              loop
-              muted
-              playsInline
-              controls={false}
-              className="w-full"
-            />
-            <Badge
-              className="absolute bottom-[34px] right-[20px] bg-white"
-              variant="version"
-            >
-              Ver. {AAB_ADDONS_ADMIN?.version}
-            </Badge>
-          </div>
-        </a>
-      ) : (
-        <div className="relative">
-          <img
-            src={`${AAB_ADDONS_ADMIN.plugin_url}public/images/hero-banner.png`}
-            className="w-full h-full rounded-[10px]"
-            alt="Banner"
-          />
-          <Badge
-            className="absolute bottom-[34px] right-[20px] bg-white"
-            variant="version"
-          >
-            Ver. {AAB_ADDONS_ADMIN?.version}
-          </Badge>
-        </div>
-      )}
+      <SplitRow columns={[60, 40]}>
+        <HeroBanner />
+        <VideoBanner />
+      </SplitRow>
 
-      <div className="mt-2">
+      {/* <div className="mt-2">
         <QuickAccess />
-      </div>
-      <div className="grid grid-cols-2 xl:grid-cols-3 gap-6 h-full">
+      </div> */}
+      <SplitRow columns={[60, 40]}>
         <Tutorial />
         <Documentation />
-      </div>
-      <div className="grid grid-cols-2 xl:grid-cols-3 gap-6 h-full">
+      </SplitRow>
+      {/* <div className="grid grid-cols-2 xl:grid-cols-3 gap-6 h-full">
         <AddonProElement />
         <RecoPlugins />
-      </div>
-      <ConnectWithUs />
+      </div> */}
+      <SplitRow columns={[60, 40]}>
+        <div className="flex flex-col gap-6">
+          <AffiliateProgram />
+          <WhatsNew />
+        </div>
+        <RequestFeatureForm />
+      </SplitRow>
+      {/* <ConnectWithUs /> */}
       <LatestBlog />
     </div>
   );
 };
 
 export default Dashboard;
+
