@@ -8,7 +8,7 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 	public $category     = 'bricks fly';
 	public $name         = 'aab-button-pro';
 	public $icon         = 'ti-mouse-alt aab-element-marker';
-	public $css_selector = '.aae--btn-pro-wrapper';
+	public $css_selector = '.aab--btn-pro-wrapper';
 	public $scripts      = ['aabButtonPro'];
 
 	public function get_label()
@@ -727,7 +727,7 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 		$text_html    = wp_kses($text, $allowed_html);
 		$text_plain   = wp_strip_all_tags($text);
 
-		$this->set_attribute('_root', 'class', ['aae--btn-pro-wrapper', 'style-' . $style]);
+		$this->set_attribute('_root', 'class', ['aab--btn-pro-wrapper', 'style-' . $style]);
 
 		$link_key = 'btn-link';
 

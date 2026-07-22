@@ -1,18 +1,18 @@
-:where(.aae--btn-pro-wrapper) {
+:where(.aab--btn-pro-wrapper) {
     display: flex;
     width: auto;
 }
 
-:where(.aae--btn-pro-wrapper) svg {
+:where(.aab--btn-pro-wrapper) svg {
     width: 1em;
     height: 1em;
 }
 
-:where(.aae--btn-pro-wrapper) .icon {
+:where(.aab--btn-pro-wrapper) .icon {
     line-height: 0;
 }
 
-:where(.aae--btn-pro-wrapper) .aae--btn-pro {
+:where(.aab--btn-pro-wrapper) .aae--btn-pro {
     gap: 5px;
     display: inline-flex;
     align-items: center;
@@ -22,70 +22,70 @@
 }
 
 /* ============== Style 1 — Border Divide ============== */
-:where(.aae--btn-pro-wrapper.style-1) .btn-border-divide {
+:where(.aab--btn-pro-wrapper.style-1) .btn-border-divide {
     align-items: flex-end;
     overflow: hidden;
 }
 
-:where(.aae--btn-pro-wrapper.style-1) .btn-border-divide .text,
-:where(.aae--btn-pro-wrapper.style-1) .btn-border-divide .icon {
+:where(.aab--btn-pro-wrapper.style-1) .btn-border-divide .text,
+:where(.aab--btn-pro-wrapper.style-1) .btn-border-divide .icon {
     transition: all 0.3s;
     border-bottom-style: solid;
     border-bottom-width: 1px;
     border-bottom-color: inherit;
 }
 
-:where(.aae--btn-pro-wrapper.style-1) .btn-border-divide .icon {
+:where(.aab--btn-pro-wrapper.style-1) .btn-border-divide .icon {
     display: inline-flex;
     padding-bottom: 3px;
     position: relative;
     overflow: hidden;
 }
 
-:where(.aae--btn-pro-wrapper.style-1) .btn-border-divide .icon i:first-child,
-:where(.aae--btn-pro-wrapper.style-1) .btn-border-divide .icon svg:first-child {
+:where(.aab--btn-pro-wrapper.style-1) .btn-border-divide .icon i:first-child,
+:where(.aab--btn-pro-wrapper.style-1) .btn-border-divide .icon svg:first-child {
     position: absolute;
     transform: translate(-10px, 10px);
     transition: all 0.3s;
     opacity: 0;
 }
 
-:where(.aae--btn-pro-wrapper.style-1) .btn-border-divide .icon i:last-child,
-:where(.aae--btn-pro-wrapper.style-1) .btn-border-divide .icon svg:last-child {
+:where(.aab--btn-pro-wrapper.style-1) .btn-border-divide .icon i:last-child,
+:where(.aab--btn-pro-wrapper.style-1) .btn-border-divide .icon svg:last-child {
     transition: all 0.3s;
     opacity: 1;
 }
 
-:where(.aae--btn-pro-wrapper.style-1) .btn-border-divide:hover .icon i:first-child,
-:where(.aae--btn-pro-wrapper.style-1) .btn-border-divide:hover .icon svg:first-child {
+:where(.aab--btn-pro-wrapper.style-1) .btn-border-divide:hover .icon i:first-child,
+:where(.aab--btn-pro-wrapper.style-1) .btn-border-divide:hover .icon svg:first-child {
     transform: translate(0, 0);
     opacity: 1;
 }
 
-:where(.aae--btn-pro-wrapper.style-1) .btn-border-divide:hover .icon i:last-child,
-:where(.aae--btn-pro-wrapper.style-1) .btn-border-divide:hover .icon svg:last-child {
+:where(.aab--btn-pro-wrapper.style-1) .btn-border-divide:hover .icon i:last-child,
+:where(.aab--btn-pro-wrapper.style-1) .btn-border-divide:hover .icon svg:last-child {
     transform: translate(10px, -10px);
     opacity: 0;
 }
 
 /* ============== Style 2 — Shadow Offset ============== */
-:where(.aae--btn-pro-wrapper.style-2) .aae--btn-pro {
+:where(.aab--btn-pro-wrapper.style-2) .aae--btn-pro {
     border: 3px solid #1C1D20;
     padding: 12px 30px;
     border-radius: 10px;
 }
 
-:where(.aae--btn-pro-wrapper.style-2) .aae--btn-pro:hover {
+:where(.aab--btn-pro-wrapper.style-2) .aae--btn-pro:hover {
     box-shadow: 7px 7px 0 #1C1D20;
 }
 
 /* ============== Style 3 — Text Flip ============== */
-:where(.aae--btn-pro-wrapper.style-3) .btn-text-flip {
+:where(.aab--btn-pro-wrapper.style-3) .btn-text-flip {
     perspective: 1000px;
     align-items: center;
 }
 
-:where(.aae--btn-pro-wrapper.style-3) .btn-text-flip span {
+:where(.aab--btn-pro-wrapper.style-3) .btn-text-flip span {
     position: relative;
     display: inline-block;
     padding: 0;
@@ -95,7 +95,7 @@
     transform-style: preserve-3d;
 }
 
-:where(.aae--btn-pro-wrapper.style-3) .btn-text-flip span::before {
+:where(.aab--btn-pro-wrapper.style-3) .btn-text-flip span::before {
     position: absolute;
     top: 100%;
     left: 0;
@@ -108,12 +108,12 @@
     text-align: center;
 }
 
-:where(.aae--btn-pro-wrapper.style-3) .btn-text-flip:hover span {
+:where(.aab--btn-pro-wrapper.style-3) .btn-text-flip:hover span {
     transform: rotateX(90deg) translateY(0px);
 }
 
 /* ============== Style 4 — Radial Reveal (cursor-tracked) ============== */
-:where(.aae--btn-pro-wrapper.style-4) .aae--btn-pro {
+:where(.aab--btn-pro-wrapper.style-4) .aae--btn-pro {
     font-weight: 500;
     font-size: 16px;
     text-align: center;
@@ -126,7 +126,7 @@
     z-index: 1;
 }
 
-:where(.aae--btn-pro-wrapper.style-4) .aae--btn-pro span {
+:where(.aab--btn-pro-wrapper.style-4) .aae--btn-pro span {
     position: absolute;
     width: 0;
     height: 0;
@@ -137,7 +137,7 @@
     z-index: -1;
 }
 
-:where(.aae--btn-pro-wrapper.style-4) .aae--btn-pro strong {
+:where(.aab--btn-pro-wrapper.style-4) .aae--btn-pro strong {
     width: 50px;
     display: inherit;
     height: 1px;
@@ -146,7 +146,7 @@
     position: relative;
 }
 
-:where(.aae--btn-pro-wrapper.style-4) .aae--btn-pro strong::after {
+:where(.aab--btn-pro-wrapper.style-4) .aae--btn-pro strong::after {
     position: absolute;
     content: "";
     top: -5px;
@@ -159,25 +159,25 @@
     opacity: 0;
 }
 
-:where(.aae--btn-pro-wrapper.style-4) .aae--btn-pro:hover span {
+:where(.aab--btn-pro-wrapper.style-4) .aae--btn-pro:hover span {
     width: 500px;
     height: 500px;
 }
 
-:where(.aae--btn-pro-wrapper.style-4) .aae--btn-pro:hover strong::after {
+:where(.aab--btn-pro-wrapper.style-4) .aae--btn-pro:hover strong::after {
     right: 0;
     opacity: 1;
 }
 
 /* ============== Styles 5 & 6 — Icon Swap Pill ============== */
-:where(.aae--btn-pro-wrapper) .aae-btn-pro-group {
+:where(.aab--btn-pro-wrapper) .aae-btn-pro-group {
     display: inline-flex;
     width: fit-content;
     text-decoration: none;
     align-items: center;
 }
 
-:where(.aae--btn-pro-wrapper) .aae-btn-pro-group .g-btn-text {
+:where(.aab--btn-pro-wrapper) .aae-btn-pro-group .g-btn-text {
     padding: 20px 40px;
     font-weight: 600;
     font-size: 16px;
@@ -196,7 +196,7 @@
     text-decoration: none;
 }
 
-:where(.aae--btn-pro-wrapper) .aae-btn-pro-group .g-btn-icon {
+:where(.aab--btn-pro-wrapper) .aae-btn-pro-group .g-btn-icon {
     color: #fff;
     fill: #fff;
     border-radius: 50px;
@@ -210,66 +210,66 @@
     transition: all 0.5s;
 }
 
-:where(.aae--btn-pro-wrapper) .aae-btn-pro-group > *:nth-child(2) {
+:where(.aab--btn-pro-wrapper) .aae-btn-pro-group > *:nth-child(2) {
     transform: scale3d(1, 1, 1);
 }
 
-:where(.aae--btn-pro-wrapper) .aae-btn-pro-group:hover > *:nth-child(2) {
+:where(.aab--btn-pro-wrapper) .aae-btn-pro-group:hover > *:nth-child(2) {
     transform: scale3d(1, 1, 1);
 }
 
 /* Style 5 */
-:where(.aae--btn-pro-wrapper.style-5) .aae-btn-pro-group > *:nth-child(1) {
+:where(.aab--btn-pro-wrapper.style-5) .aae-btn-pro-group > *:nth-child(1) {
     transform: scale3d(0.5, 0.5, 1);
     margin-right: calc(var(--icon-width, 60px) * -1);
     opacity: 0;
 }
 
-:where(.aae--btn-pro-wrapper.style-5) .aae-btn-pro-group > *:nth-child(3) {
+:where(.aab--btn-pro-wrapper.style-5) .aae-btn-pro-group > *:nth-child(3) {
     transform: scale3d(1, 1, 1);
     margin-left: 0;
     opacity: 1;
 }
 
-:where(.aae--btn-pro-wrapper.style-5) .aae-btn-pro-group:hover > *:nth-child(1) {
+:where(.aab--btn-pro-wrapper.style-5) .aae-btn-pro-group:hover > *:nth-child(1) {
     transform: scale3d(1, 1, 1);
     margin-right: 0;
     opacity: 1;
 }
 
-:where(.aae--btn-pro-wrapper.style-5) .aae-btn-pro-group:hover > *:nth-child(3) {
+:where(.aab--btn-pro-wrapper.style-5) .aae-btn-pro-group:hover > *:nth-child(3) {
     transform: scale3d(0.5, 0.5, 1);
     margin-left: calc(var(--icon-width, 60px) * -1);
     opacity: 0;
 }
 
 /* Style 6 */
-:where(.aae--btn-pro-wrapper.style-6) .aae-btn-pro-group > *:nth-child(1) {
+:where(.aab--btn-pro-wrapper.style-6) .aae-btn-pro-group > *:nth-child(1) {
     transform: scale3d(1, 1, 1);
     margin-right: 0;
     opacity: 1;
 }
 
-:where(.aae--btn-pro-wrapper.style-6) .aae-btn-pro-group > *:nth-child(3) {
+:where(.aab--btn-pro-wrapper.style-6) .aae-btn-pro-group > *:nth-child(3) {
     transform: scale3d(0.5, 0.5, 1);
     margin-left: calc(var(--icon-width, 60px) * -1);
     opacity: 0;
 }
 
-:where(.aae--btn-pro-wrapper.style-6) .aae-btn-pro-group:hover > *:nth-child(1) {
+:where(.aab--btn-pro-wrapper.style-6) .aae-btn-pro-group:hover > *:nth-child(1) {
     transform: scale3d(0.5, 0.5, 1);
     margin-right: calc(var(--icon-width, 60px) * -1);
     opacity: 0;
 }
 
-:where(.aae--btn-pro-wrapper.style-6) .aae-btn-pro-group:hover > *:nth-child(3) {
+:where(.aab--btn-pro-wrapper.style-6) .aae-btn-pro-group:hover > *:nth-child(3) {
     transform: scale3d(1, 1, 1);
     margin-left: 0;
     opacity: 1;
 }
 
 /* ============== Style 7 — Outline Pill ============== */
-:where(.aae--btn-pro-wrapper.style-7) .aae--btn-pro {
+:where(.aab--btn-pro-wrapper.style-7) .aae--btn-pro {
     color: #fff;
     fill: #fff;
     border: 1px solid #ddd;
@@ -280,7 +280,7 @@
     --outline-gap: 10px;
 }
 
-:where(.aae--btn-pro-wrapper.style-7) .aae--btn-pro::after {
+:where(.aab--btn-pro-wrapper.style-7) .aae--btn-pro::after {
     position: absolute;
     content: "";
     width: calc(100% - calc(var(--outline-gap) * 2));
@@ -294,12 +294,12 @@
     transition: all 0.3s;
 }
 
-:where(.aae--btn-pro-wrapper.style-7) .aae--btn-pro:hover {
+:where(.aab--btn-pro-wrapper.style-7) .aae--btn-pro:hover {
     fill: #121212;
     color: #121212;
 }
 
-:where(.aae--btn-pro-wrapper.style-7) .aae--btn-pro:hover::after {
+:where(.aab--btn-pro-wrapper.style-7) .aae--btn-pro:hover::after {
     width: 50%;
     top: -4px;
     transform: translate(-50%, -100%);
@@ -318,7 +318,7 @@
     }
 }
 
-:where(.aae--btn-pro-wrapper.style-8) .aae--btn-pro {
+:where(.aab--btn-pro-wrapper.style-8) .aae--btn-pro {
     color: #121212;
     fill: #121212;
     border: 1px solid #121212;
@@ -331,7 +331,7 @@
     cursor: pointer;
 }
 
-:where(.aae--btn-pro-wrapper.style-8) .aae--btn-pro::after {
+:where(.aab--btn-pro-wrapper.style-8) .aae--btn-pro::after {
     position: absolute;
     content: "";
     width: 100%;
@@ -344,18 +344,18 @@
     transition: left 0.6s cubic-bezier(0.65, 0, 0.26, 1.2);
 }
 
-:where(.aae--btn-pro-wrapper.style-8) .aae--btn-pro:hover {
+:where(.aab--btn-pro-wrapper.style-8) .aae--btn-pro:hover {
     color: #fff;
     fill: #fff;
 }
 
-:where(.aae--btn-pro-wrapper.style-8) .aae--btn-pro:hover::after {
+:where(.aab--btn-pro-wrapper.style-8) .aae--btn-pro:hover::after {
     left: -100%;
 }
 
 /* ============================================================
    Base (WCF) button styles + hover variants — from button.scss
-   Scoped under :where(.aae--btn-pro-wrapper) to avoid leaking out.
+   Scoped under :where(.aab--btn-pro-wrapper) to avoid leaking out.
    ============================================================ */
 
 /* Mask keyframes */
@@ -370,16 +370,16 @@
 }
 
 /* Wrapper & link base */
-:where(.aae--btn-pro-wrapper) .wcf__btn i {
+:where(.aab--btn-pro-wrapper) .wcf__btn i {
     transition: all 0.3s;
 }
 
-:where(.aae--btn-pro-wrapper) .wcf__btn svg {
+:where(.aab--btn-pro-wrapper) .wcf__btn svg {
     width: 1em;
     height: 1em;
 }
 
-:where(.aae--btn-pro-wrapper) .wcf__btn a {
+:where(.aab--btn-pro-wrapper) .wcf__btn a {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -393,18 +393,18 @@
     --btn-hover-bg: #FC5A11;
 }
 
-:where(.aae--btn-pro-wrapper) .wcf__btn.icon-position-after i,
-:where(.aae--btn-pro-wrapper) .wcf__btn.icon-position-after svg {
+:where(.aab--btn-pro-wrapper) .wcf__btn.icon-position-after i,
+:where(.aab--btn-pro-wrapper) .wcf__btn.icon-position-after svg {
     order: 15;
 }
 
-:where(.aae--btn-pro-wrapper) .wcf__btn.icon-position-after .wcf-btn-mask::after {
+:where(.aab--btn-pro-wrapper) .wcf__btn.icon-position-after .wcf-btn-mask::after {
     align-items: center;
     // justify-content: center;
 }
 
 /* ---------- Base styles ---------- */
-:where(.aae--btn-pro-wrapper) .wcf-btn-default {
+:where(.aab--btn-pro-wrapper) .wcf-btn-default {
     padding: 17px 35px;
     border: 1px solid #1C1D20;
     overflow: hidden;
@@ -413,11 +413,11 @@
     position: relative;
 }
 
-:where(.aae--btn-pro-wrapper) .wcf-btn-default:hover {
+:where(.aab--btn-pro-wrapper) .wcf-btn-default:hover {
     color: #1C1D20;
 }
 
-:where(.aae--btn-pro-wrapper) .wcf-btn-circle {
+:where(.aab--btn-pro-wrapper) .wcf-btn-circle {
     width: 140px;
     height: 140px;
     color: #1C1D20;
@@ -427,11 +427,11 @@
     position: relative;
 }
 
-:where(.aae--btn-pro-wrapper) .wcf-btn-circle:hover {
+:where(.aab--btn-pro-wrapper) .wcf-btn-circle:hover {
     color: #fff;
 }
 
-:where(.aae--btn-pro-wrapper) .wcf-btn-oval {
+:where(.aab--btn-pro-wrapper) .wcf-btn-oval {
     color: #1C1D20;
     border: 1px solid #1C1D20;
     padding: 32px 52px;
@@ -439,11 +439,11 @@
     position: relative;
 }
 
-:where(.aae--btn-pro-wrapper) .wcf-btn-oval:hover {
+:where(.aab--btn-pro-wrapper) .wcf-btn-oval:hover {
     color: #E8BF96;
 }
 
-:where(.aae--btn-pro-wrapper) .wcf-btn-ellipse {
+:where(.aab--btn-pro-wrapper) .wcf-btn-ellipse {
     color: #1C1D20;
     padding: 45px 45px;
     position: relative;
@@ -454,12 +454,12 @@
     z-index: 1;
 }
 
-:where(.aae--btn-pro-wrapper) .wcf-btn-ellipse:hover {
+:where(.aab--btn-pro-wrapper) .wcf-btn-ellipse:hover {
     color: #FFBC7D;
     background-color: #E8BF96;
 }
 
-:where(.aae--btn-pro-wrapper) .wcf-btn-ellipse:before {
+:where(.aab--btn-pro-wrapper) .wcf-btn-ellipse:before {
     position: absolute;
     content: "";
     width: calc(100% - 16px);
@@ -474,7 +474,7 @@
     border-bottom-right-radius: 200%;
 }
 
-:where(.aae--btn-pro-wrapper) .wcf-btn-square {
+:where(.aab--btn-pro-wrapper) .wcf-btn-square {
     flex-direction: column;
     color: #1C1D20;
     text-align: center;
@@ -490,17 +490,17 @@
     position: relative;
 }
 
-:where(.aae--btn-pro-wrapper) .wcf-btn-square:hover {
+:where(.aab--btn-pro-wrapper) .wcf-btn-square:hover {
     color: #E8BF96;
 }
 
-:where(.aae--btn-pro-wrapper) .wcf-btn-underline {
+:where(.aab--btn-pro-wrapper) .wcf-btn-underline {
     color: #1C1D20;
     padding-bottom: 5px;
     position: relative;
 }
 
-:where(.aae--btn-pro-wrapper) .wcf-btn-underline::after {
+:where(.aab--btn-pro-wrapper) .wcf-btn-underline::after {
     position: absolute;
     content: "";
     width: 100%;
@@ -511,16 +511,16 @@
     transition: all 0.3s;
 }
 
-:where(.aae--btn-pro-wrapper) .wcf-btn-underline:hover {
+:where(.aab--btn-pro-wrapper) .wcf-btn-underline:hover {
     color: #E8BF96;
     fill: #E8BF96;
 }
 
-:where(.aae--btn-pro-wrapper) .wcf-btn-underline:hover::after {
+:where(.aab--btn-pro-wrapper) .wcf-btn-underline:hover::after {
     width: 0%;
 }
 
-:where(.aae--btn-pro-wrapper) .wcf-btn-mask {
+:where(.aab--btn-pro-wrapper) .wcf-btn-mask {
     padding: 15px 30px;
     position: relative;
     overflow: hidden;
@@ -531,13 +531,13 @@
     z-index: 1;
 }
 
-:where(.aae--btn-pro-wrapper) .wcf-btn-mask i,
-:where(.aae--btn-pro-wrapper) .wcf-btn-mask svg {
+:where(.aab--btn-pro-wrapper) .wcf-btn-mask i,
+:where(.aab--btn-pro-wrapper) .wcf-btn-mask svg {
     position: relative;
     z-index: 1;
 }
 
-:where(.aae--btn-pro-wrapper) .wcf-btn-mask::after {
+:where(.aab--btn-pro-wrapper) .wcf-btn-mask::after {
     display: flex;
     /* Match the base button's centered text so the masked reveal sits exactly
        on top of the normal text instead of shifting to the bottom-right. */
@@ -560,22 +560,22 @@
     padding: 15px 30px;
 }
 
-:where(.aae--btn-pro-wrapper) .wcf-btn-mask:hover {
+:where(.aab--btn-pro-wrapper) .wcf-btn-mask:hover {
     color: #1C1D20;
 }
 
-:where(.aae--btn-pro-wrapper) .wcf-btn-mask:hover::after {
+:where(.aab--btn-pro-wrapper) .wcf-btn-mask:hover::after {
     animation: aab_mask_animation 0.7s steps(22) forwards;
 }
 
 /* ---------- bg-change expanding span (circle / oval auto) ---------- */
-:where(.aae--btn-pro-wrapper) .btn-hover-bgchange {
+:where(.aab--btn-pro-wrapper) .btn-hover-bgchange {
     overflow: hidden;
     position: relative;
     z-index: 5;
 }
 
-:where(.aae--btn-pro-wrapper) .btn-hover-bgchange span {
+:where(.aab--btn-pro-wrapper) .btn-hover-bgchange span {
     position: absolute;
     content: "";
     /* Cursor-origin circular fill. JS sets left/top to the mouse position on
@@ -598,28 +598,28 @@
     transform: translate(-50%, -50%) scale(0);
 }
 
-:where(.aae--btn-pro-wrapper) .btn-hover-bgchange:hover {
+:where(.aab--btn-pro-wrapper) .btn-hover-bgchange:hover {
     color: #fff;
     border: 1px solid #1C1D20;
 }
 
-:where(.aae--btn-pro-wrapper) .btn-hover-bgchange:hover span {
+:where(.aab--btn-pro-wrapper) .btn-hover-bgchange:hover span {
     transform: translate(-50%, -50%) scale(1);
 }
 
 /* ---------- Hover variants (default / square only) ---------- */
-:where(.aae--btn-pro-wrapper) .btn-hover-default:hover {
+:where(.aab--btn-pro-wrapper) .btn-hover-default:hover {
     color: #1C1D20;
     background-color: #fff;
 }
 
-:where(.aae--btn-pro-wrapper) .btn-hover-cross {
+:where(.aab--btn-pro-wrapper) .btn-hover-cross {
     overflow: hidden;
     position: relative;
     transition: all 1s;
 }
 
-:where(.aae--btn-pro-wrapper) .btn-hover-cross::after {
+:where(.aab--btn-pro-wrapper) .btn-hover-cross::after {
     position: absolute;
     content: "";
     width: 150%;
@@ -633,23 +633,23 @@
     z-index: -1;
 }
 
-:where(.aae--btn-pro-wrapper) .btn-hover-cross:hover {
+:where(.aab--btn-pro-wrapper) .btn-hover-cross:hover {
     color: #fff;
 }
 
-:where(.aae--btn-pro-wrapper) .btn-hover-cross:hover::after {
+:where(.aab--btn-pro-wrapper) .btn-hover-cross:hover::after {
     height: 120%;
     opacity: 1;
 }
 
-:where(.aae--btn-pro-wrapper) .btn-hover-divide {
+:where(.aab--btn-pro-wrapper) .btn-hover-divide {
     overflow: hidden;
     position: relative;
     transition: all 1s;
     z-index: 1;
 }
 
-:where(.aae--btn-pro-wrapper) .btn-hover-divide::after {
+:where(.aab--btn-pro-wrapper) .btn-hover-divide::after {
     position: absolute;
     content: "";
     width: 0%;
@@ -663,22 +663,22 @@
     z-index: -1;
 }
 
-:where(.aae--btn-pro-wrapper) .btn-hover-divide:hover {
+:where(.aab--btn-pro-wrapper) .btn-hover-divide:hover {
     color: #fff;
 }
 
-:where(.aae--btn-pro-wrapper) .btn-hover-divide:hover::after {
+:where(.aab--btn-pro-wrapper) .btn-hover-divide:hover::after {
     width: 120%;
     opacity: 1;
 }
 
-:where(.aae--btn-pro-wrapper) .btn-hover-cropping {
+:where(.aab--btn-pro-wrapper) .btn-hover-cropping {
     overflow: hidden;
     position: relative;
     transition: all 1s;
 }
 
-:where(.aae--btn-pro-wrapper) .btn-hover-cropping::after {
+:where(.aab--btn-pro-wrapper) .btn-hover-cropping::after {
     position: absolute;
     content: "";
     width: 150%;
@@ -692,21 +692,21 @@
     z-index: -1;
 }
 
-:where(.aae--btn-pro-wrapper) .btn-hover-cropping:hover {
+:where(.aab--btn-pro-wrapper) .btn-hover-cropping:hover {
     color: #fff;
 }
 
-:where(.aae--btn-pro-wrapper) .btn-hover-cropping:hover::after {
+:where(.aab--btn-pro-wrapper) .btn-hover-cropping:hover::after {
     height: 400%;
     opacity: 1;
 }
 
-:where(.aae--btn-pro-wrapper) .btn-rollover-top {
+:where(.aab--btn-pro-wrapper) .btn-rollover-top {
     position: relative;
     transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
 }
 
-:where(.aae--btn-pro-wrapper) .btn-rollover-top::after {
+:where(.aab--btn-pro-wrapper) .btn-rollover-top::after {
     position: absolute;
     left: 0;
     bottom: 0;
@@ -718,22 +718,22 @@
     transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
 }
 
-:where(.aae--btn-pro-wrapper) .btn-rollover-top:hover {
+:where(.aab--btn-pro-wrapper) .btn-rollover-top:hover {
     color: #fff;
 }
 
-:where(.aae--btn-pro-wrapper) .btn-rollover-top:hover::after {
+:where(.aab--btn-pro-wrapper) .btn-rollover-top:hover::after {
     top: 0;
     bottom: auto;
     height: 100%;
 }
 
-:where(.aae--btn-pro-wrapper) .btn-rollover-left {
+:where(.aab--btn-pro-wrapper) .btn-rollover-left {
     position: relative;
     transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
 }
 
-:where(.aae--btn-pro-wrapper) .btn-rollover-left::after {
+:where(.aab--btn-pro-wrapper) .btn-rollover-left::after {
     position: absolute;
     top: 0;
     right: 0;
@@ -745,23 +745,23 @@
     transition: all 0.4s cubic-bezier(0.42, 0, 0.58, 1) 0s;
 }
 
-:where(.aae--btn-pro-wrapper) .btn-rollover-left:hover {
+:where(.aab--btn-pro-wrapper) .btn-rollover-left:hover {
     color: #fff;
 }
 
-:where(.aae--btn-pro-wrapper) .btn-rollover-left:hover::after {
+:where(.aab--btn-pro-wrapper) .btn-rollover-left:hover::after {
     left: 0;
     right: auto;
     width: 100%;
 }
 
-:where(.aae--btn-pro-wrapper) .btn-rollover-cross {
+:where(.aab--btn-pro-wrapper) .btn-rollover-cross {
     overflow: hidden;
     position: relative;
     transition: all 0.5s;
 }
 
-:where(.aae--btn-pro-wrapper) .btn-rollover-cross::before {
+:where(.aab--btn-pro-wrapper) .btn-rollover-cross::before {
     position: absolute;
     content: "";
     width: 100%;
@@ -774,7 +774,7 @@
     transition: all 0.75s;
 }
 
-:where(.aae--btn-pro-wrapper) .btn-rollover-cross::after {
+:where(.aab--btn-pro-wrapper) .btn-rollover-cross::after {
     position: absolute;
     content: "";
     width: 100%;
@@ -787,12 +787,12 @@
     transition: all 0.75s;
 }
 
-:where(.aae--btn-pro-wrapper) .btn-rollover-cross:hover {
+:where(.aab--btn-pro-wrapper) .btn-rollover-cross:hover {
     border-color: transparent !important;
     color: #1C1D20;
 }
 
-:where(.aae--btn-pro-wrapper) .btn-rollover-cross:hover::before {
+:where(.aab--btn-pro-wrapper) .btn-rollover-cross:hover::before {
     bottom: 0;
     left: 0;
     opacity: 1;
@@ -800,7 +800,7 @@
     height: 100%;
 }
 
-:where(.aae--btn-pro-wrapper) .btn-rollover-cross:hover::after {
+:where(.aab--btn-pro-wrapper) .btn-rollover-cross:hover::after {
     top: 0;
     right: 0;
     opacity: 1;
@@ -808,13 +808,13 @@
     height: 100%;
 }
 
-:where(.aae--btn-pro-wrapper) .btn-parallal-border {
+:where(.aab--btn-pro-wrapper) .btn-parallal-border {
     overflow: hidden;
     position: relative;
     transition: all 0.5s;
 }
 
-:where(.aae--btn-pro-wrapper) .btn-parallal-border::before {
+:where(.aab--btn-pro-wrapper) .btn-parallal-border::before {
     position: absolute;
     content: "";
     width: 0%;
@@ -827,7 +827,7 @@
     transition: all 0.75s;
 }
 
-:where(.aae--btn-pro-wrapper) .btn-parallal-border::after {
+:where(.aab--btn-pro-wrapper) .btn-parallal-border::after {
     position: absolute;
     content: "";
     width: 0%;
@@ -840,13 +840,13 @@
     transition: all 0.75s;
 }
 
-:where(.aae--btn-pro-wrapper) .btn-parallal-border:hover {
+:where(.aab--btn-pro-wrapper) .btn-parallal-border:hover {
     border-color: transparent !important;
     color: #1C1D20;
 }
 
-:where(.aae--btn-pro-wrapper) .btn-parallal-border:hover::before,
-:where(.aae--btn-pro-wrapper) .btn-parallal-border:hover::after {
+:where(.aab--btn-pro-wrapper) .btn-parallal-border:hover::before,
+:where(.aab--btn-pro-wrapper) .btn-parallal-border:hover::after {
     opacity: 1;
     width: 100%;
     height: 100%;

@@ -77,10 +77,10 @@ import "../../scss/elements/button-pro.scss";
     if (!el) return;
 
     var wrappers;
-    if (el.classList && el.classList.contains("aae--btn-pro-wrapper")) {
+    if (el.classList && el.classList.contains("aab--btn-pro-wrapper")) {
       wrappers = [el];
     } else {
-      wrappers = el.querySelectorAll(".aae--btn-pro-wrapper");
+      wrappers = el.querySelectorAll(".aab--btn-pro-wrapper");
     }
 
     Array.prototype.forEach.call(wrappers, function (wrapper) {
@@ -90,7 +90,7 @@ import "../../scss/elements/button-pro.scss";
 
   document.addEventListener("DOMContentLoaded", function () {
     document
-      .querySelectorAll(".aae--btn-pro-wrapper")
+      .querySelectorAll(".aab--btn-pro-wrapper")
       .forEach(function (wrapper) {
         bindCursorTracking(wrapper);
       });
@@ -101,7 +101,7 @@ import "../../scss/elements/button-pro.scss";
       initButtonPro(el);
     } else {
       document
-        .querySelectorAll(".aae--btn-pro-wrapper")
+        .querySelectorAll(".aab--btn-pro-wrapper")
         .forEach(function (wrapper) {
           bindCursorTracking(wrapper);
         });
