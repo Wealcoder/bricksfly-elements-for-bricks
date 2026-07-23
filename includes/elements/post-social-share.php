@@ -690,7 +690,7 @@ class AAB_Bricks_Post_Social_Share extends \Bricks\Element {
 
 		$this->set_attribute( '_root', 'class', [ 'aab-social-share', 'aab-share-' . $style ] );
 
-		echo '<div ' . $this->render_attributes( '_root' ) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wp_kses_post('<div ' . $this->render_attributes( '_root' ) . '>');
 		echo '<ul class="aab-share-list">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		foreach ( $shares as $index => $share ) {
@@ -707,10 +707,10 @@ class AAB_Bricks_Post_Social_Share extends \Bricks\Element {
 			// Icon wrapper (for style-1 / style-2)
 			if ( 'default' !== $style && ! empty( $share['icon'] ) ) {
 				echo '<span class="aab-share-icn">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				echo self::render_icon( $share['icon'], [ 'aria-hidden' => 'true' ] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo wp_kses_post(self::render_icon( $share['icon'], [ 'aria-hidden' => 'true' ] ));
 				echo '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			} elseif ( ! empty( $share['icon'] ) ) {
-				echo self::render_icon( $share['icon'], [ 'aria-hidden' => 'true' ] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo wp_kses_post(self::render_icon( $share['icon'], [ 'aria-hidden' => 'true' ] ));
 			}
 
 			// Title
@@ -722,7 +722,7 @@ class AAB_Bricks_Post_Social_Share extends \Bricks\Element {
 			if ( $show_share_icon ) {
 				echo '<span class="aab-share-action">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				if ( ! empty( $settings['shareIcon'] ) ) {
-					echo self::render_icon( $settings['shareIcon'], [ 'aria-hidden' => 'true' ] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					echo wp_kses_post(self::render_icon( $settings['shareIcon'], [ 'aria-hidden' => 'true' ] ));
 				}
 				if ( $share_text ) {
 					echo ' ' . esc_html( $share_text ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -733,7 +733,7 @@ class AAB_Bricks_Post_Social_Share extends \Bricks\Element {
 			// Separator
 			if ( $show_separator && ! empty( $settings['separatorIcon'] ) ) {
 				echo '<span class="aab-separator-icon">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				echo self::render_icon( $settings['separatorIcon'], [ 'aria-hidden' => 'true' ] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo wp_kses_post(self::render_icon( $settings['separatorIcon'], [ 'aria-hidden' => 'true' ] ));
 				echo '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			}
 

@@ -778,7 +778,7 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 			}
 
 			$ext_close = '';
-			echo '<div ' . $this->render_attributes('_root') . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo wp_kses_post('<div ' . $this->render_attributes('_root') . '>');
 			echo '<div class="' . esc_attr(implode(' ', $wrapper_classes)) . '">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 			if ($ext_wrap) {
@@ -786,7 +786,7 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 				$ext_close = '</div>';
 			}
 
-			echo '<a ' . $this->render_attributes($link_key) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo wp_kses_post('<a ' . $this->render_attributes($link_key) . '>');
 			echo wp_kses_post( $text_html ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo wp_kses_post( $icon_html ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			if ($bg_change) {
@@ -800,13 +800,13 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 			return;
 		}
 
-		echo '<div ' . $this->render_attributes('_root') . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-      
+		echo wp_kses_post('<div ' . $this->render_attributes('_root') . '>');
+
 		switch ($style) {
 
 			case '1':
 				$this->set_attribute($link_key, 'class', ['aae--btn-pro', 'btn-border-divide']);
-				echo '<a ' . $this->render_attributes($link_key) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo wp_kses_post('<a ' . $this->render_attributes($link_key) . '>');
 				echo '<span class="text">' . $text_html . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo '<span class="icon">' . $icon_html . $icon_html . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -814,7 +814,7 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 
 			case '2':
 				$this->set_attribute($link_key, 'class', ['aae--btn-pro']);
-				echo '<a ' . $this->render_attributes($link_key) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo wp_kses_post('<a ' . $this->render_attributes($link_key) . '>');
 				echo wp_kses_post( $text_html ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo '<span class="icon">' . wp_kses_post( $icon_html ) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -822,7 +822,7 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 
 			case '3':
 				$this->set_attribute($link_key, 'class', ['aae--btn-pro', 'btn-text-flip']);
-				echo '<a ' . $this->render_attributes($link_key) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo wp_kses_post('<a ' . $this->render_attributes($link_key) . '>');
 				// data-text is an attribute → plain text only.
 				echo '<span data-text="' . esc_attr($text_plain) . '">' . $text_html . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo wp_kses_post( $icon_html ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -831,7 +831,7 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 
 			case '4':
 				$this->set_attribute($link_key, 'class', ['btn-hover', 'aae--btn-pro']);
-				echo '<a ' . $this->render_attributes($link_key) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo wp_kses_post('<a ' . $this->render_attributes($link_key) . '>');
 				echo '<span></span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo wp_kses_post( $text_html ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo '<strong></strong>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -841,7 +841,7 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 			case '5':
 			case '6':
 				$this->set_attribute($link_key, 'class', ['aae-btn-pro-group']);
-				echo '<a ' . $this->render_attributes($link_key) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo wp_kses_post('<a ' . $this->render_attributes($link_key) . '>');
 				echo '<span class="g-btn-icon">' . $icon_html . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo '<span class="g-btn-text">' . $text_html . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo '<span class="g-btn-icon">' . $icon_html . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -852,7 +852,7 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 			case '8':
 			default:
 				$this->set_attribute($link_key, 'class', ['aae--btn-pro']);
-				echo '<a ' . $this->render_attributes($link_key) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo wp_kses_post('<a ' . $this->render_attributes($link_key) . '>');
 				echo wp_kses_post( $text_html ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo '<span class="icon">' . wp_kses_post( $icon_html ) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped

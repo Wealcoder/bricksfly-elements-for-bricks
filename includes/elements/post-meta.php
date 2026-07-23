@@ -914,7 +914,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		$this->set_attribute( '_root', 'class', [ 'wcf--meta-list', 'style-' . sanitize_html_class( $layout ) ] );
 
-		echo '<ul ' . wp_kses_post($this->render_attributes( '_root' ) ). '>';
+		echo wp_kses_post('<ul ' . $this->render_attributes( '_root' ) . '>');
 
 		foreach ( $meta_list as $meta ) {
 			$type = isset( $meta['listType'] ) ? $meta['listType'] : '';
@@ -1167,7 +1167,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 			$this->maybe_title_inline( $meta, $show_title );
 			$this->maybe_icon( $meta );
 			if ( $share_icon ) {
-				echo '<span class="separator wcf_separator_icon">' . wp_kses_post(self::render_icon( $share_icon, [ 'aria-hidden' => 'true' ] )) . '</span>';
+				echo wp_kses_post('<span class="separator wcf_separator_icon">' . self::render_icon( $share_icon, [ 'aria-hidden' => 'true' ] ) . '</span>');
 			}
 			ob_start(); comments_number(); echo wp_kses_post( ob_get_clean() );
 			echo '</li>';

@@ -282,7 +282,7 @@ class AAB_Admin_Init
 			self::MENU_PAGE_SLUG,
 			'',
 			AAB_ADDONS_URL . 'assets/images/aab.png',
-			8
+			102
 		);
 
 		add_submenu_page(

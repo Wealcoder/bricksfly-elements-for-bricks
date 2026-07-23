@@ -309,8 +309,8 @@ class AAB_Bricks_Animated_Heading extends \Bricks\Element {
 			$content = $link_open . $content . '</a>';
 		}
 
-		echo '<div ' . $this->render_attributes( '_root' ) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		echo '<' . tag_escape( $tag ) . ' ' . $this->render_attributes( 'heading' ) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wp_kses_post('<div ' . $this->render_attributes( '_root' ) . '>');
+		echo wp_kses_post('<' . tag_escape( $tag ) . ' ' . $this->render_attributes( 'heading' ) . '>');
 		echo wp_kses_post( $content ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo '</' . tag_escape( $tag ) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped

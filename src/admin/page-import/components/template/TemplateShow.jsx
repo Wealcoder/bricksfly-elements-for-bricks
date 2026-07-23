@@ -106,12 +106,12 @@ const TemplateShow = ({ allTemplate, metaData, setMetaData }) => {
                 }}
               >
                 <div className="w-full h-full group-hover:bg-[#000000]/70 relative">
-                  <div className="w-full h-full hidden group-hover:flex flex-col justify-center items-center gap-2.5">
+                  <div className="w-full h-full hidden group-hover:flex flex-col justify-center items-center gap-4">
                     <a
                       href={template?.demo_link}
                       className={cn(
                         buttonVariants(),
-                        "h-7 w-[120px] bg-transparent hover:bg-transparent border-2 border-white text-white rounded-full text-xs font-medium capitalize gap-1"
+                        "h-7 w-[120px] bg-transparent hover:bg-[#FFD53E] border-2 border-white hover:border-[#FFD53E] text-white hover:text-[#525866] rounded-full text-xs font-medium capitalize gap-1 transition-all duration-300 ease-out hover:scale-105 [&_svg_path]:transition-colors [&:hover_svg_path]:stroke-[#525866]"
                       )}
                       target="_blank"
                     >
@@ -135,7 +135,7 @@ const TemplateShow = ({ allTemplate, metaData, setMetaData }) => {
                       Preview
                     </a>
                     <Button
-                      className="h-7 w-[120px] bg-[#F6502C] hover:bg-[#F6502C] border-2 border-[#F6502C]  text-white rounded-full text-xs font-medium capitalize gap-1"
+                      className="h-7 w-[120px] bg-[#F6502C] hover:bg-[#FFD53E] border-2 border-[#F6502C] hover:border-[#FFD53E] text-white hover:text-[#525866] rounded-full text-xs font-medium capitalize gap-1 transition-all duration-300 ease-out hover:scale-105 [&_svg_path]:transition-colors [&:hover_svg_path]:stroke-[#525866]"
                       onClick={() =>
                         changeRoute(
                           "required-features",
@@ -171,7 +171,7 @@ const TemplateShow = ({ allTemplate, metaData, setMetaData }) => {
                         template.id.toString()
                       )}
                       onPressedChange={(value) => saveWishlist(template.id)}
-                      className={`data-[state=on]:bg-[#F6502C] data-[state=on]:border-[#F6502C]  cursor-pointer h-7 w-[120px] bg-transparent hover:bg-transparent border-2 border-white text-white rounded-full text-xs font-medium capitalize gap-1`}
+                      className={`data-[state=on]:bg-[#F6502C] data-[state=on]:border-[#F6502C]  cursor-pointer h-7 w-[120px] bg-transparent hover:bg-[#FFD53E] border-2 border-white hover:border-[#FFD53E] text-white hover:text-[#525866] rounded-full text-xs font-medium capitalize gap-1 transition-all duration-300 ease-out hover:scale-105 [&_svg_path]:transition-colors [&:hover_svg_path]:stroke-[#525866]`}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"

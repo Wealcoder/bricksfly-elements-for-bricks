@@ -455,7 +455,7 @@ class Aae_Bricks_Toggle_Switch extends \Bricks\Element
         $before = $items[0];
         $after  = $items[1];
 ?>
-        <div <?php echo wp_kses_post($this->render_attributes('_root')); ?>>
+        <?php echo wp_kses_post('<div ' . $this->render_attributes('_root') . '>'); ?>
 
             <div class="slide-toggle-wrapper">
                 <label for="<?php echo esc_attr($input_id); ?>" class="before_label active">

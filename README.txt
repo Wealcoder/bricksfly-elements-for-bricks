@@ -4,7 +4,7 @@ Tags: bricks, bricks builder, gsap, animation, templates
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Powerful elements, GSAP animations, smart extensions, and ready-made website templates for Bricks Builder — no coding required.
@@ -130,15 +130,25 @@ Yes. The Bricksfly includes a built-in template library with one-click import fo
 
 The plugin connects to the services below only when the related feature is used. Requests may include standard connection data such as an IP address, user agent, site URL, and referrer.
 
-= 1. Template library and starter-template services =
+= Google Fonts (Admin Dashboard Styling) =
 
-Service domains: `https://www.themecrowdy.com/` 
+Service domain: `https://fonts.googleapis.com/`
+
+* **Use:** Loads the Inter and Figtree font families for styling the WordPress admin dashboard interface (Bricksfly Dashboard, Template Library, and CPT Builder pages).
+* **Data and timing:** Fonts are loaded only when an administrator accesses the plugin's admin dashboard pages. The request includes the IP address, user agent, and referrer.
+* **Reason for external use:** These are GPL-compatible open-source font families. Loading from Google's approved CDN ensures proper font rendering and reduces plugin file size.
+* **Provider:** Google / Google Fonts. [Privacy Policy](https://policies.google.com/privacy)
+* **Note:** Google Fonts are permitted under WordPress.org guidelines as GPL-compatible font families loaded from an approved CDN.
+
+= 2. Template library and starter-template services =
+
+Service domains: `https://www.themecrowdy.com/`
 
 * **Use:** Lists and downloads templates, sections, starter-site data, and related media.
 * **Data and timing:** When an administrator browses or imports a template, the request may send the IP address, user agent, site URL or referrer, search or filter values, and template ID. Imported media hosts receive normal request data. Passwords and WordPress account details are not sent.
 * **Provider:** Wealcoder / BricksFly Addons. [Terms and Conditions](https://bricksfly.com/terms-condition/) | [Privacy Policy](https://bricksfly.com/privacy-policy/)
 
-= 2. Wealcoder content services =
+= 3. Wealcoder content services =
 
 Service domains: `https://my.bricksfly.com/`, `https://wealcoder.com/`, and `https://crowdytheme.com/`
 
@@ -146,20 +156,20 @@ Service domains: `https://my.bricksfly.com/`, `https://wealcoder.com/`, and `htt
 * **Data and timing:** When the dashboard or related video loads, the request may send the IP address, user agent, site URL, and referrer. The free plugin does not send license keys.
 * **Provider:** Wealcoder / BricksFly Addons. [Terms and Conditions](https://bricksfly.com/terms-condition/) | [Privacy Policy](https://bricksfly.com/privacy-policy/)
 
-= 3. YouTube embedded player =
+= 4. YouTube embedded player =
 
 * **Use:** Displays configured YouTube videos and dashboard tutorials.
 * **Data and timing:** When an embed or tutorial loads, YouTube receives the video ID, IP address, user agent, referrer, and permitted cookies.
 * **API documentation:** https://developers.google.com/youtube/player_parameters
 * **Provider:** Google / YouTube. [Terms of Service](https://www.youtube.com/t/terms) | [Privacy Policy](https://policies.google.com/privacy)
 
-= 4. Vimeo embedded player =
+= 5. Vimeo embedded player =
 
 * **Use:** Displays configured Vimeo videos through `https://player.vimeo.com/`.
 * **Data and timing:** When a Vimeo embed loads, Vimeo receives the video ID, IP address, user agent, referrer, and permitted cookies.
 * **Provider:** Vimeo. [Terms of Service](https://vimeo.com/terms) | [Privacy Policy](https://vimeo.com/privacy)
 
-= 5. Social sharing services =
+= 6. Social sharing services =
 
 * **Use:** Creates share links for Facebook, X/Twitter, LinkedIn, Pinterest, Reddit, Tumblr, and Blogger.
 * **Data and timing:** Data is sent only after a visitor clicks a share button. The selected service receives the page URL and title, and Pinterest may also receive the image URL. It also receives normal browser data such as IP address, user agent, referrer, and cookies.

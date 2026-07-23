@@ -404,7 +404,7 @@ class AAB_Bricks_Social_Icons extends \Bricks\Element
 
 		$this->set_attribute('_root', 'class', ['aab-social-icons']);
 
-		echo '<div ' . $this->render_attributes('_root') . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wp_kses_post('<div ' . $this->render_attributes('_root') . '>');
 		echo '<ul class="aab-social-icons-list">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		foreach ($icons as $index => $item) {
@@ -448,9 +448,9 @@ class AAB_Bricks_Social_Icons extends \Bricks\Element
 			$label = ! empty($item['label']) ? $item['label'] : esc_html__('Social', 'the-bricksfly');
 
 			echo '<li>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			echo '<a ' . $this->render_attributes($link_key) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo wp_kses_post('<a ' . $this->render_attributes($link_key) . '>');
 			echo '<span class="screen-reader-text">' . esc_html($label) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			echo self::render_icon($item['icon'], ['aria-hidden' => 'true']); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo wp_kses_post(self::render_icon($item['icon'], ['aria-hidden' => 'true']));
 			echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo '</li>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
