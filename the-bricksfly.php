@@ -88,7 +88,7 @@ if (! defined('AAB_TEMPLATE_STARTER_BASE_URL')) {
  * the same names with `! defined()` guards, so this is safe.
  */
 if (! defined('AAB_ADDON_PRO_STORE_URL')) {
-	define('AAB_ADDON_PRO_STORE_URL', 'http://mybricksfly.local/');
+	define('AAB_ADDON_PRO_STORE_URL', 'https://my.bricksfly.com/');
 }
 if (! defined('AAB_ADDON_PRO_ITEM_ID')) {
 	define('AAB_ADDON_PRO_ITEM_ID', 39996);
