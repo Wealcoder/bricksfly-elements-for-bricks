@@ -23,14 +23,6 @@ class AAB_Admin_Init
 	const MENU_CAPABILITY = 'manage_options';
 
 	/**
-	 * Shared key identifying requests as coming from a genuine BricksFly
-	 * plugin install, sent as the X-API-Key header on the
-	 * request_new_feature() call to bricksfly.com. The same value must
-	 * be defined on the receiving bricksfly-feature-request-api plugin.
-	 */
-	const BRICKSFLY_API_KEY = '00b14e06481808fa54bbfa81742b669dd6f501710be4c9a0eecc27c5ab83d349';
-
-	/**
 	 * [$parent_menu_hook] Parent Menu Hook
 	 *
 	 * @var string
@@ -132,8 +124,7 @@ class AAB_Admin_Init
 		add_action('wp_ajax_aab_get_notice_data', array($this, 'get_notice'));
 		add_action('wp_ajax_aab_save_dashboard_settings', array($this, 'save_settings_dashboard'));
 
-		add_action('wp_ajax_aab_save_smooth_scroller_settings', array($this, 'save_smooth_scroller_settings'));
-		add_action('wp_ajax_aab_request_new_feature', array($this, 'request_new_feature'));
+		add_action('wp_ajax_aab_save_smooth_scroller_settings', array($this, 'save_smooth_scroller_settings'));	
 
 		add_filter('admin_body_class', array($this, 'admin_classes'), 100);
 		add_filter('aabaddons_dashboard_config', array($this, 'dashboard_db_widgets_config'), 11);
@@ -769,7 +760,6 @@ class AAB_Admin_Init
 	public function save_settings()
 	{
 
-
 		check_ajax_referer('aab_admin_nonce', 'nonce');
 
 		if (! current_user_can('manage_options')) {
@@ -1013,67 +1003,8 @@ class AAB_Admin_Init
 
 		update_option('aab_smooth_scroller', $option);
 		wp_send_json($option);
-	}
+	}	
 
-	/**
-	 * Handle "Request New Feature" form submissions from the dashboard.
-	 * Relays the request to the bricksfly.com API, which sends the email
-	 * from there — so no mail credentials ever need to live on the
-	 * customer's site or in the distributed plugin.
-	 *
-	 * @access public
-	 * @return void
-	 */
-	public function request_new_feature()
-	{
-		check_ajax_referer('aab_admin_nonce', 'nonce');
-
-		if (! current_user_can('manage_options')) {
-			wp_send_json_error(esc_html__('You are not allowed to do this action.', 'the-bricksfly'));
-		}
-
-		$name    = isset($_POST['name']) ? sanitize_text_field(wp_unslash($_POST['name'])) : '';
-		$email   = isset($_POST['email']) ? sanitize_email(wp_unslash($_POST['email'])) : '';
-		$feature = isset($_POST['feature']) ? sanitize_textarea_field(wp_unslash($_POST['feature'])) : '';
-
-		if (empty($name) || empty($feature) || empty($email) || ! is_email($email)) {
-			wp_send_json_error(esc_html__('Please fill in all fields with a valid email address.', 'the-bricksfly'));
-		}
-
-		$args = array(
-			'timeout'   => 15,
-			'sslverify' => false,
-			'headers'   => array(
-				'Content-Type' => 'application/json',
-				'Accept'       => 'application/json',
-				'X-API-Key'    => self::BRICKSFLY_API_KEY,
-			),
-			'body'      => wp_json_encode(
-				array(
-					'name'    => $name,
-					'email'   => $email,
-					'feature' => $feature,
-					'site'    => home_url(),
-				)
-			),
-		);
-
-		$api_site_url = 'https://bricksfly.com/api/request-new-feature';
-
-		$response = wp_remote_post($api_site_url, $args);
-
-		if (is_wp_error($response)) {
-			wp_send_json_error(esc_html__('Something went wrong while sending your request. Please try again.', 'the-bricksfly'));
-		}
-
-		$status_code = wp_remote_retrieve_response_code($response);
-
-		if ($status_code >= 200 && $status_code < 300) {
-			wp_send_json_success(esc_html__('Thanks! Your feature request has been submitted.', 'the-bricksfly'));
-		}
-
-		wp_send_json_error(esc_html__('Something went wrong while sending your request. Please try again.', 'the-bricksfly'));
-	}
 }
 
 AAB_Admin_Init::instance();
