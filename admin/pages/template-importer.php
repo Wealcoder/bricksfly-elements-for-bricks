@@ -268,15 +268,12 @@ class AAB_Template_Importer {
 				$progress = '40';
 
 			} elseif ( $next_step === 'install-template' ) {
-				$template_data['next_step'] = 'check-theme';
-				$progress                   = '50';
+				$template_data['next_step'] = 'install-bricks-settings';
+				$progress                   = '75';
 				$msg                        = __( 'Verifying Content Import', 'the-bricksfly' );
-				update_option( 'aab_template_import_state', __( 'Checking Theme', 'the-bricksfly' ) );
+				update_option( 'aab_template_import_state', __( 'Verifying Content Import', 'the-bricksfly' ) );
 
-			} elseif ( $next_step === 'check-theme' ) {				
-					$template_data['next_step'] = 'install-bricks-settings';			
-
-			}  elseif ( $next_step === 'install-bricks-settings' ) {
+			} elseif ( $next_step === 'install-bricks-settings' ) {
 				$template_data['next_step'] = 'done';
 				$progress                   = '100';						
 

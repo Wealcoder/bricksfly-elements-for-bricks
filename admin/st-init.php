@@ -303,7 +303,7 @@ class OneClickImport {
 			}
 			$json_data                  = sanitize_text_field( wp_unslash( $_POST['template_data'] ) );
 			$template_data              = json_decode( $json_data, true );
-			$template_data['next_step'] = 'check-theme';
+			$template_data['next_step'] = 'install-bricks-settings';
 			$response['template']       = wp_unslash( $template_data );
 		}
 
