@@ -1,6 +1,6 @@
 <?php
 
-namespace AABAddons\Admin\Base;
+namespace wealcoder\bricksfly\Admin\Base;
 
 use WP_Error;
 use XMLReader;
@@ -380,7 +380,7 @@ class WXRImporter extends \WP_Importer {
 			$this->replace_attachment_urls_in_content();
 			$aae_counter_progress += 1;
 		}
-		$this->remap_featured_images();
+		$this->thebrbre_remap_featured_images();
 		$this->import_end();
 	}
 
@@ -1295,7 +1295,7 @@ class WXRImporter extends \WP_Importer {
 		}
 	}
 
-	function remap_featured_images() {
+	function thebrbre_remap_featured_images() {
 		if ( empty( $this->featured_images ) ) { return; }
 		update_option( 'aab_template_import_state', esc_html__( 'Starting remapping of featured images', 'the-bricksfly' ) );
 		foreach ( $this->featured_images as $post_id => $value ) {

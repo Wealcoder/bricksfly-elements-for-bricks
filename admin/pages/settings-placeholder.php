@@ -1,6 +1,6 @@
 <?php
 
-namespace AABAddons\Admin\Pages;
+namespace wealcoder\bricksfly\Admin\Pages;
 
 if (! defined('ABSPATH')) exit;
 
@@ -13,7 +13,7 @@ if (! defined('ABSPATH')) exit;
  * upsell view explaining what's required, instead of the feature just
  * silently disappearing.
  */
-class AAB_Settings_Placeholder
+class THEBRBRE_Settings_Placeholder
 {
 	const MENU_PAGE_SLUG  = 'aab_addons_page';
 	const SETTINGS_SLUG   = 'bf-site-settings';
@@ -131,7 +131,7 @@ class AAB_Settings_Placeholder
 	/**
 	 * True when the current admin screen is part of the AAB plugin's own
 	 * menu tree (top-level dashboard or any submenu). Shared by the Pro
-	 * plugin's license notice via `AAB_Settings_Placeholder::is_aab_admin_screen()`.
+	 * plugin's license notice via `THEBRBRE_Settings_Placeholder::is_aab_admin_screen()`.
 	 */
 	public static function is_aab_admin_screen(): bool
 	{
@@ -148,4 +148,4 @@ class AAB_Settings_Placeholder
 	}
 }
 
-// AAB_Settings_Placeholder::instance();
+// THEBRBRE_Settings_Placeholder::instance();

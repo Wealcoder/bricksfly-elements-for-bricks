@@ -2,7 +2,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class AAB_Bricks_Animated_Heading extends \Bricks\Element {
+class THEBRBRE_Bricks_Animated_Heading extends \Bricks\Element {
 
 	public $category     = 'bricks fly';
 	public $name         = 'aab-animated-heading';
@@ -21,14 +21,14 @@ class AAB_Bricks_Animated_Heading extends \Bricks\Element {
 	public function enqueue_scripts() {
 		wp_enqueue_style(
 			'aab-animated-heading',
-			AAB_ADDONS_URL . 'public/build/elements/animated-heading.css',
+			THEBRBRE_URL . 'public/build/elements/animated-heading.css',
 			[],
 			'1.0.0'
 		);
 
 		wp_enqueue_script(
 			'aab-animated-heading',
-			AAB_ADDONS_URL . 'public/build/elements/animated-heading.js',
+			THEBRBRE_URL . 'public/build/elements/animated-heading.js',
 			[],
 			'1.0.0',
 			true

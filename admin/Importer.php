@@ -1,6 +1,6 @@
 <?php
 
-namespace AABAddons\Admin\Base;
+namespace wealcoder\bricksfly\Admin\Base;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit();
@@ -94,7 +94,7 @@ class Importer {
 	}
 
 	public function __construct( $importer_options = array(), $logger = null ) {
-		$this->importer = new AABImporter( $importer_options );
+		$this->importer = new THEBRBRE_Importer_Bootstrap( $importer_options );
 		$this->logger   = $logger;
 		if ( ! empty( $this->logger ) ) {
 			$this->set_logger( $this->logger );

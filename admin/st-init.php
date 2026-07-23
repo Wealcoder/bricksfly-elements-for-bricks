@@ -1,6 +1,6 @@
 <?php
 
-namespace AABAddons\Admin\Base;
+namespace wealcoder\bricksfly\Admin\Base;
 
 use WP_Error;
 
@@ -46,7 +46,7 @@ class OneClickImport {
 		add_action( 'wp_import_insert_post', [ $this, 'save_wp_page_import_track' ], 10, 4 );
 		add_action( 'aabaddons_import_existing_post', [ $this, 'save_wp_page_import_track' ], 10, 4 );
 		add_action( 'aabaddons/after_import', [ $this, 'fix_imported_wp_navigation' ] );
-		add_action( 'wp_ajax_aab_get_latest_imported_pages', [ $this, 'aab_get_latest_imported_pages' ] );
+		add_action( 'wp_ajax_aab_get_latest_imported_pages', [ $this, 'thebrbre_get_latest_imported_pages' ] );
 	}
 
 	/**
@@ -111,7 +111,7 @@ class OneClickImport {
 		}
 	}
 
-	function aab_get_latest_imported_pages() {
+	function thebrbre_get_latest_imported_pages() {
 		if (
 			! isset( $_POST['nonce'] ) ||
 			! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'aab_admin_nonce' )
@@ -205,11 +205,11 @@ class OneClickImport {
 		// (→ `starter_tpl_import`). Enforced server-side so a forged request
 		// cannot bypass the UI lock. `guard_import_feature()` halts with a
 		// `limited:true` JSON envelope when the feature isn't in the plan.
-		if ( class_exists( '\AABAddons\Admin\Pages\AAB_Template_Importer' ) ) {
+		if ( class_exists( '\wealcoder\bricksfly\Admin\Pages\THEBRBRE_Template_Importer' ) ) {
 			// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce is verified above by Helpers::verify_ajax_call().
 			$import_type = isset( $_POST['import_type'] ) ? sanitize_text_field( wp_unslash( $_POST['import_type'] ) ) : 'full-demo';
 			$feature     = ( 'page' === $import_type ) ? 'starter_page_import' : 'starter_tpl_import';
-			\AABAddons\Admin\Pages\AAB_Template_Importer::guard_import_feature( $feature );
+			\wealcoder\bricksfly\Admin\Pages\THEBRBRE_Template_Importer::guard_import_feature( $feature );
 		}
 
 		$use_existing_importer_data = $this->use_existing_importer_data();

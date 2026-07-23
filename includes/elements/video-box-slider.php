@@ -2,7 +2,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class AAB_Bricks_Video_Box_Slider extends \Bricks\Element {
+class THEBRBRE_Bricks_Video_Box_Slider extends \Bricks\Element {
 
 	public $category     = 'bricks fly';
 	public $name         = 'aab-video-box-slider';
@@ -30,7 +30,7 @@ class AAB_Bricks_Video_Box_Slider extends \Bricks\Element {
 		// Shared popup CSS (button styles, overlay) reused from video-popup element.
 		wp_enqueue_style(
 			'aab-video-popup',
-			AAB_ADDONS_URL . 'public/build/elements/video-popup.css',
+			THEBRBRE_URL . 'public/build/elements/video-popup.css',
 			[],
 			'1.0.0'
 		);
@@ -38,7 +38,7 @@ class AAB_Bricks_Video_Box_Slider extends \Bricks\Element {
 		// Slider-specific CSS
 		wp_enqueue_style(
 			'aab-video-box-slider',
-			AAB_ADDONS_URL . 'public/build/elements/video-box-slider.css',
+			THEBRBRE_URL . 'public/build/elements/video-box-slider.css',
 			[ 'bricks-swiper', 'aab-video-popup' ],
 			'1.0.0'
 		);
@@ -46,7 +46,7 @@ class AAB_Bricks_Video_Box_Slider extends \Bricks\Element {
 		// Slider + popup JS
 		wp_enqueue_script(
 			'aab-video-box-slider',
-			AAB_ADDONS_URL . 'public/build/elements/video-box-slider.js',
+			THEBRBRE_URL . 'public/build/elements/video-box-slider.js',
 			[ 'bricks-swiper' ],
 			'1.0.0',
 			true

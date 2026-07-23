@@ -1,16 +1,16 @@
 <?php
 
-namespace AABAddons\Admin\Pages;
+namespace wealcoder\bricksfly\Admin\Pages;
 
 if (! defined('ABSPATH')) {
 	exit();
 } // Exit if accessed directly
 
-class AAB_Admin_Init
+class THEBRBRE_Admin_Init
 {
 
 
-	use \AABAddons\Includes\Traits\Extension_Widgets_Trait;
+	use \wealcoder\bricksfly\Includes\Traits\Extension_Widgets_Trait;
 
 	/**
 	 * Parent Menu Page Slug
@@ -138,7 +138,7 @@ class AAB_Admin_Init
 		add_filter('admin_body_class', array($this, 'admin_classes'), 100);
 		add_filter('aabaddons_dashboard_config', array($this, 'dashboard_db_widgets_config'), 11);
 		add_filter('aabaddons_dashboard_config', array($this, 'dashboard_db_extnsions_config'), 10);
-		add_filter('aabaddons_dashboard_config', array($this, 'dashboard_integrations_config'), 10);
+		add_filter('aabaddons_dashboard_config', array($this, 'thebrbre_dashboard_integrations_config'), 10);
 
 		add_action('admin_footer', array($this, 'admin_footer'));
 		// Bust the remote-menu transient whenever the builder clears its
@@ -162,7 +162,7 @@ class AAB_Admin_Init
 		wp_add_dashboard_widget(
 			'aae_dashboard_widget',
 			'Animation Addons Overview',
-			[$this, 'aae_render_dashboard_widget']
+			[$this, 'thebrbre_render_dashboard_widget']
 		);
 
 
@@ -187,7 +187,7 @@ class AAB_Admin_Init
 		}
 	}
 
-	function aae_render_dashboard_widget()
+	function thebrbre_render_dashboard_widget()
 	{
 		$view = __DIR__ . '/banner/ads.php';
 		require_once $view;
@@ -204,7 +204,7 @@ class AAB_Admin_Init
 		$wgt           = get_option('aab_save_widgets');
 		$saved_widgets = is_array($wgt) ? array_keys(array_filter($wgt)) : array();
 		$widgets       = $configs['widgets'];
-		aabaddons_get_db_updated_config($widgets, $saved_widgets);
+		thebrbre_get_db_updated_config($widgets, $saved_widgets);
 		$configs['widgets'] = $widgets;
 		return $configs;
 	}
@@ -219,7 +219,7 @@ class AAB_Admin_Init
 		$ext        = get_option('aab_save_extensions');
 		$saved_ext  = is_array($ext) ? array_keys(array_filter($ext)) : array();
 		$extensions = $configs['extensions'];
-		aabaddons_get_db_updated_config($extensions, $saved_ext);
+		thebrbre_get_db_updated_config($extensions, $saved_ext);
 		$configs['extensions'] = $extensions;
 		return $configs;
 	}
@@ -231,7 +231,7 @@ class AAB_Admin_Init
 	 */
 	public function include()
 	{
-		$admin_dir = AAB_ADDONS_PATH . 'admin/';
+		$admin_dir = THEBRBRE_PATH . 'admin/';
 
 		// Row actions & plugin installer.
 		require_once $admin_dir . 'row-actions.php';
@@ -262,7 +262,7 @@ class AAB_Admin_Init
 		require_once $admin_dir . 'cpt-builder.php';
 
 		// Initialize OneClickImport.
-		$oneimport = \AABAddons\Admin\Base\OneClickImport::get_instance();
+		$oneimport = \wealcoder\bricksfly\Admin\Base\OneClickImport::get_instance();
 	}
 
 
@@ -281,7 +281,7 @@ class AAB_Admin_Init
 			self::MENU_CAPABILITY,
 			self::MENU_PAGE_SLUG,
 			'',
-			AAB_ADDONS_URL . 'assets/images/aab.png',
+			THEBRBRE_URL . 'assets/images/aab.png',
 			102
 		);
 
@@ -345,32 +345,32 @@ class AAB_Admin_Init
 		//if ($hook == 'animation-addon_page_bf_addons_settings') {
 		// sync element manager
 		// $this->disable_widgets_by_element_manager();
-		$dashboard_css_path = AAB_ADDONS_PATH . 'public/build/admin/dashboard.css';
-		$dashboard_js_path  = AAB_ADDONS_PATH . 'public/build/admin/dashboard.js';
-		$dashboard_css_ver  = file_exists($dashboard_css_path) ? filemtime($dashboard_css_path) : AAB_ADDONS_VERSION;
-		$dashboard_js_ver   = file_exists($dashboard_js_path)  ? filemtime($dashboard_js_path)  : AAB_ADDONS_VERSION;
+		$dashboard_css_path = THEBRBRE_PATH . 'public/build/admin/dashboard.css';
+		$dashboard_js_path  = THEBRBRE_PATH . 'public/build/admin/dashboard.js';
+		$dashboard_css_ver  = file_exists($dashboard_css_path) ? filemtime($dashboard_css_path) : THEBRBRE_VERSION;
+		$dashboard_js_ver   = file_exists($dashboard_js_path)  ? filemtime($dashboard_js_path)  : THEBRBRE_VERSION;
 
 		// CSS
 		wp_enqueue_style(
 			'wcf-admin', // Handle for the stylesheet
-			AAB_ADDONS_URL . 'public/build/admin/dashboard.css',
+			THEBRBRE_URL . 'public/build/admin/dashboard.css',
 			array(), // Dependencies (none in this case)
 			$dashboard_css_ver
 		);
 
-		wp_enqueue_script('aab-admin', AAB_ADDONS_URL . 'public/build/admin/dashboard.js', array('wp-element'), $dashboard_js_ver, true);
-		aabaddons_get_total_config_elements_by_key($GLOBALS['aabaddons_config']['extensions'], $total_extensions);
-		aabaddons_get_total_config_elements_by_key($GLOBALS['aabaddons_config']['widgets'], $total_widgets);
+		wp_enqueue_script('aab-admin', THEBRBRE_URL . 'public/build/admin/dashboard.js', array('wp-element'), $dashboard_js_ver, true);
+		thebrbre_get_total_config_elements_by_key($GLOBALS['aabaddons_config']['extensions'], $total_extensions);
+		thebrbre_get_total_config_elements_by_key($GLOBALS['aabaddons_config']['widgets'], $total_widgets);
 
 		$widgets       = get_option('aab_save_widgets');
 		$saved_widgets = is_array($widgets) ? array_keys(array_filter($widgets)) : array();
 
-		aabaddons_get_search_active_keys($GLOBALS['aabaddons_config']['widgets'], $saved_widgets, $foundKeys, $awidgets);
+		thebrbre_get_search_active_keys($GLOBALS['aabaddons_config']['widgets'], $saved_widgets, $foundKeys, $awidgets);
 
 		$extensions       = get_option('aab_save_extensions');
 		$saved_extensions = is_array($extensions) ? array_keys(array_filter($extensions)) : array();
 
-		aabaddons_get_search_active_keys($GLOBALS['aabaddons_config']['extensions'], $saved_extensions, $foundext, $activeext);
+		thebrbre_get_search_active_keys($GLOBALS['aabaddons_config']['extensions'], $saved_extensions, $foundext, $activeext);
 
 
 		$active_widgets = self::get_widgets();
@@ -380,7 +380,7 @@ class AAB_Admin_Init
 		// All Bricks breakpoints (defaults + custom). Routed through the shared
 		// ResponsiveHelper so the no-Bricks fallback (with label/icon) lives in
 		// one place — same source the frontend ResponsiveHelper consumers use.
-		$bricks_breakpoints = \AABAddons\Includes\Extensions\Helpers\ResponsiveHelper::getBreakpoints();
+		$bricks_breakpoints = \wealcoder\bricksfly\Includes\Extensions\Helpers\ResponsiveHelper::getBreakpoints();
 
 		// License info for the React LicenseDialog (mirrors the shared contract
 		// from animation-addons-for-elementor-pro).
@@ -392,7 +392,7 @@ class AAB_Admin_Init
 		// React UI so that deleting the Pro plugin folder (or installing just
 		// the free plugin) immediately locks every pro toggle — regardless of
 		// whatever license status survives in the database.
-		$pro_installed      = function_exists('aabaddons_is_pro_installed') ? aabaddons_is_pro_installed() : file_exists($this->plugin_file);
+		$pro_installed      = function_exists('thebrbre_is_pro_installed') ? thebrbre_is_pro_installed() : file_exists($this->plugin_file);
 		$aab_license_valid  = $pro_installed && ('valid' === $aab_license_status);
 
 		$addons_config = apply_filters('aabaddons_dashboard_config', $GLOBALS['aabaddons_config']);
@@ -404,16 +404,16 @@ class AAB_Admin_Init
 		// uses a strict `13 === product_status.item_id` check to flip the header button
 		// to "Deactivate License" and to pick the deactivate AJAX action. We send 13
 		// when the license is valid so the bundled UI recognises the activated state —
-		// the actual EDD API request uses our real item ID (AAB_ADDON_PRO_ITEM_ID).
+		// the actual EDD API request uses our real item ID (THEBRBRE_PRO_ITEM_ID).
 		// Per-feature license limitations (Template / Section / Page import etc.).
 		// Empty array when the license isn't valid — the React import gate treats
 		// a missing/false flag as "not allowed" and shows the upsell popup.
-		$aab_limitations = function_exists('aab_get_license_limitations') ? aab_get_license_limitations() : array();
+		$aab_limitations = function_exists('thebrbre_get_license_limitations') ? thebrbre_get_license_limitations() : array();
 
 		$addons_config['product_status'] = [
 			'item_id'      => $aab_license_valid ? 13 : 0,
 			'status'       => $aab_license_status,
-			'real_item_id' => AAB_ADDON_PRO_ITEM_ID,
+			'real_item_id' => THEBRBRE_PRO_ITEM_ID,
 			'limitations'  => $aab_limitations,
 		];
 
@@ -439,12 +439,12 @@ class AAB_Admin_Init
 			),
 			'global_settings_url' => $this->get_elementor_active_edit_url(),
 			'theme_builder_url'   => admin_url('edit.php?post_type=wcf-addons-template'),
-			'user_role'           => aabaddons_get_current_user_roles(),
-			'version'             => AAB_ADDONS_VERSION,
-			'st_template_domain'  => AAB_TEMPLATE_STARTER_BASE_URL,
+			'user_role'           => thebrbre_get_current_user_roles(),
+			'version'             => THEBRBRE_VERSION,
+			'st_template_domain'  => THEBRBRE_TEMPLATE_STARTER_BASE_URL,
 			'home_url' => add_query_arg(['aab-cache' => 1], home_url('/')),
 			'template_menu' => $this->get_template_menu_data(),
-			'plugin_url' => AAB_ADDONS_URL,
+			'plugin_url' => THEBRBRE_URL,
 			'has_pro' => file_exists($this->plugin_file),
 			'breakpoints' => $bricks_breakpoints,
 
@@ -470,7 +470,7 @@ class AAB_Admin_Init
 	{
 		$pro_basename  = 'the-bricksfly-pro/the-bricksfly-pro.php';
 		$pro_installed = file_exists(WP_PLUGIN_DIR . '/' . $pro_basename);
-		$pro_active    = (function_exists('aabaddons_is_pro_active') && aabaddons_is_pro_active());
+		$pro_active    = (function_exists('thebrbre_is_pro_active') && thebrbre_is_pro_active());
 
 		// Case 1 — Pro plugin isn't installed: keep the default "Upgrade…" copy.
 		if (! $pro_installed) {
@@ -669,7 +669,7 @@ class AAB_Admin_Init
 	}
 
 
-	function dashboard_integrations_config($configs)
+	function thebrbre_dashboard_integrations_config($configs)
 	{
 
 		if (! isset($configs['integrations']['plugins']['elements'])) {
@@ -680,7 +680,7 @@ class AAB_Admin_Init
 		$data_base = '';
 		foreach ($configs['integrations']['plugins']['elements'] as &$plugin) {
 
-			if (aabaddons_get_local_plugin_data($plugin['basename']) === false) {
+			if (thebrbre_get_local_plugin_data($plugin['basename']) === false) {
 				$action    = 'Download';
 				$data_base = $plugin['download_url'];
 			} elseif (is_plugin_active($plugin['basename'])) {
@@ -783,16 +783,16 @@ class AAB_Admin_Init
 		$option_name   = isset($_POST['settings']) ? sanitize_key(wp_unslash($_POST['settings'])) : '';
 		$sanitize_data = sanitize_text_field(wp_unslash($_POST['fields']));
 		$settings      = json_decode($sanitize_data, true);
-		aabaddons_get_nested_active_config_keys($settings, $found, $actives);
+		thebrbre_get_nested_active_config_keys($settings, $found, $actives);
 
 
-		aabaddons_get_nested_config_keys($settings, $foundkeys, $updatedSettings);
+		thebrbre_get_nested_config_keys($settings, $foundkeys, $updatedSettings);
 
 		// License gate: force Pro-only slugs to false when the license is not
 		// valid. Guards against forged AJAX payloads that would otherwise
 		// bypass the React UI's pro-toggle lockout. Pro slugs stay in the
 		// map (as false) so the saved option remains a complete slug list.
-		$license_valid = function_exists('aabaddons_is_license_valid') && aabaddons_is_license_valid();
+		$license_valid = function_exists('thebrbre_is_license_valid') && thebrbre_is_license_valid();
 		if (! $license_valid && is_array($updatedSettings)) {
 			$pro_slugs = self::aab_collect_pro_slugs(isset($GLOBALS['aabaddons_config']) ? $GLOBALS['aabaddons_config'] : array());
 			foreach (array_keys($updatedSettings) as $slug) {
@@ -909,7 +909,7 @@ class AAB_Admin_Init
 			$actives = array();
 		}
 
-		$license_valid = function_exists('aabaddons_is_license_valid') && aabaddons_is_license_valid();
+		$license_valid = function_exists('thebrbre_is_license_valid') && thebrbre_is_license_valid();
 		$pro_slugs     = ! $license_valid
 			? self::aab_collect_pro_slugs(isset($GLOBALS['aabaddons_config']) ? $GLOBALS['aabaddons_config'] : array())
 			: array();
@@ -1049,4 +1049,4 @@ class AAB_Admin_Init
 	}
 }
 
-AAB_Admin_Init::instance();
+THEBRBRE_Admin_Init::instance();

@@ -2,7 +2,7 @@
 
 if (! defined('ABSPATH')) exit;
 
-class AAB_Bricks_Counter extends \Bricks\Element
+class THEBRBRE_Bricks_Counter extends \Bricks\Element
 {
 
 	public $category     = 'bricks fly';
@@ -25,14 +25,14 @@ class AAB_Bricks_Counter extends \Bricks\Element
 	{
 		wp_enqueue_style(
 			'aab-counter',
-			AAB_ADDONS_URL . 'public/build/elements/counter.css',
+			THEBRBRE_URL . 'public/build/elements/counter.css',
 			[],
 			'1.0.0'
 		);
 
 		wp_enqueue_script(
 			'aab-counter',
-			AAB_ADDONS_URL . 'public/build/elements/counter.js',
+			THEBRBRE_URL . 'public/build/elements/counter.js',
 			['bricks-scripts'],
 			'1.0.0',
 			true

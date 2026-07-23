@@ -14,7 +14,7 @@
  * @package Bricks_Animation_Addons
  */
 
-namespace AABAddons\Includes\Extensions\Helpers;
+namespace wealcoder\bricksfly\Includes\Extensions\Helpers;
 
 defined('ABSPATH') || exit;
 
@@ -25,7 +25,7 @@ class Label_Name_Helper
         static $logo_html = null;
 
         if ($logo_html === null) {
-            $logo_html = '<img src="' . esc_url(AAB_ADDONS_URL . 'public/images/plugin_logo.png') . '" width="20" height="20" style="vertical-align:-6px;margin-right:6px"> ';
+            $logo_html = '<img src="' . esc_url(THEBRBRE_URL . 'public/images/plugin_logo.png') . '" width="20" height="20" style="vertical-align:-6px;margin-right:6px"> ';
         }
 
         return $logo_html . esc_html($label);

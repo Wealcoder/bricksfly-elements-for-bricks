@@ -12,15 +12,15 @@
  * @package Bricks_Animation_Addons
  */
 
-namespace AABAddons\Includes\Extensions;
+namespace wealcoder\bricksfly\Includes\Extensions;
 
-use AABAddons\Includes\Extensions\Helpers\Label_Name_Helper;
+use wealcoder\bricksfly\Includes\Extensions\Helpers\Label_Name_Helper;
 
 if (! defined('ABSPATH')) {
 	exit;
 }
 
-class AAB_Starter_Animations
+class THEBRBRE_Starter_Animations
 {
 
 	/**
@@ -1042,13 +1042,13 @@ public function apply_render_classes($attributes, $key, $element)
 
 	public function enqueue_assets()
 	{
-		$css_path = AAB_ADDONS_PATH . 'public/build/extensions/starter-animations-client.css';
-		$css_ver  = file_exists($css_path) ? filemtime($css_path) : AAB_ADDONS_VERSION;
+		$css_path = THEBRBRE_PATH . 'public/build/extensions/starter-animations-client.css';
+		$css_ver  = file_exists($css_path) ? filemtime($css_path) : THEBRBRE_VERSION;
 
 		// Animation CSS is needed in every context.
 		wp_enqueue_style(
 			'aab-starter-animations-client',
-			AAB_ADDONS_URL . 'public/build/extensions/starter-animations-client.css',
+			THEBRBRE_URL . 'public/build/extensions/starter-animations-client.css',
 			[],
 			$css_ver
 		);
@@ -1058,27 +1058,27 @@ public function apply_render_classes($attributes, $key, $element)
 		if ($in_builder_iframe) {
 			// Builder iframe: lightweight preview bundle — handles Play-button
 			// messages, no IntersectionObserver.
-			$js_path = AAB_ADDONS_PATH . 'public/build/extensions/starter-animations-builder.js';
+			$js_path = THEBRBRE_PATH . 'public/build/extensions/starter-animations-builder.js';
 			wp_enqueue_script(
 				'aab-starter-animations-preview',
-				AAB_ADDONS_URL . 'public/build/extensions/starter-animations-builder.js',
+				THEBRBRE_URL . 'public/build/extensions/starter-animations-builder.js',
 				[],
-				file_exists($js_path) ? filemtime($js_path) : AAB_ADDONS_VERSION,
+				file_exists($js_path) ? filemtime($js_path) : THEBRBRE_VERSION,
 				true
 			);
 		} else {
 			// Frontend (and builder parent frame as a no-op): full scroll-driven
 			// animation bundle with IntersectionObserver.
-			$js_path = AAB_ADDONS_PATH . 'public/build/extensions/starter-animations-client.js';
+			$js_path = THEBRBRE_PATH . 'public/build/extensions/starter-animations-client.js';
 			wp_enqueue_script(
 				'aab-starter-animations-client',
-				AAB_ADDONS_URL . 'public/build/extensions/starter-animations-client.js',
+				THEBRBRE_URL . 'public/build/extensions/starter-animations-client.js',
 				[],
-				file_exists($js_path) ? filemtime($js_path) : AAB_ADDONS_VERSION,
+				file_exists($js_path) ? filemtime($js_path) : THEBRBRE_VERSION,
 				true
 			);
 		}
 	}
 }
 
-AAB_Starter_Animations::instance();
+THEBRBRE_Starter_Animations::instance();

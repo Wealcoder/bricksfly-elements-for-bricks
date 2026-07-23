@@ -1,12 +1,12 @@
 <?php
 
-namespace AABAddons\Admin\Pages;
+namespace wealcoder\bricksfly\Admin\Pages;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit();
 }
 
-class AAB_Template_Importer {
+class THEBRBRE_Template_Importer {
 
 	public $file_path = 'aab_tpl_file.xml';
 	public $full_path = null;
@@ -27,7 +27,7 @@ class AAB_Template_Importer {
 		add_action( 'wp_ajax_aab_wishlist_option', [ $this, 'wishlist' ] );
 		add_action( 'wp_ajax_aab_upload_manual_import_file', [ $this, 'template_installer' ] );
 		add_action( 'wp_ajax_aab_template_dependency_status', [ $this, 'template_dependency_status' ] );
-		// NOTE: the 'aab_get_latest_imported_pages' AJAX action is handled by
+		// NOTE: the 'thebrbre_get_latest_imported_pages' AJAX action is handled by
 		// OneClickImport::aae_get_latest_imported_pages() (admin/st-init.php).
 		// That handler is batch-aware — it returns the page(s) from the most
 		// recent import via the 'aab_last_import_batch' option, which is what the
@@ -150,16 +150,16 @@ class AAB_Template_Importer {
 	 * @return void
 	 */
 	public static function guard_import_feature( $feature ) {
-		if ( ! function_exists( 'aab_is_feature_allowed' ) ) {
+		if ( ! function_exists( 'thebrbre_is_feature_allowed' ) ) {
 			return;
 		}
 
-		if ( aab_is_feature_allowed( $feature ) ) {
+		if ( thebrbre_is_feature_allowed( $feature ) ) {
 			return;
 		}
 
-		$message = function_exists( 'aab_feature_denied_message' )
-			? aab_feature_denied_message( $feature )
+		$message = function_exists( 'thebrbre_feature_denied_message' )
+			? thebrbre_feature_denied_message( $feature )
 			: __( 'This feature is not included in your current license plan.', 'the-bricksfly' );
 
 		wp_send_json( array(
@@ -580,7 +580,7 @@ class AAB_Template_Importer {
 			return false;
 		}
 
-		$remote_url = AAB_TEMPLATE_STARTER_BASE_URL . 'wp-json/brk-starter-templates/download';
+		$remote_url = THEBRBRE_TEMPLATE_STARTER_BASE_URL . 'wp-json/brk-starter-templates/download';
 
 		if ( ! empty( $template['base_path'] ) ) {
 			$remote_url = $template['base_path'] . 'wp-json/brk-starter-templates/download';
@@ -720,4 +720,4 @@ class AAB_Template_Importer {
 	}
 }
 
-AAB_Template_Importer::instance();
+THEBRBRE_Template_Importer::instance();

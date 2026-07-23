@@ -1,6 +1,6 @@
 <?php
 
-namespace AABAddons\Admin\Base;
+namespace wealcoder\bricksfly\Admin\Base;
 
 use WP_Error;
 use XMLReader;
@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit();
 }
 
-class AABImporter extends WXRImporter {
+class THEBRBRE_Importer_Bootstrap extends WXRImporter {
 
 	public function __construct( $options = array() ) {
 		parent::__construct( $options );

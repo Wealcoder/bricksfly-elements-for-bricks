@@ -2,7 +2,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class AAB_Bricks_Image_Accordion extends \Bricks\Element {
+class THEBRBRE_Bricks_Image_Accordion extends \Bricks\Element {
 
 	public $category     = 'bricks fly';
 	public $name         = 'aab-image-accordion';
@@ -21,14 +21,14 @@ class AAB_Bricks_Image_Accordion extends \Bricks\Element {
 	public function enqueue_scripts() {
 		wp_enqueue_style(
 			'aab-image-accordion',
-			AAB_ADDONS_URL . 'public/build/elements/image-accordion.css',
+			THEBRBRE_URL . 'public/build/elements/image-accordion.css',
 			[],
 			'1.0.0'
 		);
 
 		wp_enqueue_script(
 			'aab-image-accordion',
-			AAB_ADDONS_URL . 'public/build/elements/image-accordion.js',
+			THEBRBRE_URL . 'public/build/elements/image-accordion.js',
 			[],
 			'1.0.0',
 			true

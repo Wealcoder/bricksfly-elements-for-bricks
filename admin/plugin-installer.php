@@ -1,6 +1,6 @@
 <?php
 
-namespace AABAddons\Admin;
+namespace wealcoder\bricksfly\Admin;
 
 if (! defined('ABSPATH')) {
 	exit();
@@ -10,7 +10,7 @@ if (! defined('ABSPATH')) {
  * AJAX endpoints for activating / deactivating other WordPress plugins from
  * the React dashboard (GetProButton, IntegrationCard, ProConfirmDialog).
  */
-class AAB_Plugin_Installer
+class THEBRBRE_Plugin_Installer
 {
 
 	public function __construct()
@@ -57,4 +57,4 @@ class AAB_Plugin_Installer
 	}
 }
 
-new AAB_Plugin_Installer();
+new THEBRBRE_Plugin_Installer();

@@ -1,6 +1,6 @@
 <?php
 
-namespace AABAddons\Includes\Extensions\Helpers;
+namespace wealcoder\bricksfly\Includes\Extensions\Helpers;
 
 use Bricks\Elements;
 

@@ -24,7 +24,7 @@ if (! defined('ABSPATH')) {
  * @subpackage Bricks_Animation_Addons/includes
  * @author     Zilani <zilani.wealcoder@gmail.com>
  */
-class AABAddons_Activator
+class THEBRBRE_Activator
 {
 
 	/**
@@ -81,8 +81,8 @@ class AABAddons_Activator
 			return;
 		}
 
-		if (! isset($GLOBALS['aabaddons_config']) && defined('AAB_ADDONS_PATH')) {
-			require_once AAB_ADDONS_PATH . 'config.php';
+		if (! isset($GLOBALS['aabaddons_config']) && defined('THEBRBRE_PATH')) {
+			require_once THEBRBRE_PATH . 'config.php';
 		}
 
 		$widgets_config = isset($GLOBALS['aabaddons_config']['widgets'])
@@ -144,8 +144,8 @@ class AABAddons_Activator
 			return;
 		}
 
-		if (! isset($GLOBALS['aabaddons_config']) && defined('AAB_ADDONS_PATH')) {
-			require_once AAB_ADDONS_PATH . 'config.php';
+		if (! isset($GLOBALS['aabaddons_config']) && defined('THEBRBRE_PATH')) {
+			require_once THEBRBRE_PATH . 'config.php';
 		}
 
 		$extensions_config = isset($GLOBALS['aabaddons_config']['extensions'])

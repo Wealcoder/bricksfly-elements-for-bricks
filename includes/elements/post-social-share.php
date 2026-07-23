@@ -2,7 +2,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class AAB_Bricks_Post_Social_Share extends \Bricks\Element {
+class THEBRBRE_Bricks_Post_Social_Share extends \Bricks\Element {
 
 	public $category     = 'bricks fly';
 	public $name         = 'aab-post-social-share';
@@ -24,14 +24,14 @@ class AAB_Bricks_Post_Social_Share extends \Bricks\Element {
 
 		wp_enqueue_style(
 			'aab-post-social-share',
-			AAB_ADDONS_URL . 'public/build/elements/post-social-share.css',
+			THEBRBRE_URL . 'public/build/elements/post-social-share.css',
 			[],
 			'1.0.0'
 		);
 
 		wp_enqueue_script(
 			'aab-post-social-share',
-			AAB_ADDONS_URL . 'public/build/elements/post-social-share.js',
+			THEBRBRE_URL . 'public/build/elements/post-social-share.js',
 			[],
 			'1.0.0',
 			true

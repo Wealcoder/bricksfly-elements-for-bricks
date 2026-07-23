@@ -2,7 +2,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class AAB_Bricks_Post_Meta extends \Bricks\Element {
+class THEBRBRE_Bricks_Post_Meta extends \Bricks\Element {
 
 	public $category     = 'bricks fly';
 	public $name         = 'aab-post-meta';
@@ -24,7 +24,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		wp_enqueue_style(
 			'aab-post-meta',
-			AAB_ADDONS_URL . 'public/build/elements/meta-info.css',
+			THEBRBRE_URL . 'public/build/elements/meta-info.css',
 			[],
 			'1.0.0'
 		);

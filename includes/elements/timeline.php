@@ -2,7 +2,7 @@
 
 if (!defined('ABSPATH')) exit;
 
-class Aae_Bricks_Timeline extends \Bricks\Element
+class THEBRBRE_Bricks_Timeline extends \Bricks\Element
 {
     public $category     = 'bricks fly';
     public $name         = 'aae-timeline';
@@ -584,7 +584,7 @@ class Aae_Bricks_Timeline extends \Bricks\Element
 
         wp_enqueue_style(
             'aae-timeline',
-            AAB_ADDONS_URL . 'public/build/elements/timeline.css',
+            THEBRBRE_URL . 'public/build/elements/timeline.css',
             [],
             '1.0.0'
         );

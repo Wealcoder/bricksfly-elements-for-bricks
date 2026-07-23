@@ -1,12 +1,12 @@
 <?php
 
-namespace AABAddons\Admin;
+namespace wealcoder\bricksfly\Admin;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-class CPT_Builder {
+class THEBRBRE_CPT_Builder {
 
 	public $configs        = [];
 	public $post_type      = 'aaeptypebilder';
@@ -194,7 +194,7 @@ class CPT_Builder {
 
 					if ( isset( $meta['show_in_rest'] ) && $meta['show_in_rest'] == 1 ) {
 						if ( isset( $meta['template'] ) && $meta['template'] != '' ) {
-							if ( $template = aabaddons_validate_content_json( $meta['template'] ) ) {
+							if ( $template = thebrbre_validate_content_json( $meta['template'] ) ) {
 								$args['template'] = $template;
 								unset( $meta['template'] );
 							}
@@ -672,16 +672,16 @@ class CPT_Builder {
 
 		wp_enqueue_style(
 			'aab-cpt-builder',
-			AAB_ADDONS_URL . 'public/build/modules/cpt-builder/main.css',
+			THEBRBRE_URL . 'public/build/modules/cpt-builder/main.css',
 			[],
-			AAB_ADDONS_VERSION
+			THEBRBRE_VERSION
 		);
 
 		wp_enqueue_script(
 			'aab-cpt-builder',
-			AAB_ADDONS_URL . 'public/build/modules/cpt-builder/main.js',
+			THEBRBRE_URL . 'public/build/modules/cpt-builder/main.js',
 			[ 'react', 'react-dom', 'wp-element'],
-			AAB_ADDONS_VERSION,
+			THEBRBRE_VERSION,
 			true
 		);
 
@@ -692,4 +692,4 @@ class CPT_Builder {
 	}
 }
 
-CPT_Builder::instance();
+THEBRBRE_CPT_Builder::instance();

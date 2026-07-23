@@ -2,7 +2,7 @@
 
 if (! defined('ABSPATH')) exit;
 
-class AAB_Bricks_Button_Pro extends \Bricks\Element
+class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 {
 
 	public $category     = 'bricks fly';
@@ -28,14 +28,14 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 
 		wp_enqueue_style(
 			'aab-button-pro',
-			AAB_ADDONS_URL . 'public/build/elements/button-pro.css',
+			THEBRBRE_URL . 'public/build/elements/button-pro.css',
 			[],
 			'1.0.0'
 		);
 
 		wp_enqueue_script(
 			'aab-button-pro',
-			AAB_ADDONS_URL . 'public/build/elements/button-pro.js',
+			THEBRBRE_URL . 'public/build/elements/button-pro.js',
 			[],
 			'1.0.0',
 			true

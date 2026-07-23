@@ -2,7 +2,7 @@
 
 if (!defined('ABSPATH')) exit;
 
-class Aae_Bricks_Testimonial2 extends \Bricks\Element
+class THEBRBRE_Bricks_Testimonial2 extends \Bricks\Element
 {
     public $category     = 'bricks fly';
     public $name         = 'aae-testimonial-2';
@@ -532,20 +532,20 @@ class Aae_Bricks_Testimonial2 extends \Bricks\Element
 
         // filemtime() so the URL changes whenever the file does — without
         // this the browser caches the old file forever (hardcoded '1.0.0').
-        $css_file = AAB_ADDONS_PATH . 'public/build/elements/testimonial-2.css';
+        $css_file = THEBRBRE_PATH . 'public/build/elements/testimonial-2.css';
         wp_enqueue_style(
             'aae-testimonial-2',
-            AAB_ADDONS_URL . 'public/build/elements/testimonial-2.css',
+            THEBRBRE_URL . 'public/build/elements/testimonial-2.css',
             ['bricks-swiper'],
-            file_exists($css_file) ? filemtime($css_file) : AAB_ADDONS_VERSION
+            file_exists($css_file) ? filemtime($css_file) : THEBRBRE_VERSION
         );
 
-        $js_file = AAB_ADDONS_PATH . 'public/build/elements/testimonial-2.js';
+        $js_file = THEBRBRE_PATH . 'public/build/elements/testimonial-2.js';
         wp_enqueue_script(
             'aae-testimonial-2',
-            AAB_ADDONS_URL . 'public/build/elements/testimonial-2.js',
+            THEBRBRE_URL . 'public/build/elements/testimonial-2.js',
             ['bricks-swiper'],
-            file_exists($js_file) ? filemtime($js_file) : AAB_ADDONS_VERSION,
+            file_exists($js_file) ? filemtime($js_file) : THEBRBRE_VERSION,
             true
         );
     }

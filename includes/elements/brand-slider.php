@@ -2,7 +2,7 @@
 
 if (! defined('ABSPATH')) exit;
 
-class AAB_Bricks_Brand_Slider extends \Bricks\Element
+class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 {
 
 	public $category     = 'bricks fly';
@@ -30,14 +30,14 @@ class AAB_Bricks_Brand_Slider extends \Bricks\Element
 
 		wp_enqueue_style(
 			'aab-brand-slider',
-			AAB_ADDONS_URL . 'public/build/elements/brand-slider.css',
+			THEBRBRE_URL . 'public/build/elements/brand-slider.css',
 			['bricks-swiper'],
 			'1.0.0'
 		);
 
 		wp_enqueue_script(
 			'aab-brand-slider',
-			AAB_ADDONS_URL . 'public/build/elements/brand-slider.js',
+			THEBRBRE_URL . 'public/build/elements/brand-slider.js',
 			['bricks-swiper'],
 			'1.0.0',
 			true

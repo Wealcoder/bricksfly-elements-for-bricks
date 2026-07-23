@@ -4,8 +4,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! function_exists( 'aabaddons_validate_content_json' ) ) {
-	function aabaddons_validate_content_json( $input ) {
+if ( ! function_exists( 'thebrbre_validate_content_json' ) ) {
+	function thebrbre_validate_content_json( $input ) {
 		if ( ! is_string( $input ) || empty( $input ) ) {
 			return false;
 		}
@@ -18,8 +18,8 @@ if ( ! function_exists( 'aabaddons_validate_content_json' ) ) {
 }
 
 
-if (! function_exists('aabaddons_get_current_user_roles')) {
-  function aabaddons_get_current_user_roles()
+if (! function_exists('thebrbre_get_current_user_roles')) {
+  function thebrbre_get_current_user_roles()
   {
 
     if (is_user_logged_in()) {
@@ -42,8 +42,8 @@ if (! function_exists('aabaddons_get_current_user_roles')) {
 }
 
 
-if (! function_exists('aabaddons_get_total_config_elements_by_key')) {
-  function aabaddons_get_total_config_elements_by_key($array, &$foundKeys = 0)
+if (! function_exists('thebrbre_get_total_config_elements_by_key')) {
+  function thebrbre_get_total_config_elements_by_key($array, &$foundKeys = 0)
   {
     foreach ($array as $key => $value) {
       // Check if the current key is one we're looking for
@@ -53,15 +53,15 @@ if (! function_exists('aabaddons_get_total_config_elements_by_key')) {
 
       // If value is an array, recurse into it
       if (is_array($value)) {
-        aabaddons_get_total_config_elements_by_key($value, $foundKeys);
+        thebrbre_get_total_config_elements_by_key($value, $foundKeys);
       }
     }
   }
 }
 
 
-if (! function_exists('aabaddons_get_nested_active_config_keys')) {
-  function aabaddons_get_nested_active_config_keys($array, &$foundKeys, &$active)
+if (! function_exists('thebrbre_get_nested_active_config_keys')) {
+  function thebrbre_get_nested_active_config_keys($array, &$foundKeys, &$active)
   {
     foreach ($array as $key => $value) {
       // Check if the current key is one we're looking for
@@ -76,20 +76,20 @@ if (! function_exists('aabaddons_get_nested_active_config_keys')) {
 
       // If value is an array, recurse into it
       if (is_array($value)) {
-        aabaddons_get_nested_active_config_keys($value, $foundKeys, $active);
+        thebrbre_get_nested_active_config_keys($value, $foundKeys, $active);
       }
     }
   }
 }
 
 
-if (! function_exists('aabaddons_get_nested_config_keys')) {
+if (! function_exists('thebrbre_get_nested_config_keys')) {
   // Walks the config tree and emits a flat slug => bool map for every node
   // that exposes an is_active flag (leaves AND group/subgroup containers).
   // Groups need to be included because the React UI surfaces master toggles
   // for them (e.g. extensions sub-groups like `aab-smooth-scroller`, widget
   // group master switches). Skipping them would drop that toggle state.
-  function aabaddons_get_nested_config_keys($array, &$foundKeys, &$active)
+  function thebrbre_get_nested_config_keys($array, &$foundKeys, &$active)
   {
     if (! is_array($array)) {
       return;
@@ -100,15 +100,15 @@ if (! function_exists('aabaddons_get_nested_config_keys')) {
         $active[$key] = ! empty($value['is_active']);
       }
       if (is_array($value)) {
-        aabaddons_get_nested_config_keys($value, $foundKeys, $active);
+        thebrbre_get_nested_config_keys($value, $foundKeys, $active);
       }
     }
   }
 }
 
 
-if (! function_exists('aabaddons_get_search_active_keys')) {
-  function aabaddons_get_search_active_keys($array, $keysToFind, &$foundKeys, &$active)
+if (! function_exists('thebrbre_get_search_active_keys')) {
+  function thebrbre_get_search_active_keys($array, $keysToFind, &$foundKeys, &$active)
   {
 
     foreach ($array as $key => $value) {
@@ -122,7 +122,7 @@ if (! function_exists('aabaddons_get_search_active_keys')) {
       }
       // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
       if (is_array($value)) {
-        aabaddons_get_search_active_keys($value, $keysToFind, $foundKeys, $active);
+        thebrbre_get_search_active_keys($value, $keysToFind, $foundKeys, $active);
       }
     }
   }
@@ -137,8 +137,8 @@ if (! function_exists('aabaddons_get_search_active_keys')) {
  *
  * @return false|mixed|string
  */
-if (! function_exists('aabaddons_get_local_plugin_data')) :
-  function aabaddons_get_local_plugin_data($basename = '')
+if (! function_exists('thebrbre_get_local_plugin_data')) :
+  function thebrbre_get_local_plugin_data($basename = '')
   {
     if (empty($basename)) {
       return false;
@@ -159,9 +159,9 @@ if (! function_exists('aabaddons_get_local_plugin_data')) :
 endif;
 
 
-if (! function_exists('aabaddons_get_db_updated_config')) {
+if (! function_exists('thebrbre_get_db_updated_config')) {
 
-  function aabaddons_get_db_updated_config(array &$configs, array $dbActiveElements)
+  function thebrbre_get_db_updated_config(array &$configs, array $dbActiveElements)
   {
     // Loop through each item in the configs array
     foreach ($configs as $key => &$element) {
@@ -176,7 +176,7 @@ if (! function_exists('aabaddons_get_db_updated_config')) {
 
       // Recursively call the function for any nested elements
       if (is_array($element)) {
-        aabaddons_get_db_updated_config($element, $dbActiveElements);
+        thebrbre_get_db_updated_config($element, $dbActiveElements);
       }
     }
   }
@@ -185,19 +185,19 @@ if (! function_exists('aabaddons_get_db_updated_config')) {
 
 
 
-if (! function_exists('aabaddons_get_settings')) {
+if (! function_exists('thebrbre_get_settings')) {
 
   /**
    * Return saved settings
    */
-  function aabaddons_get_settings($option_name, $element = null)
+  function thebrbre_get_settings($option_name, $element = null)
   {
     $elements = get_option($option_name);
     return (isset($element) ? (isset($elements[$element]) ? $elements[$element] : 0) : array_keys(array_filter($elements)));
   }
 }
 
-if (! function_exists('aabaddons_is_extension_active')) {
+if (! function_exists('thebrbre_is_extension_active')) {
 
   /**
    * Check if a specific extension is active.
@@ -205,13 +205,13 @@ if (! function_exists('aabaddons_is_extension_active')) {
    * @param string $slug Extension slug (e.g. 'aab-smooth-scroller').
    * @return bool
    */
-  function aabaddons_is_extension_active($slug)
+  function thebrbre_is_extension_active($slug)
   {
-    return (bool) aabaddons_get_settings('aab_save_extensions', $slug);
+    return (bool) thebrbre_get_settings('aab_save_extensions', $slug);
   }
 }
 
-if (! function_exists('aabaddons_is_widget_active')) {
+if (! function_exists('thebrbre_is_widget_active')) {
 
   /**
    * Check if a specific widget is active.
@@ -219,14 +219,14 @@ if (! function_exists('aabaddons_is_widget_active')) {
    * @param string $slug Widget slug (e.g. 'animated-offcanvas').
    * @return bool
    */
-  function aabaddons_is_widget_active($slug)
+  function thebrbre_is_widget_active($slug)
   {
-    return (bool) aabaddons_get_settings('aab_save_widgets', $slug);
+    return (bool) thebrbre_get_settings('aab_save_widgets', $slug);
   }
 }
 
 
-if (! function_exists('aabaddons_get_config')) {
+if (! function_exists('thebrbre_get_config')) {
 
   /**
    * Return the merged plugin config tree (widgets / extensions / integrations).
@@ -236,7 +236,7 @@ if (! function_exists('aabaddons_get_config')) {
    *
    * @return array
    */
-  function aabaddons_get_config()
+  function thebrbre_get_config()
   {
     $config = isset($GLOBALS['aabaddons_config']) && is_array($GLOBALS['aabaddons_config'])
       ? $GLOBALS['aabaddons_config']
@@ -246,7 +246,7 @@ if (! function_exists('aabaddons_get_config')) {
   }
 }
 
-if (! function_exists('aabaddons_translate_config_tree')) {
+if (! function_exists('thebrbre_translate_config_tree')) {
 
   /**
    * Recursively translate the user-facing strings in the config tree.
@@ -267,7 +267,7 @@ if (! function_exists('aabaddons_translate_config_tree')) {
    * @param array $node
    * @return array
    */
-  function aabaddons_translate_config_tree($node)
+  function thebrbre_translate_config_tree($node)
   {
     // Skip translation before `init` fires — Pro's bootstrap reads the
     // config on plugins_loaded for widget file-loading (slugs only, no
@@ -285,14 +285,14 @@ if (! function_exists('aabaddons_translate_config_tree')) {
 
     static $translations = null;
     if (null === $translations) {
-      $translations = function_exists('aabaddons_get_config_translations')
-        ? aabaddons_get_config_translations()
+      $translations = function_exists('thebrbre_get_config_translations')
+        ? thebrbre_get_config_translations()
         : array();
     }
 
     foreach ($node as $key => $value) {
       if (is_array($value)) {
-        $node[$key] = aabaddons_translate_config_tree($value);
+        $node[$key] = thebrbre_translate_config_tree($value);
       } elseif (is_string($value) && in_array($key, $translatable_keys, true) && $value !== '') {
         $node[$key] = isset($translations[$value]) ? $translations[$value] : $value;
       }
@@ -302,16 +302,16 @@ if (! function_exists('aabaddons_translate_config_tree')) {
   }
 }
 
-add_filter('aabaddons_dashboard_config', 'aabaddons_translate_config_tree', 5);
+add_filter('aabaddons_dashboard_config', 'thebrbre_translate_config_tree', 5);
 
-if (! function_exists('aabaddons_is_pro_active')) {
+if (! function_exists('thebrbre_is_pro_active')) {
 
   /**
    * Whether the Bricksfly Pro plugin is installed and active.
    *
    * @return bool
    */
-  function aabaddons_is_pro_active()
+  function thebrbre_is_pro_active()
   {
     if (defined('AAB_PRO_ADDONS_VERSION')) {
       return true;
@@ -325,7 +325,7 @@ if (! function_exists('aabaddons_is_pro_active')) {
   }
 }
 
-if (! function_exists('aabaddons_is_pro_installed')) {
+if (! function_exists('thebrbre_is_pro_installed')) {
 
   /**
    * Whether the Bricksfly Pro plugin folder + main file exist on
@@ -335,14 +335,14 @@ if (! function_exists('aabaddons_is_pro_installed')) {
    *
    * @return bool
    */
-  function aabaddons_is_pro_installed()
+  function thebrbre_is_pro_installed()
   {
     return file_exists(WP_PLUGIN_DIR . '/the-bricksfly-pro/the-bricksfly-pro.php');
   }
 }
 
 
-if (! function_exists('aab_is_license_valid')) {
+if (! function_exists('thebrbre_legacy_is_license_valid')) {
 
   /**
    * Whether the license is active AND the Pro plugin folder exists on disk.
@@ -354,14 +354,14 @@ if (! function_exists('aab_is_license_valid')) {
    *
    * @return bool
    */
-  function aab_is_license_valid()
+  function thebrbre_legacy_is_license_valid()
   {
-    return aab_is_pro_installed()
+    return thebrbre_legacy_is_pro_installed()
       && ('valid' === get_option('wcf_addon_sl_license_status'));
   }
 }
 
-if (! function_exists('aab_is_pro_installed')) {
+if (! function_exists('thebrbre_legacy_is_pro_installed')) {
 
   /**
    * Whether the Bricksfly Pro plugin folder + main file exist on
@@ -371,13 +371,13 @@ if (! function_exists('aab_is_pro_installed')) {
    *
    * @return bool
    */
-  function aab_is_pro_installed()
+  function thebrbre_legacy_is_pro_installed()
   {
     return file_exists(WP_PLUGIN_DIR . '/the-bricksfly-pro/the-bricksfly-pro.php');
   }
 }
 
-if (! function_exists('aabaddons_is_license_valid')) {
+if (! function_exists('thebrbre_is_license_valid')) {
 
   /**
    * Whether the license is active AND the Pro plugin folder exists on disk.
@@ -389,14 +389,14 @@ if (! function_exists('aabaddons_is_license_valid')) {
    *
    * @return bool
    */
-  function aabaddons_is_license_valid()
+  function thebrbre_is_license_valid()
   {
-    return aabaddons_is_pro_installed()
+    return thebrbre_is_pro_installed()
       && ('valid' === get_option('wcf_addon_sl_license_status'));
   }
 }
 
-if (! function_exists('aab_get_license_limitations')) {
+if (! function_exists('thebrbre_get_license_limitations')) {
 
   /**
    * Return the per-feature limitation flags for the active license.
@@ -414,13 +414,13 @@ if (! function_exists('aab_get_license_limitations')) {
    *   - animation           Animations
    *
    * Returns an empty array when there is no valid license, so every feature
-   * resolves to "not allowed" via aab_is_feature_allowed().
+   * resolves to "not allowed" via thebrbre_is_feature_allowed().
    *
    * @return array<string,bool>
    */
-  function aab_get_license_limitations()
+  function thebrbre_get_license_limitations()
   {
-    if (! aab_is_license_valid()) {
+    if (! thebrbre_legacy_is_license_valid()) {
       return array();
     }
 
@@ -430,7 +430,7 @@ if (! function_exists('aab_get_license_limitations')) {
   }
 }
 
-if (! function_exists('aab_is_feature_allowed')) {
+if (! function_exists('thebrbre_is_feature_allowed')) {
 
   /**
    * Whether a license-gated feature is available on this site.
@@ -446,15 +446,15 @@ if (! function_exists('aab_is_feature_allowed')) {
    * @param string $feature Feature key, e.g. 'starter_tpl_import'.
    * @return bool
    */
-  function aab_is_feature_allowed($feature)
+  function thebrbre_is_feature_allowed($feature)
   {
-    $limitations = aab_get_license_limitations();
+    $limitations = thebrbre_get_license_limitations();
 
     return ! empty($limitations[$feature]);
   }
 }
 
-if (! function_exists('aab_feature_denied_message')) {
+if (! function_exists('thebrbre_feature_denied_message')) {
 
   /**
    * Human-readable message shown when a license-gated feature is blocked.
@@ -464,7 +464,7 @@ if (! function_exists('aab_feature_denied_message')) {
    * @param string $feature Feature key.
    * @return string
    */
-  function aab_feature_denied_message($feature)
+  function thebrbre_feature_denied_message($feature)
   {
     switch ($feature) {
       case 'starter_tpl_import':

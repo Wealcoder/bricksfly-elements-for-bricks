@@ -1,6 +1,6 @@
 <?php
 
-namespace AABAddons\Includes\Traits;
+namespace wealcoder\bricksfly\Includes\Traits;
 
 if (! defined('ABSPATH')) {
 	exit;
@@ -33,7 +33,7 @@ trait Extension_Widgets_Trait
 
 		$foundKeys = [];
 		$active    = [];
-		aabaddons_get_search_active_keys($GLOBALS['aabaddons_config']['widgets'] ?? [], $saved_widgets, $foundKeys, $active);
+		thebrbre_get_search_active_keys($GLOBALS['aabaddons_config']['widgets'] ?? [], $saved_widgets, $foundKeys, $active);
 
 		return is_array($active) ? $active : [];
 	}
@@ -55,7 +55,7 @@ trait Extension_Widgets_Trait
 
 		$foundKeys = [];
 		$active    = [];
-		aabaddons_get_search_active_keys($GLOBALS['aabaddons_config']['extensions'] ?? [], $saved_extensions, $foundKeys, $active);
+		thebrbre_get_search_active_keys($GLOBALS['aabaddons_config']['extensions'] ?? [], $saved_extensions, $foundKeys, $active);
 
 		return is_array($active) ? $active : [];
 	}
@@ -68,7 +68,7 @@ trait Extension_Widgets_Trait
 	 */
 	public static function is_extension_active($slug)
 	{
-		return (bool) aabaddons_get_settings('aab_save_extensions', $slug);
+		return (bool) thebrbre_get_settings('aab_save_extensions', $slug);
 	}
 
 	/**
@@ -79,6 +79,6 @@ trait Extension_Widgets_Trait
 	 */
 	public static function is_widget_active($slug)
 	{
-		return (bool) aabaddons_get_settings('aab_save_widgets', $slug);
+		return (bool) thebrbre_get_settings('aab_save_widgets', $slug);
 	}
 }

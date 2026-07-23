@@ -1,6 +1,6 @@
 <?php
 
-namespace AABAddons\Admin;
+namespace wealcoder\bricksfly\Admin;
 
 use WP_Error;
 
@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit();
 }
 
-class AABAddon_Row_Actions {
+class THEBRBRE_Row_Actions {
 
 	private static $_instance = null;
 
@@ -20,7 +20,7 @@ class AABAddon_Row_Actions {
 	}
 
 	public function __construct() {
-		add_filter( 'plugin_action_links', [ $this, 'add_plugin_link' ], 10, 2 );
+		add_filter( 'plugin_action_links', [ $this, 'thebrbre_add_plugin_link' ], 10, 2 );
 		add_filter( 'plugin_row_meta', [ $this, '_plugin_row_meta' ], 10, 2 );
 		add_action( 'wp_ajax_aab_deactivate_feedback', [ $this, 'handle_deactivate_feedback' ] );
 	}
@@ -46,7 +46,7 @@ class AABAddon_Row_Actions {
 			'user_id'        => get_current_user_id(),
 			'site_url'       => get_site_url(),
 			'timestamp'      => current_time( 'mysql' ),
-			'plugin_version' => AAB_ADDONS_VERSION,
+			'plugin_version' => THEBRBRE_VERSION,
 		);
 
 		$existing_feedback   = get_option( 'aab_deactivation_feedback', array() );
@@ -57,7 +57,7 @@ class AABAddon_Row_Actions {
 	}
 
 	function _plugin_row_meta( $meta, $plugin_file ) {
-		if ( basename( AAB_ADDONS_BASE ) !== basename( $plugin_file ) ) {
+		if ( basename( THEBRBRE_BASE ) !== basename( $plugin_file ) ) {
 			return $meta;
 		}
 
@@ -70,9 +70,9 @@ class AABAddon_Row_Actions {
 		return $meta;
 	}
 
-	function add_plugin_link( $plugin_actions, $plugin_file ) {
+	function thebrbre_add_plugin_link( $plugin_actions, $plugin_file ) {
 		$new_actions = array();
-		if ( basename( AAB_ADDONS_BASE ) === basename( $plugin_file ) ) {
+		if ( basename( THEBRBRE_BASE ) === basename( $plugin_file ) ) {
 			$new_actions['aab-dsb-settings'] = sprintf(
 				'<a href="%s">%s</a>',
 				esc_url( admin_url( 'admin.php?page=bf_addons_settings' ) ),
@@ -83,4 +83,4 @@ class AABAddon_Row_Actions {
 	}
 }
 
-new AABAddon_Row_Actions();
+new THEBRBRE_Row_Actions();

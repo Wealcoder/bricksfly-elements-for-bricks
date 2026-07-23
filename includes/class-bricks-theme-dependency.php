@@ -1,6 +1,6 @@
 <?php
 
-namespace AABAddons\Includes;
+namespace wealcoder\bricksfly\Includes;
 
 defined('ABSPATH') || exit;
 
@@ -12,7 +12,7 @@ defined('ABSPATH') || exit;
  * 2. Blocks the user from switching away from Bricks while this plugin is
  *    active (child themes of Bricks are allowed).
  */
-class Bricks_Theme_Dependency
+class THEBRBRE_Bricks_Theme_Dependency
 {
 	const THEME_SLUG    = 'bricks';
 	const BLOCK_FLAG    = 'aab_addons_theme_switch_blocked';
@@ -126,4 +126,4 @@ class Bricks_Theme_Dependency
 	}
 }
 
-Bricks_Theme_Dependency::init();
+THEBRBRE_Bricks_Theme_Dependency::init();

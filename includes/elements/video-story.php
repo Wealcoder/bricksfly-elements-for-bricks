@@ -2,7 +2,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class AAB_Bricks_Video_Story extends \Bricks\Element {
+class THEBRBRE_Bricks_Video_Story extends \Bricks\Element {
 
 	public $category     = 'bricks fly';
 	public $name         = 'aab-video-story';
@@ -21,14 +21,14 @@ class AAB_Bricks_Video_Story extends \Bricks\Element {
 	public function enqueue_scripts() {
 		wp_enqueue_style(
 			'aab-video-story',
-			AAB_ADDONS_URL . 'public/build/elements/video-story.css',
+			THEBRBRE_URL . 'public/build/elements/video-story.css',
 			[],
 			'1.0.0'
 		);
 
 		wp_enqueue_script(
 			'aab-video-story',
-			AAB_ADDONS_URL . 'public/build/elements/video-story.js',
+			THEBRBRE_URL . 'public/build/elements/video-story.js',
 			[],
 			'1.0.0',
 			true

@@ -1,6 +1,6 @@
 <?php
 
-namespace AABAddons\Admin\Pages;
+namespace wealcoder\bricksfly\Admin\Pages;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit();
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 1.0.0
  */
-class AAB_Builder_Template_Library {
+class THEBRBRE_Builder_Template_Library {
 
 	const SCRIPT_HANDLE = 'aab-builder-template-library';
 	const STYLE_HANDLE  = 'aab-builder-template-library';
@@ -75,22 +75,22 @@ class AAB_Builder_Template_Library {
 
 		wp_enqueue_style(
 			self::STYLE_HANDLE,
-			AAB_ADDONS_URL . 'public/build/admin/aab-template-library.css',
+			THEBRBRE_URL . 'public/build/admin/aab-template-library.css',
 			[],
-			AAB_ADDONS_VERSION
+			THEBRBRE_VERSION
 		);
 
 		wp_enqueue_script(
 			self::SCRIPT_HANDLE,
-			AAB_ADDONS_URL . 'public/build/admin/aab-template-library.js',
+			THEBRBRE_URL . 'public/build/admin/aab-template-library.js',
 			[ 'jquery' ],
-			AAB_ADDONS_VERSION,
+			THEBRBRE_VERSION,
 			true
 		);
 
-		$pro_installed = function_exists( 'aabaddons_is_pro_installed' ) ? aabaddons_is_pro_installed() : false;
-		$pro_active    = function_exists( 'aabaddons_is_pro_active' ) ? aabaddons_is_pro_active() : false;
-		$license_valid = function_exists( 'aabaddons_is_license_valid' ) ? aabaddons_is_license_valid() : false;
+		$pro_installed = function_exists( 'thebrbre_is_pro_installed' ) ? thebrbre_is_pro_installed() : false;
+		$pro_active    = function_exists( 'thebrbre_is_pro_active' ) ? thebrbre_is_pro_active() : false;
+		$license_valid = function_exists( 'thebrbre_is_license_valid' ) ? thebrbre_is_license_valid() : false;
 
 		// In the Bricks builder context, `get_the_ID()` resolves to the post
 		// being edited (Bricks loads the front-end template chain just like
@@ -114,7 +114,7 @@ class AAB_Builder_Template_Library {
 				'post_id'         => $post_id,
 				// BricksFly brand mark shown inside the toolbar "Import Section"
 				// button. Uses the same canonical logo the rest of the admin uses.
-				'logo_url'        => esc_url( AAB_ADDONS_URL . 'public/images/plugin_logo.png' ),
+				'logo_url'        => esc_url( THEBRBRE_URL . 'public/images/plugin_logo.png' ),
 				'template_types'  => self::get_template_types(),
 				'remote_api'      => apply_filters(
 					'aabaddons_builder_template_library_remote_api',
@@ -140,8 +140,8 @@ class AAB_Builder_Template_Library {
 						// Section import is gated by this flag (also enforced
 						// server-side in ajax_insert_template()). The JS uses it
 						// to show an upsell popup before the request is sent.
-						'section_import' => function_exists( 'aab_is_feature_allowed' ) && aab_is_feature_allowed( 'section_import' ),
-						'limitations'    => function_exists( 'aab_get_license_limitations' ) ? aab_get_license_limitations() : [],
+						'section_import' => function_exists( 'thebrbre_is_feature_allowed' ) && thebrbre_is_feature_allowed( 'section_import' ),
+						'limitations'    => function_exists( 'thebrbre_get_license_limitations' ) ? thebrbre_get_license_limitations() : [],
 					]
 				),
 				'i18n'            => [
@@ -229,9 +229,9 @@ class AAB_Builder_Template_Library {
 		// flag on the active license. Enforced server-side so the client lock
 		// (AAB_TEMPLATE_LIBRARY.config.section_import) can't be bypassed by a
 		// forged AJAX call. `limited:true` lets the JS show the upsell popup.
-		if ( function_exists( 'aab_is_feature_allowed' ) && ! aab_is_feature_allowed( 'section_import' ) ) {
-			$message = function_exists( 'aab_feature_denied_message' )
-				? aab_feature_denied_message( 'section_import' )
+		if ( function_exists( 'thebrbre_is_feature_allowed' ) && ! thebrbre_is_feature_allowed( 'section_import' ) ) {
+			$message = function_exists( 'thebrbre_feature_denied_message' )
+				? thebrbre_feature_denied_message( 'section_import' )
 				: __( 'Section import is not included in your current license plan.', 'the-bricksfly' );
 
 			wp_send_json_error( [
@@ -419,4 +419,4 @@ class AAB_Builder_Template_Library {
 	}
 }
 
-AAB_Builder_Template_Library::instance();
+THEBRBRE_Builder_Template_Library::instance();

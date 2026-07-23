@@ -2,7 +2,7 @@
 
 if (!defined('ABSPATH')) exit;
 
-class Aae_Bricks_Team extends \Bricks\Element
+class THEBRBRE_Bricks_Team extends \Bricks\Element
 {
     public $category     = 'bricks fly';
     public $name         = 'aae-team';
@@ -510,7 +510,7 @@ class Aae_Bricks_Team extends \Bricks\Element
 
         wp_enqueue_style(
             'aae-team',
-            AAB_ADDONS_URL . 'public/build/elements/team.css',
+            THEBRBRE_URL . 'public/build/elements/team.css',
             [],
             '1.0.0'
         );

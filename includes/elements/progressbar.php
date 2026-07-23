@@ -2,7 +2,7 @@
 
 if (! defined('ABSPATH')) exit;
 
-class AAB_Bricks_Progressbar extends \Bricks\Element
+class THEBRBRE_Bricks_Progressbar extends \Bricks\Element
 {
 
 	public $category     = 'bricks fly';
@@ -25,24 +25,24 @@ class AAB_Bricks_Progressbar extends \Bricks\Element
 	{
 		wp_enqueue_style(
 			'aab-progressbar',
-			AAB_ADDONS_URL . 'public/build/elements/progressbar.css',
+			THEBRBRE_URL . 'public/build/elements/progressbar.css',
 			[],
-			AAB_ADDONS_VERSION
+			THEBRBRE_VERSION
 		);
 
 		wp_enqueue_script(
 			'aab-progressbar-lib',
-			AAB_ADDONS_URL . 'public/js/lib/progressbar.min.js',
+			THEBRBRE_URL . 'public/js/lib/progressbar.min.js',
 			[],
-			AAB_ADDONS_VERSION,
+			THEBRBRE_VERSION,
 			true
 		);
 
 		wp_enqueue_script(
 			'aab-progressbar',
-			AAB_ADDONS_URL . 'public/build/elements/progressbar.js',
+			THEBRBRE_URL . 'public/build/elements/progressbar.js',
 			['aab-progressbar-lib', 'bricks-scripts'],
-			AAB_ADDONS_VERSION,
+			THEBRBRE_VERSION,
 			true
 		);
 	}

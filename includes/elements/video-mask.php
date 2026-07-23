@@ -2,7 +2,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class AAB_Bricks_Video_Mask extends \Bricks\Element {
+class THEBRBRE_Bricks_Video_Mask extends \Bricks\Element {
 
 	public $category     = 'bricks fly';
 	public $name         = 'aab-video-mask';
@@ -24,14 +24,14 @@ class AAB_Bricks_Video_Mask extends \Bricks\Element {
 
 		wp_enqueue_style(
 			'aab-video-mask',
-			AAB_ADDONS_URL . 'public/build/elements/video-mask.css',
+			THEBRBRE_URL . 'public/build/elements/video-mask.css',
 			[],
 			'1.0.0'
 		);
 
 		wp_enqueue_script(
 			'aab-video-mask',
-			AAB_ADDONS_URL . 'public/build/elements/video-mask.js',
+			THEBRBRE_URL . 'public/build/elements/video-mask.js',
 			[],
 			'1.0.0',
 			true
@@ -391,7 +391,7 @@ class AAB_Bricks_Video_Mask extends \Bricks\Element {
 		$settings = $this->settings;
 
 		$mask_shape     = ! empty( $settings['maskShape'] ) ? $settings['maskShape'] : 'circle';
-		$mask_image_url = AAB_ADDONS_URL . 'public/images/mask-shapes/' . $mask_shape . '.svg';
+		$mask_image_url = THEBRBRE_URL . 'public/images/mask-shapes/' . $mask_shape . '.svg';
 		$content_color  = '';
 
 		if ( ! empty( $settings['maskContentColor'] ) ) {
