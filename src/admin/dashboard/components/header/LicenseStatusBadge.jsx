@@ -6,15 +6,15 @@ import { RiCheckboxCircleFill, RiErrorWarningFill } from "react-icons/ri";
  * Reads the activation state from the localized config rather than from React
  * context, so it works in any app that loads it — the Page Importer app does
  * NOT provide the dashboard's activate/notification context, so a context hook
- * would read stale/default data here. `product_status.item_id === 13` is the
- * same "license valid" flag the rest of the UI gates Pro features on (set
+ * would read stale/default data here. `product_status.item_id === 39996` is
+ * the same "license valid" flag the rest of the UI gates Pro features on (set
  * server-side in page-import.php / dashboard.php from the live license option).
  */
 const LicenseStatusBadge = () => {
   const config =
     (typeof AAB_ADDONS_ADMIN !== "undefined" && AAB_ADDONS_ADMIN.addons_config) ||
     {};
-  const isActive = config?.product_status?.item_id === 13;
+  const isActive = config?.product_status?.item_id === 39996;
 
   return (
     <div

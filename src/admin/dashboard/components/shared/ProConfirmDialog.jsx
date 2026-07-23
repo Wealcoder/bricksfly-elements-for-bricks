@@ -23,7 +23,7 @@ const ProConfirmDialog = ({ open, setOpen, reason }) => {
   //    the requested feature (e.g. starter_tpl_import / starter_page_import).
   // A limitation block is shown as a plan-upgrade prompt, since re-activating
   // the same key won't unlock the feature.
-  const isLicensed = activated?.product_status?.item_id === 13;
+  const isLicensed = activated?.product_status?.item_id === 39996;
   const isLimitation = reason === "limitation" || (isLicensed && open);
 
   const heading = isLimitation
@@ -138,7 +138,7 @@ const ProConfirmDialog = ({ open, setOpen, reason }) => {
                     <RiKey2Line size={20} />
                   </span>
 
-                  {activated?.product_status?.item_id === 13
+                  {activated?.product_status?.item_id === 39996
                     ? "Deactivate License"
                     : "Activate License"}
                 </Button>

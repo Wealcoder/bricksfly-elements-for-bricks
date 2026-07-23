@@ -25,7 +25,7 @@ const ElementCard = ({
 
   const checkStatus = () => {
     if (element?.is_pro && (element?.pro_only ?? false)) {
-      if (activated?.product_status?.item_id === 13) {
+      if (activated?.product_status?.item_id === 39996) {
         return true;
       } else {
         return false;

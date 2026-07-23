@@ -140,8 +140,8 @@ class AAB_Builder_Template_Library {
 						// Section import is gated by this flag (also enforced
 						// server-side in ajax_insert_template()). The JS uses it
 						// to show an upsell popup before the request is sent.
-						'section_import' => function_exists( 'aab_is_feature_allowed' ) && aab_is_feature_allowed( 'section_import' ),
-						'limitations'    => function_exists( 'aab_get_license_limitations' ) ? aab_get_license_limitations() : [],
+						'section_import' => function_exists( 'thebrbre_is_feature_allowed' ) && thebrbre_is_feature_allowed( 'section_import' ),
+						'limitations'    => function_exists( 'thebrbre_get_license_limitations' ) ? thebrbre_get_license_limitations() : [],
 					]
 				),
 				'i18n'            => [
@@ -229,9 +229,9 @@ class AAB_Builder_Template_Library {
 		// flag on the active license. Enforced server-side so the client lock
 		// (AAB_TEMPLATE_LIBRARY.config.section_import) can't be bypassed by a
 		// forged AJAX call. `limited:true` lets the JS show the upsell popup.
-		if ( function_exists( 'aab_is_feature_allowed' ) && ! aab_is_feature_allowed( 'section_import' ) ) {
-			$message = function_exists( 'aab_feature_denied_message' )
-				? aab_feature_denied_message( 'section_import' )
+		if ( function_exists( 'thebrbre_is_feature_allowed' ) && ! thebrbre_is_feature_allowed( 'section_import' ) ) {
+			$message = function_exists( 'thebrbre_feature_denied_message' )
+				? thebrbre_feature_denied_message( 'section_import' )
 				: __( 'Section import is not included in your current license plan.', 'the-bricksfly' );
 
 			wp_send_json_error( [

@@ -25,7 +25,7 @@ const TemplateShow = ({ allTemplate, metaData, setMetaData }) => {
   const { setTabKey } = useTNavigation();
   const { activated } = useActivate();
 
-  const isLicensed = activated?.product_status?.item_id === 13;
+  const isLicensed = activated?.product_status?.item_id === 39996;
   const pageImportAllowed =
     isLicensed &&
     !!activated?.product_status?.limitations?.[PAGE_IMPORT_FEATURE];

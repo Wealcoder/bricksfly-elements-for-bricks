@@ -14,7 +14,6 @@ const RequiredFeatures = () => {
   const { setTabKey } = useTNavigation();
   const [currenTemplate, setCurrenTemplate] = useState({});
   const [selectedPlugins, setSelectedPlugins] = useState([]);
-  const [selectedTheme, setSelectedTheme] = useState("");
   const [allowAttachment, setAllowAttachment] = useState(true);
   const [loading, setIsLoading] = useState(true);
 
@@ -31,9 +30,6 @@ const RequiredFeatures = () => {
     url.searchParams.set("tab", value);
     if (selectedPlugins && selectedPlugins?.length) {
       url.searchParams.set("plugins", selectedPlugins.toString());
-    }
-    if (selectedTheme) {
-      url.searchParams.set("theme", selectedTheme);
     }
     url.searchParams.set("attachment", allowAttachment);
 
@@ -130,13 +126,13 @@ const RequiredFeatures = () => {
             <div className="mb-7">
               <h3 className="text-2xl font-medium">Required Features</h3>
               <p className="mt-1.5 text-text-secondary">
-                Install every plugins, themes and extensions listed below.
+                Install every plugin and extension listed below.
               </p>
             </div>
             <div>
               <Accordion
                 type="multiple"
-                defaultValue={["plugins", "themes"]}
+                defaultValue={["plugins"]}
                 className="w-full space-y-3"
               >
                 {currenTemplate?.dependencies?.plugins?.length ? (
@@ -192,60 +188,6 @@ const RequiredFeatures = () => {
                           </div>
                         )
                       )}
-                    </AccordionContent>
-                  </AccordionItem>
-                ) : (
-                  ""
-                )}
-
-                {currenTemplate?.dependencies?.themes?.length ? (
-                  <AccordionItem
-                    value="themes"
-                    className="border px-4 rounded-xl"
-                  >
-                    <AccordionTrigger>
-                      <div className="flex justify-between items-center gap-4 w-full mr-2.5">
-                        <h3 className="text-lg text-medium">
-                          Recommended Themes
-                        </h3>
-                        <p className="text-text-secondary">
-                          {currenTemplate?.dependencies?.themes?.length} Themes
-                        </p>
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="mt-2 space-y-4">
-                      {currenTemplate?.dependencies?.themes?.map((theme, i) => (
-                        <div
-                          className="flex items-center space-x-2.5"
-                          key={theme.slug + i}
-                        >
-                          <Checkbox
-                            id={`theme-${theme.slug}`}
-                            checked={selectedTheme === theme?.slug}
-                            disabled={
-                              selectedTheme && selectedTheme !== theme?.slug
-                            }
-                            onCheckedChange={(value) =>
-                              setSelectedTheme(value ? theme?.slug : "")
-                            }
-                          />
-                          <label
-                            htmlFor={`theme-${theme.slug}`}
-                            className="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                          >
-                            {theme.title}
-                          </label>
-                          <Badge
-                            variant={
-                              theme?.status === "Not Installed"
-                                ? "inProgress"
-                                : "installed"
-                            }
-                          >
-                            {theme?.status}
-                          </Badge>
-                        </div>
-                      ))}
                     </AccordionContent>
                   </AccordionItem>
                 ) : (

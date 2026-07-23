@@ -150,16 +150,16 @@ class AAB_Template_Importer {
 	 * @return void
 	 */
 	public static function guard_import_feature( $feature ) {
-		if ( ! function_exists( 'aab_is_feature_allowed' ) ) {
+		if ( ! function_exists( 'thebrbre_is_feature_allowed' ) ) {
 			return;
 		}
 
-		if ( aab_is_feature_allowed( $feature ) ) {
+		if ( thebrbre_is_feature_allowed( $feature ) ) {
 			return;
 		}
 
-		$message = function_exists( 'aab_feature_denied_message' )
-			? aab_feature_denied_message( $feature )
+		$message = function_exists( 'thebrbre_feature_denied_message' )
+			? thebrbre_feature_denied_message( $feature )
 			: __( 'This feature is not included in your current license plan.', 'the-bricksfly' );
 
 		wp_send_json( array(
@@ -194,11 +194,8 @@ class AAB_Template_Importer {
 		$progress      = '25';
 		$msg           = '';
 		$template_data = [];
-		$theme_slug    = $user_plugins = null;
+		$user_plugins  = null;
 
-		if ( isset( $_POST['theme_slug'] ) ) {
-			$theme_slug = sanitize_text_field( wp_unslash( $_POST['theme_slug'] ) );
-		}
 		if ( isset( $_POST['user_plugins'] ) ) {
 			$user_plugins = sanitize_text_field( wp_unslash( $_POST['user_plugins'] ) );
 			$user_plugins = explode( ',', $user_plugins );
@@ -276,20 +273,10 @@ class AAB_Template_Importer {
 				$msg                        = __( 'Verifying Content Import', 'the-bricksfly' );
 				update_option( 'aab_template_import_state', __( 'Checking Theme', 'the-bricksfly' ) );
 
-			} elseif ( $next_step === 'check-theme' ) {
-				if ( $theme_slug ) {
-					$template_data['next_step'] = 'install-theme';
-					$progress                   = '75';
-					update_option( 'aab_template_import_state', __( 'Installing Theme', 'the-bricksfly' ) );
-				} else {
-					$template_data['next_step'] = 'install-bricks-settings';
-				}
+			} elseif ( $next_step === 'check-theme' ) {				
+					$template_data['next_step'] = 'install-bricks-settings';			
 
-			} elseif ( $next_step === 'install-theme' ) {
-				$template_data['next_step'] = 'install-bricks-settings';
-				$progress                   = '80';	
-
-			} elseif ( $next_step === 'install-bricks-settings' || $next_step === 'install-elementor-settings' ) {
+			}  elseif ( $next_step === 'install-bricks-settings' ) {
 				$template_data['next_step'] = 'done';
 				$progress                   = '100';						
 
@@ -611,59 +598,6 @@ class AAB_Template_Importer {
 		}
 
 		return $body;
-	}
-
-	private function install_theme( $slug ) {
-		if ( empty( $slug ) ) {
-			return __( 'No theme specified.', 'the-bricksfly' );
-		}
-
-		$theme_slug = sanitize_key( $slug );
-		$theme_data = wp_get_theme( $theme_slug );
-
-		if ( $theme_data->exists() ) {
-			switch_theme( $theme_slug );
-			$msg = sprintf(
-				/* translators: %s: human-readable theme name. */
-				__( 'Theme "%s" activated successfully.', 'the-bricksfly' ),
-				$theme_data->get( 'Name' )
-			);
-			update_option( 'aab_template_import_state', $msg );
-			return $msg;
-		}
-
-		require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
-		require_once ABSPATH . 'wp-admin/includes/theme.php';
-
-		$api = themes_api( 'theme_information', [
-			'slug'   => $theme_slug,
-			'fields' => [ 'sections' => false ],
-		] );
-
-		if ( is_wp_error( $api ) ) {
-			return $api->get_error_message();
-		}
-
-		$upgrader = new \Theme_Upgrader( new \WP_Ajax_Upgrader_Skin() );
-		$result   = $upgrader->install( $api->download_link );
-
-		if ( is_wp_error( $result ) ) {
-			update_option( 'aab_template_import_state', $result->get_error_message() );
-			return $result->get_error_message();
-		}
-
-		$theme_data = wp_get_theme( $theme_slug );
-		if ( $theme_data->exists() ) {
-			switch_theme( $theme_slug );
-		}
-
-		$msg = sprintf(
-			/* translators: %s: theme slug that was installed and activated. */
-			__( 'Theme "%s" installed and activated.', 'the-bricksfly' ),
-			$theme_slug
-		);
-		update_option( 'aab_template_import_state', $msg );
-		return $msg;
 	}
 
 	private function install_plugin_from_wp( $slug ) {

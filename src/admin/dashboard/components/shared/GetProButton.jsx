@@ -3,17 +3,10 @@ import { Button, buttonVariants } from "../ui/button";
 import { toast } from "sonner";
 import { RiKey2Line, RiVipCrown2Line } from "react-icons/ri";
 import { cn } from "@/lib/utils";
-import { useEffect, useState } from "react";
-import LicenseDialog from "./LicenseDialog";
 
-const GetProButton = ({ btnClassName, showLicense }) => {
+const GetProButton = ({ btnClassName }) => {
   const { activated } = useActivate();
-  const [openLicense, setOpenLicense] = useState(false);
   const role = AAB_ADDONS_ADMIN.user_role;
-
-  useEffect(() => {
-    setOpenLicense(showLicense);
-  }, [showLicense]);
 
   const activePlugin = async () => {
     await fetch(AAB_ADDONS_ADMIN.ajaxurl, {
@@ -73,7 +66,7 @@ const GetProButton = ({ btnClassName, showLicense }) => {
           <Button
             variant="pro"
             onClick={() => {
-              setOpenLicense(true);
+              window.location.href = AAB_ADDONS_ADMIN.license_settings_url;
             }}
             className={btnClassName}
           >
@@ -81,12 +74,11 @@ const GetProButton = ({ btnClassName, showLicense }) => {
               <RiKey2Line size={20} />
             </span>
 
-            {activated?.product_status?.item_id === 13
-              ? "Deactivate License"
+            {activated?.product_status?.item_id === 39996
+              ? "Manage License"
               : "Activate License"}
           </Button>
         ))}
-      <LicenseDialog open={openLicense} setOpen={setOpenLicense} />
     </div>
   );
 };

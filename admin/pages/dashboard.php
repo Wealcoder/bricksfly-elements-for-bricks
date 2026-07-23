@@ -300,11 +300,11 @@ class AAB_Admin_Init
 		global $submenu;
 
 
-		// License link — opens the React License dialog via ?bf-license=1.
-		// Registered via $submenu directly so the query string is preserved
-		// (add_submenu_page URL-encodes `&` in the slug, breaking the param).
+		// License link — navigates to the real License Settings page
+		// (thebrbre-license-settings), replacing the old React modal
+		// entry point (?bf-license=1).
 		if (is_plugin_active('the-bricksfly-pro/the-bricksfly-pro.php')) {
-			$license_active = function_exists('aab_addons_sl_is_valid') && aab_addons_sl_is_valid();
+			$license_active = function_exists('thebrbre_license_is_valid') && thebrbre_license_is_valid();
 			$license_label  = esc_html__('License', 'the-bricksfly');
 			if ($license_active) {
 				$license_label .= ' <span class="bf-license-menu-badge" style="display:inline-block;margin-left:6px;width:8px;height:8px;border-radius:50%;background:#10b981;vertical-align:middle;"></span>';
@@ -312,7 +312,7 @@ class AAB_Admin_Init
 			$submenu[self::MENU_PAGE_SLUG][] = array(
 				$license_label,
 				'manage_options',
-				admin_url('admin.php?page=bf_addons_settings&bf-license=1'),
+				admin_url('admin.php?page=thebrbre-license-settings'),
 			);
 		}
 
@@ -384,8 +384,8 @@ class AAB_Admin_Init
 
 		// License info for the React LicenseDialog (mirrors the shared contract
 		// from animation-addons-for-elementor-pro).
-		$aab_license_status = (string) get_option('wcf_addon_sl_license_status', '');
-		$aab_license_key    = (string) get_option('wcf_addon_sl_license_key', '');
+		$aab_license_status = (string) get_option('thebrbre_license_status', '');
+		$aab_license_key    = (string) get_option('thebrbre_license_key', '');
 
 		// The license counts as valid only when BOTH the Pro plugin folder is
 		// installed AND the stored license status is "valid". This gates the
@@ -401,17 +401,17 @@ class AAB_Admin_Init
 		$addons_config['aab_valid'] = $aab_license_valid;
 
 		// NOTE: the compiled React dashboard (shared with animation-addons-for-elementor)
-		// uses a strict `13 === product_status.item_id` check to flip the header button
+		// uses a strict `39996 === product_status.item_id` check to flip the header button
 		// to "Deactivate License" and to pick the deactivate AJAX action. We send 13
 		// when the license is valid so the bundled UI recognises the activated state —
 		// the actual EDD API request uses our real item ID (AAB_ADDON_PRO_ITEM_ID).
 		// Per-feature license limitations (Template / Section / Page import etc.).
 		// Empty array when the license isn't valid — the React import gate treats
 		// a missing/false flag as "not allowed" and shows the upsell popup.
-		$aab_limitations = function_exists('aab_get_license_limitations') ? aab_get_license_limitations() : array();
+		$aab_limitations = function_exists('thebrbre_get_license_limitations') ? thebrbre_get_license_limitations() : array();
 
 		$addons_config['product_status'] = [
-			'item_id'      => $aab_license_valid ? 13 : 0,
+			'item_id'      => $aab_license_valid ? 39996 : 0,
 			'status'       => $aab_license_status,
 			'real_item_id' => AAB_ADDON_PRO_ITEM_ID,
 			'limitations'  => $aab_limitations,
@@ -447,6 +447,7 @@ class AAB_Admin_Init
 			'plugin_url' => AAB_ADDONS_URL,
 			'has_pro' => file_exists($this->plugin_file),
 			'breakpoints' => $bricks_breakpoints,
+			'license_settings_url' => admin_url('admin.php?page=thebrbre-license-settings'),
 
 			// Dynamic replacement copy for the compiled React "Upgrade" dialog.
 			// The bundle hardcodes the default strings; a small inline script

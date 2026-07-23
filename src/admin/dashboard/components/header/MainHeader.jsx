@@ -6,15 +6,16 @@ import GlobalSearch from "../shared/GlobalSearch";
 import MobileNav from "./MobileNav";
 import Notification from "../notification";
 import GetProButton from "../shared/GetProButton";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 const MainHeader = ({ open, setOpen }) => {
-  const [showLicense, setShowLicense] = useState(false);
+  // Old bookmarks/links to the removed React License modal (?bf-license=1)
+  // land here — redirect straight to the real License Settings page rather
+  // than reviving the modal.
   useEffect(() => {
     const url = new URL(window.location.href);
-    const license = url.searchParams.get("bf-license");
-    if (license === "1") {
-      setShowLicense(true);
+    if (url.searchParams.get("bf-license") === "1") {
+      window.location.replace(AAB_ADDONS_ADMIN.license_settings_url);
     }
   }, []);
 
@@ -38,7 +39,7 @@ const MainHeader = ({ open, setOpen }) => {
         <div className="block xl:hidden">
           <MobileNav />
         </div>
-        <GetProButton showLicense={showLicense} />
+        <GetProButton />
       </div>
       <GlobalSearch open={open} setOpen={setOpen} />
     </div>

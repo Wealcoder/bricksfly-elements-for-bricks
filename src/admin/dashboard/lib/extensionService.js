@@ -1,6 +1,6 @@
 const isValid = AAB_ADDONS_ADMIN.addons_config.aab_valid;
 const isOnlyPro =
-  AAB_ADDONS_ADMIN.addons_config?.product_status?.item_id === 13;
+  AAB_ADDONS_ADMIN.addons_config?.product_status?.item_id === 39996;
 
 export const generalExtensionFn = (mainContent, data, dispatch) => {
   const result = Object.fromEntries(

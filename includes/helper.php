@@ -342,48 +342,13 @@ if (! function_exists('aabaddons_is_pro_installed')) {
 }
 
 
-if (! function_exists('aab_is_license_valid')) {
-
-  /**
-   * Whether the license is active AND the Pro plugin folder exists on disk.
-   *
-   * The stored license option is unreliable on its own: if the user removes
-   * the Pro plugin folder manually, `wcf_addon_sl_license_status` stays
-   * 'valid' until the next remote check. We require both to be true before
-   * unlocking Pro-gated UI / features.
-   *
-   * @return bool
-   */
-  function aab_is_license_valid()
-  {
-    return aab_is_pro_installed()
-      && ('valid' === get_option('wcf_addon_sl_license_status'));
-  }
-}
-
-if (! function_exists('aab_is_pro_installed')) {
-
-  /**
-   * Whether the Bricksfly Pro plugin folder + main file exist on
-   * disk. Independent of whether the plugin is currently activated — used to
-   * gate features that must not run at all when Pro isn't available, such as
-   * the site-settings extensions and pro extension toggles.
-   *
-   * @return bool
-   */
-  function aab_is_pro_installed()
-  {
-    return file_exists(WP_PLUGIN_DIR . '/the-bricksfly-pro/the-bricksfly-pro.php');
-  }
-}
-
 if (! function_exists('aabaddons_is_license_valid')) {
 
   /**
    * Whether the license is active AND the Pro plugin folder exists on disk.
    *
    * The stored license option is unreliable on its own: if the user removes
-   * the Pro plugin folder manually, `wcf_addon_sl_license_status` stays
+   * the Pro plugin folder manually, `thebrbre_license_status` stays
    * 'valid' until the next remote check. We require both to be true before
    * unlocking Pro-gated UI / features.
    *
@@ -392,18 +357,18 @@ if (! function_exists('aabaddons_is_license_valid')) {
   function aabaddons_is_license_valid()
   {
     return aabaddons_is_pro_installed()
-      && ('valid' === get_option('wcf_addon_sl_license_status'));
+      && ('valid' === get_option('thebrbre_license_status'));
   }
 }
 
-if (! function_exists('aab_get_license_limitations')) {
+if (! function_exists('thebrbre_get_license_limitations')) {
 
   /**
    * Return the per-feature limitation flags for the active license.
    *
    * The flags are written by the Pro plugin's license activate/check flow
    * (see the-bricksfly-pro/includes/license/update.php) into the
-   * `wcf_addon_sl_license_limitations` option, as a map of feature => bool.
+   * `thebrbre_license_limitations` option, as a map of feature => bool.
    *
    * Known feature keys (tier-dependent — any may be absent):
    *   - starter_tpl_import  Template (starter / full-demo) import
@@ -414,23 +379,23 @@ if (! function_exists('aab_get_license_limitations')) {
    *   - animation           Animations
    *
    * Returns an empty array when there is no valid license, so every feature
-   * resolves to "not allowed" via aab_is_feature_allowed().
+   * resolves to "not allowed" via thebrbre_is_feature_allowed().
    *
    * @return array<string,bool>
    */
-  function aab_get_license_limitations()
+  function thebrbre_get_license_limitations()
   {
-    if (! aab_is_license_valid()) {
+    if (! aabaddons_is_license_valid()) {
       return array();
     }
 
-    $limitations = get_option('wcf_addon_sl_license_limitations', array());
+    $limitations = get_option('thebrbre_license_limitations', array());
 
     return is_array($limitations) ? $limitations : array();
   }
 }
 
-if (! function_exists('aab_is_feature_allowed')) {
+if (! function_exists('thebrbre_is_feature_allowed')) {
 
   /**
    * Whether a license-gated feature is available on this site.
@@ -446,15 +411,15 @@ if (! function_exists('aab_is_feature_allowed')) {
    * @param string $feature Feature key, e.g. 'starter_tpl_import'.
    * @return bool
    */
-  function aab_is_feature_allowed($feature)
+  function thebrbre_is_feature_allowed($feature)
   {
-    $limitations = aab_get_license_limitations();
+    $limitations = thebrbre_get_license_limitations();
 
     return ! empty($limitations[$feature]);
   }
 }
 
-if (! function_exists('aab_feature_denied_message')) {
+if (! function_exists('thebrbre_feature_denied_message')) {
 
   /**
    * Human-readable message shown when a license-gated feature is blocked.
@@ -464,7 +429,7 @@ if (! function_exists('aab_feature_denied_message')) {
    * @param string $feature Feature key.
    * @return string
    */
-  function aab_feature_denied_message($feature)
+  function thebrbre_feature_denied_message($feature)
   {
     switch ($feature) {
       case 'starter_tpl_import':

@@ -5,7 +5,6 @@ const FailImport = () => {
   const template = url.searchParams.get("template");
   const templateid = url.searchParams.get("templateid");
   const plugins = url.searchParams.get("plugins");
-  const theme = url.searchParams.get("theme");
   const msg = url.searchParams.get("msg");
 
   const changeRoute = (value) => {
@@ -18,7 +17,6 @@ const FailImport = () => {
       url.searchParams.set("template", template);
       url.searchParams.set("templateid", templateid);
       if (plugins) url.searchParams.set("plugins", plugins);
-      if (theme) url.searchParams.set("theme", theme);
     }
     window.history.replaceState({}, "", url);
     window.location.reload();

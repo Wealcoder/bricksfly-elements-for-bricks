@@ -16,7 +16,6 @@ const DemoImporting = () => {
   const template = url.searchParams.get("template");
   const templateid = url.searchParams.get("templateid");
   const plugins = url.searchParams.get("plugins");
-  const theme = url.searchParams.get("theme");
   const attachment = url.searchParams.get("attachment");
 
   const changeRoute = (value, meta) => {
@@ -28,7 +27,6 @@ const DemoImporting = () => {
     url.searchParams.set("templateid", templateid);
     url.searchParams.set("tab", value);
     if (meta.plugins) url.searchParams.set("plugins", meta.plugins);
-    if (meta.theme) url.searchParams.set("theme", meta.theme);
     url.searchParams.set("attachment", meta.attachment);
     if (meta.msg) url.searchParams.set("msg", meta.msg);
     window.history.replaceState({}, "", url);
@@ -152,7 +150,6 @@ const DemoImporting = () => {
         formData.append("template_data", JSON.stringify(tpldata));
         formData.append("nonce", AAB_ADDONS_ADMIN.nonce);
         if (plugins) formData.append("user_plugins", plugins);
-        if (theme) formData.append("theme_slug", theme);
         formData.append("attachment", attachment);
 
         const response = await fetch(AAB_ADDONS_ADMIN.ajaxurl, {
@@ -175,7 +172,6 @@ const DemoImporting = () => {
             setMsg(data.message || "This feature is not included in your license plan.");
             changeRoute("fail-import", {
               plugins,
-              theme,
               attachment,
               msg: data.message,
             });
@@ -206,7 +202,6 @@ const DemoImporting = () => {
             } else if (data.template.next_step === "fail") {
               changeRoute("fail-import", {
                 plugins,
-                theme,
                 attachment,
                 msg: data.msg,
               });
@@ -224,7 +219,6 @@ const DemoImporting = () => {
         setMsg(error.message);
         changeRoute("fail-import", {
           plugins,
-          theme,
           attachment,
           msg: error.message,
         });

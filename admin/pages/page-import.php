@@ -157,7 +157,7 @@ class AAB_Page_Importer {
 		//
 		// The bug this fixes: the Page Importer used to localize a bare
 		// `addons_config` with no license fields, so the React app's Pro gate
-		// (TemplateShow.jsx: `activated?.product_status?.item_id === 13`) never
+		// (TemplateShow.jsx: `activated?.product_status?.item_id === 39996 `) never
 		// saw the active license and kept every Pro template locked. The
 		// Dashboard already enriches its config this way; we mirror it here so
 		// BOTH pages read the SAME single source of truth.
@@ -167,8 +167,8 @@ class AAB_Page_Importer {
 		// done elsewhere is reflected on the next load of this page.
 		$addons_config = apply_filters( 'aabaddons_dashboard_config', $GLOBALS['aabaddons_config'] ?? [] );
 
-		$license_status = (string) get_option( 'wcf_addon_sl_license_status', '' );
-		$license_key    = (string) get_option( 'wcf_addon_sl_license_key', '' );
+		$license_status = (string) get_option( 'thebrbre_license_status', '' );
+		$license_key    = (string) get_option( 'thebrbre_license_key', '' );
 
 		// Valid only when the Pro plugin folder exists AND the stored status is
 		// "valid" — the same combined check used by aabaddons_is_license_valid() and
@@ -180,15 +180,15 @@ class AAB_Page_Importer {
 		$addons_config['is_pro']    = $pro_installed;
 		$addons_config['aab_valid'] = $license_valid;
 
-		// The compiled React UI unlocks Pro items on `product_status.item_id === 13`.
-		// Send 13 only when the license is valid (mirrors the Dashboard); the real
+		// The compiled React UI unlocks Pro items on `product_status.item_id === 39996 `.
+		// Send 39996 only when the license is valid (mirrors the Dashboard); the real
 		// EDD item id is carried separately for the actual API verification flow.
 		// Per-feature license limitations — same single source of truth as the
 		// Dashboard so the Page Importer's Pro gate reads identical state.
-		$limitations = function_exists( 'aab_get_license_limitations' ) ? aab_get_license_limitations() : array();
+		$limitations = function_exists( 'thebrbre_get_license_limitations' ) ? thebrbre_get_license_limitations() : array();
 
 		$addons_config['product_status'] = [
-			'item_id'      => $license_valid ? 13 : 0,
+			'item_id'      => $license_valid ? 39996 : 0,
 			'status'       => $license_status,
 			'real_item_id' => defined( 'AAB_ADDON_PRO_ITEM_ID' ) ? AAB_ADDON_PRO_ITEM_ID : 0,
 			'limitations'  => $limitations,

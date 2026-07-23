@@ -55,7 +55,7 @@ const LicenseDialog = ({ open, setOpen }) => {
     setErrorMessage("");
     const body_args = {
       action:
-        activated?.product_status?.item_id === 13
+        activated?.product_status?.item_id === 39996
           ? "wcf_addon_pro_sl_deactivate"
           : "wcf_addon_pro_sl_activate",
       wcf_addon_sl_license_key: data.license,
@@ -63,7 +63,7 @@ const LicenseDialog = ({ open, setOpen }) => {
       nonce: AAB_ADDONS_ADMIN.nonce,
     };
 
-    if (activated?.product_status?.item_id === 13) {
+    if (activated?.product_status?.item_id === 39996) {
       body_args["edd_license_deactivate"] = true;
     }
 
@@ -239,7 +239,7 @@ const LicenseDialog = ({ open, setOpen }) => {
                       <Input
                         placeholder="Enter your license key here"
                         value={
-                          activated?.product_status?.item_id === 13
+                          activated?.product_status?.item_id === 39996
                             ? getMaskedValue(field.value || "")
                             : field.value
                         }
@@ -265,7 +265,7 @@ const LicenseDialog = ({ open, setOpen }) => {
             <Separator className="my-6 bg-[#EAECF0]" />
             <Button type="submit" variant="pro" className="w-full gap-2">
               {loading ? <Loader2 className="animate-spin" /> : ""}
-              {activated?.product_status?.item_id === 13
+              {activated?.product_status?.item_id === 39996
                 ? "Deactivate your license"
                 : "Activate your license"}
             </Button>
