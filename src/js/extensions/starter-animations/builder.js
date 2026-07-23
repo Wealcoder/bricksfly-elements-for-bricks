@@ -18,8 +18,8 @@ import {
 
 // Mark the document so CSS knows we're in the builder iframe.
 const markBuilder = () => {
-  document.documentElement.classList.add("aab-builder");
-  document.body && document.body.classList.add("aab-builder");
+  document.documentElement.classList.add("thebrbre-builder");
+  document.body && document.body.classList.add("thebrbre-builder");
 };
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", markBuilder);
@@ -27,7 +27,7 @@ if (document.readyState === "loading") {
   markBuilder();
 }
 
-// Animation-type class names emitted by class-aab-starter-animations.php.
+// Animation-type class names emitted by class-thebrbre-starter-animations.php.
 const ALL_TYPES = [
   "reveal",
   "scale-up",
@@ -62,55 +62,55 @@ const ALL_CHAR_PRESETS = [
  * refresh — this patches them before every play click.
  */
 function applyStarterAnimClasses(el, settings) {
-  ALL_TYPES.forEach((t) => el.classList.remove("aab-starter-animations-" + t));
+  ALL_TYPES.forEach((t) => el.classList.remove("thebrbre-starter-animations-" + t));
 
   ALL_DIRECTIONS.forEach((d) => {
-    el.classList.remove("aab-reveal-" + d, "aab-slide-" + d);
+    el.classList.remove("thebrbre-reveal-" + d, "thebrbre-slide-" + d);
   });
   el.classList.remove(
-    "aab-reveal-yes",
-    "aab-flip-axis-x",
-    "aab-flip-axis-y",
-    "aab-flip-axis-container-x",
-    "aab-flip-axis-container-y",
-    "aab-repeat-yes",
-    "aab-repeat-no",
+    "thebrbre-reveal-yes",
+    "thebrbre-flip-axis-x",
+    "thebrbre-flip-axis-y",
+    "thebrbre-flip-axis-container-x",
+    "thebrbre-flip-axis-container-y",
+    "thebrbre-repeat-yes",
+    "thebrbre-repeat-no",
   );
-  ALL_CHAR_PRESETS.forEach((p) => el.classList.remove("aab-char-preset-" + p));
+  ALL_CHAR_PRESETS.forEach((p) => el.classList.remove("thebrbre-char-preset-" + p));
 
   if (!settings.type || settings.type === "none") return;
 
-  el.classList.add("aab-starter-animations-" + settings.type);
+  el.classList.add("thebrbre-starter-animations-" + settings.type);
 
   if (!settings.isContainer) {
-    el.classList.add("aab-target-self");
+    el.classList.add("thebrbre-target-self");
   }
 
   if (settings.type === "reveal") {
-    el.classList.add("aab-reveal-" + (settings.revealDirection || "bottom"));
-    if (settings.revealFade) el.classList.add("aab-reveal-yes");
+    el.classList.add("thebrbre-reveal-" + (settings.revealDirection || "bottom"));
+    if (settings.revealFade) el.classList.add("thebrbre-reveal-yes");
   }
   if (settings.type === "slide") {
-    el.classList.add("aab-slide-" + (settings.slideDirection || "bottom"));
+    el.classList.add("thebrbre-slide-" + (settings.slideDirection || "bottom"));
   }
   if (settings.type === "flip") {
     el.classList.add(
       settings.isContainer
-        ? "aab-flip-axis-container-" + (settings.flipAxis || "x")
-        : "aab-flip-axis-" + (settings.flipAxis || "x"),
+        ? "thebrbre-flip-axis-container-" + (settings.flipAxis || "x")
+        : "thebrbre-flip-axis-" + (settings.flipAxis || "x"),
     );
   }
   if (settings.type === "text-char-animate") {
-    el.classList.add("aab-char-preset-" + (settings.charPreset || "revolve"));
+    el.classList.add("thebrbre-char-preset-" + (settings.charPreset || "revolve"));
   }
   if (settings.repeat === "yes") {
-    el.classList.add("aab-repeat-yes");
+    el.classList.add("thebrbre-repeat-yes");
   }
-  // text-bg-clip needs --aab-bg-text-image as an inline CSS variable because
+  // text-bg-clip needs --thebrbre-bg-text-image as an inline CSS variable because
   // PHP sets it via apply_render_classes, not a live Bricks css[] property.
   if (settings.type === "text-bg-clip" && settings.bgTextImageUrl) {
     el.style.setProperty(
-      "--aab-bg-text-image",
+      "--thebrbre-bg-text-image",
       "url(" + settings.bgTextImageUrl + ")",
     );
   }
@@ -118,7 +118,7 @@ function applyStarterAnimClasses(el, settings) {
 
 // Fires when the editor panel "Play" button is clicked.
 window.addEventListener("message", function (e) {
-  if (!e.data || e.data.type !== "aab-play-starter-animation") return;
+  if (!e.data || e.data.type !== "thebrbre-play-starter-animation") return;
 
   const elementId = e.data.elementId;
   if (!elementId) return;
@@ -128,10 +128,10 @@ window.addEventListener("message", function (e) {
 
   // Remove any leftover state from a previous play.
   el.classList.remove(
-    "aab-animate",
-    "aab-preinit",
-    "aab-playing",
-    "aab-played",
+    "thebrbre-animate",
+    "thebrbre-preinit",
+    "thebrbre-playing",
+    "thebrbre-played",
   );
 
   // Apply class-based settings from the panel.
@@ -175,18 +175,18 @@ window.addEventListener("message", function (e) {
   handleWave(el);
   handleTypewriter(el);
 
-  // Typewriter is JS-driven — aab-animate alone doesn't type the text.
-  if (el.classList.contains("aab-starter-animations-text-typewriter")) {
+  // Typewriter is JS-driven — thebrbre-animate alone doesn't type the text.
+  if (el.classList.contains("thebrbre-starter-animations-text-typewriter")) {
     runTypewriter(el);
   }
 
   // Force reflow so class removal takes effect before re-adding.
   void el.offsetWidth;
 
-  // aab-playing (not aab-preinit) gates hidden states in the builder.
-  el.classList.add("aab-playing");
+  // thebrbre-playing (not thebrbre-preinit) gates hidden states in the builder.
+  el.classList.add("thebrbre-playing");
 
   requestAnimationFrame(function () {
-    el.classList.add("aab-animate");
+    el.classList.add("thebrbre-animate");
   });
 });

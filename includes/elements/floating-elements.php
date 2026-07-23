@@ -2,16 +2,16 @@
 
 if (! defined('ABSPATH')) exit;
 
-use AABAddons\Includes\Extensions\Helpers\ResponsiveHelper;
+use wealcoder\bricksfly\Includes\Extensions\Helpers\ResponsiveHelper;
 
-class AAB_Bricks_Floating_Elements extends \Bricks\Element
+class THEBRBRE_Bricks_Floating_Elements extends \Bricks\Element
 {
 
 	public $category     = 'bricks fly';
 	public $name         = 'aab-floating-elements';
 	public $icon         = 'ti-layout-media-overlay aab-element-marker';
 	public $css_selector = '.aab-floating-elements';
-	public $scripts      = ['aabFloatingElements'];
+	public $scripts      = ['thebrbreFloatingElements'];
 
 	public function get_label()
 	{
@@ -28,7 +28,7 @@ class AAB_Bricks_Floating_Elements extends \Bricks\Element
 
 		wp_enqueue_style(
 			'aab-floating-elements',
-			AAB_ADDONS_URL . 'public/build/elements/floating-elements.css',
+			THEBRBRE_URL . 'public/build/elements/floating-elements.css',
 			[],
 			'1.0.0'
 		);
@@ -39,7 +39,7 @@ class AAB_Bricks_Floating_Elements extends \Bricks\Element
 		if (bricks_is_builder()) {
 			wp_enqueue_script(
 				'aab-floating-elements-builder',
-				AAB_ADDONS_URL . 'public/build/elements/floating-elements.js',
+				THEBRBRE_URL . 'public/build/elements/floating-elements.js',
 				[],
 				'1.0.0',
 				true

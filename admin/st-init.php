@@ -1,6 +1,6 @@
 <?php
 
-namespace AABAddons\Admin\Base;
+namespace wealcoder\bricksfly\Admin\Base;
 
 use WP_Error;
 
@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class OneClickImport {
 
-	public $file_path = 'aab_tpl_file.xml';
+	public $file_path = 'thebrbre_tpl_file.xml';
 	private static $instance;
 	public $importer;
 
@@ -36,50 +36,50 @@ class OneClickImport {
 	}
 
 	protected function __construct() {
-		add_action( 'wp_ajax_aab_upload_manual_import_file', [ $this, 'import_demo_data_ajax_callback' ] );
+		add_action( 'wp_ajax_thebrbre_upload_manual_import_file', [ $this, 'import_demo_data_ajax_callback' ] );
 		add_action( 'admin_init', [ $this, 'setup_st_importer' ] );
 		add_action( 'admin_init', [ $this, 'migrate_import_tracking_keys' ], 5 );
 		add_action( 'set_object_terms', array( $this, 'add_imported_terms' ), 10, 6 );
-		add_filter( 'wxr_importer.pre_process.post', [ $this, 'skip_failed_attachment_import' ] );
-		add_action( 'wxr_importer.process_failed.post', [ $this, 'handle_failed_attachment_import' ], 10, 5 );
+		add_filter( 'thebrbre_importer.pre_process.post', [ $this, 'skip_failed_attachment_import' ] );
+		add_action( 'thebrbre_importer.process_failed.post', [ $this, 'handle_failed_attachment_import' ], 10, 5 );
 		add_action( 'wp_import_insert_post', [ $this, 'save_wp_navigation_import_mapping' ], 10, 4 );
 		add_action( 'wp_import_insert_post', [ $this, 'save_wp_page_import_track' ], 10, 4 );
-		add_action( 'aabaddons_import_existing_post', [ $this, 'save_wp_page_import_track' ], 10, 4 );
-		add_action( 'aabaddons/after_import', [ $this, 'fix_imported_wp_navigation' ] );
-		add_action( 'wp_ajax_aab_get_latest_imported_pages', [ $this, 'aab_get_latest_imported_pages' ] );
+		add_action('thebrbre_import_existing_post', [ $this, 'save_wp_page_import_track' ], 10, 4 );
+		add_action('thebrbre/after_import', [ $this, 'fix_imported_wp_navigation' ] );
+		add_action( 'wp_ajax_thebrbre_get_latest_imported_pages', [ $this, 'thebrbre_get_latest_imported_pages' ] );
 	}
 
 	/**
 	 * Migrate import tracking data written by releases that used the old prefix.
 	 */
 	public function migrate_import_tracking_keys() {
-		if ( ! current_user_can( 'edit_pages' ) || get_option( 'aab_import_tracking_migrated' ) ) {
+		if ( ! current_user_can( 'edit_pages' ) || get_option( 'thebrbre_import_tracking_migrated' ) ) {
 			return;
 		}
 
 		$legacy_batch_id = get_option( 'aae_last_import_batch' );
-		if ( $legacy_batch_id && ! get_option( 'aab_last_import_batch' ) ) {
-			update_option( 'aab_last_import_batch', $legacy_batch_id, false );
+		if ( $legacy_batch_id && ! get_option( 'thebrbre_last_import_batch' ) ) {
+			update_option( 'thebrbre_last_import_batch', $legacy_batch_id, false );
 		}
 		delete_option( 'aae_last_import_batch' );
 
 		global $wpdb;
 		$wpdb->update(
 			$wpdb->postmeta,
-			[ 'meta_key' => 'aab_import_batch' ],
+			[ 'meta_key' => 'thebrbre_import_batch' ],
 			[ 'meta_key' => 'aae_import_batch' ],
 			[ '%s' ],
 			[ '%s' ]
 		);
 		$wpdb->update(
 			$wpdb->postmeta,
-			[ 'meta_key' => 'aab_imported' ],
+			[ 'meta_key' => 'thebrbre_imported' ],
 			[ 'meta_key' => 'aae_imported' ],
 			[ '%s' ],
 			[ '%s' ]
 		);
 
-		update_option( 'aab_import_tracking_migrated', 1, false );
+		update_option( 'thebrbre_import_tracking_migrated', 1, false );
 	}
 
 	private function __clone() {}
@@ -88,7 +88,7 @@ class OneClickImport {
 	public function save_wp_page_import_track( $post_id, $original_id, $postdata, $data ) {
 		// wp_insert_post() can return a WP_Error (and the WXR importer fires this
 		// hook before its own is_wp_error() check). Bail on any non-positive /
-		// error id, otherwise we'd point 'aab_last_import_batch' at a batch that
+		// error id, otherwise we'd point 'thebrbre_last_import_batch' at a batch that
 		// has no real post — which makes "Go to page" resolve to nothing and the
 		// latest imported page never show.
 		if ( is_wp_error( $post_id ) || ! ( (int) $post_id > 0 ) ) {
@@ -101,20 +101,20 @@ class OneClickImport {
 			// a multi-second import across batches). The option is updated only
 			// for valid pages, so it always references a real, imported page.
 			if ( empty( $this->page_import_batch_id ) ) {
-				$this->page_import_batch_id = 'wxr_' . gmdate( 'Ymd_His' ) . '_' . wp_generate_password( 6, false );
+				$this->page_import_batch_id = 'thebrbre_' . gmdate( 'Ymd_His' ) . '_' . wp_generate_password( 6, false );
 			}
 			$batch_id = $this->page_import_batch_id;
 
-			update_option( 'aab_last_import_batch', $batch_id );
-			add_post_meta( $post_id, 'aab_import_batch', $batch_id, true );
-			add_post_meta( $post_id, 'aab_imported', 1, true );
+			update_option( 'thebrbre_last_import_batch', $batch_id );
+			add_post_meta( $post_id, 'thebrbre_import_batch', $batch_id, true );
+			add_post_meta( $post_id, 'thebrbre_imported', 1, true );
 		}
 	}
 
-	function aab_get_latest_imported_pages() {
+	function thebrbre_get_latest_imported_pages() {
 		if (
 			! isset( $_POST['nonce'] ) ||
-			! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'aab_admin_nonce' )
+			! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'thebrbre_admin_nonce' )
 		) {
 			wp_send_json_error( [ 'message' => esc_html__( 'Invalid or missing nonce', 'the-bricksfly' ) ], 403 );
 		}
@@ -126,7 +126,7 @@ class OneClickImport {
 		$this->migrate_import_tracking_keys();
 
 		$per_page = isset( $_POST['per_page'] ) ? max( 1, (int) $_POST['per_page'] ) : 1;
-		$batch_id = get_option( 'aab_last_import_batch' );
+		$batch_id = get_option( 'thebrbre_last_import_batch' );
 
 		// Order by ID (insertion order), NOT date: imported pages keep the
 		// template's original post_date, so "date DESC" surfaces the wrong page.
@@ -148,7 +148,7 @@ class OneClickImport {
 			$q = new \WP_Query( $base_args + [
 				'meta_query' => [
 					[
-						'key'     => 'aab_import_batch',
+						'key'     => 'thebrbre_import_batch',
 						'value'   => $batch_id,
 						'compare' => '=',
 					],
@@ -163,7 +163,7 @@ class OneClickImport {
 			$q = new \WP_Query( $base_args + [
 				'meta_query' => [
 					[
-						'key'     => 'aab_imported',
+						'key'     => 'thebrbre_imported',
 						'value'   => 1,
 						'compare' => '=',
 					],
@@ -195,7 +195,7 @@ class OneClickImport {
 	}
 
 	public function import_demo_data_ajax_callback() {
-		ini_set( 'memory_limit', Helpers::apply_filters( 'aabaddons/st/import_memory_limit', '1024M' ) );
+		ini_set( 'memory_limit', Helpers::apply_filters('thebrbre/st/import_memory_limit', '1024M' ) );
 
 		Helpers::verify_ajax_call();
 
@@ -205,11 +205,11 @@ class OneClickImport {
 		// (→ `starter_tpl_import`). Enforced server-side so a forged request
 		// cannot bypass the UI lock. `guard_import_feature()` halts with a
 		// `limited:true` JSON envelope when the feature isn't in the plan.
-		if ( class_exists( '\AABAddons\Admin\Pages\AAB_Template_Importer' ) ) {
+		if ( class_exists( '\wealcoder\bricksfly\Admin\Pages\THEBRBRE_Template_Importer' ) ) {
 			// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce is verified above by Helpers::verify_ajax_call().
 			$import_type = isset( $_POST['import_type'] ) ? sanitize_text_field( wp_unslash( $_POST['import_type'] ) ) : 'full-demo';
 			$feature     = ( 'page' === $import_type ) ? 'starter_page_import' : 'starter_tpl_import';
-			\AABAddons\Admin\Pages\AAB_Template_Importer::guard_import_feature( $feature );
+			\wealcoder\bricksfly\Admin\Pages\THEBRBRE_Template_Importer::guard_import_feature( $feature );
 		}
 
 		$use_existing_importer_data = $this->use_existing_importer_data();
@@ -220,7 +220,7 @@ class OneClickImport {
 			$this->selected_index = 0;
 			$template_data        = [];
 
-			check_ajax_referer( 'aab_admin_nonce', 'nonce' );
+			check_ajax_referer( 'thebrbre_admin_nonce', 'nonce' );
 			if ( isset( $_POST['template_data'] ) ) {
 				$json_data     = sanitize_text_field( wp_unslash( $_POST['template_data'] ) );
 				$template_data = json_decode( $json_data, true );
@@ -259,18 +259,18 @@ class OneClickImport {
 
 		if ( ! $this->before_import_executed ) {
 			$this->before_import_executed = true;
-			Helpers::do_action( 'aabaddons/before_content_import_execution', $this->selected_import_files, $this->import_files, $this->selected_index );
+			Helpers::do_action('thebrbre/before_content_import_execution', $this->selected_import_files, $this->import_files, $this->selected_index );
 		}
 
 		if ( ! empty( $this->selected_import_files['content'] ) ) {
 			$this->append_to_frontend_error_messages( $this->importer->import_content( $this->selected_import_files['content'] ) );
 		}
 
-		Helpers::do_action( 'aabaddons/after_content_import_execution', $this->selected_import_files, $this->import_files, $this->selected_index );
+		Helpers::do_action('thebrbre/after_content_import_execution', $this->selected_import_files, $this->import_files, $this->selected_index );
 
 		Helpers::set_st_import_data_transient( $this->get_current_importer_data() );
 
-		if ( false !== Helpers::has_action( 'aabaddons/after_all_import_execution' ) ) {
+		if ( false !== Helpers::has_action('thebrbre/after_all_import_execution' ) ) {
 			wp_send_json( array( 'status' => 'afterAllImportAJAX' ) );
 		}
 
@@ -281,22 +281,22 @@ class OneClickImport {
 	public function after_all_import_data_ajax_callback() {
 		Helpers::verify_ajax_call();
 		if ( $this->use_existing_importer_data() ) {
-			Helpers::do_action( 'aabaddons/after_all_import_execution', $this->selected_import_files, $this->import_files, $this->selected_index );
+			Helpers::do_action('thebrbre/after_all_import_execution', $this->selected_import_files, $this->import_files, $this->selected_index );
 		}
 		$this->update_terms_count();
 		$this->final_response();
 	}
 
 	private function final_response() {
-		delete_transient( 'aab_st_importer_data' );
-		delete_transient( 'aab_st_mporter_data_failed_attachment_imports' );
-		delete_transient( 'aab_import_menu_mapping' );
-		delete_transient( 'aab_import_posts_with_nav_block' );
+		delete_transient( 'thebrbre_st_importer_data' );
+		delete_transient( 'thebrbre_st_mporter_data_failed_attachment_imports' );
+		delete_transient( 'thebrbre_import_menu_mapping' );
+		delete_transient( 'thebrbre_import_posts_with_nav_block' );
 
 		$response['msg']      = esc_html__( 'Congrats, your demo has been imported.', 'the-bricksfly' );
 		$response['progress'] = 80;
 
-		check_ajax_referer( 'aab_admin_nonce', 'nonce' );
+		check_ajax_referer( 'thebrbre_admin_nonce', 'nonce' );
 		if ( isset( $_POST['template_data'] ) ) {
 			if ( isset( $template_data['local_path'] ) ) {
 				unset( $template_data['local_path'] );
@@ -311,7 +311,7 @@ class OneClickImport {
 	}
 
 	private function use_existing_importer_data() {
-		if ( $data = get_transient( 'aab_st_importer_data' ) ) {
+		if ( $data = get_transient( 'thebrbre_st_importer_data' ) ) {
 			$this->frontend_error_messages = empty( $data['frontend_error_messages'] ) ? array() : $data['frontend_error_messages'];
 			$this->log_file_path           = empty( $data['log_file_path'] ) ? '' : $data['log_file_path'];
 			$this->selected_index          = empty( $data['selected_index'] ) ? 0 : $data['selected_index'];
@@ -373,7 +373,7 @@ class OneClickImport {
 				? sanitize_text_field( wp_unslash( $_POST['nonce'] ) )
 				: '';
 
-			if ( ! wp_verify_nonce( $nonce, 'aab_admin_nonce' ) ) {
+			if ( ! wp_verify_nonce( $nonce, 'thebrbre_admin_nonce' ) ) {
 				return;
 			}
 		}
@@ -430,15 +430,15 @@ class OneClickImport {
 
 		if ( $postdata['post_type'] !== 'wp_navigation' ) {
 			if ( ! empty( $postdata['post_content'] ) && strpos( $postdata['post_content'], '<!-- wp:navigation' ) !== false ) {
-				$wcfio_post_nav_block = get_transient( 'aab_import_posts_with_nav_block' );
+				$wcfio_post_nav_block = get_transient( 'thebrbre_import_posts_with_nav_block' );
 				if ( empty( $wcfio_post_nav_block ) ) {
 					$wcfio_post_nav_block = [];
 				}
 				$wcfio_post_nav_block[] = $post_id;
-				set_transient( 'aab_import_posts_with_nav_block', $wcfio_post_nav_block, HOUR_IN_SECONDS );
+				set_transient( 'thebrbre_import_posts_with_nav_block', $wcfio_post_nav_block, HOUR_IN_SECONDS );
 			}
 		} else {
-			$wcfio_menu_mapping = get_transient( 'aab_import_menu_mapping' );
+			$wcfio_menu_mapping = get_transient( 'thebrbre_import_menu_mapping' );
 			if ( empty( $wcfio_menu_mapping ) ) {
 				$wcfio_menu_mapping = [];
 			}
@@ -446,13 +446,13 @@ class OneClickImport {
 				'original_menu_id' => $original_id,
 				'new_menu_id'      => $post_id,
 			];
-			set_transient( 'aab_import_menu_mapping', $wcfio_menu_mapping, HOUR_IN_SECONDS );
+			set_transient( 'thebrbre_import_menu_mapping', $wcfio_menu_mapping, HOUR_IN_SECONDS );
 		}
 	}
 
 	public function fix_imported_wp_navigation() {
-		$nav_import_mapping = get_transient( 'aab_import_menu_mapping' );
-		$posts_nav_block    = get_transient( 'aab_import_posts_with_nav_block' );
+		$nav_import_mapping = get_transient( 'thebrbre_import_menu_mapping' );
+		$posts_nav_block    = get_transient( 'thebrbre_import_posts_with_nav_block' );
 
 		if ( empty( $nav_import_mapping ) || empty( $posts_nav_block ) ) {
 			return;

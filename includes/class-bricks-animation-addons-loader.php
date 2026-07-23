@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @subpackage Bricks_Animation_Addons/includes
  * @author     Zilani <zilani.wealcoder@gmail.com>
  */
-class AABAddons_Loader {
+class THEBRBRE_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.

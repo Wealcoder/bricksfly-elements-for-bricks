@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @subpackage Bricks_Animation_Addons/includes
  * @author     Zilani <zilani.wealcoder@gmail.com>
  */
-class AABAddons_Deactivator {
+class THEBRBRE_Deactivator {
 
 	/**
 	 * Short Description. (use period)

@@ -1,6 +1,6 @@
 <?php
 
-namespace AABAddons\Admin\Notices;
+namespace wealcoder\bricksfly\Admin\Notices;
 
 defined( 'ABSPATH' ) || exit();
 
@@ -21,13 +21,13 @@ class Notices {
 	public function __construct() {
 		add_action( 'admin_init', array( $this, 'add_admin_notices' ) );
 
-		$this->plugin_prefix = 'aab_notice_';
+		$this->plugin_prefix = 'thebrbre_notice_';
 		add_action( 'wp_ajax_' . $this->plugin_prefix . '_dismiss_notice', array( $this, 'ajax_dismiss_notice' ) );
 		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
 	}
 
 	public function add_admin_notices() {
-		$installed_time = absint( get_option( 'aab_installed' ) );
+		$installed_time = absint( get_option( 'thebrbre_installed' ) );
 		$current_time   = absint( wp_date( 'U' ) );
 		$plugin_file    = WP_PLUGIN_DIR . '/the-bricksfly-pro/the-bricksfly-pro.php';
 

@@ -23,7 +23,7 @@ if (! defined('ABSPATH')) {
  * @param string $context Context passed by wp_kses().
  * @return array
  */
-function aabaddons_kses_allow_element_attrs($tags, $context)
+function thebrbre_kses_allow_element_attrs($tags, $context)
 {
   if ('post' !== $context) {
     return $tags;
@@ -116,32 +116,32 @@ function aabaddons_kses_allow_element_attrs($tags, $context)
 // calls (used to escape element output at echo time) keep data-/aria-
 // attributes and inline SVG. array_merge-only, so it never narrows the
 // default post allowlist used elsewhere.
-add_filter('wp_kses_allowed_html', 'aabaddons_kses_allow_element_attrs', 10, 2);
+add_filter('wp_kses_allowed_html', 'thebrbre_kses_allow_element_attrs', 10, 2);
 
 // smooth scroller
-function aabaddons_add_header_smoother_start()
+function thebrbre_add_header_smoother_start()
 {
   echo '<div id="smooth-wrapper"><div id="smooth-content">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 }
 
-function aabaddons_add_header_smoother_end()
+function thebrbre_add_header_smoother_end()
 {
   echo '</div></div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 }
 
-add_action('wp_body_open', 'aabaddons_add_header_smoother_start');
+add_action('wp_body_open', 'thebrbre_add_header_smoother_start');
 
-add_action('wp_footer', 'aabaddons_add_header_smoother_end', -1);
+add_action('wp_footer', 'thebrbre_add_header_smoother_end', -1);
 
 // Plugin-logo branding for the plugin's custom Bricks elements (left-side
 // elements drawer in the Bricks builder).
-function aabaddons_enqueue_element_logo_css()
+function thebrbre_enqueue_element_logo_css()
 {
   if (! function_exists('bricks_is_builder_main') || ! bricks_is_builder_main()) {
     return;
   }
 
-  $url = esc_url(AAB_ADDONS_URL . 'public/images/plugin_logo.png');
+  $url = esc_url(THEBRBRE_URL . 'public/images/plugin_logo.png');
 
   $css = ''
     // Elements drawer (left): logo pinned to the top-left corner of the card.
@@ -168,8 +168,8 @@ function aabaddons_enqueue_element_logo_css()
     . 'vertical-align:-2px;'
     . '}';
 
-  wp_register_style('aab-element-logo', false, [], AAB_ADDONS_VERSION);
+  wp_register_style('aab-element-logo', false, [], THEBRBRE_VERSION);
   wp_enqueue_style('aab-element-logo');
   wp_add_inline_style('aab-element-logo', $css);
 }
-add_action('wp_enqueue_scripts', 'aabaddons_enqueue_element_logo_css', 100);
+add_action('wp_enqueue_scripts', 'thebrbre_enqueue_element_logo_css', 100);

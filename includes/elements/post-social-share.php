@@ -2,13 +2,13 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class AAB_Bricks_Post_Social_Share extends \Bricks\Element {
+class THEBRBRE_Bricks_Post_Social_Share extends \Bricks\Element {
 
 	public $category     = 'bricks fly';
 	public $name         = 'aab-post-social-share';
 	public $icon         = 'ti-sharethis aab-element-marker';
 	public $css_selector = '.aab-social-share';
-	public $scripts      = [ 'aabPostSocialShare' ];
+	public $scripts      = [ 'thebrbrePostSocialShare' ];
 
 	public function get_label() {
 		return esc_html__('Social Share', 'the-bricksfly');
@@ -24,14 +24,14 @@ class AAB_Bricks_Post_Social_Share extends \Bricks\Element {
 
 		wp_enqueue_style(
 			'aab-post-social-share',
-			AAB_ADDONS_URL . 'public/build/elements/post-social-share.css',
+			THEBRBRE_URL . 'public/build/elements/post-social-share.css',
 			[],
 			'1.0.0'
 		);
 
 		wp_enqueue_script(
 			'aab-post-social-share',
-			AAB_ADDONS_URL . 'public/build/elements/post-social-share.js',
+			THEBRBRE_URL . 'public/build/elements/post-social-share.js',
 			[],
 			'1.0.0',
 			true
@@ -686,7 +686,7 @@ class AAB_Bricks_Post_Social_Share extends \Bricks\Element {
 		$show_separator = ! empty( $settings['showSeparator'] );
 
 		$post_id        = get_the_ID();
-		$current_shares = $show_count ? get_post_meta( $post_id, 'aab_post_shares', true ) : [];
+		$current_shares = $show_count ? get_post_meta( $post_id, 'thebrbre_post_shares', true ) : [];
 
 		$this->set_attribute( '_root', 'class', [ 'aab-social-share', 'aab-share-' . $style ] );
 

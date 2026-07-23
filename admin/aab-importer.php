@@ -1,6 +1,6 @@
 <?php
 
-namespace AABAddons\Admin\Base;
+namespace wealcoder\bricksfly\Admin\Base;
 
 use WP_Error;
 use XMLReader;
@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit();
 }
 
-class AABImporter extends WXRImporter {
+class THEBRBRE_Importer_Bootstrap extends WXRImporter {
 
 	public function __construct( $options = array() ) {
 		parent::__construct( $options );
@@ -18,7 +18,7 @@ class AABImporter extends WXRImporter {
 		$this->mapping['user_slug'][ $current_user_obj->user_login ] = $current_user_obj->ID;
 
 		if ( class_exists( 'WooCommerce' ) ) {
-			add_filter( 'wxr_importer.pre_process.term', array( $this, 'woocommerce_product_attributes_registration' ), 10, 1 );
+			add_filter( 'thebrbre_importer.pre_process.term', array( $this, 'woocommerce_product_attributes_registration' ), 10, 1 );
 		}
 	}
 

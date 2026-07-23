@@ -24,7 +24,7 @@ if (! defined('ABSPATH')) {
  * @subpackage Bricks_Animation_Addons/public
  * @author     Zilani <zilani.wealcoder@gmail.com>
  */
-class AABAddons_Public
+class THEBRBRE_Public
 {
 
 	/**
@@ -66,7 +66,7 @@ class AABAddons_Public
 	 */
 	public function enqueue_styles()
 	{
-		wp_enqueue_style($this->plugin_name, AAB_ADDONS_URL . 'public/build/frontend.css', array('bricks-frontend'), $this->version, 'all');
+		wp_enqueue_style($this->plugin_name, THEBRBRE_URL . 'public/build/frontend.css', array('bricks-frontend'), $this->version, 'all');
 	}
 
 	/**
@@ -82,7 +82,7 @@ class AABAddons_Public
 		// `scroll-smoother` handles via includes/core/lib-scripts.php.
 
 		// Base plugin script.
-		wp_enqueue_script($this->plugin_name, AAB_ADDONS_URL . 'public/build/frontend.js', array(), $this->version, false);
+		wp_enqueue_script($this->plugin_name, THEBRBRE_URL . 'public/build/frontend.js', array(), $this->version, false);
 	}
 
 	public function enqueue_editor_panel()
@@ -92,8 +92,8 @@ class AABAddons_Public
 		}
 
 		wp_enqueue_script(
-			'aab-editor-panel-free',
-			AAB_ADDONS_URL . 'public/build/extensions/editor-panel.js',
+			'thebrbre-editor-panel-free',
+			THEBRBRE_URL . 'public/build/extensions/editor-panel.js',
 			[],
 			$this->version,
 			true

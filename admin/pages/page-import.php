@@ -1,12 +1,12 @@
 <?php
 
-namespace AABAddons\Admin\Pages;
+namespace wealcoder\bricksfly\Admin\Pages;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit();
 }
 
-class AAB_Page_Importer {
+class THEBRBRE_Page_Importer {
 
 	const HANDLE = 'aab-page-import';
 
@@ -38,18 +38,18 @@ class AAB_Page_Importer {
 
 		wp_enqueue_script(
 			'aab-admin-actions',
-			AAB_ADDONS_URL . 'public/js/aab-admin-actions.js',
+			THEBRBRE_URL . 'public/js/aab-admin-actions.js',
 			[],
-			AAB_ADDONS_VERSION,
+			THEBRBRE_VERSION,
 			true
 		);
 
 		wp_localize_script(
 			'aab-admin-actions',
-			'AAB_PAGE_IMPORT',
+			'THEBRBRE_PAGE_IMPORT',
 			[
 				'page_url' => esc_url( admin_url( 'admin.php?page=bf-page-importer' ) ),
-				'logo'     => esc_url( AAB_ADDONS_URL . 'public/images/plugin_logo.png' ),
+				'logo'     => esc_url( THEBRBRE_URL . 'public/images/plugin_logo.png' ),
 			]
 		);
 	}
@@ -63,7 +63,7 @@ class AAB_Page_Importer {
 			AND post_status = 'publish'
 			AND ID IN (
 				SELECT post_id FROM $wpdb->postmeta
-				WHERE meta_key = 'aab_imported' AND meta_value = '1'
+				WHERE meta_key = 'thebrbre_imported' AND meta_value = '1'
 			)
 		" );
 
@@ -83,7 +83,7 @@ class AAB_Page_Importer {
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading URL parameter for query filtering only, not processing form data.
 			$latest_import = isset( $_GET['aae-latest-import'] ) ? sanitize_key( wp_unslash( $_GET['aae-latest-import'] ) ) : '';
 			if ( 'import' === $latest_import ) {
-				$query->set( 'meta_key', 'aab_imported' );
+				$query->set( 'meta_key', 'thebrbre_imported' );
 				$query->set( 'meta_value', '1' );
 			}
 		}
@@ -114,7 +114,7 @@ class AAB_Page_Importer {
 		}
 
 		add_submenu_page(
-			\AABAddons\Admin\Pages\AAB_Admin_Init::MENU_PAGE_SLUG,
+			\wealcoder\bricksfly\Admin\Pages\THEBRBRE_Admin_Init::MENU_PAGE_SLUG,
 			__( 'Page Import', 'the-bricksfly' ),
 			__( 'Page Import', 'the-bricksfly' ),
 			'manage_options',
@@ -139,14 +139,14 @@ class AAB_Page_Importer {
 
 		wp_enqueue_style(
 			'bf-page-importer-admin',
-			AAB_ADDONS_URL . 'public/build/admin/page-import.css',
+			THEBRBRE_URL . 'public/build/admin/page-import.css',
 			[],
 			time()
 		);
 
 		wp_enqueue_script(
 			'bf-page-importer-admin',
-			AAB_ADDONS_URL . 'public/build/admin/page-import.js',
+			THEBRBRE_URL . 'public/build/admin/page-import.js',
 			[ 'wp-element' ],
 			time(),
 			true
@@ -165,20 +165,20 @@ class AAB_Page_Importer {
 		// Reading the options here (on every importer page load) means the state
 		// is always freshly fetched — never a stale cached value — so activation
 		// done elsewhere is reflected on the next load of this page.
-		$addons_config = apply_filters( 'aabaddons_dashboard_config', $GLOBALS['aabaddons_config'] ?? [] );
+		$addons_config = apply_filters('thebrbre_dashboard_config', $GLOBALS['thebrbre_config'] ?? [] );
 
 		$license_status = (string) get_option( 'thebrbre_license_status', '' );
 		$license_key    = (string) get_option( 'thebrbre_license_key', '' );
 
 		// Valid only when the Pro plugin folder exists AND the stored status is
-		// "valid" — the same combined check used by aabaddons_is_license_valid() and
+		// "valid" — the same combined check used by thebrbre_is_license_valid() and
 		// the Dashboard, so deleting the Pro folder relocks Pro instantly.
-		$pro_installed = function_exists( 'aabaddons_is_pro_installed' ) ? aabaddons_is_pro_installed() : false;
+		$pro_installed = function_exists( 'thebrbre_is_pro_installed' ) ? thebrbre_is_pro_installed() : false;
 		$license_valid = $pro_installed && ( 'valid' === $license_status );
 
 		$addons_config['sl_lic']    = $license_key;
 		$addons_config['is_pro']    = $pro_installed;
-		$addons_config['aab_valid'] = $license_valid;
+		$addons_config['thebrbre_valid'] = $license_valid;
 
 		// The compiled React UI unlocks Pro items on `product_status.item_id === 39996 `.
 		// Send 39996 only when the license is valid (mirrors the Dashboard); the real
@@ -190,22 +190,22 @@ class AAB_Page_Importer {
 		$addons_config['product_status'] = [
 			'item_id'      => $license_valid ? 39996 : 0,
 			'status'       => $license_status,
-			'real_item_id' => defined( 'AAB_ADDON_PRO_ITEM_ID' ) ? AAB_ADDON_PRO_ITEM_ID : 0,
+			'real_item_id' => defined( 'THEBRBRE_PRO_ITEM_ID' ) ? THEBRBRE_PRO_ITEM_ID : 0,
 			'limitations'  => $limitations,
 		];
 
 		$addons_config['limitations'] = $limitations;
 
 		$localize_data = [
-			'plugin_url'         => AAB_ADDONS_URL,
+			'plugin_url'         => THEBRBRE_URL,
 			'ajaxurl'            => admin_url( 'admin-ajax.php' ),
-			'nonce'              => wp_create_nonce( 'aab_admin_nonce' ),
+			'nonce'              => wp_create_nonce( 'thebrbre_admin_nonce' ),
 			'addons_config'      => $addons_config,
 			'adminURL'           => admin_url(),
 			'page_url'           => esc_url( admin_url( 'edit.php?post_type=page' ) ),
-			'user_role'          => function_exists( 'aabaddons_get_current_user_roles' ) ? aabaddons_get_current_user_roles() : [],
-			'version'            => AAB_ADDONS_VERSION,
-			'st_template_domain' => AAB_TEMPLATE_STARTER_BASE_URL,
+			'user_role'          => function_exists( 'thebrbre_get_current_user_roles' ) ? thebrbre_get_current_user_roles() : [],
+			'version'            => THEBRBRE_VERSION,
+			'st_template_domain' => THEBRBRE_TEMPLATE_STARTER_BASE_URL,
 			'home_url'           => home_url( '/' ),
 		];
 
@@ -214,5 +214,5 @@ class AAB_Page_Importer {
 }
 
 if ( is_admin() ) {
-	new AAB_Page_Importer();
+	new THEBRBRE_Page_Importer();
 }

@@ -2,7 +2,7 @@
 
 if (!defined('ABSPATH')) exit;
 
-class Aae_Bricks_Team extends \Bricks\Element
+class THEBRBRE_Bricks_Team extends \Bricks\Element
 {
     public $category     = 'bricks fly';
     public $name         = 'aae-team';
@@ -510,7 +510,7 @@ class Aae_Bricks_Team extends \Bricks\Element
 
         wp_enqueue_style(
             'aae-team',
-            AAB_ADDONS_URL . 'public/build/elements/team.css',
+            THEBRBRE_URL . 'public/build/elements/team.css',
             [],
             '1.0.0'
         );
@@ -586,10 +586,10 @@ class Aae_Bricks_Team extends \Bricks\Element
 
         if ($has_link) {
             echo wp_kses_post('<a ' . $this->render_attributes('details-link') . ' aria-label="' . esc_attr($settings['memberName'] ?? '') . '">');
-            echo wp_kses_post( $image_html ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            echo wp_kses_post( $image_html );
             echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         } else {
-            echo wp_kses_post( $image_html ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            echo wp_kses_post( $image_html );
         }
     }
 

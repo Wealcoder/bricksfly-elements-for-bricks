@@ -2,14 +2,14 @@
 
 if (! defined('ABSPATH')) exit;
 
-class AAB_Bricks_Button_Pro extends \Bricks\Element
+class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 {
 
 	public $category     = 'bricks fly';
 	public $name         = 'aab-button-pro';
 	public $icon         = 'ti-mouse-alt aab-element-marker';
 	public $css_selector = '.aae--btn-pro-wrapper';
-	public $scripts      = ['aabButtonPro'];
+	public $scripts      = ['thebrbreButtonPro'];
 
 	public function get_label()
 	{
@@ -28,14 +28,14 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 
 		wp_enqueue_style(
 			'aab-button-pro',
-			AAB_ADDONS_URL . 'public/build/elements/button-pro.css',
+			THEBRBRE_URL . 'public/build/elements/button-pro.css',
 			[],
 			'1.0.0'
 		);
 
 		wp_enqueue_script(
 			'aab-button-pro',
-			AAB_ADDONS_URL . 'public/build/elements/button-pro.js',
+			THEBRBRE_URL . 'public/build/elements/button-pro.js',
 			[],
 			'1.0.0',
 			true
@@ -787,14 +787,14 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 			}
 
 			echo wp_kses_post('<a ' . $this->render_attributes($link_key) . '>');
-			echo wp_kses_post( $text_html ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			echo wp_kses_post( $icon_html ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo wp_kses_post( $text_html );
+			echo wp_kses_post( $icon_html );
 			if ($bg_change) {
 				echo '<span></span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			}
 			echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
-			echo wp_kses_post( $ext_close ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo wp_kses_post( $ext_close );
 			echo '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			return;
@@ -807,16 +807,16 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 			case '1':
 				$this->set_attribute($link_key, 'class', ['aae--btn-pro', 'btn-border-divide']);
 				echo wp_kses_post('<a ' . $this->render_attributes($link_key) . '>');
-				echo '<span class="text">' . $text_html . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				echo '<span class="icon">' . $icon_html . $icon_html . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo wp_kses_post('<span class="text">' . $text_html . '</span>');
+				echo wp_kses_post('<span class="icon">' . $icon_html . $icon_html . '</span>');
 				echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				break;
 
 			case '2':
 				$this->set_attribute($link_key, 'class', ['aae--btn-pro']);
 				echo wp_kses_post('<a ' . $this->render_attributes($link_key) . '>');
-				echo wp_kses_post( $text_html ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				echo '<span class="icon">' . wp_kses_post( $icon_html ) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo wp_kses_post( $text_html );
+				echo wp_kses_post('<span class="icon">' . $icon_html . '</span>');
 				echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				break;
 
@@ -824,8 +824,8 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 				$this->set_attribute($link_key, 'class', ['aae--btn-pro', 'btn-text-flip']);
 				echo wp_kses_post('<a ' . $this->render_attributes($link_key) . '>');
 				// data-text is an attribute → plain text only.
-				echo '<span data-text="' . esc_attr($text_plain) . '">' . $text_html . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				echo wp_kses_post( $icon_html ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo wp_kses_post('<span data-text="' . esc_attr($text_plain) . '">' . $text_html . '</span>');
+				echo wp_kses_post( $icon_html );
 				echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				break;
 
@@ -833,7 +833,7 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 				$this->set_attribute($link_key, 'class', ['btn-hover', 'aae--btn-pro']);
 				echo wp_kses_post('<a ' . $this->render_attributes($link_key) . '>');
 				echo '<span></span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				echo wp_kses_post( $text_html ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo wp_kses_post( $text_html );
 				echo '<strong></strong>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				break;
@@ -842,9 +842,9 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 			case '6':
 				$this->set_attribute($link_key, 'class', ['aae-btn-pro-group']);
 				echo wp_kses_post('<a ' . $this->render_attributes($link_key) . '>');
-				echo '<span class="g-btn-icon">' . $icon_html . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				echo '<span class="g-btn-text">' . $text_html . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				echo '<span class="g-btn-icon">' . $icon_html . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo wp_kses_post('<span class="g-btn-icon">' . $icon_html . '</span>');
+				echo wp_kses_post('<span class="g-btn-text">' . $text_html . '</span>');
+				echo wp_kses_post('<span class="g-btn-icon">' . $icon_html . '</span>');
 				echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				break;
 
@@ -853,8 +853,8 @@ class AAB_Bricks_Button_Pro extends \Bricks\Element
 			default:
 				$this->set_attribute($link_key, 'class', ['aae--btn-pro']);
 				echo wp_kses_post('<a ' . $this->render_attributes($link_key) . '>');
-				echo wp_kses_post( $text_html ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				echo '<span class="icon">' . wp_kses_post( $icon_html ) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo wp_kses_post( $text_html );
+				echo wp_kses_post('<span class="icon">' . $icon_html . '</span>');
 				echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				break;
 		}
