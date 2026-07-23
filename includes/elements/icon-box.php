@@ -9,7 +9,7 @@ class THEBRBRE_Bricks_Icon_Box extends \Bricks\Element
 	public $name         = 'aab-icon-box';
 	public $icon         = 'ti-layout-media-center-alt aab-element-marker';
 	public $css_selector = '.aab-icon-box';
-	public $scripts      = ['aabIconBox'];
+	public $scripts      = ['thebrbreIconBox'];
 
 	public function get_label()
 	{

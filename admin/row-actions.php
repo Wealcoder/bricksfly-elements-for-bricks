@@ -22,7 +22,7 @@ class THEBRBRE_Row_Actions {
 	public function __construct() {
 		add_filter( 'plugin_action_links', [ $this, 'thebrbre_add_plugin_link' ], 10, 2 );
 		add_filter( 'plugin_row_meta', [ $this, '_plugin_row_meta' ], 10, 2 );
-		add_action( 'wp_ajax_aab_deactivate_feedback', [ $this, 'handle_deactivate_feedback' ] );
+		add_action( 'wp_ajax_thebrbre_deactivate_feedback', [ $this, 'handle_deactivate_feedback' ] );
 	}
 
 	public function handle_deactivate_feedback() {
@@ -30,7 +30,7 @@ class THEBRBRE_Row_Actions {
 			wp_send_json_error( esc_html__( 'Missing parameters', 'the-bricksfly' ) );
 		}
 		$nonce = sanitize_text_field( wp_unslash( $_POST['nonce'] ) );
-		if ( ! wp_verify_nonce( $nonce, 'aab_deactivate_feedback_nonce' ) ) {
+		if ( ! wp_verify_nonce( $nonce, 'thebrbre_deactivate_feedback_nonce' ) ) {
 			wp_send_json_error( esc_html__( 'Invalid nonce', 'the-bricksfly' ) );
 		}
 		if ( ! current_user_can( 'activate_plugins' ) ) {
@@ -49,9 +49,9 @@ class THEBRBRE_Row_Actions {
 			'plugin_version' => THEBRBRE_VERSION,
 		);
 
-		$existing_feedback   = get_option( 'aab_deactivation_feedback', array() );
+		$existing_feedback   = get_option( 'thebrbre_deactivation_feedback', array() );
 		$existing_feedback[] = $feedback_data;
-		update_option( 'aab_deactivation_feedback', $existing_feedback );
+		update_option( 'thebrbre_deactivation_feedback', $existing_feedback );
 
 		wp_send_json_success( esc_html__( 'Feedback submitted successfully', 'the-bricksfly' ) );
 	}

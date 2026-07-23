@@ -8,7 +8,7 @@ class THEBRBRE_Bricks_Image_Accordion extends \Bricks\Element {
 	public $name         = 'aab-image-accordion';
 	public $icon         = 'ti-layout-accordion-merged aab-element-marker';
 	public $css_selector = '.aab-image-accordion';
-	public $scripts      = [ 'aabImageAccordion' ];
+	public $scripts      = [ 'thebrbreImageAccordion' ];
 
 	public function get_label() {
 		return esc_html__('Image Accordion', 'the-bricksfly');

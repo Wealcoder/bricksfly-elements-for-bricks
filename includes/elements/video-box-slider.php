@@ -8,7 +8,7 @@ class THEBRBRE_Bricks_Video_Box_Slider extends \Bricks\Element {
 	public $name         = 'aab-video-box-slider';
 	public $icon         = 'ti-video-clapper aab-element-marker';
 	public $css_selector = '.aab-video-box-slider';
-	public $scripts      = [ 'aabVideoBoxSlider' ];
+	public $scripts      = [ 'thebrbreVideoBoxSlider' ];
 
 	public function get_label() {
 		return esc_html__('Video Box Slider', 'the-bricksfly');

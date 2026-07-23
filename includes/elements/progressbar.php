@@ -9,7 +9,7 @@ class THEBRBRE_Bricks_Progressbar extends \Bricks\Element
 	public $name         = 'aab-progressbar';
 	public $icon         = 'ti-stats-up aab-element-marker';
 	public $css_selector = '.aab-progressbar';
-	public $scripts      = ['aabProgressbar'];
+	public $scripts      = ['thebrbreProgressbar'];
 
 	public function get_label()
 	{

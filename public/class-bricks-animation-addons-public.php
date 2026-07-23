@@ -92,7 +92,7 @@ class THEBRBRE_Public
 		}
 
 		wp_enqueue_script(
-			'aab-editor-panel-free',
+			'thebrbre-editor-panel-free',
 			THEBRBRE_URL . 'public/build/extensions/editor-panel.js',
 			[],
 			$this->version,

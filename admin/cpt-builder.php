@@ -11,10 +11,10 @@ class THEBRBRE_CPT_Builder {
 	public $configs        = [];
 	public $post_type      = 'aaeptypebilder';
 	public $tax_type       = 'aaetaxebilder';
-	public $meta_key       = 'aab_ptypebilder_meta';
-	public $tax_meta_key   = 'aab_ptaxbilder_meta';
-	public $cache_key      = 'aab_cpts_032153';
-	public $cache_tax_key  = 'aab_taxs_933153';
+	public $meta_key       = 'thebrbre_ptypebilder_meta';
+	public $tax_meta_key   = 'thebrbre_ptaxbilder_meta';
+	public $cache_key      = 'thebrbre_cpts_032153';
+	public $cache_tax_key  = 'thebrbre_taxs_933153';
 
 	public $plabels = array(
 		'name'          => '',
@@ -58,17 +58,17 @@ class THEBRBRE_CPT_Builder {
 	public function __construct() {
 		add_action( 'admin_menu', [ $this, 'register_sub_menu' ], 30 );
 		add_action( 'admin_enqueue_scripts', [ $this, 'admin_scripts' ] );
-		add_action( 'wp_ajax_aab_save_global_settings', [ $this, 'save_global_settings' ] );
-		add_action( 'wp_ajax_aab_add_or_update_new_post_type_builder', [ $this, 'aab_add_or_update' ] );
-		add_action( 'wp_ajax_aab_delete_post_type_builder', [ $this, 'aab_delete_post_type' ] );
-		add_action( 'wp_ajax_aab_post_type_builder_list', [ $this, 'aab_list' ] );
-		add_action( 'wp_ajax_aab_post_type_builder_single_item', [ $this, 'aab_single_item' ] );
-		add_action( 'wp_ajax_aab_post_type_exist', [ $this, 'post_type_exist' ] );
-		add_action( 'wp_ajax_aab_add_or_update_new_taxonomy_builder', [ $this, 'aab_add_or_update_taxonomy' ] );
-		add_action( 'wp_ajax_aab_delete_taxonomy_builder', [ $this, 'aab_delete_taxonomy' ] );
-		add_action( 'wp_ajax_aab_taxonomy_builder_list', [ $this, 'aab_taxonomy_list' ] );
-		add_action( 'wp_ajax_aab_taxonomy_builder_single_item', [ $this, 'aab_taxonomy_single_item' ] );
-		add_action( 'wp_ajax_aab_taxonomy_exist', [ $this, 'taxonomy_exist' ] );
+		add_action( 'wp_ajax_thebrbre_save_global_settings', [ $this, 'save_global_settings' ] );
+		add_action( 'wp_ajax_thebrbre_add_or_update_new_post_type_builder', [ $this, 'thebrbre_add_or_update' ] );
+		add_action( 'wp_ajax_thebrbre_delete_post_type_builder', [ $this, 'thebrbre_delete_post_type' ] );
+		add_action( 'wp_ajax_thebrbre_post_type_builder_list', [ $this, 'thebrbre_list' ] );
+		add_action( 'wp_ajax_thebrbre_post_type_builder_single_item', [ $this, 'thebrbre_single_item' ] );
+		add_action( 'wp_ajax_thebrbre_post_type_exist', [ $this, 'post_type_exist' ] );
+		add_action( 'wp_ajax_thebrbre_add_or_update_new_taxonomy_builder', [ $this, 'thebrbre_add_or_update_taxonomy' ] );
+		add_action( 'wp_ajax_thebrbre_delete_taxonomy_builder', [ $this, 'thebrbre_delete_taxonomy' ] );
+		add_action( 'wp_ajax_thebrbre_taxonomy_builder_list', [ $this, 'thebrbre_taxonomy_list' ] );
+		add_action( 'wp_ajax_thebrbre_taxonomy_builder_single_item', [ $this, 'thebrbre_taxonomy_single_item' ] );
+		add_action( 'wp_ajax_thebrbre_taxonomy_exist', [ $this, 'taxonomy_exist' ] );
 		add_action( 'init', [ $this, 'setup_post_type' ], 8 );
 		add_action( 'init', [ $this, 'register_cpt' ], 100 );
 		add_action( 'init', [ $this, 'register_taxonomes' ], 60 );
@@ -88,13 +88,13 @@ class THEBRBRE_CPT_Builder {
 		// when a subsite's rewrite cache is read before init completes.
 		// `wp_loaded` fires after init so all CPTs are registered when the
 		// rules are rebuilt.
-		update_option( 'aab_needs_rewrite_flush', 1, false );
+		update_option( 'thebrbre_needs_rewrite_flush', 1, false );
 	}
 
 	public function maybe_flush_rewrites() {
-		if ( get_option( 'aab_needs_rewrite_flush' ) ) {
+		if ( get_option( 'thebrbre_needs_rewrite_flush' ) ) {
 			flush_rewrite_rules( false );
-			delete_option( 'aab_needs_rewrite_flush' );
+			delete_option( 'thebrbre_needs_rewrite_flush' );
 		}
 	}
 
@@ -398,7 +398,7 @@ class THEBRBRE_CPT_Builder {
 
 	public function register_sub_menu() {
 		add_submenu_page(
-			'aab_addons_page',
+			'thebrbre_addons_page',
 			esc_html__( 'CPT Builder', 'the-bricksfly' ),
 			esc_html__( 'CPT Builder', 'the-bricksfly' ),
 			'manage_options',
@@ -414,7 +414,7 @@ class THEBRBRE_CPT_Builder {
 	}
 
 	public function save_global_settings() {
-		check_ajax_referer( 'aab_admin_nonce', 'nonce' );
+		check_ajax_referer( 'thebrbre_admin_nonce', 'nonce' );
 
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( esc_html__( 'You are not allowed to perform this action.', 'the-bricksfly' ) );
@@ -455,8 +455,8 @@ class THEBRBRE_CPT_Builder {
 		}
 	}
 
-	public function aab_add_or_update() {
-		check_ajax_referer( 'aab_admin_nonce', 'nonce' );
+	public function thebrbre_add_or_update() {
+		check_ajax_referer( 'thebrbre_admin_nonce', 'nonce' );
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( esc_html__( 'You are not allowed to perform this action.', 'the-bricksfly' ) );
 		}
@@ -492,8 +492,8 @@ class THEBRBRE_CPT_Builder {
 		}
 	}
 
-	public function aab_delete_post_type() {
-		check_ajax_referer( 'aab_admin_nonce', 'nonce' );
+	public function thebrbre_delete_post_type() {
+		check_ajax_referer( 'thebrbre_admin_nonce', 'nonce' );
 
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( esc_html__( 'You are not allowed to perform this action.', 'the-bricksfly' ) );
@@ -510,9 +510,9 @@ class THEBRBRE_CPT_Builder {
 		wp_send_json_success( $this->latest_data( $this->post_type ) );
 	}
 
-	public function aab_list() {
-		$nonce = isset( $_REQUEST['aab_nonce'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['aab_nonce'] ) ) : null;
-		if ( ! wp_verify_nonce( $nonce, 'aab_admin_nonce' ) ) {
+	public function thebrbre_list() {
+		$nonce = isset( $_REQUEST['thebrbre_nonce'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['thebrbre_nonce'] ) ) : null;
+		if ( ! wp_verify_nonce( $nonce, 'thebrbre_admin_nonce' ) ) {
 			wp_send_json_error( esc_html__( 'Invalid nonce', 'the-bricksfly' ) );
 		}
 
@@ -524,8 +524,8 @@ class THEBRBRE_CPT_Builder {
 		wp_send_json_success( $this->latest_data( $this->post_type ) );
 	}
 
-	public function aab_single_item() {
-		check_ajax_referer( 'aab_admin_nonce', 'nonce' );
+	public function thebrbre_single_item() {
+		check_ajax_referer( 'thebrbre_admin_nonce', 'nonce' );
 
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( esc_html__( 'You are not allowed to perform this action.', 'the-bricksfly' ) );
@@ -541,7 +541,7 @@ class THEBRBRE_CPT_Builder {
 	}
 
 	public function post_type_exist() {
-		check_ajax_referer( 'aab_admin_nonce', 'nonce' );
+		check_ajax_referer( 'thebrbre_admin_nonce', 'nonce' );
 
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( esc_html__( 'You are not allowed to perform this action.', 'the-bricksfly' ) );
@@ -552,8 +552,8 @@ class THEBRBRE_CPT_Builder {
 		wp_send_json( [ 'hasExist' => $exists ] );
 	}
 
-	public function aab_add_or_update_taxonomy() {
-		check_ajax_referer( 'aab_admin_nonce', 'nonce' );
+	public function thebrbre_add_or_update_taxonomy() {
+		check_ajax_referer( 'thebrbre_admin_nonce', 'nonce' );
 
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( esc_html__( 'You are not allowed to perform this action.', 'the-bricksfly' ) );
@@ -589,8 +589,8 @@ class THEBRBRE_CPT_Builder {
 		}
 	}
 
-	public function aab_delete_taxonomy() {
-		check_ajax_referer( 'aab_admin_nonce', 'nonce' );
+	public function thebrbre_delete_taxonomy() {
+		check_ajax_referer( 'thebrbre_admin_nonce', 'nonce' );
 
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( esc_html__( 'You are not allowed to perform this action.', 'the-bricksfly' ) );
@@ -606,9 +606,9 @@ class THEBRBRE_CPT_Builder {
 		wp_send_json_success( $this->latest_data( $this->tax_type ) );
 	}
 
-	public function aab_taxonomy_list() {
-		$nonce = isset( $_REQUEST['aab_nonce'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['aab_nonce'] ) ) : null;
-		if ( ! wp_verify_nonce( $nonce, 'aab_admin_nonce' ) ) {
+	public function thebrbre_taxonomy_list() {
+		$nonce = isset( $_REQUEST['thebrbre_nonce'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['thebrbre_nonce'] ) ) : null;
+		if ( ! wp_verify_nonce( $nonce, 'thebrbre_admin_nonce' ) ) {
 			wp_send_json_error( esc_html__( 'Invalid nonce', 'the-bricksfly' ) );
 		}
 
@@ -619,8 +619,8 @@ class THEBRBRE_CPT_Builder {
 		wp_send_json_success( $this->latest_data( $this->tax_type ) );
 	}
 
-	public function aab_taxonomy_single_item() {
-		check_ajax_referer( 'aab_admin_nonce', 'nonce' );
+	public function thebrbre_taxonomy_single_item() {
+		check_ajax_referer( 'thebrbre_admin_nonce', 'nonce' );
 
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( esc_html__( 'You are not allowed to perform this action.', 'the-bricksfly' ) );
@@ -653,7 +653,7 @@ class THEBRBRE_CPT_Builder {
 	}
 
 	public function taxonomy_exist() {
-		check_ajax_referer( 'aab_admin_nonce', 'nonce' );
+		check_ajax_referer( 'thebrbre_admin_nonce', 'nonce' );
 
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( esc_html__( 'You are not allowed to perform this action.', 'the-bricksfly' ) );
@@ -671,23 +671,23 @@ class THEBRBRE_CPT_Builder {
 		}
 
 		wp_enqueue_style(
-			'aab-cpt-builder',
+			'thebrbre-cpt-builder',
 			THEBRBRE_URL . 'public/build/modules/cpt-builder/main.css',
 			[],
 			THEBRBRE_VERSION
 		);
 
 		wp_enqueue_script(
-			'aab-cpt-builder',
+			'thebrbre-cpt-builder',
 			THEBRBRE_URL . 'public/build/modules/cpt-builder/main.js',
 			[ 'react', 'react-dom', 'wp-element'],
 			THEBRBRE_VERSION,
 			true
 		);
 
-		wp_localize_script( 'aab-cpt-builder', 'AAB_ADDONS_ADMIN', [
+		wp_localize_script( 'thebrbre-cpt-builder', 'THEBRBRE_ADDONS_ADMIN', [
 			'ajaxurl' => admin_url( 'admin-ajax.php' ),
-			'nonce'   => wp_create_nonce( 'aab_admin_nonce' ),
+			'nonce'   => wp_create_nonce( 'thebrbre_admin_nonce' ),
 		] );
 	}
 }

@@ -15,7 +15,7 @@ defined('ABSPATH') || exit;
 class THEBRBRE_Bricks_Theme_Dependency
 {
 	const THEME_SLUG    = 'bricks';
-	const BLOCK_FLAG    = 'aab_addons_theme_switch_blocked';
+	const BLOCK_FLAG    = 'thebrbre_addons_theme_switch_blocked';
 	const PLUGIN_NAME   = 'Bricks Animation Addons';
 	const BRICKS_URL    = 'https://bricksbuilder.io/';
 

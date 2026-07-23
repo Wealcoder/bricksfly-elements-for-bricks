@@ -15,7 +15,7 @@ class THEBRBRE_Admin_Init
 	/**
 	 * Parent Menu Page Slug
 	 */
-	const MENU_PAGE_SLUG = 'aab_addons_page';
+	const MENU_PAGE_SLUG = 'thebrbre_addons_page';
 
 	/**
 	 * Menu capability
@@ -77,7 +77,7 @@ class THEBRBRE_Admin_Init
 	 * @param array $acc   Accumulator passed through recursion.
 	 * @return array Map of slug => true for every leaf with `is_pro=true`.
 	 */
-	public static function aab_collect_pro_slugs($nodes, $acc = array())
+	public static function thebrbre_collect_pro_slugs($nodes, $acc = array())
 	{
 		if (! is_array($nodes)) {
 			return $acc;
@@ -87,7 +87,7 @@ class THEBRBRE_Admin_Init
 				continue;
 			}
 			if (isset($data['elements']) && is_array($data['elements'])) {
-				$acc = self::aab_collect_pro_slugs($data['elements'], $acc);
+				$acc = self::thebrbre_collect_pro_slugs($data['elements'], $acc);
 				continue;
 			}
 			if (! empty($data['is_pro'])) {
@@ -126,26 +126,26 @@ class THEBRBRE_Admin_Init
 
 		add_action('admin_menu', array($this, 'add_menu'), 25);
 		add_action('admin_enqueue_scripts', array($this, 'enqueue_scripts'));
-		add_action('wp_ajax_aab_save_settings', array($this, 'save_settings'));
-		add_action('wp_ajax_aab_dashboard_notice_store', array($this, 'notice_store'));
-		add_action('wp_ajax_aab_get_changelog_data', array($this, 'get_changelog'));
-		add_action('wp_ajax_aab_get_notice_data', array($this, 'get_notice'));
-		add_action('wp_ajax_aab_save_dashboard_settings', array($this, 'save_settings_dashboard'));
+		add_action('wp_ajax_thebrbre_save_settings', array($this, 'save_settings'));
+		add_action('wp_ajax_thebrbre_dashboard_notice_store', array($this, 'notice_store'));
+		add_action('wp_ajax_thebrbre_get_changelog_data', array($this, 'get_changelog'));
+		add_action('wp_ajax_thebrbre_get_notice_data', array($this, 'get_notice'));
+		add_action('wp_ajax_thebrbre_save_dashboard_settings', array($this, 'save_settings_dashboard'));
 
-		add_action('wp_ajax_aab_save_smooth_scroller_settings', array($this, 'save_smooth_scroller_settings'));
-		add_action('wp_ajax_aab_request_new_feature', array($this, 'request_new_feature'));
+		add_action('wp_ajax_thebrbre_save_smooth_scroller_settings', array($this, 'save_smooth_scroller_settings'));
+		add_action('wp_ajax_thebrbre_request_new_feature', array($this, 'request_new_feature'));
 
 		add_filter('admin_body_class', array($this, 'admin_classes'), 100);
-		add_filter('aabaddons_dashboard_config', array($this, 'dashboard_db_widgets_config'), 11);
-		add_filter('aabaddons_dashboard_config', array($this, 'dashboard_db_extnsions_config'), 10);
-		add_filter('aabaddons_dashboard_config', array($this, 'thebrbre_dashboard_integrations_config'), 10);
+		add_filter('thebrbre_dashboard_config', array($this, 'dashboard_db_widgets_config'), 11);
+		add_filter('thebrbre_dashboard_config', array($this, 'dashboard_db_extnsions_config'), 10);
+		add_filter('thebrbre_dashboard_config', array($this, 'thebrbre_dashboard_integrations_config'), 10);
 
 		add_action('admin_footer', array($this, 'admin_footer'));
 		// Bust the remote-menu transient whenever the builder clears its
 		// cache. Bricks has no exact equivalent of Elementor's files-cache
 		// hook, so the safest generic hook is `switch_theme`.
 		add_action('switch_theme', function () {
-			delete_transient('aab_menu_42_data');
+			delete_transient('thebrbre_menu_42_data');
 		});
 
 		//add_action('wp_dashboard_setup', [$this, 'dashboard_widget'], 999);
@@ -201,7 +201,7 @@ class THEBRBRE_Admin_Init
 	 */
 	public function dashboard_db_widgets_config($configs)
 	{
-		$wgt           = get_option('aab_save_widgets');
+		$wgt           = get_option('thebrbre_save_widgets');
 		$saved_widgets = is_array($wgt) ? array_keys(array_filter($wgt)) : array();
 		$widgets       = $configs['widgets'];
 		thebrbre_get_db_updated_config($widgets, $saved_widgets);
@@ -216,7 +216,7 @@ class THEBRBRE_Admin_Init
 	 */
 	public function dashboard_db_extnsions_config($configs)
 	{
-		$ext        = get_option('aab_save_extensions');
+		$ext        = get_option('thebrbre_save_extensions');
 		$saved_ext  = is_array($ext) ? array_keys(array_filter($ext)) : array();
 		$extensions = $configs['extensions'];
 		thebrbre_get_db_updated_config($extensions, $saved_ext);
@@ -304,7 +304,7 @@ class THEBRBRE_Admin_Init
 		// Registered via $submenu directly so the query string is preserved
 		// (add_submenu_page URL-encodes `&` in the slug, breaking the param).
 		if (is_plugin_active('the-bricksfly-pro/the-bricksfly-pro.php')) {
-			$license_active = function_exists('aab_addons_sl_is_valid') && aab_addons_sl_is_valid();
+			$license_active = function_exists('thebrbre_addons_sl_is_valid') && thebrbre_addons_sl_is_valid();
 			$license_label  = esc_html__('License', 'the-bricksfly');
 			if ($license_active) {
 				$license_label .= ' <span class="bf-license-menu-badge" style="display:inline-block;margin-left:6px;width:8px;height:8px;border-radius:50%;background:#10b981;vertical-align:middle;"></span>';
@@ -359,23 +359,23 @@ class THEBRBRE_Admin_Init
 		);
 
 		wp_enqueue_script('aab-admin', THEBRBRE_URL . 'public/build/admin/dashboard.js', array('wp-element'), $dashboard_js_ver, true);
-		thebrbre_get_total_config_elements_by_key($GLOBALS['aabaddons_config']['extensions'], $total_extensions);
-		thebrbre_get_total_config_elements_by_key($GLOBALS['aabaddons_config']['widgets'], $total_widgets);
+		thebrbre_get_total_config_elements_by_key($GLOBALS['thebrbre_config']['extensions'], $total_extensions);
+		thebrbre_get_total_config_elements_by_key($GLOBALS['thebrbre_config']['widgets'], $total_widgets);
 
-		$widgets       = get_option('aab_save_widgets');
+		$widgets       = get_option('thebrbre_save_widgets');
 		$saved_widgets = is_array($widgets) ? array_keys(array_filter($widgets)) : array();
 
-		thebrbre_get_search_active_keys($GLOBALS['aabaddons_config']['widgets'], $saved_widgets, $foundKeys, $awidgets);
+		thebrbre_get_search_active_keys($GLOBALS['thebrbre_config']['widgets'], $saved_widgets, $foundKeys, $awidgets);
 
-		$extensions       = get_option('aab_save_extensions');
+		$extensions       = get_option('thebrbre_save_extensions');
 		$saved_extensions = is_array($extensions) ? array_keys(array_filter($extensions)) : array();
 
-		thebrbre_get_search_active_keys($GLOBALS['aabaddons_config']['extensions'], $saved_extensions, $foundext, $activeext);
+		thebrbre_get_search_active_keys($GLOBALS['thebrbre_config']['extensions'], $saved_extensions, $foundext, $activeext);
 
 
 		$active_widgets = self::get_widgets();
 		$active_ext     = self::get_extensions();
-		$font_settings  = wp_unslash(get_option('aab_custom_font_setting'));
+		$font_settings  = wp_unslash(get_option('thebrbre_custom_font_setting'));
 
 		// All Bricks breakpoints (defaults + custom). Routed through the shared
 		// ResponsiveHelper so the no-Bricks fallback (with label/icon) lives in
@@ -384,8 +384,8 @@ class THEBRBRE_Admin_Init
 
 		// License info for the React LicenseDialog (mirrors the shared contract
 		// from animation-addons-for-elementor-pro).
-		$aab_license_status = (string) get_option('wcf_addon_sl_license_status', '');
-		$aab_license_key    = (string) get_option('wcf_addon_sl_license_key', '');
+		$thebrbre_license_status = (string) get_option('wcf_addon_sl_license_status', '');
+		$thebrbre_license_key    = (string) get_option('wcf_addon_sl_license_key', '');
 
 		// The license counts as valid only when BOTH the Pro plugin folder is
 		// installed AND the stored license status is "valid". This gates the
@@ -393,12 +393,12 @@ class THEBRBRE_Admin_Init
 		// the free plugin) immediately locks every pro toggle — regardless of
 		// whatever license status survives in the database.
 		$pro_installed      = function_exists('thebrbre_is_pro_installed') ? thebrbre_is_pro_installed() : file_exists($this->plugin_file);
-		$aab_license_valid  = $pro_installed && ('valid' === $aab_license_status);
+		$thebrbre_license_valid  = $pro_installed && ('valid' === $thebrbre_license_status);
 
-		$addons_config = apply_filters('aabaddons_dashboard_config', $GLOBALS['aabaddons_config']);
-		$addons_config['sl_lic']    = $aab_license_key;
+		$addons_config = apply_filters('thebrbre_dashboard_config', $GLOBALS['thebrbre_config']);
+		$addons_config['sl_lic']    = $thebrbre_license_key;
 		$addons_config['is_pro']    = $pro_installed;
-		$addons_config['aab_valid'] = $aab_license_valid;
+		$addons_config['thebrbre_valid'] = $thebrbre_license_valid;
 
 		// NOTE: the compiled React dashboard (shared with animation-addons-for-elementor)
 		// uses a strict `13 === product_status.item_id` check to flip the header button
@@ -408,26 +408,26 @@ class THEBRBRE_Admin_Init
 		// Per-feature license limitations (Template / Section / Page import etc.).
 		// Empty array when the license isn't valid — the React import gate treats
 		// a missing/false flag as "not allowed" and shows the upsell popup.
-		$aab_limitations = function_exists('thebrbre_get_license_limitations') ? thebrbre_get_license_limitations() : array();
+		$thebrbre_limitations = function_exists('thebrbre_get_license_limitations') ? thebrbre_get_license_limitations() : array();
 
 		$addons_config['product_status'] = [
-			'item_id'      => $aab_license_valid ? 13 : 0,
-			'status'       => $aab_license_status,
+			'item_id'      => $thebrbre_license_valid ? 13 : 0,
+			'status'       => $thebrbre_license_status,
 			'real_item_id' => THEBRBRE_PRO_ITEM_ID,
-			'limitations'  => $aab_limitations,
+			'limitations'  => $thebrbre_limitations,
 		];
 
 		// Also expose at the top level so components that read the config
 		// directly (not via product_status) can reach it.
-		$addons_config['limitations'] = $aab_limitations;
+		$addons_config['limitations'] = $thebrbre_limitations;
 
 		$localize_data = array(
 			'ajaxurl'             => admin_url('admin-ajax.php'),
 			'isSettingsPage' => true, // 🔥 IMPORTANT
-			'nonce'               => wp_create_nonce('aab_admin_nonce'),
+			'nonce'               => wp_create_nonce('thebrbre_admin_nonce'),
 			'addons_config'       => $addons_config,
 			'adminURL'            => admin_url(),
-			'smoothScroller'      => json_decode(get_option('aab_smooth_scroller')),
+			'smoothScroller'      => json_decode(get_option('thebrbre_smooth_scroller')),
 			'cf_settings'         => is_string($font_settings) ? json_decode($font_settings) : array(),
 			'extensions'          => array(
 				'total'  => $total_extensions,
@@ -451,7 +451,7 @@ class THEBRBRE_Admin_Init
 			// Dynamic replacement copy for the compiled React "Upgrade" dialog.
 			// The bundle hardcodes the default strings; a small inline script
 			// below swaps them at runtime based on current Pro/license state.
-			// 'pro_dialog_copy' => $this->get_pro_dialog_copy($aab_license_status, $aab_license_key),
+			// 'pro_dialog_copy' => $this->get_pro_dialog_copy($thebrbre_license_status, $thebrbre_license_key),
 
 		);
 		wp_localize_script('aab-admin', 'AAB_ADDONS_ADMIN', $localize_data);
@@ -616,7 +616,7 @@ class THEBRBRE_Admin_Init
 
 	public function get_template_menu_data()
 	{
-		$transient_key = 'aab_menu_42_data';
+		$transient_key = 'thebrbre_menu_42_data';
 		$cached_data   = get_transient($transient_key);
 
 		// ✅ Return cached data if available
@@ -769,7 +769,7 @@ class THEBRBRE_Admin_Init
 	{
 
 
-		check_ajax_referer('aab_admin_nonce', 'nonce');
+		check_ajax_referer('thebrbre_admin_nonce', 'nonce');
 
 		if (! current_user_can('manage_options')) {
 			wp_send_json_error(esc_html__('you are not allowed to do this action', 'the-bricksfly'));
@@ -794,7 +794,7 @@ class THEBRBRE_Admin_Init
 		// map (as false) so the saved option remains a complete slug list.
 		$license_valid = function_exists('thebrbre_is_license_valid') && thebrbre_is_license_valid();
 		if (! $license_valid && is_array($updatedSettings)) {
-			$pro_slugs = self::aab_collect_pro_slugs(isset($GLOBALS['aabaddons_config']) ? $GLOBALS['aabaddons_config'] : array());
+			$pro_slugs = self::thebrbre_collect_pro_slugs(isset($GLOBALS['thebrbre_config']) ? $GLOBALS['thebrbre_config'] : array());
 			foreach (array_keys($updatedSettings) as $slug) {
 				if (isset($pro_slugs[$slug])) {
 					$updatedSettings[$slug] = false;
@@ -802,10 +802,10 @@ class THEBRBRE_Admin_Init
 			}
 		}
 
-		if ('aab_save_widgets' === $option_name) {
-			$updated = update_option('aab_save_widgets', $updatedSettings);
-		} elseif ('aab_save_extensions' === $option_name) {
-			$updated = update_option('aab_save_extensions', $updatedSettings);
+		if ('thebrbre_save_widgets' === $option_name) {
+			$updated = update_option('thebrbre_save_widgets', $updatedSettings);
+		} elseif ('thebrbre_save_extensions' === $option_name) {
+			$updated = update_option('thebrbre_save_extensions', $updatedSettings);
 		} else {
 			wp_send_json_error(esc_html__('Invalid settings type.', 'the-bricksfly'), 400);
 		}
@@ -820,7 +820,7 @@ class THEBRBRE_Admin_Init
 	public function notice_store()
 	{
 
-		check_ajax_referer('aab_admin_nonce', 'nonce');
+		check_ajax_referer('thebrbre_admin_nonce', 'nonce');
 
 		if (! current_user_can('manage_options')) {
 			wp_send_json_error(esc_html__('you are not allowed to do this action', 'the-bricksfly'));
@@ -831,7 +831,7 @@ class THEBRBRE_Admin_Init
 		}
 
 		$sanitize_data = sanitize_text_field(wp_unslash($_POST['notice']));
-		update_option('aab_notice_data', $sanitize_data);
+		update_option('thebrbre_notice_data', $sanitize_data);
 
 		$return_message = array(
 			'message' => esc_html__('Notice Updated', 'the-bricksfly'),
@@ -842,13 +842,13 @@ class THEBRBRE_Admin_Init
 	public function get_changelog()
 	{
 
-		check_ajax_referer('aab_admin_nonce', 'nonce');
+		check_ajax_referer('thebrbre_admin_nonce', 'nonce');
 
 		if (! current_user_can('manage_options')) {
 			wp_send_json_error(esc_html__('you are not allowed to do this action', 'the-bricksfly'));
 		}
 
-		$transient      = get_transient('aab_changelog_notice_cache3');
+		$transient      = get_transient('thebrbre_changelog_notice_cache3');
 		$return_message = array(
 			'changelog' => '',
 		);
@@ -868,7 +868,7 @@ class THEBRBRE_Admin_Init
 			$body                        = wp_remote_retrieve_body($out);
 			$decode_data                 = json_decode($body);
 			$return_message['changelog'] = $decode_data;
-			set_transient('aab_changelog_notice_cache3', $decode_data, 12 * HOUR_IN_SECONDS);
+			set_transient('thebrbre_changelog_notice_cache3', $decode_data, 12 * HOUR_IN_SECONDS);
 		}
 
 		wp_send_json($return_message);
@@ -877,14 +877,14 @@ class THEBRBRE_Admin_Init
 	public function get_notice()
 	{
 
-		check_ajax_referer('aab_admin_nonce', 'nonce');
+		check_ajax_referer('thebrbre_admin_nonce', 'nonce');
 
 		if (! current_user_can('manage_options')) {
 			wp_send_json_error(esc_html__('you are not allowed to do this action', 'the-bricksfly'));
 		}
 
 		$return_message = array(
-			'notice' => json_decode(get_option('aab_notice_data')),
+			'notice' => json_decode(get_option('thebrbre_notice_data')),
 		);
 		wp_send_json($return_message);
 	}
@@ -892,7 +892,7 @@ class THEBRBRE_Admin_Init
 	public function save_settings_dashboard()
 	{
 
-		check_ajax_referer('aab_admin_nonce', 'nonce');
+		check_ajax_referer('thebrbre_admin_nonce', 'nonce');
 
 		if (! current_user_can('manage_options')) {
 			wp_send_json_error(esc_html__('you are not allowed to do this action', 'the-bricksfly'));
@@ -904,14 +904,14 @@ class THEBRBRE_Admin_Init
 
 		$sanitize_data = sanitize_text_field(wp_unslash($_POST['fields']));
 		$settings      = json_decode($sanitize_data, true);
-		$actives       = get_option('aab_save_widgets');
+		$actives       = get_option('thebrbre_save_widgets');
 		if (! is_array($actives)) {
 			$actives = array();
 		}
 
 		$license_valid = function_exists('thebrbre_is_license_valid') && thebrbre_is_license_valid();
 		$pro_slugs     = ! $license_valid
-			? self::aab_collect_pro_slugs(isset($GLOBALS['aabaddons_config']) ? $GLOBALS['aabaddons_config'] : array())
+			? self::thebrbre_collect_pro_slugs(isset($GLOBALS['thebrbre_config']) ? $GLOBALS['thebrbre_config'] : array())
 			: array();
 
 		// Merge the incoming payload into the stored map. Every slug from the
@@ -942,8 +942,8 @@ class THEBRBRE_Admin_Init
 			}
 		}
 
-		$updated  = update_option('aab_save_widgets', $actives);
-		$elements = get_option('aab_save_widgets');
+		$updated  = update_option('thebrbre_save_widgets', $actives);
+		$elements = get_option('thebrbre_save_widgets');
 
 		$return_message = array(
 			'status' => $updated,
@@ -963,7 +963,7 @@ class THEBRBRE_Admin_Init
 	public function save_smooth_scroller_settings()
 	{
 
-		check_ajax_referer('aab_admin_nonce', 'nonce');
+		check_ajax_referer('thebrbre_admin_nonce', 'nonce');
 
 		if (! current_user_can('manage_options')) {
 			wp_send_json_error(esc_html__('you are not allowed to do this action', 'the-bricksfly'));
@@ -981,7 +981,7 @@ class THEBRBRE_Admin_Init
 		// update new settings
 		if (! empty($_POST['smooth'])) {
 
-			update_option('aab_smooth_scroller', $option);
+			update_option('thebrbre_smooth_scroller', $option);
 			wp_send_json($option);
 		}
 
@@ -999,7 +999,7 @@ class THEBRBRE_Admin_Init
 	 */
 	public function request_new_feature()
 	{
-		check_ajax_referer('aab_admin_nonce', 'nonce');
+		check_ajax_referer('thebrbre_admin_nonce', 'nonce');
 
 		if (! current_user_can('manage_options')) {
 			wp_send_json_error(esc_html__('You are not allowed to do this action.', 'the-bricksfly'));

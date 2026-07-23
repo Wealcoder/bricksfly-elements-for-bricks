@@ -11,7 +11,7 @@ class THEBRBRE_Bricks_Floating_Elements extends \Bricks\Element
 	public $name         = 'aab-floating-elements';
 	public $icon         = 'ti-layout-media-overlay aab-element-marker';
 	public $css_selector = '.aab-floating-elements';
-	public $scripts      = ['aabFloatingElements'];
+	public $scripts      = ['thebrbreFloatingElements'];
 
 	public function get_label()
 	{

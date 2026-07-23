@@ -9,7 +9,7 @@ class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 	public $name         = 'aab-button-pro';
 	public $icon         = 'ti-mouse-alt aab-element-marker';
 	public $css_selector = '.aae--btn-pro-wrapper';
-	public $scripts      = ['aabButtonPro'];
+	public $scripts      = ['thebrbreButtonPro'];
 
 	public function get_label()
 	{

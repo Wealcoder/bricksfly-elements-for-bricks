@@ -41,7 +41,7 @@ class WPImporterLogger {
 	}
 
 	public function log( $level, $message, array $context = array() ) {
-		update_option( 'aab_template_import_state', (string) $message );
+		update_option( 'thebrbre_template_import_state', (string) $message );
 		$this->messages[] = array(
 			'timestamp' => time(),
 			'level'     => $level,

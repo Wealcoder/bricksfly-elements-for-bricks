@@ -39,8 +39,8 @@ class THEBRBRE_Starter_Animations
 	 */
 	const CONTAINER_WIDGETS = ['container', 'section', 'block', 'div'];
 
-	const GROUP_ID            = '_aab_starter_animations';
-	const GROUP_ID_CONTAINER  = '_aab_starter_animations_container';
+	const GROUP_ID            = '_thebrbre_starter_animations';
+	const GROUP_ID_CONTAINER  = '_thebrbre_starter_animations_container';
 
 	private static $instance = null;
 
@@ -165,7 +165,7 @@ class THEBRBRE_Starter_Animations
 	{
 
 		// Animation picker
-		$controls['_aab_starter_anim'] = [
+		$controls['_thebrbre_starter_anim'] = [
 			'tab'         => 'content',
 			'group'       => self::GROUP_ID,
 			'label'       => esc_html__('Animation', 'the-bricksfly'),
@@ -176,7 +176,7 @@ class THEBRBRE_Starter_Animations
 		];
 
 		// Common timing — duration / delay / easing
-		$controls['_aab_anim_duration'] = [
+		$controls['_thebrbre_anim_duration'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
 			'label'    => esc_html__('Duration (ms)', 'the-bricksfly'),
@@ -185,17 +185,17 @@ class THEBRBRE_Starter_Animations
 			'min'      => 100,
 			'max'      => 10000,
 			'step'     => 50,
-			'required' => ['_aab_starter_anim', '!=', ['', 'none']],
+			'required' => ['_thebrbre_starter_anim', '!=', ['', 'none']],
 			'css'      => [
 				[
-					'property' => '--aab-duration',
+					'property' => '--thebrbre-duration',
 					'selector' => '',
 					'value'    => '%sms',
 				],
 			],
 		];
 
-		$controls['_aab_anim_delay'] = [
+		$controls['_thebrbre_anim_delay'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
 			'label'    => esc_html__('Delay (ms)', 'the-bricksfly'),
@@ -204,17 +204,17 @@ class THEBRBRE_Starter_Animations
 			'min'      => 0,
 			'max'      => 10000,
 			'step'     => 50,
-			'required' => ['_aab_starter_anim', '!=', ['', 'none']],
+			'required' => ['_thebrbre_starter_anim', '!=', ['', 'none']],
 			'css'      => [
 				[
-					'property' => '--aab-delay',
+					'property' => '--thebrbre-delay',
 					'selector' => '',
 					'value'    => '%sms',
 				],
 			],
 		];
 
-		$controls['_aab_anim_ease'] = [
+		$controls['_thebrbre_anim_ease'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
 			'label'    => esc_html__('Easing', 'the-bricksfly'),
@@ -222,10 +222,10 @@ class THEBRBRE_Starter_Animations
 			'options'  => $this->get_easing_options(),
 			'default'  => 'ease',
 			'inline'   => true,
-			'required' => ['_aab_starter_anim', '!=', ['', 'none']],
+			'required' => ['_thebrbre_starter_anim', '!=', ['', 'none']],
 			'css'      => [
 				[
-					'property' => '--aab-ease',
+					'property' => '--thebrbre-ease',
 					'selector' => '',
 				],
 			],
@@ -233,22 +233,22 @@ class THEBRBRE_Starter_Animations
 
 		if ($is_text) {
 			// ---- text-glow ----
-			$controls['_aab_glow_color'] = [
+			$controls['_thebrbre_glow_color'] = [
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
 				'label'    => esc_html__('Glow Color', 'the-bricksfly'),
 				'type'     => 'color',
 				'default'  => ['hex' => '#0000ff'],
-				'required' => ['_aab_starter_anim', '=', 'text-glow'],
+				'required' => ['_thebrbre_starter_anim', '=', 'text-glow'],
 				'css'      => [
 					[
-						'property' => '--aab-glow-color',
+						'property' => '--thebrbre-glow-color',
 						'selector' => '',
 					],
 				],
 			];
 
-			$controls['_aab_glow_size'] = [
+			$controls['_thebrbre_glow_size'] = [
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
 				'label'    => esc_html__('Glow Size (px)', 'the-bricksfly'),
@@ -256,17 +256,17 @@ class THEBRBRE_Starter_Animations
 				'default'  => 20,
 				'min'      => 5,
 				'max'      => 100,
-				'required' => ['_aab_starter_anim', '=', 'text-glow'],
+				'required' => ['_thebrbre_starter_anim', '=', 'text-glow'],
 				'css'      => [
 					[
-						'property' => '--aab-glow-size',
+						'property' => '--thebrbre-glow-size',
 						'selector' => '',
 						'value'    => '%spx',
 					],
 				],
 			];
 
-			$controls['_aab_glow_iteration'] = [
+			$controls['_thebrbre_glow_iteration'] = [
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
 				'label'    => esc_html__('Animation Loop', 'the-bricksfly'),
@@ -277,26 +277,26 @@ class THEBRBRE_Starter_Animations
 				],
 				'default'  => 'infinite',
 				'inline'   => true,
-				'required' => ['_aab_starter_anim', '=', 'text-glow'],
+				'required' => ['_thebrbre_starter_anim', '=', 'text-glow'],
 				'css'      => [
 					[
-						'property' => '--aab-iteration',
+						'property' => '--thebrbre-iteration',
 						'selector' => '',
 					],
 				],
 			];
 
 			// ---- text-mask-wipe ----
-			$controls['_aab_mask_wipe_bg'] = [
+			$controls['_thebrbre_mask_wipe_bg'] = [
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
 				'label'    => esc_html__('Mask Color', 'the-bricksfly'),
 				'type'     => 'color',
 				'default'  => ['hex' => '#000000'],
-				'required' => ['_aab_starter_anim', '=', 'text-mask-wipe'],
+				'required' => ['_thebrbre_starter_anim', '=', 'text-mask-wipe'],
 				'css'      => [
 					[
-						'property' => '--aab-mask-bg',
+						'property' => '--thebrbre-mask-bg',
 						'selector' => '',
 					],
 				],
@@ -304,7 +304,7 @@ class THEBRBRE_Starter_Animations
 		} // end if ( $is_text ) — text-glow / text-mask-wipe
 
 		// ---- reveal ----
-		$controls['_aab_reveal_direction'] = [
+		$controls['_thebrbre_reveal_direction'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
 			'label'    => esc_html__('Direction', 'the-bricksfly'),
@@ -318,29 +318,29 @@ class THEBRBRE_Starter_Animations
 			],
 			'default'  => 'bottom',
 			'inline'   => true,
-			'required' => ['_aab_starter_anim', '=', 'reveal'],
+			'required' => ['_thebrbre_starter_anim', '=', 'reveal'],
 		];
 
-		$controls['_aab_reveal_fade'] = [
+		$controls['_thebrbre_reveal_fade'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
 			'label'    => esc_html__('Enable Fade', 'the-bricksfly'),
 			'type'     => 'checkbox',
 			'default'  => false,
-			'required' => ['_aab_starter_anim', '=', 'reveal'],
+			'required' => ['_thebrbre_starter_anim', '=', 'reveal'],
 		];
 
 		if ($is_text) {
 			// ---- text-wave ----
-			$controls['_aab_wave_fill_color'] = [
+			$controls['_thebrbre_wave_fill_color'] = [
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
 				'label'    => esc_html__('Wave Fill Color', 'the-bricksfly'),
 				'type'     => 'color',
-				'required' => ['_aab_starter_anim', '=', 'text-wave'],
+				'required' => ['_thebrbre_starter_anim', '=', 'text-wave'],
 				'css'      => [
 					[
-						'property' => '--aab-wave-fill',
+						'property' => '--thebrbre-wave-fill',
 						'selector' => '',
 					],
 				],
@@ -349,18 +349,18 @@ class THEBRBRE_Starter_Animations
 			// ---- text-bg-clip ----
 			// Image source for the background-clip text effect. The control returns
 			// a Bricks image array; the URL is emitted as inline style for the
-			// `--aab-bg-text-image` CSS variable in apply_render_classes() because
+			// `--thebrbre-bg-text-image` CSS variable in apply_render_classes() because
 			// Bricks's `css` array doesn't unwrap image arrays into CSS-variable
 			// values cleanly.
-			$controls['_aab_bg_text_image'] = [
+			$controls['_thebrbre_bg_text_image'] = [
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
 				'label'    => esc_html__('Background Image', 'the-bricksfly'),
 				'type'     => 'image',
-				'required' => ['_aab_starter_anim', '=', 'text-bg-clip'],
+				'required' => ['_thebrbre_starter_anim', '=', 'text-bg-clip'],
 			];
 
-			$controls['_aab_bg_text_speed'] = [
+			$controls['_thebrbre_bg_text_speed'] = [
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
 				'label'    => esc_html__('Animation Speed (s)', 'the-bricksfly'),
@@ -368,10 +368,10 @@ class THEBRBRE_Starter_Animations
 				'default'  => 15,
 				'min'      => 1,
 				'max'      => 60,
-				'required' => ['_aab_starter_anim', '=', 'text-bg-clip'],
+				'required' => ['_thebrbre_starter_anim', '=', 'text-bg-clip'],
 				'css'      => [
 					[
-						'property' => '--aab-bg-speed',
+						'property' => '--thebrbre-bg-speed',
 						'selector' => '',
 						'value'    => '%ss',
 					],
@@ -379,7 +379,7 @@ class THEBRBRE_Starter_Animations
 			];
 
 			// ---- text-char-animate ----
-			$controls['_aab_char_preset'] = [
+			$controls['_thebrbre_char_preset'] = [
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
 				'label'    => esc_html__('Character Preset', 'the-bricksfly'),
@@ -394,79 +394,79 @@ class THEBRBRE_Starter_Animations
 				],
 				'default'  => 'revolve',
 				'inline'   => true,
-				'required' => ['_aab_starter_anim', '=', 'text-char-animate'],
+				'required' => ['_thebrbre_starter_anim', '=', 'text-char-animate'],
 			];
 
-			$controls['_aab_char_revolve_x'] = [
+			$controls['_thebrbre_char_revolve_x'] = [
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
 				'label'    => esc_html__('Translate X (px)', 'the-bricksfly'),
 				'type'     => 'number',
 				'default'  => -150,
 				'required' => [
-					['_aab_starter_anim', '=', 'text-char-animate'],
-					['_aab_char_preset',  '=', 'revolve'],
+					['_thebrbre_starter_anim', '=', 'text-char-animate'],
+					['_thebrbre_char_preset',  '=', 'revolve'],
 				],
 				'css'      => [
 					[
-						'property' => '--aab-char-x',
+						'property' => '--thebrbre-char-x',
 						'selector' => '',
 						'value'    => '%spx',
 					],
 				],
 			];
 
-			$controls['_aab_char_revolve_y'] = [
+			$controls['_thebrbre_char_revolve_y'] = [
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
 				'label'    => esc_html__('Translate Y (px)', 'the-bricksfly'),
 				'type'     => 'number',
 				'default'  => -50,
 				'required' => [
-					['_aab_starter_anim', '=', 'text-char-animate'],
-					['_aab_char_preset',  '=', 'revolve'],
+					['_thebrbre_starter_anim', '=', 'text-char-animate'],
+					['_thebrbre_char_preset',  '=', 'revolve'],
 				],
 				'css'      => [
 					[
-						'property' => '--aab-char-y',
+						'property' => '--thebrbre-char-y',
 						'selector' => '',
 						'value'    => '%spx',
 					],
 				],
 			];
 
-			$controls['_aab_char_ball_y'] = [
+			$controls['_thebrbre_char_ball_y'] = [
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
 				'label'    => esc_html__('Drop Distance (px)', 'the-bricksfly'),
 				'type'     => 'number',
 				'default'  => 200,
 				'required' => [
-					['_aab_starter_anim', '=', 'text-char-animate'],
-					['_aab_char_preset',  '=', 'ball'],
+					['_thebrbre_starter_anim', '=', 'text-char-animate'],
+					['_thebrbre_char_preset',  '=', 'ball'],
 				],
 				'css'      => [
 					[
-						'property' => '--aab-char-y',
+						'property' => '--thebrbre-char-y',
 						'selector' => '',
 						'value'    => '%spx',
 					],
 				],
 			];
 
-			$controls['_aab_char_twister_rotate'] = [
+			$controls['_thebrbre_char_twister_rotate'] = [
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
 				'label'    => esc_html__('Rotate Degree', 'the-bricksfly'),
 				'type'     => 'number',
 				'default'  => -180,
 				'required' => [
-					['_aab_starter_anim', '=', 'text-char-animate'],
-					['_aab_char_preset',  '=', 'twister'],
+					['_thebrbre_starter_anim', '=', 'text-char-animate'],
+					['_thebrbre_char_preset',  '=', 'twister'],
 				],
 				'css'      => [
 					[
-						'property' => '--aab-char-rotate',
+						'property' => '--thebrbre-char-rotate',
 						'selector' => '',
 						'value'    => '%sdeg',
 					],
@@ -475,7 +475,7 @@ class THEBRBRE_Starter_Animations
 		} // end if ( $is_text ) — text-wave / text-bg-clip / text-char-animate
 
 		// ---- scale-up ----
-		$controls['_aab_scale_start'] = [
+		$controls['_thebrbre_scale_start'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
 			'label'    => esc_html__('Start Scale', 'the-bricksfly'),
@@ -484,16 +484,16 @@ class THEBRBRE_Starter_Animations
 			'step'     => 0.1,
 			'min'      => 0,
 			'max'      => 3,
-			'required' => ['_aab_starter_anim', '=', 'scale-up'],
+			'required' => ['_thebrbre_starter_anim', '=', 'scale-up'],
 			'css'      => [
 				[
-					'property' => '--aab-scale-start',
+					'property' => '--thebrbre-scale-start',
 					'selector' => '',
 				],
 			],
 		];
 
-		$controls['_aab_scale_end'] = [
+		$controls['_thebrbre_scale_end'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
 			'label'    => esc_html__('End Scale', 'the-bricksfly'),
@@ -502,16 +502,16 @@ class THEBRBRE_Starter_Animations
 			'step'     => 0.1,
 			'min'      => 0,
 			'max'      => 3,
-			'required' => ['_aab_starter_anim', '=', 'scale-up'],
+			'required' => ['_thebrbre_starter_anim', '=', 'scale-up'],
 			'css'      => [
 				[
-					'property' => '--aab-scale-end',
+					'property' => '--thebrbre-scale-end',
 					'selector' => '',
 				],
 			],
 		];
 
-		$controls['_aab_scale_origin'] = [
+		$controls['_thebrbre_scale_origin'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
 			'label'    => esc_html__('Scale From', 'the-bricksfly'),
@@ -525,17 +525,17 @@ class THEBRBRE_Starter_Animations
 			],
 			'default'  => 'center',
 			'inline'   => true,
-			'required' => ['_aab_starter_anim', '=', 'scale-up'],
+			'required' => ['_thebrbre_starter_anim', '=', 'scale-up'],
 			'css'      => [
 				[
-					'property' => '--aab-scale-origin',
+					'property' => '--thebrbre-scale-origin',
 					'selector' => '',
 				],
 			],
 		];
 
 		// ---- slide ----
-		$controls['_aab_slide_direction'] = [
+		$controls['_thebrbre_slide_direction'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
 			'label'    => esc_html__('Direction', 'the-bricksfly'),
@@ -548,10 +548,10 @@ class THEBRBRE_Starter_Animations
 			],
 			'default'  => 'bottom',
 			'inline'   => true,
-			'required' => ['_aab_starter_anim', '=', 'slide'],
+			'required' => ['_thebrbre_starter_anim', '=', 'slide'],
 		];
 
-		$controls['_aab_slide_distance'] = [
+		$controls['_thebrbre_slide_distance'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
 			'label'    => esc_html__('Distance (px)', 'the-bricksfly'),
@@ -560,10 +560,10 @@ class THEBRBRE_Starter_Animations
 			'min'      => 0,
 			'max'      => 500,
 			'step'     => 5,
-			'required' => ['_aab_starter_anim', '=', 'slide'],
+			'required' => ['_thebrbre_starter_anim', '=', 'slide'],
 			'css'      => [
 				[
-					'property' => '--aab-slide-distance',
+					'property' => '--thebrbre-slide-distance',
 					'selector' => '',
 					'value'    => '%spx',
 				],
@@ -571,32 +571,32 @@ class THEBRBRE_Starter_Animations
 		];
 
 		// ---- skew-reveal ----
-		$controls['_aab_skew_angle'] = [
+		$controls['_thebrbre_skew_angle'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
 			'label'    => esc_html__('Skew Angle (deg)', 'the-bricksfly'),
 			'type'     => 'number',
 			'default'  => 18,
-			'required' => ['_aab_starter_anim', '=', 'skew-reveal'],
+			'required' => ['_thebrbre_starter_anim', '=', 'skew-reveal'],
 			'css'      => [
 				[
-					'property' => '--aab-skew-angle',
+					'property' => '--thebrbre-skew-angle',
 					'selector' => '',
 					'value'    => '%sdeg',
 				],
 			],
 		];
 
-		$controls['_aab_skew_distance'] = [
+		$controls['_thebrbre_skew_distance'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
 			'label'    => esc_html__('Translate Distance (px)', 'the-bricksfly'),
 			'type'     => 'number',
 			'default'  => 40,
-			'required' => ['_aab_starter_anim', '=', 'skew-reveal'],
+			'required' => ['_thebrbre_starter_anim', '=', 'skew-reveal'],
 			'css'      => [
 				[
-					'property' => '--aab-skew-distance',
+					'property' => '--thebrbre-skew-distance',
 					'selector' => '',
 					'value'    => '%spx',
 				],
@@ -604,7 +604,7 @@ class THEBRBRE_Starter_Animations
 		];
 
 		// ---- flip ----
-		$controls['_aab_flip_axis'] = [
+		$controls['_thebrbre_flip_axis'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
 			'label'    => esc_html__('Flip Direction', 'the-bricksfly'),
@@ -615,35 +615,35 @@ class THEBRBRE_Starter_Animations
 			],
 			'default'  => 'x',
 			'inline'   => true,
-			'required' => ['_aab_starter_anim', '=', 'flip'],
+			'required' => ['_thebrbre_starter_anim', '=', 'flip'],
 		];
 
-		$controls['_aab_flip_angle'] = [
+		$controls['_thebrbre_flip_angle'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
 			'label'    => esc_html__('Flip Angle (deg)', 'the-bricksfly'),
 			'type'     => 'number',
 			'default'  => 90,
-			'required' => ['_aab_starter_anim', '=', 'flip'],
+			'required' => ['_thebrbre_starter_anim', '=', 'flip'],
 			'css'      => [
 				[
-					'property' => '--aab-flip-angle',
+					'property' => '--thebrbre-flip-angle',
 					'selector' => '',
 					'value'    => '%sdeg',
 				],
 			],
 		];
 
-		$controls['_aab_flip_perspective'] = [
+		$controls['_thebrbre_flip_perspective'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
 			'label'    => esc_html__('Perspective (px)', 'the-bricksfly'),
 			'type'     => 'number',
 			'default'  => 800,
-			'required' => ['_aab_starter_anim', '=', 'flip'],
+			'required' => ['_thebrbre_starter_anim', '=', 'flip'],
 			'css'      => [
 				[
-					'property' => '--aab-flip-perspective',
+					'property' => '--thebrbre-flip-perspective',
 					'selector' => '',
 					'value'    => '%spx',
 				],
@@ -651,7 +651,7 @@ class THEBRBRE_Starter_Animations
 		];
 
 		// ---- repeat-on-enter (footer) ----
-		$controls['_aab_repeat_on_enter'] = [
+		$controls['_thebrbre_repeat_on_enter'] = [
 			'tab'         => 'content',
 			'group'       => self::GROUP_ID,
 			'label'       => esc_html__('Repeat Animation?', 'the-bricksfly'),
@@ -663,30 +663,30 @@ class THEBRBRE_Starter_Animations
 			],
 			'default'     => 'no',
 			'inline'      => true,
-			'required'    => ['_aab_starter_anim', '!=', ['', 'none']],
+			'required'    => ['_thebrbre_starter_anim', '!=', ['', 'none']],
 		];
 
 
 		// ---- editor preview ----
-		$controls['_aab_anim_editor_enabled'] = [
+		$controls['_thebrbre_anim_editor_enabled'] = [
 			'tab'         => 'content',
 			'group'       => self::GROUP_ID,
 			'label'       => esc_html__('Enable On Editor', 'the-bricksfly'),
 			'description' => esc_html__('For better performance in editor mode, keep this off.', 'the-bricksfly'),
 			'type'        => 'checkbox',
 			'inline'      => true,
-			'required'    => ['_aab_starter_anim', '!=', ['', 'none']],
+			'required'    => ['_thebrbre_starter_anim', '!=', ['', 'none']],
 			'separator'   => 'before',
 		];
 
-		$controls['_aab_play_starter_animation'] = [
+		$controls['_thebrbre_play_starter_animation'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
 			'type'     => 'info',
-			'content'  => '<button type="button" class="aab-free-play-animation"><span class="aab-free-play-animation__icon" aria-hidden="true">▶</span><span class="aab-free-play-animation__label">PLAY ANIMATION</span></button>',
+			'content'  => '<button type="button" class="thebrbre-free-play-animation"><span class="thebrbre-free-play-animation__icon" aria-hidden="true">▶</span><span class="thebrbre-free-play-animation__label">PLAY ANIMATION</span></button>',
 			'required' => [
-				['_aab_starter_anim', '!=', ['', 'none']],
-				['_aab_anim_editor_enabled', '=', true],
+				['_thebrbre_starter_anim', '!=', ['', 'none']],
+				['_thebrbre_anim_editor_enabled', '=', true],
 			],
 		];
 
@@ -700,7 +700,7 @@ class THEBRBRE_Starter_Animations
 	public function inject_container_controls($controls)
 	{
 
-		$controls['_aab_starter_anim_container'] = [
+		$controls['_thebrbre_starter_anim_container'] = [
 			'tab'     => 'content',
 			'group'   => self::GROUP_ID_CONTAINER,
 			'label'   => esc_html__('Animation', 'the-bricksfly'),
@@ -715,7 +715,7 @@ class THEBRBRE_Starter_Animations
 		];
 
 		// ---- container slide ----
-		$controls['_aab_slide_direction_container'] = [
+		$controls['_thebrbre_slide_direction_container'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID_CONTAINER,
 			'label'    => esc_html__('Slide Direction', 'the-bricksfly'),
@@ -728,58 +728,58 @@ class THEBRBRE_Starter_Animations
 			],
 			'default'  => 'bottom',
 			'inline'   => true,
-			'required' => ['_aab_starter_anim_container', '=', 'slide'],
+			'required' => ['_thebrbre_starter_anim_container', '=', 'slide'],
 		];
 
-		$controls['_aab_slide_distance_container'] = [
+		$controls['_thebrbre_slide_distance_container'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID_CONTAINER,
 			'label'    => esc_html__('Distance (px)', 'the-bricksfly'),
 			'type'     => 'number',
 			'default'  => 40,
-			'required' => ['_aab_starter_anim_container', '=', 'slide'],
+			'required' => ['_thebrbre_starter_anim_container', '=', 'slide'],
 			'css'      => [
 				[
-					'property' => '--aab-slide-distance',
+					'property' => '--thebrbre-slide-distance',
 					'selector' => '',
 					'value'    => '%spx',
 				],
 			],
 		];
 
-		$controls['_aab_slide_duration_container'] = [
+		$controls['_thebrbre_slide_duration_container'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID_CONTAINER,
 			'label'    => esc_html__('Duration (ms)', 'the-bricksfly'),
 			'type'     => 'number',
 			'default'  => 600,
-			'required' => ['_aab_starter_anim_container', '=', 'slide'],
+			'required' => ['_thebrbre_starter_anim_container', '=', 'slide'],
 			'css'      => [
 				[
-					'property' => '--aab-slide-duration',
+					'property' => '--thebrbre-slide-duration',
 					'selector' => '',
 					'value'    => '%sms',
 				],
 			],
 		];
 
-		$controls['_aab_slide_delay_container'] = [
+		$controls['_thebrbre_slide_delay_container'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID_CONTAINER,
 			'label'    => esc_html__('Delay (ms)', 'the-bricksfly'),
 			'type'     => 'number',
 			'default'  => 0,
-			'required' => ['_aab_starter_anim_container', '=', 'slide'],
+			'required' => ['_thebrbre_starter_anim_container', '=', 'slide'],
 			'css'      => [
 				[
-					'property' => '--aab-slide-delay',
+					'property' => '--thebrbre-slide-delay',
 					'selector' => '',
 					'value'    => '%sms',
 				],
 			],
 		];
 
-		$controls['_aab_slide_ease_container'] = [
+		$controls['_thebrbre_slide_ease_container'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID_CONTAINER,
 			'label'    => esc_html__('Easing', 'the-bricksfly'),
@@ -787,17 +787,17 @@ class THEBRBRE_Starter_Animations
 			'options'  => $this->get_easing_options(),
 			'default'  => 'ease',
 			'inline'   => true,
-			'required' => ['_aab_starter_anim_container', '=', 'slide'],
+			'required' => ['_thebrbre_starter_anim_container', '=', 'slide'],
 			'css'      => [
 				[
-					'property' => '--aab-slide-ease',
+					'property' => '--thebrbre-slide-ease',
 					'selector' => '',
 				],
 			],
 		];
 
 		// ---- container flip ----
-		$controls['_aab_flip_axis_container'] = [
+		$controls['_thebrbre_flip_axis_container'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID_CONTAINER,
 			'label'    => esc_html__('Flip Direction', 'the-bricksfly'),
@@ -808,35 +808,35 @@ class THEBRBRE_Starter_Animations
 			],
 			'default'  => 'x',
 			'inline'   => true,
-			'required' => ['_aab_starter_anim_container', '=', 'flip'],
+			'required' => ['_thebrbre_starter_anim_container', '=', 'flip'],
 		];
 
-		$controls['_aab_flip_angle_container'] = [
+		$controls['_thebrbre_flip_angle_container'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID_CONTAINER,
 			'label'    => esc_html__('Flip Angle (deg)', 'the-bricksfly'),
 			'type'     => 'number',
 			'default'  => 90,
-			'required' => ['_aab_starter_anim_container', '=', 'flip'],
+			'required' => ['_thebrbre_starter_anim_container', '=', 'flip'],
 			'css'      => [
 				[
-					'property' => '--aab-flip-angle-container',
+					'property' => '--thebrbre-flip-angle-container',
 					'selector' => '',
 					'value'    => '%sdeg',
 				],
 			],
 		];
 
-		$controls['_aab_flip_perspective_container'] = [
+		$controls['_thebrbre_flip_perspective_container'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID_CONTAINER,
 			'label'    => esc_html__('Perspective (px)', 'the-bricksfly'),
 			'type'     => 'number',
 			'default'  => 800,
-			'required' => ['_aab_starter_anim_container', '=', 'flip'],
+			'required' => ['_thebrbre_starter_anim_container', '=', 'flip'],
 			'css'      => [
 				[
-					'property' => '--aab-flip-perspective-container',
+					'property' => '--thebrbre-flip-perspective-container',
 					'selector' => '',
 					'value'    => '%spx',
 				],
@@ -844,7 +844,7 @@ class THEBRBRE_Starter_Animations
 		];
 
 		// Repeat behavior on containers as well.
-		$controls['_aab_repeat_on_enter_container'] = [
+		$controls['_thebrbre_repeat_on_enter_container'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID_CONTAINER,
 			'label'    => esc_html__('Repeat Animation?', 'the-bricksfly'),
@@ -855,28 +855,28 @@ class THEBRBRE_Starter_Animations
 			],
 			'default'  => 'no',
 			'inline'   => true,
-			'required' => ['_aab_starter_anim_container', '!=', ['', 'none']],
+			'required' => ['_thebrbre_starter_anim_container', '!=', ['', 'none']],
 		];
 
-		$controls['_aab_anim_editor_enabled_container'] = [
+		$controls['_thebrbre_anim_editor_enabled_container'] = [
 			'tab'         => 'content',
 			'group'       => self::GROUP_ID_CONTAINER,
 			'label'       => esc_html__('Enable On Editor', 'the-bricksfly'),
 			'description' => esc_html__('For better performance in editor mode, keep this off.', 'the-bricksfly'),
 			'type'        => 'checkbox',
 			'inline'      => true,
-			'required'    => ['_aab_starter_anim_container', '!=', ['', 'none']],
+			'required'    => ['_thebrbre_starter_anim_container', '!=', ['', 'none']],
 			'separator'   => 'before',
 		];
 
-		$controls['_aab_play_starter_animation_container'] = [
+		$controls['_thebrbre_play_starter_animation_container'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID_CONTAINER,
 			'type'     => 'info',
-			'content'  => '<button type="button" class="aab-free-play-animation"><span class="aab-free-play-animation__icon" aria-hidden="true">▶</span><span class="aab-free-play-animation__label">PLAY ANIMATION</span></button>',
+			'content'  => '<button type="button" class="thebrbre-free-play-animation"><span class="thebrbre-free-play-animation__icon" aria-hidden="true">▶</span><span class="thebrbre-free-play-animation__label">PLAY ANIMATION</span></button>',
 			'required' => [
-				['_aab_starter_anim_container', '!=', ['', 'none']],
-				['_aab_anim_editor_enabled_container', '=', true],
+				['_thebrbre_starter_anim_container', '!=', ['', 'none']],
+				['_thebrbre_anim_editor_enabled_container', '=', true],
 			],
 		];
 
@@ -948,19 +948,19 @@ public function apply_render_classes($attributes, $key, $element)
 	};
 
 	if ($is_text) {
-		$anim = isset($settings['_aab_starter_anim']) ? $settings['_aab_starter_anim'] : '';
+		$anim = isset($settings['_thebrbre_starter_anim']) ? $settings['_thebrbre_starter_anim'] : '';
 		if ($anim && $anim !== 'none') {
-			$add('aab-starter-animations-' . $anim);
-			$add('aab-target-self');
+			$add('thebrbre-starter-animations-' . $anim);
+			$add('thebrbre-target-self');
 
-			$repeat = ($settings['_aab_repeat_on_enter'] ?? '') === 'yes' ? 'yes' : 'no';
-			$add('aab-repeat-' . $repeat);
+			$repeat = ($settings['_thebrbre_repeat_on_enter'] ?? '') === 'yes' ? 'yes' : 'no';
+			$add('thebrbre-repeat-' . $repeat);
 
 
 			// text-bg-clip needs the image URL piped into a CSS variable. (Image
 			// elements never use this preset, so this only runs for text widgets.)
-			if ($anim === 'text-bg-clip' && ! empty($settings['_aab_bg_text_image'])) {
-				$img    = $settings['_aab_bg_text_image'];
+			if ($anim === 'text-bg-clip' && ! empty($settings['_thebrbre_bg_text_image'])) {
+				$img    = $settings['_thebrbre_bg_text_image'];
 				$bg_url = '';
 				if (is_array($img)) {
 					if (! empty($img['url'])) {
@@ -974,7 +974,7 @@ public function apply_render_classes($attributes, $key, $element)
 				}
 
 				if ($bg_url !== '') {
-					$style_decl = '--aab-bg-text-image:url(' . esc_url_raw($bg_url) . ');';
+					$style_decl = '--thebrbre-bg-text-image:url(' . esc_url_raw($bg_url) . ');';
 					$existing   = isset($attributes[$root_key]['style']) ? $attributes[$root_key]['style'] : '';
 					if (is_array($existing)) {
 						$existing[]                      = $style_decl;
@@ -986,49 +986,49 @@ public function apply_render_classes($attributes, $key, $element)
 			}
 
 			if ($anim === 'reveal') {
-				$direction = ! empty($settings['_aab_reveal_direction']) ? $settings['_aab_reveal_direction'] : 'bottom';
-				$add('aab-reveal-' . $direction);
-				if (! empty($settings['_aab_reveal_fade'])) {
-					$add('aab-reveal-yes');
+				$direction = ! empty($settings['_thebrbre_reveal_direction']) ? $settings['_thebrbre_reveal_direction'] : 'bottom';
+				$add('thebrbre-reveal-' . $direction);
+				if (! empty($settings['_thebrbre_reveal_fade'])) {
+					$add('thebrbre-reveal-yes');
 				}
 			}
 
 			if ($anim === 'text-char-animate') {
-				$preset = ! empty($settings['_aab_char_preset']) ? $settings['_aab_char_preset'] : 'revolve';
-				$add('aab-char-preset-' . $preset);
+				$preset = ! empty($settings['_thebrbre_char_preset']) ? $settings['_thebrbre_char_preset'] : 'revolve';
+				$add('thebrbre-char-preset-' . $preset);
 			}
 
 			if ($anim === 'slide') {
-				$direction = ! empty($settings['_aab_slide_direction']) ? $settings['_aab_slide_direction'] : 'bottom';
-				$add('aab-slide-' . $direction);
+				$direction = ! empty($settings['_thebrbre_slide_direction']) ? $settings['_thebrbre_slide_direction'] : 'bottom';
+				$add('thebrbre-slide-' . $direction);
 			}
 
 			if ($anim === 'flip') {
-				$axis = ! empty($settings['_aab_flip_axis']) ? $settings['_aab_flip_axis'] : 'x';
-				$add('aab-flip-axis-' . $axis);
+				$axis = ! empty($settings['_thebrbre_flip_axis']) ? $settings['_thebrbre_flip_axis'] : 'x';
+				$add('thebrbre-flip-axis-' . $axis);
 			}
 		}
 
 	}
 
 	if ($is_container) {
-		$anim = isset($settings['_aab_starter_anim_container']) ? $settings['_aab_starter_anim_container'] : '';
+		$anim = isset($settings['_thebrbre_starter_anim_container']) ? $settings['_thebrbre_starter_anim_container'] : '';
 		if ($anim && $anim !== 'none') {
-			$add('aab-starter-animations-' . $anim);
+			$add('thebrbre-starter-animations-' . $anim);
 
 			if ($anim === 'slide') {
-				$direction = ! empty($settings['_aab_slide_direction_container']) ? $settings['_aab_slide_direction_container'] : 'bottom';
-				$add('aab-slide-' . $direction);
+				$direction = ! empty($settings['_thebrbre_slide_direction_container']) ? $settings['_thebrbre_slide_direction_container'] : 'bottom';
+				$add('thebrbre-slide-' . $direction);
 			}
 
 			if ($anim === 'flip') {
-				$axis = ! empty($settings['_aab_flip_axis_container']) ? $settings['_aab_flip_axis_container'] : 'x';
-				$add('aab-flip-axis-container-' . $axis);
+				$axis = ! empty($settings['_thebrbre_flip_axis_container']) ? $settings['_thebrbre_flip_axis_container'] : 'x';
+				$add('thebrbre-flip-axis-container-' . $axis);
 			}
 
-			// reads `aab-repeat-yes` — so never emit the no-op `aab-repeat-no`.
-			$repeat = ($settings['_aab_repeat_on_enter_container'] ?? '') === 'yes' ? 'yes' : 'no';
-			$add('aab-repeat-' . $repeat);
+			// reads `thebrbre-repeat-yes` — so never emit the no-op `thebrbre-repeat-no`.
+			$repeat = ($settings['_thebrbre_repeat_on_enter_container'] ?? '') === 'yes' ? 'yes' : 'no';
+			$add('thebrbre-repeat-' . $repeat);
 		}
 	
 	}
@@ -1047,7 +1047,7 @@ public function apply_render_classes($attributes, $key, $element)
 
 		// Animation CSS is needed in every context.
 		wp_enqueue_style(
-			'aab-starter-animations-client',
+			'thebrbre-starter-animations-client',
 			THEBRBRE_URL . 'public/build/extensions/starter-animations-client.css',
 			[],
 			$css_ver
@@ -1060,7 +1060,7 @@ public function apply_render_classes($attributes, $key, $element)
 			// messages, no IntersectionObserver.
 			$js_path = THEBRBRE_PATH . 'public/build/extensions/starter-animations-builder.js';
 			wp_enqueue_script(
-				'aab-starter-animations-preview',
+				'thebrbre-starter-animations-preview',
 				THEBRBRE_URL . 'public/build/extensions/starter-animations-builder.js',
 				[],
 				file_exists($js_path) ? filemtime($js_path) : THEBRBRE_VERSION,
@@ -1071,7 +1071,7 @@ public function apply_render_classes($attributes, $key, $element)
 			// animation bundle with IntersectionObserver.
 			$js_path = THEBRBRE_PATH . 'public/build/extensions/starter-animations-client.js';
 			wp_enqueue_script(
-				'aab-starter-animations-client',
+				'thebrbre-starter-animations-client',
 				THEBRBRE_URL . 'public/build/extensions/starter-animations-client.js',
 				[],
 				file_exists($js_path) ? filemtime($js_path) : THEBRBRE_VERSION,

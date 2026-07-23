@@ -9,7 +9,7 @@ class THEBRBRE_Bricks_Counter extends \Bricks\Element
 	public $name         = 'aab-counter';
 	public $icon         = 'ti-timer aab-element-marker';
 	public $css_selector = '.aab-counter';
-	public $scripts      = ['aabCounter'];
+	public $scripts      = ['thebrbreCounter'];
 
 	public function get_label()
 	{

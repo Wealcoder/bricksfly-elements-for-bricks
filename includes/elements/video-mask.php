@@ -8,7 +8,7 @@ class THEBRBRE_Bricks_Video_Mask extends \Bricks\Element {
 	public $name         = 'aab-video-mask';
 	public $icon         = 'ti-video-camera aab-element-marker';
 	public $css_selector = '.aab-video-mask';
-	public $scripts      = [ 'aabVideoMask' ];
+	public $scripts      = [ 'thebrbreVideoMask' ];
 
 	public function get_label() {
 		return esc_html__('Video Mask', 'the-bricksfly');

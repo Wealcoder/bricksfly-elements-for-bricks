@@ -207,7 +207,7 @@ if (! function_exists('thebrbre_is_extension_active')) {
    */
   function thebrbre_is_extension_active($slug)
   {
-    return (bool) thebrbre_get_settings('aab_save_extensions', $slug);
+    return (bool) thebrbre_get_settings('thebrbre_save_extensions', $slug);
   }
 }
 
@@ -221,7 +221,7 @@ if (! function_exists('thebrbre_is_widget_active')) {
    */
   function thebrbre_is_widget_active($slug)
   {
-    return (bool) thebrbre_get_settings('aab_save_widgets', $slug);
+    return (bool) thebrbre_get_settings('thebrbre_save_widgets', $slug);
   }
 }
 
@@ -231,18 +231,18 @@ if (! function_exists('thebrbre_get_config')) {
   /**
    * Return the merged plugin config tree (widgets / extensions / integrations).
    *
-   * Built by `config.php` into `$GLOBALS['aabaddons_config']` at load time,
+   * Built by `config.php` into `$GLOBALS['thebrbre_config']` at load time,
    * then filtered through the dashboard config filter to fold in DB state.
    *
    * @return array
    */
   function thebrbre_get_config()
   {
-    $config = isset($GLOBALS['aabaddons_config']) && is_array($GLOBALS['aabaddons_config'])
-      ? $GLOBALS['aabaddons_config']
+    $config = isset($GLOBALS['thebrbre_config']) && is_array($GLOBALS['thebrbre_config'])
+      ? $GLOBALS['thebrbre_config']
       : array();
 
-    return apply_filters('aabaddons_dashboard_config', $config);
+    return apply_filters('thebrbre_dashboard_config', $config);
   }
 }
 
@@ -255,7 +255,7 @@ if (! function_exists('thebrbre_translate_config_tree')) {
    * cannot call `__()` directly without triggering WP 6.7+ "translation
    * loaded too early" notices. Instead, the labels stay raw English in the
    * static array and are translated on demand here — wired into the
-   * `aab_addons_dashboard_config` filter so the React dashboard receives
+   * `thebrbre_addons_dashboard_config` filter so the React dashboard receives
    * translated strings.
    *
    * Translatable keys: `label`, `title`, `description`. Slugs, icons,
@@ -302,7 +302,7 @@ if (! function_exists('thebrbre_translate_config_tree')) {
   }
 }
 
-add_filter('aabaddons_dashboard_config', 'thebrbre_translate_config_tree', 5);
+add_filter('thebrbre_dashboard_config', 'thebrbre_translate_config_tree', 5);
 
 if (! function_exists('thebrbre_is_pro_active')) {
 

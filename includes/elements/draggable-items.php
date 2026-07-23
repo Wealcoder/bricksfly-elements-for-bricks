@@ -8,7 +8,7 @@ class THEBRBRE_Draggable_Items extends \Bricks\Element {
 	public $name         = 'aab-draggable-items';
 	public $icon         = 'ti-move aab-element-marker';
 	public $css_selector = '.drag--item';
-	public $scripts      = [ 'aabDraggableItems' ];
+	public $scripts      = [ 'thebrbreDraggableItems' ];
 
 	public function get_label() {
 		return esc_html__('Draggable Items', 'the-bricksfly');

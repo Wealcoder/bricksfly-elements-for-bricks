@@ -4,7 +4,7 @@ if (! defined('ABSPATH')) {
 	exit;  // Exit if accessed directly.
 }
 
-$aabaddons_config = array(
+$thebrbre_config = array(
 	'widgets'            => array(
 		'is_active' => false,
 		'elements'  => array(
@@ -1353,7 +1353,7 @@ $aabaddons_config = array(
 	),
 );
 
-$aabaddons_dashboard_pro_widget_slugs = array(
+$thebrbre_dashboard_pro_widget_slugs = array(
 	'animated-heading',
 	'icon-box',
 	'social-icons',
@@ -1361,23 +1361,23 @@ $aabaddons_dashboard_pro_widget_slugs = array(
 	'testimonial-1',
 	'button-pro',
 );
-$aabaddons_widget_index = array();
-if (! empty($aabaddons_config['widgets']['elements']) && is_array($aabaddons_config['widgets']['elements'])) {
-	foreach ($aabaddons_config['widgets']['elements'] as $aabaddons_group) {
-		if (empty($aabaddons_group['elements']) || ! is_array($aabaddons_group['elements'])) {
+$thebrbre_widget_index = array();
+if (! empty($thebrbre_config['widgets']['elements']) && is_array($thebrbre_config['widgets']['elements'])) {
+	foreach ($thebrbre_config['widgets']['elements'] as $thebrbre_group) {
+		if (empty($thebrbre_group['elements']) || ! is_array($thebrbre_group['elements'])) {
 			continue;
 		}
-		foreach ($aabaddons_group['elements'] as $aabaddons_slug => $aabaddons_widget) {
-			$aabaddons_widget_index[$aabaddons_slug] = $aabaddons_widget;
+		foreach ($thebrbre_group['elements'] as $thebrbre_slug => $thebrbre_widget) {
+			$thebrbre_widget_index[$thebrbre_slug] = $thebrbre_widget;
 		}
 	}
 }
-$aabaddons_dashboard_pro_widgets = array();
-foreach ($aabaddons_dashboard_pro_widget_slugs as $aabaddons_slug) {
-	if (isset($aabaddons_widget_index[$aabaddons_slug])) {
-		$aabaddons_dashboard_pro_widgets[$aabaddons_slug] = $aabaddons_widget_index[$aabaddons_slug];
+$thebrbre_dashboard_pro_widgets = array();
+foreach ($thebrbre_dashboard_pro_widget_slugs as $thebrbre_slug) {
+	if (isset($thebrbre_widget_index[$thebrbre_slug])) {
+		$thebrbre_dashboard_pro_widgets[$thebrbre_slug] = $thebrbre_widget_index[$thebrbre_slug];
 	}
 }
-$aabaddons_config['dashboardProWidget'] = $aabaddons_dashboard_pro_widgets;
+$thebrbre_config['dashboardProWidget'] = $thebrbre_dashboard_pro_widgets;
 
-$GLOBALS['aabaddons_config'] = $aabaddons_config;
+$GLOBALS['thebrbre_config'] = $thebrbre_config;

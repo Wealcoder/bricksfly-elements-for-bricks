@@ -149,10 +149,10 @@ class THEBRBRE_Plugin
 
 		// Dispatch the Pro plugin bootstrap action once every plugin file has
 		// been parsed (so the pro plugin has had a chance to register its
-		// add_action('aabaddons/pro/register', …) handler).
+		// add_action('thebrbre/pro/register', …) handler).
 		add_action('plugins_loaded', function () {
 			if (function_exists('thebrbre_is_pro_active') && thebrbre_is_pro_active()) {
-				do_action('aabaddons/pro/register');
+				do_action('thebrbre/pro/register');
 			}
 		}, 20);
 
@@ -163,7 +163,7 @@ class THEBRBRE_Plugin
 	 * Register extensions from config.php.
 	 *
 	 * Reads the extensions → gsap-extensions groups and loads each
-	 * child extension whose slug is active in `aab_save_extensions`.
+	 * child extension whose slug is active in `thebrbre_save_extensions`.
 	 * Skips extensions marked as upcoming.
 	 * In Bricks builder, all extensions are loaded for live preview.
 	 *
@@ -185,7 +185,7 @@ class THEBRBRE_Plugin
 			// exclusively by the Pro plugin. The free plugin must NEVER load
 			// them so Pro features stay disabled without the Pro plugin
 			// folder installed. Pro, when active, loads its own copies via
-			// `aab_pro_register()`.
+			// `thebrbre_pro_register()`.
 			if (! empty($data['is_pro'])) {
 				continue;
 			}
@@ -205,7 +205,7 @@ class THEBRBRE_Plugin
 	 * Register elements from config.php.
 	 *
 	 * Reads the widgets groups and registers each child element
-	 * whose slug is active in `aab_save_widgets`.
+	 * whose slug is active in `thebrbre_save_widgets`.
 	 * Skips elements marked as upcoming.
 	 *
 	 * @since    1.0.0

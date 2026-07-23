@@ -8,7 +8,7 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 	public $name         = 'aab-video-box';
 	public $icon         = 'ti-video-clapper aab-element-marker';
 	public $css_selector = '.aab-video-box';
-	public $scripts      = [ 'aabVideoBox' ];
+	public $scripts      = [ 'thebrbreVideoBox' ];
 
 	public function get_label() {
 		return esc_html__('Video Box', 'the-bricksfly');

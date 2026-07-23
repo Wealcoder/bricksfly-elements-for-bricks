@@ -9,7 +9,7 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 	public $name         = 'aab-brand-slider';
 	public $icon         = 'ti-layout-slider aab-element-marker';
 	public $css_selector = '.aab-brand-slider-wrapper';
-	public $scripts      = ['aabBrandSlider'];
+	public $scripts      = ['thebrbreBrandSlider'];
 
 	public function get_label()
 	{

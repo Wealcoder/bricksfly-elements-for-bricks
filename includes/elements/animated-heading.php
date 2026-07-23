@@ -8,7 +8,7 @@ class THEBRBRE_Bricks_Animated_Heading extends \Bricks\Element {
 	public $name         = 'aab-animated-heading';
 	public $icon         = 'ti-text aab-element-marker';
 	public $css_selector = '.aab-animated-heading';
-	public $scripts      = [ 'aabAnimatedHeading' ];
+	public $scripts      = [ 'thebrbreAnimatedHeading' ];
 
 	public function get_label() {
 		return esc_html__('Animated Heading', 'the-bricksfly');

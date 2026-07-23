@@ -46,7 +46,7 @@ class THEBRBRE_Page_Importer {
 
 		wp_localize_script(
 			'aab-admin-actions',
-			'AAB_PAGE_IMPORT',
+			'THEBRBRE_PAGE_IMPORT',
 			[
 				'page_url' => esc_url( admin_url( 'admin.php?page=bf-page-importer' ) ),
 				'logo'     => esc_url( THEBRBRE_URL . 'public/images/plugin_logo.png' ),
@@ -63,7 +63,7 @@ class THEBRBRE_Page_Importer {
 			AND post_status = 'publish'
 			AND ID IN (
 				SELECT post_id FROM $wpdb->postmeta
-				WHERE meta_key = 'aab_imported' AND meta_value = '1'
+				WHERE meta_key = 'thebrbre_imported' AND meta_value = '1'
 			)
 		" );
 
@@ -83,7 +83,7 @@ class THEBRBRE_Page_Importer {
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading URL parameter for query filtering only, not processing form data.
 			$latest_import = isset( $_GET['aae-latest-import'] ) ? sanitize_key( wp_unslash( $_GET['aae-latest-import'] ) ) : '';
 			if ( 'import' === $latest_import ) {
-				$query->set( 'meta_key', 'aab_imported' );
+				$query->set( 'meta_key', 'thebrbre_imported' );
 				$query->set( 'meta_value', '1' );
 			}
 		}
@@ -165,7 +165,7 @@ class THEBRBRE_Page_Importer {
 		// Reading the options here (on every importer page load) means the state
 		// is always freshly fetched — never a stale cached value — so activation
 		// done elsewhere is reflected on the next load of this page.
-		$addons_config = apply_filters( 'aabaddons_dashboard_config', $GLOBALS['aabaddons_config'] ?? [] );
+		$addons_config = apply_filters('thebrbre_dashboard_config', $GLOBALS['thebrbre_config'] ?? [] );
 
 		$license_status = (string) get_option( 'wcf_addon_sl_license_status', '' );
 		$license_key    = (string) get_option( 'wcf_addon_sl_license_key', '' );
@@ -178,7 +178,7 @@ class THEBRBRE_Page_Importer {
 
 		$addons_config['sl_lic']    = $license_key;
 		$addons_config['is_pro']    = $pro_installed;
-		$addons_config['aab_valid'] = $license_valid;
+		$addons_config['thebrbre_valid'] = $license_valid;
 
 		// The compiled React UI unlocks Pro items on `product_status.item_id === 13`.
 		// Send 13 only when the license is valid (mirrors the Dashboard); the real
@@ -199,7 +199,7 @@ class THEBRBRE_Page_Importer {
 		$localize_data = [
 			'plugin_url'         => THEBRBRE_URL,
 			'ajaxurl'            => admin_url( 'admin-ajax.php' ),
-			'nonce'              => wp_create_nonce( 'aab_admin_nonce' ),
+			'nonce'              => wp_create_nonce( 'thebrbre_admin_nonce' ),
 			'addons_config'      => $addons_config,
 			'adminURL'           => admin_url(),
 			'page_url'           => esc_url( admin_url( 'edit.php?post_type=page' ) ),

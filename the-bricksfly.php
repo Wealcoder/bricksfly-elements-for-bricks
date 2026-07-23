@@ -166,14 +166,13 @@ function thebrbre_run()
 	$plugin = new THEBRBRE_Plugin();
 	$plugin->run();
 
-	// Localize AAB_ADDONS_JS against the always-enqueued public script so the
+	// Localize THEBRBRE_ADDONS_JS against the always-enqueued public script so the
 	// global is available to free elements (e.g. post-social-share) AND to
 	// Pro extensions (smooth scroller, scroll-to). The scroll-to runtime
 	// (scroll-to-el.js) itself lives in Pro and is enqueued by the Pro
 	// scrollto extension.
 	add_action('wp_enqueue_scripts', function () {
-		$data = apply_filters(
-			'aabaddons_js_data',
+		$data = apply_filters('thebrbre_js_data',
 			array(
 				'ajaxUrl'        => admin_url('admin-ajax.php'),
 				'post_id'        => get_the_ID(),
@@ -184,7 +183,7 @@ function thebrbre_run()
 					'success' => esc_html__('Success', 'the-bricksfly'),
 					'warning' => esc_html__('Warning', 'the-bricksfly'),
 				),
-				'smoothScroller' => json_decode(get_option('aab_smooth_scroller')),
+				'smoothScroller' => json_decode(get_option('thebrbre_smooth_scroller')),
 				// All Bricks breakpoints (defaults + custom). Empty array if
 				// Bricks isn't active so JS can rely on a consistent shape.
 				'breakpoints'    => class_exists('\\Bricks\\Breakpoints')
@@ -193,7 +192,7 @@ function thebrbre_run()
 			)
 		);
 
-		wp_localize_script('bricksfly', 'AAB_ADDONS_JS', $data);
+		wp_localize_script('bricksfly', 'THEBRBRE_ADDONS_JS', $data);
 	}, 20);
 }
 thebrbre_run();
