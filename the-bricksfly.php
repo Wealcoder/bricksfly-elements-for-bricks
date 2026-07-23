@@ -13,7 +13,7 @@
  * @package           Bricks_Fly
  *
  * @wordpress-plugin
- * Plugin Name:       The BricksFly – Bricks Elements, Bricks Templates & GSAP Animation
+ * Plugin Name:       The BricksFly
  * Plugin URI:        https://bricksfly.com/
  * Description:       The Bricksfly for Bricks comes with GSAP Animation Builder, Customizable Elements, Header Footer, Single Post, Archive Page Builder, and Many more.
  * Version:           1.0.0

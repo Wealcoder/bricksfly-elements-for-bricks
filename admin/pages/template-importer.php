@@ -614,6 +614,11 @@ class AAB_Template_Importer {
 	}
 
 	private function install_theme( $slug ) {
+		// Check proper capabilities for theme installation and activation
+		if ( ! current_user_can( 'install_themes' ) || ! current_user_can( 'switch_themes' ) ) {
+			return __( 'You do not have permission to install or activate themes.', 'the-bricksfly' );
+		}
+
 		if ( empty( $slug ) ) {
 			return __( 'No theme specified.', 'the-bricksfly' );
 		}
@@ -642,6 +647,28 @@ class AAB_Template_Importer {
 
 		if ( is_wp_error( $api ) ) {
 			return $api->get_error_message();
+		}
+
+		// Validate the download_link is from WordPress.org
+		if ( empty( $api->download_link ) || ! is_string( $api->download_link ) ) {
+			return __( 'Invalid theme download link.', 'the-bricksfly' );
+		}
+
+		// Ensure the download URL is from WordPress.org
+		$parsed_url = wp_parse_url( $api->download_link );
+		if ( false === $parsed_url || ! isset( $parsed_url['host'] ) ) {
+			return __( 'Invalid theme download URL.', 'the-bricksfly' );
+		}
+
+		// Only allow downloads from WordPress.org or its CDN
+		$allowed_hosts = [ 'downloads.wordpress.org', 'wordpress.org' ];
+		if ( ! in_array( $parsed_url['host'], $allowed_hosts, true ) ) {
+			return __( 'Theme download must be from WordPress.org.', 'the-bricksfly' );
+		}
+
+		// Verify the download link uses HTTPS
+		if ( ! isset( $parsed_url['scheme'] ) || 'https' !== $parsed_url['scheme'] ) {
+			return __( 'Theme download must use HTTPS.', 'the-bricksfly' );
 		}
 
 		$upgrader = new \Theme_Upgrader( new \WP_Ajax_Upgrader_Skin() );
