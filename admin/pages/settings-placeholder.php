@@ -1,6 +1,6 @@
 <?php
 
-namespace AABAddons\Admin\Pages;
+namespace wealcoder\bricksfly\Admin\Pages;
 
 if (! defined('ABSPATH')) exit;
 
@@ -13,9 +13,9 @@ if (! defined('ABSPATH')) exit;
  * upsell view explaining what's required, instead of the feature just
  * silently disappearing.
  */
-class AAB_Settings_Placeholder
+class THEBRBRE_Settings_Placeholder
 {
-	const MENU_PAGE_SLUG  = 'aab_addons_page';
+	const MENU_PAGE_SLUG  = 'thebrbre_addons_page';
 	const SETTINGS_SLUG   = 'bf-site-settings';
 	const MENU_CAPABILITY = 'manage_options';
 	const PRO_BASENAME    = 'the-bricksfly-pro/the-bricksfly-pro.php';
@@ -55,7 +55,7 @@ class AAB_Settings_Placeholder
 	 */
 	private function is_unlocked(): bool
 	{
-		return function_exists('aab_pro_is_license_valid') && aab_pro_is_license_valid();
+		return function_exists('thebrbre_pro_is_license_valid') && thebrbre_pro_is_license_valid();
 	}
 
 	private function is_pro_plugin_active(): bool
@@ -120,7 +120,7 @@ class AAB_Settings_Placeholder
 		if (! current_user_can(self::MENU_CAPABILITY)) return;
 		if ($this->is_unlocked()) return;
 		if ($this->is_pro_plugin_active()) return; // Pro renders the license notice.
-		if (! self::is_aab_admin_screen()) return;
+		if (! self::is_thebrbre_admin_screen()) return;
 
 		echo '<div class="notice notice-warning"><p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo '<strong>' . esc_html__('Bricksfly:', 'the-bricksfly') . '</strong> '; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -131,9 +131,9 @@ class AAB_Settings_Placeholder
 	/**
 	 * True when the current admin screen is part of the AAB plugin's own
 	 * menu tree (top-level dashboard or any submenu). Shared by the Pro
-	 * plugin's license notice via `AAB_Settings_Placeholder::is_aab_admin_screen()`.
+	 * plugin's license notice via `THEBRBRE_Settings_Placeholder::is_thebrbre_admin_screen()`.
 	 */
-	public static function is_aab_admin_screen(): bool
+	public static function is_thebrbre_admin_screen(): bool
 	{
 		if (! function_exists('get_current_screen')) return false;
 		$screen = get_current_screen();
@@ -141,11 +141,11 @@ class AAB_Settings_Placeholder
 
 		$id = (string) $screen->id;
 		return (
-			$id === 'toplevel_page_aab_addons_page'
-			|| strpos($id, '_page_aab_addons_') !== false
-			|| strpos($id, '_page_aab-') !== false
+			$id === 'toplevel_page_thebrbre_addons_page'
+			|| strpos($id, '_page_thebrbre_addons_') !== false
+			|| strpos($id, '_page_thebrbre-') !== false
 		);
 	}
 }
 
-// AAB_Settings_Placeholder::instance();
+// THEBRBRE_Settings_Placeholder::instance();

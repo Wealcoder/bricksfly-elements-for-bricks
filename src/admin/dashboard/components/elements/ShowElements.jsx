@@ -125,10 +125,10 @@ const ShowElements = ({
       },
 
       body: new URLSearchParams({
-        action: "aab_save_settings",
+        action: "thebrbre_save_settings",
         fields: JSON.stringify(allElements),
         nonce: AAB_ADDONS_ADMIN.nonce,
-        settings: "aab_save_widgets",
+        settings: "thebrbre_save_widgets",
       }),
     })
       .then((response) => {

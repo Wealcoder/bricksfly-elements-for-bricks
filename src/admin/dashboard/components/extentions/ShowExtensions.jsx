@@ -113,10 +113,10 @@ const ShowExtensions = ({
       },
 
       body: new URLSearchParams({
-        action: "aab_save_settings",
+        action: "thebrbre_save_settings",
         fields: JSON.stringify(allExtensions),
         nonce: AAB_ADDONS_ADMIN.nonce,
-        settings: "aab_save_extensions",
+        settings: "thebrbre_save_extensions",
       }),
     })
       .then((response) => {

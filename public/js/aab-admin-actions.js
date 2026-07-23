@@ -4,10 +4,10 @@
  * Injects an "Import Page" action button right after WordPress's "Add Page"
  * (.page-title-action) on the Pages list screen (edit.php?post_type=page).
  * Mirrors the AAE animation addon's aae-admin-actions.js. Configuration
- * (page_url, logo) is provided via the localized AAB_PAGE_IMPORT object.
+ * (page_url, logo) is provided via the localized THEBRBRE_PAGE_IMPORT object.
  */
 document.addEventListener('DOMContentLoaded', function () {
-    if (typeof AAB_PAGE_IMPORT === 'undefined' || !AAB_PAGE_IMPORT.page_url) {
+    if (typeof THEBRBRE_PAGE_IMPORT === 'undefined' || !THEBRBRE_PAGE_IMPORT.page_url) {
         return;
     }
 
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const btn = document.createElement('a');
-    btn.href = AAB_PAGE_IMPORT.page_url;
+    btn.href = THEBRBRE_PAGE_IMPORT.page_url;
     btn.style.top = '0';
     btn.style.left = '5px';
     btn.style.border = '1px solid #FCCBC0';
@@ -35,8 +35,8 @@ document.addEventListener('DOMContentLoaded', function () {
     btn.className = 'page-title-action'; // same styling as "Add New"
     btn.innerHTML =
         '<div style="display: flex; justify-content: center; align-items: center; gap: 6px;">' +
-        (AAB_PAGE_IMPORT.logo
-            ? '<img src="' + AAB_PAGE_IMPORT.logo + '" width="16" height="16" alt="" />'
+        (THEBRBRE_PAGE_IMPORT.logo
+            ? '<img src="' + THEBRBRE_PAGE_IMPORT.logo + '" width="16" height="16" alt="" />'
             : '') +
         '<span style="font-size: 12px; font-weight: 500; color: #FFFFFF">Import Page</span>' +
         '</div>';

@@ -1,4 +1,4 @@
-import { LoadingSpinner } from "@/components/shared/LoadingSpinner";
+﻿import { LoadingSpinner } from "@/components/shared/LoadingSpinner";
 import { Progress } from "@/components/ui/progress";
 import { useCallback, useEffect, useState, useContext } from "react";
 import { debounceFn } from "@/lib/utils";
@@ -89,7 +89,7 @@ const DemoImporting = () => {
     if (tab && tab === "complete-import") return;
 
     const formData = new URLSearchParams();
-    formData.append("action", "aab_heartbeat_data");
+    formData.append("action", "thebrbre_heartbeat_data");
     formData.append("nonce", AAB_ADDONS_ADMIN.nonce);
 
     const response = await fetch(AAB_ADDONS_ADMIN.ajaxurl, {
@@ -142,9 +142,9 @@ const DemoImporting = () => {
         const formData = new URLSearchParams();
 
         if (tpldata?.next_step && tpldata.next_step === "download-xml-file") {
-          formData.append("action", "aab_upload_manual_import_file");
+          formData.append("action", "thebrbre_upload_manual_import_file");
         } else {
-          formData.append("action", "aab_template_installer");
+          formData.append("action", "thebrbre_template_installer");
         }
         formData.append("import_type", "page");
         formData.append("template_data", JSON.stringify(tpldata));

@@ -2,13 +2,13 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class AAB_Bricks_Animated_Heading extends \Bricks\Element {
+class THEBRBRE_Bricks_Animated_Heading extends \Bricks\Element {
 
 	public $category     = 'bricks fly';
 	public $name         = 'aab-animated-heading';
 	public $icon         = 'ti-text aab-element-marker';
 	public $css_selector = '.aab-animated-heading';
-	public $scripts      = [ 'aabAnimatedHeading' ];
+	public $scripts      = [ 'thebrbreAnimatedHeading' ];
 
 	public function get_label() {
 		return esc_html__('Animated Heading', 'the-bricksfly');
@@ -21,14 +21,14 @@ class AAB_Bricks_Animated_Heading extends \Bricks\Element {
 	public function enqueue_scripts() {
 		wp_enqueue_style(
 			'aab-animated-heading',
-			AAB_ADDONS_URL . 'public/build/elements/animated-heading.css',
+			THEBRBRE_URL . 'public/build/elements/animated-heading.css',
 			[],
 			'1.0.0'
 		);
 
 		wp_enqueue_script(
 			'aab-animated-heading',
-			AAB_ADDONS_URL . 'public/build/elements/animated-heading.js',
+			THEBRBRE_URL . 'public/build/elements/animated-heading.js',
 			[],
 			'1.0.0',
 			true
@@ -311,7 +311,7 @@ class AAB_Bricks_Animated_Heading extends \Bricks\Element {
 
 		echo wp_kses_post('<div ' . $this->render_attributes( '_root' ) . '>');
 		echo wp_kses_post('<' . tag_escape( $tag ) . ' ' . $this->render_attributes( 'heading' ) . '>');
-		echo wp_kses_post( $content ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wp_kses_post( $content );
 		echo '</' . tag_escape( $tag ) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}

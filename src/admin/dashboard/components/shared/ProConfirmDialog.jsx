@@ -1,4 +1,4 @@
-import {
+﻿import {
   Dialog,
   DialogContent,
   DialogDescription,
@@ -27,7 +27,7 @@ const ProConfirmDialog = ({ open, setOpen, reason }) => {
   const isLimitation = reason === "limitation" || (isLicensed && open);
 
   const heading = isLimitation
-    ? "This feature isn’t included in your current plan"
+    ? "This feature isnâ€™t included in your current plan"
     : "Upgrade to premium plan and unlock every features!";
   const subtext = isLimitation
     ? "Upgrade your license plan to unlock this import feature."
@@ -42,7 +42,7 @@ const ProConfirmDialog = ({ open, setOpen, reason }) => {
       },
 
       body: new URLSearchParams({
-        action: "aab_active_plugin",
+        action: "thebrbre_active_plugin",
         action_base: "the-bricksfly-pro/the-bricksfly-pro.php",
         nonce: AAB_ADDONS_ADMIN.nonce,
       }),

@@ -1,4 +1,4 @@
-import MainHeader from "S/components/header/MainHeader";
+﻿import MainHeader from "S/components/header/MainHeader";
 import { usePostType, useTab, useTaxonomy } from "S/hooks/app.hooks";
 import PostTypes from "S/pages/postTypes";
 import EditPostType from "S/pages/postTypes/EditPostType";
@@ -45,7 +45,7 @@ const MainLayout = () => {
           Accept: "application/json",
         },
         body: new URLSearchParams({
-          action: "aab_post_type_builder_list",
+          action: "thebrbre_post_type_builder_list",
           aab_nonce: AAB_ADDONS_ADMIN.nonce,
         }),
       })
@@ -69,7 +69,7 @@ const MainLayout = () => {
           Accept: "application/json",
         },
         body: new URLSearchParams({
-          action: "aab_taxonomy_builder_list",
+          action: "thebrbre_taxonomy_builder_list",
           aab_nonce: AAB_ADDONS_ADMIN.nonce,
         }),
       })

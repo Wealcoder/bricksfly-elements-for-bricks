@@ -1,4 +1,4 @@
-import { useActivate } from "@/hooks/app.hooks";
+﻿import { useActivate } from "@/hooks/app.hooks";
 import { Button, buttonVariants } from "../ui/button";
 import { toast } from "sonner";
 import { RiKey2Line, RiVipCrown2Line } from "react-icons/ri";
@@ -17,7 +17,7 @@ const GetProButton = ({ btnClassName }) => {
       },
 
       body: new URLSearchParams({
-        action: "aab_active_plugin",
+        action: "thebrbre_active_plugin",
         action_base: "the-bricksfly-pro/the-bricksfly-pro.php",
         nonce: AAB_ADDONS_ADMIN.nonce,
       }),

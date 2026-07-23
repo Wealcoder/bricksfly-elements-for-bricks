@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+﻿import { cn } from "@/lib/utils";
 import { Dot } from "lucide-react";
 import { Button, buttonVariants } from "../ui/button";
 import { RiCheckLine, RiDownloadLine } from "react-icons/ri";
@@ -59,7 +59,7 @@ const IntegrationCard = ({ item, className }) => {
       },
 
       body: new URLSearchParams({
-        action: "aab_active_plugin",
+        action: "thebrbre_active_plugin",
         action_base:
           "the-bricksfly-pro/the-bricksfly-pro.php",
         nonce: AAB_ADDONS_ADMIN.nonce,

@@ -1,10 +1,10 @@
 <?php
 
-namespace AABAddons\Includes\Extensions\Helpers;
+namespace wealcoder\bricksfly\Includes\Extensions\Helpers;
 
 defined('ABSPATH') || exit;
 
-define('AAB_BRICKS_ELEMENTS', [
+define('THEBRBRE_BRICKS_ELEMENTS', [
   'section',
   'container',
   'block',

@@ -1,4 +1,4 @@
-import {
+﻿import {
   Accordion,
   AccordionContent,
   AccordionItem,
@@ -81,7 +81,7 @@ const RequiredFeatures = () => {
           Accept: "application/json",
         },
         body: new URLSearchParams({
-          action: "aab_template_dependency_status",
+          action: "thebrbre_template_dependency_status",
           nonce: AAB_ADDONS_ADMIN.nonce,
           dependencies: JSON.stringify(mainContent?.dependencies),
         }),

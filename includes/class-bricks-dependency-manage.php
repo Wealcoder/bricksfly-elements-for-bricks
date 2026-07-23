@@ -1,8 +1,8 @@
 <?php
-namespace AABAddons\Includes;
+namespace wealcoder\bricksfly\Includes;
 defined( 'ABSPATH' ) || exit;
 
-class WBAA_Dependency_Manager {
+class THEBRBRE_Dependency_Manager {
 
     public static function resolve( $settings ) {
 

@@ -1,4 +1,4 @@
-import { formatNumber } from "@//lib/utils";
+﻿import { formatNumber } from "@//lib/utils";
 import ProConfirmDialog from "@/components/shared/ProConfirmDialog";
 import { Badge } from "@/components/ui/badge";
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -32,7 +32,7 @@ const TemplateShow = ({ allTemplate, metaData, setMetaData }) => {
 
   const changeRoute = (value, slug, id, is_pro) => {
     // Gate BEFORE navigating to the import flow. Page import always needs the
-    // `starter_page_import` entitlement — even for "free" templates, since the
+    // `starter_page_import` entitlement â€” even for "free" templates, since the
     // page import machinery itself is the licensed feature. When it isn't
     // allowed, show the upsell popup instead of starting an import the server
     // would reject anyway.
@@ -66,7 +66,7 @@ const TemplateShow = ({ allTemplate, metaData, setMetaData }) => {
         },
 
         body: new URLSearchParams({
-          action: "aab_wishlist_option",
+          action: "thebrbre_wishlist_option",
           wishlist: JSON.stringify(data),
           nonce: AAB_ADDONS_ADMIN.nonce,
           settings: "wcf_save_widgets",

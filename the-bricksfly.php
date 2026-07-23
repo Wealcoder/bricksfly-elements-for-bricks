@@ -13,7 +13,7 @@
  * @package           Bricks_Fly
  *
  * @wordpress-plugin
- * Plugin Name:       The BricksFly
+ * Plugin Name:       The BricksFly – Bricks Elements, Bricks Templates & GSAP Animation
  * Plugin URI:        https://bricksfly.com/
  * Description:       The Bricksfly for Bricks comes with GSAP Animation Builder, Customizable Elements, Header Footer, Single Post, Archive Page Builder, and Many more.
  * Version:           1.0.1
@@ -38,44 +38,44 @@ if (! defined('ABSPATH')) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-if (! defined('AAB_ADDONS_FILE')) {
+if (! defined('THEBRBRE_FILE')) {
 	/**
 	 * Plugin File Ref.
 	 */
-	define('AAB_ADDONS_FILE', __FILE__);
+	define('THEBRBRE_FILE', __FILE__);
 }
-if (! defined('AAB_ADDONS_BASE')) {
+if (! defined('THEBRBRE_BASE')) {
 	/**
 	 * Plugin Base Name.
 	 */
-	define('AAB_ADDONS_BASE', plugin_basename(AAB_ADDONS_FILE));
+	define('THEBRBRE_BASE', plugin_basename(THEBRBRE_FILE));
 }
-if (! defined('AAB_ADDONS_PATH')) {
+if (! defined('THEBRBRE_PATH')) {
 	/**
 	 * Plugin Dir Ref.
 	 */
-	define('AAB_ADDONS_PATH', plugin_dir_path(AAB_ADDONS_FILE));
+	define('THEBRBRE_PATH', plugin_dir_path(THEBRBRE_FILE));
 }
 
-if (! defined('AAB_ADDONS_URL')) {
+if (! defined('THEBRBRE_URL')) {
 	/**
 	 * Plugin URL.
 	 */
-	define('AAB_ADDONS_URL', plugin_dir_url(AAB_ADDONS_FILE));
+	define('THEBRBRE_URL', plugin_dir_url(THEBRBRE_FILE));
 }
 
-if (! defined('AAB_ADDONS_VERSION')) {
+if (! defined('THEBRBRE_VERSION')) {
 	/**
 	 * Plugin Version.
 	 */
-	define('AAB_ADDONS_VERSION', '1.0.1');
+	define('THEBRBRE_VERSION', '1.0.0');
 }
 
-if (! defined('AAB_TEMPLATE_STARTER_BASE_URL')) {
+if (! defined('THEBRBRE_TEMPLATE_STARTER_BASE_URL')) {
 	/**
 	 * Template Path
 	 */
-	define('AAB_TEMPLATE_STARTER_BASE_URL', 'https://www.themecrowdy.com/');
+	define('THEBRBRE_TEMPLATE_STARTER_BASE_URL', 'https://www.themecrowdy.com/');
 }
 
 /**
@@ -87,63 +87,67 @@ if (! defined('AAB_TEMPLATE_STARTER_BASE_URL')) {
  * dashboard renderable when Pro is inactive. Pro's own files re-define
  * the same names with `! defined()` guards, so this is safe.
  */
-if (! defined('AAB_ADDON_PRO_STORE_URL')) {
-	define('AAB_ADDON_PRO_STORE_URL', 'https://my.bricksfly.com/');
+if (! defined('THEBRBRE_PRO_STORE_URL')) {
+	define('THEBRBRE_PRO_STORE_URL', 'https://my.bricksfly.com/');
 }
-if (! defined('AAB_ADDON_PRO_ITEM_ID')) {
-	define('AAB_ADDON_PRO_ITEM_ID', 39996);
+if (! defined('THEBRBRE_PRO_ITEM_ID')) {
+	define('THEBRBRE_PRO_ITEM_ID', 39996);
 }
-if (! defined('AAB_ADDON_PRO_ITEM_NAME')) {
-	define('AAB_ADDON_PRO_ITEM_NAME', 'TheBricksFly');
+if (! defined('THEBRBRE_PRO_ITEM_NAME')) {
+	define('THEBRBRE_PRO_ITEM_NAME', 'TheBricksFly');
 }
 
 /**
  * The code that runs during plugin activation
  * This action is documented in includes/class-bricks-animation-addons-activator.php
  */
-function aabaddons_activate_bricks_animation_addons($network_wide = false)
+function thebrbre_activate($network_wide = false)
 {
 	require_once plugin_dir_path(__FILE__) . 'includes/class-bricks-animation-addons-activator.php';
-	AABAddons_Activator::activate($network_wide);
+	THEBRBRE_Activator::activate($network_wide);
 }
 
 /**
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-bricks-animation-addons-deactivator.php
  */
-function aabaddons_deactivate_bricks_animation_addons()
+function thebrbre_deactivate()
 {
 	require_once plugin_dir_path(__FILE__) . 'includes/class-bricks-animation-addons-deactivator.php';
-	AABAddons_Deactivator::deactivate();
+	THEBRBRE_Deactivator::deactivate();
 }
 
-register_activation_hook(__FILE__, 'aabaddons_activate_bricks_animation_addons');
-register_deactivation_hook(__FILE__, 'aabaddons_deactivate_bricks_animation_addons');
+register_activation_hook(__FILE__, 'thebrbre_activate');
+register_deactivation_hook(__FILE__, 'thebrbre_deactivate');
 
 // Bootstrap: config, helpers, trait loaded before the main class.
-require_once AAB_ADDONS_PATH . 'config.php';
-require_once AAB_ADDONS_PATH . 'includes/helper.php';
-require_once AAB_ADDONS_PATH . 'includes/hook.php';
-require_once AAB_ADDONS_PATH . 'includes/traits/Extension_Widgets_Trait.php';
-require_once AAB_ADDONS_PATH . 'includes/class-bricks-theme-dependency.php';
+require_once THEBRBRE_PATH . 'config.php';
+require_once THEBRBRE_PATH . 'includes/helper.php';
+require_once THEBRBRE_PATH . 'includes/hook.php';
+// Backward-compat aliases for the previous symbol names (keeps an already
+// installed the-bricksfly-pro build working after the rename). Loaded after
+// helper.php/constants so the new symbols exist before the shims reference them.
+require_once THEBRBRE_PATH . 'includes/compat-legacy.php';
+require_once THEBRBRE_PATH . 'includes/traits/Extension_Widgets_Trait.php';
+require_once THEBRBRE_PATH . 'includes/class-bricks-theme-dependency.php';
 
 // Literal translation map for config.php labels, titles, and descriptions.
 // The map is evaluated only when the dashboard config filter runs on init.
-require_once AAB_ADDONS_PATH . 'includes/config-i18n.php';
+require_once THEBRBRE_PATH . 'includes/config-i18n.php';
 
 // Group Icon Helper: single source of truth for the plugin-branded
 // control-group title rendered in Bricks element panels. Used by Starter
 // Animations below and proxied by the Pro plugin's GroupHelper so both
 // plugins share one icon/markup definition.
-require_once AAB_ADDONS_PATH . 'includes/extensions/helpers/Label_Name_Helper.php';
+require_once THEBRBRE_PATH . 'includes/extensions/helpers/Label_Name_Helper.php';
 
 // Starter Animations: injects an animation control group into Bricks core
 // elements (heading, text, image, container, etc.) and ships the front-end
 // engine that plays the animations on viewport-enter.
-require_once AAB_ADDONS_PATH . 'includes/extensions/class-aab-starter-animations.php';
+require_once THEBRBRE_PATH . 'includes/extensions/class-aab-starter-animations.php';
 
 // The core plugin class — loads all remaining dependencies internally.
-require_once AAB_ADDONS_PATH . 'includes/class-bricks-animation-addons.php';
+require_once THEBRBRE_PATH . 'includes/class-bricks-animation-addons.php';
 
 
 
@@ -156,20 +160,19 @@ require_once AAB_ADDONS_PATH . 'includes/class-bricks-animation-addons.php';
  *
  * @since    1.0.0
  */
-function aabaddons_run_bricks_animation_addons()
+function thebrbre_run()
 {
 
-	$plugin = new AABAddons_Plugin();
+	$plugin = new THEBRBRE_Plugin();
 	$plugin->run();
 
-	// Localize AAB_ADDONS_JS against the always-enqueued public script so the
+	// Localize THEBRBRE_ADDONS_JS against the always-enqueued public script so the
 	// global is available to free elements (e.g. post-social-share) AND to
 	// Pro extensions (smooth scroller, scroll-to). The scroll-to runtime
 	// (scroll-to-el.js) itself lives in Pro and is enqueued by the Pro
 	// scrollto extension.
 	add_action('wp_enqueue_scripts', function () {
-		$data = apply_filters(
-			'aabaddons_js_data',
+		$data = apply_filters('thebrbre_js_data',
 			array(
 				'ajaxUrl'        => admin_url('admin-ajax.php'),
 				'post_id'        => get_the_ID(),
@@ -180,7 +183,7 @@ function aabaddons_run_bricks_animation_addons()
 					'success' => esc_html__('Success', 'the-bricksfly'),
 					'warning' => esc_html__('Warning', 'the-bricksfly'),
 				),
-				'smoothScroller' => json_decode(get_option('aab_smooth_scroller')),
+				'smoothScroller' => json_decode(get_option('thebrbre_smooth_scroller')),
 				// All Bricks breakpoints (defaults + custom). Empty array if
 				// Bricks isn't active so JS can rely on a consistent shape.
 				'breakpoints'    => class_exists('\\Bricks\\Breakpoints')
@@ -189,7 +192,7 @@ function aabaddons_run_bricks_animation_addons()
 			)
 		);
 
-		wp_localize_script('bricksfly', 'AAB_ADDONS_JS', $data);
+		wp_localize_script('bricksfly', 'THEBRBRE_ADDONS_JS', $data);
 	}, 20);
 }
-aabaddons_run_bricks_animation_addons();
+thebrbre_run();

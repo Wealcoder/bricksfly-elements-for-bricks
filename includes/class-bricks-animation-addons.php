@@ -31,9 +31,9 @@ if (! defined('ABSPATH')) {
  * @subpackage Bricks_Animation_Addons/includes
  * @author     Zilani <zilani.wealcoder@gmail.com>
  */
-class AABAddons_Plugin
+class THEBRBRE_Plugin
 {
-	use \AABAddons\Includes\Traits\Extension_Widgets_Trait;
+	use \wealcoder\bricksfly\Includes\Traits\Extension_Widgets_Trait;
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -41,7 +41,7 @@ class AABAddons_Plugin
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      AABAddons_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      THEBRBRE_Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -74,8 +74,8 @@ class AABAddons_Plugin
 	 */
 	public function __construct()
 	{
-		if (defined('AAB_ADDONS_VERSION')) {
-			$this->version = AAB_ADDONS_VERSION;
+		if (defined('THEBRBRE_VERSION')) {
+			$this->version = THEBRBRE_VERSION;
 		} else {
 			$this->version = '1.0.0';
 		}
@@ -91,9 +91,9 @@ class AABAddons_Plugin
 	 *
 	 * Include the following files that make up the plugin:
 	 *
-	 * - AABAddons_Loader. Orchestrates the hooks of the plugin.
-	 * - AABAddons_Admin. Defines all hooks for the admin area.
-	 * - AABAddons_Public. Defines all hooks for the public side of the site.
+	 * - THEBRBRE_Loader. Orchestrates the hooks of the plugin.
+	 * - THEBRBRE_Admin. Defines all hooks for the admin area.
+	 * - THEBRBRE_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
@@ -104,25 +104,25 @@ class AABAddons_Plugin
 	private function load_dependencies()
 	{
 		// Core classes.
-		require_once AAB_ADDONS_PATH . 'includes/class-bricks-animation-addons-loader.php';
-		require_once AAB_ADDONS_PATH . 'admin/class-bricks-animation-addons-admin.php';
-		require_once AAB_ADDONS_PATH . 'public/class-bricks-animation-addons-public.php';
+		require_once THEBRBRE_PATH . 'includes/class-bricks-animation-addons-loader.php';
+		require_once THEBRBRE_PATH . 'admin/class-bricks-animation-addons-admin.php';
+		require_once THEBRBRE_PATH . 'public/class-bricks-animation-addons-public.php';
 
 		// Extension helpers.
-		require_once AAB_ADDONS_PATH . 'includes/extensions/helpers/ResponsiveHelper.php';
-		require_once AAB_ADDONS_PATH . 'includes/extensions/helpers/BRICKS_ELEMENTS.php';
-		require_once AAB_ADDONS_PATH . 'includes/extensions/helpers/BricksElementsHelper.php';
+		require_once THEBRBRE_PATH . 'includes/extensions/helpers/ResponsiveHelper.php';
+		require_once THEBRBRE_PATH . 'includes/extensions/helpers/BRICKS_ELEMENTS.php';
+		require_once THEBRBRE_PATH . 'includes/extensions/helpers/BricksElementsHelper.php';
 
 		// License AJAX endpoints + admin status notice live in the Pro plugin
 		// (includes/license/update.php) — Pro must be active to activate or
 		// deactivate a license. The free plugin only reads the resulting
-		// option value via aabaddons_is_license_valid() / aabaddons_is_pro_active().
+		// option value via thebrbre_is_license_valid() / thebrbre_is_pro_active().
 
 		// CPT Builder must load on every request (admin + frontend) so the
 		// init hooks that register user-defined CPTs/taxonomies fire on the
 		// frontend too. Without this, single-post URLs for builder CPTs
 		// don't match any rewrite rule and WordPress redirects them to home.
-		require_once AAB_ADDONS_PATH . 'admin/cpt-builder.php';
+		require_once THEBRBRE_PATH . 'admin/cpt-builder.php';
 
 		// Admin pages. The "Site Settings" page is a Pro-only feature; the
 		// real UI lives in the Pro plugin and only registers when a valid
@@ -130,10 +130,10 @@ class AABAddons_Plugin
 		// registers the menu + shows an upsell notice when Pro is missing
 		// or unlicensed, so the feature doesn't silently disappear.
 		if (is_admin()) {
-			require_once AAB_ADDONS_PATH . 'admin/pages/dashboard.php';
-			require_once AAB_ADDONS_PATH . 'admin/pages/template-importer.php';
-			require_once AAB_ADDONS_PATH . 'admin/pages/page-import.php';
-			// require_once AAB_ADDONS_PATH . 'admin/pages/settings-placeholder.php';
+			require_once THEBRBRE_PATH . 'admin/pages/dashboard.php';
+			require_once THEBRBRE_PATH . 'admin/pages/template-importer.php';
+			require_once THEBRBRE_PATH . 'admin/pages/page-import.php';
+			// require_once THEBRBRE_PATH . 'admin/pages/settings-placeholder.php';
 		}
 
 		// Builder Template Library — adds the "Import Section" button to
@@ -141,7 +141,7 @@ class AABAddons_Plugin
 		// load on every request (not just is_admin()) because the Bricks
 		// builder runs on the frontend with `wp_enqueue_scripts`, and the
 		// admin-ajax endpoints need to be hooked before the AJAX call hits.
-		require_once AAB_ADDONS_PATH . 'admin/pages/builder-template-library.php';
+		require_once THEBRBRE_PATH . 'admin/pages/builder-template-library.php';
 
 		// Extensions.
 		$this->register_elements();
@@ -149,21 +149,21 @@ class AABAddons_Plugin
 
 		// Dispatch the Pro plugin bootstrap action once every plugin file has
 		// been parsed (so the pro plugin has had a chance to register its
-		// add_action('aabaddons/pro/register', …) handler).
+		// add_action('thebrbre/pro/register', …) handler).
 		add_action('plugins_loaded', function () {
-			if (function_exists('aabaddons_is_pro_active') && aabaddons_is_pro_active()) {
-				do_action('aabaddons/pro/register');
+			if (function_exists('thebrbre_is_pro_active') && thebrbre_is_pro_active()) {
+				do_action('thebrbre/pro/register');
 			}
 		}, 20);
 
-		$this->loader = new AABAddons_Loader();
+		$this->loader = new THEBRBRE_Loader();
 	}
 
 	/**
 	 * Register extensions from config.php.
 	 *
 	 * Reads the extensions → gsap-extensions groups and loads each
-	 * child extension whose slug is active in `aab_save_extensions`.
+	 * child extension whose slug is active in `thebrbre_save_extensions`.
 	 * Skips extensions marked as upcoming.
 	 * In Bricks builder, all extensions are loaded for live preview.
 	 *
@@ -173,7 +173,7 @@ class AABAddons_Plugin
 	private function register_extensions()
 	{
 		$extention_list = self::get_extensions();
-		$ext_dir        = AAB_ADDONS_PATH . 'includes/extensions/';
+		$ext_dir        = THEBRBRE_PATH . 'includes/extensions/';
 
 		foreach ($extention_list as $slug => $data) {
 			// Skip upcoming extensions.
@@ -185,7 +185,7 @@ class AABAddons_Plugin
 			// exclusively by the Pro plugin. The free plugin must NEVER load
 			// them so Pro features stay disabled without the Pro plugin
 			// folder installed. Pro, when active, loads its own copies via
-			// `aab_pro_register()`.
+			// `thebrbre_pro_register()`.
 			if (! empty($data['is_pro'])) {
 				continue;
 			}
@@ -205,7 +205,7 @@ class AABAddons_Plugin
 	 * Register elements from config.php.
 	 *
 	 * Reads the widgets groups and registers each child element
-	 * whose slug is active in `aab_save_widgets`.
+	 * whose slug is active in `thebrbre_save_widgets`.
 	 * Skips elements marked as upcoming.
 	 *
 	 * @since    1.0.0
@@ -223,7 +223,7 @@ class AABAddons_Plugin
 
 			$widget_list  = self::get_widgets();
 
-			$elements_dir = AAB_ADDONS_PATH . 'includes/elements/';
+			$elements_dir = THEBRBRE_PATH . 'includes/elements/';
 
 			foreach ($widget_list as $slug => $data) {
 
@@ -259,7 +259,7 @@ class AABAddons_Plugin
 	private function define_admin_hooks()
 	{
 
-		$plugin_admin = new AABAddons_Admin($this->get_plugin_name(), $this->get_version());
+		$plugin_admin = new THEBRBRE_Admin($this->get_plugin_name(), $this->get_version());
 
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
@@ -275,7 +275,7 @@ class AABAddons_Plugin
 	private function define_public_hooks()
 	{
 
-		$plugin_public = new AABAddons_Public($this->get_plugin_name(), $this->get_version());
+		$plugin_public = new THEBRBRE_Public($this->get_plugin_name(), $this->get_version());
 
 		add_action('bricks/frontend/enqueue_scripts', $plugin_public, 'enqueue_scripts');
 
@@ -311,7 +311,7 @@ class AABAddons_Plugin
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
 	 * @since     1.0.0
-	 * @return    AABAddons_Loader    Orchestrates the hooks of the plugin.
+	 * @return    THEBRBRE_Loader    Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader()
 	{

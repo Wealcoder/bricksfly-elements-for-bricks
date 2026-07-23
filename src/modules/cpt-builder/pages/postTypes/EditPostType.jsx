@@ -1,4 +1,4 @@
-import { Button } from "S/components/ui/button";
+﻿import { Button } from "S/components/ui/button";
 import { usePostType, useTab } from "S/hooks/app.hooks";
 
 import {
@@ -64,7 +64,7 @@ const EditPostType = () => {
           Accept: "application/json",
         },
         body: new URLSearchParams({
-          action: "aab_post_type_builder_single_item",
+          action: "thebrbre_post_type_builder_single_item",
           post_type_id: value,
           nonce: AAB_ADDONS_ADMIN.nonce,
         }),
@@ -109,7 +109,7 @@ const EditPostType = () => {
             Accept: "application/json",
           },
           body: new URLSearchParams({
-            action: "aab_post_type_exist",
+            action: "thebrbre_post_type_exist",
             post_type: value,
             nonce: AAB_ADDONS_ADMIN.nonce,
           }),
@@ -145,7 +145,7 @@ const EditPostType = () => {
             Accept: "application/json",
           },
           body: new URLSearchParams({
-            action: "aab_add_or_update_new_post_type_builder",
+            action: "thebrbre_add_or_update_new_post_type_builder",
             post_meta: JSON.stringify(postTypeData),
             post_type_id: postId,
             post_type_title: postTypeTitle,

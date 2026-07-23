@@ -1,4 +1,4 @@
-import {
+﻿import {
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -61,7 +61,7 @@ const ShowAllTaxonomy = () => {
           Accept: "application/json",
         },
         body: new URLSearchParams({
-          action: "aab_delete_taxonomy_builder",
+          action: "thebrbre_delete_taxonomy_builder",
           taxonomy_id: value,
           nonce: AAB_ADDONS_ADMIN.nonce,
         }),

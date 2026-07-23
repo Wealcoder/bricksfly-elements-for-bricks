@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @subpackage Bricks_Animation_Addons/admin
  * @author     Zilani <zilani.wealcoder@gmail.com>
  */
-class AABAddons_Admin {
+class THEBRBRE_Admin {
 
 	/**
 	 * The ID of this plugin.
@@ -69,15 +69,15 @@ class AABAddons_Admin {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in AABAddons_Loader as all of the hooks are defined
+		 * defined in THEBRBRE_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The AABAddons_Loader will then create the relationship
+		 * The THEBRBRE_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, AAB_ADDONS_URL . 'public/build/admin/bricks-animation-addons-admin.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, THEBRBRE_URL . 'public/build/admin/bricks-animation-addons-admin.css', array(), $this->version, 'all' );
 
 	}
 
@@ -92,15 +92,15 @@ class AABAddons_Admin {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in AABAddons_Loader as all of the hooks are defined
+		 * defined in THEBRBRE_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The AABAddons_Loader will then create the relationship
+		 * The THEBRBRE_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, AAB_ADDONS_URL . 'public/build/admin/bricks-animation-addons-admin.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, THEBRBRE_URL . 'public/build/admin/bricks-animation-addons-admin.js', array( 'jquery' ), $this->version, false );
 
 	}
 

@@ -1,7 +1,7 @@
 <?php if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
-<div class="aab-dashboard-banner" style="text-align:center;">
+<div class="thebrbre-dashboard-banner" style="text-align:center;">
     <a href="https://bricksfly.com/" target="_blank" style="display:block;">
-        <img src="<?php echo esc_url( AAB_ADDONS_URL ); ?>assets/images/aab-banner.png"
+        <img src="<?php echo esc_url( THEBRBRE_URL ); ?>assets/images/aab-banner.png"
                 alt="Bricks Animation Addons Banner"
                 style="max-width:100%;">
     </a>

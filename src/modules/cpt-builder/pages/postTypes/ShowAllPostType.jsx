@@ -1,4 +1,4 @@
-import {
+﻿import {
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -61,7 +61,7 @@ const ShowAllPostType = () => {
           Accept: "application/json",
         },
         body: new URLSearchParams({
-          action: "aab_delete_post_type_builder",
+          action: "thebrbre_delete_post_type_builder",
           post_type_id: value,
           nonce: AAB_ADDONS_ADMIN.nonce,
         }),

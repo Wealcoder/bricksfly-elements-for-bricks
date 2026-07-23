@@ -1,4 +1,4 @@
-import { Button } from "S/components/ui/button";
+﻿import { Button } from "S/components/ui/button";
 import { useTab, useTaxonomy } from "S/hooks/app.hooks";
 import ShowAllTaxonomy from "./ShowAllTaxonomy";
 
@@ -16,7 +16,7 @@ const Taxonomy = () => {
           Accept: "application/json",
         },
         body: new URLSearchParams({
-          action: "aab_add_or_update_new_taxonomy_builder",
+          action: "thebrbre_add_or_update_new_taxonomy_builder",
           taxonomy_title: "New Taxonomy",
           nonce: AAB_ADDONS_ADMIN.nonce,
         }),

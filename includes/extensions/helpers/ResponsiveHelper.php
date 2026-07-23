@@ -1,6 +1,6 @@
 <?php
 
-namespace AABAddons\Includes\Extensions\Helpers;
+namespace wealcoder\bricksfly\Includes\Extensions\Helpers;
 
 defined('ABSPATH') || exit;
 
@@ -183,7 +183,7 @@ class ResponsiveHelper
    *   breakpoint keys, or input isn't an array), returned unchanged.
    * - If every breakpoint has the same value, collapses to that scalar value.
    * - Otherwise drops entries equal to their immediately-larger (cascade-up)
-   *   parent — the JS `aabResponsive.resolveResponsive` reconstructs them at
+   *   parent — the JS `thebrbreResponsive.resolveResponsive` reconstructs them at
    *   runtime by walking the cascade. Lossless.
    *
    * Use this only on values headed for the wire (JSON in DOM attributes).

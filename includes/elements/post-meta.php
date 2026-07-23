@@ -2,7 +2,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class AAB_Bricks_Post_Meta extends \Bricks\Element {
+class THEBRBRE_Bricks_Post_Meta extends \Bricks\Element {
 
 	public $category     = 'bricks fly';
 	public $name         = 'aab-post-meta';
@@ -24,7 +24,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		wp_enqueue_style(
 			'aab-post-meta',
-			AAB_ADDONS_URL . 'public/build/elements/meta-info.css',
+			THEBRBRE_URL . 'public/build/elements/meta-info.css',
 			[],
 			'1.0.0'
 		);
@@ -1117,7 +1117,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 	protected function render_view_count( $meta, $layout, $show_title ) {
 		$separator = isset( $meta['metaSeparator'] ) ? $meta['metaSeparator'] : '';
-		$views     = (string) get_post_meta( get_the_ID(), 'aab_post_views_count', true );
+		$views     = (string) get_post_meta( get_the_ID(), 'thebrbre_post_views_count', true );
 		if ( $views === '' ) {
 			$views = '0';
 		}
@@ -1234,7 +1234,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 	protected function render_reviews_count( $meta, $layout, $show_title ) {
 		$separator = isset( $meta['metaSeparator'] ) ? $meta['metaSeparator'] : '';
 
-		if ( ! post_type_exists( 'aab_post_rating' ) ) {
+		if ( ! post_type_exists( 'thebrbre_post_rating' ) ) {
 			echo '<li class="wcf--meta-view">' . esc_html__( '0 review (Pro feature)', 'the-bricksfly' ) . '</li>';
 			return;
 		}
@@ -1245,7 +1245,7 @@ class AAB_Bricks_Post_Meta extends \Bricks\Element {
 
 		if ( false === $ratings ) {
 			$ratings = get_posts( [
-				'post_type'   => 'aab_post_rating',
+				'post_type'   => 'thebrbre_post_rating',
 				'post_status' => 'publish',
 				'numberposts' => -1,
 				'fields'      => 'ids',

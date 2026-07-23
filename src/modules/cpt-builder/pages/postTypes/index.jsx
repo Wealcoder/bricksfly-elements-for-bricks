@@ -1,4 +1,4 @@
-import { Button } from "S/components/ui/button";
+﻿import { Button } from "S/components/ui/button";
 import { usePostType, useTab } from "S/hooks/app.hooks";
 import ShowAllPostType from "./ShowAllPostType";
 
@@ -16,7 +16,7 @@ const PostTypes = () => {
           Accept: "application/json",
         },
         body: new URLSearchParams({
-          action: "aab_add_or_update_new_post_type_builder",
+          action: "thebrbre_add_or_update_new_post_type_builder",
           post_type_title: "New Post Type",
           nonce: AAB_ADDONS_ADMIN.nonce,
         }),

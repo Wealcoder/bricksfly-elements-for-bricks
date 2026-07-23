@@ -1,8 +1,8 @@
-import "../../scss/admin/aab-template-library.scss";
+﻿import "../../scss/admin/aab-template-library.scss";
 
 /* eslint-disable */
 /**
- * Bricks Builder — Animation Addons Section Library
+ * Bricks Builder â€” Animation Addons Section Library
  *
  * Ports the Elementor template-library "import section" UX to Bricks:
  *   1. Injects an "Import Section" button into the Bricks main toolbar.
@@ -63,7 +63,7 @@ import "../../scss/admin/aab-template-library.scss";
 			}
 
 			if (attempts > 80) {
-				// 80 * 250ms = 20s — give up but keep the observer running
+				// 80 * 250ms = 20s â€” give up but keep the observer running
 				// in case the toolbar appears later (e.g. on tab switch).
 				clearInterval(iv);
 				observeBuilderForReinjection();
@@ -321,7 +321,7 @@ import "../../scss/admin/aab-template-library.scss";
 			}
 		});
 
-		// Grid click delegation — handle Insert.
+		// Grid click delegation â€” handle Insert.
 		modal.querySelector('#aab-tl-grid').addEventListener('click', function (e) {
 			var insertEl = e.target.closest('.aab-tl-card__insert');
 			if (!insertEl) {
@@ -350,7 +350,7 @@ import "../../scss/admin/aab-template-library.scss";
 
 	/**
 	 * themecrowdy categories endpoint returns a flat array of
-	 *   { id, title, slug, count?, … }
+	 *   { id, title, slug, count?, â€¦ }
 	 * (older Elementor API used `name`; we accept both).
 	 */
 	function preloadCategories() {
@@ -422,7 +422,7 @@ import "../../scss/admin/aab-template-library.scss";
 		fetch(url.toString(), { credentials: 'omit' })
 			.then(function (r) { return r.json(); })
 			.then(function (data) {
-				// New shape: response is a flat array. Old shape: { templates: […] }.
+				// New shape: response is a flat array. Old shape: { templates: [â€¦] }.
 	
 				var list = Array.isArray(data) ? data : (data && data.sections) || [];
 				if (!list.length) {
@@ -464,7 +464,7 @@ import "../../scss/admin/aab-template-library.scss";
 	 */
 	function sectionImportAllowed() {
 		// Fall back to true only when the flag was never localized (older PHP),
-		// so we never hard-lock on a partial deploy — the server still guards.
+		// so we never hard-lock on a partial deploy â€” the server still guards.
 		if (!CFG.config || typeof CFG.config.section_import === 'undefined') {
 			return true;
 		}
@@ -540,7 +540,7 @@ import "../../scss/admin/aab-template-library.scss";
 				'</a>';
 		}
 
-		// Live preview link — only when the section provides a `demo_url`.
+		// Live preview link â€” only when the section provides a `demo_url`.
 		// Opens the demo in a new tab; overlaid on the thumbnail so it never
 		// competes with the footer's insert/upsell action.
 		var previewLabel = I18N.preview || 'Preview';
@@ -602,7 +602,7 @@ import "../../scss/admin/aab-template-library.scss";
 	 * The server resolves the section (elements + global classes/variables) but
 	 * does NOT save or reload. We feed the result into Bricks' OWN paste pipeline
 	 * so the section lands in the live in-memory canvas as an unsaved, undoable
-	 * change — exactly like a manual paste. Nothing is written to the document
+	 * change â€” exactly like a manual paste. Nothing is written to the document
 	 * until the user clicks Bricks' Save button. Selecting another template just
 	 * pastes again (each paste is its own undo step), and undo/redo + existing
 	 * unsaved edits are preserved because we never touch the DB or reload.
@@ -615,7 +615,7 @@ import "../../scss/admin/aab-template-library.scss";
 
 		var originalLabel = btn.innerHTML;
 		btn.disabled = true;
-		btn.innerHTML = escapeHtml(I18N.inserting || 'Inserting…');
+		btn.innerHTML = escapeHtml(I18N.inserting || 'Insertingâ€¦');
 
 		function fail(msg) {
 			btn.disabled = false;
@@ -624,7 +624,7 @@ import "../../scss/admin/aab-template-library.scss";
 		}
 
 		var formData = new FormData();
-		formData.append('action', 'aab_builder_insert_template');
+		formData.append('action', 'thebrbre_builder_insert_template');
 		formData.append('nonce', CFG.nonce);
 		formData.append('post_id', String(CFG.post_id));
 		formData.append('template_id', card.dataset.id || '');
@@ -637,7 +637,7 @@ import "../../scss/admin/aab-template-library.scss";
 			.then(function (r) { return r.json(); })
 			.then(function (resp) {
 				if (!resp || !resp.success || !resp.data) {
-					// Server-authoritative license block — show the upsell popup
+					// Server-authoritative license block â€” show the upsell popup
 					// instead of a generic failure so the user knows to upgrade.
 					if (resp && resp.data && resp.data.limited) {
 						btn.disabled = false;

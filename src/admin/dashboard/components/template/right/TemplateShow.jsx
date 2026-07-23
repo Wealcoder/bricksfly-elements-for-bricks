@@ -1,4 +1,4 @@
-import { formatNumber } from "@//lib/utils";
+﻿import { formatNumber } from "@//lib/utils";
 import ProConfirmDialog from "@/components/shared/ProConfirmDialog";
 import { Badge } from "@/components/ui/badge";
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -65,7 +65,7 @@ const TemplateShow = ({ allTemplate, metaData, setMetaData }) => {
         },
 
         body: new URLSearchParams({
-          action: "aab_wishlist_option",
+          action: "thebrbre_wishlist_option",
           wishlist: JSON.stringify(data),
           nonce: AAB_ADDONS_ADMIN.nonce,
           settings: "wcf_save_widgets",

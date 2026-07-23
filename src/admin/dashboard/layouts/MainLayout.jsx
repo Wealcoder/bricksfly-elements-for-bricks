@@ -1,4 +1,4 @@
-import { useEffect, useState, Suspense } from "react";
+﻿import { useEffect, useState, Suspense } from "react";
 import MainHeader from "@/components/header/MainHeader";
 import TemplateHeader from "@/components/header/TemplateHeader";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -19,7 +19,7 @@ const MainLayout = () => {
       },
 
       body: new URLSearchParams({
-        action: "aab_get_notice_data",
+        action: "thebrbre_get_notice_data",
 
         nonce: AAB_ADDONS_ADMIN.nonce,
       }),

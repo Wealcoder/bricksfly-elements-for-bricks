@@ -1,16 +1,16 @@
 <?php
 
-namespace AABAddons\Admin\Pages;
+namespace wealcoder\bricksfly\Admin\Pages;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit();
 }
 
-class AAB_Template_Importer {
+class THEBRBRE_Template_Importer {
 
-	public $file_path = 'aab_tpl_file.xml';
+	public $file_path = 'thebrbre_tpl_file.xml';
 	public $full_path = null;
-	public $wishlist_key = 'aab_user_wishlists';
+	public $wishlist_key = 'thebrbre_user_wishlists';
 
 	private static $_instance = null;
 
@@ -22,20 +22,20 @@ class AAB_Template_Importer {
 	}
 
 	public function __construct() {
-		add_action( 'wp_ajax_aab_template_installer', [ $this, 'template_installer' ] );
-		add_action( 'wp_ajax_aab_heartbeat_data', [ $this, 'heartbeat_data' ] );
-		add_action( 'wp_ajax_aab_wishlist_option', [ $this, 'wishlist' ] );
-		add_action( 'wp_ajax_aab_upload_manual_import_file', [ $this, 'template_installer' ] );
-		add_action( 'wp_ajax_aab_template_dependency_status', [ $this, 'template_dependency_status' ] );
-		// NOTE: the 'aab_get_latest_imported_pages' AJAX action is handled by
+		add_action( 'wp_ajax_thebrbre_template_installer', [ $this, 'template_installer' ] );
+		add_action( 'wp_ajax_thebrbre_heartbeat_data', [ $this, 'heartbeat_data' ] );
+		add_action( 'wp_ajax_thebrbre_wishlist_option', [ $this, 'wishlist' ] );
+		add_action( 'wp_ajax_thebrbre_upload_manual_import_file', [ $this, 'template_installer' ] );
+		add_action( 'wp_ajax_thebrbre_template_dependency_status', [ $this, 'template_dependency_status' ] );
+		// NOTE: the 'thebrbre_get_latest_imported_pages' AJAX action is handled by
 		// OneClickImport::aae_get_latest_imported_pages() (admin/st-init.php).
 		// That handler is batch-aware — it returns the page(s) from the most
-		// recent import via the 'aab_last_import_batch' option, which is what the
+		// recent import via the 'thebrbre_last_import_batch' option, which is what the
 		// "Go to page" button on the Complete Import step needs. A second callback
 		// here on the same action raced the correct one (whichever fired first
 		// won and called wp_die) and queried by date DESC — which returns the
 		// wrong page because WXR preserves each page's original post_date. Removed.
-		add_filter( 'aabaddons_dashboard_config', [ $this, 'include_user_wishlist' ] );
+		add_filter('thebrbre_dashboard_config', [ $this, 'include_user_wishlist' ] );
 	}
 
 	public function include_user_wishlist( $config ) {
@@ -48,16 +48,16 @@ class AAB_Template_Importer {
 	}
 
 	public function heartbeat_data() {
-		check_ajax_referer( 'aab_admin_nonce', 'nonce' );
-		$return_data = apply_filters( 'aabaddons_heartbeat_data', [
-			'import_state'   => get_option( 'aab_template_import_state' ),
-			'import_porgress' => get_option( 'aab_template_import_progress' ),
+		check_ajax_referer( 'thebrbre_admin_nonce', 'nonce' );
+		$return_data = apply_filters('thebrbre_heartbeat_data', [
+			'import_state'   => get_option( 'thebrbre_template_import_state' ),
+			'import_porgress' => get_option( 'thebrbre_template_import_progress' ),
 		] );
 		wp_send_json( $return_data );
 	}
 
 	public function wishlist() {
-		check_ajax_referer( 'aab_admin_nonce', 'nonce' );
+		check_ajax_referer( 'thebrbre_admin_nonce', 'nonce' );
 
 		if ( ! current_user_can( 'install_plugins' ) ) {
 			wp_send_json_error( __( 'You are not allowed to perform this action.', 'the-bricksfly' ) );
@@ -83,7 +83,7 @@ class AAB_Template_Importer {
 	}
 
 	public function template_dependency_status() {
-		check_ajax_referer( 'aab_admin_nonce', 'nonce' );
+		check_ajax_referer( 'thebrbre_admin_nonce', 'nonce' );
 
 		if ( ! current_user_can( 'install_plugins' ) ) {
 			wp_send_json_error( __( 'You are not allowed to perform this action.', 'the-bricksfly' ) );
@@ -175,7 +175,7 @@ class AAB_Template_Importer {
 	}
 
 	public function template_installer() {
-		check_ajax_referer( 'aab_admin_nonce', 'nonce' );
+		check_ajax_referer( 'thebrbre_admin_nonce', 'nonce' );
 
 		if ( ! current_user_can( 'install_plugins' ) ) {
 			wp_send_json_error( __( 'You are not allowed to do this action', 'the-bricksfly' ) );
@@ -229,10 +229,21 @@ class AAB_Template_Importer {
 									// required plugin that is not present must be
 									// installed manually by the administrator.
 									activate_plugin( $item['Base_Slug'], '', false, false );
+								} else {
+									if ( in_array( $item['slug'], $user_plugins ) ) {
+										update_option(
+											'thebrbre_template_import_state',
+											/* translators: %s: plugin name being installed. */
+											sprintf( __( 'Installing %s', 'the-bricksfly' ), $item['name'] )
+										);
+										if ( isset( $item['host'] ) && isset( $item['slug'] ) ) {
+											$this->install_plugin_from_wp( $item['slug'] );
+										}
+									}
 								}
 							}
 						}
-						update_option( 'aab_template_import_state', __( 'Plugin activation done', 'the-bricksfly' ) );
+						update_option( 'thebrbre_template_import_state', __( 'Plugin Installation Done', 'the-bricksfly' ) );
 					}
 				}
 				$template_data['next_step'] = 'install-wp-options';
@@ -240,27 +251,42 @@ class AAB_Template_Importer {
 			} elseif ( $next_step === 'check-template-status' ) {
 				$tpl = $this->validate_download_file( $template_data );
 				if ( $tpl ) {
-					update_option( 'aab_template_import_state', __( 'Content file Downloading', 'the-bricksfly' ) );
+					update_option( 'thebrbre_template_import_state', __( 'Content file Downloading', 'the-bricksfly' ) );
 					$template_data['next_step'] = 'download-xml-file';
 					$template_data['file']      = json_decode( $tpl );
 				} else {
-					update_option( 'aab_template_import_state', __( 'Invalid file', 'the-bricksfly' ) );
+					update_option( 'thebrbre_template_import_state', __( 'Invalid file', 'the-bricksfly' ) );
 					$template_data['next_step'] = 'fail';
 				}
 				$progress = '37';
 
 			} elseif ( $next_step === 'download-xml-file' ) {
 				if ( isset( $template_data['file']['content_url'] ) ) {
-					update_option( 'aab_template_import_state', __( 'Content installing', 'the-bricksfly' ) );
+					update_option( 'thebrbre_template_import_state', __( 'Content installing', 'the-bricksfly' ) );
 					$template_data['next_step']  = 'install-template';
 					$template_data['local_path'] = $this->full_path;
 				} else {
 					$template_data['next_step'] = 'fail';
-					update_option( 'aab_template_import_state', __( 'Missing Content file, contact author', 'the-bricksfly' ) );
+					update_option( 'thebrbre_template_import_state', __( 'Missing Content file, contact author', 'the-bricksfly' ) );
 				}
 				$progress = '40';
 
 			} elseif ( $next_step === 'install-template' ) {
+				$template_data['next_step'] = 'check-theme';
+				$progress                   = '50';
+				$msg                        = __( 'Verifying Content Import', 'the-bricksfly' );
+				update_option( 'thebrbre_template_import_state', __( 'Checking Theme', 'the-bricksfly' ) );
+
+			} elseif ( $next_step === 'check-theme' ) {
+				if ( $theme_slug ) {
+					$template_data['next_step'] = 'install-theme';
+					$progress                   = '75';
+					update_option( 'thebrbre_template_import_state', __( 'Installing Theme', 'the-bricksfly' ) );
+				} else {
+					$template_data['next_step'] = 'install-bricks-settings';
+				}
+
+			} elseif ( $next_step === 'install-theme' ) {
 				$template_data['next_step'] = 'install-bricks-settings';
 				$progress                   = '75';
 				$msg                        = __( 'Verifying Content Import', 'the-bricksfly' );
@@ -271,7 +297,7 @@ class AAB_Template_Importer {
 				$progress                   = '100';						
 
 				$this->update_blog_and_homepage_options( $template_data );
-				do_action( 'aabaddons/starter-template/import/step/metasettings' );
+				do_action( 'thebrbre/starter-template/import/step/metasettings' );
 
 			} elseif ( $next_step === 'install-wp-options' ) {
 				$template_data['next_step'] = 'check-template-status';
@@ -285,10 +311,10 @@ class AAB_Template_Importer {
 				$import_type = isset( $_POST['import_type'] ) ? sanitize_text_field( wp_unslash( $_POST['import_type'] ) ) : 'full-demo';
 
 				if ( $import_type !== 'page' ) {
-					do_action( 'aabaddons/starter-template/import/step/wp_options' );
+					do_action( 'thebrbre/starter-template/import/step/wp_options' );
 				}
 
-				update_option( 'aab_template_import_state', $msg );
+				update_option( 'thebrbre_template_import_state', $msg );
 
 			} elseif ( $next_step === 'fail' ) {
 				$msg = __( 'Template Demo Import fail', 'the-bricksfly' );
@@ -296,7 +322,7 @@ class AAB_Template_Importer {
 			} else {
 				$template_data['next_step'] = 'plugins-importer';
 				$progress                   = '10';
-				update_option( 'aab_template_import_state', __( 'Checking Setup requirement', 'the-bricksfly' ) );
+				update_option( 'thebrbre_template_import_state', __( 'Checking Setup requirement', 'the-bricksfly' ) );
 			}
 		}
 
@@ -495,7 +521,7 @@ class AAB_Template_Importer {
 		 * Useful if a future Bricks version adds another global option or a
 		 * site uses a custom one with the same merge semantics.
 		 */
-		$mergeable = apply_filters( 'aabaddons_bricks_mergeable_options', $mergeable );
+		$mergeable = apply_filters('thebrbre_bricks_mergeable_options', $mergeable );
 
 		return in_array( $option_name, $mergeable, true );
 	}
@@ -553,11 +579,11 @@ class AAB_Template_Importer {
 
 	private function validate_download_file( $template ) {
 		if ( empty( $template ) ) {
-			update_option( 'aab_template_import_state', __( 'Template Required', 'the-bricksfly' ) );
+			update_option( 'thebrbre_template_import_state', __( 'Template Required', 'the-bricksfly' ) );
 			return false;
 		}
 
-		$remote_url = AAB_TEMPLATE_STARTER_BASE_URL . 'wp-json/brk-starter-templates/download';
+		$remote_url = THEBRBRE_TEMPLATE_STARTER_BASE_URL . 'wp-json/brk-starter-templates/download';
 
 		if ( ! empty( $template['base_path'] ) ) {
 			$remote_url = $template['base_path'] . 'wp-json/brk-starter-templates/download';
@@ -572,18 +598,18 @@ class AAB_Template_Importer {
 		$response = wp_remote_get( $remote_url, $args );
 
 		if ( is_wp_error( $response ) ) {
-			update_option( 'aab_template_import_state', __( 'Failed to validate file from remote URL.', 'the-bricksfly' ) );
+			update_option( 'thebrbre_template_import_state', __( 'Failed to validate file from remote URL.', 'the-bricksfly' ) );
 			return false;
 		}
 
 		if ( 200 !== wp_remote_retrieve_response_code( $response ) ) {
-			update_option( 'aab_template_import_state', __( 'Invalid file arguments.', 'the-bricksfly' ) );
+			update_option( 'thebrbre_template_import_state', __( 'Invalid file arguments.', 'the-bricksfly' ) );
 			return false;
 		}
 
 		$body = wp_remote_retrieve_body( $response );
 		if ( empty( $body ) ) {
-			update_option( 'aab_template_import_state', __( 'The downloadable file is empty.', 'the-bricksfly' ) );
+			update_option( 'thebrbre_template_import_state', __( 'The downloadable file is empty.', 'the-bricksfly' ) );
 			return false;
 		}
 
@@ -592,4 +618,4 @@ class AAB_Template_Importer {
 
 }
 
-AAB_Template_Importer::instance();
+THEBRBRE_Template_Importer::instance();

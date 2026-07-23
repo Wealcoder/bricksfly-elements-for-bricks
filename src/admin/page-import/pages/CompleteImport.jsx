@@ -1,4 +1,4 @@
-import { Button, buttonVariants } from "@/components/ui/button";
+﻿import { Button, buttonVariants } from "@/components/ui/button";
 import { ConfettiAnimation } from "@/lib/confettiAnimation";
 import { cn } from "@/lib/utils";
 import { useEffect, useState, useContext } from "react";
@@ -28,7 +28,7 @@ const CompleteImport = () => {
   const importedPage = async () => {
     try {
       const formData = new URLSearchParams();
-      formData.append("action", "aab_get_latest_imported_pages");
+      formData.append("action", "thebrbre_get_latest_imported_pages");
       formData.append("nonce", AAB_ADDONS_ADMIN.nonce);
       formData.append("per_page", 1);
 

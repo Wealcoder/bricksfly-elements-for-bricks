@@ -1,4 +1,4 @@
-import { Button } from "S/components/ui/button";
+﻿import { Button } from "S/components/ui/button";
 import { useTab, useTaxonomy } from "S/hooks/app.hooks";
 
 import {
@@ -65,7 +65,7 @@ const EditTaxonomy = () => {
           Accept: "application/json",
         },
         body: new URLSearchParams({
-          action: "aab_taxonomy_builder_single_item",
+          action: "thebrbre_taxonomy_builder_single_item",
           taxonomy_id: value,
           nonce: AAB_ADDONS_ADMIN.nonce,
         }),
@@ -111,7 +111,7 @@ const EditTaxonomy = () => {
             Accept: "application/json",
           },
           body: new URLSearchParams({
-            action: "aab_taxonomy_exist",
+            action: "thebrbre_taxonomy_exist",
             taxonomy_type: value,
             nonce: AAB_ADDONS_ADMIN.nonce,
           }),
@@ -147,7 +147,7 @@ const EditTaxonomy = () => {
             Accept: "application/json",
           },
           body: new URLSearchParams({
-            action: "aab_add_or_update_new_taxonomy_builder",
+            action: "thebrbre_add_or_update_new_taxonomy_builder",
             taxonomy_meta: JSON.stringify(taxonomyData),
             taxonomy_id: taxonomyId,
             taxonomy_title: taxonomyTitle,

@@ -1,4 +1,4 @@
-import { LoadingSpinner } from "@/components/shared/LoadingSpinner";
+﻿import { LoadingSpinner } from "@/components/shared/LoadingSpinner";
 import { Progress } from "@/components/ui/progress";
 import { useCallback, useEffect, useState } from "react";
 import { debounceFn } from "@/lib/utils";
@@ -96,7 +96,7 @@ const DemoImporting = () => {
         return; // If the tab is complete-import, do not fetch progress 
       }
       const formData = new URLSearchParams();     
-      formData.append("action", "aab_heartbeat_data");
+      formData.append("action", "thebrbre_heartbeat_data");
       formData.append("nonce", AAB_ADDONS_ADMIN.nonce);  
       const response = await fetch(AAB_ADDONS_ADMIN.ajaxurl, {
         method: "POST",
@@ -118,19 +118,19 @@ const DemoImporting = () => {
             const importCount = data.import_porgress.progress || 0;
             const totalCount = data.import_porgress.total_items || 1;
 
-            // 🔹 Content Import Only (0-100%)
+            // ðŸ”¹ Content Import Only (0-100%)
             const contentProgress = Math.min(Math.round((importCount / totalCount) * 100), 100);
 
-            // 🔸 Total Import (starting from plugin install)
+            // ðŸ”¸ Total Import (starting from plugin install)
             const baseProgress = Math.floor(Math.random() * (44 - 40 + 1)) + 40;
             const scaledImport = 50 * (importCount / totalCount);
             const totalProgress = Math.min(Math.round(baseProgress + scaledImport), 100); 
             setTemplateTitle(data.import_porgress?.title);          
             
-            // 👇 You set both
+            // ðŸ‘‡ You set both
             setProgress((prev) => Math.max(prev, totalProgress));
             setMsg(
-              `📦 Content Import: ${contentProgress}% (${importCount} of ${totalCount})\n`        
+              `ðŸ“¦ Content Import: ${contentProgress}% (${importCount} of ${totalCount})\n`        
             );
 
            
@@ -156,9 +156,9 @@ const DemoImporting = () => {
         const formData = new URLSearchParams();
 
         if (tpldata?.next_step && tpldata.next_step == "download-xml-file") {
-          formData.append("action", "aab_upload_manual_import_file");
+          formData.append("action", "thebrbre_upload_manual_import_file");
         } else {
-          formData.append("action", "aab_template_installer");
+          formData.append("action", "thebrbre_template_installer");
         }
         formData.append("import_type", 'full-demo');
         formData.append("template_data", JSON.stringify(tpldata));

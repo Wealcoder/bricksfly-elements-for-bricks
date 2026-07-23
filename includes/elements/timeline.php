@@ -2,7 +2,7 @@
 
 if (!defined('ABSPATH')) exit;
 
-class Aae_Bricks_Timeline extends \Bricks\Element
+class THEBRBRE_Bricks_Timeline extends \Bricks\Element
 {
     public $category     = 'bricks fly';
     public $name         = 'aae-timeline';
@@ -584,7 +584,7 @@ class Aae_Bricks_Timeline extends \Bricks\Element
 
         wp_enqueue_style(
             'aae-timeline',
-            AAB_ADDONS_URL . 'public/build/elements/timeline.css',
+            THEBRBRE_URL . 'public/build/elements/timeline.css',
             [],
             '1.0.0'
         );
@@ -710,7 +710,7 @@ class Aae_Bricks_Timeline extends \Bricks\Element
         if ($has_link) {
             echo wp_kses_post('<a ' . $this->render_attributes($link_key) . '>' . $image_html . '</a>');
         } else {
-            echo wp_kses_post( $image_html ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            echo wp_kses_post( $image_html );
         }
         echo '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     }
