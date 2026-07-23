@@ -611,7 +611,7 @@ class Aae_Bricks_Timeline extends \Bricks\Element
 
         $this->set_attribute('_root', 'class', ['aae-timeline-wrapper', 'aae-timeline', 'style-' . $style]);
 
-        echo '<div ' . $this->render_attributes('_root') . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        echo wp_kses_post('<div ' . $this->render_attributes('_root') . '>');
 
         foreach ($items as $index => $item) {
             $this->render_timeline_item($settings, $item, $index, $title_tag, $image_size, $show_indicator);
@@ -638,7 +638,7 @@ class Aae_Bricks_Timeline extends \Bricks\Element
         }
         $step_type = $item['stepType'] ?? 'icon';
         if ($step_type === 'icon' && !empty($item['stepIcon'])) {
-            echo self::render_icon($item['stepIcon'], ['aria-hidden' => 'true']); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            echo wp_kses_post(self::render_icon($item['stepIcon'], ['aria-hidden' => 'true']));
         } elseif ($step_type === 'text') {
             echo esc_html($item['stepText'] ?? '');
         }
@@ -655,7 +655,7 @@ class Aae_Bricks_Timeline extends \Bricks\Element
         if (!empty($item['timelineDate'])) {
             echo '<div class="date">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
             if (!empty($settings['dateIcon'])) {
-                echo self::render_icon($settings['dateIcon'], ['aria-hidden' => 'true']); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                echo wp_kses_post(self::render_icon($settings['dateIcon'], ['aria-hidden' => 'true']));
             }
             echo esc_html($item['timelineDate']);
             echo '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -664,7 +664,7 @@ class Aae_Bricks_Timeline extends \Bricks\Element
         if (!empty($item['timelineTitle'])) {
             echo '<' . esc_html($title_tag) . ' class="title">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
             if ($has_link) {
-                echo '<a ' . $this->render_attributes($link_key) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                echo wp_kses_post('<a ' . $this->render_attributes($link_key) . '>');
                 echo wp_kses($item['timelineTitle'], ['br' => [], 'span' => ['class' => []], 'strong' => [], 'em' => [], 'b' => [], 'i' => []]);
                 echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
             } else {
@@ -708,7 +708,7 @@ class Aae_Bricks_Timeline extends \Bricks\Element
 
         echo '<div class="thumb">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         if ($has_link) {
-            echo '<a ' . $this->render_attributes($link_key) . '>' . $image_html . '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            echo wp_kses_post('<a ' . $this->render_attributes($link_key) . '>' . $image_html . '</a>');
         } else {
             echo wp_kses_post( $image_html ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         }

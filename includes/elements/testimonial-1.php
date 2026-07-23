@@ -834,7 +834,7 @@ class Aae_Bricks_Testimonial extends \Bricks\Element
 
         $direction = $settings['direction'] ?? 'ltr';
 
-        echo '<div ' . $this->render_attributes('_root') . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        echo wp_kses_post('<div ' . $this->render_attributes('_root') . '>');
 
         echo '<div class="wcf__slider swiper" dir="' . esc_attr($direction) . '">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         echo '<div class="swiper-wrapper" data-settings="' . esc_attr(json_encode($slider_settings)) . '">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -928,7 +928,7 @@ class Aae_Bricks_Testimonial extends \Bricks\Element
         $icon_key  = $type === 'next' ? 'navigationNextIcon' : 'navigationPreviousIcon';
 
         if (!empty($settings[$icon_key])) {
-            echo self::render_icon($settings[$icon_key], ['aria-hidden' => 'true']); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            echo wp_kses_post(self::render_icon($settings[$icon_key], ['aria-hidden' => 'true']));
         } else {
             echo '<i class="fas fa-chevron-' . esc_attr($direction) . '" aria-hidden="true"></i>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         }

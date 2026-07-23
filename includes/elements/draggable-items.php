@@ -118,7 +118,7 @@ class AABAddons_Draggable_Items extends \Bricks\Element {
 
 		$this->set_attribute( '_root', 'class', [ 'draggable--items' ] );
 
-		echo '<div ' . $this->render_attributes( '_root' ) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wp_kses_post('<div ' . $this->render_attributes( '_root' ) . '>');
 
 		foreach ( $items as $index => $item ) {
 			$link_key = 'drag-item-' . $index;
@@ -148,7 +148,7 @@ class AABAddons_Draggable_Items extends \Bricks\Element {
 				$this->set_link_attributes( $link_key, $item['link'] );
 			}
 
-			echo '<a ' . $this->render_attributes( $link_key ) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo wp_kses_post('<a ' . $this->render_attributes( $link_key ) . '>');
 			echo esc_html( ! empty( $item['title'] ) ? $item['title'] : '' );
 			echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}

@@ -1452,7 +1452,7 @@ class AAB_Bricks_Video_Box_Slider extends \Bricks\Element {
 			];
 		}
 
-		echo '<div ' . wp_kses_post( $this->render_attributes( '_root' ) ) . '>';
+		echo wp_kses_post('<div ' . $this->render_attributes( '_root' ) . '>');
 
 		echo '<div class="wcf__slider swiper" dir="' . esc_attr( $direction ) . '" style="position: static">';
 		echo '<div class="swiper-wrapper" data-settings="' . esc_attr( wp_json_encode( $slider_settings ) ) . '">';

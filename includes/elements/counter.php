@@ -367,7 +367,7 @@ class AAB_Bricks_Counter extends \Bricks\Element
 
 		$this->set_attribute('_root', 'data-aab-counter', wp_json_encode($counter_data));
 
-		echo '<div ' . $this->render_attributes('_root') . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wp_kses_post('<div ' . $this->render_attributes('_root') . '>');
 		echo '<div class="aab-counter__inner">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		// Number row: prefix + number + suffix

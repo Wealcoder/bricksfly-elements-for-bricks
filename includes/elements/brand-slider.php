@@ -965,7 +965,7 @@ class AAB_Bricks_Brand_Slider extends \Bricks\Element
 			]);
 		}
 
-		echo '<div ' . wp_kses_post($this->render_attributes('_root')) . '>';
+		echo wp_kses_post('<div ' . $this->render_attributes('_root') . '>');
 		echo '<div class="swiper">';
 		echo '<div class="swiper-wrapper">';
 		echo implode('', $slides); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped

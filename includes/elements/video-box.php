@@ -593,7 +593,7 @@ class AAB_Bricks_Video_Box extends \Bricks\Element {
 
 		$this->set_attribute( '_root', 'class', [ 'aab-video-box', 'style-' . $style, 'btn-' . $btn_visibility ] );
 
-		echo '<div ' . 	wp_kses_post( $this->render_attributes( '_root' ) ) . '>';
+		echo wp_kses_post('<div ' . $this->render_attributes( '_root' ) . '>');
 
 		// Thumbnail
 		echo '<div class="thumb">';

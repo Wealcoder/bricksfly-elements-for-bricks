@@ -954,13 +954,13 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 		// Box link
 		$has_box_link = ! empty($s['box_link']['url']);
 
-		echo '<div ' . $this->render_attributes('_root') . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		echo '<div ' . $this->render_attributes('box') . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wp_kses_post('<div ' . $this->render_attributes('_root') . '>');
+		echo wp_kses_post('<div ' . $this->render_attributes('box') . '>');
 
 		// Icon
 		if (! empty($s['icon'])) {
 			echo '<div class="aab-icon-box__icon">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			echo self::render_icon($s['icon']); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo wp_kses_post(self::render_icon($s['icon']));
 			echo '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 
@@ -1011,7 +1011,7 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 				$this->set_attribute('box-link', 'target', '_blank');
 				$this->set_attribute('box-link', 'rel', 'noopener noreferrer');
 			}
-			echo '<a ' . $this->render_attributes('box-link') . ' aria-label="' . esc_attr($s['title'] ?? '') . '"></a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo wp_kses_post('<a ' . $this->render_attributes('box-link') . ' aria-label="' . esc_attr($s['title'] ?? '') . '"></a>');
 		}
 
 		echo '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -1035,13 +1035,13 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 		$tag = $s['title_tag'] ?? 'h3';
 		$tag = in_array($tag, ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'span', 'div'], true) ? $tag : 'h3';
 
-		echo '<div ' . $this->render_attributes('_root') . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		echo '<div ' . $this->render_attributes('box') . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wp_kses_post('<div ' . $this->render_attributes('_root') . '>');
+		echo wp_kses_post('<div ' . $this->render_attributes('box') . '>');
 
 		// Front
 		echo '<div class="aab-icon-box__flip-front">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		if (! empty($s['icon'])) {
-			echo '<div class="aab-icon-box__icon">' . self::render_icon($s['icon']) . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo wp_kses_post('<div class="aab-icon-box__icon">' . self::render_icon($s['icon']) . '</div>');
 		}
 		if (! empty($s['title'])) {
 			echo '<' . tag_escape($tag) . ' class="aab-icon-box__title">' . esc_html($s['title']) . '</' . tag_escape($tag) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -1106,16 +1106,16 @@ class AAB_Bricks_Icon_Box extends \Bricks\Element
 			}
 		}
 
-		echo '<a ' . $this->render_attributes('btn') . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wp_kses_post('<a ' . $this->render_attributes('btn') . '>');
 
 		if (! empty($s['btn_icon']) && $icon_pos === 'before') {
-			echo '<span class="aab-icon-box__btn-icon">' . self::render_icon($s['btn_icon']) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo wp_kses_post('<span class="aab-icon-box__btn-icon">' . self::render_icon($s['btn_icon']) . '</span>');
 		}
 
 		echo '<span class="aab-icon-box__btn-text">' . esc_html($s['btn_text'] ?? esc_html__('Read More', 'the-bricksfly')) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		if (! empty($s['btn_icon']) && $icon_pos === 'after') {
-			echo '<span class="aab-icon-box__btn-icon">' . self::render_icon($s['btn_icon']) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo wp_kses_post('<span class="aab-icon-box__btn-icon">' . self::render_icon($s['btn_icon']) . '</span>');
 		}
 
 		echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped

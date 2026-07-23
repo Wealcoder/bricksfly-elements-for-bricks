@@ -543,7 +543,7 @@ class Aae_Bricks_Team extends \Bricks\Element
         }
         $this->set_attribute('_root', 'class', $root_classes);
 
-        echo '<div ' . $this->render_attributes('_root') . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        echo wp_kses_post('<div ' . $this->render_attributes('_root') . '>');
 
         // Thumb
         echo '<div class="thumb">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -585,7 +585,7 @@ class Aae_Bricks_Team extends \Bricks\Element
         if (!$image_html) return;
 
         if ($has_link) {
-            echo '<a ' . $this->render_attributes('details-link') . ' aria-label="' . esc_attr($settings['memberName'] ?? '') . '">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            echo wp_kses_post('<a ' . $this->render_attributes('details-link') . ' aria-label="' . esc_attr($settings['memberName'] ?? '') . '">');
             echo wp_kses_post( $image_html ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
             echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         } else {
@@ -599,7 +599,7 @@ class Aae_Bricks_Team extends \Bricks\Element
 
         echo '<' . esc_html($tag) . ' class="name">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         if ($has_link) {
-            echo '<a ' . $this->render_attributes('details-link') . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            echo wp_kses_post('<a ' . $this->render_attributes('details-link') . '>');
             echo esc_html($settings['memberName']);
             echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         } else {
@@ -624,9 +624,9 @@ class Aae_Bricks_Team extends \Bricks\Element
                 $this->set_attribute($link_key, 'href', '#');
             }
 
-            echo '<a ' . $this->render_attributes($link_key) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            echo wp_kses_post('<a ' . $this->render_attributes($link_key) . '>');
             echo '<span class="screen-reader-text">' . esc_html( $item['socialLabel'] ?? esc_html__( 'Social', 'the-bricksfly' ) ) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-            echo self::render_icon($item['socialIcon'], ['aria-hidden' => 'true']); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            echo wp_kses_post(self::render_icon($item['socialIcon'], ['aria-hidden' => 'true']));
             echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         }
         echo '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped

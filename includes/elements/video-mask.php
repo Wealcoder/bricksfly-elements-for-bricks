@@ -407,13 +407,13 @@ class AAB_Bricks_Video_Mask extends \Bricks\Element {
 			$this->set_attribute( '_root', 'data-content-color', $content_color );
 		}
 
-		echo '<div ' . $this->render_attributes( '_root' ) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wp_kses_post('<div ' . $this->render_attributes( '_root' ) . '>');
 
 		// Button
 		echo '<button class="video--btn">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo '<span class="icon">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		if ( ! empty( $settings['playIcon'] ) ) {
-			echo self::render_icon( $settings['playIcon'], [ 'aria-hidden' => 'true' ] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo wp_kses_post(self::render_icon( $settings['playIcon'], [ 'aria-hidden' => 'true' ] ));
 		}
 		echo '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo '<span class="title open-title">' . esc_html( ! empty( $settings['openTitle'] ) ? $settings['openTitle'] : 'Watch Video' ) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped

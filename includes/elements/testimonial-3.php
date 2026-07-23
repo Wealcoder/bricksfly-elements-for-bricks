@@ -622,13 +622,12 @@ class Aae_Bricks_Testimonial3 extends \Bricks\Element
         // via Bricks's `'css'` array on the controls themselves — no inline
         // style needed here.
 ?>
-        <div <?php echo $this->render_attributes('_root'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped 
-                ?>>
+        <?php echo wp_kses_post('<div ' . $this->render_attributes('_root') . '>'); ?>
 
             <div class="quote quote-icon">
                 <?php
                 if (!empty($settings['quoteIcon'])) {
-                    echo self::render_icon($settings['quoteIcon'], ['aria-hidden' => 'true']); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                    echo wp_kses_post(self::render_icon($settings['quoteIcon'], ['aria-hidden' => 'true']));
                 }
                 ?>
             </div>
@@ -652,8 +651,7 @@ class Aae_Bricks_Testimonial3 extends \Bricks\Element
                                     <?php echo wp_kses_post($item['testimonialContent'] ?? ''); ?>
                                 </div>
                                 <?php if ($has_link) : ?>
-                                    <a class="name" <?php echo $this->render_attributes("ts3-link-{$index}"); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped 
-                                                    ?>><?php echo esc_html($item['testimonialName'] ?? ''); ?></a>
+                                    <?php echo wp_kses_post('<a class="name" ' . $this->render_attributes("ts3-link-{$index}") . '>'); ?><?php echo esc_html($item['testimonialName'] ?? ''); ?></a>
                                 <?php else : ?>
                                     <div class="name"><?php echo esc_html($item['testimonialName'] ?? ''); ?></div>
                                 <?php endif; ?>
@@ -692,7 +690,7 @@ class Aae_Bricks_Testimonial3 extends \Bricks\Element
         $key = $type === 'prev' ? 'prevIcon' : 'nextIcon';
 
         if (!empty($settings[$key])) {
-            echo self::render_icon($settings[$key], ['aria-hidden' => 'true']); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            echo wp_kses_post(self::render_icon($settings[$key], ['aria-hidden' => 'true']));
         } else {
             $direction = $type === 'prev' ? 'left' : 'right';
             echo '<i class="fas fa-chevron-' . esc_attr($direction) . '"></i>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped

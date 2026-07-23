@@ -616,7 +616,7 @@ class AAB_Bricks_Image_Accordion extends \Bricks\Element {
 			$this->set_attribute( '_root', 'data-breakpoint', $breakpoint );
 		}
 
-		echo '<div ' . $this->render_attributes( '_root' ) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wp_kses_post('<div ' . $this->render_attributes( '_root' ) . '>');
 
 		foreach ( $items as $index => $item ) {
 			// Bricks image control: can be {id, url, size}, just an ID (int), or {url}
@@ -660,7 +660,7 @@ class AAB_Bricks_Image_Accordion extends \Bricks\Element {
 				if ( ! empty( $item['link'] ) ) {
 					$this->set_link_attributes( $link_key, $item['link'] );
 					$this->set_attribute( $link_key, 'class', 'aab-btn' );
-					echo '<a ' . $this->render_attributes( $link_key ) . '>' . esc_html( $btn_text ) . '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					echo wp_kses_post('<a ' . $this->render_attributes( $link_key ) . '>' . esc_html( $btn_text ) . '</a>');
 				} else {
 					echo '<span class="aab-btn" role="button">' . esc_html( $btn_text ) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				}

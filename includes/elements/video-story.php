@@ -549,7 +549,7 @@ class AAB_Bricks_Video_Story extends \Bricks\Element {
 
 		$this->set_attribute( '_root', 'class', 'aab--video-story' );
 
-		echo '<div ' . $this->render_attributes( '_root' ) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wp_kses_post('<div ' . $this->render_attributes( '_root' ) . '>');
 		echo '<div class="aab--posts">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		while ( $query->have_posts() ) {
@@ -617,7 +617,7 @@ class AAB_Bricks_Video_Story extends \Bricks\Element {
 			// Duration wrap
 			echo '<div class="duration-wrap">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			if ( ! empty( $s['play_icon'] ) ) {
-				echo '<span class="icon">' . self::render_icon( $s['play_icon'] ) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo wp_kses_post('<span class="icon">' . self::render_icon( $s['play_icon'] ) . '</span>');
 			} else {
 				echo '<span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			}

@@ -354,7 +354,7 @@ class AAB_Bricks_Floating_Elements extends \Bricks\Element
 
 		$this->set_attribute('_root', 'class', ['aab-floating-elements']);
 
-		echo '<div ' . $this->render_attributes('_root') . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wp_kses_post('<div ' . $this->render_attributes('_root') . '>');
 
 		foreach ($items as $index => $item) {
 
