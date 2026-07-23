@@ -710,7 +710,7 @@ class Aae_Bricks_Timeline extends \Bricks\Element
         if ($has_link) {
             echo wp_kses_post('<a ' . $this->render_attributes($link_key) . '>' . $image_html . '</a>');
         } else {
-            echo wp_kses_post( $image_html ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            echo wp_kses_post( $image_html );
         }
         echo '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     }

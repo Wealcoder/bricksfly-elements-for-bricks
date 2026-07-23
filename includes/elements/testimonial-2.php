@@ -643,7 +643,7 @@ class Aae_Bricks_Testimonial2 extends \Bricks\Element
                                     if ($has_link && $image_html) {
                                         echo wp_kses_post('<a ' . $this->render_attributes("ts2-link-{$index}") . '>' . $image_html . '</a>');
                                     } else {
-                                        echo wp_kses_post( $image_html ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                                        echo wp_kses_post( $image_html );
                                     }
                                     ?>
                                 </div>

@@ -870,9 +870,9 @@ class Aae_Bricks_Testimonial extends \Bricks\Element
             }
 
             if ($has_link && $image_html) {
-                echo '<a' . $link_attrs . '>' . $image_html . '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                echo wp_kses_post('<a' . $link_attrs . '>' . $image_html . '</a>');
             } else {
-                echo wp_kses_post( $image_html ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                echo wp_kses_post( $image_html );
             }
             echo '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
@@ -883,7 +883,7 @@ class Aae_Bricks_Testimonial extends \Bricks\Element
 
             // Name
             if ($has_link) {
-                echo '<a class="name"' . $link_attrs . '>' . esc_html($item['testimonialName'] ?? '') . '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                echo wp_kses_post('<a class="name"' . $link_attrs . '>' . esc_html($item['testimonialName'] ?? '') . '</a>');
             } else {
                 echo '<div class="name">' . esc_html($item['testimonialName'] ?? '') . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
             }
