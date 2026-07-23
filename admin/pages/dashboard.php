@@ -857,7 +857,7 @@ class AAB_Admin_Init
 		if ($transient !== false) {
 			$return_message['changelog'] = $transient;
 		} else {
-			$url                         = 'https://store.wealcoder.com/wp-json/userdata/v1/changelog?p=768';
+			$url                         = 'https://my.bricksfly.com/wp-json/userdata/v1/changelog?p=768';
 			$args                        = array(
 				'timeout'   => 60,
 				'sslverify' => false,
@@ -1058,7 +1058,7 @@ class AAB_Admin_Init
 			),
 		);
 
-		$api_site_url = 'https://my.bricksfly.com/api/request-new-feature';
+		$api_site_url = 'https://bricksfly.com/api/request-new-feature';
 
 		$response = wp_remote_post($api_site_url, $args);
 

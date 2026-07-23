@@ -140,7 +140,7 @@ Service domains: `https://www.themecrowdy.com/`
 
 = 2. Wealcoder content services =
 
-Service domains: `https://store.wealcoder.com/`, `https://wealcoder.com/`, and `https://crowdytheme.com/`
+Service domains: `https://my.bricksfly.com/`, `https://wealcoder.com/`, and `https://crowdytheme.com/`
 
 * **Use:** Loads the dashboard changelog and article images, and provides the default Video Mask demo video.
 * **Data and timing:** When the dashboard or related video loads, the request may send the IP address, user agent, site URL, and referrer. The free plugin does not send license keys.
