@@ -16,7 +16,7 @@ class Bricks_Theme_Dependency
 {
 	const THEME_SLUG    = 'bricks';
 	const BLOCK_FLAG    = 'aab_addons_theme_switch_blocked';
-	const PLUGIN_NAME   = 'Bricks Animation Addons';
+	const PLUGIN_NAME   = 'The BricksFly';
 	const BRICKS_URL    = 'https://bricksbuilder.io/';
 
 	public static function init(): void

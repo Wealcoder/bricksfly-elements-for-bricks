@@ -221,25 +221,18 @@ class AAB_Template_Importer {
 
 				if ( is_array( $user_plugins ) && $user_plugins ) {
 					if ( isset( $template_data['dependencies']['plugins'] ) && is_array( $template_data['dependencies']['plugins'] ) ) {
-						if ( current_user_can( 'install_plugins' ) ) {
+						if ( current_user_can( 'activate_plugins' ) ) {
 							foreach ( $template_data['dependencies']['plugins'] as $item ) {
 								if ( file_exists( WP_PLUGIN_DIR . '/' . $item['Base_Slug'] ) ) {
+									// Only activate dependency plugins that are already
+									// installed. Automatic installation was removed; a
+									// required plugin that is not present must be
+									// installed manually by the administrator.
 									activate_plugin( $item['Base_Slug'], '', false, false );
-								} else {
-									if ( in_array( $item['slug'], $user_plugins ) ) {
-										update_option(
-											'aab_template_import_state',
-											/* translators: %s: plugin name being installed. */
-											sprintf( __( 'Installing %s', 'the-bricksfly' ), $item['name'] )
-										);
-										if ( isset( $item['host'] ) && isset( $item['slug'] ) ) {
-											$this->install_plugin_from_wp( $item['slug'] );
-										}
-									}
 								}
 							}
 						}
-						update_option( 'aab_template_import_state', __( 'Plugin Installation Done', 'the-bricksfly' ) );
+						update_option( 'aab_template_import_state', __( 'Plugin activation done', 'the-bricksfly' ) );
 					}
 				}
 				$template_data['next_step'] = 'install-wp-options';
@@ -597,31 +590,6 @@ class AAB_Template_Importer {
 		return $body;
 	}
 
-	private function install_plugin_from_wp( $slug ) {
-		require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
-		require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
-
-		$api = plugins_api( 'plugin_information', [
-			'slug'   => $slug,
-			'fields' => [ 'sections' => false ],
-		] );
-
-		if ( is_wp_error( $api ) ) {
-			return false;
-		}
-
-		$upgrader = new \Plugin_Upgrader( new \WP_Ajax_Upgrader_Skin() );
-		$result   = $upgrader->install( $api->download_link );
-
-		if ( ! is_wp_error( $result ) ) {
-			$plugin_file = $upgrader->plugin_info();
-			if ( $plugin_file ) {
-				activate_plugin( $plugin_file );
-			}
-		}
-
-		return $result;
-	}
 }
 
 AAB_Template_Importer::instance();
