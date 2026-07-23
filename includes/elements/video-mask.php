@@ -153,8 +153,7 @@ class AAB_Bricks_Video_Mask extends \Bricks\Element {
 			'group'       => 'video',
 			'label'       => esc_html__( 'Video Link (mp4)', 'the-bricksfly' ),
 			'type'        => 'text',
-			'default'     => 'https://wealcoder.com/dev/video/dancer.mp4',
-			'placeholder' => 'https://example.com/video.mp4',
+			'default'     => '#',
 			'description' => esc_html__( 'Upload your mp4 video file URL.', 'the-bricksfly' ),
 		];
 

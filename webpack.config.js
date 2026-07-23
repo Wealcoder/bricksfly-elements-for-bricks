@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const RemoveEmptyScriptsPlugin = require("webpack-remove-empty-scripts");
 const TerserPlugin = require("terser-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
 const isProd =
   process.env.NODE_ENV === "production" ||
@@ -204,4 +205,52 @@ const bundlesConfig = {
     : { minimize: false },
 };
 
-module.exports = [adminConfig, bundlesConfig];
+/* -------------------------------------------------------------------------
+   Config 3 - Copy source files for WordPress.org review.
+   Copies readable source files to public/build/src/ for review.
+------------------------------------------------------------------------- */
+
+const sourceCopyConfig = {
+  name: "source-copy",
+  mode: "development",
+  devtool: false,
+  optimization: {
+    minimize: false,
+  },
+  entry: {},
+  output: {
+    path: path.resolve(__dirname, "public/build"),
+  },
+  plugins: [
+    new CopyPlugin({
+      patterns: [
+        // Copy Elements JS source files
+        {
+          context: "src/js/elements",
+          from: "**/*.js",
+          to: "elements/src/js/[name][ext]",
+        },
+        // Copy Elements SCSS source files as CSS for review
+        {
+          context: "src/scss/elements",
+          from: "**/*.scss",
+          to: "elements/src/css/[name].css",
+        },
+        // Copy Extensions JS source files
+        {
+          context: "src/js/extensions",
+          from: "**/*.js",
+          to: "extensions/src/js/[path][name][ext]",
+        },
+        // Copy Extensions SCSS source files as CSS for review
+        {
+          context: "src/scss/extensions",
+          from: "**/*.scss",
+          to: "extensions/src/css/[name].css",
+        },
+      ],
+    }),
+  ],
+};
+
+module.exports = [adminConfig, bundlesConfig, sourceCopyConfig];
