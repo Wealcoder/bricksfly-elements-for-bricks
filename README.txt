@@ -138,7 +138,7 @@ Loads the Inter and Figtree fonts when an administrator opens the plugin's dashb
 
 Used when an administrator browses or imports templates, sections, or starter sites. Sends IP, user agent, site URL/referrer, search/filter values, and template ID; no passwords or account details. Provider: Wealcoder / BricksFly Addons — [Terms](https://bricksfly.com/terms-condition/) | [Privacy](https://bricksfly.com/privacy-policy/)
 
-= 3. Dashboard content & demo media (`https://my.bricksfly.com/`, `https://wealcoder.com/`, `https://crowdytheme.com/`) =
+= 3. Dashboard content & demo media (`https://my.bricksfly.com/`, `https://crowdytheme.com/`) =
 
 Loads the dashboard changelog/article images and the Video Mask demo video. Sends IP, user agent, site URL, and referrer when the dashboard or media loads; the free plugin sends no license keys. Provider: Wealcoder / BricksFly Addons — [Terms](https://bricksfly.com/terms-condition/) | [Privacy](https://bricksfly.com/privacy-policy/)
 

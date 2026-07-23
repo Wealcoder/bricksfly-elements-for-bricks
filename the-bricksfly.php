@@ -8,7 +8,7 @@
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * @link              https://wealcoder.com
+ * @link              https://bricksfly.com
  * @since             1.0.0
  * @package           Bricks_Fly
  *
@@ -18,7 +18,7 @@
  * Description:       The Bricksfly for Bricks comes with GSAP Animation Builder, Customizable Elements, Header Footer, Single Post, Archive Page Builder, and Many more.
  * Version:           1.0.1
  * Author:            Wealcoder
- * Author URI:        https://wealcoder.com/
+ * Author URI:        https://bricksfly.com/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       the-bricksfly
