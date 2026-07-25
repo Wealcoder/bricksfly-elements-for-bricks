@@ -1,17 +1,17 @@
-const img = (name) => `${AAB_ADDONS_ADMIN.plugin_url}public/images/promotion/${name}`;
+const img = (name) => `${THEBRBRE_ADDONS_ADMIN.plugin_url}public/images/promotion/${name}`;
 
 export const PromotionList = [
   {
     title: "Helo | Multi-Purpose Elementor WordPress Theme",
     description:
-      "Helo is a multipurpose WordPress theme designed for agencies, personal portfolios, resumes, business consultancies, technology, non-profit organizations, and so on. It’s crafted with 55+ demos, 1000+ sections, and 300+ pages in both dark and light versions. The most standout feature of Helo is the integration of smooth GSAP animations.",
+      "Helo is a multipurpose WordPress theme designed for agencies, personal portfolios, resumes, business consultancies, technology, non-profit organizations, and so on. Itâ€™s crafted with 55+ demos, 1000+ sections, and 300+ pages in both dark and light versions. The most standout feature of Helo is the integration of smooth GSAP animations.",
     url: "https://crowdytheme.com/wp/helo-preview",
     image: img("helo.png"),
   },
   {
     title: "Arolax | Creative Digital Agency Theme",
     description:
-      "Arolax is a versatile, responsive, RTL ready, Woo-Commerce ready and easily customizable digital creative agency & portfolio WordPress theme. It comes with 50+ unique home pages, including the Dark and Light versions, along with a broad range of inner pages. It’s specifically tailored for users who want to bring their websites to life with diverse, dynamic animations.",
+      "Arolax is a versatile, responsive, RTL ready, Woo-Commerce ready and easily customizable digital creative agency & portfolio WordPress theme. It comes with 50+ unique home pages, including the Dark and Light versions, along with a broad range of inner pages. Itâ€™s specifically tailored for users who want to bring their websites to life with diverse, dynamic animations.",
     url: "https://crowdytheme.com/wp/arolax-preview",
     image: img("arolax.png"),
   },
@@ -32,7 +32,7 @@ export const PromotionList = [
   {
     title: "Bilder | Architecture Construction WordPress Theme",
     description:
-      "Bilder is a powerful WordPress theme specifically designed for building, construction, renovation, architecture, and interior design companies. It’s rich in innovative features, responsive layouts, stunning animations, exclusive widgets, and other unique design elements.",
+      "Bilder is a powerful WordPress theme specifically designed for building, construction, renovation, architecture, and interior design companies. Itâ€™s rich in innovative features, responsive layouts, stunning animations, exclusive widgets, and other unique design elements.",
     url: "https://crowdytheme.com/wp/bilder-preview",
     image: img("builder.png"),
   },

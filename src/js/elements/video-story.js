@@ -8,7 +8,7 @@ import "../../scss/elements/video-story.scss";
  * - Hover play/pause on article
  * - Click to activate: unmute, show controls, mark active
  */
-function aabVideoStory( el ) {
+function thebrbreVideoStory( el ) {
 	if ( ! el ) return;
 
 	var root = el;
@@ -114,4 +114,4 @@ function aabVideoStory( el ) {
 	};
 }
 
-if (typeof window !== 'undefined') { window.aabVideoStory = aabVideoStory; }
+if (typeof window !== 'undefined') { window.thebrbreVideoStory = thebrbreVideoStory; }

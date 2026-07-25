@@ -18,10 +18,10 @@ export function StaterTemplateHeader({ metaData, setMetaData }) {
 
   useEffect(() => {
     if (
-      AAB_ADDONS_ADMIN.template_menu &&
-      AAB_ADDONS_ADMIN.template_menu.length
+      THEBRBRE_ADDONS_ADMIN.template_menu &&
+      THEBRBRE_ADDONS_ADMIN.template_menu.length
     ) {
-      setMenuData(AAB_ADDONS_ADMIN.template_menu);
+      setMenuData(THEBRBRE_ADDONS_ADMIN.template_menu);
     } else {
       setMenuData(templateMenuJson);
     }

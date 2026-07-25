@@ -1,4 +1,4 @@
-﻿import { Button } from "S/components/ui/button";
+import { Button } from "S/components/ui/button";
 import { usePostType, useTab } from "S/hooks/app.hooks";
 
 import {
@@ -57,7 +57,7 @@ const EditPostType = () => {
 
   const getPostType = async (value) => {
     try {
-      await fetch(AAB_ADDONS_ADMIN.ajaxurl, {
+      await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
@@ -66,7 +66,7 @@ const EditPostType = () => {
         body: new URLSearchParams({
           action: "thebrbre_post_type_builder_single_item",
           post_type_id: value,
-          nonce: AAB_ADDONS_ADMIN.nonce,
+          nonce: THEBRBRE_ADDONS_ADMIN.nonce,
         }),
       })
         .then((response) => {
@@ -102,7 +102,7 @@ const EditPostType = () => {
   const checkPostTypeKey = useCallback(
     debounceFn(async (value) => {
       try {
-        await fetch(AAB_ADDONS_ADMIN.ajaxurl, {
+        await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
           method: "POST",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
@@ -111,7 +111,7 @@ const EditPostType = () => {
           body: new URLSearchParams({
             action: "thebrbre_post_type_exist",
             post_type: value,
-            nonce: AAB_ADDONS_ADMIN.nonce,
+            nonce: THEBRBRE_ADDONS_ADMIN.nonce,
           }),
         })
           .then((response) => {
@@ -138,7 +138,7 @@ const EditPostType = () => {
   const updatePostType = async () => {
     if (!pTKSpaceError && !pTKError) {
       try {
-        await fetch(AAB_ADDONS_ADMIN.ajaxurl, {
+        await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
           method: "POST",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
@@ -149,7 +149,7 @@ const EditPostType = () => {
             post_meta: JSON.stringify(postTypeData),
             post_type_id: postId,
             post_type_title: postTypeTitle,
-            nonce: AAB_ADDONS_ADMIN.nonce,
+            nonce: THEBRBRE_ADDONS_ADMIN.nonce,
           }),
         })
           .then((response) => {

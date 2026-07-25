@@ -1,6 +1,6 @@
 <?php
 
-namespace wealcoder\bricksfly\Admin\Pages;
+namespace wealcoder\thebricksfly\Admin\Pages;
 
 if (! defined('ABSPATH')) exit;
 
@@ -16,7 +16,7 @@ if (! defined('ABSPATH')) exit;
 class THEBRBRE_Settings_Placeholder
 {
 	const MENU_PAGE_SLUG  = 'thebrbre_addons_page';
-	const SETTINGS_SLUG   = 'bf-site-settings';
+	const SETTINGS_SLUG   = 'thebrbre-site-settings';
 	const MENU_CAPABILITY = 'manage_options';
 	const PRO_BASENAME    = 'the-bricksfly-pro/the-bricksfly-pro.php';
 
@@ -94,7 +94,7 @@ class THEBRBRE_Settings_Placeholder
 			: __('Site Settings (Preloader, Cursor, Scroll Indicator, Scroll-to-Top) is a Pro feature. Install and activate Bricksfly Pro, then activate your license, to use it.', 'the-bricksfly');
 
 		$cta_url = $pro_active
-			? admin_url('admin.php?page=bf_addons_settings&bf-license=1')
+			? admin_url('admin.php?page=thebrbre_addons_settings&bf-license=1')
 			: admin_url('plugin-install.php?s=the-bricksfly-pro&tab=search&type=term');
 
 		$cta_label = $pro_active

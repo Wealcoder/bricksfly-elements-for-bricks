@@ -1,6 +1,6 @@
 <?php
 
-namespace wealcoder\bricksfly\Admin\Base;
+namespace wealcoder\thebricksfly\Admin\Base;
 
 defined( 'ABSPATH' ) || die();
 
@@ -137,9 +137,9 @@ class Helpers {
 
 	public static function get_plugin_page_setup_data() {
 		return Helpers::apply_filters('thebrbre/plugin_page_setup', array(
-			'parent_slug' => 'bf_addons_settings',
+			'parent_slug' => 'thebrbre_addons_settings',
 			'capability'  => 'import',
-			'menu_slug'   => 'bf_addons_settings',
+			'menu_slug'   => 'thebrbre_addons_settings',
 		) );
 	}
 

@@ -27,7 +27,7 @@ const TemplateLeftFilter = ({
   const [allCategory, setAllCategory] = useState([]);
 
   useEffect(() => {
-    fetch(`${AAB_ADDONS_ADMIN?.st_template_domain}wp-json/wp/v2/brk-cat`)
+    fetch(`${THEBRBRE_ADDONS_ADMIN?.st_template_domain}wp-json/wp/v2/brk-cat`)
       .then((response) => response.json())
       .then((data) => {
         setAllCategory(data);

@@ -47,13 +47,24 @@ import "../../scss/elements/video-mask.scss";
     });
   }
 
-  document.addEventListener('DOMContentLoaded', function () {
+  function initAll(el) {
+    if (el) {
+      initElement(el);
+      return;
+    }
     document.querySelectorAll('.aab-video-mask').forEach(function (root) {
       var wrapper = root.closest('[id^="brxe-"]') || root.parentElement;
       initElement(wrapper);
     });
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    initAll();
   });
 
-  // Expose for Bricks $scripts re-init
-  window.aabVideoMask = initElement;
+  // Bricks builder calls window.thebrbreVideoMask() with NO arguments on
+  // re-render, so the global must be a no-arg-safe entrypoint (matching the
+  // convention used by every other element in this plugin) rather than
+  // initElement directly, which assumes its argument is always a valid element.
+  window.thebrbreVideoMask = initAll;
 })();

@@ -5,7 +5,7 @@ import "../../scss/elements/image-accordion.scss";
  *
  * Frontend: self-initializes via DOMContentLoaded / readyState fallback.
  * Builder: a MutationObserver catches dynamic canvas mounts and Bricks
- *          re-init calls `window.aabImageAccordion(el)` after each render.
+ *          re-init calls `window.thebrbreImageAccordion(el)` after each render.
  */
 (function () {
 	'use strict';
@@ -137,5 +137,5 @@ import "../../scss/elements/image-accordion.scss";
 
 	// Bricks $scripts entrypoint: the builder calls this with the element
 	// root after each render so listeners reattach to the fresh DOM node.
-	window.aabImageAccordion = initElement;
+	window.thebrbreImageAccordion = initElement;
 })();

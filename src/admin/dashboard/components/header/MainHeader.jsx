@@ -10,12 +10,12 @@ import { useEffect } from "react";
 
 const MainHeader = ({ open, setOpen }) => {
   // Old bookmarks/links to the removed React License modal (?bf-license=1)
-  // land here — redirect straight to the real License Settings page rather
+  // land here â€” redirect straight to the real License Settings page rather
   // than reviving the modal.
   useEffect(() => {
     const url = new URL(window.location.href);
     if (url.searchParams.get("bf-license") === "1") {
-      window.location.replace(AAB_ADDONS_ADMIN.license_settings_url);
+      window.location.replace(THEBRBRE_ADDONS_ADMIN.license_settings_url);
     }
   }, []);
 

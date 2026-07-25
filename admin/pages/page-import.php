@@ -1,6 +1,6 @@
 <?php
 
-namespace wealcoder\bricksfly\Admin\Pages;
+namespace wealcoder\thebricksfly\Admin\Pages;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit();
@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class THEBRBRE_Page_Importer {
 
-	const HANDLE = 'aab-page-import';
+	const HANDLE = 'thebrbre-page-import';
 
 	public function __construct() {
 		add_action( 'admin_menu', [ $this, 'add_menu' ], 25 );
@@ -114,7 +114,7 @@ class THEBRBRE_Page_Importer {
 		}
 
 		add_submenu_page(
-			\wealcoder\bricksfly\Admin\Pages\THEBRBRE_Admin_Init::MENU_PAGE_SLUG,
+			\wealcoder\thebricksfly\Admin\Pages\THEBRBRE_Admin_Init::MENU_PAGE_SLUG,
 			__( 'Page Import', 'the-bricksfly' ),
 			__( 'Page Import', 'the-bricksfly' ),
 			'manage_options',
@@ -153,7 +153,7 @@ class THEBRBRE_Page_Importer {
 		);
 
 		// Enrich the config with the CURRENT license state so Pro page templates
-		// unlock the moment a license is activated — no manual refresh needed.
+		// unlock the moment a license is activated â€” no manual refresh needed.
 		//
 		// The bug this fixes: the Page Importer used to localize a bare
 		// `addons_config` with no license fields, so the React app's Pro gate
@@ -163,7 +163,7 @@ class THEBRBRE_Page_Importer {
 		// BOTH pages read the SAME single source of truth.
 		//
 		// Reading the options here (on every importer page load) means the state
-		// is always freshly fetched — never a stale cached value — so activation
+		// is always freshly fetched â€” never a stale cached value â€” so activation
 		// done elsewhere is reflected on the next load of this page.
 		$addons_config = apply_filters('thebrbre_dashboard_config', $GLOBALS['thebrbre_config'] ?? [] );
 
@@ -171,7 +171,7 @@ class THEBRBRE_Page_Importer {
 		$license_key    = (string) get_option( 'thebrbre_license_key', '' );
 
 		// Valid only when the Pro plugin folder exists AND the stored status is
-		// "valid" — the same combined check used by thebrbre_is_license_valid() and
+		// "valid" â€” the same combined check used by thebrbre_is_license_valid() and
 		// the Dashboard, so deleting the Pro folder relocks Pro instantly.
 		$pro_installed = function_exists( 'thebrbre_is_pro_installed' ) ? thebrbre_is_pro_installed() : false;
 		$license_valid = $pro_installed && ( 'valid' === $license_status );
@@ -183,7 +183,7 @@ class THEBRBRE_Page_Importer {
 		// The compiled React UI unlocks Pro items on `product_status.item_id === 39996 `.
 		// Send 39996 only when the license is valid (mirrors the Dashboard); the real
 		// EDD item id is carried separately for the actual API verification flow.
-		// Per-feature license limitations — same single source of truth as the
+		// Per-feature license limitations â€” same single source of truth as the
 		// Dashboard so the Page Importer's Pro gate reads identical state.
 		$limitations = function_exists( 'thebrbre_get_license_limitations' ) ? thebrbre_get_license_limitations() : array();
 
@@ -209,7 +209,7 @@ class THEBRBRE_Page_Importer {
 			'home_url'           => home_url( '/' ),
 		];
 
-		wp_localize_script( 'bf-page-importer-admin', 'AAB_ADDONS_ADMIN', $localize_data );
+		wp_localize_script( 'bf-page-importer-admin', 'THEBRBRE_ADDONS_ADMIN', $localize_data );
 	}
 }
 

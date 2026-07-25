@@ -2,7 +2,7 @@
 
 if (! defined('ABSPATH')) exit;
 
-use wealcoder\bricksfly\Includes\Extensions\Helpers\ResponsiveHelper;
+use wealcoder\thebricksfly\Includes\Extensions\Helpers\ResponsiveHelper;
 
 class THEBRBRE_Bricks_Floating_Elements extends \Bricks\Element
 {

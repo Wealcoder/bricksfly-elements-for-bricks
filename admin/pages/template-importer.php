@@ -1,6 +1,6 @@
 <?php
 
-namespace wealcoder\bricksfly\Admin\Pages;
+namespace wealcoder\thebricksfly\Admin\Pages;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit();
@@ -49,6 +49,11 @@ class THEBRBRE_Template_Importer {
 
 	public function heartbeat_data() {
 		check_ajax_referer( 'thebrbre_admin_nonce', 'nonce' );
+
+		if ( ! current_user_can( 'install_plugins' ) ) {
+			wp_send_json_error( __( 'You are not allowed to perform this action.', 'the-bricksfly' ) );
+		}
+
 		$return_data = apply_filters('thebrbre_heartbeat_data', [
 			'import_state'   => get_option( 'thebrbre_template_import_state' ),
 			'import_porgress' => get_option( 'thebrbre_template_import_progress' ),
@@ -290,7 +295,7 @@ class THEBRBRE_Template_Importer {
 				$template_data['next_step'] = 'install-bricks-settings';
 				$progress                   = '75';
 				$msg                        = __( 'Verifying Content Import', 'the-bricksfly' );
-				update_option( 'aab_template_import_state', __( 'Verifying Content Import', 'the-bricksfly' ) );
+				update_option( 'thebrbre_template_import_state', __( 'Verifying Content Import', 'the-bricksfly' ) );
 
 			} elseif ( $next_step === 'install-bricks-settings' ) {
 				$template_data['next_step'] = 'done';
@@ -592,7 +597,7 @@ class THEBRBRE_Template_Importer {
 		$args = [
 			'timeout'   => 90,
 			'body'      => [ 'template' => $template ],
-			'sslverify' => false,
+			'sslverify' => true,
 		];
 
 		$response = wp_remote_get( $remote_url, $args );

@@ -1,4 +1,4 @@
-﻿import {
+import {
   Dialog,
   DialogContent,
   DialogDescription,
@@ -34,7 +34,7 @@ const ProConfirmDialog = ({ open, setOpen, reason }) => {
     : "Upgrade and get access to every feature.";
 
   const activePlugin = async () => {
-    await fetch(AAB_ADDONS_ADMIN.ajaxurl, {
+    await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -44,7 +44,7 @@ const ProConfirmDialog = ({ open, setOpen, reason }) => {
       body: new URLSearchParams({
         action: "thebrbre_active_plugin",
         action_base: "the-bricksfly-pro/the-bricksfly-pro.php",
-        nonce: AAB_ADDONS_ADMIN.nonce,
+        nonce: THEBRBRE_ADDONS_ADMIN.nonce,
       }),
     })
       .then((response) => {
@@ -71,7 +71,7 @@ const ProConfirmDialog = ({ open, setOpen, reason }) => {
           </DialogHeader>
           <div>
             <img
-              src={`${AAB_ADDONS_ADMIN.plugin_url}public/images/pro-dialog.png`}
+              src={`${THEBRBRE_ADDONS_ADMIN.plugin_url}public/images/pro-dialog.png`}
               className="w-full h-[174px]"
               alt="pro dialog"
             />

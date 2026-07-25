@@ -1,6 +1,6 @@
 <?php
 
-namespace wealcoder\bricksfly\Admin\Base;
+namespace wealcoder\thebricksfly\Admin\Base;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit();

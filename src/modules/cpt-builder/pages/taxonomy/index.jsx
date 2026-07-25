@@ -1,4 +1,4 @@
-﻿import { Button } from "S/components/ui/button";
+import { Button } from "S/components/ui/button";
 import { useTab, useTaxonomy } from "S/hooks/app.hooks";
 import ShowAllTaxonomy from "./ShowAllTaxonomy";
 
@@ -9,7 +9,7 @@ const Taxonomy = () => {
 
   const createPostType = async () => {
     try {
-      await fetch(AAB_ADDONS_ADMIN.ajaxurl, {
+      await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
@@ -18,7 +18,7 @@ const Taxonomy = () => {
         body: new URLSearchParams({
           action: "thebrbre_add_or_update_new_taxonomy_builder",
           taxonomy_title: "New Taxonomy",
-          nonce: AAB_ADDONS_ADMIN.nonce,
+          nonce: THEBRBRE_ADDONS_ADMIN.nonce,
         }),
       })
         .then((response) => {

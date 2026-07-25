@@ -1,4 +1,4 @@
-﻿import { Button } from "S/components/ui/button";
+import { Button } from "S/components/ui/button";
 import { usePostType, useTab } from "S/hooks/app.hooks";
 import ShowAllPostType from "./ShowAllPostType";
 
@@ -9,7 +9,7 @@ const PostTypes = () => {
 
   const createPostType = async () => {
     try {
-      await fetch(AAB_ADDONS_ADMIN.ajaxurl, {
+      await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
@@ -18,7 +18,7 @@ const PostTypes = () => {
         body: new URLSearchParams({
           action: "thebrbre_add_or_update_new_post_type_builder",
           post_type_title: "New Post Type",
-          nonce: AAB_ADDONS_ADMIN.nonce,
+          nonce: THEBRBRE_ADDONS_ADMIN.nonce,
         }),
       })
         .then((response) => {

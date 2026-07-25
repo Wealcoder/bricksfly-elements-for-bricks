@@ -1,4 +1,4 @@
-﻿import { useActivate } from "@/hooks/app.hooks";
+import { useActivate } from "@/hooks/app.hooks";
 import { Button, buttonVariants } from "../ui/button";
 import { toast } from "sonner";
 import { RiKey2Line, RiVipCrown2Line } from "react-icons/ri";
@@ -6,10 +6,10 @@ import { cn } from "@/lib/utils";
 
 const GetProButton = ({ btnClassName }) => {
   const { activated } = useActivate();
-  const role = AAB_ADDONS_ADMIN.user_role;
+  const role = THEBRBRE_ADDONS_ADMIN.user_role;
 
   const activePlugin = async () => {
-    await fetch(AAB_ADDONS_ADMIN.ajaxurl, {
+    await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -19,7 +19,7 @@ const GetProButton = ({ btnClassName }) => {
       body: new URLSearchParams({
         action: "thebrbre_active_plugin",
         action_base: "the-bricksfly-pro/the-bricksfly-pro.php",
-        nonce: AAB_ADDONS_ADMIN.nonce,
+        nonce: THEBRBRE_ADDONS_ADMIN.nonce,
       }),
     })
       .then((response) => {
@@ -66,7 +66,7 @@ const GetProButton = ({ btnClassName }) => {
           <Button
             variant="pro"
             onClick={() => {
-              window.location.href = AAB_ADDONS_ADMIN.license_settings_url;
+              window.location.href = THEBRBRE_ADDONS_ADMIN.license_settings_url;
             }}
             className={btnClassName}
           >

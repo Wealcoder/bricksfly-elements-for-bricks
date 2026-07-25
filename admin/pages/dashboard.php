@@ -1,6 +1,6 @@
 <?php
 
-namespace wealcoder\bricksfly\Admin\Pages;
+namespace wealcoder\thebricksfly\Admin\Pages;
 
 if (! defined('ABSPATH')) {
 	exit();
@@ -10,7 +10,7 @@ class THEBRBRE_Admin_Init
 {
 
 
-	use \wealcoder\bricksfly\Includes\Traits\Extension_Widgets_Trait;
+	use \wealcoder\thebricksfly\Includes\Traits\Extension_Widgets_Trait;
 
 	/**
 	 * Parent Menu Page Slug
@@ -100,7 +100,7 @@ class THEBRBRE_Admin_Init
 		}
 
 		// Check if we are on the correct page
-		if ($screen && strpos($screen->id, '_page_bf_addons_settings') !== false) {
+		if ($screen && strpos($screen->id, '_page_thebrbre_addons_settings') !== false) {
 			$classes .= ' wcf-anim2024';
 		}
 
@@ -124,7 +124,7 @@ class THEBRBRE_Admin_Init
 		add_action('wp_ajax_thebrbre_get_notice_data', array($this, 'get_notice'));
 		add_action('wp_ajax_thebrbre_save_dashboard_settings', array($this, 'save_settings_dashboard'));
 
-		add_action('wp_ajax_aab_save_smooth_scroller_settings', array($this, 'save_smooth_scroller_settings'));	
+		add_action('wp_ajax_thebrbre_save_smooth_scroller_settings', array($this, 'save_smooth_scroller_settings'));
 
 		add_filter('admin_body_class', array($this, 'admin_classes'), 100);
 		add_filter('thebrbre_dashboard_config', array($this, 'dashboard_db_widgets_config'), 11);
@@ -253,7 +253,7 @@ class THEBRBRE_Admin_Init
 		require_once $admin_dir . 'cpt-builder.php';
 
 		// Initialize OneClickImport.
-		$oneimport = \wealcoder\bricksfly\Admin\Base\OneClickImport::get_instance();
+		$oneimport = \wealcoder\thebricksfly\Admin\Base\OneClickImport::get_instance();
 	}
 
 
@@ -272,7 +272,7 @@ class THEBRBRE_Admin_Init
 			self::MENU_CAPABILITY,
 			self::MENU_PAGE_SLUG,
 			'',
-			AAB_ADDONS_URL . 'assets/images/aab.png',
+			THEBRBRE_URL . 'assets/images/aab.png',
 			80
 		);
 
@@ -281,7 +281,7 @@ class THEBRBRE_Admin_Init
 			esc_html__('Settings', 'the-bricksfly'),
 			esc_html__('Settings', 'the-bricksfly'),
 			'manage_options',
-			'bf_addons_settings',
+			'thebrbre_addons_settings',
 			array($this, 'plugin_dashboard_entry_page')
 		);
 
@@ -291,7 +291,7 @@ class THEBRBRE_Admin_Init
 		global $submenu;
 
 
-		// License link — navigates to the real License Settings page
+		// License link â€” navigates to the real License Settings page
 		// (thebrbre-license-settings), replacing the old React modal
 		// entry point (?bf-license=1).
 		if (is_plugin_active('the-bricksfly-pro/the-bricksfly-pro.php')) {
@@ -307,13 +307,13 @@ class THEBRBRE_Admin_Init
 			);
 		}
 
-		// Start Template link — deep-links into the React dashboard's
+		// Start Template link â€” deep-links into the React dashboard's
 		// "stater-template" tab. Registered via $submenu directly so the
 		// `&tab=` query string isn't URL-encoded by add_submenu_page().
 		$submenu[self::MENU_PAGE_SLUG][] = array(
 			esc_html__('Starter Template', 'the-bricksfly'),
 			'manage_options',
-			admin_url('admin.php?page=bf_addons_settings&tab=stater-template'),
+			admin_url('admin.php?page=thebrbre_addons_settings&tab=stater-template'),
 		);
 	}
 
@@ -330,10 +330,10 @@ class THEBRBRE_Admin_Init
 		$total_extensions = $total_widgets = 0;
 
 		$screen = get_current_screen();
-		if (! $screen || strpos($screen->id, '_page_bf_addons_settings') === false) {
+		if (! $screen || strpos($screen->id, '_page_thebrbre_addons_settings') === false) {
 			return;
 		}
-		//if ($hook == 'animation-addon_page_bf_addons_settings') {
+		//if ($hook == 'animation-addon_page_thebrbre_addons_settings') {
 		// sync element manager
 		// $this->disable_widgets_by_element_manager();
 		$dashboard_css_path = THEBRBRE_PATH . 'public/build/admin/dashboard.css';
@@ -343,13 +343,13 @@ class THEBRBRE_Admin_Init
 
 		// CSS
 		wp_enqueue_style(
-			'wcf-admin', // Handle for the stylesheet
+			'thebrbre-admin-style', // Handle for the stylesheet
 			THEBRBRE_URL . 'public/build/admin/dashboard.css',
 			array(), // Dependencies (none in this case)
 			$dashboard_css_ver
 		);
 
-		wp_enqueue_script('aab-admin', THEBRBRE_URL . 'public/build/admin/dashboard.js', array('wp-element'), $dashboard_js_ver, true);
+		wp_enqueue_script('thebrbre-admin', THEBRBRE_URL . 'public/build/admin/dashboard.js', array('wp-element'), $dashboard_js_ver, true);
 		thebrbre_get_total_config_elements_by_key($GLOBALS['thebrbre_config']['extensions'], $total_extensions);
 		thebrbre_get_total_config_elements_by_key($GLOBALS['thebrbre_config']['widgets'], $total_widgets);
 
@@ -370,8 +370,8 @@ class THEBRBRE_Admin_Init
 
 		// All Bricks breakpoints (defaults + custom). Routed through the shared
 		// ResponsiveHelper so the no-Bricks fallback (with label/icon) lives in
-		// one place — same source the frontend ResponsiveHelper consumers use.
-		$bricks_breakpoints = \wealcoder\bricksfly\Includes\Extensions\Helpers\ResponsiveHelper::getBreakpoints();
+		// one place â€” same source the frontend ResponsiveHelper consumers use.
+		$bricks_breakpoints = \wealcoder\thebricksfly\Includes\Extensions\Helpers\ResponsiveHelper::getBreakpoints();
 
 		// License info for the React LicenseDialog (mirrors the shared contract
 		// from animation-addons-for-elementor-pro).
@@ -381,7 +381,7 @@ class THEBRBRE_Admin_Init
 		// The license counts as valid only when BOTH the Pro plugin folder is
 		// installed AND the stored license status is "valid". This gates the
 		// React UI so that deleting the Pro plugin folder (or installing just
-		// the free plugin) immediately locks every pro toggle — regardless of
+		// the free plugin) immediately locks every pro toggle â€” regardless of
 		// whatever license status survives in the database.
 		$pro_installed      = function_exists('thebrbre_is_pro_installed') ? thebrbre_is_pro_installed() : file_exists($this->plugin_file);
 		$thebrbre_license_valid  = $pro_installed && ('valid' === $thebrbre_license_status);
@@ -394,10 +394,10 @@ class THEBRBRE_Admin_Init
 		// NOTE: the compiled React dashboard (shared with animation-addons-for-elementor)
 		// uses a strict `39996 === product_status.item_id` check to flip the header button
 		// to "Deactivate License" and to pick the deactivate AJAX action. We send 13
-		// when the license is valid so the bundled UI recognises the activated state —
+		// when the license is valid so the bundled UI recognises the activated state â€”
 		// the actual EDD API request uses our real item ID (THEBRBRE_PRO_ITEM_ID).
 		// Per-feature license limitations (Template / Section / Page import etc.).
-		// Empty array when the license isn't valid — the React import gate treats
+		// Empty array when the license isn't valid â€” the React import gate treats
 		// a missing/false flag as "not allowed" and shows the upsell popup.
 		$thebrbre_limitations = function_exists('thebrbre_get_license_limitations') ? thebrbre_get_license_limitations() : array();
 
@@ -414,7 +414,7 @@ class THEBRBRE_Admin_Init
 
 		$localize_data = array(
 			'ajaxurl'             => admin_url('admin-ajax.php'),
-			'isSettingsPage' => true, // 🔥 IMPORTANT
+			'isSettingsPage' => true, // ðŸ”¥ IMPORTANT
 			'nonce'               => wp_create_nonce('thebrbre_admin_nonce'),
 			'addons_config'       => $addons_config,
 			'adminURL'            => admin_url(),
@@ -446,9 +446,9 @@ class THEBRBRE_Admin_Init
 			// 'pro_dialog_copy' => $this->get_pro_dialog_copy($thebrbre_license_status, $thebrbre_license_key),
 
 		);
-		wp_localize_script('aab-admin', 'AAB_ADDONS_ADMIN', $localize_data);
+		wp_localize_script('thebrbre-admin', 'THEBRBRE_ADDONS_ADMIN', $localize_data);
 
-		wp_add_inline_script('aab-admin', $this->get_pro_dialog_swap_script(), 'after');
+		wp_add_inline_script('thebrbre-admin', $this->get_pro_dialog_swap_script(), 'after');
 		//}
 	}
 
@@ -464,21 +464,21 @@ class THEBRBRE_Admin_Init
 		$pro_installed = file_exists(WP_PLUGIN_DIR . '/' . $pro_basename);
 		$pro_active    = (function_exists('thebrbre_is_pro_active') && thebrbre_is_pro_active());
 
-		// Case 1 — Pro plugin isn't installed: keep the default "Upgrade…" copy.
+		// Case 1 â€” Pro plugin isn't installed: keep the default "Upgradeâ€¦" copy.
 		if (! $pro_installed) {
 			return array('heading' => '', 'subtext' => '', 'button' => '');
 		}
 
-		// Case 2 — Pro installed but not active yet.
+		// Case 2 â€” Pro installed but not active yet.
 		if (! $pro_active) {
 			return array(
-				'heading' => esc_html__('Pro plugin installed — activate it to continue', 'the-bricksfly'),
+				'heading' => esc_html__('Pro plugin installed â€” activate it to continue', 'the-bricksfly'),
 				'subtext' => esc_html__('Head to the Plugins screen and click "Activate" on Bricksfly Pro to enable premium features.', 'the-bricksfly'),
 				'button'  => esc_html__('Activate Plugin', 'the-bricksfly'),
 			);
 		}
 
-		// Case 3 — Both active but no license key saved yet.
+		// Case 3 â€” Both active but no license key saved yet.
 		if (empty($license_key)) {
 			return array(
 				'heading' => esc_html__('Activate your license to unlock Pro features', 'the-bricksfly'),
@@ -487,7 +487,7 @@ class THEBRBRE_Admin_Init
 			);
 		}
 
-		// Case 4 — License key on file but the server says it's invalid.
+		// Case 4 â€” License key on file but the server says it's invalid.
 		if (in_array($license_status, array('invalid', 'missing'), true)) {
 			return array(
 				'heading' => esc_html__('Your license key is invalid', 'the-bricksfly'),
@@ -496,7 +496,7 @@ class THEBRBRE_Admin_Init
 			);
 		}
 
-		// Case 5 — Expired.
+		// Case 5 â€” Expired.
 		if ('expired' === $license_status) {
 			return array(
 				'heading' => esc_html__('Your license has expired', 'the-bricksfly'),
@@ -505,7 +505,7 @@ class THEBRBRE_Admin_Init
 			);
 		}
 
-		// Case 6 — Disabled / revoked.
+		// Case 6 â€” Disabled / revoked.
 		if (in_array($license_status, array('disabled', 'revoked'), true)) {
 			return array(
 				'heading' => esc_html__('Your license has been disabled', 'the-bricksfly'),
@@ -514,7 +514,7 @@ class THEBRBRE_Admin_Init
 			);
 		}
 
-		// Case 7 — Site not yet activated for this URL.
+		// Case 7 â€” Site not yet activated for this URL.
 		if ('site_inactive' === $license_status) {
 			return array(
 				'heading' => esc_html__('This site is not activated on your license', 'the-bricksfly'),
@@ -523,21 +523,21 @@ class THEBRBRE_Admin_Init
 			);
 		}
 
-		// Valid license — nothing to replace.
+		// Valid license â€” nothing to replace.
 		return array('heading' => '', 'subtext' => '', 'button' => '');
 	}
 
 	/**
 	 * Inline JS that swaps the React bundle's hardcoded strings at runtime:
-	 *  1. "Upgrade to premium plan…" heading/subtitle with context-aware copy.
-	 *  2. "Elementor" → "Bricks Builder" in user-visible text (the compiled
+	 *  1. "Upgrade to premium planâ€¦" heading/subtitle with context-aware copy.
+	 *  2. "Elementor" â†’ "Bricks Builder" in user-visible text (the compiled
 	 *     bundle is shared with the Elementor plugin, so it still ships
 	 *     Elementor-branded copy in marketing cards / widget descriptions).
 	 */
 	private function get_pro_dialog_swap_script()
 	{
 		return '(function () {
-	var copy = (window.AAB_ADDONS_ADMIN && AAB_ADDONS_ADMIN.pro_dialog_copy) || { heading: "", subtext: "" };
+	var copy = (window.THEBRBRE_ADDONS_ADMIN && THEBRBRE_ADDONS_ADMIN.pro_dialog_copy) || { heading: "", subtext: "" };
 
 	var DEFAULTS = {
 		heading: "Upgrade to premium plan and unlock every features!",
@@ -549,7 +549,7 @@ class THEBRBRE_Admin_Init
 	function rebrandTextNode(node) {
 		var text = node.textContent;
 		if (text.indexOf("Elementor") === -1) return;
-		if (text.indexOf("://") !== -1) return; // URL — leave it
+		if (text.indexOf("://") !== -1) return; // URL â€” leave it
 		node.textContent = text.replace(/Elementor/g, "Bricks Builder");
 	}
 
@@ -572,7 +572,7 @@ class THEBRBRE_Admin_Init
 			});
 		}
 
-		// 2. Global Elementor → Bricks Builder rebrand for visible text nodes.
+		// 2. Global Elementor â†’ Bricks Builder rebrand for visible text nodes.
 		var selector = "h1, h2, h3, h4, h5, h6, p, span, li, button, label, strong, em, small";
 		scope.querySelectorAll(selector).forEach(function (el) {
 			// Only process direct text children so we don\'t touch elements that
@@ -611,7 +611,7 @@ class THEBRBRE_Admin_Init
 		$transient_key = 'thebrbre_menu_42_data';
 		$cached_data   = get_transient($transient_key);
 
-		// ✅ Return cached data if available
+		// âœ… Return cached data if available
 		if ($cached_data !== false) {
 			return $cached_data;
 		}
@@ -619,13 +619,13 @@ class THEBRBRE_Admin_Init
 		$url      = "https://www.themecrowdy.com/wp-json/wcf/v1/menu/42";
 		$response = wp_remote_get($url, [
 			'timeout' => 15,
-			'sslverify' => false,
+			'sslverify' => true,
 			'headers' => [
 				'Accept' => 'application/json'
 			]
 		]);
 
-		// ✅ Validate response
+		// âœ… Validate response
 		if (is_wp_error($response)) {
 			return [];
 		}
@@ -641,20 +641,20 @@ class THEBRBRE_Admin_Init
 			return [];
 		}
 
-		// ✅ Decode JSON safely
+		// âœ… Decode JSON safely
 		$data = json_decode($body, true);
 		if (json_last_error() !== JSON_ERROR_NONE || ! is_array($data)) {
 
 			return [];
 		}
 
-		// ✅ Ensure expected structure exists
+		// âœ… Ensure expected structure exists
 		if (! isset($data['items']) || ! is_array($data['items'])) {
 
 			return [];
 		}
 
-		// ✅ Cache valid data for 1 hour
+		// âœ… Cache valid data for 1 hour
 		set_transient($transient_key, $data['items'], HOUR_IN_SECONDS);
 
 		return $data['items'];
@@ -691,7 +691,7 @@ class THEBRBRE_Admin_Init
 	/**
 	 * Return a link to the builder's global settings so the React dashboard
 	 * can surface a "Global Settings" shortcut. Bricks exposes theme styles
-	 * at admin.php?page=bricks-settings — we link there when Bricks is
+	 * at admin.php?page=bricks-settings â€” we link there when Bricks is
 	 * detected, otherwise return false and the UI hides the link.
 	 *
 	 * Method name kept as `get_elementor_active_edit_url()` to preserve the
@@ -715,7 +715,7 @@ class THEBRBRE_Admin_Init
 		$screen = get_current_screen();
 
 		// Check if we are on the correct admin page
-		if ($screen && strpos($screen->id, '_page_bf_addons_settings') !== false) {
+		if ($screen && strpos($screen->id, '_page_thebrbre_addons_settings') !== false) {
 			echo '<div id="aab-admin-toast"></div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 	}
@@ -738,7 +738,7 @@ class THEBRBRE_Admin_Init
 			'in_admin_header',
 			function () {
 				$screen = get_current_screen();
-				if ($screen && strpos($screen->id, '_page_bf_addons_settings') !== false) {
+				if ($screen && strpos($screen->id, '_page_thebrbre_addons_settings') !== false) {
 					remove_all_actions('admin_notices');
 					remove_all_actions('all_admin_notices');
 					remove_all_actions('user_admin_notices');
@@ -851,7 +851,7 @@ class THEBRBRE_Admin_Init
 			$url                         = 'https://my.bricksfly.com/wp-json/userdata/v1/changelog?p=768';
 			$args                        = array(
 				'timeout'   => 60,
-				'sslverify' => false,
+				'sslverify' => true,
 				'headers'   => array(
 					'Accept' => 'application/json',
 				),
@@ -977,41 +977,7 @@ class THEBRBRE_Admin_Init
 			update_option('thebrbre_smooth_scroller', $option);
 			wp_send_json($option);
 		}
-
-		$sanitized_settings = array();
-		foreach ($settings as $breakpoint => $breakpoint_settings) {
-			$breakpoint = sanitize_key($breakpoint);
-			if ('' === $breakpoint || ! is_array($breakpoint_settings)) {
-				continue;
-			}
-
-			$level = isset($breakpoint_settings['smotherLevel']) && is_numeric($breakpoint_settings['smotherLevel'])
-				? (float) $breakpoint_settings['smotherLevel']
-				: 1.35;
-			if (! is_finite($level)) {
-				$level = 1.35;
-			}
-
-			$sanitized_settings[$breakpoint] = array(
-				'enabled'      => isset($breakpoint_settings['enabled'])
-					? rest_sanitize_boolean($breakpoint_settings['enabled'])
-					: false,
-				'smotherLevel' => $level,
-			);
-		}
-
-		if (empty($sanitized_settings)) {
-			wp_send_json_error(esc_html__('No valid smooth scroller settings were provided.', 'the-bricksfly'), 400);
-		}
-
-		$option = wp_json_encode($sanitized_settings);
-		if (false === $option) {
-			wp_send_json_error(esc_html__('Could not encode smooth scroller settings.', 'the-bricksfly'), 500);
-		}
-
-		update_option('aab_smooth_scroller', $option);
-		wp_send_json($option);
-	}	
+	}
 
 }
 

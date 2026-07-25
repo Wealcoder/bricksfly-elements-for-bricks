@@ -29,7 +29,7 @@ const AffiliateProgram = () => {
       </div>
       <div className="relative shrink-0 hidden md:block w-[220px]">
         <img
-          src={`${AAB_ADDONS_ADMIN.plugin_url}public/images/affiliate-illustration.png`}
+          src={`${THEBRBRE_ADDONS_ADMIN.plugin_url}public/images/affiliate-illustration.png`}
           alt=""
           className="w-full h-auto"
         />

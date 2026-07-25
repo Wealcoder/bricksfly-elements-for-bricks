@@ -1,7 +1,7 @@
 import IntegrationCard from "../shared/IntegrationCard";
 
 const ShowIntegrations = () => {
-  const allIntegration = AAB_ADDONS_ADMIN.addons_config.integrations?.plugins;
+  const allIntegration = THEBRBRE_ADDONS_ADMIN.addons_config.integrations?.plugins;
 
   return (
     <div>

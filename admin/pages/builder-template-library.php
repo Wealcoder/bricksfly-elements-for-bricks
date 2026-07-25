@@ -1,6 +1,6 @@
 <?php
 
-namespace wealcoder\bricksfly\Admin\Pages;
+namespace wealcoder\thebricksfly\Admin\Pages;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit();
@@ -23,8 +23,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class THEBRBRE_Builder_Template_Library {
 
-	const SCRIPT_HANDLE = 'aab-builder-template-library';
-	const STYLE_HANDLE  = 'aab-builder-template-library';
+	const SCRIPT_HANDLE = 'thebrbre-builder-template-library';
+	const STYLE_HANDLE  = 'thebrbre-builder-template-library';
 
 	private static $instance = null;
 
@@ -110,7 +110,7 @@ class THEBRBRE_Builder_Template_Library {
 			'THEBRBRE_TEMPLATE_LIBRARY',
 			[
 				'ajaxurl'         => admin_url( 'admin-ajax.php' ),
-				'nonce'           => wp_create_nonce( 'aab-builder-template-library' ),
+				'nonce'           => wp_create_nonce( 'thebrbre-builder-template-library' ),
 				'post_id'         => $post_id,
 				// BricksFly brand mark shown inside the toolbar "Import Section"
 				// button. Uses the same canonical logo the rest of the admin uses.
@@ -127,12 +127,12 @@ class THEBRBRE_Builder_Template_Library {
 					'https://www.themecrowdy.com/wp-json/bricks-sections/v1/download?id=',
 				),
 				'default_type'    => apply_filters('thebrbre_builder_template_library_default_type', 'block' ),
-				'dashboard_link'  => admin_url( 'admin.php?page=bf_addons_settings' ),
+				'dashboard_link'  => admin_url( 'admin.php?page=thebrbre_addons_settings' ),
 				'pro_installed'   => $pro_installed,
 				'pro_active'      => $pro_active,
 				'config'          => apply_filters('thebrbre_builder_template_library_config',
 					[
-						'wcf_valid'      => $license_valid,
+						'thebrbre_valid' => $license_valid,
 						// Section import is gated by this flag (also enforced
 						// server-side in ajax_insert_template()). The JS uses it
 						// to show an upsell popup before the request is sent.
@@ -212,7 +212,7 @@ class THEBRBRE_Builder_Template_Library {
 	 * persist only on Save.)
 	 */
 	public function ajax_insert_template() {
-		check_ajax_referer( 'aab-builder-template-library', 'nonce' );
+		check_ajax_referer( 'thebrbre-builder-template-library', 'nonce' );
 
 		$post_id = isset( $_POST['post_id'] ) ? absint( wp_unslash( $_POST['post_id'] ) ) : 0;
 
@@ -299,7 +299,7 @@ class THEBRBRE_Builder_Template_Library {
 
 		$meta_response = wp_remote_get(
 			$meta_endpoint,
-			[ 'timeout' => 30, 'sslverify' => false ]
+			[ 'timeout' => 30, 'sslverify' => true ]
 		);
 
 		if ( is_wp_error( $meta_response ) ) {
@@ -317,7 +317,7 @@ class THEBRBRE_Builder_Template_Library {
 
 		$response = wp_remote_get(
 			$json_url,
-			[ 'timeout' => 30, 'sslverify' => false ]
+			[ 'timeout' => 30, 'sslverify' => true ]
 		);
 
 		if ( is_wp_error( $response ) ) {

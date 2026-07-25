@@ -35,7 +35,7 @@ const FailImport = () => {
         </div>
         <div className="mb-6">
           <img
-            src={`${AAB_ADDONS_ADMIN.plugin_url}public/images/complete-bg.png`}
+            src={`${THEBRBRE_ADDONS_ADMIN.plugin_url}public/images/complete-bg.png`}
             className="w-[616px] h-[258px]"
             alt="demo importing"
           />
@@ -48,7 +48,7 @@ const FailImport = () => {
             Retry
           </Button>
           <a
-            href={AAB_ADDONS_ADMIN.page_url}
+            href={THEBRBRE_ADDONS_ADMIN.page_url}
             className={cn(buttonVariants({ variant: "link" }), "w-full")}
           >
             Go to pages

@@ -1,4 +1,4 @@
-﻿import {
+import {
   allExtensionFn,
   generalAllExtensionFn,
   generalExtensionFn,
@@ -22,15 +22,15 @@ import { createContext, useCallback, useReducer } from "react";
 
 const initialState = {
   allElements:
-    JSON.parse(JSON.stringify(AAB_ADDONS_ADMIN?.addons_config?.widgets)) || {},
+    JSON.parse(JSON.stringify(THEBRBRE_ADDONS_ADMIN?.addons_config?.widgets)) || {},
   allExtensions:
-    JSON.parse(JSON.stringify(AAB_ADDONS_ADMIN?.addons_config?.extensions)) ||
+    JSON.parse(JSON.stringify(THEBRBRE_ADDONS_ADMIN?.addons_config?.extensions)) ||
     {},
   allLibrary:
     JSON.parse(
-      JSON.stringify(AAB_ADDONS_ADMIN?.addons_config?.integrations?.library)
+      JSON.stringify(THEBRBRE_ADDONS_ADMIN?.addons_config?.integrations?.library)
     ) || {},
-  activated: AAB_ADDONS_ADMIN?.addons_config || {},
+  activated: THEBRBRE_ADDONS_ADMIN?.addons_config || {},
   setupType: "basic",
   notice: [],
   tabKey: "",
@@ -135,10 +135,10 @@ const useMainContext = (state) => {
       });
     } else {
       // update element state to default
-      setAllElements(AAB_ADDONS_ADMIN?.addons_config?.widgets || {});
+      setAllElements(THEBRBRE_ADDONS_ADMIN?.addons_config?.widgets || {});
 
       // update extension state to default
-      setAllExtensions(AAB_ADDONS_ADMIN?.addons_config?.extensions || {});
+      setAllExtensions(THEBRBRE_ADDONS_ADMIN?.addons_config?.extensions || {});
     }
     dispatch({
       type: "setSetupType",
@@ -238,7 +238,7 @@ const useMainContext = (state) => {
       }
       result.unshift(data);
 
-      await fetch(AAB_ADDONS_ADMIN.ajaxurl, {
+      await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
@@ -248,7 +248,7 @@ const useMainContext = (state) => {
         body: new URLSearchParams({
           action: "thebrbre_dashboard_notice_store",
           notice: JSON.stringify(result),
-          nonce: AAB_ADDONS_ADMIN.nonce,
+          nonce: THEBRBRE_ADDONS_ADMIN.nonce,
         }),
       })
         .then((response) => {
@@ -270,7 +270,7 @@ const useMainContext = (state) => {
 
       setNotice(result);
 
-      await fetch(AAB_ADDONS_ADMIN.ajaxurl, {
+      await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
@@ -279,7 +279,7 @@ const useMainContext = (state) => {
         body: new URLSearchParams({
           action: "thebrbre_dashboard_notice_store",
           notice: JSON.stringify(result),
-          nonce: AAB_ADDONS_ADMIN.nonce,
+          nonce: THEBRBRE_ADDONS_ADMIN.nonce,
         }),
       });
     },

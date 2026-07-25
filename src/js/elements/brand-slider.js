@@ -170,5 +170,5 @@ import "../../scss/elements/brand-slider.scss";
     initAll();
   }
 
-  window.aabBrandSlider = initAll;
+  window.thebrbreBrandSlider = initAll;
 })();

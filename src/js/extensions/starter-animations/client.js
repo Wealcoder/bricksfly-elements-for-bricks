@@ -119,7 +119,7 @@ function initFrontend() {
   }
 
   // Public API — may be called by external code to replay an animation.
-  window.aabReplayAnimation = function (wrapper) {
+  window.thebrbreReplayAnimation = function (wrapper) {
     playAnimation(wrapper);
   };
 

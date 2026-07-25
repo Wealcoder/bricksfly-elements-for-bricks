@@ -1,4 +1,4 @@
-﻿import {
+import {
   Accordion,
   AccordionContent,
   AccordionItem,
@@ -44,7 +44,7 @@ const RequiredFeatures = () => {
   const getTemplateData = async (id) => {
     try {
       const url = new URL(
-        `${AAB_ADDONS_ADMIN?.st_template_domain}wp-json/wp/v2/brk-starter-page`
+        `${THEBRBRE_ADDONS_ADMIN?.st_template_domain}wp-json/wp/v2/brk-starter-page`
       );
       if (id) url.searchParams.append("tplid", id);
 
@@ -74,7 +74,7 @@ const RequiredFeatures = () => {
 
   const validateData = async (mainContent) => {
     try {
-      await fetch(AAB_ADDONS_ADMIN.ajaxurl, {
+      await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
@@ -82,7 +82,7 @@ const RequiredFeatures = () => {
         },
         body: new URLSearchParams({
           action: "thebrbre_template_dependency_status",
-          nonce: AAB_ADDONS_ADMIN.nonce,
+          nonce: THEBRBRE_ADDONS_ADMIN.nonce,
           dependencies: JSON.stringify(mainContent?.dependencies),
         }),
       })

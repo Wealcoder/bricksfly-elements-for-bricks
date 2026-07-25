@@ -86,7 +86,7 @@ const ShowExtensions = ({
   const saveExtension = async () => {
     const isChanged = isEqual(
       allExtensions,
-      JSON.parse(JSON.stringify(AAB_ADDONS_ADMIN?.addons_config?.extensions)) ||
+      JSON.parse(JSON.stringify(THEBRBRE_ADDONS_ADMIN?.addons_config?.extensions)) ||
         {},
     );
 
@@ -105,7 +105,7 @@ const ShowExtensions = ({
       updateNotice(sampleData);
     }
 
-    await fetch(AAB_ADDONS_ADMIN.ajaxurl, {
+    await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -115,7 +115,7 @@ const ShowExtensions = ({
       body: new URLSearchParams({
         action: "thebrbre_save_settings",
         fields: JSON.stringify(allExtensions),
-        nonce: AAB_ADDONS_ADMIN.nonce,
+        nonce: THEBRBRE_ADDONS_ADMIN.nonce,
         settings: "thebrbre_save_extensions",
       }),
     })

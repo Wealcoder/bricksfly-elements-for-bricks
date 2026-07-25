@@ -1,4 +1,4 @@
-const TemplateImage = `${AAB_ADDONS_ADMIN.plugin_url}public/images/template-card.png`;
+const TemplateImage = `${THEBRBRE_ADDONS_ADMIN.plugin_url}public/images/template-card.png`;
 
 export const AllTemplateList = [
   {

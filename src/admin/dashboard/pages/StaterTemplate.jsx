@@ -27,7 +27,7 @@ const StaterTemplate = () => {
     pageNum: 1,
     tempSelectedCategory: [],
     selectedCategory: [],
-    wishlist: AAB_ADDONS_ADMIN.addons_config.wishlist || [],
+    wishlist: THEBRBRE_ADDONS_ADMIN.addons_config.wishlist || [],
   });
   const [allTemplate, setAllTemplate] = useState({});
   const [loading, setLoading] = useState(true);
@@ -44,7 +44,7 @@ const StaterTemplate = () => {
       setLoading(true);
       try {
         const url = new URL(
-          `${AAB_ADDONS_ADMIN?.st_template_domain}wp-json/wp/v2/brk-templates`,
+          `${THEBRBRE_ADDONS_ADMIN?.st_template_domain}wp-json/wp/v2/brk-templates`,
         );
 
         if (meta.searchKey) {
@@ -89,14 +89,14 @@ const StaterTemplate = () => {
           .then((data) => {
             if (meta.pageNum === 1) {
               setAllTemplate(data);
-              window.AABADDON_STARTER_TPLS = data;
+              window.THEBRBRE_STARTER_TPLS = data;
             } else {
               const updateData = {
                 ...data,
                 templates: [...meta?.allTemplate?.templates, ...data.templates],
               };
               setAllTemplate(updateData);
-              window.AABADDON_STARTER_TPLS = updateData;
+              window.THEBRBRE_STARTER_TPLS = updateData;
             }
           });
       } catch (error) {

@@ -225,11 +225,11 @@
   // the desktop text regardless of the active device. Returns a scalar
   // when only the base is set so the iframe-side `pickResponsive` can
   // short-circuit; otherwise returns a {bp_key: value} map that the
-  // shared `aabResponsive.resolveResponsive` can cascade.
+  // shared `thebrbreResponsive.resolveResponsive` can cascade.
   function bricksToResponsive(s, baseKey, def) {
     var bps =
-      window.aabBreakpoints && window.aabBreakpoints.length
-        ? window.aabBreakpoints
+      window.thebrbreBreakpoints && window.thebrbreBreakpoints.length
+        ? window.thebrbreBreakpoints
         : null;
 
     var rawBase = s[baseKey];
@@ -457,9 +457,9 @@
     }
   }
 
-  window.aabPlayTextAnimation = playActiveAnimation;
+  window.thebrbrePlayTextAnimation = playActiveAnimation;
 
-  window.aabDebugBricksState = function () {
+  window.thebrbreDebugBricksState = function () {
     var gp = getBricksGlobalProperties();
     console.log("[AAB debug] globalProperties:", gp);
     console.log("[AAB debug] $_state:", gp && gp.$_state);

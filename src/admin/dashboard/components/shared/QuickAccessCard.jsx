@@ -4,7 +4,7 @@ import { Badge } from "../ui/badge";
 
 const QuickAccessCard = ({ item, className }) => {
   const generalExtension =
-    AAB_ADDONS_ADMIN.addons_config.extensions.elements["general-extensions"]
+    THEBRBRE_ADDONS_ADMIN.addons_config.extensions.elements["general-extensions"]
       .elements;
   if (!item) return;
 
@@ -14,7 +14,7 @@ const QuickAccessCard = ({ item, className }) => {
         item?.slug === "custom-fonts" &&
         !generalExtension[item.slug].is_active
       ) {
-        return `${AAB_ADDONS_ADMIN.adminURL}/admin.php?page=bf_addons_settings&tab=extensions&cTab=general#custom-fonts`;
+        return `${THEBRBRE_ADDONS_ADMIN.adminURL}/admin.php?page=thebrbre_addons_settings&tab=extensions&cTab=general#custom-fonts`;
       } else {
         return item.url;
       }

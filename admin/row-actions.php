@@ -1,6 +1,6 @@
 <?php
 
-namespace wealcoder\bricksfly\Admin;
+namespace wealcoder\thebricksfly\Admin;
 
 use WP_Error;
 
@@ -75,7 +75,7 @@ class THEBRBRE_Row_Actions {
 		if ( basename( THEBRBRE_BASE ) === basename( $plugin_file ) ) {
 			$new_actions['aab-dsb-settings'] = sprintf(
 				'<a href="%s">%s</a>',
-				esc_url( admin_url( 'admin.php?page=bf_addons_settings' ) ),
+				esc_url( admin_url( 'admin.php?page=thebrbre_addons_settings' ) ),
 				esc_html__( 'Settings', 'the-bricksfly' )
 			);
 		}

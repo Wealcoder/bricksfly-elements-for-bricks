@@ -1,4 +1,4 @@
-﻿import { Button } from "S/components/ui/button";
+import { Button } from "S/components/ui/button";
 import { useTab, useTaxonomy } from "S/hooks/app.hooks";
 
 import {
@@ -58,7 +58,7 @@ const EditTaxonomy = () => {
 
   const getTaxonomy = async (value) => {
     try {
-      await fetch(AAB_ADDONS_ADMIN.ajaxurl, {
+      await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
@@ -67,7 +67,7 @@ const EditTaxonomy = () => {
         body: new URLSearchParams({
           action: "thebrbre_taxonomy_builder_single_item",
           taxonomy_id: value,
-          nonce: AAB_ADDONS_ADMIN.nonce,
+          nonce: THEBRBRE_ADDONS_ADMIN.nonce,
         }),
       })
         .then((response) => {
@@ -104,7 +104,7 @@ const EditTaxonomy = () => {
   const checkTaxonomyKey = useCallback(
     debounceFn(async (value) => {
       try {
-        await fetch(AAB_ADDONS_ADMIN.ajaxurl, {
+        await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
           method: "POST",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
@@ -113,7 +113,7 @@ const EditTaxonomy = () => {
           body: new URLSearchParams({
             action: "thebrbre_taxonomy_exist",
             taxonomy_type: value,
-            nonce: AAB_ADDONS_ADMIN.nonce,
+            nonce: THEBRBRE_ADDONS_ADMIN.nonce,
           }),
         })
           .then((response) => {
@@ -140,7 +140,7 @@ const EditTaxonomy = () => {
   const updateTaxonomy = async () => {
     if (!tKSpaceError && !tKError) {
       try {
-        await fetch(AAB_ADDONS_ADMIN.ajaxurl, {
+        await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
           method: "POST",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
@@ -151,7 +151,7 @@ const EditTaxonomy = () => {
             taxonomy_meta: JSON.stringify(taxonomyData),
             taxonomy_id: taxonomyId,
             taxonomy_title: taxonomyTitle,
-            nonce: AAB_ADDONS_ADMIN.nonce,
+            nonce: THEBRBRE_ADDONS_ADMIN.nonce,
           }),
         })
           .then((response) => {

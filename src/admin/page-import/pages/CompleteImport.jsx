@@ -1,4 +1,4 @@
-﻿import { Button, buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { ConfettiAnimation } from "@/lib/confettiAnimation";
 import { cn } from "@/lib/utils";
 import { useEffect, useState, useContext } from "react";
@@ -29,10 +29,10 @@ const CompleteImport = () => {
     try {
       const formData = new URLSearchParams();
       formData.append("action", "thebrbre_get_latest_imported_pages");
-      formData.append("nonce", AAB_ADDONS_ADMIN.nonce);
+      formData.append("nonce", THEBRBRE_ADDONS_ADMIN.nonce);
       formData.append("per_page", 1);
 
-      const response = await fetch(AAB_ADDONS_ADMIN.ajaxurl, {
+      const response = await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: formData.toString(),
@@ -65,7 +65,7 @@ const CompleteImport = () => {
         </div>
         <div className="mb-6">
           <img
-            src={`${AAB_ADDONS_ADMIN.plugin_url}public/images/complete-bg.png`}
+            src={`${THEBRBRE_ADDONS_ADMIN.plugin_url}public/images/complete-bg.png`}
             className="w-[616px] h-[258px]"
             alt="demo importing"
           />

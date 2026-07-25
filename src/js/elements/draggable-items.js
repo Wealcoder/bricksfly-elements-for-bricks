@@ -90,7 +90,7 @@ import "../../scss/elements/draggable-items.scss";
         });
     });
 
-    window.aabDraggableItems = function (el) {
+    window.thebrbreDraggableItems = function (el) {
         if (el) {
             var $root = $(el);
             var $wrappers = $root.hasClass('draggable--items') ? $root : $root.find('.draggable--items');

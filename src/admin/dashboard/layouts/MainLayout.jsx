@@ -1,4 +1,4 @@
-﻿import { useEffect, useState, Suspense } from "react";
+import { useEffect, useState, Suspense } from "react";
 import MainHeader from "@/components/header/MainHeader";
 import TemplateHeader from "@/components/header/TemplateHeader";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -11,7 +11,7 @@ const MainLayout = () => {
   const { setNotice } = useNotification();
 
   const fetchNotice = async () => {
-    await fetch(AAB_ADDONS_ADMIN.ajaxurl, {
+    await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -21,7 +21,7 @@ const MainLayout = () => {
       body: new URLSearchParams({
         action: "thebrbre_get_notice_data",
 
-        nonce: AAB_ADDONS_ADMIN.nonce,
+        nonce: THEBRBRE_ADDONS_ADMIN.nonce,
       }),
     })
       .then((response) => {

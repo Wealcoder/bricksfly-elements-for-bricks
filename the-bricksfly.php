@@ -25,7 +25,7 @@
  * Domain Path:       /languages
  * Requires at least: 6.6
  * Requires PHP:      7.4
- * Tested up to:      7.0
+ * Tested up to:      6.9
  */
 
 // If this file is called directly, abort.
@@ -124,10 +124,12 @@ register_deactivation_hook(__FILE__, 'thebrbre_deactivate');
 require_once THEBRBRE_PATH . 'config.php';
 require_once THEBRBRE_PATH . 'includes/helper.php';
 require_once THEBRBRE_PATH . 'includes/hook.php';
-// Backward-compat aliases for the previous symbol names (keeps an already
-// installed the-bricksfly-pro build working after the rename). Loaded after
-// helper.php/constants so the new symbols exist before the shims reference them.
-require_once THEBRBRE_PATH . 'includes/compat-legacy.php';
+// THEBRBRE_BRICKS_ELEMENTS is normally required later by
+// load_dependencies() (includes/class-bricks-animation-addons.php), but
+// the-bricksfly-pro's advanced-tooltip.php reads it directly as a class
+// property default at load time — require it here too (idempotent via
+// require_once) so it's guaranteed to exist before Pro loads.
+require_once THEBRBRE_PATH . 'includes/extensions/helpers/BRICKS_ELEMENTS.php';
 require_once THEBRBRE_PATH . 'includes/traits/Extension_Widgets_Trait.php';
 require_once THEBRBRE_PATH . 'includes/class-bricks-theme-dependency.php';
 

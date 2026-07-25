@@ -1,4 +1,4 @@
-﻿import { formatNumber } from "@//lib/utils";
+import { formatNumber } from "@//lib/utils";
 import ProConfirmDialog from "@/components/shared/ProConfirmDialog";
 import { Badge } from "@/components/ui/badge";
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -57,7 +57,7 @@ const TemplateShow = ({ allTemplate, metaData, setMetaData }) => {
 
   const saveWishlist = async (data) => {
     try {
-      await fetch(AAB_ADDONS_ADMIN.ajaxurl, {
+      await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
@@ -67,7 +67,7 @@ const TemplateShow = ({ allTemplate, metaData, setMetaData }) => {
         body: new URLSearchParams({
           action: "thebrbre_wishlist_option",
           wishlist: JSON.stringify(data),
-          nonce: AAB_ADDONS_ADMIN.nonce,
+          nonce: THEBRBRE_ADDONS_ADMIN.nonce,
           settings: "wcf_save_widgets",
         }),
       })
@@ -81,7 +81,7 @@ const TemplateShow = ({ allTemplate, metaData, setMetaData }) => {
               wishlist: return_content.data,
               pageNum: 1,
             }));
-            AAB_ADDONS_ADMIN.addons_config.wishlist = return_content.data;
+            THEBRBRE_ADDONS_ADMIN.addons_config.wishlist = return_content.data;
           }
         });
     } catch (error) {}

@@ -666,7 +666,7 @@ $thebrbre_config = array(
 						),
 						'order'        => 77,
 						'icon'         => 'wcf-icon-Video-Mask',
-						'demo_url'     => 'https://bricksfly.com/elements/youtube-video-widget-for-elementor/',
+						'demo_url'     => 'https://bricksfly.com/elements/aab-youtube-video',
 						'doc_url'      => 'https://bricksfly.com/docs/video-widgets/youtube-video/',
 						'youtube_url'  => '',
 						'description'  => 'Use the Youtube Video Widget to bring artistic, interactive flair to your sites videos.',

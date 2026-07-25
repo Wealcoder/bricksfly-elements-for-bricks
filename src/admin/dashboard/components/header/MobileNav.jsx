@@ -14,7 +14,7 @@ import { useTNavigation } from "@/hooks/app.hooks";
 const MobileNav = () => {
   const [currentPath, setCurrentPath] = useState("");
   const navItems = MainNavData;
-  const role = AAB_ADDONS_ADMIN.user_role;
+  const role = THEBRBRE_ADDONS_ADMIN.user_role;
 
   const { setTabKey } = useTNavigation();
 

@@ -7,7 +7,7 @@ const Extensions = () => {
   const searchParamTab = urlParams.get("cTab");
   const searchParamPluginId = urlParams.get("pluginId");
   const [extensionCount, setExtensionCount] = useState(
-    AAB_ADDONS_ADMIN.extensions,
+    THEBRBRE_ADDONS_ADMIN.extensions,
   );
   const [filterKey, setFilterKey] = useState("free-pro");
 

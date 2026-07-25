@@ -13,7 +13,7 @@ const TemplateHeader = ({
 
     url.search = "";
     url.hash = "";
-    url.searchParams.set("page", "bf_addons_settings");
+    url.searchParams.set("page", "thebrbre_addons_settings");
 
     return url;
 

@@ -2,7 +2,7 @@ import { createContext, useCallback, useReducer } from "react";
 
 const initialState = {
   tabKey: "",
-  activated: AAB_ADDONS_ADMIN?.addons_config || {},
+  activated: THEBRBRE_ADDONS_ADMIN?.addons_config || {},
 };
 
 const reducer = (state, action) => {

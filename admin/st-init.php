@@ -1,6 +1,6 @@
 <?php
 
-namespace wealcoder\bricksfly\Admin\Base;
+namespace wealcoder\thebricksfly\Admin\Base;
 
 use WP_Error;
 
@@ -205,11 +205,11 @@ class OneClickImport {
 		// (→ `starter_tpl_import`). Enforced server-side so a forged request
 		// cannot bypass the UI lock. `guard_import_feature()` halts with a
 		// `limited:true` JSON envelope when the feature isn't in the plan.
-		if ( class_exists( '\wealcoder\bricksfly\Admin\Pages\THEBRBRE_Template_Importer' ) ) {
+		if ( class_exists( '\wealcoder\thebricksfly\Admin\Pages\THEBRBRE_Template_Importer' ) ) {
 			// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce is verified above by Helpers::verify_ajax_call().
 			$import_type = isset( $_POST['import_type'] ) ? sanitize_text_field( wp_unslash( $_POST['import_type'] ) ) : 'full-demo';
 			$feature     = ( 'page' === $import_type ) ? 'starter_page_import' : 'starter_tpl_import';
-			\wealcoder\bricksfly\Admin\Pages\THEBRBRE_Template_Importer::guard_import_feature( $feature );
+			\wealcoder\thebricksfly\Admin\Pages\THEBRBRE_Template_Importer::guard_import_feature( $feature );
 		}
 
 		$use_existing_importer_data = $this->use_existing_importer_data();

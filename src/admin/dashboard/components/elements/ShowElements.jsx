@@ -98,7 +98,7 @@ const ShowElements = ({
   const saveElement = async () => {
     const isChanged = isEqual(
       allElements,
-      JSON.parse(JSON.stringify(AAB_ADDONS_ADMIN?.addons_config?.widgets)) ||
+      JSON.parse(JSON.stringify(THEBRBRE_ADDONS_ADMIN?.addons_config?.widgets)) ||
         {},
     );
 
@@ -117,7 +117,7 @@ const ShowElements = ({
       updateNotice(sampleData);
     }
 
-    await fetch(AAB_ADDONS_ADMIN.ajaxurl, {
+    await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -127,7 +127,7 @@ const ShowElements = ({
       body: new URLSearchParams({
         action: "thebrbre_save_settings",
         fields: JSON.stringify(allElements),
-        nonce: AAB_ADDONS_ADMIN.nonce,
+        nonce: THEBRBRE_ADDONS_ADMIN.nonce,
         settings: "thebrbre_save_widgets",
       }),
     })

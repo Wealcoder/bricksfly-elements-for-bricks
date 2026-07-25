@@ -13,46 +13,46 @@ const AccessData = [
   // {
   //   title: "Global Settings",
   //   subTitle: "Customize global settings",
-  //   url: AAB_ADDONS_ADMIN.global_settings_url,
+  //   url: THEBRBRE_ADDONS_ADMIN.global_settings_url,
   //   icon: <RiSettings2Line size={22} className="text-[#46A1FF]" />,
   // },
   // {
   //   title: "Theme Builder",
   //   subTitle: "Customize theme builder",
-  //   url: AAB_ADDONS_ADMIN.theme_builder_url,
+  //   url: THEBRBRE_ADDONS_ADMIN.theme_builder_url,
   //   icon: <RiLayout3Line size={22} className="text-[#7772FC]" />,
   // },
   
   {
     title: "Pro Elements",
     subTitle: "Customize pro elements",
-    url: `${AAB_ADDONS_ADMIN.adminURL}/admin.php?page=bf_addons_settings&tab=elements&filter=pro`,
+    url: `${THEBRBRE_ADDONS_ADMIN.adminURL}/admin.php?page=thebrbre_addons_settings&tab=elements&filter=pro`,
     icon: <RiVipCrown2Line size={22} className="text-[#FFA132]" />,
   },
 
   {
     title: "Site Settings",
     subTitle: "Preloader, Cursor, Scroll To Top and more",
-    url: `${AAB_ADDONS_ADMIN.adminURL}/admin.php?page=bf_addons_settings&tab=extensions&cTab=general#site-settings`,
+    url: `${THEBRBRE_ADDONS_ADMIN.adminURL}/admin.php?page=thebrbre_addons_settings&tab=extensions&cTab=general#site-settings`,
     icon: <RiVipCrown2Line size={22} className="text-[#FFA132]" />,
   },
   // {
   //   title: "Custom Fonts",
   //   slug: "custom-fonts",
   //   subTitle: "Upload Custom fonts",
-  //   url: `${AAB_ADDONS_ADMIN.adminURL}/edit.php?post_type=wcf-custom-fonts`,
+  //   url: `${THEBRBRE_ADDONS_ADMIN.adminURL}/edit.php?post_type=wcf-custom-fonts`,
   //   icon: <RiTextSnippet size={22} className="text-[#A281FF]" />,
   // },
   // {
   //   title: "Popup",
   //   subTitle: "Customize popups",
-  //   url: `${AAB_ADDONS_ADMIN.adminURL}/admin.php?page=bf_addons_settings&tab=extensions&cTab=general#popup`,
+  //   url: `${THEBRBRE_ADDONS_ADMIN.adminURL}/admin.php?page=thebrbre_addons_settings&tab=extensions&cTab=general#popup`,
   //   icon: <SquareArrowUp size={22} className="text-[#A281FF]" />,
   // },
   {
     title: "CPT Builder",
     subTitle: "Create custom CPT",
-    url: `${AAB_ADDONS_ADMIN.adminURL}/admin.php?page=bricks-cpt-builder`,
+    url: `${THEBRBRE_ADDONS_ADMIN.adminURL}/admin.php?page=bricks-cpt-builder`,
     icon: <RiImageCircleLine size={22} className="text-[#A281FF]" />,
   },
 ];

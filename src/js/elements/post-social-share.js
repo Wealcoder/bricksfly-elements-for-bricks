@@ -13,9 +13,9 @@ import "../../scss/elements/post-social-share.scss";
         if (!type) return;
 
         // AJAX share count tracking
-        if (typeof AAB_ADDONS_JS !== 'undefined' && AAB_ADDONS_JS.post_id) {
+        if (typeof THEBRBRE_ADDONS_JS !== 'undefined' && THEBRBRE_ADDONS_JS.post_id) {
           var xhr = new XMLHttpRequest();
-          xhr.open('POST', AAB_ADDONS_JS.ajaxUrl, true);
+          xhr.open('POST', THEBRBRE_ADDONS_JS.ajaxUrl, true);
           xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
           xhr.onload = function () {
@@ -39,8 +39,8 @@ import "../../scss/elements/post-social-share.scss";
 
           xhr.send(
             'action=thebrbre_post_shares' +
-            '&post_id=' + encodeURIComponent(AAB_ADDONS_JS.post_id) +
-            '&nonce=' + encodeURIComponent(AAB_ADDONS_JS._wpnonce || '') +
+            '&post_id=' + encodeURIComponent(THEBRBRE_ADDONS_JS.post_id) +
+            '&nonce=' + encodeURIComponent(THEBRBRE_ADDONS_JS._wpnonce || '') +
             '&social=' + encodeURIComponent(type)
           );
         }
@@ -48,12 +48,24 @@ import "../../scss/elements/post-social-share.scss";
     });
   }
 
-  document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('.aab-social-share').forEach(function (el) {
+  function initAll(el) {
+    if (el) {
       initElement(el);
+      return;
+    }
+    document.querySelectorAll('.aab-social-share').forEach(function (root) {
+      initElement(root);
     });
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    initAll();
   });
 
-  // Expose for Bricks $scripts re-init
-  window.aabPostSocialShare = initElement;
+  // Bricks builder calls window.thebrbrePostSocialShare() with NO arguments
+  // on re-render, so the global must be a no-arg-safe entrypoint (matching
+  // the convention used by every other element in this plugin, e.g.
+  // counter.js/video-box.js's initAll) rather than initElement directly,
+  // which assumes its argument is always a valid element.
+  window.thebrbrePostSocialShare = initAll;
 })();

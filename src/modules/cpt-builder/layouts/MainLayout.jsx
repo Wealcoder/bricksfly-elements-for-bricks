@@ -1,4 +1,4 @@
-﻿import MainHeader from "S/components/header/MainHeader";
+import MainHeader from "S/components/header/MainHeader";
 import { usePostType, useTab, useTaxonomy } from "S/hooks/app.hooks";
 import PostTypes from "S/pages/postTypes";
 import EditPostType from "S/pages/postTypes/EditPostType";
@@ -38,7 +38,7 @@ const MainLayout = () => {
 
   const getAllPostType = async () => {
     try {
-      await fetch(AAB_ADDONS_ADMIN.ajaxurl, {
+      await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
@@ -46,7 +46,7 @@ const MainLayout = () => {
         },
         body: new URLSearchParams({
           action: "thebrbre_post_type_builder_list",
-          aab_nonce: AAB_ADDONS_ADMIN.nonce,
+          nonce: THEBRBRE_ADDONS_ADMIN.nonce,
         }),
       })
         .then((response) => {
@@ -62,7 +62,7 @@ const MainLayout = () => {
 
   const getAllTaxonomy = async () => {
     try {
-      await fetch(AAB_ADDONS_ADMIN.ajaxurl, {
+      await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
@@ -70,7 +70,7 @@ const MainLayout = () => {
         },
         body: new URLSearchParams({
           action: "thebrbre_taxonomy_builder_list",
-          aab_nonce: AAB_ADDONS_ADMIN.nonce,
+          nonce: THEBRBRE_ADDONS_ADMIN.nonce,
         }),
       })
         .then((response) => {

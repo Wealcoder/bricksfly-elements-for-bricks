@@ -11,7 +11,7 @@ const IntegrationTopBar = () => {
   };
 
   const saveLibrary = async () => {
-    await fetch(AAB_ADDONS_ADMIN.ajaxurl, {
+    await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -19,9 +19,9 @@ const IntegrationTopBar = () => {
       },
 
       body: new URLSearchParams({
-        action: "save_settings_dashboard_library_ajax",
+        action: "thebrbre_save_dashboard_library_settings",
         fields: JSON.stringify(allLibrary),
-        nonce: AAB_ADDONS_ADMIN.nonce,
+        nonce: THEBRBRE_ADDONS_ADMIN.nonce,
       }),
     })
       .then((response) => {
@@ -48,7 +48,7 @@ const IntegrationTopBar = () => {
             <p className="text-sm text-label">
               {
                 Object.keys(
-                  AAB_ADDONS_ADMIN.addons_config?.integrations?.plugins
+                  THEBRBRE_ADDONS_ADMIN.addons_config?.integrations?.plugins
                     ?.elements
                 ).length
               }{" "}

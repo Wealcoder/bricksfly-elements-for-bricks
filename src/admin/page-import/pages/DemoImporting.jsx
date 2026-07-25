@@ -1,4 +1,4 @@
-﻿import { LoadingSpinner } from "@/components/shared/LoadingSpinner";
+import { LoadingSpinner } from "@/components/shared/LoadingSpinner";
 import { Progress } from "@/components/ui/progress";
 import { useCallback, useEffect, useState, useContext } from "react";
 import { debounceFn } from "@/lib/utils";
@@ -62,7 +62,7 @@ const DemoImporting = () => {
     debounceFn(async (id) => {
       try {
         const url = new URL(
-          `${AAB_ADDONS_ADMIN?.st_template_domain}wp-json/wp/v2/brk-starter-page`
+          `${THEBRBRE_ADDONS_ADMIN?.st_template_domain}wp-json/wp/v2/brk-starter-page`
         );
         if (id) url.searchParams.append("tplid", id);
 
@@ -90,9 +90,9 @@ const DemoImporting = () => {
 
     const formData = new URLSearchParams();
     formData.append("action", "thebrbre_heartbeat_data");
-    formData.append("nonce", AAB_ADDONS_ADMIN.nonce);
+    formData.append("nonce", THEBRBRE_ADDONS_ADMIN.nonce);
 
-    const response = await fetch(AAB_ADDONS_ADMIN.ajaxurl, {
+    const response = await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: formData.toString(),
@@ -148,11 +148,11 @@ const DemoImporting = () => {
         }
         formData.append("import_type", "page");
         formData.append("template_data", JSON.stringify(tpldata));
-        formData.append("nonce", AAB_ADDONS_ADMIN.nonce);
+        formData.append("nonce", THEBRBRE_ADDONS_ADMIN.nonce);
         if (plugins) formData.append("user_plugins", plugins);
         formData.append("attachment", attachment);
 
-        const response = await fetch(AAB_ADDONS_ADMIN.ajaxurl, {
+        const response = await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
           body: formData.toString(),
@@ -244,7 +244,7 @@ const DemoImporting = () => {
         </div>
         <div className="mb-8">
           <img
-            src={`${AAB_ADDONS_ADMIN.plugin_url}public/images/demo-importing-bg.png`}
+            src={`${THEBRBRE_ADDONS_ADMIN.plugin_url}public/images/demo-importing-bg.png`}
             className="w-[616px] h-[258px]"
             alt="demo importing"
           />

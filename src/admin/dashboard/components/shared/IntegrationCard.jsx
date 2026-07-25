@@ -1,4 +1,4 @@
-﻿import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { Dot } from "lucide-react";
 import { Button, buttonVariants } from "../ui/button";
 import { RiCheckLine, RiDownloadLine } from "react-icons/ri";
@@ -10,7 +10,7 @@ const IntegrationCard = ({ item, className }) => {
   const { updateNotice } = useNotification();
 
   const deactivate = async (item) => {
-    await fetch(AAB_ADDONS_ADMIN.ajaxurl, {
+    await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -18,9 +18,9 @@ const IntegrationCard = ({ item, className }) => {
       },
 
       body: new URLSearchParams({
-        action: "wcf_deactive_plugin",
+        action: "thebrbre_deactive_plugin",
         action_base: item.basename,
-        nonce: AAB_ADDONS_ADMIN.nonce,
+        nonce: THEBRBRE_ADDONS_ADMIN.nonce,
       }),
     })
       .then((response) => {
@@ -51,7 +51,7 @@ const IntegrationCard = ({ item, className }) => {
   };
 
   const activePlugin = async () => {
-    await fetch(AAB_ADDONS_ADMIN.ajaxurl, {
+    await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -62,7 +62,7 @@ const IntegrationCard = ({ item, className }) => {
         action: "thebrbre_active_plugin",
         action_base:
           "the-bricksfly-pro/the-bricksfly-pro.php",
-        nonce: AAB_ADDONS_ADMIN.nonce,
+        nonce: THEBRBRE_ADDONS_ADMIN.nonce,
       }),
     })
       .then((response) => {

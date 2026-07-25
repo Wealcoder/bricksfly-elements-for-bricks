@@ -33,7 +33,7 @@ if (! defined('ABSPATH')) {
  */
 class THEBRBRE_Plugin
 {
-	use \wealcoder\bricksfly\Includes\Traits\Extension_Widgets_Trait;
+	use \wealcoder\thebricksfly\Includes\Traits\Extension_Widgets_Trait;
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power

@@ -96,7 +96,7 @@ import "../../scss/elements/button-pro.scss";
       });
   });
 
-  window.aabButtonPro = function (el) {
+  window.thebrbreButtonPro = function (el) {
     if (el) {
       initButtonPro(el);
     } else {

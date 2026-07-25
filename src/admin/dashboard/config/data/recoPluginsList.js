@@ -1,4 +1,4 @@
-const img = (name) => `${AAB_ADDONS_ADMIN.plugin_url}public/images/theme/${name}`;
+const img = (name) => `${THEBRBRE_ADDONS_ADMIN.plugin_url}public/images/theme/${name}`;
 
 export const RecommendedPluginsList = [
   {

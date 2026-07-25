@@ -4,9 +4,9 @@ import "../../scss/elements/video-box.scss";
  * Video Box — Bricks Element Script
  *
  * - Hover-autoplay for video thumbnails (mirrors the Elementor behaviour)
- * - Delegates popup open/close to aabVideoPopup
+ * - Delegates popup open/close to thebrbreVideoPopup
  *
- * Bricks builder calls window.aabVideoBox() with NO arguments on every
+ * Bricks builder calls window.thebrbreVideoBox() with NO arguments on every
  * element re-render, so the global is a no-arg function that re-scans
  * the DOM and re-inits each .aab-video-box instance idempotently.
  */
@@ -46,9 +46,9 @@ import "../../scss/elements/video-box.scss";
 			root._aabVideoBoxHandlers = { enter: enter, leave: leave };
 		}
 
-		// Delegate popup wiring to aabVideoPopup (which expects an element)
-		if ( typeof window.aabVideoPopup === 'function' ) {
-			window.aabVideoPopup( root );
+		// Delegate popup wiring to thebrbreVideoPopup (which expects an element)
+		if ( typeof window.thebrbreVideoPopup === 'function' ) {
+			window.thebrbreVideoPopup( root );
 		}
 	}
 
@@ -65,5 +65,5 @@ import "../../scss/elements/video-box.scss";
 	}
 
 	// Bricks builder calls this with NO arguments on each re-render.
-	window.aabVideoBox = initAll;
+	window.thebrbreVideoBox = initAll;
 } )();

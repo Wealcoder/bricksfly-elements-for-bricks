@@ -1,5 +1,5 @@
 const icon = (name) =>
-  `${AAB_ADDONS_ADMIN.plugin_url}public/images/documentation/${name}`;
+  `${THEBRBRE_ADDONS_ADMIN.plugin_url}public/images/documentation/${name}`;
 
 export const DocumentList = [
   {

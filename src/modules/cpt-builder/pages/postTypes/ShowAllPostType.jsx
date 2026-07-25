@@ -1,4 +1,4 @@
-﻿import {
+import {
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -54,7 +54,7 @@ const ShowAllPostType = () => {
 
   const deletePostType = async (value) => {
     try {
-      await fetch(AAB_ADDONS_ADMIN.ajaxurl, {
+      await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
@@ -63,7 +63,7 @@ const ShowAllPostType = () => {
         body: new URLSearchParams({
           action: "thebrbre_delete_post_type_builder",
           post_type_id: value,
-          nonce: AAB_ADDONS_ADMIN.nonce,
+          nonce: THEBRBRE_ADDONS_ADMIN.nonce,
         }),
       })
         .then((response) => {

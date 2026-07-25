@@ -7,7 +7,7 @@ import "../../scss/elements/animated-heading.scss";
  *
  * @param {HTMLElement} el - The Bricks element wrapper
  */
-function aabAnimatedHeading( el ) {
+function thebrbreAnimatedHeading( el ) {
 	if ( ! el ) return;
 
 	var heading = el.querySelector( '.aab-animated-heading' );
@@ -654,4 +654,4 @@ function aabAH_backgroundClip( el, duration, delay, trigger, trigSel ) {
 	el._aabCleanup = cleanup;
 }
 
-if (typeof window !== 'undefined') { window.aabAnimatedHeading = aabAnimatedHeading; }
+if (typeof window !== 'undefined') { window.thebrbreAnimatedHeading = thebrbreAnimatedHeading; }

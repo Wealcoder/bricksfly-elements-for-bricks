@@ -1,4 +1,4 @@
-﻿import "../../scss/admin/aab-template-library.scss";
+import "../../scss/admin/aab-template-library.scss";
 
 /* eslint-disable */
 /**
@@ -21,11 +21,11 @@
 (function ($, window, document) {
 	'use strict';
 
-	if (!window.AAB_TEMPLATE_LIBRARY) {
+	if (!window.THEBRBRE_TEMPLATE_LIBRARY) {
 		return;
 	}
 
-	var CFG = window.AAB_TEMPLATE_LIBRARY;
+	var CFG = window.THEBRBRE_TEMPLATE_LIBRARY;
 	var I18N = CFG.i18n || {};
 
 	// Browse state.
@@ -122,7 +122,7 @@
 		// left of a visible "Import Section" label so the entry point reads
 		// as a first-class, recognisable action rather than a bare glyph.
 		var label = I18N.button_label || 'Import Section';
-		var logoUrl = I18N.logo_url || (window.AAB_TEMPLATE_LIBRARY && window.AAB_TEMPLATE_LIBRARY.logo_url) || '';
+		var logoUrl = I18N.logo_url || (window.THEBRBRE_TEMPLATE_LIBRARY && window.THEBRBRE_TEMPLATE_LIBRARY.logo_url) || '';
 		var tag = host.tagName === 'UL' ? 'li' : 'div';
 		var btn = document.createElement(tag);
 		btn.id = 'aab-import-section-button';
@@ -456,7 +456,7 @@
 	 * used strings, so accept both).
 	 *
 	 * Two independent gates:
-	 *   - wcf_valid:      Pro installed + license active for this site.
+	 *   - thebrbre_valid: Pro installed + license active for this site.
 	 *   - section_import: the license tier includes the Section Import feature
 	 *                     (server-authoritative; also enforced on insert).
 	 * A Pro section needs both; a free section only needs the site to be able
@@ -472,7 +472,7 @@
 	}
 
 	function validateTemplates(list) {
-		var configValid = !!(CFG.config && CFG.config.wcf_valid);
+		var configValid = !!(CFG.config && CFG.config.thebrbre_valid);
 		var canImport   = sectionImportAllowed();
 		return list.map(function (item) {
 			var isPro = item.is_pro === true || String(item.is_pro) === '1';
@@ -516,7 +516,7 @@
 					'<span class="aab-tl-card__insert-icon" aria-hidden="true">+</span>' +
 					escapeHtml(I18N.insert || 'Insert') +
 				'</button>';
-		} else if (CFG.pro_installed && CFG.pro_active && (CFG.config && CFG.config.wcf_valid) && !sectionImportAllowed()) {
+		} else if (CFG.pro_installed && CFG.pro_active && (CFG.config && CFG.config.thebrbre_valid) && !sectionImportAllowed()) {
 			// Licensed for this site, but the plan doesn't include Section
 			// Import. Offer an upgrade rather than a re-activate prompt.
 			actionBtn =
@@ -528,7 +528,7 @@
 				'<a class="aab-tl-card__pro" href="https://animation-addons.com" target="_blank" rel="noopener">' +
 					escapeHtml(I18N.go_premium || 'Go Premium') +
 				'</a>';
-		} else if (CFG.pro_installed && CFG.pro_active && !(CFG.config && CFG.config.aab_valid)) {
+		} else if (CFG.pro_installed && CFG.pro_active && !(CFG.config && CFG.config.thebrbre_valid)) {
 			actionBtn =
 				'<a class="aab-tl-card__pro" href="' + escapeAttr(CFG.dashboard_link) + '" target="_blank" rel="noopener">' +
 					escapeHtml(I18N.activate || 'Activate License') +

@@ -1,6 +1,6 @@
 <?php
 
-namespace wealcoder\bricksfly\Admin;
+namespace wealcoder\thebricksfly\Admin;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -511,7 +511,7 @@ class THEBRBRE_CPT_Builder {
 	}
 
 	public function thebrbre_list() {
-		$nonce = isset( $_REQUEST['thebrbre_nonce'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['thebrbre_nonce'] ) ) : null;
+		$nonce = isset( $_REQUEST['nonce'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['nonce'] ) ) : null;
 		if ( ! wp_verify_nonce( $nonce, 'thebrbre_admin_nonce' ) ) {
 			wp_send_json_error( esc_html__( 'Invalid nonce', 'the-bricksfly' ) );
 		}
@@ -607,7 +607,7 @@ class THEBRBRE_CPT_Builder {
 	}
 
 	public function thebrbre_taxonomy_list() {
-		$nonce = isset( $_REQUEST['thebrbre_nonce'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['thebrbre_nonce'] ) ) : null;
+		$nonce = isset( $_REQUEST['nonce'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['nonce'] ) ) : null;
 		if ( ! wp_verify_nonce( $nonce, 'thebrbre_admin_nonce' ) ) {
 			wp_send_json_error( esc_html__( 'Invalid nonce', 'the-bricksfly' ) );
 		}

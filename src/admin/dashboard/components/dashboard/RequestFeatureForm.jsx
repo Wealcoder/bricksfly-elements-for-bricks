@@ -21,18 +21,18 @@ const RequestFeatureForm = () => {
     setSubmitting(true);
 
     try {
-      const response = await fetch(AAB_ADDONS_ADMIN.ajaxurl, {
+      const response = await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
           Accept: "application/json",
         },
         body: new URLSearchParams({
-          action: "aab_request_new_feature",
+          action: "thebrbre_request_new_feature",
           name: form.name,
           email: form.email,
           feature: form.feature,
-          nonce: AAB_ADDONS_ADMIN.nonce,
+          nonce: THEBRBRE_ADDONS_ADMIN.nonce,
         }),
       }).then((res) => res.json());
 
@@ -110,7 +110,7 @@ const RequestFeatureForm = () => {
         >
           Submit
           <img
-            src={`${AAB_ADDONS_ADMIN.plugin_url}public/images/submit-icon.png`}
+            src={`${THEBRBRE_ADDONS_ADMIN.plugin_url}public/images/submit-icon.png`}
             alt=""
             className="w-3 h-3 ms-1"
           />

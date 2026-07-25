@@ -8,7 +8,7 @@ const Elements = () => {
   const [filterKey, setFilterKey] = useState("free-pro");
   const [settingOpen, setSettingOpen] = useState(null);
 
-  const [elementCount, setElementCount] = useState(AAB_ADDONS_ADMIN.widgets);
+  const [elementCount, setElementCount] = useState(THEBRBRE_ADDONS_ADMIN.widgets);
 
   const urlParams = new URLSearchParams(window.location.search);
 

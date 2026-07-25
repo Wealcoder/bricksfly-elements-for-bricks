@@ -4,7 +4,7 @@ import "../../scss/elements/counter.scss";
  * Counter — Bricks Element Script (No GSAP)
  *
  * Self-initializing: scans the DOM for [data-aab-counter] roots and
- * starts each one. Bricks calls window.aabCounter() (with or without
+ * starts each one. Bricks calls window.thebrbreCounter() (with or without
  * the wrapper) on builder re-render and on frontend init — both paths
  * end up calling initAll().
  */
@@ -165,5 +165,5 @@ import "../../scss/elements/counter.scss";
 		initAll();
 	}
 
-	window.aabCounter = initAll;
+	window.thebrbreCounter = initAll;
 } )();

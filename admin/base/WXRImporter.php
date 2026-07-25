@@ -1,6 +1,6 @@
 <?php
 
-namespace wealcoder\bricksfly\Admin\Base;
+namespace wealcoder\thebricksfly\Admin\Base;
 
 use WP_Error;
 use XMLReader;

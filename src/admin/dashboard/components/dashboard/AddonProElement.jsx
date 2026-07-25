@@ -9,7 +9,7 @@ import { buttonVariants } from "../ui/button";
 
 const AddonProElement = () => {
   const [elements, setElements] = useState(
-    AAB_ADDONS_ADMIN.addons_config.dashboardProWidget,
+    THEBRBRE_ADDONS_ADMIN.addons_config.dashboardProWidget,
   );
 
   const { updateActiveElement: proElement } = useActiveItem();
@@ -27,7 +27,7 @@ const AddonProElement = () => {
     );
     setElements(result);
 
-    await fetch(AAB_ADDONS_ADMIN.ajaxurl, {
+    await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -37,7 +37,7 @@ const AddonProElement = () => {
       body: new URLSearchParams({
         action: "thebrbre_save_dashboard_settings",
         fields: JSON.stringify(result),
-        nonce: AAB_ADDONS_ADMIN.nonce,
+        nonce: THEBRBRE_ADDONS_ADMIN.nonce,
       }),
     })
       .then((response) => {
