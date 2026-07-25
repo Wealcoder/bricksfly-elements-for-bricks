@@ -120,7 +120,6 @@ class THEBRBRE_Admin_Init
 		add_action('admin_enqueue_scripts', array($this, 'enqueue_scripts'));
 		add_action('wp_ajax_thebrbre_save_settings', array($this, 'save_settings'));
 		add_action('wp_ajax_thebrbre_dashboard_notice_store', array($this, 'notice_store'));
-		add_action('wp_ajax_thebrbre_get_changelog_data', array($this, 'get_changelog'));
 		add_action('wp_ajax_thebrbre_get_notice_data', array($this, 'get_notice'));
 		add_action('wp_ajax_thebrbre_save_dashboard_settings', array($this, 'save_settings_dashboard'));
 
@@ -828,41 +827,6 @@ class THEBRBRE_Admin_Init
 		$return_message = array(
 			'message' => esc_html__('Notice Updated', 'the-bricksfly'),
 		);
-		wp_send_json($return_message);
-	}
-
-	public function get_changelog()
-	{
-
-		check_ajax_referer('thebrbre_admin_nonce', 'nonce');
-
-		if (! current_user_can('manage_options')) {
-			wp_send_json_error(esc_html__('you are not allowed to do this action', 'the-bricksfly'));
-		}
-
-		$transient      = get_transient('thebrbre_changelog_notice_cache3');
-		$return_message = array(
-			'changelog' => '',
-		);
-		// Yep!  Just return it and we're done.
-		if ($transient !== false) {
-			$return_message['changelog'] = $transient;
-		} else {
-			$url                         = 'https://my.bricksfly.com/wp-json/userdata/v1/changelog?p=768';
-			$args                        = array(
-				'timeout'   => 60,
-				'sslverify' => true,
-				'headers'   => array(
-					'Accept' => 'application/json',
-				),
-			);
-			$out                         = wp_remote_get($url, $args);
-			$body                        = wp_remote_retrieve_body($out);
-			$decode_data                 = json_decode($body);
-			$return_message['changelog'] = $decode_data;
-			set_transient('thebrbre_changelog_notice_cache3', $decode_data, 12 * HOUR_IN_SECONDS);
-		}
-
 		wp_send_json($return_message);
 	}
 
