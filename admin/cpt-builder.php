@@ -647,7 +647,8 @@ class THEBRBRE_CPT_Builder {
 				strpos( $post_type, 'templately' ) !== 0 &&
 				strpos( $post_type, 'acf-' ) !== 0 &&
 				strpos( $post_type, 'aae' ) !== 0 &&
-				strpos( $post_type, 'aab' ) !== 0;
+				strpos( $post_type, 'aab' ) !== 0 &&
+				strpos( $post_type, 'thebrbre' ) !== 0;
 		} );
 		return $post_types;
 	}
