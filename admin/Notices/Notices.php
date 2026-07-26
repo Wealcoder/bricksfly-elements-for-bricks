@@ -15,14 +15,12 @@ class Notices {
 		return self::$_instance;
 	}
 
-	protected $plugin_prefix;
 	protected $notices = array();
 
 	public function __construct() {
 		add_action( 'admin_init', array( $this, 'add_admin_notices' ) );
 
-		$this->plugin_prefix = 'thebrbre_notice_';
-		add_action( 'wp_ajax_' . $this->plugin_prefix . '_dismiss_notice', array( $this, 'ajax_dismiss_notice' ) );
+		add_action( 'wp_ajax_thebrbre_notice__dismiss_notice', array( $this, 'ajax_dismiss_notice' ) );
 		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
 	}
 
@@ -37,7 +35,7 @@ class Notices {
 	}
 
 	public function ajax_dismiss_notice() {
-		if ( ! check_ajax_referer( $this->plugin_prefix . '_dismiss_notice', 'nonce', false ) || ! current_user_can( 'manage_options' ) ) {
+		if ( ! check_ajax_referer( 'thebrbre_notice__dismiss_notice', 'nonce', false ) || ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error();
 			exit;
 		}
@@ -93,8 +91,8 @@ class Notices {
 					esc_attr( $notice['type'] ),
 					esc_attr( implode( ' ', $classes ) ),
 					esc_attr( $notice['notice_id'] ),
-					esc_attr( wp_create_nonce( $this->plugin_prefix . '_dismiss_notice' ) ),
-					esc_attr( $this->plugin_prefix . '_dismiss_notice' ),
+					esc_attr( wp_create_nonce( 'thebrbre_notice__dismiss_notice' ) ),
+					esc_attr( 'thebrbre_notice__dismiss_notice' ),
 					esc_attr( $style ),
 					wp_kses_post( wptexturize( $message ) ),
 					$notice['dismissible'] ? '<button type="button" class="notice-dismiss"><span class="screen-reader-text">' . esc_html__( 'Dismiss this notice', 'the-bricksfly' ) . '</span></button>' : ''
@@ -123,7 +121,7 @@ class Notices {
 			return;
 		}
 		if ( empty( $args['notice_id'] ) ) {
-			$args['notice_id'] = $this->plugin_prefix . '_' . md5( $args['message'] . $args['type'] );
+			$args['notice_id'] = 'thebrbre_notice_' . md5( $args['message'] . $args['type'] );
 		}
 		if ( true === filter_var( $args['dismissible'], FILTER_VALIDATE_BOOLEAN ) && $this->is_dismissed( $args['notice_id'] ) ) {
 			return;

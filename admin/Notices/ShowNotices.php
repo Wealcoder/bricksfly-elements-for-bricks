@@ -15,11 +15,9 @@ class ShowNotices {
 		return self::$_instance;
 	}
 
-	protected $plugin_prefix;
 	protected $messages = array();
 
 	public function __construct() {
-		$this->plugin_prefix = 'thebrbre_notice_';
 		add_action( 'admin_init', array( $this, 'load_messages' ), 1 );
 		add_filter( 'wp_redirect', array( $this, 'save_messages' ), 1 );
 		add_action( 'admin_notices', array( $this, 'display_messages' ) );
@@ -28,19 +26,19 @@ class ShowNotices {
 	public function load_messages() {
 		$flash = filter_input( INPUT_GET, '_flash', FILTER_VALIDATE_BOOLEAN );
 		if ( true === $flash ) {
-			$messages = get_option( $this->plugin_prefix . '_flash_messages', array() );
+			$messages = get_option( 'thebrbre_notice_flash_messages', array() );
 			if ( ! empty( $messages ) && is_array( $messages ) ) {
 				foreach ( $messages as $message ) {
 					$this->message( $message['type'], $message['message'] );
 				}
 			}
-			update_option( $this->plugin_prefix . '_flash_messages', array() );
+			update_option( 'thebrbre_notice_flash_messages', array() );
 		}
 	}
 
 	public function save_messages( $location ) {
 		if ( ! empty( $this->messages ) ) {
-			update_option( $this->plugin_prefix . '_flash_messages', $this->messages );
+			update_option( 'thebrbre_notice_flash_messages', $this->messages );
 			$location = add_query_arg( '_flash', 'yes', $location );
 		}
 		return $location;
@@ -77,7 +75,7 @@ class ShowNotices {
 
 	public function clear_messages() {
 		$this->messages = array();
-		update_option( $this->plugin_prefix . '_flash_messages', array() );
+		update_option( 'thebrbre_notice_flash_messages', array() );
 	}
 }
 

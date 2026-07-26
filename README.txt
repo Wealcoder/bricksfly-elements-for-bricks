@@ -2,7 +2,7 @@
 Contributors: wealcoder, raselsec
 Tags: bricks, bricks builder, gsap, animation, templates
 Requires at least: 6.6
-Tested up to: 6.9
+Tested up to: 7.0
 Requires PHP: 7.4
 Stable tag: 1.0.1
 License: GPL v2 or later
