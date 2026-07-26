@@ -22,9 +22,38 @@ if (! class_exists('THEBRBRE_Placeholder_Element')) {
 		public $category = 'bricks fly';
 		public $icon     = 'ti-info-alt';
 
-		// Overridden per-slug on the dynamically generated subclass created
-		// by thebrbre_register_widget_placeholder().
 		public $placeholder_label = '';
+
+		/**
+		 * Per-subclass identity (real Bricks `$name` + human label), keyed by
+		 * the generated subclass name. Populated once by
+		 * thebrbre_register_widget_placeholder() instead of baking the values
+		 * into eval()'d class source — Bricks always instantiates elements
+		 * with `new $class_name()` (no constructor args it lets us supply),
+		 * so this static map is how each subclass learns its own identity.
+		 *
+		 * @var array<string, array{name: string, label: string}>
+		 */
+		protected static $registry = array();
+
+		public static function register($class_name, $bricks_name, $label)
+		{
+			self::$registry[$class_name] = array(
+				'name'  => $bricks_name,
+				'label' => (string) $label,
+			);
+		}
+
+		public function __construct($element = null)
+		{
+			$data = self::$registry[static::class] ?? null;
+			if ($data) {
+				$this->name              = $data['name'];
+				$this->placeholder_label = $data['label'];
+			}
+
+			parent::__construct($element);
+		}
 
 		public function get_label()
 		{
@@ -93,8 +122,8 @@ if (! class_exists('THEBRBRE_Placeholder_Element')) {
 				$link
 			);
 
-			echo '<div class="bricks-element-placeholder thebrbre-placeholder" style="' . esc_attr($style) . '">'
-				. $message . ' ' . wp_kses_post($instruction)
+			echo '<div class="bricks-element-placeholder thebrbre-placeholder" style="' . esc_attr($style) . '">' // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				. esc_html($message) . ' ' . wp_kses_post($instruction)
 				. '</div>';
 		}
 	}
