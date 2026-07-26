@@ -28,7 +28,7 @@ class THEBRBRE_Template_Importer {
 		add_action( 'wp_ajax_thebrbre_upload_manual_import_file', [ $this, 'template_installer' ] );
 		add_action( 'wp_ajax_thebrbre_template_dependency_status', [ $this, 'template_dependency_status' ] );
 		// NOTE: the 'thebrbre_get_latest_imported_pages' AJAX action is handled by
-		// OneClickImport::aae_get_latest_imported_pages() (admin/st-init.php).
+	
 		// That handler is batch-aware — it returns the page(s) from the most
 		// recent import via the 'thebrbre_last_import_batch' option, which is what the
 		// "Go to page" button on the Complete Import step needs. A second callback
@@ -497,7 +497,7 @@ class THEBRBRE_Template_Importer {
 
 		$existing = get_option( 'bricks_global_classes' );
 		$merged   = $this->merge_bricks_option( 'bricks_global_classes', $existing, $incoming_classes );
-		update_option( 'bricks_global_classes', $merged );
+		do_action( 'thebrbre/starter-template/import/step/global_classes', $merged );
 
 		return true;
 	}

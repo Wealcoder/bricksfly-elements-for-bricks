@@ -719,8 +719,11 @@ class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 			$style = substr($style, 4);
 		}
 
-		$text     = isset($settings['btnText']) ? $settings['btnText'] : '';
+		$text     = isset($settings['btnText']) ? (string) $settings['btnText'] : '';
 		$icon     = $settings['btnIcon'] ?? [];
+		if (! is_array($icon)) {
+			$icon = [];
+		}
 
 		// Sanitized HTML version for visible content; plain version for attributes.
 		$allowed_html = $this->get_allowed_text_html();
@@ -737,7 +740,11 @@ class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 			$this->set_attribute($link_key, 'href', '#');
 		}
 
-		$icon_html = $icon ? self::render_icon($icon, ['aria-hidden' => 'true']) : '';
+		// render_icon() (Bricks core) can return null from several of its own
+		// early-return branches (e.g. an SVG icon whose attached file no longer
+		// exists) rather than an empty string — guard here so every wp_kses_post()
+		// call below always receives a string, never null.
+		$icon_html = $icon ? (string) self::render_icon($icon, ['aria-hidden' => 'true']) : '';
 
 		// Base (WCF) styles — render via .wcf__btn > a.wcf-btn-{slug}
 		if (0 === strpos($style, 'base-')) {
