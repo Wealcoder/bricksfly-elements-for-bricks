@@ -313,7 +313,7 @@ if (! function_exists('thebrbre_is_pro_active')) {
    */
   function thebrbre_is_pro_active()
   {
-    if (defined('AAB_PRO_ADDONS_VERSION')) {
+    if (defined('THEBRBRE_PRO_VERSION')) {
       return true;
     }
 
