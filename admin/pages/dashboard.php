@@ -149,7 +149,7 @@ class THEBRBRE_Admin_Init
 		}
 
 		wp_add_dashboard_widget(
-			'aae_dashboard_widget',
+			'thebrbre_dashboard_widget',
 			'Animation Addons Overview',
 			[$this, 'thebrbre_render_dashboard_widget']
 		);
@@ -158,18 +158,18 @@ class THEBRBRE_Admin_Init
 		global $wp_meta_boxes;
 
 		// Check that our widget actually exists before reordering
-		if (isset($wp_meta_boxes['dashboard']['normal']['core']['aae_dashboard_banner'])) {
+		if (isset($wp_meta_boxes['dashboard']['normal']['core']['thebrbre_dashboard_widget'])) {
 			// Get current dashboard widgets
 			$normal_dashboard = $wp_meta_boxes['dashboard']['normal']['core'];
 
 			// Backup our widget
-			$aae_widget_backup = [
-				'aae_dashboard_banner' => $normal_dashboard['aae_dashboard_banner']
+			$thebrbre_widget_backup = [
+				'thebrbre_dashboard_widget' => $normal_dashboard['thebrbre_dashboard_widget']
 			];
 
 			// Remove from bottom and merge on top
-			unset($normal_dashboard['aae_dashboard_banner']);
-			$sorted_dashboard = array_merge($aae_widget_backup, $normal_dashboard);
+			unset($normal_dashboard['thebrbre_dashboard_widget']);
+			$sorted_dashboard = array_merge($thebrbre_widget_backup, $normal_dashboard);
 
 			// Assign back
 			$wp_meta_boxes['dashboard']['normal']['core'] = $sorted_dashboard;

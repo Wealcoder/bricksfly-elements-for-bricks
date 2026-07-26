@@ -38,7 +38,6 @@ class OneClickImport {
 	protected function __construct() {
 		add_action( 'wp_ajax_thebrbre_upload_manual_import_file', [ $this, 'import_demo_data_ajax_callback' ] );
 		add_action( 'admin_init', [ $this, 'setup_st_importer' ] );
-		add_action( 'admin_init', [ $this, 'migrate_import_tracking_keys' ], 5 );
 		add_action( 'set_object_terms', array( $this, 'add_imported_terms' ), 10, 6 );
 		add_filter( 'thebrbre_importer.pre_process.post', [ $this, 'skip_failed_attachment_import' ] );
 		add_action( 'thebrbre_importer.process_failed.post', [ $this, 'handle_failed_attachment_import' ], 10, 5 );
@@ -47,39 +46,6 @@ class OneClickImport {
 		add_action('thebrbre_import_existing_post', [ $this, 'save_wp_page_import_track' ], 10, 4 );
 		add_action('thebrbre/after_import', [ $this, 'fix_imported_wp_navigation' ] );
 		add_action( 'wp_ajax_thebrbre_get_latest_imported_pages', [ $this, 'thebrbre_get_latest_imported_pages' ] );
-	}
-
-	/**
-	 * Migrate import tracking data written by releases that used the old prefix.
-	 */
-	public function migrate_import_tracking_keys() {
-		if ( ! current_user_can( 'edit_pages' ) || get_option( 'thebrbre_import_tracking_migrated' ) ) {
-			return;
-		}
-
-		$legacy_batch_id = get_option( 'aae_last_import_batch' );
-		if ( $legacy_batch_id && ! get_option( 'thebrbre_last_import_batch' ) ) {
-			update_option( 'thebrbre_last_import_batch', $legacy_batch_id, false );
-		}
-		delete_option( 'aae_last_import_batch' );
-
-		global $wpdb;
-		$wpdb->update(
-			$wpdb->postmeta,
-			[ 'meta_key' => 'thebrbre_import_batch' ],
-			[ 'meta_key' => 'aae_import_batch' ],
-			[ '%s' ],
-			[ '%s' ]
-		);
-		$wpdb->update(
-			$wpdb->postmeta,
-			[ 'meta_key' => 'thebrbre_imported' ],
-			[ 'meta_key' => 'aae_imported' ],
-			[ '%s' ],
-			[ '%s' ]
-		);
-
-		update_option( 'thebrbre_import_tracking_migrated', 1, false );
 	}
 
 	private function __clone() {}
@@ -122,8 +88,6 @@ class OneClickImport {
 		if ( ! current_user_can( 'edit_pages' ) ) {
 			wp_send_json_error( [ 'message' => esc_html__( 'You are not allowed to perform this action.', 'the-bricksfly' ) ], 403 );
 		}
-
-		$this->migrate_import_tracking_keys();
 
 		$per_page = isset( $_POST['per_page'] ) ? max( 1, (int) $_POST['per_page'] ) : 1;
 		$batch_id = get_option( 'thebrbre_last_import_batch' );

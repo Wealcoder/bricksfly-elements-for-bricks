@@ -240,7 +240,7 @@ class WXRImporter extends \WP_Importer {
 		$this->version  = '1.0';
 		$this->base_url = '';
 
-		$aae_counter_progress = 0;
+		$thebrbre_counter_progress = 0;
 
 		while ( $reader->read() ) {
 			if ( $reader->nodeType !== XMLReader::ELEMENT ) {
@@ -269,13 +269,13 @@ class WXRImporter extends \WP_Importer {
 				case 'item':
 					$node   = $reader->expand();
 					$parsed = $this->parse_post_node( $node );
-					$aae_counter_progress += 1;
+					$thebrbre_counter_progress += 1;
 					update_option( 'thebrbre_template_import_progress', [
 						'type'        => 'single',
 						'total_items' => $total_init,
 						'title'       => $temp_title,
-						'progress'    => $aae_counter_progress,
-						'data'        => [ 'Posts: ' . $aae_counter_progress ],
+						'progress'    => $thebrbre_counter_progress,
+						'data'        => [ 'Posts: ' . $thebrbre_counter_progress ],
 					] );
 					if ( is_wp_error( $parsed ) ) {
 						$this->log_error( $parsed );
@@ -289,7 +289,7 @@ class WXRImporter extends \WP_Importer {
 				case 'wp:author':
 					$node   = $reader->expand();
 					$parsed = $this->parse_author_node( $node );
-					$aae_counter_progress += 1;
+					$thebrbre_counter_progress += 1;
 					if ( is_wp_error( $parsed ) ) {
 						$this->log_error( $parsed );
 						$reader->next();
@@ -299,8 +299,8 @@ class WXRImporter extends \WP_Importer {
 						'type'        => 'single',
 						'total_items' => $total_init,
 						'title'       => $temp_title,
-						'progress'    => $aae_counter_progress,
-						'data'        => [ 'Posts: ' . $aae_counter_progress ],
+						'progress'    => $thebrbre_counter_progress,
+						'data'        => [ 'Posts: ' . $thebrbre_counter_progress ],
 					] );
 					$status = $this->process_author( $parsed['data'], $parsed['meta'] );
 					if ( is_wp_error( $status ) ) {
@@ -317,13 +317,13 @@ class WXRImporter extends \WP_Importer {
 						$reader->next();
 						break;
 					}
-					$aae_counter_progress += 1;
+					$thebrbre_counter_progress += 1;
 					update_option( 'thebrbre_template_import_progress', [
 						'type'        => 'single',
 						'total_items' => $total_init,
 						'title'       => $temp_title,
-						'progress'    => $aae_counter_progress,
-						'data'        => [ 'Category: ' . $aae_counter_progress ],
+						'progress'    => $thebrbre_counter_progress,
+						'data'        => [ 'Category: ' . $thebrbre_counter_progress ],
 					] );
 					$status = $this->process_term( $parsed['data'], $parsed['meta'] );
 					$reader->next();
@@ -332,13 +332,13 @@ class WXRImporter extends \WP_Importer {
 				case 'wp:tag':
 					$node   = $reader->expand();
 					$parsed = $this->parse_term_node( $node, 'tag' );
-					$aae_counter_progress += 1;
+					$thebrbre_counter_progress += 1;
 					update_option( 'thebrbre_template_import_progress', [
 						'type'        => 'single',
 						'total_items' => $total_init,
 						'title'       => $temp_title,
-						'progress'    => $aae_counter_progress,
-						'data'        => [ 'Terms: ' . $aae_counter_progress ],
+						'progress'    => $thebrbre_counter_progress,
+						'data'        => [ 'Terms: ' . $thebrbre_counter_progress ],
 					] );
 					if ( is_wp_error( $parsed ) ) {
 						$this->log_error( $parsed );
@@ -352,7 +352,7 @@ class WXRImporter extends \WP_Importer {
 				case 'wp:term':
 					$node   = $reader->expand();
 					$parsed = $this->parse_term_node( $node );
-					$aae_counter_progress += 1;
+					$thebrbre_counter_progress += 1;
 					if ( is_wp_error( $parsed ) ) {
 						$this->log_error( $parsed );
 						$reader->next();
@@ -360,10 +360,10 @@ class WXRImporter extends \WP_Importer {
 					}
 					update_option( 'thebrbre_template_import_progress', [
 						'type'        => 'single',
-						'progress'    => $aae_counter_progress,
+						'progress'    => $thebrbre_counter_progress,
 						'title'       => $temp_title,
 						'total_items' => $total_init,
-						'data'        => [ 'Terms: ' . $aae_counter_progress ],
+						'data'        => [ 'Terms: ' . $thebrbre_counter_progress ],
 					] );
 					$status = $this->process_term( $parsed['data'], $parsed['meta'] );
 					$reader->next();
@@ -378,7 +378,7 @@ class WXRImporter extends \WP_Importer {
 
 		if ( $this->options['aggressive_url_search'] ) {
 			$this->replace_attachment_urls_in_content();
-			$aae_counter_progress += 1;
+			$thebrbre_counter_progress += 1;
 		}
 		$this->thebrbre_remap_featured_images();
 		$this->import_end();

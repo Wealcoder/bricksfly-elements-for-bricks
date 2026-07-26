@@ -499,20 +499,23 @@ if (! function_exists('thebrbre_register_widget_placeholder')) {
       require_once $base;
     }
 
-    // Bricks keys its registry off the class's own declared `$name`, and a
-    // single shared class can't carry a different default per widget, so a
-    // small unique subclass is generated per Bricks name. md5() keeps the
-    // generated identifier valid regardless of characters in $bricks_name.
+    // Bricks keys its own registry off a class NAME string and always
+    // instantiates via `new $element_class_name()` with no constructor args
+    // it lets us supply, so each widget still needs its own distinct class
+    // name. class_alias() gives every widget a unique, independently
+    // `new`-able name for the same shared class body — no eval() needed,
+    // since per-widget identity (real name + label) now lives in
+    // THEBRBRE_Placeholder_Element's static registry, keyed by that class
+    // name, rather than in hardcoded subclass property defaults.
+    // md5() keeps the generated identifier valid regardless of characters
+    // in $bricks_name.
     $class_name = 'THEBRBRE_Placeholder_' . md5($bricks_name);
 
     if (! class_exists($class_name)) {
-      eval(sprintf( // phpcs:ignore Squiz.PHP.Eval.Discouraged
-        'class %s extends THEBRBRE_Placeholder_Element { public $name = %s; public $placeholder_label = %s; }',
-        $class_name,
-        var_export($bricks_name, true),
-        var_export((string) $label, true)
-      ));
+      class_alias('THEBRBRE_Placeholder_Element', $class_name);
     }
+
+    THEBRBRE_Placeholder_Element::register($class_name, $bricks_name, $label);
 
     \Bricks\Elements::register_element(
       THEBRBRE_PATH . 'includes/elements/class-thebrbre-placeholder-element.php',
