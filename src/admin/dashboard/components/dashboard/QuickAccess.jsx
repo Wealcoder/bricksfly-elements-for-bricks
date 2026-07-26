@@ -51,7 +51,7 @@ const AccessData = [
   {
     title: "CPT Builder",
     subTitle: "Create custom CPT",
-    url: `${THEBRBRE_ADDONS_ADMIN.adminURL}/admin.php?page=bricks-cpt-builder`,
+    url: `${THEBRBRE_ADDONS_ADMIN.adminURL}/admin.php?page=thebrbre-cpt-builder`,
     icon: <RiVipCrown2Line size={22} className="text-[#FFA132]" />,
   },
 ];

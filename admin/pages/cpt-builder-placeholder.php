@@ -22,7 +22,7 @@ if (! defined('ABSPATH')) exit;
 class THEBRBRE_CPT_Builder_Placeholder
 {
 	const MENU_PAGE_SLUG  = 'thebrbre_addons_page';
-	const CPT_BUILDER_SLUG = 'bricks-cpt-builder';
+	const CPT_BUILDER_SLUG = 'thebrbre-cpt-builder';
 	const MENU_CAPABILITY = 'manage_options';
 	const PRO_BASENAME    = 'the-bricksfly-pro/the-bricksfly-pro.php';
 
@@ -125,11 +125,10 @@ class THEBRBRE_CPT_Builder_Placeholder
 	 * Scoped admin-wide banner. The license-invalid case is handled by
 	 * the Pro plugin's own notice to avoid duplication.
 	 *
-	 * Scoped directly to the CPT Builder screen (rather than reusing
-	 * THEBRBRE_Settings_Placeholder::is_thebrbre_admin_screen(), whose
-	 * regex only matches `_page_thebrbre_addons_`/`_page_thebrbre-`
-	 * slugs) since this menu's slug is `bricks-cpt-builder`, which
-	 * doesn't match either pattern.
+	 * Scoped directly to the CPT Builder screen via its own slug, rather
+	 * than the broader THEBRBRE_Settings_Placeholder::is_thebrbre_admin_screen()
+	 * helper (which matches any thebrbre-prefixed screen), so this notice
+	 * only appears on the CPT Builder page itself.
 	 */
 	public function render_notice(): void
 	{
