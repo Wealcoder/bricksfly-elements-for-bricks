@@ -419,6 +419,109 @@ if (! function_exists('thebrbre_is_feature_allowed')) {
   }
 }
 
+if (! function_exists('thebrbre_get_element_bricks_name')) {
+
+  /**
+   * Resolve a widget's real Bricks element `$name` from its element file's
+   * declared property, without ever `require`ing the file — so an element
+   * that's toggled off, or Pro-only without a valid license, never has its
+   * real code loaded just to resolve its name for a placeholder.
+   *
+   * The config slug (e.g. `button-pro`, same as the element's filename in
+   * `includes/elements/`) is not always the same as the Bricks element
+   * `$name` it registers under (e.g. `aab-button-pro`), so this reads the
+   * declared value directly out of the file's source.
+   *
+   * @param string $slug Config slug.
+   * @return string Bricks element name, or '' if it can't be resolved.
+   */
+  function thebrbre_get_element_bricks_name($slug)
+  {
+    static $cache = array();
+
+    if (isset($cache[$slug])) {
+      return $cache[$slug];
+    }
+
+    $path = THEBRBRE_PATH . 'includes/elements/' . $slug . '.php';
+
+    if (file_exists($path)) {
+      $contents = file_get_contents($path);
+
+      if ($contents && preg_match('/public\s+\$name\s*=\s*[\'"]([a-z0-9\-_]+)[\'"]/i', $contents, $matches)) {
+        return $cache[$slug] = $matches[1];
+      }
+    }
+
+    return $cache[$slug] = '';
+  }
+}
+
+if (! function_exists('thebrbre_register_widget_placeholder')) {
+
+  /**
+   * Register a branded placeholder Bricks element under a widget's real
+   * Bricks `$name`, so `class_exists()` succeeds in Bricks core's
+   * `Frontend::render_element()` and its raw "PHP class does not exist"
+   * fallback never fires. Used for widgets that are configured but not
+   * currently loaded (toggled off, or Pro/license unavailable) — the
+   * placeholder carries no real widget behavior, only a short admin-facing
+   * notice shown inside the builder (see THEBRBRE_Placeholder_Element).
+   *
+   * Shared between the free and Pro plugins so both loading paths produce
+   * the same placeholder instead of duplicating the class-generation logic.
+   *
+   * Safe to call more than once for the same $bricks_name, and never
+   * overwrites an already-registered (real or placeholder) class.
+   *
+   * @param string $bricks_name Real Bricks element name (e.g. 'aab-button-pro').
+   * @param string $label       Human-readable widget label for the message.
+   */
+  function thebrbre_register_widget_placeholder($bricks_name, $label)
+  {
+    if (empty($bricks_name) || ! class_exists('\Bricks\Elements')) {
+      return;
+    }
+
+    // Something already registered a real (or placeholder) class under
+    // this name — never clobber it.
+    if (isset(\Bricks\Elements::$elements[$bricks_name])) {
+      return;
+    }
+
+    if (! class_exists('THEBRBRE_Placeholder_Element')) {
+      $base = THEBRBRE_PATH . 'includes/elements/class-thebrbre-placeholder-element.php';
+
+      if (! file_exists($base)) {
+        return;
+      }
+
+      require_once $base;
+    }
+
+    // Bricks keys its registry off the class's own declared `$name`, and a
+    // single shared class can't carry a different default per widget, so a
+    // small unique subclass is generated per Bricks name. md5() keeps the
+    // generated identifier valid regardless of characters in $bricks_name.
+    $class_name = 'THEBRBRE_Placeholder_' . md5($bricks_name);
+
+    if (! class_exists($class_name)) {
+      eval(sprintf( // phpcs:ignore Squiz.PHP.Eval.Discouraged
+        'class %s extends THEBRBRE_Placeholder_Element { public $name = %s; public $placeholder_label = %s; }',
+        $class_name,
+        var_export($bricks_name, true),
+        var_export((string) $label, true)
+      ));
+    }
+
+    \Bricks\Elements::register_element(
+      THEBRBRE_PATH . 'includes/elements/class-thebrbre-placeholder-element.php',
+      '',
+      $class_name
+    );
+  }
+}
+
 if (! function_exists('thebrbre_feature_denied_message')) {
 
   /**

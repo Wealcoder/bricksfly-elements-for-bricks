@@ -247,6 +247,74 @@ class THEBRBRE_Plugin
 				}
 			}
 		}, 11);
+
+		// Placeholder pass: any configured FREE widget slug that didn't get a
+		// real class above (toggled off in Bricksfly settings) still gets a
+		// branded, builder-only notice instead of Bricks' raw "PHP class does
+		// not exist" error — a page that already uses the widget stays
+		// readable in the editor. Pro-only slugs are handled by the Pro
+		// plugin itself (it owns the element files needed to resolve their
+		// real Bricks `$name`). Priority 12 so the real registrations above
+		// have already run.
+		add_action('init', function () {
+
+			if (! class_exists('\Bricks\Elements') || ! function_exists('thebrbre_register_widget_placeholder')) {
+				return;
+			}
+
+			$active_widgets = self::get_widgets();
+			$elements_dir   = THEBRBRE_PATH . 'includes/elements/';
+			$leaves         = array();
+
+			self::collect_config_leaves($GLOBALS['thebrbre_config']['widgets']['elements'] ?? array(), $leaves);
+
+			foreach ($leaves as $slug => $data) {
+
+				// Already registered as a real element above.
+				if (isset($active_widgets[$slug])) {
+					continue;
+				}
+
+				if (! empty($data['is_upcoming']) || ! empty($data['is_pro'])) {
+					continue;
+				}
+
+				if (! file_exists($elements_dir . $slug . '.php')) {
+					continue;
+				}
+
+				$bricks_name = thebrbre_get_element_bricks_name($slug);
+
+				thebrbre_register_widget_placeholder($bricks_name, $data['label'] ?? $slug);
+			}
+		}, 12);
+	}
+
+	/**
+	 * Recursively collect every leaf widget node (not a group) from the
+	 * config `widgets.elements` tree. A node is a leaf when it carries
+	 * `is_active`, `is_extension` and `is_pro` — the same convention
+	 * thebrbre_get_total_config_elements_by_key() uses.
+	 *
+	 * @param array $nodes
+	 * @param array $leaves Slug => node data, populated by reference.
+	 */
+	private static function collect_config_leaves($nodes, &$leaves)
+	{
+		foreach ((array) $nodes as $slug => $node) {
+			if (! is_array($node)) {
+				continue;
+			}
+
+			if (isset($node['is_active'], $node['is_extension'], $node['is_pro'])) {
+				$leaves[$slug] = $node;
+				continue;
+			}
+
+			if (isset($node['elements']) && is_array($node['elements'])) {
+				self::collect_config_leaves($node['elements'], $leaves);
+			}
+		}
 	}
 
 	/**
