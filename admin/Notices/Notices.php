@@ -20,7 +20,7 @@ class Notices {
 	public function __construct() {
 		add_action( 'admin_init', array( $this, 'add_admin_notices' ) );
 
-		add_action( 'wp_ajax_thebrbre_notice__dismiss_notice', array( $this, 'ajax_dismiss_notice' ) );
+		add_action( 'wp_ajax_thebrbre_notice_dismiss_notice', array( $this, 'ajax_dismiss_notice' ) );
 		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
 	}
 
@@ -35,7 +35,7 @@ class Notices {
 	}
 
 	public function ajax_dismiss_notice() {
-		if ( ! check_ajax_referer( 'thebrbre_notice__dismiss_notice', 'nonce', false ) || ! current_user_can( 'manage_options' ) ) {
+		if ( ! check_ajax_referer( 'thebrbre_notice_dismiss_notice', 'nonce', false ) || ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error();
 			exit;
 		}
@@ -91,8 +91,8 @@ class Notices {
 					esc_attr( $notice['type'] ),
 					esc_attr( implode( ' ', $classes ) ),
 					esc_attr( $notice['notice_id'] ),
-					esc_attr( wp_create_nonce( 'thebrbre_notice__dismiss_notice' ) ),
-					esc_attr( 'thebrbre_notice__dismiss_notice' ),
+					esc_attr( wp_create_nonce( 'thebrbre_notice_dismiss_notice' ) ),
+					esc_attr( 'thebrbre_notice_dismiss_notice' ),
 					esc_attr( $style ),
 					wp_kses_post( wptexturize( $message ) ),
 					$notice['dismissible'] ? '<button type="button" class="notice-dismiss"><span class="screen-reader-text">' . esc_html__( 'Dismiss this notice', 'the-bricksfly' ) . '</span></button>' : ''
