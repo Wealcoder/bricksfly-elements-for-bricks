@@ -26,7 +26,7 @@ const CompleteImport = () => {
     <div className="bg-background w-[680px] rounded-2xl p-1.5 shadow-auth-card">
       <div className="border border-border-secondary rounded-xl p-8 pb-3.5">
         <div className="mb-6">
-          <h3 className="text-2xl font-medium">Congratulations!!! ðŸŽ‰</h3>
+          <h3 className="text-2xl font-medium">Congratulations!!! 🎉</h3>
           <p className="mt-1.5 text-text-secondary">
             Your website is now imported and ready to use.
           </p>
