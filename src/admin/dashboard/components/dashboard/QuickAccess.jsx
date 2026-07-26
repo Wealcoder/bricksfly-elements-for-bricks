@@ -1,6 +1,5 @@
 import { SquareArrowUp } from "lucide-react";
 import {
-  RiImageCircleLine,
   RiLayout3Line,
   RiSettings2Line,
   RiTextSnippet,
@@ -53,7 +52,7 @@ const AccessData = [
     title: "CPT Builder",
     subTitle: "Create custom CPT",
     url: `${THEBRBRE_ADDONS_ADMIN.adminURL}/admin.php?page=bricks-cpt-builder`,
-    icon: <RiImageCircleLine size={22} className="text-[#A281FF]" />,
+    icon: <RiVipCrown2Line size={22} className="text-[#FFA132]" />,
   },
 ];
 

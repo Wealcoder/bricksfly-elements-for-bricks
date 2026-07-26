@@ -118,21 +118,17 @@ class THEBRBRE_Plugin
 		// deactivate a license. The free plugin only reads the resulting
 		// option value via thebrbre_is_license_valid() / thebrbre_is_pro_active().
 
-		// CPT Builder must load on every request (admin + frontend) so the
-		// init hooks that register user-defined CPTs/taxonomies fire on the
-		// frontend too. Without this, single-post URLs for builder CPTs
-		// don't match any rewrite rule and WordPress redirects them to home.
-		require_once THEBRBRE_PATH . 'admin/cpt-builder.php';
-
-		// Admin pages. The "Site Settings" page is a Pro-only feature; the
-		// real UI lives in the Pro plugin and only registers when a valid
-		// license is active. The free plugin provides a placeholder that
-		// registers the menu + shows an upsell notice when Pro is missing
-		// or unlicensed, so the feature doesn't silently disappear.
+		// Admin pages. Both "CPT Builder" and "Site Settings" are Pro-only
+		// features; the real UI for each lives in the Pro plugin and only
+		// registers when a valid license is active. The free plugin
+		// provides a placeholder that registers the same menu + shows an
+		// upsell notice when Pro is missing or unlicensed, so the feature
+		// doesn't silently disappear.
 		if (is_admin()) {
 			require_once THEBRBRE_PATH . 'admin/pages/dashboard.php';
 			require_once THEBRBRE_PATH . 'admin/pages/template-importer.php';
 			require_once THEBRBRE_PATH . 'admin/pages/page-import.php';
+			require_once THEBRBRE_PATH . 'admin/pages/cpt-builder-placeholder.php';
 			// require_once THEBRBRE_PATH . 'admin/pages/settings-placeholder.php';
 		}
 

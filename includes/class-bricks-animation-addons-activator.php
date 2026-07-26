@@ -33,7 +33,8 @@ class THEBRBRE_Activator
 	 * Schedules a rewrite-rules flush so any CPT/taxonomy registered by the
 	 * builder is routed correctly after activation. On multisite, the flag
 	 * is set on every subsite when the plugin is network-activated, so each
-	 * subsite re-flushes on its next `wp_loaded` (handled by the CPT Builder).
+	 * subsite re-flushes on its next `wp_loaded` (handled by CPT Builder,
+	 * now a Pro-only feature — see the-bricksfly-pro/admin/pages/cpt-builder.php).
 	 *
 	 * Also seeds the `thebrbre_save_widgets` option with every shipped widget set
 	 * to active — first install only, so reactivations don't clobber the

@@ -2,8 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/admin/dashboard/*"],
-      "S/*": ["src/modules/cpt-builder/*"]
+      "@/*": ["src/admin/dashboard/*"]
     }
   },
   "exclude": [

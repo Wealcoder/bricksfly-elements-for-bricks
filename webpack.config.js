@@ -54,7 +54,7 @@ const elementEntries = ELEMENT_ENTRIES.reduce((acc, name) => {
 }, {});
 
 /* -------------------------------------------------------------------------
-   Config 1 — Admin React entries (dashboard, page-import, cpt-builder).
+   Config 1 — Admin React entries (dashboard, page-import).
    Uses type: "javascript/esm" + modules: false so webpack correctly handles
    import/export in the React source.
 ------------------------------------------------------------------------- */
@@ -71,7 +71,6 @@ const adminConfig = {
   entry: {
     "admin/dashboard": "./src/admin/dashboard/main.js",
     "admin/page-import": "./src/admin/page-import/main.js",
-    "modules/cpt-builder/main": "./src/modules/cpt-builder/main.js",
   },
   output: {
     path: path.resolve(__dirname, "public/build"),
@@ -111,7 +110,6 @@ const adminConfig = {
     extensions: [".js", ".jsx"],
     alias: {
       "@": path.resolve(__dirname, "src/admin/dashboard"),
-      S: path.resolve(__dirname, "src/modules/cpt-builder/"),
     },
   },
   // Only apply minification in production.

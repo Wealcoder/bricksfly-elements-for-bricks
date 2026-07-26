@@ -15,7 +15,7 @@ const defaultRulesWithoutBabel = defaultConfig.module.rules.filter(
 );
 
 /* -------------------------------------------------------------------------
-   Config 1 — Admin React entries (dashboard, page-import, cpt-builder).
+   Config 1 — Admin React entries (dashboard, page-import).
    Unchanged from the previous setup.
 ------------------------------------------------------------------------- */
 const adminConfig = {
@@ -32,7 +32,6 @@ const adminConfig = {
   entry: {
     "admin/dashboard": "./src/admin/dashboard/main.js",
     "admin/page-import": "./src/admin/page-import/main.js",
-    "modules/cpt-builder/main": "./src/modules/cpt-builder/main.js",
   },
   output: {
     path: path.resolve(__dirname, "public/build"),
@@ -74,7 +73,6 @@ const adminConfig = {
     extensions: [".js", ".jsx"],
     alias: {
       "@": path.resolve(__dirname, "src/admin/dashboard"),
-      S: path.resolve(__dirname, "src/modules/cpt-builder/"),
     },
   },
 };

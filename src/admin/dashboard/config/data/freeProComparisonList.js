@@ -233,8 +233,8 @@ export const freeProComparisonList = [
     name: "CPT Builder",
     helpText: "",
     free: {
-      text: "Limited",
-      icon: "",
+      text: "",
+      icon: CrossIcon,
     },
     pro1: {
       text: "",
