@@ -9,13 +9,19 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useTNavigation } from "@/hooks/app.hooks";
 import { useEffect, useState } from "react";
+import { countSlugs } from "@/lib/countSlugs";
 
 const RequiredFeatures = () => {
   const { setTabKey } = useTNavigation();
   const [currenTemplate, setCurrenTemplate] = useState({});
   const [selectedPlugins, setSelectedPlugins] = useState([]);
   const [allowAttachment, setAllowAttachment] = useState(true);
+  const [enableWidgets, setEnableWidgets] = useState(true);
+  const [enableExtensions, setEnableExtensions] = useState(true);
   const [loading, setIsLoading] = useState(true);
+
+  const widgetCounts = countSlugs(THEBRBRE_ADDONS_ADMIN?.addons_config?.widgets);
+  const extensionCounts = countSlugs(THEBRBRE_ADDONS_ADMIN?.addons_config?.extensions);
 
   const url = new URL(window.location.href);
   const templateid = url.searchParams.get("templateid");
@@ -32,6 +38,8 @@ const RequiredFeatures = () => {
       url.searchParams.set("plugins", selectedPlugins.toString());
     }
     url.searchParams.set("attachment", allowAttachment);
+    url.searchParams.set("enable_widgets", enableWidgets);
+    url.searchParams.set("enable_extensions", enableExtensions);
 
     window.history.replaceState({}, "", url);
     setTabKey(value);
@@ -60,16 +68,15 @@ const RequiredFeatures = () => {
             const result = Object.entries(data.templates).find(
               ([key, value]) => value.id == id
             )?.[1];
-            if (
-              !(
-                result?.dependencies?.plugins?.length &&
-                result?.dependencies?.plugins?.length
-              )
-            ) {
-              changeRoute("demo-importing");
-              return;
+            if (result?.dependencies?.plugins?.length) {
+              validateData(result);
+            } else {
+              // No required plugins to validate, but the screen still needs
+              // to render — it's where the Enable all Widgets/Extensions
+              // consent checkboxes live now, not just the plugins accordion.
+              setCurrenTemplate(result || {});
+              setIsLoading(false);
             }
-            validateData(result);
           }
         });
     } catch (error) {
@@ -207,6 +214,38 @@ const RequiredFeatures = () => {
               >
                 Import demo with attachments (recommended)
               </label>
+            </div>
+            <div className="flex items-center space-x-2.5 mt-4">
+              <Checkbox
+                id={`demo-import-enable-widgets`}
+                checked={enableWidgets}
+                onCheckedChange={setEnableWidgets}
+              />
+              <label
+                htmlFor={`demo-import-enable-widgets`}
+                className="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                Enable all Widgets
+              </label>
+              <Badge className="px-2 h-5 gap-1 bg-[#EAEAFF] text-[#5453FD] rounded-[4px] border-none">
+                {widgetCounts.active}/{widgetCounts.total} active
+              </Badge>
+            </div>
+            <div className="flex items-center space-x-2.5 mt-4">
+              <Checkbox
+                id={`demo-import-enable-extensions`}
+                checked={enableExtensions}
+                onCheckedChange={setEnableExtensions}
+              />
+              <label
+                htmlFor={`demo-import-enable-extensions`}
+                className="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                Enable all Extensions
+              </label>
+              <Badge className="px-2 h-5 gap-1 bg-[#EAEAFF] text-[#5453FD] rounded-[4px] border-none">
+                {extensionCounts.active}/{extensionCounts.total} active
+              </Badge>
             </div>
           </div>
           <div className="px-8 pt-4 pb-6 flex justify-end items-center gap-3">

@@ -17,6 +17,8 @@ const DemoImporting = () => {
   const templateid = url.searchParams.get("templateid");
   const plugins = url.searchParams.get("plugins");
   const attachment = url.searchParams.get("attachment");
+  const enableWidgets = url.searchParams.get("enable_widgets");
+  const enableExtensions = url.searchParams.get("enable_extensions");
 
   const changeRoute = (value, meta) => {
     const pageQuery = url.searchParams.get("page");
@@ -165,6 +167,8 @@ const DemoImporting = () => {
         formData.append("nonce", THEBRBRE_ADDONS_ADMIN.nonce);
         if (plugins) formData.append("user_plugins", plugins);
         formData.append("attachment", attachment);
+        formData.append("enable_widgets", enableWidgets ?? "true");
+        formData.append("enable_extensions", enableExtensions ?? "true");
         const response = await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
           method: "POST",
           headers: {
