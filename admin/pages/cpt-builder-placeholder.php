@@ -104,11 +104,23 @@ class THEBRBRE_CPT_Builder_Placeholder
 
 		$cta_url = $pro_active
 			? admin_url('admin.php?page=thebrbre_addons_settings&bf-license=1')
-			: admin_url('plugin-install.php?s=the-bricksfly-pro&tab=search&type=term');
+			: 'https://bricksfly.com/';
 
 		$cta_label = $pro_active
 			? __('Activate License', 'the-bricksfly')
 			: __('Get Pro', 'the-bricksfly');
+
+		$cta_target = $pro_active ? '' : ' target="_blank" rel="noopener"';
+
+		// Matches the dashboard's "pro" button variant (Button variant="pro" in
+		// src/admin/dashboard/components/ui/button.jsx): bg #FFD53E, gray-600 text,
+		// 10px radius, shadow-common that deepens to shadow-pro on hover.
+		$cta_style = 'display:inline-flex;align-items:center;justify-content:center;'
+			. 'height:40px;padding:0 18px;border-radius:10px;'
+			. 'background:#FFD53E;color:hsl(222,11%,36%);'
+			. 'font-size:14px;font-weight:500;text-decoration:none;'
+			. 'box-shadow:0px 1px 4px 0px rgba(10,13,20,0.03);'
+			. 'transition:box-shadow .15s ease;';
 
 		echo '<div class="wrap aab-settings-placeholder" style="max-width:780px;">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo '<h1>' . esc_html__('CPT Builder', 'the-bricksfly') . '</h1>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -116,7 +128,10 @@ class THEBRBRE_CPT_Builder_Placeholder
 		echo '<h2 style="margin-top:0;">' . esc_html($title) . '</h2>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo '<p>' . esc_html($body) . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo '<p><strong>' . esc_html($warning) . '</strong></p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		echo '<p><a href="' . esc_url($cta_url) . '" class="button button-primary">' . esc_html($cta_label) . '</a></p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo '<p><a href="' . esc_url($cta_url) . '" style="' . esc_attr($cta_style) . '"'
+			. ' onmouseover="this.style.boxShadow=\'0px 4px 12px 0px rgba(10,13,20,0.06)\'"'
+			. ' onmouseout="this.style.boxShadow=\'0px 1px 4px 0px rgba(10,13,20,0.03)\'"'
+			. $cta_target . '>' . esc_html($cta_label) . '</a></p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
