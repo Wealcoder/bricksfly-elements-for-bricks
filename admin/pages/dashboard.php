@@ -107,7 +107,6 @@ class THEBRBRE_Admin_Init
 		return $classes;
 	}
 
-
 	/**
 	 * [init] Assets Initializes
 	 *
