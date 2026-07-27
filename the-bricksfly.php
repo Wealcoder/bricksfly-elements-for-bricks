@@ -18,12 +18,12 @@
  * Description:       The Bricksfly for Bricks comes with GSAP Animation Builder, Customizable Elements, Header Footer, Single Post, Archive Page Builder, and Many more.
  * Version:           1.0.1
  * Author:            Wealcoder
- * Author URI:        https://bricksfly.com/
+ * Author URI:        https://profiles.wordpress.org/wealcoder/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       the-bricksfly
  * Domain Path:       /languages
- * Requires at least: 6.6
+ * Requires at least: 6.9
  * Requires PHP:      7.4
  * Tested up to:      7.0
  */
