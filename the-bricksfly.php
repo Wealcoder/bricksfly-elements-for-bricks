@@ -68,7 +68,7 @@ if (! defined('THEBRBRE_VERSION')) {
 	/**
 	 * Plugin Version.
 	 */
-	define('THEBRBRE_VERSION', '1.0.0');
+	define('THEBRBRE_VERSION', '1.0.1');
 }
 
 if (! defined('THEBRBRE_TEMPLATE_STARTER_BASE_URL')) {
