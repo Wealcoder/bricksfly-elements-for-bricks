@@ -1,7 +1,3 @@
-const isValid = THEBRBRE_ADDONS_ADMIN.addons_config.thebrbre_valid;
-const isOnlyPro =
-  THEBRBRE_ADDONS_ADMIN.addons_config?.product_status?.item_id === 39996;
-
 export const activeElementFn = (mainContent, data, dispatch) => {
   const result = Object.fromEntries(
     Object.entries(mainContent.elements).map(([key, value]) => {
@@ -49,19 +45,8 @@ export const activeGroupElementFn = (mainContent, data, dispatch) => {
       const filteredElements = Object.fromEntries(
         Object.entries(value.elements || {}).filter(([key2, value2]) => {
           if (key === data.slug) {
-            if (value2.is_pro && (value2?.pro_only ?? false)) {
-              if (isOnlyPro) {
-                value2.is_active = data.value;
-                return [key2, value2];
-              } else {
-                return [key2, value2];
-              }
-            } else if (value2.is_pro && !isValid) {
-              return [key2, value2];
-            } else {
-              value2.is_active = data.value;
-              return [key2, value2];
-            }
+            value2.is_active = data.value;
+            return [key2, value2];
           } else {
             return [key2, value2];
           }
@@ -99,19 +84,8 @@ export const activeFullElementFn = (mainContent, data, dispatch) => {
     Object.entries(mainContent.elements).map(([key, value]) => {
       const filteredElements = Object.fromEntries(
         Object.entries(value.elements || {}).filter(([key2, value2]) => {
-          if (value2.is_pro && (value2?.pro_only ?? false)) {
-            if (isOnlyPro) {
-              value2.is_active = data.value;
-              return [key2, value2];
-            } else {
-              return [key2, value2];
-            }
-          } else if (value2.is_pro && !isValid) {
-            return [key2, value2];
-          } else {
-            value2.is_active = data.value;
-            return [key2, value2];
-          }
+          value2.is_active = data.value;
+          return [key2, value2];
         })
       );
       value.is_active = data.value;
@@ -133,23 +107,12 @@ export const activeFullSetupElementFn = (mainContent, data) => {
     Object.entries(mainContent.elements).map(([key, value]) => {
       const filteredElements = Object.fromEntries(
         Object.entries(value.elements || {}).filter(([key2, value2]) => {
-          if (value2.is_pro && (value2?.pro_only ?? false)) {
-            if (isOnlyPro) {
-              value2.is_active = data.value;
-              return [key2, value2];
-            } else {
-              return [key2, value2];
-            }
-          } else if (value2.is_pro && !isValid) {
-            return [key2, value2];
+          if (value2?.setup) {
+            value2.is_active = value2.setup?.includes(data);
           } else {
-            if (value2?.setup) {
-              value2.is_active = value2.setup?.includes(data);
-            } else {
-              value2.is_active = false;
-            }
-            return [key2, value2];
+            value2.is_active = false;
           }
+          return [key2, value2];
         })
       );
       value.is_active = false;

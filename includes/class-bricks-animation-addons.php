@@ -113,22 +113,14 @@ class THEBRBRE_Plugin
 		require_once THEBRBRE_PATH . 'includes/extensions/helpers/BRICKS_ELEMENTS.php';
 		require_once THEBRBRE_PATH . 'includes/extensions/helpers/BricksElementsHelper.php';
 
-		// License AJAX endpoints + admin status notice live in the Pro plugin
-		// (includes/license/update.php) — Pro must be active to activate or
-		// deactivate a license. The free plugin only reads the resulting
-		// option value via thebrbre_is_license_valid() / thebrbre_is_pro_active().
-
-		// Admin pages. "CPT Builder" is now a Pro-only feature entirely — its
-		// menu, settings UI, and CPT/taxonomy registration all live in the
-		// Pro plugin (admin/pages/cpt-builder.php) with no free-side
-		// placeholder. "Site Settings" is also Pro-only; the real UI lives in
-		// the Pro plugin and only registers when a valid license is active.
+		// Admin pages. "CPT Builder" and "Site Settings" are Pro-only features
+		// entirely — their menus, settings UI, and registration all live in
+		// the Pro plugin (admin/pages/cpt-builder.php, admin/pages/settings.php)
+		// with no free-side placeholder.
 		if (is_admin()) {
 			require_once THEBRBRE_PATH . 'admin/pages/dashboard.php';
 			require_once THEBRBRE_PATH . 'admin/pages/template-importer.php';
 			require_once THEBRBRE_PATH . 'admin/pages/page-import.php';
-
-			// require_once THEBRBRE_PATH . 'admin/pages/settings-placeholder.php';
 		}
 
 		// Builder Template Library — adds the "Import Section" button to

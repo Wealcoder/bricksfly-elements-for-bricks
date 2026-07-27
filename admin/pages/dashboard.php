@@ -60,35 +60,6 @@ class THEBRBRE_Admin_Init
 		$this->init();
 	}
 
-	/**
-	 * Recursively walk the plugin config tree and return a map of Pro leaf
-	 * slugs. Used to strip Pro toggles from AJAX save payloads when the
-	 * license is not valid.
-	 *
-	 * @param array $nodes Config subtree.
-	 * @param array $acc   Accumulator passed through recursion.
-	 * @return array Map of slug => true for every leaf with `is_pro=true`.
-	 */
-	public static function thebrbre_collect_pro_slugs($nodes, $acc = array())
-	{
-		if (! is_array($nodes)) {
-			return $acc;
-		}
-		foreach ($nodes as $slug => $data) {
-			if (! is_array($data)) {
-				continue;
-			}
-			if (isset($data['elements']) && is_array($data['elements'])) {
-				$acc = self::thebrbre_collect_pro_slugs($data['elements'], $acc);
-				continue;
-			}
-			if (! empty($data['is_pro'])) {
-				$acc[$slug] = true;
-			}
-		}
-		return $acc;
-	}
-
 	function admin_classes($classes)
 	{
 		// Get the current admin screen object
@@ -247,10 +218,10 @@ class THEBRBRE_Admin_Init
 		require_once $admin_dir . 'Notices/Notices.php';
 		require_once $admin_dir . 'Notices/ShowNotices.php';
 
-		// CPT Builder moved to the Pro plugin entirely (Pro-only,
-		// license-gated) — see the-bricksfly-pro/admin/pages/cpt-builder.php,
-		// wired via thebrbre_pro_register(). The free plugin no longer
-		// registers any CPT Builder menu/placeholder.
+		// CPT Builder moved to the Pro plugin entirely (Pro-only) — see
+		// the-bricksfly-pro/admin/pages/cpt-builder.php, wired via
+		// thebrbre_pro_register(). The free plugin no longer registers any
+		// CPT Builder menu/placeholder.
 
 		// Initialize OneClickImport.
 		$oneimport = \wealcoder\thebricksfly\Admin\Base\OneClickImport::get_instance();
@@ -289,23 +260,6 @@ class THEBRBRE_Admin_Init
 		remove_submenu_page(self::MENU_PAGE_SLUG, self::MENU_PAGE_SLUG);
 
 		global $submenu;
-
-
-		// License link â€” navigates to the real License Settings page
-		// (thebrbre-license-settings), replacing the old React modal
-		// entry point (?bf-license=1).
-		if (is_plugin_active('the-bricksfly-pro/the-bricksfly-pro.php')) {
-			$license_active = function_exists('thebrbre_license_is_valid') && thebrbre_license_is_valid();
-			$license_label  = esc_html__('License', 'the-bricksfly');
-			if ($license_active) {
-				$license_label .= ' <span class="bf-license-menu-badge" style="display:inline-block;margin-left:6px;width:8px;height:8px;border-radius:50%;background:#10b981;vertical-align:middle;"></span>';
-			}
-			$submenu[self::MENU_PAGE_SLUG][] = array(
-				$license_label,
-				'manage_options',
-				admin_url('admin.php?page=thebrbre-license-settings'),
-			);
-		}
 
 		// Start Template link â€” deep-links into the React dashboard's
 		// "stater-template" tab. Registered via $submenu directly so the
@@ -373,44 +327,25 @@ class THEBRBRE_Admin_Init
 		// one place â€” same source the frontend ResponsiveHelper consumers use.
 		$bricks_breakpoints = \wealcoder\thebricksfly\Includes\Extensions\Helpers\ResponsiveHelper::getBreakpoints();
 
-		// License info for the React LicenseDialog (mirrors the shared contract
-		// from animation-addons-for-elementor-pro).
-		$thebrbre_license_status = (string) get_option('thebrbre_license_status', '');
-		$thebrbre_license_key    = (string) get_option('thebrbre_license_key', '');
-
-		// The license counts as valid only when BOTH the Pro plugin folder is
-		// installed AND the stored license status is "valid". This gates the
-		// React UI so that deleting the Pro plugin folder (or installing just
-		// the free plugin) immediately locks every pro toggle â€” regardless of
-		// whatever license status survives in the database.
-		$pro_installed      = function_exists('thebrbre_is_pro_installed') ? thebrbre_is_pro_installed() : file_exists($this->plugin_file);
-		$thebrbre_license_valid  = $pro_installed && ('valid' === $thebrbre_license_status);
+		// Bricksfly has no license tiers â€” every feature is always enabled.
+		// `is_pro` still reflects whether the Pro plugin folder is installed,
+		// since Pro's widgets/extensions still require the Pro plugin itself.
+		$pro_installed = function_exists('thebrbre_is_pro_installed') ? thebrbre_is_pro_installed() : file_exists($this->plugin_file);
 
 		$addons_config = apply_filters('thebrbre_dashboard_config', $GLOBALS['thebrbre_config']);
-		$addons_config['sl_lic']    = $thebrbre_license_key;
-		$addons_config['is_pro']    = $pro_installed;
-		$addons_config['thebrbre_valid'] = $thebrbre_license_valid;
-
-		// NOTE: the compiled React dashboard (shared with animation-addons-for-elementor)
-		// uses a strict `39996 === product_status.item_id` check to flip the header button
-		// to "Deactivate License" and to pick the deactivate AJAX action. We send 13
-		// when the license is valid so the bundled UI recognises the activated state â€”
-		// the actual EDD API request uses our real item ID (THEBRBRE_PRO_ITEM_ID).
-		// Per-feature license limitations (Template / Section / Page import etc.).
-		// Empty array when the license isn't valid â€” the React import gate treats
-		// a missing/false flag as "not allowed" and shows the upsell popup.
-		$thebrbre_limitations = function_exists('thebrbre_get_license_limitations') ? thebrbre_get_license_limitations() : array();
+		$addons_config['is_pro']         = $pro_installed;
+		$addons_config['thebrbre_valid'] = true;
 
 		$addons_config['product_status'] = [
-			'item_id'      => $thebrbre_license_valid ? 39996 : 0,
-			'status'       => $thebrbre_license_status,
+			'item_id'      => $pro_installed ? 39996 : 0,
+			'status'       => 'valid',
 			'real_item_id' => THEBRBRE_PRO_ITEM_ID,
-			'limitations'  => $thebrbre_limitations,
+			'limitations'  => [],
 		];
 
 		// Also expose at the top level so components that read the config
 		// directly (not via product_status) can reach it.
-		$addons_config['limitations'] = $thebrbre_limitations;
+		$addons_config['limitations'] = [];
 
 		$localize_data = array(
 			'ajaxurl'             => admin_url('admin-ajax.php'),
@@ -438,13 +373,6 @@ class THEBRBRE_Admin_Init
 			'plugin_url' => THEBRBRE_URL,
 			'has_pro' => file_exists($this->plugin_file),
 			'breakpoints' => $bricks_breakpoints,
-			'license_settings_url' => admin_url('admin.php?page=thebrbre-license-settings'),
-
-			// Dynamic replacement copy for the compiled React "Upgrade" dialog.
-			// The bundle hardcodes the default strings; a small inline script
-			// below swaps them at runtime based on current Pro/license state.
-			// 'pro_dialog_copy' => $this->get_pro_dialog_copy($thebrbre_license_status, $thebrbre_license_key),
-
 		);
 		wp_localize_script('thebrbre-admin', 'THEBRBRE_ADDONS_ADMIN', $localize_data);
 
@@ -453,97 +381,14 @@ class THEBRBRE_Admin_Init
 	}
 
 	/**
-	 * Return heading + subtitle strings that replace the hardcoded React
-	 * "Upgrade to premium plan" text when the user is not yet fully licensed.
-	 *
-	 * @return array{heading:string, subtext:string, button:string}
-	 */
-	private function get_pro_dialog_copy($license_status, $license_key)
-	{
-		$pro_basename  = 'the-bricksfly-pro/the-bricksfly-pro.php';
-		$pro_installed = file_exists(WP_PLUGIN_DIR . '/' . $pro_basename);
-		$pro_active    = (function_exists('thebrbre_is_pro_active') && thebrbre_is_pro_active());
-
-		// Case 1 â€” Pro plugin isn't installed: keep the default "Upgradeâ€¦" copy.
-		if (! $pro_installed) {
-			return array('heading' => '', 'subtext' => '', 'button' => '');
-		}
-
-		// Case 2 â€” Pro installed but not active yet.
-		if (! $pro_active) {
-			return array(
-				'heading' => esc_html__('Pro plugin installed â€” activate it to continue', 'the-bricksfly'),
-				'subtext' => esc_html__('Head to the Plugins screen and click "Activate" on Bricksfly Pro to enable premium features.', 'the-bricksfly'),
-				'button'  => esc_html__('Activate Plugin', 'the-bricksfly'),
-			);
-		}
-
-		// Case 3 â€” Both active but no license key saved yet.
-		if (empty($license_key)) {
-			return array(
-				'heading' => esc_html__('Activate your license to unlock Pro features', 'the-bricksfly'),
-				'subtext' => esc_html__('Enter your purchased license key to enable every premium extension, template, and automatic update.', 'the-bricksfly'),
-				'button'  => esc_html__('Activate License', 'the-bricksfly'),
-			);
-		}
-
-		// Case 4 â€” License key on file but the server says it's invalid.
-		if (in_array($license_status, array('invalid', 'missing'), true)) {
-			return array(
-				'heading' => esc_html__('Your license key is invalid', 'the-bricksfly'),
-				'subtext' => esc_html__('The saved license key is not valid for this site. Please re-enter it or purchase a new one.', 'the-bricksfly'),
-				'button'  => esc_html__('Re-enter License', 'the-bricksfly'),
-			);
-		}
-
-		// Case 5 â€” Expired.
-		if ('expired' === $license_status) {
-			return array(
-				'heading' => esc_html__('Your license has expired', 'the-bricksfly'),
-				'subtext' => esc_html__('Renew your license to keep receiving updates and premium features.', 'the-bricksfly'),
-				'button'  => esc_html__('Renew License', 'the-bricksfly'),
-			);
-		}
-
-		// Case 6 â€” Disabled / revoked.
-		if (in_array($license_status, array('disabled', 'revoked'), true)) {
-			return array(
-				'heading' => esc_html__('Your license has been disabled', 'the-bricksfly'),
-				'subtext' => esc_html__('Please contact support if you believe this is an error.', 'the-bricksfly'),
-				'button'  => esc_html__('Contact Support', 'the-bricksfly'),
-			);
-		}
-
-		// Case 7 â€” Site not yet activated for this URL.
-		if ('site_inactive' === $license_status) {
-			return array(
-				'heading' => esc_html__('This site is not activated on your license', 'the-bricksfly'),
-				'subtext' => esc_html__('Activate this site in your license to unlock premium features.', 'the-bricksfly'),
-				'button'  => esc_html__('Activate License', 'the-bricksfly'),
-			);
-		}
-
-		// Valid license â€” nothing to replace.
-		return array('heading' => '', 'subtext' => '', 'button' => '');
-	}
-
-	/**
-	 * Inline JS that swaps the React bundle's hardcoded strings at runtime:
-	 *  1. "Upgrade to premium planâ€¦" heading/subtitle with context-aware copy.
-	 *  2. "Elementor" â†’ "Bricks Builder" in user-visible text (the compiled
-	 *     bundle is shared with the Elementor plugin, so it still ships
-	 *     Elementor-branded copy in marketing cards / widget descriptions).
+	 * Inline JS that rebrands "Elementor" â†’ "Bricks Builder" in user-visible
+	 * text (the compiled bundle is shared with the Elementor plugin, so it
+	 * still ships Elementor-branded copy in marketing cards / widget
+	 * descriptions).
 	 */
 	private function get_pro_dialog_swap_script()
 	{
 		return '(function () {
-	var copy = (window.THEBRBRE_ADDONS_ADMIN && THEBRBRE_ADDONS_ADMIN.pro_dialog_copy) || { heading: "", subtext: "" };
-
-	var DEFAULTS = {
-		heading: "Upgrade to premium plan and unlock every features!",
-		subtext: "Upgrade and get access to every feature."
-	};
-
 	// Replace "Elementor" with "Bricks Builder" in a text node while leaving
 	// URLs and internal slugs (anything containing "/" or ":") alone.
 	function rebrandTextNode(node) {
@@ -556,23 +401,7 @@ class THEBRBRE_Admin_Init
 	function swap(root) {
 		var scope = root || document;
 
-		// 1. Upgrade dialog heading/subtext swap.
-		if (copy.heading) {
-			scope.querySelectorAll("h2").forEach(function (el) {
-				if (el.textContent.trim() === DEFAULTS.heading) {
-					el.textContent = copy.heading;
-				}
-			});
-		}
-		if (copy.subtext) {
-			scope.querySelectorAll("p").forEach(function (el) {
-				if (el.textContent.trim() === DEFAULTS.subtext) {
-					el.textContent = copy.subtext;
-				}
-			});
-		}
-
-		// 2. Global Elementor â†’ Bricks Builder rebrand for visible text nodes.
+		// Global Elementor â†’ Bricks Builder rebrand for visible text nodes.
 		var selector = "h1, h2, h3, h4, h5, h6, p, span, li, button, label, strong, em, small";
 		scope.querySelectorAll(selector).forEach(function (el) {
 			// Only process direct text children so we don\'t touch elements that
@@ -780,20 +609,6 @@ class THEBRBRE_Admin_Init
 
 		thebrbre_get_nested_config_keys($settings, $foundkeys, $updatedSettings);
 
-		// License gate: force Pro-only slugs to false when the license is not
-		// valid. Guards against forged AJAX payloads that would otherwise
-		// bypass the React UI's pro-toggle lockout. Pro slugs stay in the
-		// map (as false) so the saved option remains a complete slug list.
-		$license_valid = function_exists('thebrbre_is_license_valid') && thebrbre_is_license_valid();
-		if (! $license_valid && is_array($updatedSettings)) {
-			$pro_slugs = self::thebrbre_collect_pro_slugs(isset($GLOBALS['thebrbre_config']) ? $GLOBALS['thebrbre_config'] : array());
-			foreach (array_keys($updatedSettings) as $slug) {
-				if (isset($pro_slugs[$slug])) {
-					$updatedSettings[$slug] = false;
-				}
-			}
-		}
-
 		if ('thebrbre_save_widgets' === $option_name) {
 			$updated = update_option('thebrbre_save_widgets', $updatedSettings);
 		} elseif ('thebrbre_save_extensions' === $option_name) {
@@ -866,36 +681,12 @@ class THEBRBRE_Admin_Init
 			$actives = array();
 		}
 
-		$license_valid = function_exists('thebrbre_is_license_valid') && thebrbre_is_license_valid();
-		$pro_slugs     = ! $license_valid
-			? self::thebrbre_collect_pro_slugs(isset($GLOBALS['thebrbre_config']) ? $GLOBALS['thebrbre_config'] : array())
-			: array();
-
 		// Merge the incoming payload into the stored map. Every slug from the
 		// frontend is recorded as true/false; existing keys not in the payload
 		// are left alone so partial toggles don't drop other items.
 		if (is_array($settings)) {
 			foreach ($settings as $slug => $item) {
-				$is_active = ! empty($item['is_active']);
-
-				// License gate: Pro slugs are forced to false when the license
-				// is not valid, regardless of what the payload requested.
-				if (! $license_valid && isset($pro_slugs[$slug])) {
-					$actives[$slug] = false;
-					continue;
-				}
-
-				$actives[$slug] = $is_active;
-			}
-		}
-
-		// Downgrade any pre-existing Pro slugs in the stored map to false when
-		// the license becomes invalid (e.g. expiry between saves).
-		if (! $license_valid && ! empty($pro_slugs)) {
-			foreach (array_keys($actives) as $slug) {
-				if (isset($pro_slugs[$slug])) {
-					$actives[$slug] = false;
-				}
+				$actives[$slug] = ! empty($item['is_active']);
 			}
 		}
 

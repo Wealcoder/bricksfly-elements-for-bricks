@@ -90,7 +90,6 @@ class THEBRBRE_Builder_Template_Library {
 
 		$pro_installed = function_exists( 'thebrbre_is_pro_installed' ) ? thebrbre_is_pro_installed() : false;
 		$pro_active    = function_exists( 'thebrbre_is_pro_active' ) ? thebrbre_is_pro_active() : false;
-		$license_valid = function_exists( 'thebrbre_is_license_valid' ) ? thebrbre_is_license_valid() : false;
 
 		// In the Bricks builder context, `get_the_ID()` resolves to the post
 		// being edited (Bricks loads the front-end template chain just like
@@ -132,12 +131,9 @@ class THEBRBRE_Builder_Template_Library {
 				'pro_active'      => $pro_active,
 				'config'          => apply_filters('thebrbre_builder_template_library_config',
 					[
-						'thebrbre_valid' => $license_valid,
-						// Section import is gated by this flag (also enforced
-						// server-side in ajax_insert_template()). The JS uses it
-						// to show an upsell popup before the request is sent.
-						'section_import' => function_exists( 'thebrbre_is_feature_allowed' ) && thebrbre_is_feature_allowed( 'section_import' ),
-						'limitations'    => function_exists( 'thebrbre_get_license_limitations' ) ? thebrbre_get_license_limitations() : [],
+						'thebrbre_valid' => true,
+						'section_import' => true,
+						'limitations'    => [],
 					]
 				),
 				'i18n'            => [
@@ -147,10 +143,7 @@ class THEBRBRE_Builder_Template_Library {
 					'inserting'       => esc_html__( 'Inserting…', 'the-bricksfly' ),
 					'preview'         => esc_html__( 'Preview', 'the-bricksfly' ),
 					'go_premium'      => esc_html__( 'Go Premium', 'the-bricksfly' ),
-					'activate'        => esc_html__( 'Activate License', 'the-bricksfly' ),
 					'install_pro'     => esc_html__( 'Install Pro', 'the-bricksfly' ),
-					'upgrade_plan'    => esc_html__( 'Upgrade Plan', 'the-bricksfly' ),
-					'section_locked'  => esc_html__( 'Section import is not included in your current license plan. Please upgrade your plan to import sections.', 'the-bricksfly' ),
 					'search'          => esc_html__( 'Search', 'the-bricksfly' ),
 					'category'        => esc_html__( 'Category', 'the-bricksfly' ),
 					'all_colors'      => esc_html__( 'All', 'the-bricksfly' ),
@@ -218,22 +211,6 @@ class THEBRBRE_Builder_Template_Library {
 
 		if ( ! $post_id || ! current_user_can( 'edit_post', $post_id ) ) {
 			wp_send_json_error( [ 'message' => __( 'Permission denied for this post.', 'the-bricksfly' ) ], 403 );
-		}
-
-		// License limitation gate — Section import requires the `section_import`
-		// flag on the active license. Enforced server-side so the client lock
-		// (THEBRBRE_TEMPLATE_LIBRARY.config.section_import) can't be bypassed by a
-		// forged AJAX call. `limited:true` lets the JS show the upsell popup.
-		if ( function_exists( 'thebrbre_is_feature_allowed' ) && ! thebrbre_is_feature_allowed( 'section_import' ) ) {
-			$message = function_exists( 'thebrbre_feature_denied_message' )
-				? thebrbre_feature_denied_message( 'section_import' )
-				: __( 'Section import is not included in your current license plan.', 'the-bricksfly' );
-
-			wp_send_json_error( [
-				'limited' => true,
-				'feature' => 'section_import',
-				'message' => $message,
-			], 403 );
 		}
 
 		$template_id = isset( $_POST['template_id'] ) ? absint( $_POST['template_id'] ) : 0;

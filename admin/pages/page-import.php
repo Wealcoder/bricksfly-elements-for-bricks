@@ -152,49 +152,24 @@ class THEBRBRE_Page_Importer {
 			true
 		);
 
-		// Enrich the config with the CURRENT license state so Pro page templates
-		// unlock the moment a license is activated â€” no manual refresh needed.
-		//
-		// The bug this fixes: the Page Importer used to localize a bare
-		// `addons_config` with no license fields, so the React app's Pro gate
-		// (TemplateShow.jsx: `activated?.product_status?.item_id === 39996 `) never
-		// saw the active license and kept every Pro template locked. The
-		// Dashboard already enriches its config this way; we mirror it here so
-		// BOTH pages read the SAME single source of truth.
-		//
-		// Reading the options here (on every importer page load) means the state
-		// is always freshly fetched â€” never a stale cached value â€” so activation
-		// done elsewhere is reflected on the next load of this page.
+		// Bricksfly has no license tiers â€” every feature is always enabled.
+		// `is_pro` still reflects whether the Pro plugin folder is installed,
+		// since Pro's page templates still require the Pro plugin itself.
 		$addons_config = apply_filters('thebrbre_dashboard_config', $GLOBALS['thebrbre_config'] ?? [] );
 
-		$license_status = (string) get_option( 'thebrbre_license_status', '' );
-		$license_key    = (string) get_option( 'thebrbre_license_key', '' );
-
-		// Valid only when the Pro plugin folder exists AND the stored status is
-		// "valid" â€” the same combined check used by thebrbre_is_license_valid() and
-		// the Dashboard, so deleting the Pro folder relocks Pro instantly.
 		$pro_installed = function_exists( 'thebrbre_is_pro_installed' ) ? thebrbre_is_pro_installed() : false;
-		$license_valid = $pro_installed && ( 'valid' === $license_status );
 
-		$addons_config['sl_lic']    = $license_key;
-		$addons_config['is_pro']    = $pro_installed;
-		$addons_config['thebrbre_valid'] = $license_valid;
-
-		// The compiled React UI unlocks Pro items on `product_status.item_id === 39996 `.
-		// Send 39996 only when the license is valid (mirrors the Dashboard); the real
-		// EDD item id is carried separately for the actual API verification flow.
-		// Per-feature license limitations â€” same single source of truth as the
-		// Dashboard so the Page Importer's Pro gate reads identical state.
-		$limitations = function_exists( 'thebrbre_get_license_limitations' ) ? thebrbre_get_license_limitations() : array();
+		$addons_config['is_pro']         = $pro_installed;
+		$addons_config['thebrbre_valid'] = true;
 
 		$addons_config['product_status'] = [
-			'item_id'      => $license_valid ? 39996 : 0,
-			'status'       => $license_status,
+			'item_id'      => $pro_installed ? 39996 : 0,
+			'status'       => 'valid',
 			'real_item_id' => defined( 'THEBRBRE_PRO_ITEM_ID' ) ? THEBRBRE_PRO_ITEM_ID : 0,
-			'limitations'  => $limitations,
+			'limitations'  => [],
 		];
 
-		$addons_config['limitations'] = $limitations;
+		$addons_config['limitations'] = [];
 
 		$localize_data = [
 			'plugin_url'         => THEBRBRE_URL,

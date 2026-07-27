@@ -1,7 +1,3 @@
-const isValid = THEBRBRE_ADDONS_ADMIN.addons_config.thebrbre_valid;
-const isOnlyPro =
-  THEBRBRE_ADDONS_ADMIN.addons_config?.product_status?.item_id === 39996;
-
 export const generalExtensionFn = (mainContent, data, dispatch) => {
   const result = Object.fromEntries(
     Object.entries(mainContent.elements["general-extensions"].elements).map(
@@ -9,19 +5,8 @@ export const generalExtensionFn = (mainContent, data, dispatch) => {
         const filteredElements = Object.fromEntries(
           Object.entries(value.elements || {}).map(([key2, value2]) => {
             if (key2 === data.slug) {
-              if (value2.is_pro && (value2?.pro_only ?? false)) {
-                if (isOnlyPro) {
-                  value2.is_active = data.value;
-                  return [key2, value2];
-                } else {
-                  return [key2, value2];
-                }
-              } else if (value2.is_pro && !isValid) {
-                return [key2, value2];
-              } else {
-                value2.is_active = data.value;
-                return [key2, value2];
-              }
+              value2.is_active = data.value;
+              return [key2, value2];
             } else {
               return [key2, value2];
             }
@@ -54,19 +39,8 @@ export const generalGroupExtensionFn = (mainContent, data, dispatch) => {
         const filteredElements = Object.fromEntries(
           Object.entries(value.elements || {}).map(([key2, value2]) => {
             if (key === data.slug) {
-              if (value2.is_pro && (value2?.pro_only ?? false)) {
-                if (isOnlyPro) {
-                  value2.is_active = data.value;
-                  return [key2, value2];
-                } else {
-                  return [key2, value2];
-                }
-              } else if (value2.is_pro && !isValid) {
-                return [key2, value2];
-              } else {
-                value2.is_active = data.value;
-                return [key2, value2];
-              }
+              value2.is_active = data.value;
+              return [key2, value2];
             } else {
               return [key2, value2];
             }
@@ -126,19 +100,8 @@ export const generalAllExtensionFn = (mainContent, data, dispatch) => {
       ([key, value]) => {
         const filteredElements = Object.fromEntries(
           Object.entries(value.elements || {}).map(([key2, value2]) => {
-            if (value2.is_pro && (value2?.pro_only ?? false)) {
-              if (isOnlyPro) {
-                value2.is_active = data.value;
-                return [key2, value2];
-              } else {
-                return [key2, value2];
-              }
-            } else if (value2.is_pro && !isValid) {
-              return [key2, value2];
-            } else {
-              value2.is_active = data.value;
-              return [key2, value2];
-            }
+            value2.is_active = data.value;
+            return [key2, value2];
           })
         );
         if (value?.elements && Object.keys(value.elements).length) {
@@ -196,19 +159,8 @@ export const gsapExtensionFn = (mainContent, data, dispatch) => {
         const filteredElements = Object.fromEntries(
           Object.entries(value.elements || {}).map(([key2, value2]) => {
             if (key2 === data.slug) {
-              if (value2.is_pro && (value2?.pro_only ?? false)) {
-                if (isOnlyPro) {
-                  value2.is_active = data.value;
-                  return [key2, value2];
-                } else {
-                  return [key2, value2];
-                }
-              } else if (value2.is_pro && !isValid) {
-                return [key2, value2];
-              } else {
-                value2.is_active = data.value;
-                return [key2, value2];
-              }
+              value2.is_active = data.value;
+              return [key2, value2];
             } else {
               return [key2, value2];
             }
@@ -241,19 +193,8 @@ export const gsapGroupExtensionFn = (mainContent, data, dispatch) => {
         const filteredElements = Object.fromEntries(
           Object.entries(value.elements || {}).map(([key2, value2]) => {
             if (key === data.slug) {
-              if (value2.is_pro && (value2?.pro_only ?? false)) {
-                if (isOnlyPro) {
-                  value2.is_active = data.value;
-                  return [key2, value2];
-                } else {
-                  return [key2, value2];
-                }
-              } else if (value2.is_pro && !isValid) {
-                return [key2, value2];
-              } else {
-                value2.is_active = data.value;
-                return [key2, value2];
-              }
+              value2.is_active = data.value;
+              return [key2, value2];
             } else {
               return [key2, value2];
             }
@@ -313,19 +254,8 @@ export const gsapAllExtensionFn = (mainContent, data, dispatch) => {
       ([key, value]) => {
         const filteredElements = Object.fromEntries(
           Object.entries(value.elements || {}).map(([key2, value2]) => {
-            if (value2.is_pro && (value2?.pro_only ?? false)) {
-              if (isOnlyPro) {
-                value2.is_active = data.value;
-                return [key2, value2];
-              } else {
-                return [key2, value2];
-              }
-            } else if (value2.is_pro && !isValid) {
-              return [key2, value2];
-            } else {
-              value2.is_active = data.value;
-              return [key2, value2];
-            }
+            value2.is_active = data.value;
+            return [key2, value2];
           })
         );
         if (value?.elements && Object.keys(value.elements).length) {
@@ -382,19 +312,8 @@ export const allExtensionFn = (mainContent, data, dispatch) => {
       ([key, value]) => {
         const filteredElements = Object.fromEntries(
           Object.entries(value.elements || {}).map(([key2, value2]) => {
-            if (value2.is_pro && (value2?.pro_only ?? false)) {
-              if (isOnlyPro) {
-                value2.is_active = data.value;
-                return [key2, value2];
-              } else {
-                return [key2, value2];
-              }
-            } else if (value2.is_pro && !isValid) {
-              return [key2, value2];
-            } else {
-              value2.is_active = data.value;
-              return [key2, value2];
-            }
+            value2.is_active = data.value;
+            return [key2, value2];
           })
         );
         if (value?.elements && Object.keys(value.elements).length) {
@@ -410,19 +329,8 @@ export const allExtensionFn = (mainContent, data, dispatch) => {
       ([key, value]) => {
         const filteredElements = Object.fromEntries(
           Object.entries(value.elements || {}).map(([key2, value2]) => {
-            if (value2.is_pro && (value2?.pro_only ?? false)) {
-              if (isOnlyPro) {
-                value2.is_active = data.value;
-                return [key2, value2];
-              } else {
-                return [key2, value2];
-              }
-            } else if (value2.is_pro && !isValid) {
-              return [key2, value2];
-            } else {
-              value2.is_active = data.value;
-              return [key2, value2];
-            }
+            value2.is_active = data.value;
+            return [key2, value2];
           })
         );
         if (value?.elements && Object.keys(value.elements).length) {
@@ -468,23 +376,12 @@ export const allSetupExtensionFn = (mainContent, data) => {
         let isGroupActive = false;
         const filteredElements = Object.fromEntries(
           Object.entries(value.elements || {}).map(([key2, value2]) => {
-            if (value2.is_pro && (value2?.pro_only ?? false)) {
-              if (isOnlyPro) {
-                value2.is_active = data.value;
-                return [key2, value2];
-              } else {
-                return [key2, value2];
-              }
-            } else if (value2.is_pro && !isValid) {
-              return [key2, value2];
-            } else {
-              const activeItem = value2.setup?.includes(data);
-              if (activeItem) {
-                isGroupActive = true;
-              }
-              value2.is_active = activeItem;
-              return [key2, value2];
+            const activeItem = value2.setup?.includes(data);
+            if (activeItem) {
+              isGroupActive = true;
             }
+            value2.is_active = activeItem;
+            return [key2, value2];
           })
         );
         if (value?.elements && Object.keys(value.elements).length) {
@@ -501,23 +398,12 @@ export const allSetupExtensionFn = (mainContent, data) => {
         let isGroupActive = false;
         const filteredElements = Object.fromEntries(
           Object.entries(value.elements || {}).map(([key2, value2]) => {
-            if (value2.is_pro && (value2?.pro_only ?? false)) {
-              if (isOnlyPro) {
-                value2.is_active = data.value;
-                return [key2, value2];
-              } else {
-                return [key2, value2];
-              }
-            } else if (value2.is_pro && !isValid) {
-              return [key2, value2];
-            } else {
-              const activeItem = value2.setup?.includes(data);
-              if (activeItem) {
-                isGroupActive = true;
-              }
-              value2.is_active = activeItem;
-              return [key2, value2];
+            const activeItem = value2.setup?.includes(data);
+            if (activeItem) {
+              isGroupActive = true;
             }
+            value2.is_active = activeItem;
+            return [key2, value2];
           })
         );
         if (value?.elements && Object.keys(value.elements).length) {

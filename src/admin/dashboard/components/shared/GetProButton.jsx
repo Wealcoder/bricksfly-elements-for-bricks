@@ -1,7 +1,7 @@
 import { useActivate } from "@/hooks/app.hooks";
 import { Button, buttonVariants } from "../ui/button";
 import { toast } from "sonner";
-import { RiKey2Line, RiVipCrown2Line } from "react-icons/ri";
+import { RiVipCrown2Line } from "react-icons/ri";
 import { cn } from "@/lib/utils";
 
 const GetProButton = ({ btnClassName }) => {
@@ -50,8 +50,7 @@ const GetProButton = ({ btnClassName }) => {
             </span>
             Active Plugin
           </Button>
-        ) : activated.integrations.plugins.elements["the-bricksfly-pro"].action ===
-          "Download" ? (
+        ) : (
           <a
             href="https://bricksfly.com/"
             target="_blank"
@@ -62,22 +61,6 @@ const GetProButton = ({ btnClassName }) => {
             </span>
             Get Pro Version
           </a>
-        ) : (
-          <Button
-            variant="pro"
-            onClick={() => {
-              window.location.href = THEBRBRE_ADDONS_ADMIN.license_settings_url;
-            }}
-            className={btnClassName}
-          >
-            <span className="me-1.5 flex">
-              <RiKey2Line size={20} />
-            </span>
-
-            {activated?.product_status?.item_id === 39996
-              ? "Manage License"
-              : "Activate License"}
-          </Button>
         ))}
     </div>
   );

@@ -6,19 +6,8 @@ import GlobalSearch from "../shared/GlobalSearch";
 import MobileNav from "./MobileNav";
 import Notification from "../notification";
 import GetProButton from "../shared/GetProButton";
-import { useEffect } from "react";
 
 const MainHeader = ({ open, setOpen }) => {
-  // Old bookmarks/links to the removed React License modal (?bf-license=1)
-  // land here â€” redirect straight to the real License Settings page rather
-  // than reviving the modal.
-  useEffect(() => {
-    const url = new URL(window.location.href);
-    if (url.searchParams.get("bf-license") === "1") {
-      window.location.replace(THEBRBRE_ADDONS_ADMIN.license_settings_url);
-    }
-  }, []);
-
   return (
     <div className="flex justify-between items-center gap-6 py-5 px-8 border-b border-border-secondary">
       <div>

@@ -79,13 +79,10 @@ if (! defined('THEBRBRE_TEMPLATE_STARTER_BASE_URL')) {
 }
 
 /**
- * Shared EDD Software Licensing identifiers.
- *
- * The license activation/deactivation handlers live in the Pro plugin
- * (includes/license/update.php), but the free dashboard reads these
- * constants when localizing the React UI. Defining them here keeps the
- * dashboard renderable when Pro is inactive. Pro's own files re-define
- * the same names with `! defined()` guards, so this is safe.
+ * Shared EDD store identifiers, used only by the Pro plugin's (unconditional,
+ * license-free) update-check mechanism. Defined here so the free plugin's
+ * dashboard can render without depending on Pro being active. Pro's own
+ * files re-define the same names with `! defined()` guards, so this is safe.
  */
 if (! defined('THEBRBRE_PRO_STORE_URL')) {
 	define('THEBRBRE_PRO_STORE_URL', 'https://my.bricksfly.com/');

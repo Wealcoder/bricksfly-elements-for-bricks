@@ -450,36 +450,14 @@ import "../../scss/admin/aab-template-library.scss";
 	}
 
 	/**
-	 * Mark each template as valid (Insert button enabled) if it is free or
-	 * the user has a valid Pro license AND the license plan includes section
-	 * import. `is_pro` from the new API is a proper boolean (the legacy API
-	 * used strings, so accept both).
-	 *
-	 * Two independent gates:
-	 *   - thebrbre_valid: Pro installed + license active for this site.
-	 *   - section_import: the license tier includes the Section Import feature
-	 *                     (server-authoritative; also enforced on insert).
-	 * A Pro section needs both; a free section only needs the site to be able
-	 * to import at all, which still requires the section_import entitlement.
+	 * Every template is importable — Bricksfly has no license tiers.
+	 * `is_pro` is kept on the item shape (some sections may still need the
+	 * Pro plugin installed for their widgets to render), but import itself
+	 * is never blocked.
 	 */
-	function sectionImportAllowed() {
-		// Fall back to true only when the flag was never localized (older PHP),
-		// so we never hard-lock on a partial deploy â€” the server still guards.
-		if (!CFG.config || typeof CFG.config.section_import === 'undefined') {
-			return true;
-		}
-		return !!CFG.config.section_import;
-	}
-
 	function validateTemplates(list) {
-		var configValid = !!(CFG.config && CFG.config.thebrbre_valid);
-		var canImport   = sectionImportAllowed();
 		return list.map(function (item) {
-			var isPro = item.is_pro === true || String(item.is_pro) === '1';
-			// The plan must include section import regardless of pro/free item.
-			if (canImport && (configValid || !isPro)) {
-				item.valid = 'yes';
-			}
+			item.valid = 'yes';
 			return item;
 		});
 	}
@@ -509,36 +487,11 @@ import "../../scss/admin/aab-template-library.scss";
 		var title   = item.title || '';
 		var demoUrl = item.demo_url || item.template_demo_url || '';
 
-		var actionBtn = '';
-		if (item.valid === 'yes') {
-			actionBtn =
-				'<button type="button" class="aab-tl-card__insert">' +
-					'<span class="aab-tl-card__insert-icon" aria-hidden="true">+</span>' +
-					escapeHtml(I18N.insert || 'Insert') +
-				'</button>';
-		} else if (CFG.pro_installed && CFG.pro_active && (CFG.config && CFG.config.thebrbre_valid) && !sectionImportAllowed()) {
-			// Licensed for this site, but the plan doesn't include Section
-			// Import. Offer an upgrade rather than a re-activate prompt.
-			actionBtn =
-				'<a class="aab-tl-card__pro" href="https://bricksfly.com/" target="_blank" rel="noopener">' +
-					escapeHtml(I18N.upgrade_plan || 'Upgrade Plan') +
-				'</a>';
-		} else if (!CFG.pro_installed) {
-			actionBtn =
-				'<a class="aab-tl-card__pro" href="https://animation-addons.com" target="_blank" rel="noopener">' +
-					escapeHtml(I18N.go_premium || 'Go Premium') +
-				'</a>';
-		} else if (CFG.pro_installed && CFG.pro_active && !(CFG.config && CFG.config.thebrbre_valid)) {
-			actionBtn =
-				'<a class="aab-tl-card__pro" href="' + escapeAttr(CFG.dashboard_link) + '" target="_blank" rel="noopener">' +
-					escapeHtml(I18N.activate || 'Activate License') +
-				'</a>';
-		} else if (CFG.pro_installed && !CFG.pro_active) {
-			actionBtn =
-				'<a class="aab-tl-card__pro" href="' + escapeAttr(CFG.dashboard_link) + '" target="_blank" rel="noopener">' +
-					escapeHtml(I18N.install_pro || 'Install Pro') +
-				'</a>';
-		}
+		var actionBtn =
+			'<button type="button" class="aab-tl-card__insert">' +
+				'<span class="aab-tl-card__insert-icon" aria-hidden="true">+</span>' +
+				escapeHtml(I18N.insert || 'Insert') +
+			'</button>';
 
 		// Live preview link â€” only when the section provides a `demo_url`.
 		// Opens the demo in a new tab; overlaid on the thumbnail so it never
@@ -637,14 +590,6 @@ import "../../scss/admin/aab-template-library.scss";
 			.then(function (r) { return r.json(); })
 			.then(function (resp) {
 				if (!resp || !resp.success || !resp.data) {
-					// Server-authoritative license block â€” show the upsell popup
-					// instead of a generic failure so the user knows to upgrade.
-					if (resp && resp.data && resp.data.limited) {
-						btn.disabled = false;
-						btn.innerHTML = originalLabel;
-						window.alert(resp.data.message || I18N.section_locked || 'Section import is not included in your license plan.');
-						return;
-					}
 					return fail(resp && resp.data && resp.data.message);
 				}
 

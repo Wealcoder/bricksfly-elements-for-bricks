@@ -70,8 +70,8 @@ class THEBRBRE_Activator
 	 * dashboard save handler writes and that readers `array_filter` before
 	 * `array_keys` on.
 	 *
-	 * Pro widgets are included in the seed but are still license-gated at
-	 * runtime; flipping them on without a license simply has no effect.
+	 * Pro widgets are included in the seed but only take effect once the
+	 * Pro plugin is installed and active.
 	 */
 	private static function maybe_seed_widget_defaults()
 	{
@@ -130,68 +130,4 @@ class THEBRBRE_Activator
 
 
 
-	/**
-	 * Seed `thebrbre_save_extensions` with every shipped extension enabled.
-	 *
-	 * Called when a Pro license is successfully activated — not during plugin
-	 * activation — so extensions are only seeded once a valid license exists.
-	 * Skips seeding if the option already exists, so a user who deliberately
-	 * toggled extensions off isn't reset on license renewal/reactivation.
-	 */
-	public static function maybe_seed_extension_defaults()
-	{
-
-		if (false !== get_option('thebrbre_save_extensions', false)) {
-			return;
-		}
-
-		if (! isset($GLOBALS['thebrbre_config']) && defined('THEBRBRE_PATH')) {
-			require_once THEBRBRE_PATH . 'config.php';
-		}
-
-		$extensions_config = isset($GLOBALS['thebrbre_config']['extensions'])
-			? $GLOBALS['thebrbre_config']['extensions']
-			: array();
-
-		$map = array();
-		self::collect_extension_slugs($extensions_config, $map);
-
-		if (! empty($map)) {
-			update_option('thebrbre_save_extensions', $map, false);
-		}
-	}
-
-	/**
-	 * Walk the extensions config tree and collect every leaf extension slug.
-	 *
-	 * A leaf extension is identified by having a `location` key — group/subgroup
-	 * containers don't have it. Nodes flagged `is_upcoming` are skipped.
-	 *
-	 * @param mixed                $node Config sub-tree to walk.
-	 * @param array<string, bool>  $map  Out-param accumulator.
-	 */
-	private static function collect_extension_slugs($node, &$map)
-	{
-		if (! is_array($node)) {
-			return;
-		}
-
-		foreach ($node as $key => $value) {
-			if (! is_array($value)) {
-				continue;
-			}
-
-			// Leaf node: has a `location` key.
-			if (array_key_exists('location', $value)) {
-				if (empty($value['is_upcoming'])) {
-					$map[$key] = true;
-				}
-				continue;
-			}
-
-			// Container node (group or subgroup): emit its key then recurse.
-			$map[$key] = true;
-			self::collect_extension_slugs($value, $map);
-		}
-	}
 }

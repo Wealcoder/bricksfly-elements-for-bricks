@@ -1,11 +1,9 @@
 ﻿import { formatNumber } from "@//lib/utils";
-import ProConfirmDialog from "@/components/shared/ProConfirmDialog";
 import { Badge } from "@/components/ui/badge";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Toggle } from "@/components/ui/toggle";
-import { useActivate, useTNavigation } from "../../hooks/app.hooks";
+import { useTNavigation } from "../../hooks/app.hooks";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
 import {
   TooltipProvider,
   Tooltip,
@@ -13,34 +11,10 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-// This page imports whole PAGES, so it is gated by the license plan's
-// `starter_page_import` feature flag (also enforced server-side in
-// admin/pages/template-importer.php + admin/st-init.php). A missing/false
-// flag means the tier doesn't include page import.
-const PAGE_IMPORT_FEATURE = "starter_page_import";
-
 const TemplateShow = ({ allTemplate, metaData, setMetaData }) => {
-  const [open, setOpen] = useState(false);
-
   const { setTabKey } = useTNavigation();
-  const { activated } = useActivate();
-
-  const isLicensed = activated?.product_status?.item_id === 39996;
-  const pageImportAllowed =
-    isLicensed &&
-    !!activated?.product_status?.limitations?.[PAGE_IMPORT_FEATURE];
 
   const changeRoute = (value, slug, id, is_pro) => {
-    // Gate BEFORE navigating to the import flow. Page import always needs the
-    // `starter_page_import` entitlement â€” even for "free" templates, since the
-    // page import machinery itself is the licensed feature. When it isn't
-    // allowed, show the upsell popup instead of starting an import the server
-    // would reject anyway.
-    if (!pageImportAllowed) {
-      setOpen(value || true);
-      return;
-    }
-
     const url = new URL(window.location.href);
     const pageQuery = url.searchParams.get("page");
 
@@ -274,11 +248,6 @@ const TemplateShow = ({ allTemplate, metaData, setMetaData }) => {
           <p className="text-lg font-semibold">No Item Found</p>
         </div>
       )}
-      <ProConfirmDialog
-        open={open}
-        setOpen={setOpen}
-        reason={isLicensed ? "limitation" : "license"}
-      />
     </>
   );
 };
