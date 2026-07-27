@@ -32,7 +32,6 @@ const sources = [
     '!package.json',
     '!package-lock.json',
     '!config.json',
-    '!components.cptBuilder.json',
     '!jsconfig.json',
     '!postcss.config.js',
     '!tailwind.*.js',

@@ -25,10 +25,8 @@
 /webpack.config.js  export-ignore
 /postcss.config.js  export-ignore
 /tailwind.dashboard.config.js   export-ignore
-/tailwind.cptBuilder.config.js  export-ignore
 /tailwind.pageImport.config.js  export-ignore
 /components.json    export-ignore
-/components.cptBuilder.json     export-ignore
 /components.dashboard.json      export-ignore
 /components.pageImport.json     export-ignore
 /jsconfig.json      export-ignore

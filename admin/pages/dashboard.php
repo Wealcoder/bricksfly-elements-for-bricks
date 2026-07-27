@@ -247,10 +247,10 @@ class THEBRBRE_Admin_Init
 		require_once $admin_dir . 'Notices/Notices.php';
 		require_once $admin_dir . 'Notices/ShowNotices.php';
 
-		// CPT Builder moved to the Pro plugin (Pro-only, license-gated) —
-		// see the-bricksfly-pro/admin/pages/cpt-builder.php, wired via
-		// thebrbre_pro_register(). The free plugin's placeholder page is
-		// required directly in class-bricks-animation-addons.php.
+		// CPT Builder moved to the Pro plugin entirely (Pro-only,
+		// license-gated) — see the-bricksfly-pro/admin/pages/cpt-builder.php,
+		// wired via thebrbre_pro_register(). The free plugin no longer
+		// registers any CPT Builder menu/placeholder.
 
 		// Initialize OneClickImport.
 		$oneimport = \wealcoder\thebricksfly\Admin\Base\OneClickImport::get_instance();
