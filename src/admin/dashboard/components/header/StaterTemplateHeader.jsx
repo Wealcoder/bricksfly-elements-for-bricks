@@ -1,4 +1,4 @@
-import {
+﻿import {
   NavigationMenu2,
   NavigationMenuContent2,
   NavigationMenuItem2,
@@ -35,7 +35,7 @@ export function StaterTemplateHeader({ metaData, setMetaData }) {
         {
           menuData?.map((gItem) => (
             <NavigationMenuItem2 key={gItem.id}>
-              <NavigationMenuTrigger2 className="px-0 py-[21px] text-[16px] font-medium text-[#202020] data-[state=open]:text-[#F6502C] [&>svg]:w-5 [&>svg]:h-5 leading-[20px] h-full">
+              <NavigationMenuTrigger2 className="px-0 py-[21px] text-[16px] font-medium text-[#202020] data-[state=open]:text-[#FFD53E] [&>svg]:w-5 [&>svg]:h-5 leading-[20px] h-full">
                 {gItem.title}
               </NavigationMenuTrigger2>
               <NavigationMenuContent2 className="-left-[30px] p-0">
@@ -108,7 +108,7 @@ export function StaterTemplateHeader({ metaData, setMetaData }) {
                     </div>
                     <Button
                       variant="link"
-                      className="px-0 py-0 text-[#F6502C] text-[15px] font-semibold mt-2 h-5 uppercase"
+                      className="px-0 py-0 text-[#FFD53E] text-[15px] font-semibold mt-2 h-5 uppercase"
                       onClick={() => {
                         setMetaData((prev) => {
                           let updatedCategories = [...prev.selectedCategory];
@@ -145,7 +145,7 @@ export function StaterTemplateHeader({ metaData, setMetaData }) {
                         <Badge
                           key={sCat.cat_id}
                           variant="secondary"
-                          className="bg-[#F6502C] text-white h-6 px-2 text-sm gap-1 font-medium rounded-[6px]"
+                          className="bg-[#FFD53E] text-[#525866] h-6 px-2 text-sm gap-1 font-medium rounded-[6px]"
                         >
                           {sCat.title}
                           <CircleX

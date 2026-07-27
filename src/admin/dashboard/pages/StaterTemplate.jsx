@@ -1,4 +1,4 @@
-import TemplateRightContent from "@/components/template/right/TemplateRightContent";
+﻿import TemplateRightContent from "@/components/template/right/TemplateRightContent";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useEffect, useRef, useState, useCallback } from "react";
 import { debounceFn } from "@/lib/utils";
@@ -179,7 +179,7 @@ const StaterTemplate = () => {
             <div className="flex items-center gap-5 2xl:gap-[30px]">
               <div
                 onClick={() => changeRoute("dashboard")}
-                className="cursor-pointer flex w-11 h-11 px-[3px] py-1 justify-center items-center bg-[#F6502C] rounded-full"
+                className="cursor-pointer flex w-11 h-11 px-[3px] py-1 justify-center items-center bg-[#FFD53E] rounded-full"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -191,7 +191,7 @@ const StaterTemplate = () => {
                 >
                   <path
                     d="M3.34988 6.1001H14V7.90001H3.34988L8.04335 12.7273L6.80593 14L0 7.00005L6.80593 0L8.04335 1.27273L3.34988 6.1001Z"
-                    fill="#ffffff"
+                    fill="#525866"
                   />
                 </svg>
               </div>
@@ -220,9 +220,9 @@ const StaterTemplate = () => {
                       }
                       className={cn(
                         metaData?.filterData?.wishlist
-                          ? "bg-[#F6502C] text-white [&>svg]:stroke-white [&>div]:bg-white [&>div]:text-[#121212]"
-                          : "bg-transparent [&>svg]:stroke-[#F6502C] text-[#F6502C]",
-                        "cursor-pointer ps-3 pe-[3px] py-0 h-[26px] border border-[#F6502C]  rounded-full text-[16px] font-medium capitalize gap-1",
+                          ? "bg-[#FFD53E] text-[#525866] [&>svg]:stroke-[#525866] [&>div]:bg-white [&>div]:text-[#121212]"
+                          : "bg-transparent [&>svg]:stroke-[#FFD53E] text-[#FFD53E]",
+                        "cursor-pointer ps-3 pe-[3px] py-0 h-[26px] border border-[#FFD53E]  rounded-full text-[16px] font-medium capitalize gap-1",
                       )}
                     >
                       <svg

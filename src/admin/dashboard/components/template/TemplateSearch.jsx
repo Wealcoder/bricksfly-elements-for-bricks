@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+﻿import { useState, useRef, useEffect, useCallback } from "react";
 import { Search, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
@@ -167,7 +167,7 @@ const TemplateSearch = ({ metaData, setMetaData, setOpenSearch }) => {
         {query ? (
           <button
             onClick={handleClear}
-            className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-[#202020] hover:text-[#F6502C] transition-colors bg-white"
+            className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-[#202020] hover:text-[#FFD53E] transition-colors bg-white"
             aria-label="Clear search"
           >
             <X className="h-4 w-4" />
@@ -190,7 +190,7 @@ const TemplateSearch = ({ metaData, setMetaData, setOpenSearch }) => {
         {/* Loading indicator */}
         {isLoading && (
           <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-            <div className="animate-spin rounded-full h-4 w-4 border-2 border-[#F6502C] border-t-transparent"></div>
+            <div className="animate-spin rounded-full h-4 w-4 border-2 border-[#FFD53E] border-t-transparent"></div>
           </div>
         )}
       </div>
@@ -206,8 +206,8 @@ const TemplateSearch = ({ metaData, setMetaData, setOpenSearch }) => {
               key={result.id}
               onClick={() => handleSelectResult(result)}
               className={cn(
-                "w-full py-2.5 first:pt-0 text-left text-[#202020] hover:text-[#F6502C] transition-colors cursor-pointer",
-                selectedIndex === index && "text-[#F6502C]",
+                "w-full py-2.5 first:pt-0 text-left text-[#202020] hover:text-[#FFD53E] transition-colors cursor-pointer",
+                selectedIndex === index && "text-[#FFD53E]",
               )}
             >
               <p className="text-sm font-medium">{result.title}</p>

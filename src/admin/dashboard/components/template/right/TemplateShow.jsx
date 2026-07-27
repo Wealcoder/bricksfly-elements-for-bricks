@@ -1,4 +1,4 @@
-import { formatNumber } from "@//lib/utils";
+﻿import { formatNumber } from "@//lib/utils";
 import ProConfirmDialog from "@/components/shared/ProConfirmDialog";
 import { Badge } from "@/components/ui/badge";
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -134,7 +134,7 @@ const TemplateShow = ({ allTemplate, metaData, setMetaData }) => {
                       Preview
                     </a>
                     <Button
-                      className="h-7 w-[120px] bg-[#F6502C] hover:bg-[#FFD53E] border-2 border-[#F6502C] hover:border-[#FFD53E] text-white hover:text-[#525866] rounded-full text-xs font-medium capitalize gap-1 transition-all duration-300 ease-out hover:scale-105 [&_svg_path]:transition-colors [&:hover_svg_path]:stroke-[#525866]"
+                      className="h-7 w-[120px] bg-[#FFD53E] hover:bg-[#E8C238] border-2 border-[#FFD53E] hover:border-[#E8C238] text-[#525866] rounded-full text-xs font-medium capitalize gap-1 transition-all duration-300 ease-out hover:scale-105 [&_svg_path]:transition-colors"
                       onClick={() =>
                         changeRoute(
                           "required-features",
@@ -153,12 +153,12 @@ const TemplateShow = ({ allTemplate, metaData, setMetaData }) => {
                       >
                         <path
                           d="M14 11.332V12.6654C14 13.4018 13.4031 13.9987 12.6667 13.9987H3.33333C2.59696 13.9987 2 13.4018 2 12.6654V11.332"
-                          stroke="white"
+                          stroke="#525866"
                           stroke-linecap="square"
                         />
                         <path
                           d="M5 7.66667L8.00003 10.6667L11 7.66667M8.00003 10V2"
-                          stroke="white"
+                          stroke="#525866"
                           stroke-linecap="square"
                         />
                       </svg>{" "}
@@ -170,7 +170,7 @@ const TemplateShow = ({ allTemplate, metaData, setMetaData }) => {
                         template.id.toString()
                       )}
                       onPressedChange={(value) => saveWishlist(template.id)}
-                      className={`data-[state=on]:bg-[#F6502C] data-[state=on]:border-[#F6502C]  cursor-pointer h-7 w-[120px] bg-transparent hover:bg-[#FFD53E] border-2 border-white hover:border-[#FFD53E] text-white hover:text-[#525866] rounded-full text-xs font-medium capitalize gap-1 transition-all duration-300 ease-out hover:scale-105 [&_svg_path]:transition-colors [&:hover_svg_path]:stroke-[#525866]`}
+                      className={`data-[state=on]:bg-[#FFD53E] data-[state=on]:border-[#FFD53E] cursor-pointer h-7 w-[120px] bg-transparent border-2 border-white text-white hover:bg-[#FFD53E] hover:border-[#FFD53E] hover:text-[#525866] rounded-full text-xs font-medium capitalize gap-1 transition-all duration-300 ease-out hover:scale-105 [&_svg_path]:transition-colors [&:hover_svg_path]:stroke-[#525866] [&[data-state=on]_svg_path]:stroke-[#525866]`}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
