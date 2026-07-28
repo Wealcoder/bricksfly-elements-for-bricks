@@ -27,14 +27,14 @@ class THEBRBRE_Row_Actions {
 
 	public function handle_deactivate_feedback() {
 		if ( ! isset( $_POST['reason'] ) || ! isset( $_POST['other_text'] ) || ! isset( $_POST['nonce'] ) ) {
-			wp_send_json_error( esc_html__( 'Missing parameters', 'the-bricksfly' ) );
+			wp_send_json_error( esc_html__( 'Missing parameters', 'bricksfly-elements-for-bricks' ) );
 		}
 		$nonce = sanitize_text_field( wp_unslash( $_POST['nonce'] ) );
 		if ( ! wp_verify_nonce( $nonce, 'thebrbre_deactivate_feedback_nonce' ) ) {
-			wp_send_json_error( esc_html__( 'Invalid nonce', 'the-bricksfly' ) );
+			wp_send_json_error( esc_html__( 'Invalid nonce', 'bricksfly-elements-for-bricks' ) );
 		}
 		if ( ! current_user_can( 'activate_plugins' ) ) {
-			wp_send_json_error( esc_html__( 'Permission denied', 'the-bricksfly' ) );
+			wp_send_json_error( esc_html__( 'Permission denied', 'bricksfly-elements-for-bricks' ) );
 		}
 
 		$reason     = sanitize_text_field( wp_unslash( $_POST['reason'] ) );
@@ -53,7 +53,7 @@ class THEBRBRE_Row_Actions {
 		$existing_feedback[] = $feedback_data;
 		update_option( 'thebrbre_deactivation_feedback', $existing_feedback );
 
-		wp_send_json_success( esc_html__( 'Feedback submitted successfully', 'the-bricksfly' ) );
+		wp_send_json_success( esc_html__( 'Feedback submitted successfully', 'bricksfly-elements-for-bricks' ) );
 	}
 
 	function _plugin_row_meta( $meta, $plugin_file ) {
@@ -61,12 +61,12 @@ class THEBRBRE_Row_Actions {
 			return $meta;
 		}
 
-		$meta[] = '<a href="https://bricksfly.com/docs/" target="_blank">' . esc_html__( 'Documentation', 'the-bricksfly' ) . '</a>';
-		$meta[] = '<a href="#" target="_blank">' . esc_html__( 'Support', 'the-bricksfly' ) . '</a>';
+		$meta[] = '<a href="https://bricksfly.com/docs/" target="_blank">' . esc_html__( 'Documentation', 'bricksfly-elements-for-bricks' ) . '</a>';
+		$meta[] = '<a href="#" target="_blank">' . esc_html__( 'Support', 'bricksfly-elements-for-bricks' ) . '</a>';
 		if ( ! file_exists( WP_PLUGIN_DIR . '/' . 'the-bricksfly-pro/the-bricksfly-pro.php' ) ) {
-			$meta[] = '<a href="https://bricksfly.com" style="color:#ff7a00; font-weight: bold;" target="_blank">' . esc_html__( 'Upgrade to Pro', 'the-bricksfly' ) . '</a>';
+			$meta[] = '<a href="https://bricksfly.com" style="color:#ff7a00; font-weight: bold;" target="_blank">' . esc_html__( 'Upgrade to Pro', 'bricksfly-elements-for-bricks' ) . '</a>';
 		}
-		$meta[] = '<a href="https://wordpress.org/support/plugin/the-bricksfly/reviews/#new-post" target="_blank">' . esc_html__( ' Rate the plugin', 'the-bricksfly' ) . '</a>';
+		$meta[] = '<a href="https://wordpress.org/support/plugin/the-bricksfly/reviews/#new-post" target="_blank">' . esc_html__( ' Rate the plugin', 'bricksfly-elements-for-bricks' ) . '</a>';
 		return $meta;
 	}
 
@@ -76,7 +76,7 @@ class THEBRBRE_Row_Actions {
 			$new_actions['aab-dsb-settings'] = sprintf(
 				'<a href="%s">%s</a>',
 				esc_url( admin_url( 'admin.php?page=thebrbre_addons_settings' ) ),
-				esc_html__( 'Settings', 'the-bricksfly' )
+				esc_html__( 'Settings', 'bricksfly-elements-for-bricks' )
 			);
 		}
 		return array_merge( $new_actions, $plugin_actions );

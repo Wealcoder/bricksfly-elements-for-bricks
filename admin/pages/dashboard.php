@@ -267,8 +267,8 @@ class THEBRBRE_Admin_Init
 			return;
 		}
 		self::$parent_menu_hook = add_menu_page(
-			esc_html__('Bricksfly', 'the-bricksfly'),
-			esc_html__('Bricksfly', 'the-bricksfly'),
+			esc_html__('Bricksfly', 'bricksfly-elements-for-bricks'),
+			esc_html__('Bricksfly', 'bricksfly-elements-for-bricks'),
 			self::MENU_CAPABILITY,
 			self::MENU_PAGE_SLUG,
 			'',
@@ -278,8 +278,8 @@ class THEBRBRE_Admin_Init
 
 		add_submenu_page(
 			self::MENU_PAGE_SLUG,
-			esc_html__('Settings', 'the-bricksfly'),
-			esc_html__('Settings', 'the-bricksfly'),
+			esc_html__('Settings', 'bricksfly-elements-for-bricks'),
+			esc_html__('Settings', 'bricksfly-elements-for-bricks'),
 			'manage_options',
 			'thebrbre_addons_settings',
 			array($this, 'plugin_dashboard_entry_page')
@@ -296,7 +296,7 @@ class THEBRBRE_Admin_Init
 		// entry point (?bf-license=1).
 		if (is_plugin_active('the-bricksfly-pro/the-bricksfly-pro.php')) {
 			$license_active = function_exists('thebrbre_license_is_valid') && thebrbre_license_is_valid();
-			$license_label  = esc_html__('License', 'the-bricksfly');
+			$license_label  = esc_html__('License', 'bricksfly-elements-for-bricks');
 			if ($license_active) {
 				$license_label .= ' <span class="bf-license-menu-badge" style="display:inline-block;margin-left:6px;width:8px;height:8px;border-radius:50%;background:#10b981;vertical-align:middle;"></span>';
 			}
@@ -311,7 +311,7 @@ class THEBRBRE_Admin_Init
 		// "stater-template" tab. Registered via $submenu directly so the
 		// `&tab=` query string isn't URL-encoded by add_submenu_page().
 		$submenu[self::MENU_PAGE_SLUG][] = array(
-			esc_html__('Starter Template', 'the-bricksfly'),
+			esc_html__('Starter Template', 'bricksfly-elements-for-bricks'),
 			'manage_options',
 			admin_url('admin.php?page=thebrbre_addons_settings&tab=stater-template'),
 		);
@@ -472,54 +472,54 @@ class THEBRBRE_Admin_Init
 		// Case 2 â€” Pro installed but not active yet.
 		if (! $pro_active) {
 			return array(
-				'heading' => esc_html__('Pro plugin installed â€” activate it to continue', 'the-bricksfly'),
-				'subtext' => esc_html__('Head to the Plugins screen and click "Activate" on Bricksfly Pro to enable premium features.', 'the-bricksfly'),
-				'button'  => esc_html__('Activate Plugin', 'the-bricksfly'),
+				'heading' => esc_html__('Pro plugin installed â€” activate it to continue', 'bricksfly-elements-for-bricks'),
+				'subtext' => esc_html__('Head to the Plugins screen and click "Activate" on Bricksfly Pro to enable premium features.', 'bricksfly-elements-for-bricks'),
+				'button'  => esc_html__('Activate Plugin', 'bricksfly-elements-for-bricks'),
 			);
 		}
 
 		// Case 3 â€” Both active but no license key saved yet.
 		if (empty($license_key)) {
 			return array(
-				'heading' => esc_html__('Activate your license to unlock Pro features', 'the-bricksfly'),
-				'subtext' => esc_html__('Enter your purchased license key to enable every premium extension, template, and automatic update.', 'the-bricksfly'),
-				'button'  => esc_html__('Activate License', 'the-bricksfly'),
+				'heading' => esc_html__('Activate your license to unlock Pro features', 'bricksfly-elements-for-bricks'),
+				'subtext' => esc_html__('Enter your purchased license key to enable every premium extension, template, and automatic update.', 'bricksfly-elements-for-bricks'),
+				'button'  => esc_html__('Activate License', 'bricksfly-elements-for-bricks'),
 			);
 		}
 
 		// Case 4 â€” License key on file but the server says it's invalid.
 		if (in_array($license_status, array('invalid', 'missing'), true)) {
 			return array(
-				'heading' => esc_html__('Your license key is invalid', 'the-bricksfly'),
-				'subtext' => esc_html__('The saved license key is not valid for this site. Please re-enter it or purchase a new one.', 'the-bricksfly'),
-				'button'  => esc_html__('Re-enter License', 'the-bricksfly'),
+				'heading' => esc_html__('Your license key is invalid', 'bricksfly-elements-for-bricks'),
+				'subtext' => esc_html__('The saved license key is not valid for this site. Please re-enter it or purchase a new one.', 'bricksfly-elements-for-bricks'),
+				'button'  => esc_html__('Re-enter License', 'bricksfly-elements-for-bricks'),
 			);
 		}
 
 		// Case 5 â€” Expired.
 		if ('expired' === $license_status) {
 			return array(
-				'heading' => esc_html__('Your license has expired', 'the-bricksfly'),
-				'subtext' => esc_html__('Renew your license to keep receiving updates and premium features.', 'the-bricksfly'),
-				'button'  => esc_html__('Renew License', 'the-bricksfly'),
+				'heading' => esc_html__('Your license has expired', 'bricksfly-elements-for-bricks'),
+				'subtext' => esc_html__('Renew your license to keep receiving updates and premium features.', 'bricksfly-elements-for-bricks'),
+				'button'  => esc_html__('Renew License', 'bricksfly-elements-for-bricks'),
 			);
 		}
 
 		// Case 6 â€” Disabled / revoked.
 		if (in_array($license_status, array('disabled', 'revoked'), true)) {
 			return array(
-				'heading' => esc_html__('Your license has been disabled', 'the-bricksfly'),
-				'subtext' => esc_html__('Please contact support if you believe this is an error.', 'the-bricksfly'),
-				'button'  => esc_html__('Contact Support', 'the-bricksfly'),
+				'heading' => esc_html__('Your license has been disabled', 'bricksfly-elements-for-bricks'),
+				'subtext' => esc_html__('Please contact support if you believe this is an error.', 'bricksfly-elements-for-bricks'),
+				'button'  => esc_html__('Contact Support', 'bricksfly-elements-for-bricks'),
 			);
 		}
 
 		// Case 7 â€” Site not yet activated for this URL.
 		if ('site_inactive' === $license_status) {
 			return array(
-				'heading' => esc_html__('This site is not activated on your license', 'the-bricksfly'),
-				'subtext' => esc_html__('Activate this site in your license to unlock premium features.', 'the-bricksfly'),
-				'button'  => esc_html__('Activate License', 'the-bricksfly'),
+				'heading' => esc_html__('This site is not activated on your license', 'bricksfly-elements-for-bricks'),
+				'subtext' => esc_html__('Activate this site in your license to unlock premium features.', 'bricksfly-elements-for-bricks'),
+				'button'  => esc_html__('Activate License', 'bricksfly-elements-for-bricks'),
 			);
 		}
 
@@ -608,7 +608,7 @@ class THEBRBRE_Admin_Init
 
 	public function get_template_menu_data()
 	{
-		$transient_key = 'thebrbre_menu_42_data';
+		$transient_key = 'thebrbre_menu_204_data';
 		$cached_data   = get_transient($transient_key);
 
 		// âœ… Return cached data if available
@@ -616,7 +616,7 @@ class THEBRBRE_Admin_Init
 			return $cached_data;
 		}
 
-		$url      = "https://www.themecrowdy.com/wp-json/wcf/v1/menu/42";
+		$url      = "https://www.themecrowdy.com/wp-json/wcf/v1/menu/204";
 		$response = wp_remote_get($url, [
 			'timeout' => 15,
 			'sslverify' => true,
@@ -764,7 +764,7 @@ class THEBRBRE_Admin_Init
 		check_ajax_referer('thebrbre_admin_nonce', 'nonce');
 
 		if (! current_user_can('manage_options')) {
-			wp_send_json_error(esc_html__('you are not allowed to do this action', 'the-bricksfly'));
+			wp_send_json_error(esc_html__('you are not allowed to do this action', 'bricksfly-elements-for-bricks'));
 		}
 
 		if (! isset($_POST['fields'])) {
@@ -799,7 +799,7 @@ class THEBRBRE_Admin_Init
 		} elseif ('thebrbre_save_extensions' === $option_name) {
 			$updated = update_option('thebrbre_save_extensions', $updatedSettings);
 		} else {
-			wp_send_json_error(esc_html__('Invalid settings type.', 'the-bricksfly'), 400);
+			wp_send_json_error(esc_html__('Invalid settings type.', 'bricksfly-elements-for-bricks'), 400);
 		}
 
 		$return_message = array(
@@ -815,7 +815,7 @@ class THEBRBRE_Admin_Init
 		check_ajax_referer('thebrbre_admin_nonce', 'nonce');
 
 		if (! current_user_can('manage_options')) {
-			wp_send_json_error(esc_html__('you are not allowed to do this action', 'the-bricksfly'));
+			wp_send_json_error(esc_html__('you are not allowed to do this action', 'bricksfly-elements-for-bricks'));
 		}
 
 		if (! isset($_POST['notice'])) {
@@ -826,7 +826,7 @@ class THEBRBRE_Admin_Init
 		update_option('thebrbre_notice_data', $sanitize_data);
 
 		$return_message = array(
-			'message' => esc_html__('Notice Updated', 'the-bricksfly'),
+			'message' => esc_html__('Notice Updated', 'bricksfly-elements-for-bricks'),
 		);
 		wp_send_json($return_message);
 	}
@@ -837,7 +837,7 @@ class THEBRBRE_Admin_Init
 		check_ajax_referer('thebrbre_admin_nonce', 'nonce');
 
 		if (! current_user_can('manage_options')) {
-			wp_send_json_error(esc_html__('you are not allowed to do this action', 'the-bricksfly'));
+			wp_send_json_error(esc_html__('you are not allowed to do this action', 'bricksfly-elements-for-bricks'));
 		}
 
 		$return_message = array(
@@ -852,7 +852,7 @@ class THEBRBRE_Admin_Init
 		check_ajax_referer('thebrbre_admin_nonce', 'nonce');
 
 		if (! current_user_can('manage_options')) {
-			wp_send_json_error(esc_html__('you are not allowed to do this action', 'the-bricksfly'));
+			wp_send_json_error(esc_html__('you are not allowed to do this action', 'bricksfly-elements-for-bricks'));
 		}
 
 		if (! isset($_POST['fields'])) {
@@ -923,12 +923,12 @@ class THEBRBRE_Admin_Init
 		check_ajax_referer('thebrbre_admin_nonce', 'nonce');
 
 		if (! current_user_can('manage_options')) {
-			wp_send_json_error(esc_html__('you are not allowed to do this action', 'the-bricksfly'));
+			wp_send_json_error(esc_html__('you are not allowed to do this action', 'bricksfly-elements-for-bricks'));
 		}
 
 		$raw_settings = isset($_POST['smooth']) ? sanitize_text_field(wp_unslash($_POST['smooth'])) : '';
 		if (! is_string($raw_settings) || '' === trim($raw_settings)) {
-			wp_send_json_error(esc_html__('Smooth scroller settings are required.', 'the-bricksfly'), 400);
+			wp_send_json_error(esc_html__('Smooth scroller settings are required.', 'bricksfly-elements-for-bricks'), 400);
 		}
 
 		$settings = sanitize_text_field(wp_unslash($_POST['smooth']));

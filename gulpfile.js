@@ -10,21 +10,21 @@
  *   npx gulp watch:zip    # rebuild on change
  */
 
-const path    = require('path');
-const gulp    = require('gulp');
-const zip     = require('gulp-zip');
-const del     = require('del');
+const path = require('path');
+const gulp = require('gulp');
+const zip = require('gulp-zip');
+const del = require('del');
 const through = require('through2');
 
-const PLUGIN_SLUG = 'the-bricksfly';
-const DIST_DIR    = 'dist';
+const PLUGIN_SLUG = 'bricksfly-elements-for-bricks';
+const DIST_DIR = 'dist';
 
 const sources = [
     '**/*',
     '!node_modules/**', '!node_modules',
-    '!public/fonts/**',      '!src',
-    '!src/**',          '!src',
-    '!dist/**',         '!dist',
+    '!public/fonts/**', '!src',
+    '!src/**', '!src',
+    '!dist/**', '!dist',
     '!gulpfile.js',
     '!babel.config.js',
     '!webpack.config.js',
@@ -43,7 +43,6 @@ const sources = [
 ];
 
 // Prefix every file path with the plugin slug so the zip extracts
-// into `the-bricksfly/...` (WordPress convention).
 function prefixFolder(folder) {
     return through.obj(function (file, _, cb) {
         if (file.relative) {

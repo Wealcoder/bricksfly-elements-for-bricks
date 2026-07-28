@@ -539,15 +539,15 @@ if (! function_exists('thebrbre_feature_denied_message')) {
   {
     switch ($feature) {
       case 'starter_tpl_import':
-        return __('Starter template import is not included in your current license plan. Please upgrade your plan to import starter templates.', 'the-bricksfly');
+        return __('Starter template import is not included in your current license plan. Please upgrade your plan to import starter templates.', 'bricksfly-elements-for-bricks');
       case 'section_import':
-        return __('Section import is not included in your current license plan. Please upgrade your plan to import sections.', 'the-bricksfly');
+        return __('Section import is not included in your current license plan. Please upgrade your plan to import sections.', 'bricksfly-elements-for-bricks');
       case 'starter_page_import':
-        return __('Page import is not included in your current license plan. Please upgrade your plan to import pages.', 'the-bricksfly');
+        return __('Page import is not included in your current license plan. Please upgrade your plan to import pages.', 'bricksfly-elements-for-bricks');
       case 'live_copy':
-        return __('Live Copy is not included in your current license plan. Please upgrade your plan to use it.', 'the-bricksfly');
+        return __('Live Copy is not included in your current license plan. Please upgrade your plan to use it.', 'bricksfly-elements-for-bricks');
       default:
-        return __('This feature is not included in your current license plan. Please upgrade your plan to use it.', 'the-bricksfly');
+        return __('This feature is not included in your current license plan. Please upgrade your plan to use it.', 'bricksfly-elements-for-bricks');
     }
   }
 }

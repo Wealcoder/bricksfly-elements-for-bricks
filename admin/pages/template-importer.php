@@ -51,7 +51,7 @@ class THEBRBRE_Template_Importer {
 		check_ajax_referer( 'thebrbre_admin_nonce', 'nonce' );
 
 		if ( ! current_user_can( 'install_plugins' ) ) {
-			wp_send_json_error( __( 'You are not allowed to perform this action.', 'the-bricksfly' ) );
+			wp_send_json_error( __( 'You are not allowed to perform this action.', 'bricksfly-elements-for-bricks' ) );
 		}
 
 		$return_data = apply_filters('thebrbre_heartbeat_data', [
@@ -65,11 +65,11 @@ class THEBRBRE_Template_Importer {
 		check_ajax_referer( 'thebrbre_admin_nonce', 'nonce' );
 
 		if ( ! current_user_can( 'install_plugins' ) ) {
-			wp_send_json_error( __( 'You are not allowed to perform this action.', 'the-bricksfly' ) );
+			wp_send_json_error( __( 'You are not allowed to perform this action.', 'bricksfly-elements-for-bricks' ) );
 		}
 
 		if ( ! isset( $_POST['wishlist'] ) ) {
-			wp_send_json_error( __( 'Provide wishlist data.', 'the-bricksfly' ) );
+			wp_send_json_error( __( 'Provide wishlist data.', 'bricksfly-elements-for-bricks' ) );
 		}
 
 		$wishlist    = sanitize_text_field( wp_unslash( $_POST['wishlist'] ) );
@@ -91,7 +91,7 @@ class THEBRBRE_Template_Importer {
 		check_ajax_referer( 'thebrbre_admin_nonce', 'nonce' );
 
 		if ( ! current_user_can( 'install_plugins' ) ) {
-			wp_send_json_error( __( 'You are not allowed to perform this action.', 'the-bricksfly' ) );
+			wp_send_json_error( __( 'You are not allowed to perform this action.', 'bricksfly-elements-for-bricks' ) );
 		}
 
 		$dependencies = [];
@@ -101,7 +101,7 @@ class THEBRBRE_Template_Importer {
 		}
 
 		if ( empty( $dependencies ) ) {
-			wp_send_json_error( __( 'No dependencies provided.', 'the-bricksfly' ) );
+			wp_send_json_error( __( 'No dependencies provided.', 'bricksfly-elements-for-bricks' ) );
 		}
 
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
@@ -128,10 +128,10 @@ class THEBRBRE_Template_Importer {
 				$theme_data = wp_get_theme( $theme['slug'] ?? '' );
 				if ( $theme_data->exists() ) {
 					$theme['status'] = ( get_stylesheet() === $theme['slug'] )
-						? __( 'Active', 'the-bricksfly' )
-						: __( 'Installed', 'the-bricksfly' );
+						? __( 'Active', 'bricksfly-elements-for-bricks' )
+						: __( 'Installed', 'bricksfly-elements-for-bricks' );
 				} else {
-					$theme['status'] = __( 'Not Installed', 'the-bricksfly' );
+					$theme['status'] = __( 'Not Installed', 'bricksfly-elements-for-bricks' );
 				}
 			}
 		}
@@ -165,7 +165,7 @@ class THEBRBRE_Template_Importer {
 
 		$message = function_exists( 'thebrbre_feature_denied_message' )
 			? thebrbre_feature_denied_message( $feature )
-			: __( 'This feature is not included in your current license plan.', 'the-bricksfly' );
+			: __( 'This feature is not included in your current license plan.', 'bricksfly-elements-for-bricks' );
 
 		wp_send_json( array(
 			'success'  => false,
@@ -183,7 +183,7 @@ class THEBRBRE_Template_Importer {
 		check_ajax_referer( 'thebrbre_admin_nonce', 'nonce' );
 
 		if ( ! current_user_can( 'install_plugins' ) ) {
-			wp_send_json_error( __( 'You are not allowed to do this action', 'the-bricksfly' ) );
+			wp_send_json_error( __( 'You are not allowed to do this action', 'bricksfly-elements-for-bricks' ) );
 		}
 
 		// License limitation gate. Page import (import_type=page) requires the
@@ -239,7 +239,7 @@ class THEBRBRE_Template_Importer {
 										update_option(
 											'thebrbre_template_import_state',
 											/* translators: %s: plugin name being installed. */
-											sprintf( __( 'Installing %s', 'the-bricksfly' ), $item['name'] )
+											sprintf( __( 'Installing %s', 'bricksfly-elements-for-bricks' ), $item['name'] )
 										);
 										if ( isset( $item['host'] ) && isset( $item['slug'] ) ) {
 											$this->install_plugin_from_wp( $item['slug'] );
@@ -248,7 +248,7 @@ class THEBRBRE_Template_Importer {
 								}
 							}
 						}
-						update_option( 'thebrbre_template_import_state', __( 'Plugin Installation Done', 'the-bricksfly' ) );
+						update_option( 'thebrbre_template_import_state', __( 'Plugin Installation Done', 'bricksfly-elements-for-bricks' ) );
 					}
 				}
 				$template_data['next_step'] = 'install-wp-options';
@@ -256,37 +256,37 @@ class THEBRBRE_Template_Importer {
 			} elseif ( $next_step === 'check-template-status' ) {
 				$tpl = $this->validate_download_file( $template_data );
 				if ( $tpl ) {
-					update_option( 'thebrbre_template_import_state', __( 'Content file Downloading', 'the-bricksfly' ) );
+					update_option( 'thebrbre_template_import_state', __( 'Content file Downloading', 'bricksfly-elements-for-bricks' ) );
 					$template_data['next_step'] = 'download-xml-file';
 					$template_data['file']      = json_decode( $tpl );
 				} else {
-					update_option( 'thebrbre_template_import_state', __( 'Invalid file', 'the-bricksfly' ) );
+					update_option( 'thebrbre_template_import_state', __( 'Invalid file', 'bricksfly-elements-for-bricks' ) );
 					$template_data['next_step'] = 'fail';
 				}
 				$progress = '37';
 
 			} elseif ( $next_step === 'download-xml-file' ) {
 				if ( isset( $template_data['file']['content_url'] ) ) {
-					update_option( 'thebrbre_template_import_state', __( 'Content installing', 'the-bricksfly' ) );
+					update_option( 'thebrbre_template_import_state', __( 'Content installing', 'bricksfly-elements-for-bricks' ) );
 					$template_data['next_step']  = 'install-template';
 					$template_data['local_path'] = $this->full_path;
 				} else {
 					$template_data['next_step'] = 'fail';
-					update_option( 'thebrbre_template_import_state', __( 'Missing Content file, contact author', 'the-bricksfly' ) );
+					update_option( 'thebrbre_template_import_state', __( 'Missing Content file, contact author', 'bricksfly-elements-for-bricks' ) );
 				}
 				$progress = '40';
 
 			} elseif ( $next_step === 'install-template' ) {
 				$template_data['next_step'] = 'check-theme';
 				$progress                   = '50';
-				$msg                        = __( 'Verifying Content Import', 'the-bricksfly' );
-				update_option( 'thebrbre_template_import_state', __( 'Checking Theme', 'the-bricksfly' ) );
+				$msg                        = __( 'Verifying Content Import', 'bricksfly-elements-for-bricks' );
+				update_option( 'thebrbre_template_import_state', __( 'Checking Theme', 'bricksfly-elements-for-bricks' ) );
 
 			} elseif ( $next_step === 'check-theme' ) {
 				if ( $theme_slug ) {
 					$template_data['next_step'] = 'install-theme';
 					$progress                   = '75';
-					update_option( 'thebrbre_template_import_state', __( 'Installing Theme', 'the-bricksfly' ) );
+					update_option( 'thebrbre_template_import_state', __( 'Installing Theme', 'bricksfly-elements-for-bricks' ) );
 				} else {
 					$template_data['next_step'] = 'install-bricks-settings';
 				}
@@ -294,8 +294,8 @@ class THEBRBRE_Template_Importer {
 			} elseif ( $next_step === 'install-theme' ) {
 				$template_data['next_step'] = 'install-bricks-settings';
 				$progress                   = '75';
-				$msg                        = __( 'Verifying Content Import', 'the-bricksfly' );
-				update_option( 'thebrbre_template_import_state', __( 'Verifying Content Import', 'the-bricksfly' ) );
+				$msg                        = __( 'Verifying Content Import', 'bricksfly-elements-for-bricks' );
+				update_option( 'thebrbre_template_import_state', __( 'Verifying Content Import', 'bricksfly-elements-for-bricks' ) );
 
 			} elseif ( $next_step === 'install-bricks-settings' ) {
 				$template_data['next_step'] = 'done';
@@ -307,7 +307,7 @@ class THEBRBRE_Template_Importer {
 			} elseif ( $next_step === 'install-wp-options' ) {
 				$template_data['next_step'] = 'check-template-status';
 				$progress                   = '30';
-				$msg                        = __( 'Downloading Template', 'the-bricksfly' );
+				$msg                        = __( 'Downloading Template', 'bricksfly-elements-for-bricks' );
 
 				if ( isset( $template_data['wp_options'] ) && is_array( $template_data['wp_options'] ) ) {
 					$this->install_options( $template_data['wp_options'] );
@@ -322,12 +322,12 @@ class THEBRBRE_Template_Importer {
 				update_option( 'thebrbre_template_import_state', $msg );
 
 			} elseif ( $next_step === 'fail' ) {
-				$msg = __( 'Template Demo Import fail', 'the-bricksfly' );
+				$msg = __( 'Template Demo Import fail', 'bricksfly-elements-for-bricks' );
 
 			} else {
 				$template_data['next_step'] = 'plugins-importer';
 				$progress                   = '10';
-				update_option( 'thebrbre_template_import_state', __( 'Checking Setup requirement', 'the-bricksfly' ) );
+				update_option( 'thebrbre_template_import_state', __( 'Checking Setup requirement', 'bricksfly-elements-for-bricks' ) );
 			}
 		}
 
@@ -584,7 +584,7 @@ class THEBRBRE_Template_Importer {
 
 	private function validate_download_file( $template ) {
 		if ( empty( $template ) ) {
-			update_option( 'thebrbre_template_import_state', __( 'Template Required', 'the-bricksfly' ) );
+			update_option( 'thebrbre_template_import_state', __( 'Template Required', 'bricksfly-elements-for-bricks' ) );
 			return false;
 		}
 
@@ -603,18 +603,18 @@ class THEBRBRE_Template_Importer {
 		$response = wp_remote_get( $remote_url, $args );
 
 		if ( is_wp_error( $response ) ) {
-			update_option( 'thebrbre_template_import_state', __( 'Failed to validate file from remote URL.', 'the-bricksfly' ) );
+			update_option( 'thebrbre_template_import_state', __( 'Failed to validate file from remote URL.', 'bricksfly-elements-for-bricks' ) );
 			return false;
 		}
 
 		if ( 200 !== wp_remote_retrieve_response_code( $response ) ) {
-			update_option( 'thebrbre_template_import_state', __( 'Invalid file arguments.', 'the-bricksfly' ) );
+			update_option( 'thebrbre_template_import_state', __( 'Invalid file arguments.', 'bricksfly-elements-for-bricks' ) );
 			return false;
 		}
 
 		$body = wp_remote_retrieve_body( $response );
 		if ( empty( $body ) ) {
-			update_option( 'thebrbre_template_import_state', __( 'The downloadable file is empty.', 'the-bricksfly' ) );
+			update_option( 'thebrbre_template_import_state', __( 'The downloadable file is empty.', 'bricksfly-elements-for-bricks' ) );
 			return false;
 		}
 

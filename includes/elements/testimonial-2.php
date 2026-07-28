@@ -12,7 +12,7 @@ class THEBRBRE_Bricks_Testimonial2 extends \Bricks\Element
 
     public function get_label()
     {
-        return esc_html__('Classic Testimonial', 'the-bricksfly');
+        return esc_html__('Classic Testimonial', 'bricksfly-elements-for-bricks');
     }
 
     public function get_keywords()
@@ -23,47 +23,47 @@ class THEBRBRE_Bricks_Testimonial2 extends \Bricks\Element
     public function set_control_groups()
     {
         $this->control_groups['content'] = [
-            'title' => esc_html__('Testimonial', 'the-bricksfly'),
+            'title' => esc_html__('Testimonial', 'bricksfly-elements-for-bricks'),
             'tab'   => 'content',
         ];
 
         $this->control_groups['slider_options'] = [
-            'title' => esc_html__('Slider Options', 'the-bricksfly'),
+            'title' => esc_html__('Slider Options', 'bricksfly-elements-for-bricks'),
             'tab'   => 'content',
         ];
 
         $this->control_groups['slide_style'] = [
-            'title' => esc_html__('Slide', 'the-bricksfly'),
+            'title' => esc_html__('Slide', 'bricksfly-elements-for-bricks'),
             'tab'   => 'style',
         ];
 
         $this->control_groups['navigation_style'] = [
-            'title' => esc_html__('Navigation', 'the-bricksfly'),
+            'title' => esc_html__('Navigation', 'bricksfly-elements-for-bricks'),
             'tab'   => 'style',
         ];
 
         $this->control_groups['image_style'] = [
-            'title' => esc_html__('Image', 'the-bricksfly'),
+            'title' => esc_html__('Image', 'bricksfly-elements-for-bricks'),
             'tab'   => 'style',
         ];
 
         $this->control_groups['content_style'] = [
-            'title' => esc_html__('Content', 'the-bricksfly'),
+            'title' => esc_html__('Content', 'bricksfly-elements-for-bricks'),
             'tab'   => 'style',
         ];
 
         $this->control_groups['name_style'] = [
-            'title' => esc_html__('Name', 'the-bricksfly'),
+            'title' => esc_html__('Name', 'bricksfly-elements-for-bricks'),
             'tab'   => 'style',
         ];
 
         $this->control_groups['designation_style'] = [
-            'title' => esc_html__('Designation', 'the-bricksfly'),
+            'title' => esc_html__('Designation', 'bricksfly-elements-for-bricks'),
             'tab'   => 'style',
         ];
 
         $this->control_groups['quote_style'] = [
-            'title' => esc_html__('Quote', 'the-bricksfly'),
+            'title' => esc_html__('Quote', 'bricksfly-elements-for-bricks'),
             'tab'   => 'style',
         ];
     }
@@ -75,12 +75,12 @@ class THEBRBRE_Bricks_Testimonial2 extends \Bricks\Element
         // Testimonial Style
         $this->controls['elementList'] = [
             'group'   => 'content',
-            'label'   => esc_html__('Testimonial Style', 'the-bricksfly'),
+            'label'   => esc_html__('Testimonial Style', 'bricksfly-elements-for-bricks'),
             'type'    => 'select',
             'options' => [
-                '1' => esc_html__('One', 'the-bricksfly'),
-                '2' => esc_html__('Two', 'the-bricksfly'),
-                '3' => esc_html__('Three', 'the-bricksfly'),
+                '1' => esc_html__('One', 'bricksfly-elements-for-bricks'),
+                '2' => esc_html__('Two', 'bricksfly-elements-for-bricks'),
+                '3' => esc_html__('Three', 'bricksfly-elements-for-bricks'),
             ],
             'default' => '1',
             'inline'  => true,
@@ -89,59 +89,59 @@ class THEBRBRE_Bricks_Testimonial2 extends \Bricks\Element
         // Repeater: Testimonials
         $this->controls['testimonials'] = [
             'group'         => 'content',
-            'label'         => esc_html__('Testimonials', 'the-bricksfly'),
+            'label'         => esc_html__('Testimonials', 'bricksfly-elements-for-bricks'),
             'type'          => 'repeater',
             'titleProperty' => 'testimonialName',
             'fields'        => [
                 'testimonialContent' => [
-                    'label'   => esc_html__('Content', 'the-bricksfly'),
+                    'label'   => esc_html__('Content', 'bricksfly-elements-for-bricks'),
                     'type'    => 'textarea',
-                    'default' => esc_html__('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', 'the-bricksfly'),
+                    'default' => esc_html__('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', 'bricksfly-elements-for-bricks'),
                 ],
                 'testimonialImage' => [
-                    'label' => esc_html__('Image', 'the-bricksfly'),
+                    'label' => esc_html__('Image', 'bricksfly-elements-for-bricks'),
                     'type'  => 'image',
                 ],
                 'testimonialName' => [
-                    'label'   => esc_html__('Name', 'the-bricksfly'),
+                    'label'   => esc_html__('Name', 'bricksfly-elements-for-bricks'),
                     'type'    => 'text',
-                    'default' => esc_html__('John Doe', 'the-bricksfly'),
+                    'default' => esc_html__('John Doe', 'bricksfly-elements-for-bricks'),
                 ],
                 'testimonialJob' => [
-                    'label'   => esc_html__('Designation', 'the-bricksfly'),
+                    'label'   => esc_html__('Designation', 'bricksfly-elements-for-bricks'),
                     'type'    => 'text',
-                    'default' => esc_html__('Designer', 'the-bricksfly'),
+                    'default' => esc_html__('Designer', 'bricksfly-elements-for-bricks'),
                 ],
                 'link' => [
-                    'label' => esc_html__('Link', 'the-bricksfly'),
+                    'label' => esc_html__('Link', 'bricksfly-elements-for-bricks'),
                     'type'  => 'link',
                 ],
             ],
             'default' => [
                 [
-                    'testimonialContent' => esc_html__('Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'the-bricksfly'),
-                    'testimonialName'    => esc_html__('John Doe', 'the-bricksfly'),
-                    'testimonialJob'     => esc_html__('Designer', 'the-bricksfly'),
+                    'testimonialContent' => esc_html__('Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'bricksfly-elements-for-bricks'),
+                    'testimonialName'    => esc_html__('John Doe', 'bricksfly-elements-for-bricks'),
+                    'testimonialJob'     => esc_html__('Designer', 'bricksfly-elements-for-bricks'),
                 ],
                 [
-                    'testimonialContent' => esc_html__('Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'the-bricksfly'),
-                    'testimonialName'    => esc_html__('Jane Smith', 'the-bricksfly'),
-                    'testimonialJob'     => esc_html__('Developer', 'the-bricksfly'),
+                    'testimonialContent' => esc_html__('Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'bricksfly-elements-for-bricks'),
+                    'testimonialName'    => esc_html__('Jane Smith', 'bricksfly-elements-for-bricks'),
+                    'testimonialJob'     => esc_html__('Developer', 'bricksfly-elements-for-bricks'),
                 ],
                 [
-                    'testimonialContent' => esc_html__('Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'the-bricksfly'),
-                    'testimonialName'    => esc_html__('Bob Wilson', 'the-bricksfly'),
-                    'testimonialJob'     => esc_html__('Manager', 'the-bricksfly'),
+                    'testimonialContent' => esc_html__('Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'bricksfly-elements-for-bricks'),
+                    'testimonialName'    => esc_html__('Bob Wilson', 'bricksfly-elements-for-bricks'),
+                    'testimonialJob'     => esc_html__('Manager', 'bricksfly-elements-for-bricks'),
                 ],
                 [
-                    'testimonialContent' => esc_html__('Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'the-bricksfly'),
-                    'testimonialName'    => esc_html__('Alice Brown', 'the-bricksfly'),
-                    'testimonialJob'     => esc_html__('Director', 'the-bricksfly'),
+                    'testimonialContent' => esc_html__('Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'bricksfly-elements-for-bricks'),
+                    'testimonialName'    => esc_html__('Alice Brown', 'bricksfly-elements-for-bricks'),
+                    'testimonialJob'     => esc_html__('Director', 'bricksfly-elements-for-bricks'),
                 ],
                 [
-                    'testimonialContent' => esc_html__('Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'the-bricksfly'),
-                    'testimonialName'    => esc_html__('Tom Davis', 'the-bricksfly'),
-                    'testimonialJob'     => esc_html__('Engineer', 'the-bricksfly'),
+                    'testimonialContent' => esc_html__('Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'bricksfly-elements-for-bricks'),
+                    'testimonialName'    => esc_html__('Tom Davis', 'bricksfly-elements-for-bricks'),
+                    'testimonialJob'     => esc_html__('Engineer', 'bricksfly-elements-for-bricks'),
                 ],
             ],
         ];
@@ -149,7 +149,7 @@ class THEBRBRE_Bricks_Testimonial2 extends \Bricks\Element
         // Quote Icon
         $this->controls['quoteIcon'] = [
             'group' => 'content',
-            'label' => esc_html__('Quote Icon', 'the-bricksfly'),
+            'label' => esc_html__('Quote Icon', 'bricksfly-elements-for-bricks'),
             'type'  => 'icon',
             'default' => [
                 'library' => 'fontawesome',
@@ -161,7 +161,7 @@ class THEBRBRE_Bricks_Testimonial2 extends \Bricks\Element
 
         $this->controls['slidesToShow'] = [
             'group'   => 'slider_options',
-            'label'   => esc_html__('Slides to Show', 'the-bricksfly'),
+            'label'   => esc_html__('Slides to Show', 'bricksfly-elements-for-bricks'),
             'type'    => 'number',
             'min'     => 1,
             'max'     => 10,
@@ -170,14 +170,14 @@ class THEBRBRE_Bricks_Testimonial2 extends \Bricks\Element
 
         $this->controls['autoplay'] = [
             'group'   => 'slider_options',
-            'label'   => esc_html__('Autoplay', 'the-bricksfly'),
+            'label'   => esc_html__('Autoplay', 'bricksfly-elements-for-bricks'),
             'type'    => 'checkbox',
             'default' => true,
         ];
 
         $this->controls['autoplayDelay'] = [
             'group'    => 'slider_options',
-            'label'    => esc_html__('Autoplay Delay (ms)', 'the-bricksfly'),
+            'label'    => esc_html__('Autoplay Delay (ms)', 'bricksfly-elements-for-bricks'),
             'type'     => 'number',
             'default'  => 3000,
             'required' => ['autoplay', '!=', ''],
@@ -185,7 +185,7 @@ class THEBRBRE_Bricks_Testimonial2 extends \Bricks\Element
 
         $this->controls['autoplayInteraction'] = [
             'group'    => 'slider_options',
-            'label'    => esc_html__('Pause on Interaction', 'the-bricksfly'),
+            'label'    => esc_html__('Pause on Interaction', 'bricksfly-elements-for-bricks'),
             'type'     => 'checkbox',
             'default'  => true,
             'required' => ['autoplay', '!=', ''],
@@ -193,41 +193,41 @@ class THEBRBRE_Bricks_Testimonial2 extends \Bricks\Element
 
         $this->controls['allowTouchMove'] = [
             'group'   => 'slider_options',
-            'label'   => esc_html__('Allow Touch Move', 'the-bricksfly'),
+            'label'   => esc_html__('Allow Touch Move', 'bricksfly-elements-for-bricks'),
             'type'    => 'checkbox',
             'default' => false,
         ];
 
         $this->controls['loop'] = [
             'group'   => 'slider_options',
-            'label'   => esc_html__('Loop', 'the-bricksfly'),
+            'label'   => esc_html__('Loop', 'bricksfly-elements-for-bricks'),
             'type'    => 'checkbox',
             'default' => true,
         ];
 
         $this->controls['speed'] = [
             'group'   => 'slider_options',
-            'label'   => esc_html__('Animation Speed (ms)', 'the-bricksfly'),
+            'label'   => esc_html__('Animation Speed (ms)', 'bricksfly-elements-for-bricks'),
             'type'    => 'number',
             'default' => 500,
         ];
 
         $this->controls['spaceBetween'] = [
             'group'   => 'slider_options',
-            'label'   => esc_html__('Space Between (px)', 'the-bricksfly'),
+            'label'   => esc_html__('Space Between (px)', 'bricksfly-elements-for-bricks'),
             'type'    => 'number',
             'default' => 20,
         ];
 
         $this->controls['navigation'] = [
             'group'   => 'slider_options',
-            'label'   => esc_html__('Navigation', 'the-bricksfly'),
+            'label'   => esc_html__('Navigation', 'bricksfly-elements-for-bricks'),
             'type'    => 'select',
             'options' => [
-                'both'   => esc_html__('Arrows and Dots', 'the-bricksfly'),
-                'arrows' => esc_html__('Arrows', 'the-bricksfly'),
-                'dots'   => esc_html__('Dots', 'the-bricksfly'),
-                'none'   => esc_html__('None', 'the-bricksfly'),
+                'both'   => esc_html__('Arrows and Dots', 'bricksfly-elements-for-bricks'),
+                'arrows' => esc_html__('Arrows', 'bricksfly-elements-for-bricks'),
+                'dots'   => esc_html__('Dots', 'bricksfly-elements-for-bricks'),
+                'none'   => esc_html__('None', 'bricksfly-elements-for-bricks'),
             ],
             'default' => 'arrows',
             'inline'  => true,
@@ -235,7 +235,7 @@ class THEBRBRE_Bricks_Testimonial2 extends \Bricks\Element
 
         $this->controls['prevIcon'] = [
             'group'    => 'slider_options',
-            'label'    => esc_html__('Previous Arrow Icon', 'the-bricksfly'),
+            'label'    => esc_html__('Previous Arrow Icon', 'bricksfly-elements-for-bricks'),
             'type'     => 'icon',
             'default'  => [
                 'library' => 'fontawesome',
@@ -246,7 +246,7 @@ class THEBRBRE_Bricks_Testimonial2 extends \Bricks\Element
 
         $this->controls['nextIcon'] = [
             'group'    => 'slider_options',
-            'label'    => esc_html__('Next Arrow Icon', 'the-bricksfly'),
+            'label'    => esc_html__('Next Arrow Icon', 'bricksfly-elements-for-bricks'),
             'type'     => 'icon',
             'default'  => [
                 'library' => 'fontawesome',
@@ -257,11 +257,11 @@ class THEBRBRE_Bricks_Testimonial2 extends \Bricks\Element
 
         $this->controls['sliderDirection'] = [
             'group'   => 'slider_options',
-            'label'   => esc_html__('Direction', 'the-bricksfly'),
+            'label'   => esc_html__('Direction', 'bricksfly-elements-for-bricks'),
             'type'    => 'select',
             'options' => [
-                'ltr' => esc_html__('Left to Right', 'the-bricksfly'),
-                'rtl' => esc_html__('Right to Left', 'the-bricksfly'),
+                'ltr' => esc_html__('Left to Right', 'bricksfly-elements-for-bricks'),
+                'rtl' => esc_html__('Right to Left', 'bricksfly-elements-for-bricks'),
             ],
             'default' => 'ltr',
             'inline'  => true,
@@ -272,7 +272,7 @@ class THEBRBRE_Bricks_Testimonial2 extends \Bricks\Element
         // Slide Style
         $this->controls['slideBackground'] = [
             'group' => 'slide_style',
-            'label' => esc_html__('Background', 'the-bricksfly'),
+            'label' => esc_html__('Background', 'bricksfly-elements-for-bricks'),
             'type'  => 'background',
             'css'   => [['property' => 'background', 'selector' => '.slide']],
             'exclude' => ['video'],  // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude -- Bricks control option, not a WP_Query arg
@@ -280,7 +280,7 @@ class THEBRBRE_Bricks_Testimonial2 extends \Bricks\Element
 
         $this->controls['slideBorder'] = [
             'group' => 'slide_style',
-            'label' => esc_html__('Border', 'the-bricksfly'),
+            'label' => esc_html__('Border', 'bricksfly-elements-for-bricks'),
             'type'  => 'border',
             'css'   => [['property' => 'border', 'selector' => '.slide']],
         ];
@@ -288,7 +288,7 @@ class THEBRBRE_Bricks_Testimonial2 extends \Bricks\Element
         // Navigation Style
         $this->controls['arrowsSize'] = [
             'group' => 'navigation_style',
-            'label' => esc_html__('Arrow Size', 'the-bricksfly'),
+            'label' => esc_html__('Arrow Size', 'bricksfly-elements-for-bricks'),
             'type'  => 'slider',
             'units' => [
                 'px' => ['min' => 10, 'max' => 60, 'step' => 1],
@@ -299,7 +299,7 @@ class THEBRBRE_Bricks_Testimonial2 extends \Bricks\Element
 
         $this->controls['arrowsColor'] = [
             'group' => 'navigation_style',
-            'label' => esc_html__('Arrow Color', 'the-bricksfly'),
+            'label' => esc_html__('Arrow Color', 'bricksfly-elements-for-bricks'),
             'type'  => 'color',
             'css'   => [
                 ['property' => 'color', 'selector' => '.wcf-arrow'],
@@ -310,7 +310,7 @@ class THEBRBRE_Bricks_Testimonial2 extends \Bricks\Element
 
         $this->controls['arrowsHoverColor'] = [
             'group' => 'navigation_style',
-            'label' => esc_html__('Arrow Hover Color', 'the-bricksfly'),
+            'label' => esc_html__('Arrow Hover Color', 'bricksfly-elements-for-bricks'),
             'type'  => 'color',
             'css'   => [
                 ['property' => 'color', 'selector' => '.wcf-arrow:hover'],
@@ -325,14 +325,14 @@ class THEBRBRE_Bricks_Testimonial2 extends \Bricks\Element
         // state and break editor live preview.
         $this->controls['arrowsOffset'] = [
             'group'       => 'navigation_style',
-            'label'       => esc_html__('Arrows Offset', 'the-bricksfly'),
+            'label'       => esc_html__('Arrows Offset', 'bricksfly-elements-for-bricks'),
             'type'        => 'slider',
             'units'       => [
                 '%' => ['min' => 0, 'max' => 100],
             ],
             'default'     => '5%',
             'placeholder' => '5%',
-            'description' => esc_html__('Space between the previous and next arrow.', 'the-bricksfly'),
+            'description' => esc_html__('Space between the previous and next arrow.', 'bricksfly-elements-for-bricks'),
             'css'         => [
                 ['property' => 'gap', 'selector' => '.ts-navigation'],
             ],
@@ -341,14 +341,14 @@ class THEBRBRE_Bricks_Testimonial2 extends \Bricks\Element
 
         $this->controls['arrowsOffsetVertical'] = [
             'group'       => 'navigation_style',
-            'label'       => esc_html__('Arrows Offset (Vertical)', 'the-bricksfly'),
+            'label'       => esc_html__('Arrows Offset (Vertical)', 'bricksfly-elements-for-bricks'),
             'type'        => 'slider',
             'units'       => [
                 '%' => ['min' => -100, 'max' => 100],
             ],
             'default'     => '95%',
             'placeholder' => '95%',
-            'description' => esc_html__('Negative pulls arrows up over the slider; positive pushes them down.', 'the-bricksfly'),
+            'description' => esc_html__('Negative pulls arrows up over the slider; positive pushes them down.', 'bricksfly-elements-for-bricks'),
             'css'         => [
                 ['property' => 'top', 'selector' => '.ts-navigation'],
             ],
@@ -360,7 +360,7 @@ class THEBRBRE_Bricks_Testimonial2 extends \Bricks\Element
         // unit and emits invalid `width: 10` which the browser ignores.
         $this->controls['dotsSize'] = [
             'group' => 'navigation_style',
-            'label' => esc_html__('Dot Size', 'the-bricksfly'),
+            'label' => esc_html__('Dot Size', 'bricksfly-elements-for-bricks'),
             'type'  => 'number',
             'units' => true,
             'css'   => [
@@ -375,11 +375,11 @@ class THEBRBRE_Bricks_Testimonial2 extends \Bricks\Element
         // `bottom: <value>` on it. px is the natural default unit.
         $this->controls['dotsOffset'] = [
             'group'       => 'navigation_style',
-            'label'       => esc_html__('Dots Offset', 'the-bricksfly'),
+            'label'       => esc_html__('Dots Offset', 'bricksfly-elements-for-bricks'),
             'type'        => 'number',
             'units'       => true,
             'placeholder' => '0px',
-            'description' => esc_html__('Distance of the dots row from the bottom of the slider.', 'the-bricksfly'),
+            'description' => esc_html__('Distance of the dots row from the bottom of the slider.', 'bricksfly-elements-for-bricks'),
             'css'         => [
                 ['property' => 'bottom', 'selector' => '.ts-pagination'],
             ],
@@ -388,7 +388,7 @@ class THEBRBRE_Bricks_Testimonial2 extends \Bricks\Element
 
         $this->controls['dotsColor'] = [
             'group' => 'navigation_style',
-            'label' => esc_html__('Dot Color', 'the-bricksfly'),
+            'label' => esc_html__('Dot Color', 'bricksfly-elements-for-bricks'),
             'type'  => 'color',
             'css'   => [['property' => 'background', 'selector' => '.swiper-pagination-bullet:not(.swiper-pagination-bullet-active)']],
             'required' => ['navigation', '=', ['both', 'dots']],
@@ -396,7 +396,7 @@ class THEBRBRE_Bricks_Testimonial2 extends \Bricks\Element
 
         $this->controls['dotsActiveColor'] = [
             'group' => 'navigation_style',
-            'label' => esc_html__('Dot Active Color', 'the-bricksfly'),
+            'label' => esc_html__('Dot Active Color', 'bricksfly-elements-for-bricks'),
             'type'  => 'color',
             'css'   => [['property' => 'background', 'selector' => '.swiper-pagination-bullet']],
             'required' => ['navigation', '=', ['both', 'dots']],
@@ -409,14 +409,14 @@ class THEBRBRE_Bricks_Testimonial2 extends \Bricks\Element
         // half, content takes the other half.
         $this->controls['imageSize'] = [
             'group'       => 'image_style',
-            'label'       => esc_html__('Image Size', 'the-bricksfly'),
+            'label'       => esc_html__('Image Size', 'bricksfly-elements-for-bricks'),
             'type'        => 'slider',
             'units'       => [
                 '%' => ['min' => 0, 'max' => 100],
             ],
             'default'     => '50%',
             'placeholder' => '50%',
-            'description' => esc_html__('How much of the slide width the image column takes; the content fills the rest.', 'the-bricksfly'),
+            'description' => esc_html__('How much of the slide width the image column takes; the content fills the rest.', 'bricksfly-elements-for-bricks'),
             'css'         => [
                 [
                     'property' => 'grid-template-columns',
@@ -428,7 +428,7 @@ class THEBRBRE_Bricks_Testimonial2 extends \Bricks\Element
 
         $this->controls['imageBorder'] = [
             'group' => 'image_style',
-            'label' => esc_html__('Border', 'the-bricksfly'),
+            'label' => esc_html__('Border', 'bricksfly-elements-for-bricks'),
             'type'  => 'border',
             'css'   => [['property' => 'border', 'selector' => '.picture img']],
         ];
@@ -436,21 +436,21 @@ class THEBRBRE_Bricks_Testimonial2 extends \Bricks\Element
         // Content Style
         $this->controls['contentTypography'] = [
             'group' => 'content_style',
-            'label' => esc_html__('Typography', 'the-bricksfly'),
+            'label' => esc_html__('Typography', 'bricksfly-elements-for-bricks'),
             'type'  => 'typography',
             'css'   => [['property' => 'typography', 'selector' => '.feedback']],
         ];
 
         $this->controls['contentTextShadow'] = [
             'group' => 'content_style',
-            'label' => esc_html__('Text Shadow', 'the-bricksfly'),
+            'label' => esc_html__('Text Shadow', 'bricksfly-elements-for-bricks'),
             'type'  => 'text-shadow',
             'css'   => [['property' => 'text-shadow', 'selector' => '.feedback']],
         ];
 
         $this->controls['contentPadding'] = [
             'group' => 'content_style',
-            'label' => esc_html__('Padding', 'the-bricksfly'),
+            'label' => esc_html__('Padding', 'bricksfly-elements-for-bricks'),
             'type'  => 'dimensions',
             'css'   => [['property' => 'padding', 'selector' => '.feedback']],
         ];
@@ -458,21 +458,21 @@ class THEBRBRE_Bricks_Testimonial2 extends \Bricks\Element
         // Name Style
         $this->controls['nameTypography'] = [
             'group' => 'name_style',
-            'label' => esc_html__('Typography', 'the-bricksfly'),
+            'label' => esc_html__('Typography', 'bricksfly-elements-for-bricks'),
             'type'  => 'typography',
             'css'   => [['property' => 'typography', 'selector' => '.name']],
         ];
 
         $this->controls['nameTextShadow'] = [
             'group' => 'name_style',
-            'label' => esc_html__('Text Shadow', 'the-bricksfly'),
+            'label' => esc_html__('Text Shadow', 'bricksfly-elements-for-bricks'),
             'type'  => 'text-shadow',
             'css'   => [['property' => 'text-shadow', 'selector' => '.name']],
         ];
 
         $this->controls['namePadding'] = [
             'group' => 'name_style',
-            'label' => esc_html__('Padding', 'the-bricksfly'),
+            'label' => esc_html__('Padding', 'bricksfly-elements-for-bricks'),
             'type'  => 'dimensions',
             'css'   => [['property' => 'padding', 'selector' => '.name']],
         ];
@@ -480,14 +480,14 @@ class THEBRBRE_Bricks_Testimonial2 extends \Bricks\Element
         // Designation Style
         $this->controls['designationTypography'] = [
             'group' => 'designation_style',
-            'label' => esc_html__('Typography', 'the-bricksfly'),
+            'label' => esc_html__('Typography', 'bricksfly-elements-for-bricks'),
             'type'  => 'typography',
             'css'   => [['property' => 'typography', 'selector' => '.designation']],
         ];
 
         $this->controls['designationTextShadow'] = [
             'group' => 'designation_style',
-            'label' => esc_html__('Text Shadow', 'the-bricksfly'),
+            'label' => esc_html__('Text Shadow', 'bricksfly-elements-for-bricks'),
             'type'  => 'text-shadow',
             'css'   => [['property' => 'text-shadow', 'selector' => '.designation']],
         ];
@@ -495,7 +495,7 @@ class THEBRBRE_Bricks_Testimonial2 extends \Bricks\Element
         // Quote Style
         $this->controls['quoteColor'] = [
             'group'    => 'quote_style',
-            'label'    => esc_html__('Quote Color', 'the-bricksfly'),
+            'label'    => esc_html__('Quote Color', 'bricksfly-elements-for-bricks'),
             'type'     => 'color',
             'css'      => [
                 ['property' => 'color', 'selector' => '.quote-icon i'],
@@ -509,7 +509,7 @@ class THEBRBRE_Bricks_Testimonial2 extends \Bricks\Element
         // Each selector gets its own entry (no comma list) for reliability.
         $this->controls['quoteSize'] = [
             'group' => 'quote_style',
-            'label' => esc_html__('Quote Size', 'the-bricksfly'),
+            'label' => esc_html__('Quote Size', 'bricksfly-elements-for-bricks'),
             'type'  => 'number',
             'units' => true,
             'css'   => [
@@ -557,7 +557,7 @@ class THEBRBRE_Bricks_Testimonial2 extends \Bricks\Element
         if (empty($settings['testimonials'])) {
             return $this->render_element_placeholder([
                 'icon-class' => 'ti-comment-alt',
-                'text'       => esc_html__('No testimonials added.', 'the-bricksfly'),
+                'text'       => esc_html__('No testimonials added.', 'bricksfly-elements-for-bricks'),
             ]);
         }
 

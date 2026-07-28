@@ -71,7 +71,7 @@ class THEBRBRE_Page_Importer {
 		$latest_import             = isset( $_GET['aae-latest-import'] ) ? sanitize_key( wp_unslash( $_GET['aae-latest-import'] ) ) : '';
 		$class                     = 'import' === $latest_import ? 'current' : '';
 		$url                       = add_query_arg( 'aae-latest-import', 'import', admin_url( 'edit.php?post_type=page' ) );
-		$views['latest-import']    = "<a href='" . esc_url( $url ) . "' class='" . esc_attr( $class ) . "' style='color: #fc6848; font-weight: 500'>" . esc_html__( 'AAB Imported', 'the-bricksfly' ) . " <span class='count'>(" . (int) $count . ")</span></a>";
+		$views['latest-import']    = "<a href='" . esc_url( $url ) . "' class='" . esc_attr( $class ) . "' style='color: #fc6848; font-weight: 500'>" . esc_html__( 'AAB Imported', 'bricksfly-elements-for-bricks' ) . " <span class='count'>(" . (int) $count . ")</span></a>";
 
 		return $views;
 	}
@@ -115,8 +115,8 @@ class THEBRBRE_Page_Importer {
 
 		add_submenu_page(
 			\wealcoder\thebricksfly\Admin\Pages\THEBRBRE_Admin_Init::MENU_PAGE_SLUG,
-			__( 'Page Import', 'the-bricksfly' ),
-			__( 'Page Import', 'the-bricksfly' ),
+			__( 'Page Import', 'bricksfly-elements-for-bricks' ),
+			__( 'Page Import', 'bricksfly-elements-for-bricks' ),
 			'manage_options',
 			'bf-page-importer',
 			[ $this, 'page_html' ]

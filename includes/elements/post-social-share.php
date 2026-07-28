@@ -11,7 +11,7 @@ class THEBRBRE_Bricks_Post_Social_Share extends \Bricks\Element {
 	public $scripts      = [ 'thebrbrePostSocialShare' ];
 
 	public function get_label() {
-		return esc_html__('Social Share', 'the-bricksfly');
+		return esc_html__('Social Share', 'bricksfly-elements-for-bricks');
 	}
 
 	public function get_keywords() {
@@ -40,27 +40,27 @@ class THEBRBRE_Bricks_Post_Social_Share extends \Bricks\Element {
 
 	public function set_control_groups() {
 		$this->control_groups['content'] = [
-			'title' => esc_html__('Content', 'the-bricksfly'),
+			'title' => esc_html__('Content', 'bricksfly-elements-for-bricks'),
 			'tab'   => 'content',
 		];
 
 		$this->control_groups['layout_style'] = [
-			'title' => esc_html__('Layout', 'the-bricksfly'),
+			'title' => esc_html__('Layout', 'bricksfly-elements-for-bricks'),
 			'tab'   => 'style',
 		];
 
 		$this->control_groups['item_style'] = [
-			'title' => esc_html__('Item', 'the-bricksfly'),
+			'title' => esc_html__('Item', 'bricksfly-elements-for-bricks'),
 			'tab'   => 'style',
 		];
 
 		$this->control_groups['icon_style'] = [
-			'title' => esc_html__('Icon', 'the-bricksfly'),
+			'title' => esc_html__('Icon', 'bricksfly-elements-for-bricks'),
 			'tab'   => 'style',
 		];
 
 		$this->control_groups['separator_style'] = [
-			'title' => esc_html__('Separator', 'the-bricksfly'),
+			'title' => esc_html__('Separator', 'bricksfly-elements-for-bricks'),
 			'tab'   => 'style',
 		];
 	}
@@ -72,13 +72,13 @@ class THEBRBRE_Bricks_Post_Social_Share extends \Bricks\Element {
 		$this->controls['shareStyle'] = [
 			'tab'     => 'content',
 			'group'   => 'content',
-			'label'   => esc_html__( 'Style', 'the-bricksfly' ),
+			'label'   => esc_html__( 'Style', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'select',
 			'inline'  => true,
 			'options' => [
-				'default' => esc_html__( 'One', 'the-bricksfly' ),
-				'style-1' => esc_html__( 'Two', 'the-bricksfly' ),
-				'style-2' => esc_html__( 'Three', 'the-bricksfly' ),
+				'default' => esc_html__( 'One', 'bricksfly-elements-for-bricks' ),
+				'style-1' => esc_html__( 'Two', 'bricksfly-elements-for-bricks' ),
+				'style-2' => esc_html__( 'Three', 'bricksfly-elements-for-bricks' ),
 			],
 			'default' => 'default',
 		];
@@ -86,7 +86,7 @@ class THEBRBRE_Bricks_Post_Social_Share extends \Bricks\Element {
 		$this->controls['showTitle'] = [
 			'tab'     => 'content',
 			'group'   => 'content',
-			'label'   => esc_html__( 'Show Title', 'the-bricksfly' ),
+			'label'   => esc_html__( 'Show Title', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'checkbox',
 			'default' => true,
 		];
@@ -94,23 +94,23 @@ class THEBRBRE_Bricks_Post_Social_Share extends \Bricks\Element {
 		$this->controls['showShareIcon'] = [
 			'tab'   => 'content',
 			'group' => 'content',
-			'label' => esc_html__( 'Show Share Icon', 'the-bricksfly' ),
+			'label' => esc_html__( 'Show Share Icon', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'checkbox',
 		];
 
 		$this->controls['shareText'] = [
 			'tab'      => 'content',
 			'group'    => 'content',
-			'label'    => esc_html__( 'Share Text', 'the-bricksfly' ),
+			'label'    => esc_html__( 'Share Text', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'text',
-			'default'  => esc_html__( 'Share', 'the-bricksfly' ),
+			'default'  => esc_html__( 'Share', 'bricksfly-elements-for-bricks' ),
 			'required' => [ 'showShareIcon', '!=', '' ],
 		];
 
 		$this->controls['shareIcon'] = [
 			'tab'      => 'content',
 			'group'    => 'content',
-			'label'    => esc_html__( 'Share Icon', 'the-bricksfly' ),
+			'label'    => esc_html__( 'Share Icon', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'icon',
 			'default'  => [
 				'library' => 'fontawesome',
@@ -121,21 +121,21 @@ class THEBRBRE_Bricks_Post_Social_Share extends \Bricks\Element {
 		$this->controls['showShareCount'] = [
 			'tab'   => 'content',
 			'group' => 'content',
-			'label' => esc_html__( 'Show Share Count', 'the-bricksfly' ),
+			'label' => esc_html__( 'Show Share Count', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'checkbox',
 		];
 
 		$this->controls['showSeparator'] = [
 			'tab'   => 'content',
 			'group' => 'content',
-			'label' => esc_html__( 'Show Separator', 'the-bricksfly' ),
+			'label' => esc_html__( 'Show Separator', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'checkbox',
 		];
 
 		$this->controls['separatorIcon'] = [
 			'tab'      => 'content',
 			'group'    => 'content',
-			'label'    => esc_html__( 'Separator Icon', 'the-bricksfly' ),
+			'label'    => esc_html__( 'Separator Icon', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'icon',
 			'required' => [ 'showSeparator', '!=', '' ],
 		];
@@ -144,31 +144,31 @@ class THEBRBRE_Bricks_Post_Social_Share extends \Bricks\Element {
 		$this->controls['shareItems'] = [
 			'tab'           => 'content',
 			'group'         => 'content',
-			'label'         => esc_html__( 'Social Share', 'the-bricksfly' ),
+			'label'         => esc_html__( 'Social Share', 'bricksfly-elements-for-bricks' ),
 			'type'          => 'repeater',
 			'titleProperty' => 'title',
 			'fields'        => [
 				'title' => [
-					'label'   => esc_html__( 'Title', 'the-bricksfly' ),
+					'label'   => esc_html__( 'Title', 'bricksfly-elements-for-bricks' ),
 					'type'    => 'text',
-					'default' => esc_html__( 'Facebook', 'the-bricksfly' ),
+					'default' => esc_html__( 'Facebook', 'bricksfly-elements-for-bricks' ),
 				],
 				'vendor' => [
-					'label'   => esc_html__( 'Vendor', 'the-bricksfly' ),
+					'label'   => esc_html__( 'Vendor', 'bricksfly-elements-for-bricks' ),
 					'type'    => 'select',
 					'options' => [
-						'facebook'  => esc_html__( 'Facebook', 'the-bricksfly' ),
-						'twitter'   => esc_html__( 'Twitter', 'the-bricksfly' ),
-						'linkedin'  => esc_html__( 'LinkedIn', 'the-bricksfly' ),
-						'pinterest' => esc_html__( 'Pinterest', 'the-bricksfly' ),
-						'tumblr'    => esc_html__( 'Tumblr', 'the-bricksfly' ),
-						'blogger'   => esc_html__( 'Blogger', 'the-bricksfly' ),
-						'reddit'    => esc_html__( 'Reddit', 'the-bricksfly' ),
+						'facebook'  => esc_html__( 'Facebook', 'bricksfly-elements-for-bricks' ),
+						'twitter'   => esc_html__( 'Twitter', 'bricksfly-elements-for-bricks' ),
+						'linkedin'  => esc_html__( 'LinkedIn', 'bricksfly-elements-for-bricks' ),
+						'pinterest' => esc_html__( 'Pinterest', 'bricksfly-elements-for-bricks' ),
+						'tumblr'    => esc_html__( 'Tumblr', 'bricksfly-elements-for-bricks' ),
+						'blogger'   => esc_html__( 'Blogger', 'bricksfly-elements-for-bricks' ),
+						'reddit'    => esc_html__( 'Reddit', 'bricksfly-elements-for-bricks' ),
 					],
 					'default' => 'facebook',
 				],
 				'icon' => [
-					'label' => esc_html__( 'Icon', 'the-bricksfly' ),
+					'label' => esc_html__( 'Icon', 'bricksfly-elements-for-bricks' ),
 					'type'  => 'icon',
 				],
 			],
@@ -196,7 +196,7 @@ class THEBRBRE_Bricks_Post_Social_Share extends \Bricks\Element {
 		$this->controls['layoutDirection'] = [
 			'tab'     => 'style',
 			'group'   => 'layout_style',
-			'label'   => esc_html__( 'Direction', 'the-bricksfly' ),
+			'label'   => esc_html__( 'Direction', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'direction',
 			'css'     => [
 				[
@@ -209,7 +209,7 @@ class THEBRBRE_Bricks_Post_Social_Share extends \Bricks\Element {
 		$this->controls['layoutJustify'] = [
 			'tab'   => 'style',
 			'group' => 'layout_style',
-			'label' => esc_html__( 'Justify Content', 'the-bricksfly' ),
+			'label' => esc_html__( 'Justify Content', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'justify-content',
 			'css'   => [
 				[
@@ -222,7 +222,7 @@ class THEBRBRE_Bricks_Post_Social_Share extends \Bricks\Element {
 		$this->controls['layoutAlign'] = [
 			'tab'   => 'style',
 			'group' => 'layout_style',
-			'label' => esc_html__( 'Align Items', 'the-bricksfly' ),
+			'label' => esc_html__( 'Align Items', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'align-items',
 			'css'   => [
 				[
@@ -235,7 +235,7 @@ class THEBRBRE_Bricks_Post_Social_Share extends \Bricks\Element {
 		$this->controls['layoutGap'] = [
 			'tab'   => 'style',
 			'group' => 'layout_style',
-			'label' => esc_html__( 'Gap', 'the-bricksfly' ),
+			'label' => esc_html__( 'Gap', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'number',
 			'units' => [
 				'px' => [ 'min' => 0, 'max' => 100, 'step' => 5 ],
@@ -251,12 +251,12 @@ class THEBRBRE_Bricks_Post_Social_Share extends \Bricks\Element {
 		$this->controls['layoutWrap'] = [
 			'tab'     => 'style',
 			'group'   => 'layout_style',
-			'label'   => esc_html__( 'Wrap', 'the-bricksfly' ),
+			'label'   => esc_html__( 'Wrap', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'select',
 			'inline'  => true,
 			'options' => [
-				'nowrap' => esc_html__( 'No Wrap', 'the-bricksfly' ),
-				'wrap'   => esc_html__( 'Wrap', 'the-bricksfly' ),
+				'nowrap' => esc_html__( 'No Wrap', 'bricksfly-elements-for-bricks' ),
+				'wrap'   => esc_html__( 'Wrap', 'bricksfly-elements-for-bricks' ),
 			],
 			'css' => [
 				[
@@ -271,7 +271,7 @@ class THEBRBRE_Bricks_Post_Social_Share extends \Bricks\Element {
 		$this->controls['itemTextColor'] = [
 			'tab'   => 'style',
 			'group' => 'item_style',
-			'label' => esc_html__( 'Text Color', 'the-bricksfly' ),
+			'label' => esc_html__( 'Text Color', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'color',
 			'css'   => [
 				[
@@ -288,7 +288,7 @@ class THEBRBRE_Bricks_Post_Social_Share extends \Bricks\Element {
 		$this->controls['itemTypography'] = [
 			'tab'   => 'style',
 			'group' => 'item_style',
-			'label' => esc_html__( 'Typography', 'the-bricksfly' ),
+			'label' => esc_html__( 'Typography', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'typography',
 			'css'   => [
 				[
@@ -301,7 +301,7 @@ class THEBRBRE_Bricks_Post_Social_Share extends \Bricks\Element {
 		$this->controls['itemBackground'] = [
 			'tab'   => 'style',
 			'group' => 'item_style',
-			'label' => esc_html__( 'Background', 'the-bricksfly' ),
+			'label' => esc_html__( 'Background', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'background',
 			'css'   => [
 				[
@@ -314,7 +314,7 @@ class THEBRBRE_Bricks_Post_Social_Share extends \Bricks\Element {
 		$this->controls['itemBorder'] = [
 			'tab'   => 'style',
 			'group' => 'item_style',
-			'label' => esc_html__( 'Border', 'the-bricksfly' ),
+			'label' => esc_html__( 'Border', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'border',
 			'css'   => [
 				[
@@ -327,7 +327,7 @@ class THEBRBRE_Bricks_Post_Social_Share extends \Bricks\Element {
 		$this->controls['itemPadding'] = [
 			'tab'   => 'style',
 			'group' => 'item_style',
-			'label' => esc_html__( 'Padding', 'the-bricksfly' ),
+			'label' => esc_html__( 'Padding', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'dimensions',
 			'css'   => [
 				[
@@ -340,7 +340,7 @@ class THEBRBRE_Bricks_Post_Social_Share extends \Bricks\Element {
 		$this->controls['itemWidth'] = [
 			'tab'   => 'style',
 			'group' => 'item_style',
-			'label' => esc_html__( 'Width', 'the-bricksfly' ),
+			'label' => esc_html__( 'Width', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'number',
 			'units' => [
 				'px' => [ 'min' => 0, 'max' => 200, 'step' => 5 ],
@@ -356,7 +356,7 @@ class THEBRBRE_Bricks_Post_Social_Share extends \Bricks\Element {
 		$this->controls['itemHeight'] = [
 			'tab'   => 'style',
 			'group' => 'item_style',
-			'label' => esc_html__( 'Height', 'the-bricksfly' ),
+			'label' => esc_html__( 'Height', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'number',
 			'units' => [
 				'px' => [ 'min' => 0, 'max' => 200, 'step' => 5 ],
@@ -372,7 +372,7 @@ class THEBRBRE_Bricks_Post_Social_Share extends \Bricks\Element {
 		$this->controls['itemDirection'] = [
 			'tab'   => 'style',
 			'group' => 'item_style',
-			'label' => esc_html__( 'Inner Direction', 'the-bricksfly' ),
+			'label' => esc_html__( 'Inner Direction', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'direction',
 			'css'   => [
 				[
@@ -385,7 +385,7 @@ class THEBRBRE_Bricks_Post_Social_Share extends \Bricks\Element {
 		$this->controls['itemJustify'] = [
 			'tab'   => 'style',
 			'group' => 'item_style',
-			'label' => esc_html__( 'Justify Content', 'the-bricksfly' ),
+			'label' => esc_html__( 'Justify Content', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'justify-content',
 			'css'   => [
 				[
@@ -398,7 +398,7 @@ class THEBRBRE_Bricks_Post_Social_Share extends \Bricks\Element {
 		$this->controls['itemAlignItems'] = [
 			'tab'   => 'style',
 			'group' => 'item_style',
-			'label' => esc_html__( 'Align Items', 'the-bricksfly' ),
+			'label' => esc_html__( 'Align Items', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'align-items',
 			'css'   => [
 				[
@@ -411,7 +411,7 @@ class THEBRBRE_Bricks_Post_Social_Share extends \Bricks\Element {
 		$this->controls['itemInnerGap'] = [
 			'tab'   => 'style',
 			'group' => 'item_style',
-			'label' => esc_html__( 'Inner Gap', 'the-bricksfly' ),
+			'label' => esc_html__( 'Inner Gap', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'number',
 			'units' => [
 				'px' => [ 'min' => 0, 'max' => 100, 'step' => 5 ],
@@ -428,7 +428,7 @@ class THEBRBRE_Bricks_Post_Social_Share extends \Bricks\Element {
 		$this->controls['itemHoverTextColor'] = [
 			'tab'   => 'style',
 			'group' => 'item_style',
-			'label' => esc_html__( 'Hover Text Color', 'the-bricksfly' ),
+			'label' => esc_html__( 'Hover Text Color', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'color',
 			'css'   => [
 				[
@@ -441,7 +441,7 @@ class THEBRBRE_Bricks_Post_Social_Share extends \Bricks\Element {
 		$this->controls['itemHoverIconColor'] = [
 			'tab'   => 'style',
 			'group' => 'item_style',
-			'label' => esc_html__( 'Hover Icon Color', 'the-bricksfly' ),
+			'label' => esc_html__( 'Hover Icon Color', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'color',
 			'css'   => [
 				[
@@ -458,7 +458,7 @@ class THEBRBRE_Bricks_Post_Social_Share extends \Bricks\Element {
 		$this->controls['itemHoverBg'] = [
 			'tab'   => 'style',
 			'group' => 'item_style',
-			'label' => esc_html__( 'Hover Background', 'the-bricksfly' ),
+			'label' => esc_html__( 'Hover Background', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'background',
 			'css'   => [
 				[
@@ -473,7 +473,7 @@ class THEBRBRE_Bricks_Post_Social_Share extends \Bricks\Element {
 		$this->controls['iconSize'] = [
 			'tab'   => 'style',
 			'group' => 'icon_style',
-			'label' => esc_html__( 'Icon Size', 'the-bricksfly' ),
+			'label' => esc_html__( 'Icon Size', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'number',
 			'units' => [
 				'px' => [ 'min' => 0, 'max' => 200, 'step' => 5 ],
@@ -489,7 +489,7 @@ class THEBRBRE_Bricks_Post_Social_Share extends \Bricks\Element {
 		$this->controls['iconColor'] = [
 			'tab'   => 'style',
 			'group' => 'icon_style',
-			'label' => esc_html__( 'Color', 'the-bricksfly' ),
+			'label' => esc_html__( 'Color', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'color',
 			'css'   => [
 				[
@@ -506,7 +506,7 @@ class THEBRBRE_Bricks_Post_Social_Share extends \Bricks\Element {
 		$this->controls['iconBgColor'] = [
 			'tab'   => 'style',
 			'group' => 'icon_style',
-			'label' => esc_html__( 'Background', 'the-bricksfly' ),
+			'label' => esc_html__( 'Background', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'color',
 			'css'   => [
 				[
@@ -519,7 +519,7 @@ class THEBRBRE_Bricks_Post_Social_Share extends \Bricks\Element {
 		$this->controls['iconBorder'] = [
 			'tab'   => 'style',
 			'group' => 'icon_style',
-			'label' => esc_html__( 'Border', 'the-bricksfly' ),
+			'label' => esc_html__( 'Border', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'border',
 			'css'   => [
 				[
@@ -532,7 +532,7 @@ class THEBRBRE_Bricks_Post_Social_Share extends \Bricks\Element {
 		$this->controls['iconPadding'] = [
 			'tab'   => 'style',
 			'group' => 'icon_style',
-			'label' => esc_html__( 'Padding', 'the-bricksfly' ),
+			'label' => esc_html__( 'Padding', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'dimensions',
 			'css'   => [
 				[
@@ -545,7 +545,7 @@ class THEBRBRE_Bricks_Post_Social_Share extends \Bricks\Element {
 		$this->controls['iconHoverBgColor'] = [
 			'tab'   => 'style',
 			'group' => 'icon_style',
-			'label' => esc_html__( 'Hover Background', 'the-bricksfly' ),
+			'label' => esc_html__( 'Hover Background', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'color',
 			'css'   => [
 				[
@@ -558,7 +558,7 @@ class THEBRBRE_Bricks_Post_Social_Share extends \Bricks\Element {
 		$this->controls['iconHoverColor'] = [
 			'tab'   => 'style',
 			'group' => 'icon_style',
-			'label' => esc_html__( 'Hover Color', 'the-bricksfly' ),
+			'label' => esc_html__( 'Hover Color', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'color',
 			'css'   => [
 				[
@@ -575,7 +575,7 @@ class THEBRBRE_Bricks_Post_Social_Share extends \Bricks\Element {
 		$this->controls['iconHoverBorderColor'] = [
 			'tab'   => 'style',
 			'group' => 'icon_style',
-			'label' => esc_html__( 'Hover Border Color', 'the-bricksfly' ),
+			'label' => esc_html__( 'Hover Border Color', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'color',
 			'css'   => [
 				[
@@ -590,7 +590,7 @@ class THEBRBRE_Bricks_Post_Social_Share extends \Bricks\Element {
 		$this->controls['separatorSize'] = [
 			'tab'      => 'style',
 			'group'    => 'separator_style',
-			'label'    => esc_html__( 'Icon Size', 'the-bricksfly' ),
+			'label'    => esc_html__( 'Icon Size', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'number',
 			'units'    => [
 				'px' => [ 'min' => 0, 'max' => 200, 'step' => 5 ],
@@ -607,7 +607,7 @@ class THEBRBRE_Bricks_Post_Social_Share extends \Bricks\Element {
 		$this->controls['separatorColor'] = [
 			'tab'      => 'style',
 			'group'    => 'separator_style',
-			'label'    => esc_html__( 'Color', 'the-bricksfly' ),
+			'label'    => esc_html__( 'Color', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'color',
 			'css'      => [
 				[
@@ -674,7 +674,7 @@ class THEBRBRE_Bricks_Post_Social_Share extends \Bricks\Element {
 		if ( empty( $shares ) ) {
 			return $this->render_element_placeholder( [
 				'icon-class' => 'ti-sharethis',
-				'text'       => esc_html__( 'No share items added.', 'the-bricksfly' ),
+				'text'       => esc_html__( 'No share items added.', 'bricksfly-elements-for-bricks' ),
 			] );
 		}
 

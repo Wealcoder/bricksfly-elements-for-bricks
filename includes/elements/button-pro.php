@@ -13,7 +13,7 @@ class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 
 	public function get_label()
 	{
-		return esc_html__('Advanced Button Pro', 'the-bricksfly');
+		return esc_html__('Advanced Button Pro', 'bricksfly-elements-for-bricks');
 	}
 
 	public function get_keywords()
@@ -45,12 +45,12 @@ class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 	public function set_control_groups()
 	{
 		$this->control_groups['button'] = [
-			'title' => esc_html__('Button', 'the-bricksfly'),
+			'title' => esc_html__('Button', 'bricksfly-elements-for-bricks'),
 			'tab'   => 'content',
 		];
 
 		$this->control_groups['button_style'] = [
-			'title' => esc_html__('Button Style', 'the-bricksfly'),
+			'title' => esc_html__('Button Style', 'bricksfly-elements-for-bricks'),
 			'tab'   => 'style',
 		];
 	}
@@ -62,24 +62,24 @@ class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 		$this->controls['btnStyle'] = [
 			'tab'     => 'content',
 			'group'   => 'button',
-			'label'   => esc_html__('Style', 'the-bricksfly'),
+			'label'   => esc_html__('Style', 'bricksfly-elements-for-bricks'),
 			'type'    => 'select',
 			'options' => [
-				'base-default'   => esc_html__('Default', 'the-bricksfly'),
-				'base-square'    => esc_html__('Square', 'the-bricksfly'),
-				'base-underline' => esc_html__('Underline', 'the-bricksfly'),
-				'base-mask'      => esc_html__('Mask', 'the-bricksfly'),
-				'base-oval'      => esc_html__('Oval', 'the-bricksfly'),
-				'base-circle'    => esc_html__('Circle', 'the-bricksfly'),
-				'base-ellipse'   => esc_html__('Ellipse', 'the-bricksfly'),
-				'pro-1'          => esc_html__('Border Divide', 'the-bricksfly'),
-				'pro-2'          => esc_html__('Shadow Offset', 'the-bricksfly'),
-				'pro-3'          => esc_html__('Text Flip', 'the-bricksfly'),
-				'pro-4'          => esc_html__('Radial Reveal', 'the-bricksfly'),
-				'pro-5'          => esc_html__('Icon Swap L→R', 'the-bricksfly'),
-				'pro-6'          => esc_html__('Icon Swap R→L', 'the-bricksfly'),
-				'pro-7'          => esc_html__('Outline Pill', 'the-bricksfly'),
-				'pro-8'          => esc_html__('Slide Reveal', 'the-bricksfly'),
+				'base-default'   => esc_html__('Default', 'bricksfly-elements-for-bricks'),
+				'base-square'    => esc_html__('Square', 'bricksfly-elements-for-bricks'),
+				'base-underline' => esc_html__('Underline', 'bricksfly-elements-for-bricks'),
+				'base-mask'      => esc_html__('Mask', 'bricksfly-elements-for-bricks'),
+				'base-oval'      => esc_html__('Oval', 'bricksfly-elements-for-bricks'),
+				'base-circle'    => esc_html__('Circle', 'bricksfly-elements-for-bricks'),
+				'base-ellipse'   => esc_html__('Ellipse', 'bricksfly-elements-for-bricks'),
+				'pro-1'          => esc_html__('Border Divide', 'bricksfly-elements-for-bricks'),
+				'pro-2'          => esc_html__('Shadow Offset', 'bricksfly-elements-for-bricks'),
+				'pro-3'          => esc_html__('Text Flip', 'bricksfly-elements-for-bricks'),
+				'pro-4'          => esc_html__('Radial Reveal', 'bricksfly-elements-for-bricks'),
+				'pro-5'          => esc_html__('Icon Swap L→R', 'bricksfly-elements-for-bricks'),
+				'pro-6'          => esc_html__('Icon Swap R→L', 'bricksfly-elements-for-bricks'),
+				'pro-7'          => esc_html__('Outline Pill', 'bricksfly-elements-for-bricks'),
+				'pro-8'          => esc_html__('Slide Reveal', 'bricksfly-elements-for-bricks'),
 			],
 			'default' => 'base-default',
 		];
@@ -92,7 +92,7 @@ class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 		$this->controls['btnSquareWidth'] = [
 			'tab'   => 'content',
 			'group' => 'button',
-			'label'       => esc_html__('Square Width', 'the-bricksfly'),
+			'label'       => esc_html__('Square Width', 'bricksfly-elements-for-bricks'),
 			'type'        => 'number',
 			'units'       => true,
 			'breakpoints' => true,
@@ -114,7 +114,7 @@ class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 		$this->controls['btnSquareHeight'] = [
 			'tab'   => 'content',
 			'group' => 'button',
-			'label'       => esc_html__('Square Height', 'the-bricksfly'),
+			'label'       => esc_html__('Square Height', 'bricksfly-elements-for-bricks'),
 			'type'        => 'number',
 			'units'       => true,
 			'breakpoints' => true,
@@ -134,7 +134,7 @@ class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 		$this->controls['btnCircleSize'] = [
 			'tab'   => 'content',
 			'group' => 'button',
-			'label'       => esc_html__('Circle Size', 'the-bricksfly'),
+			'label'       => esc_html__('Circle Size', 'bricksfly-elements-for-bricks'),
 			'type'        => 'number',
 			'units'       => true,
 			'default'     => '130px',
@@ -159,17 +159,17 @@ class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 		$this->controls['btnHoverVariant'] = [
 			'tab'      => 'content',
 			'group'    => 'button',
-			'label'    => esc_html__('Hover Style', 'the-bricksfly'),
+			'label'    => esc_html__('Hover Style', 'bricksfly-elements-for-bricks'),
 			'type'     => 'select',
 			'options'  => [
-				'hover-none'      => esc_html__('None', 'the-bricksfly'),
-				'hover-divide'    => esc_html__('Divided', 'the-bricksfly'),
-				'hover-cross'     => esc_html__('Cross', 'the-bricksfly'),
-				'hover-cropping'  => esc_html__('Cropping', 'the-bricksfly'),
-				'rollover-top'    => esc_html__('Rollover Top', 'the-bricksfly'),
-				'rollover-left'   => esc_html__('Rollover Left', 'the-bricksfly'),
-				'parallal-border' => esc_html__('Parallel Border', 'the-bricksfly'),
-				'rollover-cross'  => esc_html__('Rollover Cross', 'the-bricksfly'),
+				'hover-none'      => esc_html__('None', 'bricksfly-elements-for-bricks'),
+				'hover-divide'    => esc_html__('Divided', 'bricksfly-elements-for-bricks'),
+				'hover-cross'     => esc_html__('Cross', 'bricksfly-elements-for-bricks'),
+				'hover-cropping'  => esc_html__('Cropping', 'bricksfly-elements-for-bricks'),
+				'rollover-top'    => esc_html__('Rollover Top', 'bricksfly-elements-for-bricks'),
+				'rollover-left'   => esc_html__('Rollover Left', 'bricksfly-elements-for-bricks'),
+				'parallal-border' => esc_html__('Parallel Border', 'bricksfly-elements-for-bricks'),
+				'rollover-cross'  => esc_html__('Rollover Cross', 'bricksfly-elements-for-bricks'),
 			],
 			'default'  => 'hover-none',
 			'required' => ['btnStyle', '=', ['base-default', 'base-square']],
@@ -178,15 +178,15 @@ class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 		$this->controls['btnText'] = [
 			'tab'     => 'content',
 			'group'   => 'button',
-			'label'   => esc_html__('Text', 'the-bricksfly'),
+			'label'   => esc_html__('Text', 'bricksfly-elements-for-bricks'),
 			'type'    => 'text',
-			'default' => esc_html__('Discover More', 'the-bricksfly'),
+			'default' => esc_html__('Discover More', 'bricksfly-elements-for-bricks'),
 		];
 
 		$this->controls['btnIcon'] = [
 			'tab'      => 'content',
 			'group'    => 'button',
-			'label'    => esc_html__('Icon', 'the-bricksfly'),
+			'label'    => esc_html__('Icon', 'bricksfly-elements-for-bricks'),
 			'type'     => 'icon',
 			'default'  => [
 				'icon'    => 'fas fa-arrow-right',
@@ -198,12 +198,12 @@ class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 		$this->controls['btnIconPosition'] = [
 			'tab'      => 'content',
 			'group'    => 'button',
-			'label'    => esc_html__('Icon Position', 'the-bricksfly'),
+			'label'    => esc_html__('Icon Position', 'bricksfly-elements-for-bricks'),
 			'type'     => 'select',
 			'inline'   => true,
 			'options'  => [
-				'row'         => esc_html__('After', 'the-bricksfly'),
-				'row-reverse' => esc_html__('Before', 'the-bricksfly'),
+				'row'         => esc_html__('After', 'bricksfly-elements-for-bricks'),
+				'row-reverse' => esc_html__('Before', 'bricksfly-elements-for-bricks'),
 			],
 			'default'  => 'row',
 			'required' => ['btnStyle', '!=', ['pro-5', 'pro-6']],
@@ -218,14 +218,14 @@ class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 		$this->controls['btnLink'] = [
 			'tab'   => 'content',
 			'group' => 'button',
-			'label' => esc_html__('Link', 'the-bricksfly'),
+			'label' => esc_html__('Link', 'bricksfly-elements-for-bricks'),
 			'type'  => 'link',
 		];
 
 		$this->controls['btnOutlineGap'] = [
 			'tab'      => 'content',
 			'group'    => 'button',
-			'label'    => esc_html__('Outline Gap', 'the-bricksfly'),
+			'label'    => esc_html__('Outline Gap', 'bricksfly-elements-for-bricks'),
 			'type'     => 'number',
 			'units'    => true,
 			'default'  => '10px',
@@ -241,7 +241,7 @@ class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 		$this->controls['btnAlign'] = [
 			'tab'     => 'content',
 			'group'   => 'button',
-			'label'   => esc_html__('Alignment', 'the-bricksfly'),
+			'label'   => esc_html__('Alignment', 'bricksfly-elements-for-bricks'),
 			'type'    => 'align-items',
 			'inline'  => true,
 			'exclude' => ['stretch'],  // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude -- Bricks control option, not a WP_Query arg
@@ -257,7 +257,7 @@ class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 		$this->controls['btnTypo'] = [
 			'tab'   => 'style',
 			'group' => 'button_style',
-			'label' => esc_html__('Typography', 'the-bricksfly'),
+			'label' => esc_html__('Typography', 'bricksfly-elements-for-bricks'),
 			'type'  => 'typography',
 			'css'   => [
 				[
@@ -270,7 +270,7 @@ class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 		$this->controls['btnBg'] = [
 			'tab'      => 'style',
 			'group'    => 'button_style',
-			'label'    => esc_html__('Background', 'the-bricksfly'),
+			'label'    => esc_html__('Background', 'bricksfly-elements-for-bricks'),
 			'type'     => 'background',
 			'required' => ['btnStyle', '!=', ['pro-7', 'base-underline']],
 			'css'      => [
@@ -284,7 +284,7 @@ class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 		$this->controls['btnMaskBg'] = [
 			'tab'      => 'style',
 			'group'    => 'button_style',
-			'label'    => esc_html__('Mask Background', 'the-bricksfly'),
+			'label'    => esc_html__('Mask Background', 'bricksfly-elements-for-bricks'),
 			'type'     => 'background',
 			'required' => ['btnStyle', '=', 'base-mask'],
 			'css'      => [
@@ -298,7 +298,7 @@ class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 		$this->controls['btnBg2'] = [
 			'tab'      => 'style',
 			'group'    => 'button_style',
-			'label'    => esc_html__('Inner Background', 'the-bricksfly'),
+			'label'    => esc_html__('Inner Background', 'bricksfly-elements-for-bricks'),
 			'type'     => 'background',
 			'required' => ['btnStyle', '=', ['pro-7', 'pro-8']],
 			'css'      => [
@@ -312,7 +312,7 @@ class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 		$this->controls['btnBorder'] = [
 			'tab'   => 'style',
 			'group' => 'button_style',
-			'label' => esc_html__('Border', 'the-bricksfly'),
+			'label' => esc_html__('Border', 'bricksfly-elements-for-bricks'),
 			'type'  => 'border',
 			'css'   => [
 				[
@@ -325,7 +325,7 @@ class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 		$this->controls['btnBorderHeight'] = [
 			'tab'      => 'style',
 			'group'    => 'button_style',
-			'label'    => esc_html__('Divider Width', 'the-bricksfly'),
+			'label'    => esc_html__('Divider Width', 'bricksfly-elements-for-bricks'),
 			'type'     => 'number',
 			'units'    => true,
 			'min'      => 0,
@@ -342,7 +342,7 @@ class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 		$this->controls['btnPadding'] = [
 			'tab'   => 'style',
 			'group' => 'button_style',
-			'label' => esc_html__('Padding', 'the-bricksfly'),
+			'label' => esc_html__('Padding', 'bricksfly-elements-for-bricks'),
 			'type'  => 'dimensions',
 			'css'   => [
 				[
@@ -355,14 +355,14 @@ class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 		$this->controls['iconHeading'] = [
 			'tab'   => 'style',
 			'group' => 'button_style',
-			'label' => esc_html__('Icon', 'the-bricksfly'),
+			'label' => esc_html__('Icon', 'bricksfly-elements-for-bricks'),
 			'type'  => 'separator',
 		];
 
 		$this->controls['btnIconSize'] = [
 			'tab'   => 'style',
 			'group' => 'button_style',
-			'label' => esc_html__('Icon Size', 'the-bricksfly'),
+			'label' => esc_html__('Icon Size', 'bricksfly-elements-for-bricks'),
 			'type'  => 'number',
 			'units' => true,
 			'css'   => [
@@ -379,7 +379,7 @@ class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 		$this->controls['btnRedialLineSize'] = [
 			'tab'   => 'style',
 			'group' => 'button_style',
-			'label' => esc_html__('Radial Line Size', 'the-bricksfly'),
+			'label' => esc_html__('Radial Line Size', 'bricksfly-elements-for-bricks'),
 			'type'  => 'number',
 			'default'  => '50px',
 			'units' => true,
@@ -396,7 +396,7 @@ class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 			$this->controls['btnRedialLineHeight'] = [
 			'tab'   => 'style',
 			'group' => 'button_style',
-			'label' => esc_html__('Radial Line Height', 'the-bricksfly'),
+			'label' => esc_html__('Radial Line Height', 'bricksfly-elements-for-bricks'),
 			'type'  => 'number',
 			'default'=>'1px',
 			'units' => true,
@@ -427,7 +427,7 @@ class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 		$this->controls['btnIconContainerSize'] = [
 			'tab'      => 'style',
 			'group'    => 'button_style',
-			'label'    => esc_html__('Icon Container Size', 'the-bricksfly'),
+			'label'    => esc_html__('Icon Container Size', 'bricksfly-elements-for-bricks'),
 			'type'     => 'number',
 			'units'    => true,
 			'default'  => '60px',
@@ -451,7 +451,7 @@ class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 		$this->controls['btnGap'] = [
 			'tab'      => 'style',
 			'group'    => 'button_style',
-			'label'    => esc_html__('Gap', 'the-bricksfly'),
+			'label'    => esc_html__('Gap', 'bricksfly-elements-for-bricks'),
 			'type'     => 'number',
 			'units'    => true,
 			'required' => ['btnStyle', '!=', ['pro-5', 'pro-6']],
@@ -466,14 +466,14 @@ class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 		$this->controls['colorsHeading'] = [
 			'tab'   => 'style',
 			'group' => 'button_style',
-			'label' => esc_html__('Colors', 'the-bricksfly'),
+			'label' => esc_html__('Colors', 'bricksfly-elements-for-bricks'),
 			'type'  => 'separator',
 		];
 
 		$this->controls['btnColor'] = [
 			'tab'   => 'style',
 			'group' => 'button_style',
-			'label' => esc_html__('Text Color', 'the-bricksfly'),
+			'label' => esc_html__('Text Color', 'bricksfly-elements-for-bricks'),
 			'type'  => 'color',
 			'css'   => [
 				[
@@ -494,7 +494,7 @@ class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 		$this->controls['btnBrColor'] = [
 			'tab'      => 'style',
 			'group'    => 'button_style',
-			'label'    => esc_html__('Divider Color', 'the-bricksfly'),
+			'label'    => esc_html__('Divider Color', 'bricksfly-elements-for-bricks'),
 			'type'     => 'color',
 			'required' => ['btnStyle', '=', 'pro-1'],
 			'css'      => [
@@ -509,7 +509,7 @@ class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 		$this->controls['btnHColor'] = [
 			'tab'   => 'style',
 			'group' => 'button_style',
-			'label' => esc_html__('Hover Text Color', 'the-bricksfly'),
+			'label' => esc_html__('Hover Text Color', 'bricksfly-elements-for-bricks'),
 			'type'  => 'color',
 			'css'   => [
 				[
@@ -530,7 +530,7 @@ class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 		$this->controls['btnHIconColor'] = [
 			'tab'   => 'style',
 			'group' => 'button_style',
-			'label' => esc_html__('Hover Icon Color', 'the-bricksfly'),
+			'label' => esc_html__('Hover Icon Color', 'bricksfly-elements-for-bricks'),
 			'type'  => 'color',
 			'required' => ['btnStyle', '!=', 'pro-4'],
 			'css'   => [
@@ -550,7 +550,7 @@ class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 		$this->controls['btnRadialIconColor'] = [
 			'tab'   => 'style',
 			'group' => 'button_style',
-			'label' => esc_html__(' Radial Line/icon Color', 'the-bricksfly'),
+			'label' => esc_html__(' Radial Line/icon Color', 'bricksfly-elements-for-bricks'),
 			'type'  => 'color',
 			'required' => ['btnStyle', '=', 'pro-4'],
 			'css'   => [
@@ -574,7 +574,7 @@ class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 		$this->controls['btnHBorder'] = [
 			'tab'   => 'style',
 			'group' => 'button_style',
-			'label' => esc_html__('Hover Border Color', 'the-bricksfly'),
+			'label' => esc_html__('Hover Border Color', 'bricksfly-elements-for-bricks'),
 			'type'  => 'color',
 			'css'   => [
 				[
@@ -587,7 +587,7 @@ class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 		// $this->controls['btnHBg'] = [
 		// 	'tab'   => 'style',
 		// 	'group' => 'button_style',
-		// 	'label' => esc_html__('Hover Background', 'the-bricksfly'),
+		// 	'label' => esc_html__('Hover Background', 'bricksfly-elements-for-bricks'),
 		// 	'type'  => 'background',
 		// 	'css'   => [
 		// 		[
@@ -600,7 +600,7 @@ class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 		$this->controls['btnHBg'] = [
 			'tab'   => 'style',
 			'group' => 'button_style',
-			'label' => esc_html__('Hover Background', 'the-bricksfly'),
+			'label' => esc_html__('Hover Background', 'bricksfly-elements-for-bricks'),
 			'type'  => 'background',
 			'css'   => [
 				[
@@ -619,7 +619,7 @@ class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 		$this->controls['btnRevealColor'] = [
 			'tab'      => 'style',
 			'group'    => 'button_style',
-			'label'    => esc_html__('Reveal Color', 'the-bricksfly'),
+			'label'    => esc_html__('Reveal Color', 'bricksfly-elements-for-bricks'),
 			'type'     => 'color',
 			//'required' => ['btnStyle', '=', ['4', 'base-default']],
 			'default'  => ['hex' => '#FC5A11'],
@@ -643,7 +643,7 @@ class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 		$this->controls['btnBoxShadow'] = [
 			'tab'      => 'style',
 			'group'    => 'button_style',
-			'label'    => esc_html__('Hover Shadow', 'the-bricksfly'),
+			'label'    => esc_html__('Hover Shadow', 'bricksfly-elements-for-bricks'),
 			'type'     => 'box-shadow',
 			'required' => ['btnStyle', '=', 'pro-2'],
 			'css'      => [
@@ -657,7 +657,7 @@ class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 		$this->controls['btnRevealOffset'] = [
 			'tab'      => 'style',
 			'group'    => 'button_style',
-			'label'    => esc_html__('Hover Reveal Offset', 'the-bricksfly'),
+			'label'    => esc_html__('Hover Reveal Offset', 'bricksfly-elements-for-bricks'),
 			'type'     => 'number',
 			'units'    => true,
 			'required' => ['btnStyle', '=', 'pro-7'],
@@ -673,7 +673,7 @@ class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 		$this->controls['btnSlideOffset'] = [
 			'tab'      => 'style',
 			'group'    => 'button_style',
-			'label'    => esc_html__('Hover Slide Offset', 'the-bricksfly'),
+			'label'    => esc_html__('Hover Slide Offset', 'bricksfly-elements-for-bricks'),
 			'type'     => 'number',
 			'units'    => true,
 			'required' => ['btnStyle', '=', 'pro-8'],

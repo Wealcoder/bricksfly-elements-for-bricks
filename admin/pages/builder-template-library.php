@@ -141,28 +141,28 @@ class THEBRBRE_Builder_Template_Library {
 					]
 				),
 				'i18n'            => [
-					'modal_title'     => esc_html__( 'BrickFly Addons — Section Library', 'the-bricksfly' ),
-					'button_label'    => esc_html__( 'Import Section', 'the-bricksfly' ),
-					'insert'          => esc_html__( 'Insert', 'the-bricksfly' ),
-					'inserting'       => esc_html__( 'Inserting…', 'the-bricksfly' ),
-					'preview'         => esc_html__( 'Preview', 'the-bricksfly' ),
-					'go_premium'      => esc_html__( 'Go Premium', 'the-bricksfly' ),
-					'activate'        => esc_html__( 'Activate License', 'the-bricksfly' ),
-					'install_pro'     => esc_html__( 'Install Pro', 'the-bricksfly' ),
-					'upgrade_plan'    => esc_html__( 'Upgrade Plan', 'the-bricksfly' ),
-					'section_locked'  => esc_html__( 'Section import is not included in your current license plan. Please upgrade your plan to import sections.', 'the-bricksfly' ),
-					'search'          => esc_html__( 'Search', 'the-bricksfly' ),
-					'category'        => esc_html__( 'Category', 'the-bricksfly' ),
-					'all_colors'      => esc_html__( 'All', 'the-bricksfly' ),
-					'light'           => esc_html__( 'Light', 'the-bricksfly' ),
-					'dark'            => esc_html__( 'Dark', 'the-bricksfly' ),
-					'close'           => esc_html__( 'Close', 'the-bricksfly' ),
-					'loading'         => esc_html__( 'Loading', 'the-bricksfly' ),
-					'empty'           => esc_html__( 'No templates found.', 'the-bricksfly' ),
-					'fetch_failed'    => esc_html__( 'Failed to load templates. Check your connection and try again.', 'the-bricksfly' ),
-					'insert_success'  => esc_html__( 'Section imported. Reloading builder…', 'the-bricksfly' ),
-					'insert_failed'   => esc_html__( 'Could not import this section. Please try again.', 'the-bricksfly' ),
-					'unsaved_warning' => esc_html__( 'Importing will reload the builder. Save your unsaved changes first?', 'the-bricksfly' ),
+					'modal_title'     => esc_html__( 'BrickFly Addons — Section Library', 'bricksfly-elements-for-bricks' ),
+					'button_label'    => esc_html__( 'Import Section', 'bricksfly-elements-for-bricks' ),
+					'insert'          => esc_html__( 'Insert', 'bricksfly-elements-for-bricks' ),
+					'inserting'       => esc_html__( 'Inserting…', 'bricksfly-elements-for-bricks' ),
+					'preview'         => esc_html__( 'Preview', 'bricksfly-elements-for-bricks' ),
+					'go_premium'      => esc_html__( 'Go Premium', 'bricksfly-elements-for-bricks' ),
+					'activate'        => esc_html__( 'Activate License', 'bricksfly-elements-for-bricks' ),
+					'install_pro'     => esc_html__( 'Install Pro', 'bricksfly-elements-for-bricks' ),
+					'upgrade_plan'    => esc_html__( 'Upgrade Plan', 'bricksfly-elements-for-bricks' ),
+					'section_locked'  => esc_html__( 'Section import is not included in your current license plan. Please upgrade your plan to import sections.', 'bricksfly-elements-for-bricks' ),
+					'search'          => esc_html__( 'Search', 'bricksfly-elements-for-bricks' ),
+					'category'        => esc_html__( 'Category', 'bricksfly-elements-for-bricks' ),
+					'all_colors'      => esc_html__( 'All', 'bricksfly-elements-for-bricks' ),
+					'light'           => esc_html__( 'Light', 'bricksfly-elements-for-bricks' ),
+					'dark'            => esc_html__( 'Dark', 'bricksfly-elements-for-bricks' ),
+					'close'           => esc_html__( 'Close', 'bricksfly-elements-for-bricks' ),
+					'loading'         => esc_html__( 'Loading', 'bricksfly-elements-for-bricks' ),
+					'empty'           => esc_html__( 'No templates found.', 'bricksfly-elements-for-bricks' ),
+					'fetch_failed'    => esc_html__( 'Failed to load templates. Check your connection and try again.', 'bricksfly-elements-for-bricks' ),
+					'insert_success'  => esc_html__( 'Section imported. Reloading builder…', 'bricksfly-elements-for-bricks' ),
+					'insert_failed'   => esc_html__( 'Could not import this section. Please try again.', 'bricksfly-elements-for-bricks' ),
+					'unsaved_warning' => esc_html__( 'Importing will reload the builder. Save your unsaved changes first?', 'bricksfly-elements-for-bricks' ),
 				],
 			]
 		);
@@ -177,10 +177,10 @@ class THEBRBRE_Builder_Template_Library {
 		return apply_filters('thebrbre_builder_template_library_types',
 			[
 				'block' => [
-					'label' => esc_html__( 'Section Block', 'the-bricksfly' ),
+					'label' => esc_html__( 'Section Block', 'bricksfly-elements-for-bricks' ),
 				],
 				// 'page'  => [
-				// 	'label' => esc_html__( 'Page', 'the-bricksfly' ),
+				// 	'label' => esc_html__( 'Page', 'bricksfly-elements-for-bricks' ),
 				// ],
 			]
 		);
@@ -217,7 +217,7 @@ class THEBRBRE_Builder_Template_Library {
 		$post_id = isset( $_POST['post_id'] ) ? absint( wp_unslash( $_POST['post_id'] ) ) : 0;
 
 		if ( ! $post_id || ! current_user_can( 'edit_post', $post_id ) ) {
-			wp_send_json_error( [ 'message' => __( 'Permission denied for this post.', 'the-bricksfly' ) ], 403 );
+			wp_send_json_error( [ 'message' => __( 'Permission denied for this post.', 'bricksfly-elements-for-bricks' ) ], 403 );
 		}
 
 		// License limitation gate — Section import requires the `section_import`
@@ -227,7 +227,7 @@ class THEBRBRE_Builder_Template_Library {
 		if ( function_exists( 'thebrbre_is_feature_allowed' ) && ! thebrbre_is_feature_allowed( 'section_import' ) ) {
 			$message = function_exists( 'thebrbre_feature_denied_message' )
 				? thebrbre_feature_denied_message( 'section_import' )
-				: __( 'Section import is not included in your current license plan.', 'the-bricksfly' );
+				: __( 'Section import is not included in your current license plan.', 'bricksfly-elements-for-bricks' );
 
 			wp_send_json_error( [
 				'limited' => true,
@@ -239,7 +239,7 @@ class THEBRBRE_Builder_Template_Library {
 		$template_id = isset( $_POST['template_id'] ) ? absint( $_POST['template_id'] ) : 0;
 
 		if ( ! $template_id ) {
-			wp_send_json_error( [ 'message' => __( 'No template id provided.', 'the-bricksfly' ) ], 400 );
+			wp_send_json_error( [ 'message' => __( 'No template id provided.', 'bricksfly-elements-for-bricks' ) ], 400 );
 		}
 
 		$resolved = $this->resolve_template_payload( $template_id );
@@ -251,7 +251,7 @@ class THEBRBRE_Builder_Template_Library {
 		$elements = $resolved['content'];
 
 		if ( empty( $elements ) || ! is_array( $elements ) ) {
-			wp_send_json_error( [ 'message' => __( 'Template content is empty or in an unsupported format.', 'the-bricksfly' ) ], 422 );
+			wp_send_json_error( [ 'message' => __( 'Template content is empty or in an unsupported format.', 'bricksfly-elements-for-bricks' ) ], 422 );
 		}
 
 		/**
@@ -270,7 +270,7 @@ class THEBRBRE_Builder_Template_Library {
 			'global_classes'  => $resolved['global_classes'],
 			'globalVariables' => $resolved['globalVariables'],
 			'inserted_count'  => count( $elements ),
-			'message'         => __( 'Template resolved.', 'the-bricksfly' ),
+			'message'         => __( 'Template resolved.', 'bricksfly-elements-for-bricks' ),
 		] );
 	}
 
@@ -310,7 +310,7 @@ class THEBRBRE_Builder_Template_Library {
 		$meta      = json_decode( $meta_body, true );
 
 		if ( empty( $meta['json_file']['url'] ) ) {
-			return new \WP_Error( 'thebrbre_no_template_source', __( 'Could not resolve template source.', 'the-bricksfly' ) );
+			return new \WP_Error( 'thebrbre_no_template_source', __( 'Could not resolve template source.', 'bricksfly-elements-for-bricks' ) );
 		}
 
 		$json_url = esc_url_raw( $meta['json_file']['url'] );
@@ -328,12 +328,12 @@ class THEBRBRE_Builder_Template_Library {
 		$body = wp_remote_retrieve_body( $response );
 
 		if ( $code !== 200 || empty( $body ) ) {
-			return new \WP_Error( 'thebrbre_empty_template', __( 'Empty template response.', 'the-bricksfly' ) );
+			return new \WP_Error( 'thebrbre_empty_template', __( 'Empty template response.', 'bricksfly-elements-for-bricks' ) );
 		}
 
 		$decoded = json_decode( $body, true );
 		if ( json_last_error() !== JSON_ERROR_NONE ) {
-			return new \WP_Error( 'thebrbre_invalid_template_json', __( 'Invalid template JSON.', 'the-bricksfly' ) );
+			return new \WP_Error( 'thebrbre_invalid_template_json', __( 'Invalid template JSON.', 'bricksfly-elements-for-bricks' ) );
 		}
 
 		// Return elements + globals untouched. The client builds Bricks' paste

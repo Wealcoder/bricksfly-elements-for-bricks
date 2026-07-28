@@ -25,7 +25,7 @@ class THEBRBRE_Plugin_Installer
 		check_ajax_referer('thebrbre_admin_nonce', 'nonce');
 
 		if (! current_user_can('activate_plugins')) {
-			wp_send_json_error(__('You are not allowed to do this action', 'the-bricksfly'));
+			wp_send_json_error(__('You are not allowed to do this action', 'bricksfly-elements-for-bricks'));
 		}
 
 		$basename = isset($_POST['action_base']) ? sanitize_text_field(wp_unslash($_POST['action_base'])) : '';
@@ -35,7 +35,7 @@ class THEBRBRE_Plugin_Installer
 			wp_send_json_error($result->get_error_message());
 		}
 
-		wp_send_json_success(['message' => __('Plugin activated successfully!', 'the-bricksfly')]);
+		wp_send_json_success(['message' => __('Plugin activated successfully!', 'bricksfly-elements-for-bricks')]);
 	}
 
 	public function ajax_deactivate_plugin()
@@ -43,7 +43,7 @@ class THEBRBRE_Plugin_Installer
 		check_ajax_referer('thebrbre_admin_nonce', 'nonce');
 
 		if (! current_user_can('activate_plugins')) {
-			wp_send_json_error(__('You are not allowed to do this action', 'the-bricksfly'));
+			wp_send_json_error(__('You are not allowed to do this action', 'bricksfly-elements-for-bricks'));
 		}
 
 		$basename = isset($_POST['action_base']) ? sanitize_text_field(wp_unslash($_POST['action_base'])) : '';
@@ -53,7 +53,7 @@ class THEBRBRE_Plugin_Installer
 			wp_send_json_error($result->get_error_message());
 		}
 
-		wp_send_json_success(__('Plugin deactivated successfully!', 'the-bricksfly'));
+		wp_send_json_success(__('Plugin deactivated successfully!', 'bricksfly-elements-for-bricks'));
 	}
 }
 

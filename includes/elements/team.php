@@ -11,7 +11,7 @@ class THEBRBRE_Bricks_Team extends \Bricks\Element
 
     public function get_label()
     {
-        return esc_html__('Team', 'the-bricksfly');
+        return esc_html__('Team', 'bricksfly-elements-for-bricks');
     }
 
     public function get_keywords()
@@ -22,37 +22,37 @@ class THEBRBRE_Bricks_Team extends \Bricks\Element
     public function set_control_groups()
     {
         $this->control_groups['layout'] = [
-            'title' => esc_html__('Layout', 'the-bricksfly'),
+            'title' => esc_html__('Layout', 'bricksfly-elements-for-bricks'),
             'tab'   => 'content',
         ];
 
         $this->control_groups['image'] = [
-            'title' => esc_html__('Image', 'the-bricksfly'),
+            'title' => esc_html__('Image', 'bricksfly-elements-for-bricks'),
             'tab'   => 'content',
         ];
 
         $this->control_groups['content'] = [
-            'title' => esc_html__('Content', 'the-bricksfly'),
+            'title' => esc_html__('Content', 'bricksfly-elements-for-bricks'),
             'tab'   => 'content',
         ];
 
         $this->control_groups['social_media'] = [
-            'title' => esc_html__('Social Media', 'the-bricksfly'),
+            'title' => esc_html__('Social Media', 'bricksfly-elements-for-bricks'),
             'tab'   => 'content',
         ];
 
         $this->control_groups['image_style'] = [
-            'title' => esc_html__('Image', 'the-bricksfly'),
+            'title' => esc_html__('Image', 'bricksfly-elements-for-bricks'),
             'tab'   => 'style',
         ];
 
         $this->control_groups['content_style'] = [
-            'title' => esc_html__('Content', 'the-bricksfly'),
+            'title' => esc_html__('Content', 'bricksfly-elements-for-bricks'),
             'tab'   => 'style',
         ];
 
         $this->control_groups['social_style'] = [
-            'title' => esc_html__('Social Media', 'the-bricksfly'),
+            'title' => esc_html__('Social Media', 'bricksfly-elements-for-bricks'),
             'tab'   => 'style',
         ];
     }
@@ -63,11 +63,11 @@ class THEBRBRE_Bricks_Team extends \Bricks\Element
 
         $this->controls['elementList'] = [
             'group'   => 'layout',
-            'label'   => esc_html__('Style', 'the-bricksfly'),
+            'label'   => esc_html__('Style', 'bricksfly-elements-for-bricks'),
             'type'    => 'select',
             'options' => [
-                '1' => esc_html__('One', 'the-bricksfly'),
-                '2' => esc_html__('Two', 'the-bricksfly'),
+                '1' => esc_html__('One', 'bricksfly-elements-for-bricks'),
+                '2' => esc_html__('Two', 'bricksfly-elements-for-bricks'),
             ],
             'default' => '1',
             'inline'  => true,
@@ -75,7 +75,7 @@ class THEBRBRE_Bricks_Team extends \Bricks\Element
 
         $this->controls['align'] = [
             'group' => 'layout',
-            'label' => esc_html__('Alignment', 'the-bricksfly'),
+            'label' => esc_html__('Alignment', 'bricksfly-elements-for-bricks'),
             'type'  => 'text-align',
             'css'   => [['property' => 'text-align', 'selector' => '']],
         ];
@@ -84,19 +84,19 @@ class THEBRBRE_Bricks_Team extends \Bricks\Element
 
         $this->controls['memberImage'] = [
             'group' => 'image',
-            'label' => esc_html__('Image', 'the-bricksfly'),
+            'label' => esc_html__('Image', 'bricksfly-elements-for-bricks'),
             'type'  => 'image',
         ];
 
         $this->controls['imageSize'] = [
             'group'   => 'image',
-            'label'   => esc_html__('Image Size', 'the-bricksfly'),
+            'label'   => esc_html__('Image Size', 'bricksfly-elements-for-bricks'),
             'type'    => 'select',
             'options' => [
-                'thumbnail' => esc_html__('Thumbnail', 'the-bricksfly'),
-                'medium'    => esc_html__('Medium', 'the-bricksfly'),
-                'large'     => esc_html__('Large', 'the-bricksfly'),
-                'full'      => esc_html__('Full', 'the-bricksfly'),
+                'thumbnail' => esc_html__('Thumbnail', 'bricksfly-elements-for-bricks'),
+                'medium'    => esc_html__('Medium', 'bricksfly-elements-for-bricks'),
+                'large'     => esc_html__('Large', 'bricksfly-elements-for-bricks'),
+                'full'      => esc_html__('Full', 'bricksfly-elements-for-bricks'),
             ],
             'default' => 'medium',
         ];
@@ -105,15 +105,15 @@ class THEBRBRE_Bricks_Team extends \Bricks\Element
 
         $this->controls['memberName'] = [
             'group'       => 'content',
-            'label'       => esc_html__('Name', 'the-bricksfly'),
+            'label'       => esc_html__('Name', 'bricksfly-elements-for-bricks'),
             'type'        => 'text',
-            'default'     => esc_html__( 'Adam Smith', 'the-bricksfly' ),
-            'placeholder' => esc_html__('Enter Member Name', 'the-bricksfly'),
+            'default'     => esc_html__( 'Adam Smith', 'bricksfly-elements-for-bricks' ),
+            'placeholder' => esc_html__('Enter Member Name', 'bricksfly-elements-for-bricks'),
         ];
 
         $this->controls['nameTag'] = [
             'group'   => 'content',
-            'label'   => esc_html__('Name HTML Tag', 'the-bricksfly'),
+            'label'   => esc_html__('Name HTML Tag', 'bricksfly-elements-for-bricks'),
             'type'    => 'select',
             'options' => [
                 'h1' => 'H1', 'h2' => 'H2', 'h3' => 'H3',
@@ -126,22 +126,22 @@ class THEBRBRE_Bricks_Team extends \Bricks\Element
 
         $this->controls['memberDesignation'] = [
             'group'       => 'content',
-            'label'       => esc_html__('Designation', 'the-bricksfly'),
+            'label'       => esc_html__('Designation', 'bricksfly-elements-for-bricks'),
             'type'        => 'text',
-            'default'     => esc_html__( 'Developer', 'the-bricksfly' ),
-            'placeholder' => esc_html__('Enter Member Designation', 'the-bricksfly'),
+            'default'     => esc_html__( 'Developer', 'bricksfly-elements-for-bricks' ),
+            'placeholder' => esc_html__('Enter Member Designation', 'bricksfly-elements-for-bricks'),
         ];
 
         $this->controls['memberDescription'] = [
             'group'   => 'content',
-            'label'   => esc_html__('Description', 'the-bricksfly'),
+            'label'   => esc_html__('Description', 'bricksfly-elements-for-bricks'),
             'type'    => 'textarea',
-            'default' => esc_html__( 'Add team member description here. Remove the text if not necessary.', 'the-bricksfly' ),
+            'default' => esc_html__( 'Add team member description here. Remove the text if not necessary.', 'bricksfly-elements-for-bricks' ),
         ];
 
         $this->controls['detailsLink'] = [
             'group' => 'content',
-            'label' => esc_html__('URL', 'the-bricksfly'),
+            'label' => esc_html__('URL', 'bricksfly-elements-for-bricks'),
             'type'  => 'link',
         ];
 
@@ -149,20 +149,20 @@ class THEBRBRE_Bricks_Team extends \Bricks\Element
 
         $this->controls['showSocialIcons'] = [
             'group'   => 'social_media',
-            'label'   => esc_html__('Show Social Icons', 'the-bricksfly'),
+            'label'   => esc_html__('Show Social Icons', 'bricksfly-elements-for-bricks'),
             'type'    => 'checkbox',
             'default' => true,
         ];
 
         $this->controls['socialPosition'] = [
             'group'   => 'social_media',
-            'label'   => esc_html__('Placement', 'the-bricksfly'),
+            'label'   => esc_html__('Placement', 'bricksfly-elements-for-bricks'),
             'type'    => 'select',
             'options' => [
-                'bottom' => esc_html__('Bottom', 'the-bricksfly'),
-                'left'   => esc_html__('Left', 'the-bricksfly'),
-                'right'  => esc_html__('Right', 'the-bricksfly'),
-                'center' => esc_html__('Center', 'the-bricksfly'),
+                'bottom' => esc_html__('Bottom', 'bricksfly-elements-for-bricks'),
+                'left'   => esc_html__('Left', 'bricksfly-elements-for-bricks'),
+                'right'  => esc_html__('Right', 'bricksfly-elements-for-bricks'),
+                'center' => esc_html__('Center', 'bricksfly-elements-for-bricks'),
             ],
             'default'  => 'bottom',
             'inline'   => true,
@@ -174,12 +174,12 @@ class THEBRBRE_Bricks_Team extends \Bricks\Element
 
         $this->controls['socialIcons'] = [
             'group'         => 'social_media',
-            'label'         => esc_html__('Social Icons', 'the-bricksfly'),
+            'label'         => esc_html__('Social Icons', 'bricksfly-elements-for-bricks'),
             'type'          => 'repeater',
             'titleProperty' => 'socialLabel',
             'fields'        => [
                 'socialIcon' => [
-                    'label'   => esc_html__('Icon', 'the-bricksfly'),
+                    'label'   => esc_html__('Icon', 'bricksfly-elements-for-bricks'),
                     'type'    => 'icon',
                     'default' => [
                         'library' => 'fontawesome',
@@ -187,13 +187,13 @@ class THEBRBRE_Bricks_Team extends \Bricks\Element
                     ],
                 ],
                 'socialLink' => [
-                    'label' => esc_html__('Link', 'the-bricksfly'),
+                    'label' => esc_html__('Link', 'bricksfly-elements-for-bricks'),
                     'type'  => 'link',
                 ],
                 'socialLabel' => [
-                    'label'   => esc_html__('Label', 'the-bricksfly'),
+                    'label'   => esc_html__('Label', 'bricksfly-elements-for-bricks'),
                     'type'    => 'text',
-                    'default' => esc_html__( 'Social', 'the-bricksfly' ),
+                    'default' => esc_html__( 'Social', 'bricksfly-elements-for-bricks' ),
                 ],
             ],
             'default' => [
@@ -208,7 +208,7 @@ class THEBRBRE_Bricks_Team extends \Bricks\Element
 
         $this->controls['imgWidth'] = [
             'group' => 'image_style',
-            'label' => esc_html__('Width', 'the-bricksfly'),
+            'label' => esc_html__('Width', 'bricksfly-elements-for-bricks'),
             'type'  => 'slider',
             'units' => [
                 'px' => ['min' => 1, 'max' => 1000],
@@ -219,7 +219,7 @@ class THEBRBRE_Bricks_Team extends \Bricks\Element
 
         $this->controls['imgMaxWidth'] = [
             'group' => 'image_style',
-            'label' => esc_html__('Max Width', 'the-bricksfly'),
+            'label' => esc_html__('Max Width', 'bricksfly-elements-for-bricks'),
             'type'  => 'slider',
             'units' => [
                 'px' => ['min' => 1, 'max' => 1000],
@@ -230,7 +230,7 @@ class THEBRBRE_Bricks_Team extends \Bricks\Element
 
         $this->controls['imgHeight'] = [
             'group' => 'image_style',
-            'label' => esc_html__('Height', 'the-bricksfly'),
+            'label' => esc_html__('Height', 'bricksfly-elements-for-bricks'),
             'type'  => 'slider',
             'units' => ['px' => ['min' => 1, 'max' => 500]],
             'css'   => [['property' => 'height', 'selector' => 'img']],
@@ -238,20 +238,20 @@ class THEBRBRE_Bricks_Team extends \Bricks\Element
 
         $this->controls['imgObjectFit'] = [
             'group'   => 'image_style',
-            'label'   => esc_html__('Object Fit', 'the-bricksfly'),
+            'label'   => esc_html__('Object Fit', 'bricksfly-elements-for-bricks'),
             'type'    => 'select',
             'options' => [
-                ''        => esc_html__('Default', 'the-bricksfly'),
-                'fill'    => esc_html__('Fill', 'the-bricksfly'),
-                'cover'   => esc_html__('Cover', 'the-bricksfly'),
-                'contain' => esc_html__('Contain', 'the-bricksfly'),
+                ''        => esc_html__('Default', 'bricksfly-elements-for-bricks'),
+                'fill'    => esc_html__('Fill', 'bricksfly-elements-for-bricks'),
+                'cover'   => esc_html__('Cover', 'bricksfly-elements-for-bricks'),
+                'contain' => esc_html__('Contain', 'bricksfly-elements-for-bricks'),
             ],
             'css' => [['property' => 'object-fit', 'selector' => 'img']],
         ];
 
         $this->controls['imgObjectPosition'] = [
             'group'   => 'image_style',
-            'label'   => esc_html__('Object Position', 'the-bricksfly'),
+            'label'   => esc_html__('Object Position', 'bricksfly-elements-for-bricks'),
             'type'    => 'select',
             'options' => [
                 'center center' => 'Center Center',
@@ -271,14 +271,14 @@ class THEBRBRE_Bricks_Team extends \Bricks\Element
 
         $this->controls['imgBorder'] = [
             'group' => 'image_style',
-            'label' => esc_html__('Border', 'the-bricksfly'),
+            'label' => esc_html__('Border', 'bricksfly-elements-for-bricks'),
             'type'  => 'border',
             'css'   => [['property' => 'border', 'selector' => 'img']],
         ];
 
         $this->controls['imgOpacity'] = [
             'group' => 'image_style',
-            'label' => esc_html__('Opacity', 'the-bricksfly'),
+            'label' => esc_html__('Opacity', 'bricksfly-elements-for-bricks'),
             'type'  => 'slider',
             'units' => ['px' => ['min' => 0, 'max' => 1, 'step' => 0.01]],
             'css'   => [['property' => 'opacity', 'selector' => 'img']],
@@ -286,14 +286,14 @@ class THEBRBRE_Bricks_Team extends \Bricks\Element
 
         $this->controls['imgCssFilters'] = [
             'group' => 'image_style',
-            'label' => esc_html__('CSS Filters', 'the-bricksfly'),
+            'label' => esc_html__('CSS Filters', 'bricksfly-elements-for-bricks'),
             'type'  => 'filters',
             'css'   => [['property' => 'filter', 'selector' => 'img']],
         ];
 
         $this->controls['imgHoverOpacity'] = [
             'group' => 'image_style',
-            'label' => esc_html__('Hover Opacity', 'the-bricksfly'),
+            'label' => esc_html__('Hover Opacity', 'bricksfly-elements-for-bricks'),
             'type'  => 'slider',
             'units' => ['px' => ['min' => 0, 'max' => 1, 'step' => 0.01]],
             'css'   => [['property' => 'opacity', 'selector' => '&:hover img']],
@@ -301,14 +301,14 @@ class THEBRBRE_Bricks_Team extends \Bricks\Element
 
         $this->controls['imgHoverCssFilters'] = [
             'group' => 'image_style',
-            'label' => esc_html__('Hover CSS Filters', 'the-bricksfly'),
+            'label' => esc_html__('Hover CSS Filters', 'bricksfly-elements-for-bricks'),
             'type'  => 'filters',
             'css'   => [['property' => 'filter', 'selector' => '&:hover img']],
         ];
 
         $this->controls['imgTransitionDuration'] = [
             'group' => 'image_style',
-            'label' => esc_html__('Transition Duration (s)', 'the-bricksfly'),
+            'label' => esc_html__('Transition Duration (s)', 'bricksfly-elements-for-bricks'),
             'type'  => 'slider',
             'units' => ['px' => ['min' => 0, 'max' => 3, 'step' => 0.1]],
             'css'   => [['property' => 'transition-duration', 'selector' => 'img']],
@@ -318,7 +318,7 @@ class THEBRBRE_Bricks_Team extends \Bricks\Element
 
         $this->controls['contentBackground'] = [
             'group' => 'content_style',
-            'label' => esc_html__('Background', 'the-bricksfly'),
+            'label' => esc_html__('Background', 'bricksfly-elements-for-bricks'),
             'type'  => 'background',
             'css'   => [['property' => 'background', 'selector' => '.content']],
             'exclude' => ['video'],  // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude -- Bricks control option, not a WP_Query arg
@@ -326,7 +326,7 @@ class THEBRBRE_Bricks_Team extends \Bricks\Element
 
         $this->controls['contentPadding'] = [
             'group' => 'content_style',
-            'label' => esc_html__('Padding', 'the-bricksfly'),
+            'label' => esc_html__('Padding', 'bricksfly-elements-for-bricks'),
             'type'  => 'dimensions',
             'css'   => [['property' => 'padding', 'selector' => '.content']],
         ];
@@ -334,28 +334,28 @@ class THEBRBRE_Bricks_Team extends \Bricks\Element
         // Name
         $this->controls['nameColor'] = [
             'group' => 'content_style',
-            'label' => esc_html__('Name Color', 'the-bricksfly'),
+            'label' => esc_html__('Name Color', 'bricksfly-elements-for-bricks'),
             'type'  => 'color',
             'css'   => [['property' => 'color', 'selector' => '.name']],
         ];
 
         $this->controls['nameHoverColor'] = [
             'group' => 'content_style',
-            'label' => esc_html__('Name Hover Color', 'the-bricksfly'),
+            'label' => esc_html__('Name Hover Color', 'bricksfly-elements-for-bricks'),
             'type'  => 'color',
             'css'   => [['property' => 'color', 'selector' => '.name a:hover']],
         ];
 
         $this->controls['nameTypography'] = [
             'group' => 'content_style',
-            'label' => esc_html__('Name Typography', 'the-bricksfly'),
+            'label' => esc_html__('Name Typography', 'bricksfly-elements-for-bricks'),
             'type'  => 'typography',
             'css'   => [['property' => 'font', 'selector' => '.name']],
         ];
 
         $this->controls['nameSpacing'] = [
             'group'   => 'content_style',
-            'label'   => esc_html__('Name Spacing', 'the-bricksfly'),
+            'label'   => esc_html__('Name Spacing', 'bricksfly-elements-for-bricks'),
             'type'    => 'slider',
             'units'   => ['px' => ['min' => 0, 'max' => 100]],
             'default' => '10px',
@@ -365,21 +365,21 @@ class THEBRBRE_Bricks_Team extends \Bricks\Element
         // Designation
         $this->controls['designationColor'] = [
             'group' => 'content_style',
-            'label' => esc_html__('Designation Color', 'the-bricksfly'),
+            'label' => esc_html__('Designation Color', 'bricksfly-elements-for-bricks'),
             'type'  => 'color',
             'css'   => [['property' => 'color', 'selector' => '.designation']],
         ];
 
         $this->controls['designationTypography'] = [
             'group' => 'content_style',
-            'label' => esc_html__('Designation Typography', 'the-bricksfly'),
+            'label' => esc_html__('Designation Typography', 'bricksfly-elements-for-bricks'),
             'type'  => 'typography',
             'css'   => [['property' => 'font', 'selector' => '.designation']],
         ];
 
         $this->controls['designationSpacing'] = [
             'group'   => 'content_style',
-            'label'   => esc_html__('Designation Spacing', 'the-bricksfly'),
+            'label'   => esc_html__('Designation Spacing', 'bricksfly-elements-for-bricks'),
             'type'    => 'slider',
             'units'   => ['px' => ['min' => 0, 'max' => 100]],
             'default' => '10px',
@@ -389,21 +389,21 @@ class THEBRBRE_Bricks_Team extends \Bricks\Element
         // Description
         $this->controls['descriptionColor'] = [
             'group' => 'content_style',
-            'label' => esc_html__('Description Color', 'the-bricksfly'),
+            'label' => esc_html__('Description Color', 'bricksfly-elements-for-bricks'),
             'type'  => 'color',
             'css'   => [['property' => 'color', 'selector' => '.description']],
         ];
 
         $this->controls['descriptionTypography'] = [
             'group' => 'content_style',
-            'label' => esc_html__('Description Typography', 'the-bricksfly'),
+            'label' => esc_html__('Description Typography', 'bricksfly-elements-for-bricks'),
             'type'  => 'typography',
             'css'   => [['property' => 'font', 'selector' => '.description']],
         ];
 
         $this->controls['descriptionSpacing'] = [
             'group'   => 'content_style',
-            'label'   => esc_html__('Description Spacing', 'the-bricksfly'),
+            'label'   => esc_html__('Description Spacing', 'bricksfly-elements-for-bricks'),
             'type'    => 'slider',
             'units'   => ['px' => ['min' => 0, 'max' => 100]],
             'default' => '10px',
@@ -414,7 +414,7 @@ class THEBRBRE_Bricks_Team extends \Bricks\Element
 
         $this->controls['socialBg'] = [
             'group'    => 'social_style',
-            'label'    => esc_html__('Background', 'the-bricksfly'),
+            'label'    => esc_html__('Background', 'bricksfly-elements-for-bricks'),
             'type'     => 'background',
             'css'      => [['property' => 'background', 'selector' => '.social-media']],
             'exclude'  => ['video'],  // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude -- Bricks control option, not a WP_Query arg
@@ -423,7 +423,7 @@ class THEBRBRE_Bricks_Team extends \Bricks\Element
 
         $this->controls['socialPadding'] = [
             'group'    => 'social_style',
-            'label'    => esc_html__('Padding', 'the-bricksfly'),
+            'label'    => esc_html__('Padding', 'bricksfly-elements-for-bricks'),
             'type'     => 'dimensions',
             'css'      => [['property' => 'padding', 'selector' => '.social-media']],
             'required' => ['elementList', '=', '2'],
@@ -431,7 +431,7 @@ class THEBRBRE_Bricks_Team extends \Bricks\Element
 
         $this->controls['iconColor'] = [
             'group' => 'social_style',
-            'label' => esc_html__('Icon Color', 'the-bricksfly'),
+            'label' => esc_html__('Icon Color', 'bricksfly-elements-for-bricks'),
             'type'  => 'color',
             'css'   => [
                 ['property' => 'color', 'selector' => '.social-media a'],
@@ -441,14 +441,14 @@ class THEBRBRE_Bricks_Team extends \Bricks\Element
 
         $this->controls['iconBgColor'] = [
             'group' => 'social_style',
-            'label' => esc_html__('Icon Background', 'the-bricksfly'),
+            'label' => esc_html__('Icon Background', 'bricksfly-elements-for-bricks'),
             'type'  => 'color',
             'css'   => [['property' => 'background-color', 'selector' => '.social-media a']],
         ];
 
         $this->controls['iconHoverColor'] = [
             'group' => 'social_style',
-            'label' => esc_html__('Icon Hover Color', 'the-bricksfly'),
+            'label' => esc_html__('Icon Hover Color', 'bricksfly-elements-for-bricks'),
             'type'  => 'color',
             'css'   => [
                 ['property' => 'color', 'selector' => '.social-media a:hover'],
@@ -458,14 +458,14 @@ class THEBRBRE_Bricks_Team extends \Bricks\Element
 
         $this->controls['iconHoverBgColor'] = [
             'group' => 'social_style',
-            'label' => esc_html__('Icon Hover Background', 'the-bricksfly'),
+            'label' => esc_html__('Icon Hover Background', 'bricksfly-elements-for-bricks'),
             'type'  => 'color',
             'css'   => [['property' => 'background-color', 'selector' => '.social-media a:hover']],
         ];
 
         $this->controls['iconSize'] = [
             'group' => 'social_style',
-            'label' => esc_html__('Icon Size', 'the-bricksfly'),
+            'label' => esc_html__('Icon Size', 'bricksfly-elements-for-bricks'),
             'type'  => 'number',
             'units' => ['px' => ['min' => 6, 'max' => 300]],
             'css'   => [['property' => '--icon-size', 'selector' => '&']],
@@ -473,7 +473,7 @@ class THEBRBRE_Bricks_Team extends \Bricks\Element
 
         $this->controls['iconPadding'] = [
             'group' => 'social_style',
-            'label' => esc_html__('Icon Padding', 'the-bricksfly'),
+            'label' => esc_html__('Icon Padding', 'bricksfly-elements-for-bricks'),
             'type'  => 'number',
             'units' => ['px' => ['min' => 1, 'max' => 300]],
             'css'   => [['property' => '--icon-padding', 'selector' => '&']],
@@ -481,7 +481,7 @@ class THEBRBRE_Bricks_Team extends \Bricks\Element
 
         $this->controls['iconSpacing'] = [
             'group'   => 'social_style',
-            'label'   => esc_html__('Icon Spacing', 'the-bricksfly'),
+            'label'   => esc_html__('Icon Spacing', 'bricksfly-elements-for-bricks'),
             'type'    => 'slider',
             'units'   => ['px' => ['min' => 0, 'max' => 100]],
             'default' => '10px',
@@ -490,14 +490,14 @@ class THEBRBRE_Bricks_Team extends \Bricks\Element
 
         $this->controls['iconBorder'] = [
             'group' => 'social_style',
-            'label' => esc_html__('Icon Border', 'the-bricksfly'),
+            'label' => esc_html__('Icon Border', 'bricksfly-elements-for-bricks'),
             'type'  => 'border',
             'css'   => [['property' => 'border', 'selector' => '.social-media a']],
         ];
 
         $this->controls['iconHoverBorderColor'] = [
             'group' => 'social_style',
-            'label' => esc_html__('Icon Hover Border Color', 'the-bricksfly'),
+            'label' => esc_html__('Icon Hover Border Color', 'bricksfly-elements-for-bricks'),
             'type'  => 'color',
             'css'   => [['property' => 'border-color', 'selector' => '.social-media a:hover']],
         ];
@@ -625,7 +625,7 @@ class THEBRBRE_Bricks_Team extends \Bricks\Element
             }
 
             echo wp_kses_post('<a ' . $this->render_attributes($link_key) . '>');
-            echo '<span class="screen-reader-text">' . esc_html( $item['socialLabel'] ?? esc_html__( 'Social', 'the-bricksfly' ) ) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            echo '<span class="screen-reader-text">' . esc_html( $item['socialLabel'] ?? esc_html__( 'Social', 'bricksfly-elements-for-bricks' ) ) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
             echo wp_kses_post(self::render_icon($item['socialIcon'], ['aria-hidden' => 'true']));
             echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         }

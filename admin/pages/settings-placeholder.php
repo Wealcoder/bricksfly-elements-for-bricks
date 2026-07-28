@@ -73,8 +73,8 @@ class THEBRBRE_Settings_Placeholder
 
 		add_submenu_page(
 			self::MENU_PAGE_SLUG,
-			esc_html__('Site Settings', 'the-bricksfly'),
-			esc_html__('Site Settings', 'the-bricksfly'),
+			esc_html__('Site Settings', 'bricksfly-elements-for-bricks'),
+			esc_html__('Site Settings', 'bricksfly-elements-for-bricks'),
 			self::MENU_CAPABILITY,
 			self::SETTINGS_SLUG,
 			[$this, 'render_page']
@@ -86,23 +86,23 @@ class THEBRBRE_Settings_Placeholder
 		$pro_active = $this->is_pro_plugin_active();
 
 		$title = $pro_active
-			? __('Activate your license to unlock Site Settings', 'the-bricksfly')
-			: __('Site Settings requires the Pro plugin', 'the-bricksfly');
+			? __('Activate your license to unlock Site Settings', 'bricksfly-elements-for-bricks')
+			: __('Site Settings requires the Pro plugin', 'bricksfly-elements-for-bricks');
 
 		$body = $pro_active
-			? __('Bricksfly Pro is installed, but its license is not active for this site. Activate the license to enable Site Settings (Preloader, Cursor, Scroll Indicator, Scroll-to-Top).', 'the-bricksfly')
-			: __('Site Settings (Preloader, Cursor, Scroll Indicator, Scroll-to-Top) is a Pro feature. Install and activate Bricksfly Pro, then activate your license, to use it.', 'the-bricksfly');
+			? __('Bricksfly Pro is installed, but its license is not active for this site. Activate the license to enable Site Settings (Preloader, Cursor, Scroll Indicator, Scroll-to-Top).', 'bricksfly-elements-for-bricks')
+			: __('Site Settings (Preloader, Cursor, Scroll Indicator, Scroll-to-Top) is a Pro feature. Install and activate bricksfly-elements-for-bricks-pro, then activate your license, to use it.', 'bricksfly-elements-for-bricks');
 
 		$cta_url = $pro_active
 			? admin_url('admin.php?page=thebrbre_addons_settings&bf-license=1')
 			: admin_url('plugin-install.php?s=the-bricksfly-pro&tab=search&type=term');
 
 		$cta_label = $pro_active
-			? __('Activate License', 'the-bricksfly')
-			: __('Get Pro', 'the-bricksfly');
+			? __('Activate License', 'bricksfly-elements-for-bricks')
+			: __('Get Pro', 'bricksfly-elements-for-bricks');
 
 		echo '<div class="wrap aab-settings-placeholder" style="max-width:780px;">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		echo '<h1>' . esc_html__('Site Settings', 'the-bricksfly') . '</h1>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo '<h1>' . esc_html__('Site Settings', 'bricksfly-elements-for-bricks') . '</h1>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo '<div class="notice notice-warning inline" style="padding:16px 20px;margin-top:16px;">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo '<h2 style="margin-top:0;">' . esc_html($title) . '</h2>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo '<p>' . esc_html($body) . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -123,8 +123,8 @@ class THEBRBRE_Settings_Placeholder
 		if (! self::is_thebrbre_admin_screen()) return;
 
 		echo '<div class="notice notice-warning"><p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		echo '<strong>' . esc_html__('Bricksfly:', 'the-bricksfly') . '</strong> '; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		echo esc_html__('Install and activate the Pro plugin to unlock Site Settings and other premium features.', 'the-bricksfly');
+		echo '<strong>' . esc_html__('Bricksfly:', 'bricksfly-elements-for-bricks') . '</strong> '; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo esc_html__('Install and activate the Pro plugin to unlock Site Settings and other premium features.', 'bricksfly-elements-for-bricks');
 		echo '</p></div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
