@@ -1,7 +1,7 @@
-=== The BricksFly – Bricks Elements, Bricks Templates & GSAP Animation ===
+=== BricksFly Elements and Templates for Bricks with GSAP Animations ===
 Contributors: wealcoder, raselsec
 Tags: bricks, bricks builder, gsap, animation, templates
-Requires at least: 6.6
+Requires at least: 6.9
 Tested up to: 7.0
 Requires PHP: 7.4
 Stable tag: 1.0.1
