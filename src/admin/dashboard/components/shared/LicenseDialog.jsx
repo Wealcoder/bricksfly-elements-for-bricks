@@ -56,9 +56,9 @@ const LicenseDialog = ({ open, setOpen }) => {
     const body_args = {
       action:
         activated?.product_status?.item_id === 39996
-          ? "wcf_addon_pro_sl_deactivate"
-          : "wcf_addon_pro_sl_activate",
-      wcf_addon_sl_license_key: data.license,
+          ? "thebrbre_license_deactivate"
+          : "thebrbre_license_activate",
+      thebrbre_license_key: data.license,
       email: "",
       nonce: THEBRBRE_ADDONS_ADMIN.nonce,
     };
