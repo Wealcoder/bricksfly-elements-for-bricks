@@ -136,25 +136,36 @@ Loads the Inter and Figtree fonts when an administrator opens the plugin's dashb
 
 = 2. Template library & starter templates (`https://www.themecrowdy.com/`) =
 
-Used when an administrator browses or imports templates, sections, or starter sites. Sends IP, user agent, site URL/referrer, search/filter values, and template ID; no passwords or account details. Provider: Wealcoder / BricksFly Addons — [Terms](https://bricksfly.com/terms-condition/) | [Privacy](https://bricksfly.com/privacy-policy/)
+This is the remote library that powers the plugin's built-in Template Library screen. It is queried whenever an administrator opens that screen, searches or filters it, or clicks to import a template, section, or starter site.
+
+What is sent and when:
+* Opening/browsing the library or typing a search term calls `https://www.themecrowdy.com/wp-json/wp/v2/bricks-sections-category` (category list) and `https://www.themecrowdy.com/wp-json/wp/v2/brk-templates?title-search=...&s=...` (search results) — sends the search/filter text you typed, plus the site's IP, user agent, and referrer.
+* Viewing a specific template's details calls `https://www.themecrowdy.com/wp-json/bricks-sections/v1/list/{template_id}` — sends the numeric template ID being viewed.
+* Clicking "Import" calls `https://www.themecrowdy.com/wp-json/bricks-sections/v1/download?id={template_id}` — sends the numeric template ID and downloads the template/section JSON, which is then inserted into the current Bricks page.
+
+No passwords, license keys, or account details are ever sent with these requests. Provider: Wealcoder / BricksFly Addons — [Terms](https://bricksfly.com/terms-condition/) | [Privacy](https://bricksfly.com/privacy-policy/)
 
 = 3. Dashboard content & demo media (`https://my.bricksfly.com/`, `https://crowdytheme.com/`) =
 
 Loads the dashboard changelog/article images and the Video Mask demo video. Sends IP, user agent, site URL, and referrer when the dashboard or media loads; the free plugin sends no license keys. Provider: Wealcoder / BricksFly Addons — [Terms](https://bricksfly.com/terms-condition/) | [Privacy](https://bricksfly.com/privacy-policy/)
 
-= 4. YouTube embedded player =
+= 4. Dashboard quick-links menu (`https://www.themecrowdy.com/wp-json/wcf/v1/menu/42`) =
+
+Fetches a small, editor-maintained list of dashboard quick-links/announcements shown on the plugin's main dashboard page. Loaded once per dashboard page view; sends IP, user agent, site URL, and referrer only — no template, license, or account data. Provider: Wealcoder / BricksFly Addons — [Terms](https://bricksfly.com/terms-condition/) | [Privacy](https://bricksfly.com/privacy-policy/)
+
+= 5. YouTube embedded player =
 
 Displays configured YouTube videos and dashboard tutorials; on load YouTube receives the video ID, IP, user agent, referrer, and permitted cookies. Provider: Google / YouTube — [Terms](https://www.youtube.com/t/terms) | [Privacy](https://policies.google.com/privacy)
 
-= 5. Vimeo embedded player (`https://player.vimeo.com/`) =
+= 6. Vimeo embedded player (`https://player.vimeo.com/`) =
 
 Displays configured Vimeo videos; on load Vimeo receives the video ID, IP, user agent, referrer, and permitted cookies. Provider: Vimeo — [Terms](https://vimeo.com/terms) | [Privacy](https://vimeo.com/privacy)
 
-= 6. Social sharing services =
+= 7. Social sharing services =
 
-Creates share links; data is sent only after a visitor clicks a share button (page URL and title, Pinterest also the image URL, plus normal browser data). Providers: Facebook [Terms](https://www.facebook.com/terms.php)/[Privacy](https://www.facebook.com/privacy/policy/), X/Twitter [Terms](https://x.com/en/tos)/[Privacy](https://x.com/en/privacy), LinkedIn [Terms](https://www.linkedin.com/legal/user-agreement)/[Privacy](https://www.linkedin.com/legal/privacy-policy), Pinterest [Terms](https://policy.pinterest.com/en/terms-of-service)/[Privacy](https://policy.pinterest.com/en/privacy-policy), Reddit [Terms](https://redditinc.com/policies/user-agreement)/[Privacy](https://reddit.com/policies/privacy-policy), Tumblr [Terms](https://www.tumblr.com/policy/en/terms-of-service)/[Privacy](https://www.tumblr.com/privacy/en), Blogger/Google [Terms](https://policies.google.com/terms)/[Privacy](https://policies.google.com/privacy).
+Creates share links; data is sent only after a visitor clicks a share button (page URL and title, Pinterest also the image URL, plus normal browser data). Providers: Facebook [Terms](https://www.facebook.com/terms.php) | [Privacy](https://www.facebook.com/privacy/policy), X/Twitter [Terms](https://x.com/en/tos) | [Privacy](https://x.com/en/privacy), LinkedIn [Terms](https://www.linkedin.com/legal/user-agreement) | [Privacy](https://www.linkedin.com/legal/privacy-policy), Pinterest [Terms](https://policy.pinterest.com/en/terms-of-service) | [Privacy](https://policy.pinterest.com/en/privacy-policy), Reddit [Terms](https://www.reddit.com/policies/user-agreement) | [Privacy](https://www.reddit.com/policies/privacy-policy), Tumblr [Terms](https://www.tumblr.com/policy/en/terms-of-service) | [Privacy](https://www.tumblr.com/privacy/), Google [Terms](https://policies.google.com/terms) | [Privacy](https://policies.google.com/privacy).
 
-= 7. Feature request submission (`https://bricksfly.com/`) =
+= 8. Feature request submission (`https://bricksfly.com/`) =
 
 Used only when an administrator submits the dashboard "Request a Feature" form. Sends the entered name, email, and feature text plus the site URL to the author, who relays it as an email. Provider: Wealcoder / BricksFly Addons — [Terms](https://bricksfly.com/terms-condition/) | [Privacy](https://bricksfly.com/privacy-policy/)
 

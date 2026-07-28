@@ -1001,7 +1001,7 @@ $thebrbre_config = array(
 				'elements'  => array(
 					'aab-smooth-scroller' => array(
 						'title'     => 'Scroll Smoother',
-						'doc_url'   => 'https://support.crowdytheme.com/docs/advanced-settings/advanced-settings/wcf-custom-css/',
+						'doc_url'   => '#',
 						'is_pro'    => true,
 						'is_active' => false,
 						'elements'  => array(
@@ -1143,7 +1143,7 @@ $thebrbre_config = array(
 					),
 					'scroll-trigger' => array(
 						'title'     => 'ScrollTrigger',
-						'doc_url'   => 'https://support.crowdytheme.com/docs/advanced-settings/advanced-settings/wcf-custom-css/',
+						'doc_url'   => '#',
 						'is_pro'    => true,
 						'is_active' => false,
 						'elements'  => array(
