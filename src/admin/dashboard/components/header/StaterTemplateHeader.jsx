@@ -17,14 +17,12 @@ export function StaterTemplateHeader({ metaData, setMetaData }) {
   const [menuData, setMenuData] = useState([]);
 
   useEffect(() => {
-    if (
-      THEBRBRE_ADDONS_ADMIN.template_menu &&
-      THEBRBRE_ADDONS_ADMIN.template_menu.length
-    ) {
-      setMenuData(THEBRBRE_ADDONS_ADMIN.template_menu);
-    } else {
-      setMenuData(templateMenuJson);
-    }
+    // The JSON may be a bare items array or the full API envelope { menu, items }
+    setMenuData(
+      Array.isArray(templateMenuJson)
+        ? templateMenuJson
+        : templateMenuJson?.items || []
+    );
   }, []);
 
   const { selectedCategory, tempSelectedCategory } = metaData || {};

@@ -433,8 +433,7 @@ class THEBRBRE_Admin_Init
 			'user_role'           => thebrbre_get_current_user_roles(),
 			'version'             => THEBRBRE_VERSION,
 			'st_template_domain'  => THEBRBRE_TEMPLATE_STARTER_BASE_URL,
-			'home_url' => add_query_arg(['aab-cache' => 1], home_url('/')),
-			'template_menu' => $this->get_template_menu_data(),
+			'home_url' => home_url('/'),			
 			'plugin_url' => THEBRBRE_URL,
 			'has_pro' => file_exists($this->plugin_file),
 			'breakpoints' => $bricks_breakpoints,
@@ -604,61 +603,7 @@ class THEBRBRE_Admin_Init
 		start();
 	}
 })();';
-	}
-
-	public function get_template_menu_data()
-	{
-		$transient_key = 'thebrbre_menu_204_data';
-		$cached_data   = get_transient($transient_key);
-
-		// âœ… Return cached data if available
-		if ($cached_data !== false) {
-			return $cached_data;
-		}
-
-		$url      = "https://www.themecrowdy.com/wp-json/wcf/v1/menu/204";
-		$response = wp_remote_get($url, [
-			'timeout' => 15,
-			'sslverify' => true,
-			'headers' => [
-				'Accept' => 'application/json'
-			]
-		]);
-
-		// âœ… Validate response
-		if (is_wp_error($response)) {
-			return [];
-		}
-
-		$status_code = wp_remote_retrieve_response_code($response);
-		if ($status_code !== 200) {
-			return [];
-		}
-
-		$body = wp_remote_retrieve_body($response);
-		if (empty($body)) {
-
-			return [];
-		}
-
-		// âœ… Decode JSON safely
-		$data = json_decode($body, true);
-		if (json_last_error() !== JSON_ERROR_NONE || ! is_array($data)) {
-
-			return [];
-		}
-
-		// âœ… Ensure expected structure exists
-		if (! isset($data['items']) || ! is_array($data['items'])) {
-
-			return [];
-		}
-
-		// âœ… Cache valid data for 1 hour
-		set_transient($transient_key, $data['items'], HOUR_IN_SECONDS);
-
-		return $data['items'];
-	}
+	}	
 
 
 	function thebrbre_dashboard_integrations_config($configs)
