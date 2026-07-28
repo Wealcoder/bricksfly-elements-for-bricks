@@ -1,10 +1,10 @@
 === BricksFly Elements and Templates for Bricks with GSAP Animations ===
 Contributors: wealcoder, raselsec
-Tags: bricks, bricks builder, gsap, animation, templates
+Tags: bricks, bricks builder, animation, templates
 Requires at least: 6.9
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.0.1
+Stable tag: 1.0.0
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Powerful elements, GSAP animations, smart extensions, and ready-made website templates for Bricks Builder — no coding required.
