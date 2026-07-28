@@ -22,7 +22,9 @@ const DIST_DIR = 'dist';
 const sources = [
     '**/*',
     '!node_modules/**', '!node_modules',
-    '!public/fonts/**', '!src',
+    // Source font files are excluded — webpack emits hashed copies into
+    // public/build/fonts/ — but the OFL license text must ship with them.
+    '!public/fonts/**', 'public/fonts/OFL.txt', '!src',
     '!src/**', '!src',
     '!dist/**', '!dist',
     '!gulpfile.js',
