@@ -24,13 +24,8 @@ const sources = [
     // Source font files are excluded — webpack emits hashed copies into
     // public/build/fonts/ — but the OFL license text must ship with them.
     '!public/fonts/**', 'public/fonts/OFL.txt', '!src',
-    '!src/**', '!src',
     '!dist/**', '!dist',
     '!gulpfile.js',
-    '!babel.config.js',
-    '!webpack.config.js',
-    '!postcss.config.js',
-    '!package.json',
     '!package-lock.json',
     '!dist/**',
     '!CLAUDE.md',

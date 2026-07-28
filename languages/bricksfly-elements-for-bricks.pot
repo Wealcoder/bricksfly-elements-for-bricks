@@ -2,8 +2,8 @@
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: The BricksFly – Bricks Elements, Bricks Templates & GSAP Animation 1.0.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-bricksfly\n"
+"Project-Id-Version: BricksFly Elements and Templates for Bricks with GSAP Animations 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bricksfly-elements-for-bricks\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -12,30 +12,30 @@ msgstr ""
 "POT-Creation-Date: 2026-07-15T04:14:21+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
-"X-Domain: the-bricksfly\n"
+"X-Domain: bricksfly-elements-for-bricks\n"
 
 #. Plugin Name of the plugin
-#: the-bricksfly.php
-msgid "The BricksFly – Bricks Elements, Bricks Templates & GSAP Animation"
+#: bricksfly-elements-for-bricks.php
+msgid "BricksFly Elements and Templates for Bricks with GSAP Animations"
 msgstr ""
 
 #. Plugin URI of the plugin
-#: the-bricksfly.php
+#: bricksfly-elements-for-bricks.php
 msgid "https://bricksfly.com/"
 msgstr ""
 
 #. Description of the plugin
-#: the-bricksfly.php
+#: bricksfly-elements-for-bricks.php
 msgid "The Bricksfly for Bricks comes with GSAP Animation Builder, Customizable Elements, Header Footer, Single Post, Archive Page Builder, and Many more."
 msgstr ""
 
 #. Author of the plugin
-#: the-bricksfly.php
+#: bricksfly-elements-for-bricks.php
 msgid "Wealcoder"
 msgstr ""
 
 #. Author URI of the plugin
-#: the-bricksfly.php
+#: bricksfly-elements-for-bricks.php
 msgid "https://wealcoder.com/"
 msgstr ""
 
@@ -200,52 +200,6 @@ msgstr ""
 
 #: admin/base/WXRImporter.php:1349
 msgid "Comment checking"
-msgstr ""
-
-#: admin/cpt-builder.php:150
-#: admin/cpt-builder.php:277
-#: admin/pages/builder-template-library.php:149
-msgid "All"
-msgstr ""
-
-#: admin/cpt-builder.php:393
-msgid "Post type"
-msgstr ""
-
-#: admin/cpt-builder.php:402
-#: admin/cpt-builder.php:403
-msgid "CPT Builder"
-msgstr ""
-
-#: admin/cpt-builder.php:420
-#: admin/cpt-builder.php:461
-#: admin/cpt-builder.php:499
-#: admin/cpt-builder.php:520
-#: admin/cpt-builder.php:531
-#: admin/cpt-builder.php:547
-#: admin/cpt-builder.php:559
-#: admin/cpt-builder.php:596
-#: admin/cpt-builder.php:616
-#: admin/cpt-builder.php:626
-#: admin/cpt-builder.php:659
-#: admin/pages/template-importer.php:63
-#: admin/pages/template-importer.php:89
-#: admin/st-init.php:123
-msgid "You are not allowed to perform this action."
-msgstr ""
-
-#: admin/cpt-builder.php:427
-msgid "Invalid data provided."
-msgstr ""
-
-#: admin/cpt-builder.php:431
-msgid "Settings updated successfully."
-msgstr ""
-
-#: admin/cpt-builder.php:516
-#: admin/cpt-builder.php:612
-#: admin/row-actions.php:34
-msgid "Invalid nonce"
 msgstr ""
 
 #: admin/Importer.php:75
@@ -4900,22 +4854,22 @@ msgstr ""
 msgid "Slide Direction"
 msgstr ""
 
-#: the-bricksfly.php:177
+#: bricksfly-elements-for-bricks.php:177
 msgid "Okay"
 msgstr ""
 
-#: the-bricksfly.php:178
+#: bricksfly-elements-for-bricks.php:178
 msgid "Cancel"
 msgstr ""
 
-#: the-bricksfly.php:179
+#: bricksfly-elements-for-bricks.php:179
 msgid "Submit"
 msgstr ""
 
-#: the-bricksfly.php:180
+#: bricksfly-elements-for-bricks.php:180
 msgid "Success"
 msgstr ""
 
-#: the-bricksfly.php:181
+#: bricksfly-elements-for-bricks.php:181
 msgid "Warning"
 msgstr ""
