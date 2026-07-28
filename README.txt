@@ -15,7 +15,7 @@ Powerful elements, GSAP animations, smart extensions, and ready-made website tem
 
 Main features include:
 
-- 25+ Bricks elements for content, video, marketing, and dynamic layouts.
+- 24+ Bricks elements for content, video, marketing, and dynamic layouts.
 - 15+ optional extensions, including tooltips, cursor effects, preloaders, and wrapper links.
 - GSAP-based effects such as ScrollTrigger, text animation, parallax, horizontal scrolling, and smooth scrolling.
 - 20+ starter website templates and reusable sections.
@@ -23,7 +23,7 @@ Main features include:
 
 Enable only the elements and extensions needed for each site. Animation controls can also respect reduced-motion preferences.
 
-### 25+ Powerful Elements for Bricks
+### 24+ Powerful Elements for Bricks
 Design beautiful, dynamic Bricks websites with 25+ exclusive elements. From creative layouts to powerful marketing elements, everything is built to be easy, flexible, and ready to use. Just drag, drop, and customize your way.
 #### General Elements
 - **Advanced Button Pro** — Create customizable Bricks buttons with modern hover styles and animations.
@@ -81,7 +81,7 @@ Design beautiful, dynamic Bricks websites with 25+ exclusive elements. From crea
 - **Scroll To Top** — Add a customizable scroll-to-top button for better navigation.
 == Installation ==
 = Minimum Requirements =
-* WordPress 6.6 or greater
+* WordPress 6.9 or greater
 * PHP version 7.4 or greater
 * MySQL version 5.7 or greater
 
@@ -94,7 +94,7 @@ Note: This plugin requires the Bricks theme to function. Please ensure Bricks is
 For any questions, visit our FAQ page or reach out via our Contact Form. 🚀
 == Frequently Asked Questions ==
 = What is BricksFly Elements and Templates for Bricks with GSAP Animations? =
- BricksFly Elements and Templates for Bricks with GSAP Animations is an all-in-one addon for Bricks Builder. It enhances Bricks with 25+ powerful elements, 15+ smart extensions, a complete GSAP animation engine, and 20+ ready-made website templates — all designed to help you build modern, animated websites faster, without writing custom code.
+ BricksFly Elements and Templates for Bricks with GSAP Animations is an all-in-one addon for Bricks Builder. It enhances Bricks with 24+ powerful elements, 15+ smart extensions, a complete GSAP animation engine, and 20+ ready-made website templates — all designed to help you build modern, animated websites faster, without writing custom code.
 = Do I need Bricks Builder to use this plugin? =
 Yes.  BricksFly Elements and Templates for Bricks with GSAP Animations is built specifically to enhance Bricks Builder. You'll need the Bricks Builder theme installed and activated for this plugin to work.
 = Will  BricksFly Elements and Templates for Bricks with GSAP Animations slow down my site? =
@@ -148,11 +148,11 @@ Fetches a small, editor-maintained list of dashboard quick-links/announcements s
 
 = 3. YouTube embedded player (https://www.youtube.com/) =
 
-Displays configured YouTube videos and dashboard tutorials; on load YouTube receives the video ID, IP, user agent, referrer, and permitted cookies. Provider: Google / YouTube — [Terms](https://www.youtube.com/t/terms) | [Privacy](https://policies.google.com/privacy)
+Displays configured YouTube videos and dashboard tutorials; on load YouTube receives the video ID, IP, user agent, referrer, and permitted cookies. Provider: Google / YouTube — [Terms](https://www.youtube.com/t/terms)
 
 = 4. Vimeo embedded player (https://player.vimeo.com/) =
 
-Displays configured Vimeo videos; on load Vimeo receives the video ID, IP, user agent, referrer, and permitted cookies. Provider: Vimeo — [Terms](https://vimeo.com/terms) | [Privacy](https://vimeo.com/privacy)
+Displays configured Vimeo videos; on load Vimeo receives the video ID. Provider: Vimeo — [Terms](https://vimeo.com/terms) | [Privacy](https://vimeo.com/privacy)
 
 = 5. Feature request submission (`https://bricksfly.com/`) =
 
