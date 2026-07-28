@@ -134,17 +134,15 @@ This is the remote library that powers the plugin's built-in Template Library sc
 
 What is sent and when:
 
-* Opening/browsing the library or typing a search term calls `https://www.themecrowdy.com/wp-json/wp/v2/bricks-sections-category` (category list) and `https://www.themecrowdy.com/wp-json/wp/v2/brk-templates?title-search=...&s=...` (search results) — sends the search/filter text when you typed, plus the site's IP, user agent, and referrer.
-* Viewing a specific template's details calls `https://www.themecrowdy.com/wp-json/bricks-sections/v1/list/{template_id}` — sends the numeric template ID being viewed.
-* Clicking "Import" calls `https://www.themecrowdy.com/wp-json/bricks-sections/v1/download?id={template_id}` — sends the numeric template ID and downloads the template/section JSON, which is then inserted into the current Bricks Editor page.
+* **Opening the library.** Clicking "Import Section" in the Bricks Editor toolbar loads the browsable list from `https://www.themecrowdy.com/wp-json/wp/v2/bricks-sections` and the category filter options from `https://www.themecrowdy.com/wp-json/wp/v2/bricks-sections-category`. Only standard connection data is sent — no site or user information.
+* **Searching and filtering.** Choosing a category or color, switching between section and page results, or paging further down the list re-sends the same `bricks-sections` request with your chosen filters (`type`, `category`, `color_type`, `page`) and any search text (`s`) attached. Searching from the plugin's own Template Library screen instead calls `https://www.themecrowdy.com/wp-json/wp/v2/brk-templates?title-search=yes&s={your search text}`. In both cases the only thing added is what you typed or selected.
+* **Importing.** Clicking "Import" sends the numeric template ID to `https://www.themecrowdy.com/wp-json/bricks-sections/v1/list/{template_id}`, which returns that template's download link; your site then fetches the Bricks JSON from that link. Both requests are made server-to-server by your site, not by your browser. The downloaded design is handed straight to the Bricks Editor and is only stored once you save the page.
 
 No passwords, license keys, or account details are ever sent with these requests. Provider: BricksFly Elements and Templates for Bricks with GSAP Animations — [Terms](https://bricksfly.com/terms-condition/) | [Privacy](https://bricksfly.com/privacy-policy/)
 
-= 2. Dashboard content & demo media (`https://crowdytheme.com/`) =
+= 2. Dashboard blog posts (`https://bricksfly.com/`) =
 
-Loads the dashboard changelog/article images and the Video Mask demo video. Sends IP, user agent, site URL, and referrer when the dashboard or media loads; the free plugin sends no license keys. Provider: Wealcoder / BricksFly Addons — [Terms](https://bricksfly.com/terms-condition/) | [Privacy](https://bricksfly.com/privacy-policy/)
-
-Fetches a small, editor-maintained list of dashboard quick-links/announcements shown on the plugin's main dashboard page. Loaded once per dashboard page view; sends IP, user agent, site URL, and referrer only — no template, license, or account data. Provider: Wealcoder / BricksFly Addons — [Terms](https://bricksfly.com/terms-condition/) | [Privacy](https://bricksfly.com/privacy-policy/)
+The plugin dashboard shows a short list of recent BricksFly blog posts. Opening the dashboard loads each post's thumbnail image from `https://bricksfly.com/blog/`, which sends only the site's IP, user agent, and referrer — no site, user, or license data. The post titles are ordinary links that open `https://bricksfly.com/blog/` in a new tab, so they connect only if you click one. Provider: Wealcoder / BricksFly Addons — [Terms](https://bricksfly.com/terms-condition/) | [Privacy](https://bricksfly.com/privacy-policy/)
 
 = 3. YouTube embedded player (https://www.youtube.com/) =
 
@@ -156,7 +154,7 @@ Displays configured Vimeo videos; on load Vimeo receives the video ID. Provider:
 
 = 5. Feature request submission (`https://bricksfly.com/`) =
 
-Used only when an administrator submits the dashboard "Request a Feature" form. Sends the entered name, email, and feature text plus the site URL to the author, who relays it as an email. Provider: Wealcoder / BricksFly Addons — [Terms](https://bricksfly.com/terms-condition/) | [Privacy](https://bricksfly.com/privacy-policy/)
+Used only when an administrator submits the dashboard "Request a Feature" form. Sends the entered name, email, and feature text plus the site URL to the author, who relays it as an email.
 
 = Administrator-supplied remote media =
 

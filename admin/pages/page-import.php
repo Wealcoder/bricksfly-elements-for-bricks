@@ -48,7 +48,7 @@ class THEBRBRE_Page_Importer {
 			'aab-admin-actions',
 			'THEBRBRE_PAGE_IMPORT',
 			[
-				'page_url' => esc_url( admin_url( 'admin.php?page=bf-page-importer' ) ),
+				'page_url' => esc_url( admin_url( 'admin.php?page=thebrbre-page-importer' ) ),
 				'logo'     => esc_url( THEBRBRE_URL . 'public/images/plugin_logo.png' ),
 			]
 		);
@@ -91,7 +91,7 @@ class THEBRBRE_Page_Importer {
 
 	public function clear_notices_for_importer() {
 		$screen = get_current_screen();
-		if ( $screen && strpos( $screen->id, '_page_bf-page-importer' ) !== false ) {
+		if ( $screen && strpos( $screen->id, '_page_thebrbre-page-importer' ) !== false ) {
 			remove_all_actions( 'admin_notices' );
 			remove_all_actions( 'all_admin_notices' );
 		}
@@ -102,7 +102,7 @@ class THEBRBRE_Page_Importer {
 		if ( ! is_string( $classes ) ) {
 			$classes = '';
 		}
-		if ( $screen && strpos( $screen->id, '_page_bf-page-importer' ) !== false ) {
+		if ( $screen && strpos( $screen->id, '_page_thebrbre-page-importer' ) !== false ) {
 			$classes .= ' wcf-anim2024';
 		}
 		return $classes;
@@ -118,13 +118,13 @@ class THEBRBRE_Page_Importer {
 			__( 'Page Import', 'bricksfly-elements-for-bricks' ),
 			__( 'Page Import', 'bricksfly-elements-for-bricks' ),
 			'manage_options',
-			'bf-page-importer',
+			'thebrbre-page-importer',
 			[ $this, 'page_html' ]
 		);
 	}
 
 	public function page_html() {
-		echo '<div id="bf-page-importer"></div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo '<div id="thebrbre-page-importer"></div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 	public function importer_assets( $hook ) {
@@ -133,19 +133,19 @@ class THEBRBRE_Page_Importer {
 			return;
 		}
 
-		if ( strpos( $screen->id, '_page_bf-page-importer' ) === false ) {
+		if ( strpos( $screen->id, '_page_thebrbre-page-importer' ) === false ) {
 			return;
 		}
 
 		wp_enqueue_style(
-			'bf-page-importer-admin',
+			'thebrbre-page-importer-admin',
 			THEBRBRE_URL . 'public/build/admin/page-import.css',
 			[],
 			time()
 		);
 
 		wp_enqueue_script(
-			'bf-page-importer-admin',
+			'thebrbre-page-importer-admin',
 			THEBRBRE_URL . 'public/build/admin/page-import.js',
 			[ 'wp-element' ],
 			time(),
@@ -209,7 +209,7 @@ class THEBRBRE_Page_Importer {
 			'home_url'           => home_url( '/' ),
 		];
 
-		wp_localize_script( 'bf-page-importer-admin', 'THEBRBRE_ADDONS_ADMIN', $localize_data );
+		wp_localize_script( 'thebrbre-page-importer-admin', 'THEBRBRE_ADDONS_ADMIN', $localize_data );
 	}
 }
 
