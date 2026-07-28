@@ -112,14 +112,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Wealcoder/the-bricksfly.git"
+    "url": "git+https://github.com/Wealcoder/bricksfly-elements-for-bricks.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/Wealcoder/the-bricksfly/issues"
+    "url": "https://github.com/Wealcoder/bricksfly-elements-for-bricks/issues"
   },
-  "homepage": "https://github.com/Wealcoder/the-bricksfly#readme"
+  "homepage": "https://github.com/Wealcoder/bricksfly-elements-for-bricks#readme"
 }

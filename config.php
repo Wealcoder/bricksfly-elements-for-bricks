@@ -1191,7 +1191,6 @@ $thebrbre_config = array(
 		'plugins' => array(
 			'title'    => 'Plugins',
 			'elements' => array(
-				// The React bundle keys off "the-bricksfly-pro"
 				// when deciding which plugin counts as "the Pro". We keep that
 				// key for UI compatibility but point the basename at the
 				// Bricks Pro plugin so the detected state is correct.
