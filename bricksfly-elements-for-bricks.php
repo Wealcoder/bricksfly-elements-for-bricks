@@ -166,8 +166,8 @@ function thebrbre_run()
 	$plugin->run();
 
 	// Localize THEBRBRE_ADDONS_JS against the always-enqueued public script so the
-	// global is available to free elements (e.g. post-social-share) AND to
-	// Pro extensions (smooth scroller, scroll-to). The scroll-to runtime
+	// global is available to free elements AND to Pro extensions/elements
+	// (smooth scroller, scroll-to, post-social-share). The scroll-to runtime
 	// (scroll-to-el.js) itself lives in Pro and is enqueued by the Pro
 	// scrollto extension.
 	add_action('wp_enqueue_scripts', function () {
