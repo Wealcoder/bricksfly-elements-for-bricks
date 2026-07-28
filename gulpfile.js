@@ -6,7 +6,6 @@
  * Excludes: node_modules, src, dist (build output), and the gulpfile itself.
  *
  * Usage:
- *   npx gulp zip          # build dist/the-bricksfly.zip
  *   npx gulp watch:zip    # rebuild on change
  */
 
@@ -23,21 +22,9 @@ const sources = [
     '**/*',
     '!node_modules/**', '!node_modules',
     '!public/fonts/**', '!src',
-    '!src/**', '!src',
-    '!dist/**', '!dist',
-    '!gulpfile.js',
-    '!babel.config.js',
-    '!webpack.config.js',
-    '!postcss.config.js',
-    '!package.json',
     '!package-lock.json',
-    '!config.json',
-    '!jsconfig.json',
-    '!postcss.config.js',
-    '!tailwind.*.js',
-    '!swap-config.js',
-    '!webpack.config.dev',
-    '!webpack.config.production',
+    '!dist/**',
+    '!CLAUDE.md',
     '!**/*.map',
     '!**/.DS_Store',
 ];
