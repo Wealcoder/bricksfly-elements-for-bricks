@@ -14,16 +14,7 @@ if (! defined('ABSPATH')) {
  * @subpackage Bricks_Animation_Addons/public
  */
 
-/**
- * The public-facing functionality of the plugin.
- *
- * Defines the plugin name, version, and two examples hooks for how to
- * enqueue the public-facing stylesheet and JavaScript.
- *
- * @package    Bricks_Animation_Addons
- * @subpackage Bricks_Animation_Addons/public
- * @author     Zilani <zilani.wealcoder@gmail.com>
- */
+
 class THEBRBRE_Public
 {
 

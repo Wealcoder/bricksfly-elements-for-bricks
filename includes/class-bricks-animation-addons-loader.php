@@ -14,17 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @subpackage Bricks_Animation_Addons/includes
  */
 
-/**
- * Register all actions and filters for the plugin.
- *
- * Maintain a list of all hooks that are registered throughout
- * the plugin, and register them with the WordPress API. Call the
- * run function to execute the list of actions and filters.
- *
- * @package    Bricks_Animation_Addons
- * @subpackage Bricks_Animation_Addons/includes
- * @author     Zilani <zilani.wealcoder@gmail.com>
- */
+
 class THEBRBRE_Loader {
 
 	/**
