@@ -1241,7 +1241,7 @@ class THEBRBRE_Bricks_Post_Meta extends \Bricks\Element {
 
 		$post_id = get_the_ID();
 		$cache_key = 'bricksfly_ratings_' . $post_id;
-		$ratings = wp_cache_get( $cache_key, 'bricksfly' );
+		$ratings = wp_cache_get( $cache_key, 'bricksfly-elements-for-bricks' );
 
 		if ( false === $ratings ) {
 			$ratings = get_posts( [
@@ -1254,7 +1254,7 @@ class THEBRBRE_Bricks_Post_Meta extends \Bricks\Element {
 					[ 'key' => 'post_id', 'value' => $post_id ],
 				],
 			] );
-			wp_cache_set( $cache_key, $ratings, 'bricksfly', HOUR_IN_SECONDS );
+			wp_cache_set( $cache_key, $ratings, 'bricksfly-elements-for-bricks', HOUR_IN_SECONDS );
 		}
 		$total = is_array( $ratings ) ? count( $ratings ) : 0;
 
