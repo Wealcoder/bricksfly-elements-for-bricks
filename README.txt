@@ -11,7 +11,7 @@ Powerful elements, GSAP animations, smart extensions, and ready-made website tem
 
 == Description ==
 
- BricksFly Elements and Templates for Bricks with GSAP Animations adds elements, extensions, animations, and starter templates to Bricks Builder. It helps designers and developers build interactive sites without writing custom JavaScript.
+BricksFly Elements and Templates for Bricks with GSAP Animations adds elements, extensions, animations, and starter templates to Bricks Builder. It helps designers and developers build interactive sites without writing custom JavaScript.
 
 Main features include:
 
@@ -24,7 +24,7 @@ Main features include:
 Enable only the elements and extensions needed for each site. Animation controls can also respect reduced-motion preferences.
 
 ### 24+ Powerful Elements for Bricks
-Design beautiful, dynamic Bricks websites with 25+ exclusive elements. From creative layouts to powerful marketing elements, everything is built to be easy, flexible, and ready to use. Just drag, drop, and customize your way.
+Design beautiful, dynamic Bricks websites with 24+ exclusive elements. From creative layouts to powerful marketing elements, everything is built to be easy, flexible, and ready to use. Just drag, drop, and customize your way.
 #### General Elements
 - **Advanced Button Pro** — Create customizable Bricks buttons with modern hover styles and animations.
 - **Social Icons** — Display social media icons with custom styles and hover effects.
@@ -56,7 +56,7 @@ Design beautiful, dynamic Bricks websites with 25+ exclusive elements. From crea
 - **Image Accordion** — Highlight images with smooth accordion-style interactions.
 - **Toggle Switch** — Add interactive on/off toggle elements for content control.
 ### 15+ Powerful Extensions for Bricks
- BricksFly Elements and Templates for Bricks with GSAP Animations comes with a growing collection of powerful extensions that enhance your Bricks experience. Enable only what you need to keep your site lightweight and fast.
+BricksFly Elements and Templates for Bricks with GSAP Animations comes with a growing collection of powerful extensions that enhance your Bricks experience. Enable only what you need to keep your site lightweight and fast.
 #### GSAP Extensions
 - **Scroll Smoother** — Add smooth scrolling for a modern, fluid browsing experience.
 - **Animation** — Create custom Bricks animations with flexible triggers and timing.
@@ -94,23 +94,23 @@ Note: This plugin requires the Bricks theme to function. Please ensure Bricks is
 For any questions, visit our FAQ page or reach out via our Contact Form. 🚀
 == Frequently Asked Questions ==
 = What is BricksFly Elements and Templates for Bricks with GSAP Animations? =
- BricksFly Elements and Templates for Bricks with GSAP Animations is an all-in-one addon for Bricks Builder. It enhances Bricks with 24+ powerful elements, 15+ smart extensions, a complete GSAP animation engine, and 20+ ready-made website templates — all designed to help you build modern, animated websites faster, without writing custom code.
+BricksFly Elements and Templates for Bricks with GSAP Animations is an all-in-one addon for Bricks Builder. It enhances Bricks with 24+ powerful elements, 15+ smart extensions, a complete GSAP animation engine, and 20+ ready-made website templates — all designed to help you build modern, animated websites faster, without writing custom code.
 = Do I need Bricks Builder to use this plugin? =
-Yes.  BricksFly Elements and Templates for Bricks with GSAP Animations is built specifically to enhance Bricks Builder. You'll need the Bricks Builder theme installed and activated for this plugin to work.
+Yes. BricksFly Elements and Templates for Bricks with GSAP Animations is built specifically to enhance Bricks Builder. You'll need the Bricks Builder theme installed and activated for this plugin to work.
 = Will  BricksFly Elements and Templates for Bricks with GSAP Animations slow down my site? =
-No.  BricksFly Elements and Templates for Bricks with GSAP Animations is built with performance as a core priority. It uses smart asset loading — only the scripts and features you actually use are loaded on your pages. Animations are optimized through efficient GSAP integration, and the plugin respects Core Web Vitals.
+No. BricksFly Elements and Templates for Bricks with GSAP Animations is built with performance as a core priority. It uses smart asset loading — only the scripts and features you actually use are loaded on your pages. Animations are optimized through efficient GSAP integration, and the plugin respects Core Web Vitals.
 = Do I need to know code to use  BricksFly Elements and Templates for Bricks with GSAP Animations? =
 Not at all. Every element, extension, and animation can be configured visually inside the Bricks editor. You can apply advanced GSAP animations, build custom layouts, and use ready-made templates without writing a single line of code.
 = Is  BricksFly Elements and Templates for Bricks with GSAP Animations compatible with other Bricks plugins? =
-Yes.  BricksFly Elements and Templates for Bricks with GSAP Animations is built with a clean, modular architecture and works alongside your existing Bricks Builder plugins without conflicts.
+Yes. BricksFly Elements and Templates for Bricks with GSAP Animations is built with a clean, modular architecture and works alongside your existing Bricks Builder plugins without conflicts.
 = What kind of animations can I create with  BricksFly Elements and Templates for Bricks with GSAP Animations? =
 You can create advanced GSAP-powered animations including ScrollTrigger scroll effects, SplitText text animations, Smooth Scrolling, Horizontal Scrolling, Parallax effects, cursor hover effects, and more — all configurable visually inside Bricks.
 = How often is  BricksFly Elements and Templates for Bricks with GSAP Animations updated? =
 We're actively building  BricksFly Elements and Templates for Bricks with GSAP Animations. New elements, extensions, templates, and animation features are added regularly. Install today and grow with us — every update brings something new.
 = Does  BricksFly Elements and Templates for Bricks with GSAP Animations work with WooCommerce? =
- BricksFly Elements and Templates for Bricks with GSAP Animations works alongside WooCommerce. Dedicated WooCommerce-focused elements are part of our active development roadmap and will be added in upcoming releases.
+BricksFly Elements and Templates for Bricks with GSAP Animations works alongside WooCommerce. Dedicated WooCommerce-focused elements are part of our active development roadmap and will be added in upcoming releases.
 = Can I import the website templates with one click? =
-Yes.  BricksFly Elements and Templates for Bricks with GSAP Animations includes a built-in template library with one-click import for full website templates, sections, and pre-animated layouts — directly inside your Bricks Builder workflow.
+Yes. BricksFly Elements and Templates for Bricks with GSAP Animations includes a built-in template library with one-click import for full website templates, sections, and pre-animated layouts — directly inside your Bricks Builder workflow.
 
 == Screenshots ==
 1. **Preset Animations** — Instantly apply ready-made animations without any hassle.
@@ -142,11 +142,11 @@ No passwords, license keys, or account details are ever sent with these requests
 
 = 2. Dashboard blog posts (`https://bricksfly.com/`) =
 
-The plugin dashboard shows a short list of recent BricksFly blog posts. Opening the dashboard loads each post's thumbnail image from `https://bricksfly.com/blog/`, which sends only the site's IP, user agent, and referrer — no site, user, or license data. The post titles are ordinary links that open `https://bricksfly.com/blog/` in a new tab, so they connect only if you click one. Provider: Wealcoder / BricksFly Addons — [Terms](https://bricksfly.com/terms-condition/) | [Privacy](https://bricksfly.com/privacy-policy/)
+The plugin dashboard shows a short list of recent BricksFly blog posts. Opening the dashboard loads each post's thumbnail image from `https://bricksfly.com/blog/`, which sends only the site's IP, user agent, and referrer — no site, user, or license data. The post titles are ordinary links that open `https://bricksfly.com/blog/` in a new tab, so they connect only if you click one. Provider: BricksFly — [Terms](https://bricksfly.com/terms-condition/) | [Privacy](https://bricksfly.com/privacy-policy/)
 
 = 3. YouTube embedded player (https://www.youtube.com/) =
 
-Displays configured YouTube videos and dashboard tutorials; on load YouTube receives the video ID, IP, user agent, referrer, and permitted cookies. Provider: Google / YouTube — [Terms](https://www.youtube.com/t/terms)
+Displays configured YouTube videos and dashboard tutorials; on load YouTube receives the video ID, user agent, referrer, and permitted cookies. Provider: Google / YouTube — [Terms](https://www.youtube.com/t/terms) | [Privacy](https://policies.google.com/privacy)
 
 = 4. Vimeo embedded player (https://player.vimeo.com/) =
 
@@ -154,7 +154,7 @@ Displays configured Vimeo videos; on load Vimeo receives the video ID. Provider:
 
 = 5. Feature request submission (`https://bricksfly.com/`) =
 
-Used only when an administrator submits the dashboard "Request a Feature" form. Sends the entered name, email, and feature text plus the site URL to the author, who relays it as an email.
+Used only when an administrator submits the dashboard "Request a Feature" form. Sends the entered name, email, and feature text plus the site URL to the author, who relays it as an email. Provider: BricksFly (https://bricksfly.com/) — [Terms](https://bricksfly.com/terms-condition/) | [Privacy](https://bricksfly.com/privacy-policy/)
 
 = Administrator-supplied remote media =
 
@@ -170,7 +170,7 @@ The following third-party libraries or generated assets are included in the plug
 
 = PHP importer =
 
-* **WordPress Importer Redux / improved WXR Importer 2.0** — modified development snapshot (the upstream project has no tagged release version) — GPL-2.0-or-later — https://github.com/humanmade/WordPress-Importer
+* **WXR Importer 2.0** — modified development snapshot (the upstream project has no tagged release version) — GPL-2.0-or-later — https://github.com/humanmade/WordPress-Importer
   The adapted importer code is located under `/admin/base/`, with plugin-specific integration under `/admin/Importer.php`, `/admin/Logger.php`, and `/admin/aab-importer.php`.
 
 = JavaScript libraries bundled in the compiled admin assets =

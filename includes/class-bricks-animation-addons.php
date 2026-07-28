@@ -66,7 +66,7 @@ class THEBRBRE_Plugin
 		} else {
 			$this->version = '1.0.0';
 		}
-		$this->plugin_name = 'bricksfly';
+		$this->plugin_name = 'bricksfly-elements-for-bricks';
 
 		$this->load_dependencies();
 		$this->define_admin_hooks();

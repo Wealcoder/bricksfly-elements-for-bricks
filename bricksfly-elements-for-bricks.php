@@ -191,7 +191,7 @@ function thebrbre_run()
 			)
 		);
 
-		wp_localize_script('bricksfly', 'THEBRBRE_ADDONS_JS', $data);
+		wp_localize_script('bricksfly-elements-for-bricks', 'THEBRBRE_ADDONS_JS', $data);
 	}, 20);
 }
 thebrbre_run();
