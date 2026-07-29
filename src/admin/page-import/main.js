@@ -6,5 +6,5 @@ wp.element.render(
   <AppContextProvider>
     <MainLayout />
   </AppContextProvider>,
-  document.getElementById("bf-page-importer")
+  document.getElementById("thebrbre-page-importer")
 );

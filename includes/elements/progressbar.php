@@ -13,7 +13,7 @@ class THEBRBRE_Bricks_Progressbar extends \Bricks\Element
 
 	public function get_label()
 	{
-		return esc_html__('Progress Bar', 'the-bricksfly');
+		return esc_html__('Progress Bar', 'bricksfly-elements-for-bricks');
 	}
 
 	public function get_keywords()
@@ -50,17 +50,17 @@ class THEBRBRE_Bricks_Progressbar extends \Bricks\Element
 	public function set_control_groups()
 	{
 		$this->control_groups['progressbar'] = [
-			'title' => esc_html__('Progress Bar', 'the-bricksfly'),
+			'title' => esc_html__('Progress Bar', 'bricksfly-elements-for-bricks'),
 			'tab'   => 'content',
 		];
 
 		$this->control_groups['progressbar_style'] = [
-			'title' => esc_html__('Progress Bar', 'the-bricksfly'),
+			'title' => esc_html__('Progress Bar', 'bricksfly-elements-for-bricks'),
 			'tab'   => 'style',
 		];
 
 		$this->control_groups['percentage_style'] = [
-			'title'    => esc_html__('Percentage', 'the-bricksfly'),
+			'title'    => esc_html__('Percentage', 'bricksfly-elements-for-bricks'),
 			'tab'      => 'style',
 			'required' => ['display_percentage', '=', true],
 		];
@@ -76,20 +76,20 @@ class THEBRBRE_Bricks_Progressbar extends \Bricks\Element
 		// Layout style — line / circle / dots
 		$this->controls['element_list'] = [
 			'group'   => 'progressbar',
-			'label'   => esc_html__('Layout', 'the-bricksfly'),
+			'label'   => esc_html__('Layout', 'bricksfly-elements-for-bricks'),
 			'type'    => 'select',
 			'default' => '1',
 			'options' => [
-				'1' => esc_html__('Line', 'the-bricksfly'),
-				'2' => esc_html__('Circle', 'the-bricksfly'),
-				'3' => esc_html__('Dots', 'the-bricksfly'),
+				'1' => esc_html__('Line', 'bricksfly-elements-for-bricks'),
+				'2' => esc_html__('Circle', 'bricksfly-elements-for-bricks'),
+				'3' => esc_html__('Dots', 'bricksfly-elements-for-bricks'),
 			],
 			'inline'  => true,
 		];
 
 		$this->controls['percentage'] = [
 			'group'   => 'progressbar',
-			'label'   => esc_html__('Percentage', 'the-bricksfly'),
+			'label'   => esc_html__('Percentage', 'bricksfly-elements-for-bricks'),
 			'type'    => 'number',
 			'min'     => 0,
 			'max'     => 100,
@@ -99,7 +99,7 @@ class THEBRBRE_Bricks_Progressbar extends \Bricks\Element
 
 		$this->controls['display_percentage'] = [
 			'group'    => 'progressbar',
-			'label'    => esc_html__('Display Percentage', 'the-bricksfly'),
+			'label'    => esc_html__('Display Percentage', 'bricksfly-elements-for-bricks'),
 			'type'     => 'checkbox',
 			'default'  => true,
 			'required' => ['element_list', '!=', '3'],
@@ -115,7 +115,7 @@ class THEBRBRE_Bricks_Progressbar extends \Bricks\Element
 		// Dots: paints the dot border.
 		$this->controls['color'] = [
 			'group'   => 'progressbar_style',
-			'label'   => esc_html__('Color', 'the-bricksfly'),
+			'label'   => esc_html__('Color', 'bricksfly-elements-for-bricks'),
 			'type'    => 'color',
 			'default' => ['hex' => '#7DDED8'],
 			'css'     => [
@@ -139,7 +139,7 @@ class THEBRBRE_Bricks_Progressbar extends \Bricks\Element
 		// Dots: paints the active dot fill.
 		$this->controls['bg_color'] = [
 			'group' => 'progressbar_style',
-			'label' => esc_html__('Background Color', 'the-bricksfly'),
+			'label' => esc_html__('Background Color', 'bricksfly-elements-for-bricks'),
 			'type'  => 'color',
 			'css'   => [
 				[
@@ -159,7 +159,7 @@ class THEBRBRE_Bricks_Progressbar extends \Bricks\Element
 
 		$this->controls['border_width'] = [
 			'group'    => 'progressbar_style',
-			'label'    => esc_html__('Border Width', 'the-bricksfly'),
+			'label'    => esc_html__('Border Width', 'bricksfly-elements-for-bricks'),
 			'type'     => 'number',
 			'unit'     => 'px',
 			'min'      => 0,
@@ -176,29 +176,29 @@ class THEBRBRE_Bricks_Progressbar extends \Bricks\Element
 
 		$this->controls['stroke_width'] = [
 			'group'    => 'progressbar_style',
-			'label'    => esc_html__('Stroke Width', 'the-bricksfly'),
+			'label'    => esc_html__('Stroke Width', 'bricksfly-elements-for-bricks'),
 			'type'     => 'number',
 			'min'      => 0,
 			'step'     => 0.1,
 			'default'  => 2,
-			'description' => esc_html__('Stroke width in em (line/circle).', 'the-bricksfly'),
+			'description' => esc_html__('Stroke width in em (line/circle).', 'bricksfly-elements-for-bricks'),
 			'required' => ['element_list', '!=', '3'],
 		];
 
 		$this->controls['trail_width'] = [
 			'group'    => 'progressbar_style',
-			'label'    => esc_html__('Trail Width', 'the-bricksfly'),
+			'label'    => esc_html__('Trail Width', 'bricksfly-elements-for-bricks'),
 			'type'     => 'number',
 			'min'      => 0,
 			'step'     => 0.1,
 			'default'  => 1,
-			'description' => esc_html__('Trail width in em (line/circle).', 'the-bricksfly'),
+			'description' => esc_html__('Trail width in em (line/circle).', 'bricksfly-elements-for-bricks'),
 			'required' => ['element_list', '!=', '3'],
 		];
 
 		$this->controls['progress_size'] = [
 			'group'    => 'progressbar_style',
-			'label'    => esc_html__('Size', 'the-bricksfly'),
+			'label'    => esc_html__('Size', 'bricksfly-elements-for-bricks'),
 			'type'     => 'number',
 			'unit'     => 'px',
 			'min'      => 1,
@@ -230,7 +230,7 @@ class THEBRBRE_Bricks_Progressbar extends \Bricks\Element
 
 		$this->controls['percentage_typography'] = [
 			'group'    => 'percentage_style',
-			'label'    => esc_html__('Typography', 'the-bricksfly'),
+			'label'    => esc_html__('Typography', 'bricksfly-elements-for-bricks'),
 			'type'     => 'typography',
 			'css'      => [
 				[
@@ -243,7 +243,7 @@ class THEBRBRE_Bricks_Progressbar extends \Bricks\Element
 
 		$this->controls['percentage_position'] = [
 			'group'    => 'percentage_style',
-			'label'    => esc_html__('Position Y', 'the-bricksfly'),
+			'label'    => esc_html__('Position Y', 'bricksfly-elements-for-bricks'),
 			'type'     => 'number',
 			'unit'     => 'px',
 			'step'     => 1,

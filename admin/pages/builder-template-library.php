@@ -170,10 +170,10 @@ class THEBRBRE_Builder_Template_Library {
 		return apply_filters('thebrbre_builder_template_library_types',
 			[
 				'block' => [
-					'label' => esc_html__( 'Section Block', 'the-bricksfly' ),
+					'label' => esc_html__( 'Section Block', 'bricksfly-elements-for-bricks' ),
 				],
 				// 'page'  => [
-				// 	'label' => esc_html__( 'Page', 'the-bricksfly' ),
+				// 	'label' => esc_html__( 'Page', 'bricksfly-elements-for-bricks' ),
 				// ],
 			]
 		);
@@ -210,13 +210,13 @@ class THEBRBRE_Builder_Template_Library {
 		$post_id = isset( $_POST['post_id'] ) ? absint( wp_unslash( $_POST['post_id'] ) ) : 0;
 
 		if ( ! $post_id || ! current_user_can( 'edit_post', $post_id ) ) {
-			wp_send_json_error( [ 'message' => __( 'Permission denied for this post.', 'the-bricksfly' ) ], 403 );
+			wp_send_json_error( [ 'message' => __( 'Permission denied for this post.', 'bricksfly-elements-for-bricks' ) ], 403 );
 		}
 
 		$template_id = isset( $_POST['template_id'] ) ? absint( $_POST['template_id'] ) : 0;
 
 		if ( ! $template_id ) {
-			wp_send_json_error( [ 'message' => __( 'No template id provided.', 'the-bricksfly' ) ], 400 );
+			wp_send_json_error( [ 'message' => __( 'No template id provided.', 'bricksfly-elements-for-bricks' ) ], 400 );
 		}
 
 		$resolved = $this->resolve_template_payload( $template_id );
@@ -228,7 +228,7 @@ class THEBRBRE_Builder_Template_Library {
 		$elements = $resolved['content'];
 
 		if ( empty( $elements ) || ! is_array( $elements ) ) {
-			wp_send_json_error( [ 'message' => __( 'Template content is empty or in an unsupported format.', 'the-bricksfly' ) ], 422 );
+			wp_send_json_error( [ 'message' => __( 'Template content is empty or in an unsupported format.', 'bricksfly-elements-for-bricks' ) ], 422 );
 		}
 
 		/**
@@ -247,7 +247,7 @@ class THEBRBRE_Builder_Template_Library {
 			'global_classes'  => $resolved['global_classes'],
 			'globalVariables' => $resolved['globalVariables'],
 			'inserted_count'  => count( $elements ),
-			'message'         => __( 'Template resolved.', 'the-bricksfly' ),
+			'message'         => __( 'Template resolved.', 'bricksfly-elements-for-bricks' ),
 		] );
 	}
 
@@ -287,7 +287,7 @@ class THEBRBRE_Builder_Template_Library {
 		$meta      = json_decode( $meta_body, true );
 
 		if ( empty( $meta['json_file']['url'] ) ) {
-			return new \WP_Error( 'thebrbre_no_template_source', __( 'Could not resolve template source.', 'the-bricksfly' ) );
+			return new \WP_Error( 'thebrbre_no_template_source', __( 'Could not resolve template source.', 'bricksfly-elements-for-bricks' ) );
 		}
 
 		$json_url = esc_url_raw( $meta['json_file']['url'] );
@@ -305,12 +305,12 @@ class THEBRBRE_Builder_Template_Library {
 		$body = wp_remote_retrieve_body( $response );
 
 		if ( $code !== 200 || empty( $body ) ) {
-			return new \WP_Error( 'thebrbre_empty_template', __( 'Empty template response.', 'the-bricksfly' ) );
+			return new \WP_Error( 'thebrbre_empty_template', __( 'Empty template response.', 'bricksfly-elements-for-bricks' ) );
 		}
 
 		$decoded = json_decode( $body, true );
 		if ( json_last_error() !== JSON_ERROR_NONE ) {
-			return new \WP_Error( 'thebrbre_invalid_template_json', __( 'Invalid template JSON.', 'the-bricksfly' ) );
+			return new \WP_Error( 'thebrbre_invalid_template_json', __( 'Invalid template JSON.', 'bricksfly-elements-for-bricks' ) );
 		}
 
 		// Return elements + globals untouched. The client builds Bricks' paste

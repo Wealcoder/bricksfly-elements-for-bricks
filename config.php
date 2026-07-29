@@ -469,7 +469,7 @@ $thebrbre_config = array(
 							'cTab' => 'all',
 						),
 						'is_active'    => false,
-						'is_pro'       => false,
+						'is_pro'       => true,
 						'is_extension' => false,
 						'is_upcoming'  => false,
 						'keywords'     => array(
@@ -1001,7 +1001,7 @@ $thebrbre_config = array(
 				'elements'  => array(
 					'aab-smooth-scroller' => array(
 						'title'     => 'Scroll Smoother',
-						'doc_url'   => 'https://support.crowdytheme.com/docs/advanced-settings/advanced-settings/wcf-custom-css/',
+						'doc_url'   => '#',
 						'is_pro'    => true,
 						'is_active' => false,
 						'elements'  => array(
@@ -1143,7 +1143,7 @@ $thebrbre_config = array(
 					),
 					'scroll-trigger' => array(
 						'title'     => 'ScrollTrigger',
-						'doc_url'   => 'https://support.crowdytheme.com/docs/advanced-settings/advanced-settings/wcf-custom-css/',
+						'doc_url'   => '#',
 						'is_pro'    => true,
 						'is_active' => false,
 						'elements'  => array(
@@ -1191,7 +1191,6 @@ $thebrbre_config = array(
 		'plugins' => array(
 			'title'    => 'Plugins',
 			'elements' => array(
-				// The React bundle keys off "the-bricksfly-pro"
 				// when deciding which plugin counts as "the Pro". We keep that
 				// key for UI compatibility but point the basename at the
 				// Bricks Pro plugin so the detected state is correct.

@@ -59,7 +59,7 @@ if (! class_exists('THEBRBRE_Placeholder_Element')) {
 		{
 			return $this->placeholder_label !== ''
 				? $this->placeholder_label
-				: esc_html__('Bricksfly widget', 'the-bricksfly');
+				: esc_html__('Bricksfly widget', 'bricksfly-elements-for-bricks');
 		}
 
 		public function get_keywords()
@@ -93,7 +93,7 @@ if (! class_exists('THEBRBRE_Placeholder_Element')) {
 
 			$message = sprintf(
 				/* translators: %s: widget label */
-				esc_html__('%s is not active on this site.', 'the-bricksfly'),
+				esc_html__('%s is not active on this site.', 'bricksfly-elements-for-bricks'),
 				esc_html($this->get_label())
 			);
 
@@ -113,12 +113,12 @@ if (! class_exists('THEBRBRE_Placeholder_Element')) {
 			$link = sprintf(
 				'<a href="%s" target="_blank" rel="noopener" style="color:#7A5C00;text-decoration:underline;">%s</a>',
 				esc_url($settings_url),
-				esc_html__('Bricksfly → Elements', 'the-bricksfly')
+				esc_html__('Bricksfly → Elements', 'bricksfly-elements-for-bricks')
 			);
 
 			$instruction = sprintf(
 				/* translators: %s: link to the Bricksfly Elements settings tab */
-				esc_html__('Activate it from %s.', 'the-bricksfly'),
+				esc_html__('Activate it from %s.', 'bricksfly-elements-for-bricks'),
 				$link
 			);
 

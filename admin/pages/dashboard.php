@@ -238,8 +238,8 @@ class THEBRBRE_Admin_Init
 			return;
 		}
 		self::$parent_menu_hook = add_menu_page(
-			esc_html__('Bricksfly', 'the-bricksfly'),
-			esc_html__('Bricksfly', 'the-bricksfly'),
+			esc_html__('Bricksfly', 'bricksfly-elements-for-bricks'),
+			esc_html__('Bricksfly', 'bricksfly-elements-for-bricks'),
 			self::MENU_CAPABILITY,
 			self::MENU_PAGE_SLUG,
 			'',
@@ -249,8 +249,8 @@ class THEBRBRE_Admin_Init
 
 		add_submenu_page(
 			self::MENU_PAGE_SLUG,
-			esc_html__('Settings', 'the-bricksfly'),
-			esc_html__('Settings', 'the-bricksfly'),
+			esc_html__('Settings', 'bricksfly-elements-for-bricks'),
+			esc_html__('Settings', 'bricksfly-elements-for-bricks'),
 			'manage_options',
 			'thebrbre_addons_settings',
 			array($this, 'plugin_dashboard_entry_page')
@@ -265,7 +265,7 @@ class THEBRBRE_Admin_Init
 		// "stater-template" tab. Registered via $submenu directly so the
 		// `&tab=` query string isn't URL-encoded by add_submenu_page().
 		$submenu[self::MENU_PAGE_SLUG][] = array(
-			esc_html__('Starter Template', 'the-bricksfly'),
+			esc_html__('Starter Template', 'bricksfly-elements-for-bricks'),
 			'manage_options',
 			admin_url('admin.php?page=thebrbre_addons_settings&tab=stater-template'),
 		);
@@ -368,8 +368,7 @@ class THEBRBRE_Admin_Init
 			'user_role'           => thebrbre_get_current_user_roles(),
 			'version'             => THEBRBRE_VERSION,
 			'st_template_domain'  => THEBRBRE_TEMPLATE_STARTER_BASE_URL,
-			'home_url' => add_query_arg(['aab-cache' => 1], home_url('/')),
-			'template_menu' => $this->get_template_menu_data(),
+			'home_url' => home_url('/'),			
 			'plugin_url' => THEBRBRE_URL,
 			'has_pro' => file_exists($this->plugin_file),
 			'breakpoints' => $bricks_breakpoints,
@@ -433,61 +432,7 @@ class THEBRBRE_Admin_Init
 		start();
 	}
 })();';
-	}
-
-	public function get_template_menu_data()
-	{
-		$transient_key = 'thebrbre_menu_42_data';
-		$cached_data   = get_transient($transient_key);
-
-		// âœ… Return cached data if available
-		if ($cached_data !== false) {
-			return $cached_data;
-		}
-
-		$url      = "https://www.themecrowdy.com/wp-json/wcf/v1/menu/42";
-		$response = wp_remote_get($url, [
-			'timeout' => 15,
-			'sslverify' => true,
-			'headers' => [
-				'Accept' => 'application/json'
-			]
-		]);
-
-		// âœ… Validate response
-		if (is_wp_error($response)) {
-			return [];
-		}
-
-		$status_code = wp_remote_retrieve_response_code($response);
-		if ($status_code !== 200) {
-			return [];
-		}
-
-		$body = wp_remote_retrieve_body($response);
-		if (empty($body)) {
-
-			return [];
-		}
-
-		// âœ… Decode JSON safely
-		$data = json_decode($body, true);
-		if (json_last_error() !== JSON_ERROR_NONE || ! is_array($data)) {
-
-			return [];
-		}
-
-		// âœ… Ensure expected structure exists
-		if (! isset($data['items']) || ! is_array($data['items'])) {
-
-			return [];
-		}
-
-		// âœ… Cache valid data for 1 hour
-		set_transient($transient_key, $data['items'], HOUR_IN_SECONDS);
-
-		return $data['items'];
-	}
+	}	
 
 
 	function thebrbre_dashboard_integrations_config($configs)
@@ -593,7 +538,7 @@ class THEBRBRE_Admin_Init
 		check_ajax_referer('thebrbre_admin_nonce', 'nonce');
 
 		if (! current_user_can('manage_options')) {
-			wp_send_json_error(esc_html__('you are not allowed to do this action', 'the-bricksfly'));
+			wp_send_json_error(esc_html__('you are not allowed to do this action', 'bricksfly-elements-for-bricks'));
 		}
 
 		if (! isset($_POST['fields'])) {
@@ -614,7 +559,7 @@ class THEBRBRE_Admin_Init
 		} elseif ('thebrbre_save_extensions' === $option_name) {
 			$updated = update_option('thebrbre_save_extensions', $updatedSettings);
 		} else {
-			wp_send_json_error(esc_html__('Invalid settings type.', 'the-bricksfly'), 400);
+			wp_send_json_error(esc_html__('Invalid settings type.', 'bricksfly-elements-for-bricks'), 400);
 		}
 
 		$return_message = array(
@@ -630,7 +575,7 @@ class THEBRBRE_Admin_Init
 		check_ajax_referer('thebrbre_admin_nonce', 'nonce');
 
 		if (! current_user_can('manage_options')) {
-			wp_send_json_error(esc_html__('you are not allowed to do this action', 'the-bricksfly'));
+			wp_send_json_error(esc_html__('you are not allowed to do this action', 'bricksfly-elements-for-bricks'));
 		}
 
 		if (! isset($_POST['notice'])) {
@@ -641,7 +586,7 @@ class THEBRBRE_Admin_Init
 		update_option('thebrbre_notice_data', $sanitize_data);
 
 		$return_message = array(
-			'message' => esc_html__('Notice Updated', 'the-bricksfly'),
+			'message' => esc_html__('Notice Updated', 'bricksfly-elements-for-bricks'),
 		);
 		wp_send_json($return_message);
 	}
@@ -652,7 +597,7 @@ class THEBRBRE_Admin_Init
 		check_ajax_referer('thebrbre_admin_nonce', 'nonce');
 
 		if (! current_user_can('manage_options')) {
-			wp_send_json_error(esc_html__('you are not allowed to do this action', 'the-bricksfly'));
+			wp_send_json_error(esc_html__('you are not allowed to do this action', 'bricksfly-elements-for-bricks'));
 		}
 
 		$return_message = array(
@@ -667,7 +612,7 @@ class THEBRBRE_Admin_Init
 		check_ajax_referer('thebrbre_admin_nonce', 'nonce');
 
 		if (! current_user_can('manage_options')) {
-			wp_send_json_error(esc_html__('you are not allowed to do this action', 'the-bricksfly'));
+			wp_send_json_error(esc_html__('you are not allowed to do this action', 'bricksfly-elements-for-bricks'));
 		}
 
 		if (! isset($_POST['fields'])) {
@@ -714,12 +659,12 @@ class THEBRBRE_Admin_Init
 		check_ajax_referer('thebrbre_admin_nonce', 'nonce');
 
 		if (! current_user_can('manage_options')) {
-			wp_send_json_error(esc_html__('you are not allowed to do this action', 'the-bricksfly'));
+			wp_send_json_error(esc_html__('you are not allowed to do this action', 'bricksfly-elements-for-bricks'));
 		}
 
 		$raw_settings = isset($_POST['smooth']) ? sanitize_text_field(wp_unslash($_POST['smooth'])) : '';
 		if (! is_string($raw_settings) || '' === trim($raw_settings)) {
-			wp_send_json_error(esc_html__('Smooth scroller settings are required.', 'the-bricksfly'), 400);
+			wp_send_json_error(esc_html__('Smooth scroller settings are required.', 'bricksfly-elements-for-bricks'), 400);
 		}
 
 		$settings = sanitize_text_field(wp_unslash($_POST['smooth']));

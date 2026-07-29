@@ -11,7 +11,7 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 	public $scripts      = [ 'thebrbreVideoBox' ];
 
 	public function get_label() {
-		return esc_html__('Video Box', 'the-bricksfly');
+		return esc_html__('Video Box', 'bricksfly-elements-for-bricks');
 	}
 
 	public function get_keywords() {
@@ -56,52 +56,52 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 
 	public function set_control_groups() {
 		$this->control_groups['layout'] = [
-			'title' => esc_html__('Layout', 'the-bricksfly'),
+			'title' => esc_html__('Layout', 'bricksfly-elements-for-bricks'),
 			'tab'   => 'content',
 		];
 
 		$this->control_groups['thumbnail'] = [
-			'title' => esc_html__('Thumbnail', 'the-bricksfly'),
+			'title' => esc_html__('Thumbnail', 'bricksfly-elements-for-bricks'),
 			'tab'   => 'content',
 		];
 
 		$this->control_groups['video_content'] = [
-			'title' => esc_html__('Content', 'the-bricksfly'),
+			'title' => esc_html__('Content', 'bricksfly-elements-for-bricks'),
 			'tab'   => 'content',
 		];
 
 		$this->control_groups['play_button'] = [
-			'title' => esc_html__('Button', 'the-bricksfly'),
+			'title' => esc_html__('Button', 'bricksfly-elements-for-bricks'),
 			'tab'   => 'content',
 		];
 
 		$this->control_groups['video_link'] = [
-			'title' => esc_html__('Video', 'the-bricksfly'),
+			'title' => esc_html__('Video', 'bricksfly-elements-for-bricks'),
 			'tab'   => 'content',
 		];
 
 		$this->control_groups['box_style'] = [
-			'title' => esc_html__('Video Box', 'the-bricksfly'),
+			'title' => esc_html__('Video Box', 'bricksfly-elements-for-bricks'),
 			'tab'   => 'style',
 		];
 
 		$this->control_groups['thumb_style'] = [
-			'title' => esc_html__('Thumbnail', 'the-bricksfly'),
+			'title' => esc_html__('Thumbnail', 'bricksfly-elements-for-bricks'),
 			'tab'   => 'style',
 		];
 
 		$this->control_groups['content_style'] = [
-			'title' => esc_html__('Content', 'the-bricksfly'),
+			'title' => esc_html__('Content', 'bricksfly-elements-for-bricks'),
 			'tab'   => 'style',
 		];
 
 		$this->control_groups['btn_style'] = [
-			'title' => esc_html__('Button', 'the-bricksfly'),
+			'title' => esc_html__('Button', 'bricksfly-elements-for-bricks'),
 			'tab'   => 'style',
 		];
 
 		$this->control_groups['btn_hover'] = [
-			'title' => esc_html__('Button Hover', 'the-bricksfly'),
+			'title' => esc_html__('Button Hover', 'bricksfly-elements-for-bricks'),
 			'tab'   => 'style',
 		];
 	}
@@ -113,12 +113,12 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		$this->controls['layoutStyle'] = [
 			'tab'     => 'content',
 			'group'   => 'layout',
-			'label'   => esc_html__( 'Style', 'the-bricksfly' ),
+			'label'   => esc_html__( 'Style', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'select',
 			'inline'  => true,
 			'options' => [
-				'1' => esc_html__( 'Style One', 'the-bricksfly' ),
-				'2' => esc_html__( 'Style Two', 'the-bricksfly' ),
+				'1' => esc_html__( 'Style One', 'bricksfly-elements-for-bricks' ),
+				'2' => esc_html__( 'Style Two', 'bricksfly-elements-for-bricks' ),
 			],
 			'default' => '1',
 		];
@@ -126,7 +126,7 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		$this->controls['boxAlign'] = [
 			'tab'   => 'content',
 			'group' => 'layout',
-			'label' => esc_html__( 'Alignment', 'the-bricksfly' ),
+			'label' => esc_html__( 'Alignment', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'text-align',
 			'css'   => [
 				[
@@ -141,12 +141,12 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		$this->controls['thumbnailType'] = [
 			'tab'     => 'content',
 			'group'   => 'thumbnail',
-			'label'   => esc_html__( 'Type', 'the-bricksfly' ),
+			'label'   => esc_html__( 'Type', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'select',
 			'inline'  => true,
 			'options' => [
-				'image' => esc_html__( 'Image', 'the-bricksfly' ),
-				'video' => esc_html__( 'Video', 'the-bricksfly' ),
+				'image' => esc_html__( 'Image', 'bricksfly-elements-for-bricks' ),
+				'video' => esc_html__( 'Video', 'bricksfly-elements-for-bricks' ),
 			],
 			'default' => 'image',
 		];
@@ -154,7 +154,7 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		$this->controls['thumbImage'] = [
 			'tab'      => 'content',
 			'group'    => 'thumbnail',
-			'label'    => esc_html__( 'Image', 'the-bricksfly' ),
+			'label'    => esc_html__( 'Image', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'image',
 			'required' => [ 'thumbnailType', '=', 'image' ],
 		];
@@ -162,7 +162,7 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		$this->controls['thumbImageSize'] = [
 			'tab'      => 'content',
 			'group'    => 'thumbnail',
-			'label'    => esc_html__( 'Image Size', 'the-bricksfly' ),
+			'label'    => esc_html__( 'Image Size', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'select',
 			'options'  => $this->get_image_sizes(),
 			'default'  => 'large',
@@ -172,7 +172,7 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		$this->controls['thumbVideo'] = [
 			'tab'         => 'content',
 			'group'       => 'thumbnail',
-			'label'       => esc_html__( 'Video File URL', 'the-bricksfly' ),
+			'label'       => esc_html__( 'Video File URL', 'bricksfly-elements-for-bricks' ),
 			'type'        => 'text',
 			'placeholder' => 'https://example.com/video.mp4',
 			'required'    => [ 'thumbnailType', '=', 'video' ],
@@ -183,7 +183,7 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		$this->controls['boxTitle'] = [
 			'tab'     => 'content',
 			'group'   => 'video_content',
-			'label'   => esc_html__( 'Title', 'the-bricksfly' ),
+			'label'   => esc_html__( 'Title', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'text',
 			'default' => 'Adam Smith',
 		];
@@ -191,7 +191,7 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		$this->controls['titleTag'] = [
 			'tab'     => 'content',
 			'group'   => 'video_content',
-			'label'   => esc_html__( 'Title HTML Tag', 'the-bricksfly' ),
+			'label'   => esc_html__( 'Title HTML Tag', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'select',
 			'inline'  => true,
 			'options' => [
@@ -205,7 +205,7 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		$this->controls['boxSubtitle'] = [
 			'tab'     => 'content',
 			'group'   => 'video_content',
-			'label'   => esc_html__( 'Sub Title', 'the-bricksfly' ),
+			'label'   => esc_html__( 'Sub Title', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'text',
 			'default' => 'Developer',
 		];
@@ -215,12 +215,12 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		$this->controls['btnVisibility'] = [
 			'tab'     => 'content',
 			'group'   => 'play_button',
-			'label'   => esc_html__( 'Show Play Button', 'the-bricksfly' ),
+			'label'   => esc_html__( 'Show Play Button', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'select',
 			'options' => [
-				'always' => esc_html__( 'Always', 'the-bricksfly' ),
-				'hover'  => esc_html__( 'On Hover', 'the-bricksfly' ),
-				'hide'   => esc_html__( 'Hide', 'the-bricksfly' ),
+				'always' => esc_html__( 'Always', 'bricksfly-elements-for-bricks' ),
+				'hover'  => esc_html__( 'On Hover', 'bricksfly-elements-for-bricks' ),
+				'hide'   => esc_html__( 'Hide', 'bricksfly-elements-for-bricks' ),
 			],
 			'default' => 'always',
 			'inline'  => true,
@@ -229,7 +229,7 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		$this->controls['btnText'] = [
 			'tab'      => 'content',
 			'group'    => 'play_button',
-			'label'    => esc_html__( 'Text', 'the-bricksfly' ),
+			'label'    => esc_html__( 'Text', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'text',
 			'default'  => 'Play',
 			'required' => [ 'btnVisibility', '!=', 'hide' ],
@@ -238,14 +238,14 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		$this->controls['btnIcon'] = [
 			'tab'   => 'content',
 			'group' => 'play_button',
-			'label' => esc_html__( 'Icon', 'the-bricksfly' ),
+			'label' => esc_html__( 'Icon', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'icon',
 		];
 
 		$this->controls['iconSpacing'] = [
 			'tab'   => 'content',
 			'group' => 'play_button',
-			'label' => esc_html__( 'Icon Spacing', 'the-bricksfly' ),
+			'label' => esc_html__( 'Icon Spacing', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'number',
 			'units' => [ 'px' => [ 'min' => 0, 'max' => 50 ] ],
 			'css'   => [
@@ -259,7 +259,7 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		$this->controls['activeRipple'] = [
 			'tab'     => 'content',
 			'group'   => 'play_button',
-			'label'   => esc_html__( 'Active Ripple', 'the-bricksfly' ),
+			'label'   => esc_html__( 'Active Ripple', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'checkbox',
 			'default' => true,
 		];
@@ -267,7 +267,7 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		$this->controls['rippleColor'] = [
 			'tab'      => 'content',
 			'group'    => 'play_button',
-			'label'    => esc_html__( 'Ripple Color', 'the-bricksfly' ),
+			'label'    => esc_html__( 'Ripple Color', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'color',
 			'css'      => [
 				[
@@ -285,14 +285,14 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		$this->controls['activeSpinner'] = [
 			'tab'   => 'content',
 			'group' => 'play_button',
-			'label' => esc_html__( 'Active Spinner', 'the-bricksfly' ),
+			'label' => esc_html__( 'Active Spinner', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'checkbox',
 		];
 
 		$this->controls['spinnerImage'] = [
 			'tab'      => 'content',
 			'group'    => 'play_button',
-			'label'    => esc_html__( 'Spinner Image', 'the-bricksfly' ),
+			'label'    => esc_html__( 'Spinner Image', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'image',
 			'required' => [ 'activeSpinner', '!=', '' ],
 		];
@@ -302,11 +302,11 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		$this->controls['videoLink'] = [
 			'tab'         => 'content',
 			'group'       => 'video_link',
-			'label'       => esc_html__( 'Video Link', 'the-bricksfly' ),
+			'label'       => esc_html__( 'Video Link', 'bricksfly-elements-for-bricks' ),
 			'type'        => 'text',
 			'default'     => 'https://www.youtube.com/watch?v=XHOmBV4js_E',
 			'placeholder' => 'https://www.youtube.com/watch?v=XHOmBV4js_E',
-			'description' => esc_html__( 'YouTube/Vimeo link, or direct video file URL.', 'the-bricksfly' ),
+			'description' => esc_html__( 'YouTube/Vimeo link, or direct video file URL.', 'bricksfly-elements-for-bricks' ),
 		];
 
 		// --- Style: Video Box ---
@@ -314,7 +314,7 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		$this->controls['boxBorder'] = [
 			'tab'   => 'style',
 			'group' => 'box_style',
-			'label' => esc_html__( 'Border', 'the-bricksfly' ),
+			'label' => esc_html__( 'Border', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'border',
 			'css'   => [ [ 'property' => 'border', 'selector' => '.aab-video-box' ] ],
 		];
@@ -322,7 +322,7 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		$this->controls['boxBorderRadius'] = [
 			'tab'   => 'style',
 			'group' => 'box_style',
-			'label' => esc_html__( 'Border Radius', 'the-bricksfly' ),
+			'label' => esc_html__( 'Border Radius', 'bricksfly-elements-for-bricks' ),
 			// `dimensions` + `border-radius` is a Bricks bug: the CSS pipeline
 			// emits `border-radius-top: 5px;` etc. which is invalid and gets
 			// dropped by the browser. Per-corner radius is only special-cased
@@ -341,7 +341,7 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		$this->controls['thumbHeight'] = [
 			'tab'   => 'style',
 			'group' => 'thumb_style',
-			'label' => esc_html__( 'Height', 'the-bricksfly' ),
+			'label' => esc_html__( 'Height', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'number',
 			'units' => [
 				'px' => [ 'min' => 0, 'max' => 1000 ],
@@ -358,7 +358,7 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		$this->controls['contentPadding'] = [
 			'tab'   => 'style',
 			'group' => 'content_style',
-			'label' => esc_html__( 'Padding', 'the-bricksfly' ),
+			'label' => esc_html__( 'Padding', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'dimensions',
 			'css'   => [ [ 'property' => 'padding', 'selector' => '.content' ] ],
 		];
@@ -366,7 +366,7 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		$this->controls['contentBg'] = [
 			'tab'   => 'style',
 			'group' => 'content_style',
-			'label' => esc_html__( 'Background', 'the-bricksfly' ),
+			'label' => esc_html__( 'Background', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'background',
 			'css'   => [ [ 'property' => 'background', 'selector' => '.content' ] ],
 		];
@@ -374,7 +374,7 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		$this->controls['titleColor'] = [
 			'tab'   => 'style',
 			'group' => 'content_style',
-			'label' => esc_html__( 'Title Color', 'the-bricksfly' ),
+			'label' => esc_html__( 'Title Color', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'color',
 			'css'   => [ [ 'property' => 'color', 'selector' => '.title' ] ],
 		];
@@ -382,7 +382,7 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		$this->controls['titleTypography'] = [
 			'tab'   => 'style',
 			'group' => 'content_style',
-			'label' => esc_html__( 'Title Typography', 'the-bricksfly' ),
+			'label' => esc_html__( 'Title Typography', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'typography',
 			'css'   => [ [ 'property' => 'font', 'selector' => '.title' ] ],
 		];
@@ -390,7 +390,7 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		$this->controls['titleSpacing'] = [
 			'tab'   => 'style',
 			'group' => 'content_style',
-			'label' => esc_html__( 'Title Spacing', 'the-bricksfly' ),
+			'label' => esc_html__( 'Title Spacing', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'number',
 			'units' => [ 'px' => [ 'min' => 0, 'max' => 100 ] ],
 			'css'   => [ [ 'property' => 'margin-bottom', 'selector' => '.title' ] ],
@@ -399,7 +399,7 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		$this->controls['subtitleColor'] = [
 			'tab'   => 'style',
 			'group' => 'content_style',
-			'label' => esc_html__( 'Subtitle Color', 'the-bricksfly' ),
+			'label' => esc_html__( 'Subtitle Color', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'color',
 			'css'   => [ [ 'property' => 'color', 'selector' => '.subtitle' ] ],
 		];
@@ -407,7 +407,7 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		$this->controls['subtitleTypography'] = [
 			'tab'   => 'style',
 			'group' => 'content_style',
-			'label' => esc_html__( 'Subtitle Typography', 'the-bricksfly' ),
+			'label' => esc_html__( 'Subtitle Typography', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'typography',
 			'css'   => [ [ 'property' => 'font', 'selector' => '.subtitle' ] ],
 		];
@@ -415,7 +415,7 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		$this->controls['subtitleSpacing'] = [
 			'tab'   => 'style',
 			'group' => 'content_style',
-			'label' => esc_html__( 'Subtitle Spacing', 'the-bricksfly' ),
+			'label' => esc_html__( 'Subtitle Spacing', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'number',
 			'units' => [ 'px' => [ 'min' => 0, 'max' => 100 ] ],
 			'css'   => [ [ 'property' => 'margin-bottom', 'selector' => '.subtitle' ] ],
@@ -426,7 +426,7 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		$this->controls['btnTypography'] = [
 			'tab'   => 'style',
 			'group' => 'btn_style',
-			'label' => esc_html__( 'Typography', 'the-bricksfly' ),
+			'label' => esc_html__( 'Typography', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'typography',
 			'css'   => [ [ 'property' => 'font', 'selector' => '.aab-popup-btn' ] ],
 		];
@@ -434,7 +434,7 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		$this->controls['btnWidth'] = [
 			'tab'   => 'style',
 			'group' => 'btn_style',
-			'label' => esc_html__( 'Width', 'the-bricksfly' ),
+			'label' => esc_html__( 'Width', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'number',
 			'units' => [ 'px' => [ 'min' => 0, 'max' => 500 ], '%' => [ 'min' => 0, 'max' => 100 ] ],
 			'css'   => [ [ 'property' => 'width', 'selector' => '.aab-popup-btn' ] ],
@@ -443,7 +443,7 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		$this->controls['btnHeight'] = [
 			'tab'   => 'style',
 			'group' => 'btn_style',
-			'label' => esc_html__( 'Height', 'the-bricksfly' ),
+			'label' => esc_html__( 'Height', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'number',
 			'units' => [ 'px' => [ 'min' => 0, 'max' => 500 ], '%' => [ 'min' => 0, 'max' => 100 ] ],
 			'css'   => [ [ 'property' => 'height', 'selector' => '.aab-popup-btn' ] ],
@@ -452,7 +452,7 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		$this->controls['btnBorder'] = [
 			'tab'   => 'style',
 			'group' => 'btn_style',
-			'label' => esc_html__( 'Border', 'the-bricksfly' ),
+			'label' => esc_html__( 'Border', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'border',
 			'css'   => [ [ 'property' => 'border', 'selector' => '.aab-popup-btn' ] ],
 		];
@@ -460,7 +460,7 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		$this->controls['btnBorderRadius'] = [
 			'tab'   => 'style',
 			'group' => 'btn_style',
-			'label' => esc_html__( 'Border Radius', 'the-bricksfly' ),
+			'label' => esc_html__( 'Border Radius', 'bricksfly-elements-for-bricks' ),
 			// See boxBorderRadius — `dimensions` + `border-radius` emits
 			// invalid CSS in Bricks. Uniform radius via number+units.
 			'type'  => 'number',
@@ -479,7 +479,7 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		$this->controls['btnBoxShadow'] = [
 			'tab'   => 'style',
 			'group' => 'btn_style',
-			'label' => esc_html__( 'Box Shadow', 'the-bricksfly' ),
+			'label' => esc_html__( 'Box Shadow', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'box-shadow',
 			'css'   => [ [ 'property' => 'box-shadow', 'selector' => '.aab-popup-btn' ] ],
 		];
@@ -487,7 +487,7 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		$this->controls['btnColor'] = [
 			'tab'   => 'style',
 			'group' => 'btn_style',
-			'label' => esc_html__( 'Color', 'the-bricksfly' ),
+			'label' => esc_html__( 'Color', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'color',
 			'css'   => [
 				[ 'property' => 'color', 'selector' => '.aab-popup-btn' ],
@@ -498,7 +498,7 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		$this->controls['btnBackground'] = [
 			'tab'   => 'style',
 			'group' => 'btn_style',
-			'label' => esc_html__( 'Background', 'the-bricksfly' ),
+			'label' => esc_html__( 'Background', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'background',
 			'css'   => [ [ 'property' => 'background', 'selector' => '.aab-popup-btn' ] ],
 		];
@@ -508,7 +508,7 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		$this->controls['btnHoverColor'] = [
 			'tab'   => 'style',
 			'group' => 'btn_hover',
-			'label' => esc_html__( 'Color', 'the-bricksfly' ),
+			'label' => esc_html__( 'Color', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'color',
 			'css'   => [
 				[ 'property' => 'color', 'selector' => '.aab-popup-btn:hover' ],
@@ -519,7 +519,7 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		$this->controls['btnHoverBg'] = [
 			'tab'   => 'style',
 			'group' => 'btn_hover',
-			'label' => esc_html__( 'Background', 'the-bricksfly' ),
+			'label' => esc_html__( 'Background', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'background',
 			'css'   => [ [ 'property' => 'background', 'selector' => '.aab-popup-btn:hover' ] ],
 		];
@@ -527,7 +527,7 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		$this->controls['btnHoverBorderColor'] = [
 			'tab'   => 'style',
 			'group' => 'btn_hover',
-			'label' => esc_html__( 'Border Color', 'the-bricksfly' ),
+			'label' => esc_html__( 'Border Color', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'color',
 			'css'   => [ [ 'property' => 'border-color', 'selector' => '.aab-popup-btn:hover' ] ],
 		];
@@ -539,7 +539,7 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		foreach ( $sizes as $size ) {
 			$options[ $size ] = ucwords( str_replace( [ '-', '_' ], ' ', $size ) );
 		}
-		$options['full'] = esc_html__( 'Full', 'the-bricksfly' );
+		$options['full'] = esc_html__( 'Full', 'bricksfly-elements-for-bricks' );
 		return $options;
 	}
 
@@ -657,7 +657,7 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		echo '<div class="aab-popup-source" hidden>';
 		echo '<div class="aab-popup-video-wrapper">';
 		echo '<div class="aab-popup-video">';
-		echo '<button class="aab-popup-close" aria-label="' . esc_attr__( 'Close', 'the-bricksfly' ) . '">&times;</button>';
+		echo '<button class="aab-popup-close" aria-label="' . esc_attr__( 'Close', 'bricksfly-elements-for-bricks' ) . '">&times;</button>';
 		echo '<div class="aab-popup-content-container"></div>';
 		echo '</div>';
 		echo '</div>';

@@ -14,16 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @subpackage Bricks_Animation_Addons/admin
  */
 
-/**
- * The admin-specific functionality of the plugin.
- *
- * Defines the plugin name, version, and two examples hooks for how to
- * enqueue the admin-specific stylesheet and JavaScript.
- *
- * @package    Bricks_Animation_Addons
- * @subpackage Bricks_Animation_Addons/admin
- * @author     Zilani <zilani.wealcoder@gmail.com>
- */
+
 class THEBRBRE_Admin {
 
 	/**

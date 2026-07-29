@@ -16,7 +16,7 @@ class Downloader {
 		if ( empty( $url ) ) {
 			return new \WP_Error(
 				'missing_url',
-				__( 'Missing URL for downloading a file!', 'the-bricksfly' )
+				__( 'Missing URL for downloading a file!', 'bricksfly-elements-for-bricks' )
 			);
 		}
 
@@ -56,7 +56,7 @@ class Downloader {
 		}
 
 		if ( ! is_wp_error( $response ) && 200 === (int) wp_remote_retrieve_response_code( $response ) ) {
-			$response = new \WP_Error( 'empty_download', __( 'The downloaded file is empty.', 'the-bricksfly' ) );
+			$response = new \WP_Error( 'empty_download', __( 'The downloaded file is empty.', 'bricksfly-elements-for-bricks' ) );
 		}
 
 		$response_error = $this->get_error_from_response( $response );
@@ -76,7 +76,7 @@ class Downloader {
 		if ( $is_timeout ) {
 			return sprintf(
 				/* translators: 1: technical error code, 2: technical error message. */
-				__( 'The template file download timed out. Check this server\'s internet connection, then click Retry. If it happens again, ask your hosting provider to allow longer outbound HTTPS requests. Technical details: %1$s - %2$s.', 'the-bricksfly' ),
+				__( 'The template file download timed out. Check this server\'s internet connection, then click Retry. If it happens again, ask your hosting provider to allow longer outbound HTTPS requests. Technical details: %1$s - %2$s.', 'bricksfly-elements-for-bricks' ),
 				$error_code,
 				$error_message
 			);
@@ -84,7 +84,7 @@ class Downloader {
 
 		return sprintf(
 			/* translators: 1: technical error code, 2: technical error message. */
-			__( 'The template file could not be downloaded. Check this server\'s internet connection, then click Retry. If the problem continues, contact your hosting provider. Technical details: %1$s - %2$s.', 'the-bricksfly' ),
+			__( 'The template file could not be downloaded. Check this server\'s internet connection, then click Retry. If the problem continues, contact your hosting provider. Technical details: %1$s - %2$s.', 'bricksfly-elements-for-bricks' ),
 			$error_code,
 			$error_message
 		);

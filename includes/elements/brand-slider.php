@@ -13,7 +13,7 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 
 	public function get_label()
 	{
-		return esc_html__('Brand Slider', 'the-bricksfly');
+		return esc_html__('Brand Slider', 'bricksfly-elements-for-bricks');
 	}
 
 	public function get_keywords()
@@ -47,28 +47,28 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 	public function set_control_groups()
 	{
 		$this->control_groups['content'] = [
-			'title' => esc_html__('Content', 'the-bricksfly'),
+			'title' => esc_html__('Content', 'bricksfly-elements-for-bricks'),
 			'tab'   => 'content',
 		];
 
 		$this->control_groups['slider_options'] = [
-			'title' => esc_html__('Slider Options', 'the-bricksfly'),
+			'title' => esc_html__('Slider Options', 'bricksfly-elements-for-bricks'),
 			'tab'   => 'content',
 		];
 
 		$this->control_groups['items_style'] = [
-			'title'    => esc_html__('Items', 'the-bricksfly'),
+			'title'    => esc_html__('Items', 'bricksfly-elements-for-bricks'),
 			'tab'      => 'content',
 		];
 
 		$this->control_groups['image_style'] = [
-			'title'    => esc_html__('Image', 'the-bricksfly'),
+			'title'    => esc_html__('Image', 'bricksfly-elements-for-bricks'),
 			'tab'      => 'content',
 			'required' => ['slideContent', '=', 'image'],
 		];
 
 		$this->control_groups['text_style'] = [
-			'title'    => esc_html__('Text', 'the-bricksfly'),
+			'title'    => esc_html__('Text', 'bricksfly-elements-for-bricks'),
 			'tab'      => 'content',
 			'required' => ['slideContent', '=', 'text'],
 		];
@@ -77,13 +77,13 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		// across multiple, no `relation => or`), so navigation and pagination get
 		// their own groups, each gated on a single toggle.
 		$this->control_groups['nav_style'] = [
-			'title'    => esc_html__('Navigation', 'the-bricksfly'),
+			'title'    => esc_html__('Navigation', 'bricksfly-elements-for-bricks'),
 			'tab'      => 'content',
 			'required' => ['showNavigation', '=', 'on'],
 		];
 
 		$this->control_groups['pagination_style'] = [
-			'title'    => esc_html__('Pagination', 'the-bricksfly'),
+			'title'    => esc_html__('Pagination', 'bricksfly-elements-for-bricks'),
 			'tab'      => 'content',
 			'required' => ['showPagination', '=', 'on'],
 		];
@@ -96,12 +96,12 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		$this->controls['slideContent'] = [
 			'tab'     => 'content',
 			'group'   => 'content',
-			'label'   => esc_html__('Slide Content', 'the-bricksfly'),
+			'label'   => esc_html__('Slide Content', 'bricksfly-elements-for-bricks'),
 			'type'    => 'select',
 			'inline'  => true,
 			'options' => [
-				'text'  => esc_html__('Text', 'the-bricksfly'),
-				'image' => esc_html__('Image', 'the-bricksfly'),
+				'text'  => esc_html__('Text', 'bricksfly-elements-for-bricks'),
+				'image' => esc_html__('Image', 'bricksfly-elements-for-bricks'),
 			],
 			'default' => 'text',
 		];
@@ -110,17 +110,17 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		$this->controls['brandImages'] = [
 			'tab'           => 'content',
 			'group'         => 'content',
-			'label'         => esc_html__('Image List', 'the-bricksfly'),
+			'label'         => esc_html__('Image List', 'bricksfly-elements-for-bricks'),
 			'type'          => 'repeater',
 			'titleProperty' => 'imageTitle',
 			'fields'        => [
 				'imageTitle' => [
-					'label' => esc_html__('Image Title', 'the-bricksfly'),
+					'label' => esc_html__('Image Title', 'bricksfly-elements-for-bricks'),
 					'type'  => 'text',
 				],
 
 				'image' => [
-					'label' => esc_html__('Choose Image', 'the-bricksfly'),
+					'label' => esc_html__('Choose Image', 'bricksfly-elements-for-bricks'),
 					'type'  => 'image',
 				],
 			],
@@ -131,7 +131,7 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		$this->controls['imageSize'] = [
 			'tab'      => 'content',
 			'group'    => 'content',
-			'label'    => esc_html__('Image Size', 'the-bricksfly'),
+			'label'    => esc_html__('Image Size', 'bricksfly-elements-for-bricks'),
 			'type'     => 'select',
 			'options'  => $this->get_image_sizes(),
 			'default'  => 'medium',
@@ -142,12 +142,12 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		$this->controls['textSlides'] = [
 			'tab'           => 'content',
 			'group'         => 'content',
-			'label'         => esc_html__('Text List', 'the-bricksfly'),
+			'label'         => esc_html__('Text List', 'bricksfly-elements-for-bricks'),
 			'type'          => 'repeater',
 			'titleProperty' => 'text',
 			'fields'        => [
 				'text' => [
-					'label'   => esc_html__('Text', 'the-bricksfly'),
+					'label'   => esc_html__('Text', 'bricksfly-elements-for-bricks'),
 					'type'    => 'text',
 					'default' => 'Designer',
 				],
@@ -164,7 +164,7 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		$this->controls['separatorIcon'] = [
 			'tab'      => 'content',
 			'group'    => 'content',
-			'label'    => esc_html__('Text Separator Icon', 'the-bricksfly'),
+			'label'    => esc_html__('Text Separator Icon', 'bricksfly-elements-for-bricks'),
 			'type'     => 'icon',
 			'default'  => [
 				'library' => 'fontawesome',
@@ -178,17 +178,17 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		$this->controls['slidesPerView'] = [
 			'tab'         => 'content',
 			'group'       => 'slider_options',
-			'label'       => esc_html__('Slides Per View', 'the-bricksfly'),
+			'label'       => esc_html__('Slides Per View', 'bricksfly-elements-for-bricks'),
 			'type'        => 'text',
 			'default'     => 'auto',
-			'description' => esc_html__('Number or "auto". Click the device icon to set per breakpoint.', 'the-bricksfly'),
+			'description' => esc_html__('Number or "auto". Click the device icon to set per breakpoint.', 'bricksfly-elements-for-bricks'),
 			'breakpoints' => true,
 		];
 
 		$this->controls['speed'] = [
 			'tab'     => 'content',
 			'group'   => 'slider_options',
-			'label'   => esc_html__('Speed (ms)', 'the-bricksfly'),
+			'label'   => esc_html__('Speed (ms)', 'bricksfly-elements-for-bricks'),
 			'type'    => 'number',
 			'default' => 5000,
 			'breakpoints' => true,
@@ -199,15 +199,15 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		// breakpoint while ON at desktop. A select with an explicit Default/On/Off solves it:
 		// '' (Default) = inherit, 'on' = force on, 'off' = force off.
 		$toggle_options = [
-			''    => esc_html__('Default', 'the-bricksfly'),
-			'on'  => esc_html__('On', 'the-bricksfly'),
-			'off' => esc_html__('Off', 'the-bricksfly'),
+			''    => esc_html__('Default', 'bricksfly-elements-for-bricks'),
+			'on'  => esc_html__('On', 'bricksfly-elements-for-bricks'),
+			'off' => esc_html__('Off', 'bricksfly-elements-for-bricks'),
 		];
 
 		$this->controls['autoplay'] = [
 			'tab'     => 'content',
 			'group'   => 'slider_options',
-			'label'   => esc_html__('Autoplay', 'the-bricksfly'),
+			'label'   => esc_html__('Autoplay', 'bricksfly-elements-for-bricks'),
 			'type'    => 'select',
 			'inline'  => true,
 			'options' => $toggle_options,
@@ -218,10 +218,10 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		$this->controls['autoplayDelay'] = [
 			'tab'      => 'content',
 			'group'    => 'slider_options',
-			'label'    => esc_html__('Autoplay Delay (ms)', 'the-bricksfly'),
+			'label'    => esc_html__('Autoplay Delay (ms)', 'bricksfly-elements-for-bricks'),
 			'type'     => 'number',
 			'default'  => 0, // 0 is best for true continuous linear sliders
-			'description' => esc_html__('Set to 0 or 1 for a continuous marquee effect.', 'the-bricksfly'),
+			'description' => esc_html__('Set to 0 or 1 for a continuous marquee effect.', 'bricksfly-elements-for-bricks'),
 			'required' => ['autoplay', '!=', 'off'],
 			'breakpoints' => true,
 		];
@@ -229,7 +229,7 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		$this->controls['loop'] = [
 			'tab'     => 'content',
 			'group'   => 'slider_options',
-			'label'   => esc_html__('Loop', 'the-bricksfly'),
+			'label'   => esc_html__('Loop', 'bricksfly-elements-for-bricks'),
 			'type'    => 'select',
 			'inline'  => true,
 			'options' => $toggle_options,
@@ -240,7 +240,7 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		$this->controls['pauseOnHover'] = [
 			'tab'      => 'content',
 			'group'    => 'slider_options',
-			'label'    => esc_html__('Pause on Hover', 'the-bricksfly'),
+			'label'    => esc_html__('Pause on Hover', 'bricksfly-elements-for-bricks'),
 			'type'     => 'select',
 			'inline'   => true,
 			'options'  => $toggle_options,
@@ -252,7 +252,7 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		$this->controls['showNavigation'] = [
 			'tab'   => 'content',
 			'group' => 'slider_options',
-			'label' => esc_html__('Show Navigation', 'the-bricksfly'),
+			'label' => esc_html__('Show Navigation', 'bricksfly-elements-for-bricks'),
 			'type'  => 'select',
 			'inline'  => true,
 			'options' => $toggle_options,
@@ -263,7 +263,7 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		$this->controls['showPagination'] = [
 			'tab'   => 'content',
 			'group' => 'slider_options',
-			'label' => esc_html__('Show Pagination', 'the-bricksfly'),
+			'label' => esc_html__('Show Pagination', 'bricksfly-elements-for-bricks'),
 			'type'  => 'select',
 			'inline'  => true,
 			'options' => $toggle_options,
@@ -274,7 +274,7 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		$this->controls['reverseDirection'] = [
 			'tab'   => 'content',
 			'group' => 'slider_options',
-			'label' => esc_html__('Reverse Direction', 'the-bricksfly'),
+			'label' => esc_html__('Reverse Direction', 'bricksfly-elements-for-bricks'),
 			'type'  => 'checkbox',
 			'breakpoints' => true,
 		];
@@ -284,13 +284,13 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		$this->controls['items_alignment'] = [
 			'tab'      => 'style',
 			'group'    => 'items_style',
-			'label'    => esc_html__('Items Alignment', 'the-bricksfly'),
+			'label'    => esc_html__('Items Alignment', 'bricksfly-elements-for-bricks'),
 			'type'     => 'select',
 			'inline'   => true,
 			'options'  => [
-				'left'   => esc_html__('Left', 'the-bricksfly'),
-				'center' => esc_html__('Center', 'the-bricksfly'),
-				'right'  => esc_html__('Right', 'the-bricksfly'),
+				'left'   => esc_html__('Left', 'bricksfly-elements-for-bricks'),
+				'center' => esc_html__('Center', 'bricksfly-elements-for-bricks'),
+				'right'  => esc_html__('Right', 'bricksfly-elements-for-bricks'),
 			],
 			'default'  => 'left',
 			'breakpoints' => true,
@@ -303,7 +303,7 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		// $this->controls['spaceBetween'] = [
 		// 	'tab'         => 'style',
 		// 	'group'       => 'items_style',
-		// 	'label'       => esc_html__('Space Between Item(px)', 'the-bricksfly'),
+		// 	'label'       => esc_html__('Space Between Item(px)', 'bricksfly-elements-for-bricks'),
 		// 	'type'        => 'number',
 		// 	'default'     => 0,
 		// 	'breakpoints' => true,
@@ -312,7 +312,7 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		$this->controls['spaceBetweenItems'] = [
 			'tab'         => 'style',
 			'group'       => 'items_style',
-			'label'       => esc_html__('Space Between Item(px)', 'the-bricksfly'),
+			'label'       => esc_html__('Space Between Item(px)', 'bricksfly-elements-for-bricks'),
 			'type'        => 'number',
 			'units'       => true,        // outputs the unit with the value
 			'unit'        => 'px',        // default unit
@@ -327,12 +327,12 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		$this->controls['icon_position'] = [
 			'tab'      => 'style',
 			'group'    => 'items_style',
-			'label'    => esc_html__('Icon Position', 'the-bricksfly'),
+			'label'    => esc_html__('Icon Position', 'bricksfly-elements-for-bricks'),
 			'type'     => 'select',
 			'inline'   => true,
 			'options'  => [
-				'row-reverse'   => esc_html__('Left', 'the-bricksfly'),
-				'row' => esc_html__('Right', 'the-bricksfly'),
+				'row-reverse'   => esc_html__('Left', 'bricksfly-elements-for-bricks'),
+				'row' => esc_html__('Right', 'bricksfly-elements-for-bricks'),
 			],
 			'default'  => 'row',
 			'breakpoints' => true,
@@ -345,7 +345,7 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		$this->controls['spaceBetweenIconText'] = [
 			'tab'         => 'style',
 			'group'       => 'items_style',
-			'label'       => esc_html__('Space Between Icon and Text (px)', 'the-bricksfly'),
+			'label'       => esc_html__('Space Between Icon and Text (px)', 'bricksfly-elements-for-bricks'),
 			'type'        => 'number',
 			'units'       => true,        // outputs the unit with the value
 			'unit'        => 'px',        // default unit
@@ -363,7 +363,7 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		$this->controls['imgWidth'] = [
 			'tab'      => 'style',
 			'group'    => 'image_style',
-			'label'    => esc_html__('Width', 'the-bricksfly'),
+			'label'    => esc_html__('Width', 'bricksfly-elements-for-bricks'),
 			'type'     => 'number',
 			'units'    => [
 				'px' => ['min' => 0, 'max' => 1000],
@@ -376,7 +376,7 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		$this->controls['imgHeight'] = [
 			'tab'      => 'style',
 			'group'    => 'image_style',
-			'label'    => esc_html__('Height', 'the-bricksfly'),
+			'label'    => esc_html__('Height', 'bricksfly-elements-for-bricks'),
 			'type'     => 'number',
 			'units'    => [
 				'px' => ['min' => 0, 'max' => 1000],
@@ -389,15 +389,15 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		$this->controls['imgObjectFit'] = [
 			'tab'      => 'style',
 			'group'    => 'image_style',
-			'label'    => esc_html__('Object Fit', 'the-bricksfly'),
+			'label'    => esc_html__('Object Fit', 'bricksfly-elements-for-bricks'),
 			'type'     => 'select',
 			'options'  => [
-				''           => esc_html__('Default', 'the-bricksfly'),
-				'fill'       => esc_html__('Fill', 'the-bricksfly'),
-				'contain'    => esc_html__('Contain', 'the-bricksfly'),
-				'cover'      => esc_html__('Cover', 'the-bricksfly'),
-				'none'       => esc_html__('None', 'the-bricksfly'),
-				'scale-down' => esc_html__('Scale Down', 'the-bricksfly'),
+				''           => esc_html__('Default', 'bricksfly-elements-for-bricks'),
+				'fill'       => esc_html__('Fill', 'bricksfly-elements-for-bricks'),
+				'contain'    => esc_html__('Contain', 'bricksfly-elements-for-bricks'),
+				'cover'      => esc_html__('Cover', 'bricksfly-elements-for-bricks'),
+				'none'       => esc_html__('None', 'bricksfly-elements-for-bricks'),
+				'scale-down' => esc_html__('Scale Down', 'bricksfly-elements-for-bricks'),
 			],
 			'css'      => [['property' => 'object-fit', 'selector' => '.swiper-slide img']],
 			'required' => ['slideContent', '=', 'image'],
@@ -406,7 +406,7 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		$this->controls['itemBgColor'] = [
 			'tab'      => 'style',
 			'group'    => 'image_style',
-			'label'    => esc_html__('Background Color', 'the-bricksfly'),
+			'label'    => esc_html__('Background Color', 'bricksfly-elements-for-bricks'),
 			'type'     => 'color',
 			'css'      => [['property' => 'background-color', 'selector' => '.swiper-slide']],
 			'required' => ['slideContent', '=', 'image'],
@@ -415,7 +415,7 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		$this->controls['itemBorder'] = [
 			'tab'      => 'style',
 			'group'    => 'image_style',
-			'label'    => esc_html__('Border', 'the-bricksfly'),
+			'label'    => esc_html__('Border', 'bricksfly-elements-for-bricks'),
 			'type'     => 'border',
 			'css'      => [['property' => 'border', 'selector' => '.swiper-slide']],
 			'required' => ['slideContent', '=', 'image'],
@@ -424,7 +424,7 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		$this->controls['itemBorderRadius'] = [
 			'tab'      => 'style',
 			'group'    => 'image_style',
-			'label'    => esc_html__('Border Radius', 'the-bricksfly'),
+			'label'    => esc_html__('Border Radius', 'bricksfly-elements-for-bricks'),
 			'type'     => 'dimensions',
 			'css'      => [['property' => 'border-radius', 'selector' => '.swiper-slide']],
 			'required' => ['slideContent', '=', 'image'],
@@ -433,7 +433,7 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		$this->controls['itemPadding'] = [
 			'tab'      => 'style',
 			'group'    => 'image_style',
-			'label'    => esc_html__('Padding', 'the-bricksfly'),
+			'label'    => esc_html__('Padding', 'bricksfly-elements-for-bricks'),
 			'type'     => 'dimensions',
 			'css'      => [['property' => 'padding', 'selector' => '.swiper-slide']],
 			'required' => ['slideContent', '=', 'image'],
@@ -444,7 +444,7 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		$this->controls['textColor'] = [
 			'tab'      => 'style',
 			'group'    => 'text_style',
-			'label'    => esc_html__('Text Color', 'the-bricksfly'),
+			'label'    => esc_html__('Text Color', 'bricksfly-elements-for-bricks'),
 			'type'     => 'color',
 			'css'      => [['property' => 'color', 'selector' => '.title']],
 			'required' => ['slideContent', '=', 'text'],
@@ -453,7 +453,7 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		$this->controls['textTypography'] = [
 			'tab'      => 'style',
 			'group'    => 'text_style',
-			'label'    => esc_html__('Typography', 'the-bricksfly'),
+			'label'    => esc_html__('Typography', 'bricksfly-elements-for-bricks'),
 			'type'     => 'typography',
 			'css'      => [['property' => 'font', 'selector' => '.title']],
 			'required' => ['slideContent', '=', 'text'],
@@ -462,7 +462,7 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		$this->controls['separatorColor'] = [
 			'tab'      => 'style',
 			'group'    => 'text_style',
-			'label'    => esc_html__('Separator Color', 'the-bricksfly'),
+			'label'    => esc_html__('Separator Color', 'bricksfly-elements-for-bricks'),
 			'type'     => 'color',
 			'css'      => [
 				['property' => 'color', 'selector' => '.aab-separator-icon i'],
@@ -474,7 +474,7 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		$this->controls['separatorSize'] = [
 			'tab'      => 'style',
 			'group'    => 'text_style',
-			'label'    => esc_html__('Separator Size', 'the-bricksfly'),
+			'label'    => esc_html__('Separator Size', 'bricksfly-elements-for-bricks'),
 			'type'     => 'number',
 			'units'    => ['px' => ['min' => 6, 'max' => 300]],
 			'css'      => [['property' => 'font-size', 'selector' => '.aab-separator-icon']],
@@ -486,7 +486,7 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		$this->controls['navColor'] = [
 			'tab'      => 'style',
 			'group'    => 'nav_style',
-			'label'    => esc_html__('Arrow Color', 'the-bricksfly'),
+			'label'    => esc_html__('Arrow Color', 'bricksfly-elements-for-bricks'),
 			'type'     => 'color',
 			'css'      => [
 				['property' => 'color', 'selector' => '.aab-arrow-prev, .aab-arrow-next'],
@@ -497,7 +497,7 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		$this->controls['navBg'] = [
 			'tab'      => 'style',
 			'group'    => 'nav_style',
-			'label'    => esc_html__('Arrow Background', 'the-bricksfly'),
+			'label'    => esc_html__('Arrow Background', 'bricksfly-elements-for-bricks'),
 			'type'     => 'color',
 			'css'      => [
 				['property' => 'background-color', 'selector' => '.aab-arrow-prev, .aab-arrow-next'],
@@ -508,7 +508,7 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		$this->controls['navSize'] = [
 			'tab'      => 'style',
 			'group'    => 'nav_style',
-			'label'    => esc_html__('Arrow Size', 'the-bricksfly'),
+			'label'    => esc_html__('Arrow Size', 'bricksfly-elements-for-bricks'),
 			'type'     => 'number',
 			'units'    => ['px' => ['min' => 10, 'max' => 100]],
 			'css'      => [
@@ -521,7 +521,7 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		$this->controls['navBorder'] = [
 			'tab'      => 'style',
 			'group'    => 'nav_style',
-			'label'    => esc_html__('Arrow Border', 'the-bricksfly'),
+			'label'    => esc_html__('Arrow Border', 'bricksfly-elements-for-bricks'),
 			'type'     => 'border',
 			'css'      => [
 				['property' => 'border', 'selector' => '.aab-arrow-prev, .aab-arrow-next'],
@@ -534,7 +534,7 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		$this->controls['arrowPositionSeparator'] = [
 			'tab'      => 'style',
 			'group'    => 'nav_style',
-			'label'    => esc_html__('Arrow Position', 'the-bricksfly'),
+			'label'    => esc_html__('Arrow Position', 'bricksfly-elements-for-bricks'),
 			'type'     => 'separator',
 			'required' => ['showNavigation', '=', 'on'],
 		];
@@ -542,13 +542,13 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		$this->controls['arrowHOffset'] = [
 			'tab'         => 'style',
 			'group'       => 'nav_style',
-			'label'       => esc_html__('Horizontal Offset', 'the-bricksfly'),
+			'label'       => esc_html__('Horizontal Offset', 'bricksfly-elements-for-bricks'),
 			'type'        => 'number',
 			'units'       => [
 				'px' => ['min' => -200, 'max' => 200],
 				'%'  => ['min' => -50, 'max' => 50],
 			],
-			'description' => esc_html__('Positive: inside the slider. Negative: outside.', 'the-bricksfly'),
+			'description' => esc_html__('Positive: inside the slider. Negative: outside.', 'bricksfly-elements-for-bricks'),
 			'css'         => [
 				['property' => 'left',  'selector' => '.aab-arrow-prev'],
 				['property' => 'right', 'selector' => '.aab-arrow-next'],
@@ -559,7 +559,7 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		$this->controls['arrowVOffset'] = [
 			'tab'      => 'style',
 			'group'    => 'nav_style',
-			'label'    => esc_html__('Vertical Position', 'the-bricksfly'),
+			'label'    => esc_html__('Vertical Position', 'bricksfly-elements-for-bricks'),
 			'type'     => 'number',
 			'units'    => [
 				'%'  => ['min' => 0,    'max' => 100],
@@ -574,7 +574,7 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		$this->controls['paginationColor'] = [
 			'tab'      => 'style',
 			'group'    => 'pagination_style',
-			'label'    => esc_html__('Pagination Color', 'the-bricksfly'),
+			'label'    => esc_html__('Pagination Color', 'bricksfly-elements-for-bricks'),
 			'type'     => 'color',
 			'css'      => [
 				['property' => 'background-color', 'selector' => '.swiper-pagination-bullet'],
@@ -585,7 +585,7 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		$this->controls['paginationActiveColor'] = [
 			'tab'      => 'style',
 			'group'    => 'pagination_style',
-			'label'    => esc_html__('Pagination Active Color', 'the-bricksfly'),
+			'label'    => esc_html__('Pagination Active Color', 'bricksfly-elements-for-bricks'),
 			'type'     => 'color',
 			'css'      => [
 				['property' => 'background-color', 'selector' => '.swiper-pagination-bullet-active'],
@@ -596,7 +596,7 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		$this->controls['paginationSize'] = [
 			'tab'      => 'style',
 			'group'    => 'pagination_style',
-			'label'    => esc_html__('Pagination Dot Size', 'the-bricksfly'),
+			'label'    => esc_html__('Pagination Dot Size', 'bricksfly-elements-for-bricks'),
 			'type'     => 'number',
 			'units'    => ['px' => ['min' => 2, 'max' => 60]],
 			'css'      => [
@@ -609,7 +609,7 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		$this->controls['paginationActiveSize'] = [
 			'tab'      => 'style',
 			'group'    => 'pagination_style',
-			'label'    => esc_html__('Active Dot Size', 'the-bricksfly'),
+			'label'    => esc_html__('Active Dot Size', 'bricksfly-elements-for-bricks'),
 			'type'     => 'number',
 			'units'    => ['px' => ['min' => 2, 'max' => 80]],
 			'css'      => [
@@ -622,13 +622,13 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		$this->controls['paginationAlign'] = [
 			'tab'      => 'style',
 			'group'    => 'pagination_style',
-			'label'    => esc_html__('Pagination Alignment', 'the-bricksfly'),
+			'label'    => esc_html__('Pagination Alignment', 'bricksfly-elements-for-bricks'),
 			'type'     => 'select',
 			'inline'   => true,
 			'options'  => [
-				'left'   => esc_html__('Left', 'the-bricksfly'),
-				'center' => esc_html__('Center', 'the-bricksfly'),
-				'right'  => esc_html__('Right', 'the-bricksfly'),
+				'left'   => esc_html__('Left', 'bricksfly-elements-for-bricks'),
+				'center' => esc_html__('Center', 'bricksfly-elements-for-bricks'),
+				'right'  => esc_html__('Right', 'bricksfly-elements-for-bricks'),
 			],
 			'default'  => 'center',
 			'css'      => [
@@ -645,7 +645,7 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		foreach ($sizes as $size) {
 			$options[$size] = ucwords(str_replace(['-', '_'], ' ', $size));
 		}
-		$options['full'] = esc_html__('Full', 'the-bricksfly');
+		$options['full'] = esc_html__('Full', 'bricksfly-elements-for-bricks');
 		return $options;
 	}
 
@@ -961,7 +961,7 @@ class THEBRBRE_Bricks_Brand_Slider extends \Bricks\Element
 		if (empty($slides)) {
 			return $this->render_element_placeholder([
 				'icon-class' => 'ti-layout-slider',
-				'text'       => esc_html__('No slides added.', 'the-bricksfly'),
+				'text'       => esc_html__('No slides added.', 'bricksfly-elements-for-bricks'),
 			]);
 		}
 

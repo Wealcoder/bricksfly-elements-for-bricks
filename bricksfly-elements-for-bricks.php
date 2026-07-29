@@ -13,15 +13,15 @@
  * @package           Bricks_Fly
  *
  * @wordpress-plugin
- * Plugin Name:       The BricksFly – Bricks Elements, Bricks Templates & GSAP Animation
+ * Plugin Name:       BricksFly Elements and Templates for Bricks with GSAP Animations
  * Plugin URI:        https://bricksfly.com/
- * Description:       The Bricksfly for Bricks comes with GSAP Animation Builder, Customizable Elements, Header Footer, Single Post, Archive Page Builder, and Many more.
- * Version:           1.0.1
+ * Description:       Bricksfly for Bricks comes with GSAP Animation Builder, Customizable Elements, Header Footer, Single Post, Archive Page Builder, and Many more.
+ * Version:           1.0.0
  * Author:            Wealcoder
  * Author URI:        https://profiles.wordpress.org/wealcoder/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       the-bricksfly
+ * Text Domain:       bricksfly-elements-for-bricks
  * Domain Path:       /languages
  * Requires at least: 6.9
  * Requires PHP:      7.4
@@ -68,7 +68,7 @@ if (! defined('THEBRBRE_VERSION')) {
 	/**
 	 * Plugin Version.
 	 */
-	define('THEBRBRE_VERSION', '1.0.1');
+	define('THEBRBRE_VERSION', '1.0.0');
 }
 
 if (! defined('THEBRBRE_TEMPLATE_STARTER_BASE_URL')) {
@@ -84,9 +84,7 @@ if (! defined('THEBRBRE_TEMPLATE_STARTER_BASE_URL')) {
  * dashboard can render without depending on Pro being active. Pro's own
  * files re-define the same names with `! defined()` guards, so this is safe.
  */
-if (! defined('THEBRBRE_PRO_STORE_URL')) {
-	define('THEBRBRE_PRO_STORE_URL', 'https://my.bricksfly.com/');
-}
+
 if (! defined('THEBRBRE_PRO_ITEM_ID')) {
 	define('THEBRBRE_PRO_ITEM_ID', 39996);
 }
@@ -123,7 +121,6 @@ require_once THEBRBRE_PATH . 'includes/helper.php';
 require_once THEBRBRE_PATH . 'includes/hook.php';
 // THEBRBRE_BRICKS_ELEMENTS is normally required later by
 // load_dependencies() (includes/class-bricks-animation-addons.php), but
-// the-bricksfly-pro's advanced-tooltip.php reads it directly as a class
 // property default at load time — require it here too (idempotent via
 // require_once) so it's guaranteed to exist before Pro loads.
 require_once THEBRBRE_PATH . 'includes/extensions/helpers/BRICKS_ELEMENTS.php';
@@ -166,8 +163,8 @@ function thebrbre_run()
 	$plugin->run();
 
 	// Localize THEBRBRE_ADDONS_JS against the always-enqueued public script so the
-	// global is available to free elements (e.g. post-social-share) AND to
-	// Pro extensions (smooth scroller, scroll-to). The scroll-to runtime
+	// global is available to free elements AND to Pro extensions/elements
+	// (smooth scroller, scroll-to, post-social-share). The scroll-to runtime
 	// (scroll-to-el.js) itself lives in Pro and is enqueued by the Pro
 	// scrollto extension.
 	add_action('wp_enqueue_scripts', function () {
@@ -176,11 +173,11 @@ function thebrbre_run()
 				'ajaxUrl'        => admin_url('admin-ajax.php'),
 				'post_id'        => get_the_ID(),
 				'i18n'           => array(
-					'okay'    => esc_html__('Okay', 'the-bricksfly'),
-					'cancel'  => esc_html__('Cancel', 'the-bricksfly'),
-					'submit'  => esc_html__('Submit', 'the-bricksfly'),
-					'success' => esc_html__('Success', 'the-bricksfly'),
-					'warning' => esc_html__('Warning', 'the-bricksfly'),
+					'okay'    => esc_html__('Okay', 'bricksfly-elements-for-bricks'),
+					'cancel'  => esc_html__('Cancel', 'bricksfly-elements-for-bricks'),
+					'submit'  => esc_html__('Submit', 'bricksfly-elements-for-bricks'),
+					'success' => esc_html__('Success', 'bricksfly-elements-for-bricks'),
+					'warning' => esc_html__('Warning', 'bricksfly-elements-for-bricks'),
 				),
 				'smoothScroller' => json_decode(get_option('thebrbre_smooth_scroller')),
 				// All Bricks breakpoints (defaults + custom). Empty array if
@@ -191,7 +188,7 @@ function thebrbre_run()
 			)
 		);
 
-		wp_localize_script('bricksfly', 'THEBRBRE_ADDONS_JS', $data);
+		wp_localize_script('bricksfly-elements-for-bricks', 'THEBRBRE_ADDONS_JS', $data);
 	}, 20);
 }
 thebrbre_run();
