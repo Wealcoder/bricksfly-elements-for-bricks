@@ -120,19 +120,19 @@ const DemoImporting = () => {
             const importCount = data.import_porgress.progress || 0;
             const totalCount = data.import_porgress.total_items || 1;
 
-            // ðŸ”¹ Content Import Only (0-100%)
+            // 🎯 Content Import Only (0-100%)
             const contentProgress = Math.min(Math.round((importCount / totalCount) * 100), 100);
 
-            // ðŸ”¸ Total Import (starting from plugin install)
+            // 📊 Total Import (starting from plugin install)
             const baseProgress = Math.floor(Math.random() * (44 - 40 + 1)) + 40;
             const scaledImport = 50 * (importCount / totalCount);
             const totalProgress = Math.min(Math.round(baseProgress + scaledImport), 100); 
             setTemplateTitle(data.import_porgress?.title);          
             
-            // ðŸ‘‡ You set both
+            // 👇 You set both
             setProgress((prev) => Math.max(prev, totalProgress));
             setMsg(
-              `ðŸ“¦ Content Import: ${contentProgress}% (${importCount} of ${totalCount})\n`        
+              `📦 Content Import: ${contentProgress}% (${importCount} of ${totalCount})\n`        
             );
 
            
