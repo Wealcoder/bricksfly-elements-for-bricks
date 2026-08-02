@@ -10,7 +10,7 @@ const IntegrationCard = ({ item, className }) => {
   const { updateNotice } = useNotification();
 
   const deactivate = async (item) => {
-    await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
+    await fetch(BRICKSFLY_ADDONS_ADMIN.ajaxurl, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -18,9 +18,9 @@ const IntegrationCard = ({ item, className }) => {
       },
 
       body: new URLSearchParams({
-        action: "thebrbre_deactive_plugin",
+        action: "bricksfly_deactive_plugin",
         action_base: item.basename,
-        nonce: THEBRBRE_ADDONS_ADMIN.nonce,
+        nonce: BRICKSFLY_ADDONS_ADMIN.nonce,
       }),
     })
       .then((response) => {
@@ -51,7 +51,7 @@ const IntegrationCard = ({ item, className }) => {
   };
 
   const activePlugin = async () => {
-    await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
+    await fetch(BRICKSFLY_ADDONS_ADMIN.ajaxurl, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -59,10 +59,10 @@ const IntegrationCard = ({ item, className }) => {
       },
 
       body: new URLSearchParams({
-        action: "thebrbre_active_plugin",
+        action: "bricksfly_active_plugin",
         action_base:
           "the-bricksfly-pro/the-bricksfly-pro.php",
-        nonce: THEBRBRE_ADDONS_ADMIN.nonce,
+        nonce: BRICKSFLY_ADDONS_ADMIN.nonce,
       }),
     })
       .then((response) => {

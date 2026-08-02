@@ -13,10 +13,10 @@ if (! defined('ABSPATH')) exit;
  * upsell view explaining what's required, instead of the feature just
  * silently disappearing.
  */
-class THEBRBRE_Settings_Placeholder
+class BRICKSFLY_Settings_Placeholder
 {
-	const MENU_PAGE_SLUG  = 'thebrbre_addons_page';
-	const SETTINGS_SLUG   = 'thebrbre-site-settings';
+	const MENU_PAGE_SLUG  = 'bricksfly_addons_page';
+	const SETTINGS_SLUG   = 'bricksfly-site-settings';
 	const MENU_CAPABILITY = 'manage_options';
 	const PRO_BASENAME    = 'the-bricksfly-pro/the-bricksfly-pro.php';
 
@@ -55,7 +55,7 @@ class THEBRBRE_Settings_Placeholder
 	 */
 	private function is_unlocked(): bool
 	{
-		return function_exists('thebrbre_pro_is_license_valid') && thebrbre_pro_is_license_valid();
+		return function_exists('bricksfly_pro_is_license_valid') && bricksfly_pro_is_license_valid();
 	}
 
 	private function is_pro_plugin_active(): bool
@@ -94,7 +94,7 @@ class THEBRBRE_Settings_Placeholder
 			: __('Site Settings (Preloader, Cursor, Scroll Indicator, Scroll-to-Top) is a Pro feature. Install and activate bricksfly-elements-for-bricks-pro, then activate your license, to use it.', 'bricksfly-elements-for-bricks');
 
 		$cta_url = $pro_active
-			? admin_url('admin.php?page=thebrbre_addons_settings&bf-license=1')
+			? admin_url('admin.php?page=bricksfly_addons_settings&bf-license=1')
 			: admin_url('plugin-install.php?s=the-bricksfly-pro&tab=search&type=term');
 
 		$cta_label = $pro_active
@@ -120,7 +120,7 @@ class THEBRBRE_Settings_Placeholder
 		if (! current_user_can(self::MENU_CAPABILITY)) return;
 		if ($this->is_unlocked()) return;
 		if ($this->is_pro_plugin_active()) return; // Pro renders the license notice.
-		if (! self::is_thebrbre_admin_screen()) return;
+		if (! self::is_bricksfly_admin_screen()) return;
 
 		echo '<div class="notice notice-warning"><p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo '<strong>' . esc_html__('Bricksfly:', 'bricksfly-elements-for-bricks') . '</strong> '; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -131,9 +131,9 @@ class THEBRBRE_Settings_Placeholder
 	/**
 	 * True when the current admin screen is part of the AAB plugin's own
 	 * menu tree (top-level dashboard or any submenu). Shared by the Pro
-	 * plugin's license notice via `THEBRBRE_Settings_Placeholder::is_thebrbre_admin_screen()`.
+	 * plugin's license notice via `BRICKSFLY_Settings_Placeholder::is_bricksfly_admin_screen()`.
 	 */
-	public static function is_thebrbre_admin_screen(): bool
+	public static function is_bricksfly_admin_screen(): bool
 	{
 		if (! function_exists('get_current_screen')) return false;
 		$screen = get_current_screen();
@@ -141,11 +141,11 @@ class THEBRBRE_Settings_Placeholder
 
 		$id = (string) $screen->id;
 		return (
-			$id === 'toplevel_page_thebrbre_addons_page'
-			|| strpos($id, '_page_thebrbre_addons_') !== false
-			|| strpos($id, '_page_thebrbre-') !== false
+			$id === 'toplevel_page_bricksfly_addons_page'
+			|| strpos($id, '_page_bricksfly_addons_') !== false
+			|| strpos($id, '_page_bricksfly-') !== false
 		);
 	}
 }
 
-// THEBRBRE_Settings_Placeholder::instance();
+// BRICKSFLY_Settings_Placeholder::instance();

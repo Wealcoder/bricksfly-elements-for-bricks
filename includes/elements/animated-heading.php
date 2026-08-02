@@ -2,13 +2,13 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class THEBRBRE_Bricks_Animated_Heading extends \Bricks\Element {
+class BRICKSFLY_Bricks_Animated_Heading extends \Bricks\Element {
 
 	public $category     = 'bricks fly';
 	public $name         = 'aab-animated-heading';
 	public $icon         = 'ti-text aab-element-marker';
 	public $css_selector = '.aab-animated-heading';
-	public $scripts      = [ 'thebrbreAnimatedHeading' ];
+	public $scripts      = [ 'bricksflyAnimatedHeading' ];
 
 	public function get_label() {
 		return esc_html__('Animated Heading', 'bricksfly-elements-for-bricks');
@@ -21,14 +21,14 @@ class THEBRBRE_Bricks_Animated_Heading extends \Bricks\Element {
 	public function enqueue_scripts() {
 		wp_enqueue_style(
 			'aab-animated-heading',
-			THEBRBRE_URL . 'public/build/elements/animated-heading.css',
+			BRICKSFLY_URL . 'public/build/elements/animated-heading.css',
 			[],
 			'1.0.0'
 		);
 
 		wp_enqueue_script(
 			'aab-animated-heading',
-			THEBRBRE_URL . 'public/build/elements/animated-heading.js',
+			BRICKSFLY_URL . 'public/build/elements/animated-heading.js',
 			[],
 			'1.0.0',
 			true

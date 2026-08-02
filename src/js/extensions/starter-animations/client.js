@@ -14,7 +14,7 @@ import {
  * starter-animations-preview.js handles that context instead.
  *
  * Safety guard: if this file is accidentally loaded inside the builder
- * iframe, we add the thebrbre-builder class and bail so elements stay visible.
+ * iframe, we add the bricksfly-builder class and bail so elements stay visible.
  */
 
 function isBuilderIframe() {
@@ -30,8 +30,8 @@ if (isBuilderIframe()) {
   // Wrong context — mark the document and stop. The preview bundle handles
   // animation playback inside the builder iframe.
   const markBuilder = () => {
-    document.documentElement.classList.add("thebrbre-builder");
-    document.body && document.body.classList.add("thebrbre-builder");
+    document.documentElement.classList.add("bricksfly-builder");
+    document.body && document.body.classList.add("bricksfly-builder");
   };
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", markBuilder);
@@ -43,22 +43,22 @@ if (isBuilderIframe()) {
 }
 
 function initFrontend() {
-  // KEY BEHAVIOUR: thebrbre-preinit is added only after the observer registers the
-  // element. CSS hidden states are gated on .thebrbre-preinit, so there is no flash
+  // KEY BEHAVIOUR: bricksfly-preinit is added only after the observer registers the
+  // element. CSS hidden states are gated on .bricksfly-preinit, so there is no flash
   // of hidden content on slow connections — elements stay visible until JS runs.
    const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         const wrapper = entry.target;
-        const isRepeat = wrapper.classList.contains("thebrbre-repeat-yes");
-        const playedOnce = wrapper.classList.contains("thebrbre-played");
+        const isRepeat = wrapper.classList.contains("bricksfly-repeat-yes");
+        const playedOnce = wrapper.classList.contains("bricksfly-played");
 
         if (entry.isIntersecting) {
           if (isRepeat) {
             playAnimation(wrapper);
           } else if (!playedOnce) {
             playAnimation(wrapper);
-            wrapper.classList.add("thebrbre-played");
+            wrapper.classList.add("bricksfly-played");
           }
         }
       });
@@ -68,7 +68,7 @@ function initFrontend() {
 
   function initStarterAnimations(wrapper) {
     if (!wrapper || !wrapper.classList) return;
-    if (!wrapper.className.includes("thebrbre-starter-animations-")) return;
+    if (!wrapper.className.includes("bricksfly-starter-animations-")) return;
     if (wrapper.dataset.aabInit) return;
     wrapper.dataset.aabInit = "1";
 
@@ -77,7 +77,7 @@ function initFrontend() {
     handleTypewriter(wrapper);
 
     requestAnimationFrame(function () {
-      wrapper.classList.add("thebrbre-preinit");
+      wrapper.classList.add("bricksfly-preinit");
       observer.observe(wrapper);
     });
   }
@@ -85,12 +85,12 @@ function initFrontend() {
   function playAnimation(wrapper) {
     if (!wrapper) return;
 
-    wrapper.classList.remove("thebrbre-animate", "thebrbre-preinit");
+    wrapper.classList.remove("bricksfly-animate", "bricksfly-preinit");
 
     const target = getAnimTarget(wrapper);
 
     if (
-      wrapper.classList.contains("thebrbre-starter-animations-text-char-animate")
+      wrapper.classList.contains("bricksfly-starter-animations-text-char-animate")
     ) {
       if (target) {
         const originalText = target.textContent;
@@ -100,7 +100,7 @@ function initFrontend() {
       }
     }
 
-    if (wrapper.classList.contains("thebrbre-starter-animations-text-wave")) {
+    if (wrapper.classList.contains("bricksfly-starter-animations-text-wave")) {
       if (target) {
         target.removeAttribute("data-text");
         target.setAttribute("data-text", target.textContent.trim());
@@ -108,24 +108,24 @@ function initFrontend() {
       }
     }
 
-    if (wrapper.classList.contains("thebrbre-starter-animations-text-typewriter")) {
+    if (wrapper.classList.contains("bricksfly-starter-animations-text-typewriter")) {
       runTypewriter(wrapper);
     }
 
     void wrapper.offsetWidth;
 
-    wrapper.classList.add("thebrbre-preinit");
-    wrapper.classList.add("thebrbre-animate");
+    wrapper.classList.add("bricksfly-preinit");
+    wrapper.classList.add("bricksfly-animate");
   }
 
   // Public API — may be called by external code to replay an animation.
-  window.thebrbreReplayAnimation = function (wrapper) {
+  window.bricksflyReplayAnimation = function (wrapper) {
     playAnimation(wrapper);
   };
 
   function scanAll(root) {
     (root || document)
-      .querySelectorAll('[class*="thebrbre-starter-animations-"]')
+      .querySelectorAll('[class*="bricksfly-starter-animations-"]')
       .forEach(initStarterAnimations);
   }
 
@@ -138,7 +138,7 @@ function initFrontend() {
           if (node.nodeType !== 1) return;
           if (
             node.matches &&
-            node.matches('[class*="thebrbre-starter-animations-"]')
+            node.matches('[class*="bricksfly-starter-animations-"]')
           ) {
             initStarterAnimations(node);
           }

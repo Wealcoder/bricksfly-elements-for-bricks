@@ -181,6 +181,6 @@ import "../../scss/elements/progressbar.scss";
     initAll();
   }
 
-  // Bricks builder calls window.thebrbreProgressbar() with NO arguments on each re-render.
-  window.thebrbreProgressbar = initAll;
+  // Bricks builder calls window.bricksflyProgressbar() with NO arguments on each re-render.
+  window.bricksflyProgressbar = initAll;
 })();

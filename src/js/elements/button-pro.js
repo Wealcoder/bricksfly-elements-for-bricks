@@ -96,7 +96,7 @@ import "../../scss/elements/button-pro.scss";
       });
   });
 
-  window.thebrbreButtonPro = function (el) {
+  window.bricksflyButtonPro = function (el) {
     if (el) {
       initButtonPro(el);
     } else {

@@ -7,7 +7,7 @@ const LargeLogo = ({ homeUrl }) => {
       <img
         width={140}
         height={40}
-        src={`${THEBRBRE_ADDONS_ADMIN.plugin_url}public/images/Logo-2.png`}
+        src={`${BRICKSFLY_ADDONS_ADMIN.plugin_url}public/images/Logo-2.png`}
         alt="Logo"
       />
     </a>

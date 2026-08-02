@@ -18,7 +18,7 @@ const ExtensionMissingDialog = ({ open, setOpen }) => {
         </DialogHeader>
         <div>
           <img
-            src={`${THEBRBRE_ADDONS_ADMIN.plugin_url}public/images/pro-dialog.png`}
+            src={`${BRICKSFLY_ADDONS_ADMIN.plugin_url}public/images/pro-dialog.png`}
             className="w-full h-[174px]"
             alt="pro dialog"
           />
@@ -28,7 +28,7 @@ const ExtensionMissingDialog = ({ open, setOpen }) => {
             </h2>
 
             <a
-              href={`${THEBRBRE_ADDONS_ADMIN.adminURL}/admin.php?page=thebrbre_addons_settings&tab=integrations`}
+              href={`${BRICKSFLY_ADDONS_ADMIN.adminURL}/admin.php?page=bricksfly_addons_settings&tab=integrations`}
               className={cn(
                 buttonVariants({ variant: "pro" }),
                 "w-full mt-6 no-underline",

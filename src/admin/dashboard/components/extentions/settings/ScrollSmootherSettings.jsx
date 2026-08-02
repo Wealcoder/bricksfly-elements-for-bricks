@@ -77,7 +77,7 @@ const ScrollSmootherSettings = () => {
   // localized payload; the helper guarantees a populated, label/icon-equipped
   // list, so we don't duplicate a parallel fallback here.
   const breakpoints = useMemo(() => {
-    const bp = THEBRBRE_ADDONS_ADMIN?.breakpoints;
+    const bp = BRICKSFLY_ADDONS_ADMIN?.breakpoints;
     return Array.isArray(bp) ? bp : [];
   }, []);
 
@@ -92,7 +92,7 @@ const ScrollSmootherSettings = () => {
   );
 
   const initialValues = useMemo(() => {
-    const persisted = THEBRBRE_ADDONS_ADMIN?.smoothScroller || {};
+    const persisted = BRICKSFLY_ADDONS_ADMIN?.smoothScroller || {};
     return breakpoints.reduce((acc, bp) => {
       acc[bp.key] = { ...defaultValues[bp.key], ...(persisted[bp.key] || {}) };
       return acc;
@@ -119,9 +119,9 @@ const ScrollSmootherSettings = () => {
     // console.log(formData);
     // return null;
 
-    if (!THEBRBRE_ADDONS_ADMIN.nonce || !THEBRBRE_ADDONS_ADMIN.ajaxurl) return null;
+    if (!BRICKSFLY_ADDONS_ADMIN.nonce || !BRICKSFLY_ADDONS_ADMIN.ajaxurl) return null;
 
-    await fetch(`${THEBRBRE_ADDONS_ADMIN.ajaxurl}`, {
+    await fetch(`${BRICKSFLY_ADDONS_ADMIN.ajaxurl}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -129,16 +129,16 @@ const ScrollSmootherSettings = () => {
       },
       credentials: "same-origin",
       body: new URLSearchParams({
-        action: "thebrbre_save_smooth_scroller_settings",
+        action: "bricksfly_save_smooth_scroller_settings",
         smooth: JSON.stringify(formData),
-        nonce: THEBRBRE_ADDONS_ADMIN.nonce,
+        nonce: BRICKSFLY_ADDONS_ADMIN.nonce,
       }),
     })
       .then((response) => {
         return response.json();
       })
       .then((return_content) => {
-        THEBRBRE_ADDONS_ADMIN.smoothScroller = JSON.parse(return_content);
+        BRICKSFLY_ADDONS_ADMIN.smoothScroller = JSON.parse(return_content);
         if (dialogCloseRef.current) {
           dialogCloseRef.current.click();
         }
@@ -158,8 +158,8 @@ const ScrollSmootherSettings = () => {
     <div className="py-4 px-6 pb-7">
       <div className="flex items-center gap-2 mt-2">
         <img
-          // src={`${THEBRBRE_ADDONS_ADMIN.root_url}public/images/extensions/scroll_smother.png`}
-          src={`${THEBRBRE_ADDONS_ADMIN.plugin_url}public/images/extensions/scroll_smother.png`}
+          // src={`${BRICKSFLY_ADDONS_ADMIN.root_url}public/images/extensions/scroll_smother.png`}
+          src={`${BRICKSFLY_ADDONS_ADMIN.plugin_url}public/images/extensions/scroll_smother.png`}
           alt="logo"
           className="w-[65px] h-[65px]"
         />

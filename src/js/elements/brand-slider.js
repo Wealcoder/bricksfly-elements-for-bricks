@@ -170,5 +170,5 @@ import "../../scss/elements/brand-slider.scss";
     initAll();
   }
 
-  window.thebrbreBrandSlider = initAll;
+  window.bricksflyBrandSlider = initAll;
 })();

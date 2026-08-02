@@ -33,14 +33,14 @@ const CompleteImport = () => {
         </div>
         <div className="mb-6">
           <img
-            src={`${THEBRBRE_ADDONS_ADMIN.plugin_url}public/images/complete-bg.png`}
+            src={`${BRICKSFLY_ADDONS_ADMIN.plugin_url}public/images/complete-bg.png`}
             className="w-[616px] h-[258px]"
             alt="demo importing"
           />
         </div>
         <div className="flex flex-col gap-1.5">
           <a
-            href={THEBRBRE_ADDONS_ADMIN?.home_url ?? "#"}
+            href={BRICKSFLY_ADDONS_ADMIN?.home_url ?? "#"}
             className={cn(buttonVariants(), "w-full h-11")}
           >
             Visit your website

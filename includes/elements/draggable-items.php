@@ -2,13 +2,13 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class THEBRBRE_Draggable_Items extends \Bricks\Element {
+class BRICKSFLY_Draggable_Items extends \Bricks\Element {
 
 	public $category     = 'bricks fly';
 	public $name         = 'aab-draggable-items';
 	public $icon         = 'ti-move aab-element-marker';
 	public $css_selector = '.drag--item';
-	public $scripts      = [ 'thebrbreDraggableItems' ];
+	public $scripts      = [ 'bricksflyDraggableItems' ];
 
 	public function get_label() {
 		return esc_html__('Draggable Items', 'bricksfly-elements-for-bricks');
@@ -23,14 +23,14 @@ class THEBRBRE_Draggable_Items extends \Bricks\Element {
 
 		wp_enqueue_style(
 			'aab-draggable-items',
-			THEBRBRE_URL . 'public/build/elements/draggable-items.css',
+			BRICKSFLY_URL . 'public/build/elements/draggable-items.css',
 			[],
 			'1.0.0'
 		);
 
 		wp_enqueue_script(
 			'aab-draggable-items',
-			THEBRBRE_URL . 'public/build/elements/draggable-items.js',
+			BRICKSFLY_URL . 'public/build/elements/draggable-items.js',
 			[ 'jquery', 'jquery-ui-draggable' ],
 			'1.0.0',
 			true

@@ -24,12 +24,12 @@ const CustomFontSettings = () => {
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      load_in_head: THEBRBRE_ADDONS_ADMIN?.cf_settings?.load_in_head ?? false,
+      load_in_head: BRICKSFLY_ADDONS_ADMIN?.cf_settings?.load_in_head ?? false,
     },
   });
 
   async function onSubmit(data) {
-    await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
+    await fetch(BRICKSFLY_ADDONS_ADMIN.ajaxurl, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -37,9 +37,9 @@ const CustomFontSettings = () => {
       },
 
       body: new URLSearchParams({
-        action: "thebrbre_save_custom_font_settings",
+        action: "bricksfly_save_custom_font_settings",
         settings: JSON.stringify( data ),
-        nonce: THEBRBRE_ADDONS_ADMIN.nonce,
+        nonce: BRICKSFLY_ADDONS_ADMIN.nonce,
       }),
     })
       .then((response) => {
@@ -47,7 +47,7 @@ const CustomFontSettings = () => {
       })
       .then((return_content) => {
      
-        THEBRBRE_ADDONS_ADMIN.cf_settings = JSON.parse( return_content );
+        BRICKSFLY_ADDONS_ADMIN.cf_settings = JSON.parse( return_content );
         if (dialogCloseRef.current) {
           dialogCloseRef.current.click();
         }

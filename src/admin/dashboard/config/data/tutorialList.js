@@ -1,4 +1,4 @@
-const img = (name) => `${THEBRBRE_ADDONS_ADMIN.plugin_url}public/images/tutorials/${name}`;
+const img = (name) => `${BRICKSFLY_ADDONS_ADMIN.plugin_url}public/images/tutorials/${name}`;
 
 export const TutorialList = [
   {

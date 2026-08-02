@@ -2,14 +2,14 @@
 
 if (! defined('ABSPATH')) exit;
 
-class THEBRBRE_Bricks_Progressbar extends \Bricks\Element
+class BRICKSFLY_Bricks_Progressbar extends \Bricks\Element
 {
 
 	public $category     = 'bricks fly';
 	public $name         = 'aab-progressbar';
 	public $icon         = 'ti-stats-up aab-element-marker';
 	public $css_selector = '.aab-progressbar';
-	public $scripts      = ['thebrbreProgressbar'];
+	public $scripts      = ['bricksflyProgressbar'];
 
 	public function get_label()
 	{
@@ -25,24 +25,24 @@ class THEBRBRE_Bricks_Progressbar extends \Bricks\Element
 	{
 		wp_enqueue_style(
 			'aab-progressbar',
-			THEBRBRE_URL . 'public/build/elements/progressbar.css',
+			BRICKSFLY_URL . 'public/build/elements/progressbar.css',
 			[],
-			THEBRBRE_VERSION
+			BRICKSFLY_VERSION
 		);
 
 		wp_enqueue_script(
 			'aab-progressbar-lib',
-			THEBRBRE_URL . 'public/js/lib/progressbar.min.js',
+			BRICKSFLY_URL . 'public/js/lib/progressbar.min.js',
 			[],
-			THEBRBRE_VERSION,
+			BRICKSFLY_VERSION,
 			true
 		);
 
 		wp_enqueue_script(
 			'aab-progressbar',
-			THEBRBRE_URL . 'public/build/elements/progressbar.js',
+			BRICKSFLY_URL . 'public/build/elements/progressbar.js',
 			['aab-progressbar-lib', 'bricks-scripts'],
-			THEBRBRE_VERSION,
+			BRICKSFLY_VERSION,
 			true
 		);
 	}

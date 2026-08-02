@@ -8,7 +8,7 @@ import "../../scss/elements/video-popup.scss";
  * markup is treated as a template: the first one we see gets promoted to
  * <body>, duplicates from other instances are discarded.
  *
- * Exposes window.thebrbreVideoPopup(rootEl) for use by video-box.js (and any
+ * Exposes window.bricksflyVideoPopup(rootEl) for use by video-box.js (and any
  * other element that emits the same markup pattern).
  */
 (function () {
@@ -132,5 +132,5 @@ import "../../scss/elements/video-popup.scss";
 
 	// Called by video-box.js (and the Bricks $scripts re-init path) with the
 	// host element for each instance.
-	window.thebrbreVideoPopup = initRoot;
+	window.bricksflyVideoPopup = initRoot;
 })();

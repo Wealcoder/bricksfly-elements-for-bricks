@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 
 
-class THEBRBRE_Loader {
+class BRICKSFLY_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.

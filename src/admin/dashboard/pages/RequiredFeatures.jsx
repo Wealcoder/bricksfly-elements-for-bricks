@@ -20,8 +20,8 @@ const RequiredFeatures = () => {
   const [enableExtensions, setEnableExtensions] = useState(true);
   const [loading, setIsLoading] = useState(true);
 
-  const widgetCounts = countSlugs(THEBRBRE_ADDONS_ADMIN?.addons_config?.widgets);
-  const extensionCounts = countSlugs(THEBRBRE_ADDONS_ADMIN?.addons_config?.extensions);
+  const widgetCounts = countSlugs(BRICKSFLY_ADDONS_ADMIN?.addons_config?.widgets);
+  const extensionCounts = countSlugs(BRICKSFLY_ADDONS_ADMIN?.addons_config?.extensions);
 
   const url = new URL(window.location.href);
   const templateid = url.searchParams.get("templateid");
@@ -54,7 +54,7 @@ const RequiredFeatures = () => {
   const getTemplateData = async (id) => {
     try {
       const url = new URL(
-        `${THEBRBRE_ADDONS_ADMIN?.st_template_domain}wp-json/wp/v2/brk-templates`
+        `${BRICKSFLY_ADDONS_ADMIN?.st_template_domain}wp-json/wp/v2/brk-templates`
       );
 
       if (id) {
@@ -86,7 +86,7 @@ const RequiredFeatures = () => {
 
   const validateData = async (mainContent) => {
     try {
-      await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
+      await fetch(BRICKSFLY_ADDONS_ADMIN.ajaxurl, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
@@ -94,8 +94,8 @@ const RequiredFeatures = () => {
         },
 
         body: new URLSearchParams({
-          action: "thebrbre_template_dependency_status",
-          nonce: THEBRBRE_ADDONS_ADMIN.nonce,
+          action: "bricksfly_template_dependency_status",
+          nonce: BRICKSFLY_ADDONS_ADMIN.nonce,
           dependencies: JSON.stringify(mainContent?.dependencies),
         }),
       })

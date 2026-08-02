@@ -12,7 +12,7 @@ import { RiCheckboxCircleFill, RiErrorWarningFill } from "react-icons/ri";
  */
 const LicenseStatusBadge = () => {
   const config =
-    (typeof THEBRBRE_ADDONS_ADMIN !== "undefined" && THEBRBRE_ADDONS_ADMIN.addons_config) ||
+    (typeof BRICKSFLY_ADDONS_ADMIN !== "undefined" && BRICKSFLY_ADDONS_ADMIN.addons_config) ||
     {};
   const isActive = config?.product_status?.item_id === 39996;
 

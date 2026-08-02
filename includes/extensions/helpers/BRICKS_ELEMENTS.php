@@ -4,7 +4,7 @@ namespace wealcoder\thebricksfly\Includes\Extensions\Helpers;
 
 defined('ABSPATH') || exit;
 
-define('THEBRBRE_BRICKS_ELEMENTS', [
+define('BRICKSFLY_BRICKS_ELEMENTS', [
   'section',
   'container',
   'block',

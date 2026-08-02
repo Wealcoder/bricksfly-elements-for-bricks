@@ -2,14 +2,14 @@
 
 if (! defined('ABSPATH')) exit;
 
-class THEBRBRE_Bricks_Counter extends \Bricks\Element
+class BRICKSFLY_Bricks_Counter extends \Bricks\Element
 {
 
 	public $category     = 'bricks fly';
 	public $name         = 'aab-counter';
 	public $icon         = 'ti-timer aab-element-marker';
 	public $css_selector = '.aab-counter';
-	public $scripts      = ['thebrbreCounter'];
+	public $scripts      = ['bricksflyCounter'];
 
 	public function get_label()
 	{
@@ -25,14 +25,14 @@ class THEBRBRE_Bricks_Counter extends \Bricks\Element
 	{
 		wp_enqueue_style(
 			'aab-counter',
-			THEBRBRE_URL . 'public/build/elements/counter.css',
+			BRICKSFLY_URL . 'public/build/elements/counter.css',
 			[],
 			'1.0.0'
 		);
 
 		wp_enqueue_script(
 			'aab-counter',
-			THEBRBRE_URL . 'public/build/elements/counter.js',
+			BRICKSFLY_URL . 'public/build/elements/counter.js',
 			['bricks-scripts'],
 			'1.0.0',
 			true

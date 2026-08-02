@@ -6,12 +6,12 @@
 // Every "initial hidden state" rule is wrapped in one of these two guards:
 //
 //  @include when-hidden  →  applies on FRONTEND only, once JS has run
-//                           (.thebrbre-preinit is added by initStarterAnimations)
+//                           (.bricksfly-preinit is added by initStarterAnimations)
 //                           OR in BUILDER during PLAY preview
-//                           (.thebrbre-playing is added by the message handler)
+//                           (.bricksfly-playing is added by the message handler)
 //
 //  @include when-playing →  applies in BUILDER only, during PLAY preview
-//                           (.thebrbre-playing is added by the message handler)
+//                           (.bricksfly-playing is added by the message handler)
 //
 // Nothing is hidden until one of these conditions is true, so elements
 // in the Bricks builder are always fully visible unless the user clicks
@@ -19,16 +19,16 @@
 // =====================================================================
 
 @mixin when-hidden {
-  .thebrbre-preinit &,
-  .thebrbre-playing & {
+  .bricksfly-preinit &,
+  .bricksfly-playing & {
     @content;
   }
 }
 
 // For rules where the element IS the root (aab-target-self / containers)
 @mixin when-hidden-self {
-  &.thebrbre-preinit,
-  &.thebrbre-playing {
+  &.bricksfly-preinit,
+  &.bricksfly-playing {
     @content;
   }
 }
@@ -36,7 +36,7 @@
 // =====================================================================
 //   COMMON ANIMATION SETTINGS
 // =====================================================================
-.thebrbre-animate[class*="aab-starter-animations-"] {
+.bricksfly-animate[class*="aab-starter-animations-"] {
   .elementor-widget-container > *,
   > * {
     animation-duration: var(--aab-duration, 700ms);
@@ -45,7 +45,7 @@
     animation-fill-mode: forwards;
   }
 
-  &.thebrbre-target-self {
+  &.bricksfly-target-self {
     animation-duration: var(--aab-duration, 700ms);
     animation-delay: var(--aab-delay, 0ms);
     animation-timing-function: var(--aab-ease, ease);
@@ -58,73 +58,73 @@
 // =====================================================================
 
 // --- Initial hidden state (guarded) ---
-.thebrbre-starter-animations-reveal {
+.bricksfly-starter-animations-reveal {
   .elementor-widget-container > *,
   > * {
     @include when-hidden { opacity: 0; }
   }
-  &.thebrbre-target-self {
+  &.bricksfly-target-self {
     @include when-hidden-self { opacity: 0; }
   }
 }
 
 // Bottom
-.thebrbre-reveal-bottom.thebrbre-starter-animations-reveal {
+.bricksfly-reveal-bottom.bricksfly-starter-animations-reveal {
   .elementor-widget-container > *,
   > * {
     @include when-hidden { clip-path: inset(100% 0 0 0); }
   }
-  &.thebrbre-target-self {
+  &.bricksfly-target-self {
     @include when-hidden-self { clip-path: inset(100% 0 0 0); }
   }
 }
 
 // Top
-.thebrbre-reveal-top.thebrbre-starter-animations-reveal {
+.bricksfly-reveal-top.bricksfly-starter-animations-reveal {
   .elementor-widget-container > *,
   > * {
     @include when-hidden { clip-path: inset(0 0 100% 0); }
   }
-  &.thebrbre-target-self {
+  &.bricksfly-target-self {
     @include when-hidden-self { clip-path: inset(0 0 100% 0); }
   }
 }
 
 // Left
-.thebrbre-reveal-left.thebrbre-starter-animations-reveal {
+.bricksfly-reveal-left.bricksfly-starter-animations-reveal {
   .elementor-widget-container > *,
   > * {
     @include when-hidden { clip-path: inset(0 100% 0 0); }
   }
-  &.thebrbre-target-self {
+  &.bricksfly-target-self {
     @include when-hidden-self { clip-path: inset(0 100% 0 0); }
   }
 }
 
 // Right
-.thebrbre-reveal-right.thebrbre-starter-animations-reveal {
+.bricksfly-reveal-right.bricksfly-starter-animations-reveal {
   .elementor-widget-container > *,
   > * {
     @include when-hidden { clip-path: inset(0 0 0 100%); }
   }
-  &.thebrbre-target-self {
+  &.bricksfly-target-self {
     @include when-hidden-self { clip-path: inset(0 0 0 100%); }
   }
 }
 
 // Center
-.thebrbre-reveal-center.thebrbre-starter-animations-reveal {
+.bricksfly-reveal-center.bricksfly-starter-animations-reveal {
   .elementor-widget-container > *,
   > * {
     @include when-hidden { clip-path: inset(0 50% 0 50%); }
   }
-  &.thebrbre-target-self {
+  &.bricksfly-target-self {
     @include when-hidden-self { clip-path: inset(0 50% 0 50%); }
   }
 }
 
 // --- Animate ---
-.thebrbre-animate.thebrbre-starter-animations-reveal {
+.bricksfly-animate.bricksfly-starter-animations-reveal {
   .elementor-widget-container > *,
   > * {
     animation-name: aab-reveal-anim;
@@ -134,7 +134,7 @@
     animation-fill-mode: forwards;
     animation-iteration-count: 1;
   }
-  &.thebrbre-target-self {
+  &.bricksfly-target-self {
     animation-name: aab-reveal-anim;
     animation-duration: var(--aab-duration, 700ms);
     animation-delay: var(--aab-delay, 0ms);
@@ -156,7 +156,7 @@
 // =====================================================================
 
 // --- Scale Up ---
-.thebrbre-starter-animations-scale-up {
+.bricksfly-starter-animations-scale-up {
   .elementor-widget-container > *,
   > * {
     @include when-hidden {
@@ -165,7 +165,7 @@
       transform-origin: var(--aab-scale-origin, center);
     }
   }
-  &.thebrbre-target-self {
+  &.bricksfly-target-self {
     @include when-hidden-self {
       transform: scale(var(--aab-scale-start, 0.6));
       opacity: var(--aab-scale-opacity, 0);
@@ -174,8 +174,8 @@
   }
 }
 
-.thebrbre-animate.thebrbre-starter-animations-scale-up {
-  .elementor-widget-container > *, > *, &.thebrbre-target-self {
+.bricksfly-animate.bricksfly-starter-animations-scale-up {
+  .elementor-widget-container > *, > *, &.bricksfly-target-self {
     animation-name: aab-scale-up;
   }
 }
@@ -188,18 +188,18 @@
 }
 
 // --- Rotate In ---
-.thebrbre-starter-animations-rotate-in {
+.bricksfly-starter-animations-rotate-in {
   .elementor-widget-container > *,
   > * {
     @include when-hidden { transform: rotate(-45deg); opacity: 0; }
   }
-  &.thebrbre-target-self {
+  &.bricksfly-target-self {
     @include when-hidden-self { transform: rotate(-45deg); opacity: 0; }
   }
 }
 
-.thebrbre-animate.thebrbre-starter-animations-rotate-in {
-  .elementor-widget-container > *, > *, &.thebrbre-target-self {
+.bricksfly-animate.bricksfly-starter-animations-rotate-in {
+  .elementor-widget-container > *, > *, &.bricksfly-target-self {
     animation-name: aab-rotate-in;
   }
 }
@@ -211,67 +211,67 @@
 // --- Slide ---
 
 // Base hidden state (opacity only — transform is direction-specific)
-.thebrbre-starter-animations-slide {
+.bricksfly-starter-animations-slide {
   .elementor-widget-container > *,
   > * {
     @include when-hidden { opacity: 0; }
   }
-  &.thebrbre-target-self {
+  &.bricksfly-target-self {
     @include when-hidden-self { opacity: 0; }
   }
 }
 
 // Bottom → Top
-.thebrbre-slide-bottom.thebrbre-starter-animations-slide {
+.bricksfly-slide-bottom.bricksfly-starter-animations-slide {
   .elementor-widget-container > *,
   > * {
     @include when-hidden { transform: translateY(var(--aab-slide-distance, 60px)); }
   }
-  &.thebrbre-target-self {
+  &.bricksfly-target-self {
     @include when-hidden-self { transform: translateY(var(--aab-slide-distance, 60px)); }
   }
 }
 
 // Top → Bottom
-.thebrbre-slide-top.thebrbre-starter-animations-slide {
+.bricksfly-slide-top.bricksfly-starter-animations-slide {
   .elementor-widget-container > *,
   > * {
     @include when-hidden { transform: translateY(calc(var(--aab-slide-distance, 60px) * -1)); }
   }
-  &.thebrbre-target-self {
+  &.bricksfly-target-self {
     @include when-hidden-self { transform: translateY(calc(var(--aab-slide-distance, 60px) * -1)); }
   }
 }
 
 // Left → Right
-.thebrbre-slide-left.thebrbre-starter-animations-slide {
+.bricksfly-slide-left.bricksfly-starter-animations-slide {
   .elementor-widget-container > *,
   > * {
     @include when-hidden { transform: translateX(calc(var(--aab-slide-distance, 60px) * -1)); }
   }
-  &.thebrbre-target-self {
+  &.bricksfly-target-self {
     @include when-hidden-self { transform: translateX(calc(var(--aab-slide-distance, 60px) * -1)); }
   }
 }
 
 // Right → Left
-.thebrbre-slide-right.thebrbre-starter-animations-slide {
+.bricksfly-slide-right.bricksfly-starter-animations-slide {
   .elementor-widget-container > *,
   > * {
     @include when-hidden { transform: translateX(var(--aab-slide-distance, 60px)); }
   }
-  &.thebrbre-target-self {
+  &.bricksfly-target-self {
     @include when-hidden-self { transform: translateX(var(--aab-slide-distance, 60px)); }
   }
 }
 
 // Animate
-.thebrbre-animate.thebrbre-starter-animations-slide {
+.bricksfly-animate.bricksfly-starter-animations-slide {
   .elementor-widget-container > *,
   > * {
     animation: aab-slide var(--aab-duration, 700ms) var(--aab-ease, ease) forwards;
   }
-  &.thebrbre-target-self {
+  &.bricksfly-target-self {
     animation: aab-slide var(--aab-duration, 700ms) var(--aab-ease, ease) forwards;
   }
 }
@@ -283,7 +283,7 @@
 // =========================================
 //   Skew Reveal
 // =========================================
-.thebrbre-starter-animations-skew-reveal {
+.bricksfly-starter-animations-skew-reveal {
   .elementor-widget-container > *,
   > * {
     @include when-hidden {
@@ -296,7 +296,7 @@
       will-change: transform, opacity;
     }
   }
-  &.thebrbre-target-self {
+  &.bricksfly-target-self {
     @include when-hidden-self {
       transform: skewX(var(--aab-skew-angle, 18deg)) translateX(var(--aab-skew-distance, -40px));
       opacity: var(--aab-skew-opacity-start, 0);
@@ -309,8 +309,8 @@
   }
 }
 
-.thebrbre-animate.thebrbre-starter-animations-skew-reveal {
-  .elementor-widget-container > *, > *, &.thebrbre-target-self {
+.bricksfly-animate.bricksfly-starter-animations-skew-reveal {
+  .elementor-widget-container > *, > *, &.bricksfly-target-self {
     animation-name: aab-skew-reveal;
   }
 }
@@ -322,7 +322,7 @@
 // =========================================
 //   Flip
 // =========================================
-.thebrbre-starter-animations-flip {
+.bricksfly-starter-animations-flip {
   .elementor-widget-container > *,
   > * {
     @include when-hidden {
@@ -336,7 +336,7 @@
       will-change: transform, opacity;
     }
   }
-  &.thebrbre-target-self {
+  &.bricksfly-target-self {
     @include when-hidden-self {
       opacity: 0;
       transform-style: preserve-3d;
@@ -351,29 +351,29 @@
 }
 
 // X Axis
-.thebrbre-flip-axis-x.thebrbre-starter-animations-flip {
+.bricksfly-flip-axis-x.bricksfly-starter-animations-flip {
   .elementor-widget-container > *,
   > * {
     @include when-hidden { transform: rotateX(var(--aab-flip-angle, 90deg)); }
   }
-  &.thebrbre-target-self {
+  &.bricksfly-target-self {
     @include when-hidden-self { transform: rotateX(var(--aab-flip-angle, 90deg)); }
   }
 }
 
 // Y Axis
-.thebrbre-flip-axis-y.thebrbre-starter-animations-flip {
+.bricksfly-flip-axis-y.bricksfly-starter-animations-flip {
   .elementor-widget-container > *,
   > * {
     @include when-hidden { transform: rotateY(var(--aab-flip-angle, 90deg)); }
   }
-  &.thebrbre-target-self {
+  &.bricksfly-target-self {
     @include when-hidden-self { transform: rotateY(var(--aab-flip-angle, 90deg)); }
   }
 }
 
-.thebrbre-animate.thebrbre-starter-animations-flip {
-  .elementor-widget-container > *, > *, &.thebrbre-target-self {
+.bricksfly-animate.bricksfly-starter-animations-flip {
+  .elementor-widget-container > *, > *, &.bricksfly-target-self {
     animation-name: aab-flip;
   }
 }
@@ -383,18 +383,18 @@
 }
 
 // --- Zoom In ---
-.thebrbre-starter-animations-zoom-in {
+.bricksfly-starter-animations-zoom-in {
   .elementor-widget-container > *,
   > * {
     @include when-hidden { transform: scale(1.3); opacity: 0; }
   }
-  &.thebrbre-target-self {
+  &.bricksfly-target-self {
     @include when-hidden-self { transform: scale(1.3); opacity: 0; }
   }
 }
 
-.thebrbre-animate.thebrbre-starter-animations-zoom-in {
-  .elementor-widget-container > *, > *, &.thebrbre-target-self {
+.bricksfly-animate.bricksfly-starter-animations-zoom-in {
+  .elementor-widget-container > *, > *, &.bricksfly-target-self {
     animation-name: aab-zoom-in;
   }
 }
@@ -404,18 +404,18 @@
 }
 
 // --- Combo Reveal ---
-.thebrbre-starter-animations-combo-reveal {
+.bricksfly-starter-animations-combo-reveal {
   .elementor-widget-container > *,
   > * {
     @include when-hidden { transform: translateY(40px) scale(0.9); opacity: 0; }
   }
-  &.thebrbre-target-self {
+  &.bricksfly-target-self {
     @include when-hidden-self { transform: translateY(40px) scale(0.9); opacity: 0; }
   }
 }
 
-.thebrbre-animate.thebrbre-starter-animations-combo-reveal {
-  .elementor-widget-container > *, > *, &.thebrbre-target-self {
+.bricksfly-animate.bricksfly-starter-animations-combo-reveal {
+  .elementor-widget-container > *, > *, &.bricksfly-target-self {
     animation-name: aab-combo-reveal;
   }
 }
@@ -431,7 +431,7 @@
 // --- Glow Pulse ---
 // Glow has no hidden state — it's a repeating animation so it starts
 // from its natural visible state.
-.thebrbre-animate.thebrbre-starter-animations-text-glow {
+.bricksfly-animate.bricksfly-starter-animations-text-glow {
   animation: aab-glow var(--aab-duration, 2s) var(--aab-ease, ease-in-out) alternate;
   animation-iteration-count: var(--aab-iteration, infinite);
 }
@@ -442,11 +442,11 @@
 }
 
 // --- Pop Scale ---
-.thebrbre-starter-animations-text-pop {
+.bricksfly-starter-animations-text-pop {
   @include when-hidden-self { transform: scale(0.6); opacity: 0; }
 }
 
-.thebrbre-animate.thebrbre-starter-animations-text-pop {
+.bricksfly-animate.bricksfly-starter-animations-text-pop {
   animation: aab-text-pop 0.6s ease forwards;
 }
 
@@ -458,19 +458,19 @@
 // =====================================================================
 //   Typewriter
 // =====================================================================
-.thebrbre-starter-animations-text-typewriter,
-.thebrbre-target-self.thebrbre-starter-animations-text-typewriter {
+.bricksfly-starter-animations-text-typewriter,
+.bricksfly-target-self.bricksfly-starter-animations-text-typewriter {
   display: inline-block;
   max-width: 100%;
   vertical-align: top;
 }
 
-.brxe-text.thebrbre-target-self.thebrbre-starter-animations-text-typewriter > * {
+.brxe-text.bricksfly-target-self.bricksfly-starter-animations-text-typewriter > * {
   display: inline;
   margin-block: 0;
 }
 
-.thebrbre-starter-animations-text-typewriter::after {
+.bricksfly-starter-animations-text-typewriter::after {
   content: "|";
   display: inline-block;
   margin-left: 1px;
@@ -485,10 +485,10 @@
 // =====================================================================
 //   Cinematic Mask Wipe
 // =====================================================================
-.thebrbre-starter-animations-text-mask-wipe {
+.bricksfly-starter-animations-text-mask-wipe {
   .elementor-widget-container > *,
   > *,
-  &.thebrbre-target-self {
+  &.bricksfly-target-self {
     position: relative;
     display: inline-block;
     overflow: hidden;
@@ -496,7 +496,7 @@
 }
 
 // Mask layer — only show the covering pseudo-element when about to animate
-.thebrbre-starter-animations-text-mask-wipe {
+.bricksfly-starter-animations-text-mask-wipe {
   .elementor-widget-container > *::after,
   > *::after {
     content: none; // hidden by default
@@ -509,7 +509,7 @@
       z-index: 2;
     }
   }
-  &.thebrbre-target-self::after {
+  &.bricksfly-target-self::after {
     content: none;
     @include when-hidden-self {
       content: "";
@@ -523,10 +523,10 @@
 }
 
 // Animate
-.thebrbre-animate.thebrbre-starter-animations-text-mask-wipe {
+.bricksfly-animate.bricksfly-starter-animations-text-mask-wipe {
   .elementor-widget-container > *::after,
   > *::after,
-  &.thebrbre-target-self::after {
+  &.bricksfly-target-self::after {
     animation: aab-mask-wipe var(--aab-duration, 1000ms) var(--aab-ease, cubic-bezier(0.77, 0, 0.18, 1)) var(--aab-delay, 0ms) forwards;
   }
 }
@@ -538,10 +538,10 @@
 // =====================================================================
 //   TEXT WAVE
 // =====================================================================
-.thebrbre-starter-animations-text-wave {
+.bricksfly-starter-animations-text-wave {
   .elementor-widget-container > *,
   > *,
-  &.thebrbre-target-self {
+  &.bricksfly-target-self {
     position: relative;
   }
 
@@ -549,7 +549,7 @@
   // Keep it unconditional so the effect is always ready, but don't hide.
   .elementor-widget-container > *::after,
   > *::after,
-  &.thebrbre-target-self::after {
+  &.bricksfly-target-self::after {
     content: attr(data-text);
     position: absolute;
     left: 0;
@@ -559,16 +559,16 @@
 }
 
 // Wave triggers on animate (text color becomes transparent to show wave)
-.thebrbre-animate.thebrbre-starter-animations-text-wave {
+.bricksfly-animate.bricksfly-starter-animations-text-wave {
   .elementor-widget-container > *,
   > *,
-  &.thebrbre-target-self {
+  &.bricksfly-target-self {
     color: transparent;
   }
 
   .elementor-widget-container > *::after,
   > *::after,
-  &.thebrbre-target-self::after {
+  &.bricksfly-target-self::after {
     animation: aab-wave 4s ease-in-out infinite;
   }
 }
@@ -585,10 +585,10 @@
 // =====================================================================
 //   BACKGROUND CLIP TEXT ANIMATION
 // =====================================================================
-.thebrbre-starter-animations-text-bg-clip {
+.bricksfly-starter-animations-text-bg-clip {
   .elementor-widget-container > *,
   > *,
-  &.thebrbre-target-self {
+  &.bricksfly-target-self {
     position: relative;
     color: var(--aab-bg-text-color, rgba(255, 0, 0, 0.1));
     background-image: var(--aab-bg-text-image);
@@ -601,10 +601,10 @@
 }
 
 // Only animate on trigger
-.thebrbre-animate.thebrbre-starter-animations-text-bg-clip {
+.bricksfly-animate.bricksfly-starter-animations-text-bg-clip {
   .elementor-widget-container > *,
   > *,
-  &.thebrbre-target-self {
+  &.bricksfly-target-self {
     animation: aab-bg-text-animation var(--aab-bg-speed, 15s) linear infinite;
   }
 }
@@ -620,18 +620,18 @@
 // =====================================================================
 
 // Preset default CSS variables
-.thebrbre-char-preset-revolve      { --aab-char-x: -150px; --aab-char-y: -50px;   --aab-char-rotate: -180deg;  --aab-char-scale: 2;   }
-.thebrbre-char-preset-ball         { --aab-char-x:    0px; --aab-char-y: -200px;  --aab-char-rotate:    0deg;  --aab-char-scale: 1;   }
-.thebrbre-char-preset-slide        { --aab-char-x: -100px; --aab-char-y:    0px;  --aab-char-rotate:    0deg;  --aab-char-scale: 1;   }
-.thebrbre-char-preset-revolve_drop { --aab-char-x:    0px; --aab-char-y: -150px;  --aab-char-rotate: -360deg;  --aab-char-scale: 1.5; }
-.thebrbre-char-preset-drop_vanish  { --aab-char-x:    0px; --aab-char-y: -250px;  --aab-char-rotate:    0deg;  --aab-char-scale: 0.3; }
-.thebrbre-char-preset-twister      { --aab-char-x:    0px; --aab-char-y:    0px;  --aab-char-rotate: -720deg;  --aab-char-scale: 1;   }
+.bricksfly-char-preset-revolve      { --aab-char-x: -150px; --aab-char-y: -50px;   --aab-char-rotate: -180deg;  --aab-char-scale: 2;   }
+.bricksfly-char-preset-ball         { --aab-char-x:    0px; --aab-char-y: -200px;  --aab-char-rotate:    0deg;  --aab-char-scale: 1;   }
+.bricksfly-char-preset-slide        { --aab-char-x: -100px; --aab-char-y:    0px;  --aab-char-rotate:    0deg;  --aab-char-scale: 1;   }
+.bricksfly-char-preset-revolve_drop { --aab-char-x:    0px; --aab-char-y: -150px;  --aab-char-rotate: -360deg;  --aab-char-scale: 1.5; }
+.bricksfly-char-preset-drop_vanish  { --aab-char-x:    0px; --aab-char-y: -250px;  --aab-char-rotate:    0deg;  --aab-char-scale: 0.3; }
+.bricksfly-char-preset-twister      { --aab-char-x:    0px; --aab-char-y:    0px;  --aab-char-rotate: -720deg;  --aab-char-scale: 1;   }
 
 // Parent container
 [class*="aab-starter-animations-text-char"] {
   .elementor-widget-container > *,
   > *,
-  &.thebrbre-target-self {
+  &.bricksfly-target-self {
     display: inline-block;
   }
 }
@@ -648,7 +648,7 @@
       will-change: transform, opacity;
     }
   }
-  &.thebrbre-target-self span {
+  &.bricksfly-target-self span {
     display: inline-block;
     @include when-hidden-self {
       opacity: 0;
@@ -660,10 +660,10 @@
 }
 
 // Animate state for spans
-.thebrbre-animate[class*="aab-starter-animations-text-char"] {
+.bricksfly-animate[class*="aab-starter-animations-text-char"] {
   .elementor-widget-container > * span,
   > * span,
-  &.thebrbre-target-self span {
+  &.bricksfly-target-self span {
     animation-name: aab-char;
     animation-duration: var(--aab-duration, 0.5s);
     animation-timing-function: var(--aab-ease, ease);
@@ -680,7 +680,7 @@
 // =====================================================================
 
 // Elementor .e-con variant
-.thebrbre-starter-animations-slide.e-con {
+.bricksfly-starter-animations-slide.e-con {
   @include when-hidden-self {
     opacity: 0;
     animation-duration: var(--aab-slide-duration, 600ms);
@@ -690,19 +690,19 @@
     will-change: transform, opacity;
   }
 }
-.thebrbre-slide-bottom.thebrbre-starter-animations-slide.e-con { @include when-hidden-self { transform: translateY(var(--aab-slide-distance, 40px)); } }
-.thebrbre-slide-top.thebrbre-starter-animations-slide.e-con    { @include when-hidden-self { transform: translateY(calc(-1 * var(--aab-slide-distance, 40px))); } }
-.thebrbre-slide-left.thebrbre-starter-animations-slide.e-con   { @include when-hidden-self { transform: translateX(calc(-1 * var(--aab-slide-distance, 40px))); } }
-.thebrbre-slide-right.thebrbre-starter-animations-slide.e-con  { @include when-hidden-self { transform: translateX(var(--aab-slide-distance, 40px)); } }
+.bricksfly-slide-bottom.bricksfly-starter-animations-slide.e-con { @include when-hidden-self { transform: translateY(var(--aab-slide-distance, 40px)); } }
+.bricksfly-slide-top.bricksfly-starter-animations-slide.e-con    { @include when-hidden-self { transform: translateY(calc(-1 * var(--aab-slide-distance, 40px))); } }
+.bricksfly-slide-left.bricksfly-starter-animations-slide.e-con   { @include when-hidden-self { transform: translateX(calc(-1 * var(--aab-slide-distance, 40px))); } }
+.bricksfly-slide-right.bricksfly-starter-animations-slide.e-con  { @include when-hidden-self { transform: translateX(var(--aab-slide-distance, 40px)); } }
 
-.thebrbre-animate.thebrbre-starter-animations-slide.e-con { animation-name: aab-container-slide; }
+.bricksfly-animate.bricksfly-starter-animations-slide.e-con { animation-name: aab-container-slide; }
 
 @keyframes aab-container-slide {
   to { transform: translateX(0) translateY(0); opacity: 1; }
 }
 
 // Container flip (Elementor)
-.thebrbre-starter-animations-flip.e-con {
+.bricksfly-starter-animations-flip.e-con {
   @include when-hidden-self {
     opacity: 0;
     transform-style: preserve-3d;
@@ -714,10 +714,10 @@
     will-change: transform, opacity;
   }
 }
-.thebrbre-flip-axis-container-x.thebrbre-starter-animations-flip.e-con { @include when-hidden-self { transform: rotateX(var(--aab-flip-angle-container, 90deg)); } }
-.thebrbre-flip-axis-container-y.thebrbre-starter-animations-flip.e-con { @include when-hidden-self { transform: rotateY(var(--aab-flip-angle-container, 90deg)); } }
+.bricksfly-flip-axis-container-x.bricksfly-starter-animations-flip.e-con { @include when-hidden-self { transform: rotateX(var(--aab-flip-angle-container, 90deg)); } }
+.bricksfly-flip-axis-container-y.bricksfly-starter-animations-flip.e-con { @include when-hidden-self { transform: rotateY(var(--aab-flip-angle-container, 90deg)); } }
 
-.thebrbre-animate.thebrbre-starter-animations-flip.e-con { animation-name: aab-container-flip; }
+.bricksfly-animate.bricksfly-starter-animations-flip.e-con { animation-name: aab-container-flip; }
 
 @keyframes aab-container-flip {
   to { transform: scaleX(1) scaleY(1); opacity: 1; }
@@ -728,13 +728,13 @@
 // =====================================================================
 
 // text-glow — bump specificity so shorthand wins on animation-fill-mode
-.thebrbre-animate.thebrbre-target-self.thebrbre-starter-animations-text-glow {
+.bricksfly-animate.bricksfly-target-self.bricksfly-starter-animations-text-glow {
   animation: aab-glow var(--aab-duration, 2s) var(--aab-ease, ease-in-out) alternate;
   animation-iteration-count: var(--aab-iteration, infinite);
   animation-fill-mode: none;
 }
 
-.thebrbre-target-self.thebrbre-starter-animations-text-bg-clip {
+.bricksfly-target-self.bricksfly-starter-animations-text-bg-clip {
   display: inline-block;
 }
 
@@ -751,7 +751,7 @@ $bricks-containers: (
 
 // ----- Slide -----
 @each $sel in $bricks-containers {
-  #{$sel}.thebrbre-starter-animations-slide {
+  #{$sel}.bricksfly-starter-animations-slide {
     @include when-hidden-self {
       opacity: 0;
       animation-duration: var(--aab-slide-duration, 600ms);
@@ -761,16 +761,16 @@ $bricks-containers: (
       will-change: transform, opacity;
     }
   }
-  #{$sel}.thebrbre-slide-bottom.thebrbre-starter-animations-slide { @include when-hidden-self { transform: translateY(var(--aab-slide-distance, 40px)); } }
-  #{$sel}.thebrbre-slide-top.thebrbre-starter-animations-slide    { @include when-hidden-self { transform: translateY(calc(-1 * var(--aab-slide-distance, 40px))); } }
-  #{$sel}.thebrbre-slide-left.thebrbre-starter-animations-slide   { @include when-hidden-self { transform: translateX(calc(-1 * var(--aab-slide-distance, 40px))); } }
-  #{$sel}.thebrbre-slide-right.thebrbre-starter-animations-slide  { @include when-hidden-self { transform: translateX(var(--aab-slide-distance, 40px)); } }
-  #{$sel}.thebrbre-animate.thebrbre-starter-animations-slide { animation-name: aab-container-slide; }
+  #{$sel}.bricksfly-slide-bottom.bricksfly-starter-animations-slide { @include when-hidden-self { transform: translateY(var(--aab-slide-distance, 40px)); } }
+  #{$sel}.bricksfly-slide-top.bricksfly-starter-animations-slide    { @include when-hidden-self { transform: translateY(calc(-1 * var(--aab-slide-distance, 40px))); } }
+  #{$sel}.bricksfly-slide-left.bricksfly-starter-animations-slide   { @include when-hidden-self { transform: translateX(calc(-1 * var(--aab-slide-distance, 40px))); } }
+  #{$sel}.bricksfly-slide-right.bricksfly-starter-animations-slide  { @include when-hidden-self { transform: translateX(var(--aab-slide-distance, 40px)); } }
+  #{$sel}.bricksfly-animate.bricksfly-starter-animations-slide { animation-name: aab-container-slide; }
 }
 
 // ----- Flip (per-child 2D scale) -----
 @each $sel in $bricks-containers {
-  #{$sel}.thebrbre-starter-animations-flip > *:not(.thebrbre-target-self) {
+  #{$sel}.bricksfly-starter-animations-flip > *:not(.bricksfly-target-self) {
     @include when-hidden {
       opacity: 0;
       transform-style: flat;
@@ -782,20 +782,20 @@ $bricks-containers: (
       will-change: transform, opacity;
     }
   }
-  #{$sel}.thebrbre-flip-axis-container-x.thebrbre-starter-animations-flip > *:not(.thebrbre-target-self) {
+  #{$sel}.bricksfly-flip-axis-container-x.bricksfly-starter-animations-flip > *:not(.bricksfly-target-self) {
     @include when-hidden { transform: scaleX(1) scaleY(0); }
   }
-  #{$sel}.thebrbre-flip-axis-container-y.thebrbre-starter-animations-flip > *:not(.thebrbre-target-self) {
+  #{$sel}.bricksfly-flip-axis-container-y.bricksfly-starter-animations-flip > *:not(.bricksfly-target-self) {
     @include when-hidden { transform: scaleX(0) scaleY(1); }
   }
-  #{$sel}.thebrbre-animate.thebrbre-starter-animations-flip > *:not(.thebrbre-target-self) {
+  #{$sel}.bricksfly-animate.bricksfly-starter-animations-flip > *:not(.bricksfly-target-self) {
     animation-name: aab-container-flip;
   }
 }
 
 // Reset children of slide containers so they don't double-animate
 @each $sel in $bricks-containers {
-  #{$sel}.thebrbre-starter-animations-slide > *:not(.thebrbre-target-self) {
+  #{$sel}.bricksfly-starter-animations-slide > *:not(.bricksfly-target-self) {
     transform: none;
     animation: none;
     opacity: 1;
@@ -805,7 +805,7 @@ $bricks-containers: (
 // =====================================================================
 //   Scrollable Select2 Dropdown (utility)
 // =====================================================================
-.thebrbre-select-scroll .select2-results__options {
+.bricksfly-select-scroll .select2-results__options {
   max-height: 150px !important;
   overflow-y: auto !important;
 }

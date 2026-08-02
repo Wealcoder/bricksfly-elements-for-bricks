@@ -2,7 +2,7 @@
 
 if (!defined('ABSPATH')) exit;
 
-class THEBRBRE_Bricks_Testimonial extends \Bricks\Element
+class BRICKSFLY_Bricks_Testimonial extends \Bricks\Element
 {
     public $category     = 'bricks fly';
     public $name         = 'aae-testimonial';
@@ -722,12 +722,12 @@ class THEBRBRE_Bricks_Testimonial extends \Bricks\Element
         wp_enqueue_style("bricks-font-awesome-6-brands");
 
         // Swiper CSS
-        $posts_slider_css = THEBRBRE_PATH . 'public/build/elements/posts-slider.css';
+        $posts_slider_css = BRICKSFLY_PATH . 'public/build/elements/posts-slider.css';
         wp_enqueue_style(
             'post-slider',
-            THEBRBRE_URL . 'public/build/elements/posts-slider.css',
+            BRICKSFLY_URL . 'public/build/elements/posts-slider.css',
             [],
-            file_exists($posts_slider_css) ? filemtime($posts_slider_css) : THEBRBRE_VERSION
+            file_exists($posts_slider_css) ? filemtime($posts_slider_css) : BRICKSFLY_VERSION
         );
 
         // Use the Swiper bundled with Bricks (registered by Bricks core as 'bricks-swiper').
@@ -736,21 +736,21 @@ class THEBRBRE_Bricks_Testimonial extends \Bricks\Element
 
         // Testimonial CSS — use filemtime() so cache busts on every edit
         // (hardcoded '1.0.0' caused stale browser cache to mask updates).
-        $testimonial_css = THEBRBRE_PATH . 'public/build/elements/testimonial.css';
+        $testimonial_css = BRICKSFLY_PATH . 'public/build/elements/testimonial.css';
         wp_enqueue_style(
             'aae-testimonial',
-            THEBRBRE_URL . 'public/build/elements/testimonial.css',
+            BRICKSFLY_URL . 'public/build/elements/testimonial.css',
             ['bricks-swiper', 'post-slider'],
-            file_exists($testimonial_css) ? filemtime($testimonial_css) : THEBRBRE_VERSION
+            file_exists($testimonial_css) ? filemtime($testimonial_css) : BRICKSFLY_VERSION
         );
 
         // Testimonial JS — same cache-bust treatment.
-        $testimonial_js = THEBRBRE_PATH . 'public/build/elements/testimonial.js';
+        $testimonial_js = BRICKSFLY_PATH . 'public/build/elements/testimonial.js';
         wp_enqueue_script(
             'aae-testimonial',
-            THEBRBRE_URL . 'public/build/elements/testimonial.js',
+            BRICKSFLY_URL . 'public/build/elements/testimonial.js',
             ['bricks-swiper'],
-            file_exists($testimonial_js) ? filemtime($testimonial_js) : THEBRBRE_VERSION,
+            file_exists($testimonial_js) ? filemtime($testimonial_js) : BRICKSFLY_VERSION,
             true
         );
     }

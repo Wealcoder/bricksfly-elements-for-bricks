@@ -31,7 +31,7 @@ const ElementCard = ({
         return false;
       }
     } else if (element?.is_pro) {
-      if (activated.thebrbre_valid) {
+      if (activated.bricksfly_valid) {
         return true;
       } else {
         return false;

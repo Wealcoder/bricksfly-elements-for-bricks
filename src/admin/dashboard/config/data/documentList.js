@@ -1,5 +1,5 @@
 const icon = (name) =>
-  `${THEBRBRE_ADDONS_ADMIN.plugin_url}public/images/documentation/${name}`;
+  `${BRICKSFLY_ADDONS_ADMIN.plugin_url}public/images/documentation/${name}`;
 
 export const DocumentList = [
   {

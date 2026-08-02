@@ -1,6 +1,6 @@
-const isValid = THEBRBRE_ADDONS_ADMIN.addons_config.thebrbre_valid;
+const isValid = BRICKSFLY_ADDONS_ADMIN.addons_config.bricksfly_valid;
 const isOnlyPro =
-  THEBRBRE_ADDONS_ADMIN.addons_config?.product_status?.item_id === 39996;
+  BRICKSFLY_ADDONS_ADMIN.addons_config?.product_status?.item_id === 39996;
 
 export const generalExtensionFn = (mainContent, data, dispatch) => {
   const result = Object.fromEntries(

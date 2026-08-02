@@ -38,44 +38,44 @@ if (! defined('ABSPATH')) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-if (! defined('THEBRBRE_FILE')) {
+if (! defined('BRICKSFLY_FILE')) {
 	/**
 	 * Plugin File Ref.
 	 */
-	define('THEBRBRE_FILE', __FILE__);
+	define('BRICKSFLY_FILE', __FILE__);
 }
-if (! defined('THEBRBRE_BASE')) {
+if (! defined('BRICKSFLY_BASE')) {
 	/**
 	 * Plugin Base Name.
 	 */
-	define('THEBRBRE_BASE', plugin_basename(THEBRBRE_FILE));
+	define('BRICKSFLY_BASE', plugin_basename(BRICKSFLY_FILE));
 }
-if (! defined('THEBRBRE_PATH')) {
+if (! defined('BRICKSFLY_PATH')) {
 	/**
 	 * Plugin Dir Ref.
 	 */
-	define('THEBRBRE_PATH', plugin_dir_path(THEBRBRE_FILE));
+	define('BRICKSFLY_PATH', plugin_dir_path(BRICKSFLY_FILE));
 }
 
-if (! defined('THEBRBRE_URL')) {
+if (! defined('BRICKSFLY_URL')) {
 	/**
 	 * Plugin URL.
 	 */
-	define('THEBRBRE_URL', plugin_dir_url(THEBRBRE_FILE));
+	define('BRICKSFLY_URL', plugin_dir_url(BRICKSFLY_FILE));
 }
 
-if (! defined('THEBRBRE_VERSION')) {
+if (! defined('BRICKSFLY_VERSION')) {
 	/**
 	 * Plugin Version.
 	 */
-	define('THEBRBRE_VERSION', '1.0.0');
+	define('BRICKSFLY_VERSION', '1.0.0');
 }
 
-if (! defined('THEBRBRE_TEMPLATE_STARTER_BASE_URL')) {
+if (! defined('BRICKSFLY_TEMPLATE_STARTER_BASE_URL')) {
 	/**
 	 * Template Path
 	 */
-	define('THEBRBRE_TEMPLATE_STARTER_BASE_URL', 'https://www.themecrowdy.com/');
+	define('BRICKSFLY_TEMPLATE_STARTER_BASE_URL', 'https://www.themecrowdy.com/');
 }
 
 /**
@@ -88,65 +88,65 @@ if (! defined('THEBRBRE_TEMPLATE_STARTER_BASE_URL')) {
  * the same names with `! defined()` guards, so this is safe.
  */
 
-if (! defined('THEBRBRE_PRO_ITEM_ID')) {
-	define('THEBRBRE_PRO_ITEM_ID', 39996);
+if (! defined('BRICKSFLY_PRO_ITEM_ID')) {
+	define('BRICKSFLY_PRO_ITEM_ID', 39996);
 }
-if (! defined('THEBRBRE_PRO_ITEM_NAME')) {
-	define('THEBRBRE_PRO_ITEM_NAME', 'TheBricksFly');
+if (! defined('BRICKSFLY_PRO_ITEM_NAME')) {
+	define('BRICKSFLY_PRO_ITEM_NAME', 'TheBricksFly');
 }
 
 /**
  * The code that runs during plugin activation
  * This action is documented in includes/class-bricks-animation-addons-activator.php
  */
-function thebrbre_activate($network_wide = false)
+function bricksfly_activate($network_wide = false)
 {
 	require_once plugin_dir_path(__FILE__) . 'includes/class-bricks-animation-addons-activator.php';
-	THEBRBRE_Activator::activate($network_wide);
+	BRICKSFLY_Activator::activate($network_wide);
 }
 
 /**
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-bricks-animation-addons-deactivator.php
  */
-function thebrbre_deactivate()
+function bricksfly_deactivate()
 {
 	require_once plugin_dir_path(__FILE__) . 'includes/class-bricks-animation-addons-deactivator.php';
-	THEBRBRE_Deactivator::deactivate();
+	BRICKSFLY_Deactivator::deactivate();
 }
 
-register_activation_hook(__FILE__, 'thebrbre_activate');
-register_deactivation_hook(__FILE__, 'thebrbre_deactivate');
+register_activation_hook(__FILE__, 'bricksfly_activate');
+register_deactivation_hook(__FILE__, 'bricksfly_deactivate');
 
 // Bootstrap: config, helpers, trait loaded before the main class.
-require_once THEBRBRE_PATH . 'config.php';
-require_once THEBRBRE_PATH . 'includes/helper.php';
-require_once THEBRBRE_PATH . 'includes/hook.php';
-// THEBRBRE_BRICKS_ELEMENTS is normally required later by
+require_once BRICKSFLY_PATH . 'config.php';
+require_once BRICKSFLY_PATH . 'includes/helper.php';
+require_once BRICKSFLY_PATH . 'includes/hook.php';
+// BRICKSFLY_BRICKS_ELEMENTS is normally required later by
 // load_dependencies() (includes/class-bricks-animation-addons.php), but
 // property default at load time — require it here too (idempotent via
 // require_once) so it's guaranteed to exist before Pro loads.
-require_once THEBRBRE_PATH . 'includes/extensions/helpers/BRICKS_ELEMENTS.php';
-require_once THEBRBRE_PATH . 'includes/traits/Extension_Widgets_Trait.php';
-require_once THEBRBRE_PATH . 'includes/class-bricks-theme-dependency.php';
+require_once BRICKSFLY_PATH . 'includes/extensions/helpers/BRICKS_ELEMENTS.php';
+require_once BRICKSFLY_PATH . 'includes/traits/Extension_Widgets_Trait.php';
+require_once BRICKSFLY_PATH . 'includes/class-bricks-theme-dependency.php';
 
 // Literal translation map for config.php labels, titles, and descriptions.
 // The map is evaluated only when the dashboard config filter runs on init.
-require_once THEBRBRE_PATH . 'includes/config-i18n.php';
+require_once BRICKSFLY_PATH . 'includes/config-i18n.php';
 
 // Group Icon Helper: single source of truth for the plugin-branded
 // control-group title rendered in Bricks element panels. Used by Starter
 // Animations below and proxied by the Pro plugin's GroupHelper so both
 // plugins share one icon/markup definition.
-require_once THEBRBRE_PATH . 'includes/extensions/helpers/Label_Name_Helper.php';
+require_once BRICKSFLY_PATH . 'includes/extensions/helpers/Label_Name_Helper.php';
 
 // Starter Animations: injects an animation control group into Bricks core
 // elements (heading, text, image, container, etc.) and ships the front-end
 // engine that plays the animations on viewport-enter.
-require_once THEBRBRE_PATH . 'includes/extensions/class-aab-starter-animations.php';
+require_once BRICKSFLY_PATH . 'includes/extensions/class-aab-starter-animations.php';
 
 // The core plugin class — loads all remaining dependencies internally.
-require_once THEBRBRE_PATH . 'includes/class-bricks-animation-addons.php';
+require_once BRICKSFLY_PATH . 'includes/class-bricks-animation-addons.php';
 
 
 
@@ -159,19 +159,19 @@ require_once THEBRBRE_PATH . 'includes/class-bricks-animation-addons.php';
  *
  * @since    1.0.0
  */
-function thebrbre_run()
+function bricksfly_run()
 {
 
-	$plugin = new THEBRBRE_Plugin();
+	$plugin = new BRICKSFLY_Plugin();
 	$plugin->run();
 
-	// Localize THEBRBRE_ADDONS_JS against the always-enqueued public script so the
+	// Localize BRICKSFLY_ADDONS_JS against the always-enqueued public script so the
 	// global is available to free elements AND to Pro extensions/elements
 	// (smooth scroller, scroll-to, post-social-share). The scroll-to runtime
 	// (scroll-to-el.js) itself lives in Pro and is enqueued by the Pro
 	// scrollto extension.
 	add_action('wp_enqueue_scripts', function () {
-		$data = apply_filters('thebrbre_js_data',
+		$data = apply_filters('bricksfly_js_data',
 			array(
 				'ajaxUrl'        => admin_url('admin-ajax.php'),
 				'post_id'        => get_the_ID(),
@@ -182,7 +182,7 @@ function thebrbre_run()
 					'success' => esc_html__('Success', 'bricksfly-elements-for-bricks'),
 					'warning' => esc_html__('Warning', 'bricksfly-elements-for-bricks'),
 				),
-				'smoothScroller' => json_decode(get_option('thebrbre_smooth_scroller')),
+				'smoothScroller' => json_decode(get_option('bricksfly_smooth_scroller')),
 				// All Bricks breakpoints (defaults + custom). Empty array if
 				// Bricks isn't active so JS can rely on a consistent shape.
 				'breakpoints'    => class_exists('\\Bricks\\Breakpoints')
@@ -191,7 +191,7 @@ function thebrbre_run()
 			)
 		);
 
-		wp_localize_script('bricksfly-elements-for-bricks', 'THEBRBRE_ADDONS_JS', $data);
+		wp_localize_script('bricksfly-elements-for-bricks', 'BRICKSFLY_ADDONS_JS', $data);
 	}, 20);
 }
-thebrbre_run();
+bricksfly_run();

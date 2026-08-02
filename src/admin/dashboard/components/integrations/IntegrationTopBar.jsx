@@ -11,7 +11,7 @@ const IntegrationTopBar = () => {
   };
 
   const saveLibrary = async () => {
-    await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
+    await fetch(BRICKSFLY_ADDONS_ADMIN.ajaxurl, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -19,9 +19,9 @@ const IntegrationTopBar = () => {
       },
 
       body: new URLSearchParams({
-        action: "thebrbre_save_dashboard_library_settings",
+        action: "bricksfly_save_dashboard_library_settings",
         fields: JSON.stringify(allLibrary),
-        nonce: THEBRBRE_ADDONS_ADMIN.nonce,
+        nonce: BRICKSFLY_ADDONS_ADMIN.nonce,
       }),
     })
       .then((response) => {
@@ -48,7 +48,7 @@ const IntegrationTopBar = () => {
             <p className="text-sm text-label">
               {
                 Object.keys(
-                  THEBRBRE_ADDONS_ADMIN.addons_config?.integrations?.plugins
+                  BRICKSFLY_ADDONS_ADMIN.addons_config?.integrations?.plugins
                     ?.elements
                 ).length
               }{" "}

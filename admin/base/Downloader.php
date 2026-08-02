@@ -21,8 +21,8 @@ class Downloader {
 		}
 
 		$destination = $this->download_directory_path . sanitize_file_name( $filename );
-		$timeout     = max( 45, (int) Helpers::apply_filters('thebrbre/timeout_for_downloading_import_file', 180 ) );
-		$attempts    = max( 1, min( 3, (int) Helpers::apply_filters('thebrbre/import_file_download_attempts', 2 ) ) );
+		$timeout     = max( 45, (int) Helpers::apply_filters('bricksfly/timeout_for_downloading_import_file', 180 ) );
+		$attempts    = max( 1, min( 3, (int) Helpers::apply_filters('bricksfly/import_file_download_attempts', 2 ) ) );
 		$response    = null;
 
 		for ( $attempt = 1; $attempt <= $attempts; $attempt++ ) {
@@ -64,7 +64,7 @@ class Downloader {
 
 		return new \WP_Error(
 			'download_error',
-			$error_message . Helpers::apply_filters('thebrbre/message_after_file_fetching_error', '' )
+			$error_message . Helpers::apply_filters('bricksfly/message_after_file_fetching_error', '' )
 		);
 	}
 
@@ -113,7 +113,7 @@ class Downloader {
 			$this->download_directory_path = $download_directory_path;
 		} else {
 			$upload_dir = wp_upload_dir();
-			$this->download_directory_path = Helpers::apply_filters('thebrbre/upload_file_path', trailingslashit( $upload_dir['path'] ) );
+			$this->download_directory_path = Helpers::apply_filters('bricksfly/upload_file_path', trailingslashit( $upload_dir['path'] ) );
 		}
 	}
 }

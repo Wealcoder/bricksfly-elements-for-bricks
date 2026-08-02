@@ -6,9 +6,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit();
 }
 
-class THEBRBRE_Page_Importer {
+class BRICKSFLY_Page_Importer {
 
-	const HANDLE = 'thebrbre-page-import';
+	const HANDLE = 'bricksfly-page-import';
 
 	public function __construct() {
 		add_action( 'admin_menu', [ $this, 'add_menu' ], 25 );
@@ -38,18 +38,18 @@ class THEBRBRE_Page_Importer {
 
 		wp_enqueue_script(
 			'aab-admin-actions',
-			THEBRBRE_URL . 'public/js/aab-admin-actions.js',
+			BRICKSFLY_URL . 'public/js/aab-admin-actions.js',
 			[],
-			THEBRBRE_VERSION,
+			BRICKSFLY_VERSION,
 			true
 		);
 
 		wp_localize_script(
 			'aab-admin-actions',
-			'THEBRBRE_PAGE_IMPORT',
+			'BRICKSFLY_PAGE_IMPORT',
 			[
-				'page_url' => esc_url( admin_url( 'admin.php?page=thebrbre-page-importer' ) ),
-				'logo'     => esc_url( THEBRBRE_URL . 'public/images/plugin_logo.png' ),
+				'page_url' => esc_url( admin_url( 'admin.php?page=bricksfly-page-importer' ) ),
+				'logo'     => esc_url( BRICKSFLY_URL . 'public/images/plugin_logo.png' ),
 			]
 		);
 	}
@@ -63,7 +63,7 @@ class THEBRBRE_Page_Importer {
 			AND post_status = 'publish'
 			AND ID IN (
 				SELECT post_id FROM $wpdb->postmeta
-				WHERE meta_key = 'thebrbre_imported' AND meta_value = '1'
+				WHERE meta_key = 'bricksfly_imported' AND meta_value = '1'
 			)
 		" );
 
@@ -83,7 +83,7 @@ class THEBRBRE_Page_Importer {
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading URL parameter for query filtering only, not processing form data.
 			$latest_import = isset( $_GET['aae-latest-import'] ) ? sanitize_key( wp_unslash( $_GET['aae-latest-import'] ) ) : '';
 			if ( 'import' === $latest_import ) {
-				$query->set( 'meta_key', 'thebrbre_imported' );
+				$query->set( 'meta_key', 'bricksfly_imported' );
 				$query->set( 'meta_value', '1' );
 			}
 		}
@@ -91,7 +91,7 @@ class THEBRBRE_Page_Importer {
 
 	public function clear_notices_for_importer() {
 		$screen = get_current_screen();
-		if ( $screen && strpos( $screen->id, '_page_thebrbre-page-importer' ) !== false ) {
+		if ( $screen && strpos( $screen->id, '_page_bricksfly-page-importer' ) !== false ) {
 			remove_all_actions( 'admin_notices' );
 			remove_all_actions( 'all_admin_notices' );
 		}
@@ -102,7 +102,7 @@ class THEBRBRE_Page_Importer {
 		if ( ! is_string( $classes ) ) {
 			$classes = '';
 		}
-		if ( $screen && strpos( $screen->id, '_page_thebrbre-page-importer' ) !== false ) {
+		if ( $screen && strpos( $screen->id, '_page_bricksfly-page-importer' ) !== false ) {
 			$classes .= ' wcf-anim2024';
 		}
 		return $classes;
@@ -114,17 +114,17 @@ class THEBRBRE_Page_Importer {
 		}
 
 		add_submenu_page(
-			\wealcoder\thebricksfly\Admin\Pages\THEBRBRE_Admin_Init::MENU_PAGE_SLUG,
+			\wealcoder\thebricksfly\Admin\Pages\BRICKSFLY_Admin_Init::MENU_PAGE_SLUG,
 			__( 'Page Import', 'bricksfly-elements-for-bricks' ),
 			__( 'Page Import', 'bricksfly-elements-for-bricks' ),
 			'manage_options',
-			'thebrbre-page-importer',
+			'bricksfly-page-importer',
 			[ $this, 'page_html' ]
 		);
 	}
 
 	public function page_html() {
-		echo '<div id="thebrbre-page-importer"></div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo '<div id="bricksfly-page-importer"></div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 	public function importer_assets( $hook ) {
@@ -133,20 +133,20 @@ class THEBRBRE_Page_Importer {
 			return;
 		}
 
-		if ( strpos( $screen->id, '_page_thebrbre-page-importer' ) === false ) {
+		if ( strpos( $screen->id, '_page_bricksfly-page-importer' ) === false ) {
 			return;
 		}
 
 		wp_enqueue_style(
-			'thebrbre-page-importer-admin',
-			THEBRBRE_URL . 'public/build/admin/page-import.css',
+			'bricksfly-page-importer-admin',
+			BRICKSFLY_URL . 'public/build/admin/page-import.css',
 			[],
 			time()
 		);
 
 		wp_enqueue_script(
-			'thebrbre-page-importer-admin',
-			THEBRBRE_URL . 'public/build/admin/page-import.js',
+			'bricksfly-page-importer-admin',
+			BRICKSFLY_URL . 'public/build/admin/page-import.js',
 			[ 'wp-element' ],
 			time(),
 			true
@@ -165,54 +165,54 @@ class THEBRBRE_Page_Importer {
 		// Reading the options here (on every importer page load) means the state
 		// is always freshly fetched â€” never a stale cached value â€” so activation
 		// done elsewhere is reflected on the next load of this page.
-		$addons_config = apply_filters('thebrbre_dashboard_config', $GLOBALS['thebrbre_config'] ?? [] );
+		$addons_config = apply_filters('bricksfly_dashboard_config', $GLOBALS['bricksfly_config'] ?? [] );
 
-		$license_status = (string) get_option( 'thebrbre_license_status', '' );
-		$license_key    = (string) get_option( 'thebrbre_license_key', '' );
+		$license_status = (string) get_option( 'bricksfly_license_status', '' );
+		$license_key    = (string) get_option( 'bricksfly_license_key', '' );
 
 		// Valid only when the Pro plugin folder exists AND the stored status is
-		// "valid" â€” the same combined check used by thebrbre_is_license_valid() and
+		// "valid" â€” the same combined check used by bricksfly_is_license_valid() and
 		// the Dashboard, so deleting the Pro folder relocks Pro instantly.
-		$pro_installed = function_exists( 'thebrbre_is_pro_installed' ) ? thebrbre_is_pro_installed() : false;
+		$pro_installed = function_exists( 'bricksfly_is_pro_installed' ) ? bricksfly_is_pro_installed() : false;
 		$license_valid = $pro_installed && ( 'valid' === $license_status );
 
 		$addons_config['sl_lic']    = $license_key;
 		$addons_config['is_pro']    = $pro_installed;
-		$addons_config['thebrbre_valid'] = $license_valid;
+		$addons_config['bricksfly_valid'] = $license_valid;
 
 		// The compiled React UI unlocks Pro items on `product_status.item_id === 39996 `.
 		// Send 39996 only when the license is valid (mirrors the Dashboard); the real
 		// EDD item id is carried separately for the actual API verification flow.
 		// Per-feature license limitations â€” same single source of truth as the
 		// Dashboard so the Page Importer's Pro gate reads identical state.
-		$limitations = function_exists( 'thebrbre_get_license_limitations' ) ? thebrbre_get_license_limitations() : array();
+		$limitations = function_exists( 'bricksfly_get_license_limitations' ) ? bricksfly_get_license_limitations() : array();
 
 		$addons_config['product_status'] = [
 			'item_id'      => $license_valid ? 39996 : 0,
 			'status'       => $license_status,
-			'real_item_id' => defined( 'THEBRBRE_PRO_ITEM_ID' ) ? THEBRBRE_PRO_ITEM_ID : 0,
+			'real_item_id' => defined( 'BRICKSFLY_PRO_ITEM_ID' ) ? BRICKSFLY_PRO_ITEM_ID : 0,
 			'limitations'  => $limitations,
 		];
 
 		$addons_config['limitations'] = $limitations;
 
 		$localize_data = [
-			'plugin_url'         => THEBRBRE_URL,
+			'plugin_url'         => BRICKSFLY_URL,
 			'ajaxurl'            => admin_url( 'admin-ajax.php' ),
-			'nonce'              => wp_create_nonce( 'thebrbre_admin_nonce' ),
+			'nonce'              => wp_create_nonce( 'bricksfly_admin_nonce' ),
 			'addons_config'      => $addons_config,
 			'adminURL'           => admin_url(),
 			'page_url'           => esc_url( admin_url( 'edit.php?post_type=page' ) ),
-			'user_role'          => function_exists( 'thebrbre_get_current_user_roles' ) ? thebrbre_get_current_user_roles() : [],
-			'version'            => THEBRBRE_VERSION,
-			'st_template_domain' => THEBRBRE_TEMPLATE_STARTER_BASE_URL,
+			'user_role'          => function_exists( 'bricksfly_get_current_user_roles' ) ? bricksfly_get_current_user_roles() : [],
+			'version'            => BRICKSFLY_VERSION,
+			'st_template_domain' => BRICKSFLY_TEMPLATE_STARTER_BASE_URL,
 			'home_url'           => home_url( '/' ),
 		];
 
-		wp_localize_script( 'thebrbre-page-importer-admin', 'THEBRBRE_ADDONS_ADMIN', $localize_data );
+		wp_localize_script( 'bricksfly-page-importer-admin', 'BRICKSFLY_ADDONS_ADMIN', $localize_data );
 	}
 }
 
 if ( is_admin() ) {
-	new THEBRBRE_Page_Importer();
+	new BRICKSFLY_Page_Importer();
 }

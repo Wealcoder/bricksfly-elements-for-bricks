@@ -10,14 +10,14 @@ if (! defined('ABSPATH')) {
  * unavailable).
  *
  * Registered under the widget's real Bricks `$name` (see
- * thebrbre_register_widget_placeholder()) so `class_exists()` succeeds in
+ * bricksfly_register_widget_placeholder()) so `class_exists()` succeeds in
  * Bricks core's `Frontend::render_element()` and its default "PHP class
  * does not exist" fallback never fires for it. Carries no real widget
  * behavior — `render()` only ever prints a short admin-facing notice, and
  * only inside the Bricks builder itself, never on the live front-end.
  */
-if (! class_exists('THEBRBRE_Placeholder_Element')) {
-	class THEBRBRE_Placeholder_Element extends \Bricks\Element
+if (! class_exists('BRICKSFLY_Placeholder_Element')) {
+	class BRICKSFLY_Placeholder_Element extends \Bricks\Element
 	{
 		public $category = 'bricks fly';
 		public $icon     = 'ti-info-alt';
@@ -27,7 +27,7 @@ if (! class_exists('THEBRBRE_Placeholder_Element')) {
 		/**
 		 * Per-subclass identity (real Bricks `$name` + human label), keyed by
 		 * the generated subclass name. Populated once by
-		 * thebrbre_register_widget_placeholder() instead of baking the values
+		 * bricksfly_register_widget_placeholder() instead of baking the values
 		 * into eval()'d class source — Bricks always instantiates elements
 		 * with `new $class_name()` (no constructor args it lets us supply),
 		 * so this static map is how each subclass learns its own identity.
@@ -89,7 +89,7 @@ if (! class_exists('THEBRBRE_Placeholder_Element')) {
 				return;
 			}
 
-			$settings_url = admin_url('admin.php?page=thebrbre_addons_settings&tab=elements');
+			$settings_url = admin_url('admin.php?page=bricksfly_addons_settings&tab=elements');
 
 			$message = sprintf(
 				/* translators: %s: widget label */
@@ -122,7 +122,7 @@ if (! class_exists('THEBRBRE_Placeholder_Element')) {
 				$link
 			);
 
-			echo '<div class="bricks-element-placeholder thebrbre-placeholder" style="' . esc_attr($style) . '">' // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo '<div class="bricks-element-placeholder bricksfly-placeholder" style="' . esc_attr($style) . '">' // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				. esc_html($message) . ' ' . wp_kses_post($instruction)
 				. '</div>';
 		}

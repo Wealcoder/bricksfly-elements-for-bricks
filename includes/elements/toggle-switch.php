@@ -2,7 +2,7 @@
 
 if (!defined('ABSPATH')) exit;
 
-class THEBRBRE_Bricks_Toggle_Switch extends \Bricks\Element
+class BRICKSFLY_Bricks_Toggle_Switch extends \Bricks\Element
 {
     public $category     = 'bricks fly';
     public $name         = 'aae-toggle-switch';
@@ -381,14 +381,14 @@ class THEBRBRE_Bricks_Toggle_Switch extends \Bricks\Element
     {
         wp_enqueue_style(
             'aae-toggle-switch',
-            THEBRBRE_URL . 'public/build/elements/toggle-switch.css',
+            BRICKSFLY_URL . 'public/build/elements/toggle-switch.css',
             [],
             '1.0.0'
         );
 
         wp_enqueue_script(
             'aae-toggle-switch',
-            THEBRBRE_URL . 'public/build/elements/toggle-switch.js',
+            BRICKSFLY_URL . 'public/build/elements/toggle-switch.js',
             [],
             '1.0.0',
             true

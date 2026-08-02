@@ -6,5 +6,5 @@ wp.element.render(
   <AppContextProvider>
     <MainLayout />
   </AppContextProvider>,
-  document.getElementById("thebrbre-page-importer")
+  document.getElementById("bricksfly-page-importer")
 );

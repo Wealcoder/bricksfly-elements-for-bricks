@@ -62,7 +62,7 @@ const DemoImporting = () => {
     debounceFn(async (id) => {
       try {
         const url = new URL(
-          `${THEBRBRE_ADDONS_ADMIN?.st_template_domain}wp-json/wp/v2/brk-starter-page`
+          `${BRICKSFLY_ADDONS_ADMIN?.st_template_domain}wp-json/wp/v2/brk-starter-page`
         );
         if (id) url.searchParams.append("tplid", id);
 
@@ -89,10 +89,10 @@ const DemoImporting = () => {
     if (tab && tab === "complete-import") return;
 
     const formData = new URLSearchParams();
-    formData.append("action", "thebrbre_heartbeat_data");
-    formData.append("nonce", THEBRBRE_ADDONS_ADMIN.nonce);
+    formData.append("action", "bricksfly_heartbeat_data");
+    formData.append("nonce", BRICKSFLY_ADDONS_ADMIN.nonce);
 
-    const response = await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
+    const response = await fetch(BRICKSFLY_ADDONS_ADMIN.ajaxurl, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: formData.toString(),
@@ -142,17 +142,17 @@ const DemoImporting = () => {
         const formData = new URLSearchParams();
 
         if (tpldata?.next_step && tpldata.next_step === "download-xml-file") {
-          formData.append("action", "thebrbre_upload_manual_import_file");
+          formData.append("action", "bricksfly_upload_manual_import_file");
         } else {
-          formData.append("action", "thebrbre_template_installer");
+          formData.append("action", "bricksfly_template_installer");
         }
         formData.append("import_type", "page");
         formData.append("template_data", JSON.stringify(tpldata));
-        formData.append("nonce", THEBRBRE_ADDONS_ADMIN.nonce);
+        formData.append("nonce", BRICKSFLY_ADDONS_ADMIN.nonce);
         if (plugins) formData.append("user_plugins", plugins);
         formData.append("attachment", attachment);
 
-        const response = await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
+        const response = await fetch(BRICKSFLY_ADDONS_ADMIN.ajaxurl, {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
           body: formData.toString(),
@@ -244,7 +244,7 @@ const DemoImporting = () => {
         </div>
         <div className="mb-8">
           <img
-            src={`${THEBRBRE_ADDONS_ADMIN.plugin_url}public/images/demo-importing-bg.png`}
+            src={`${BRICKSFLY_ADDONS_ADMIN.plugin_url}public/images/demo-importing-bg.png`}
             className="w-[616px] h-[258px]"
             alt="demo importing"
           />

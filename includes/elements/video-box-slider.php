@@ -2,13 +2,13 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class THEBRBRE_Bricks_Video_Box_Slider extends \Bricks\Element {
+class BRICKSFLY_Bricks_Video_Box_Slider extends \Bricks\Element {
 
 	public $category     = 'bricks fly';
 	public $name         = 'aab-video-box-slider';
 	public $icon         = 'ti-video-clapper aab-element-marker';
 	public $css_selector = '.aab-video-box-slider';
-	public $scripts      = [ 'thebrbreVideoBoxSlider' ];
+	public $scripts      = [ 'bricksflyVideoBoxSlider' ];
 
 	public function get_label() {
 		return esc_html__('Video Box Slider', 'bricksfly-elements-for-bricks');
@@ -30,7 +30,7 @@ class THEBRBRE_Bricks_Video_Box_Slider extends \Bricks\Element {
 		// Shared popup CSS (button styles, overlay) reused from video-popup element.
 		wp_enqueue_style(
 			'aab-video-popup',
-			THEBRBRE_URL . 'public/build/elements/video-popup.css',
+			BRICKSFLY_URL . 'public/build/elements/video-popup.css',
 			[],
 			'1.0.0'
 		);
@@ -38,7 +38,7 @@ class THEBRBRE_Bricks_Video_Box_Slider extends \Bricks\Element {
 		// Slider-specific CSS
 		wp_enqueue_style(
 			'aab-video-box-slider',
-			THEBRBRE_URL . 'public/build/elements/video-box-slider.css',
+			BRICKSFLY_URL . 'public/build/elements/video-box-slider.css',
 			[ 'bricks-swiper', 'aab-video-popup' ],
 			'1.0.0'
 		);
@@ -46,7 +46,7 @@ class THEBRBRE_Bricks_Video_Box_Slider extends \Bricks\Element {
 		// Slider + popup JS
 		wp_enqueue_script(
 			'aab-video-box-slider',
-			THEBRBRE_URL . 'public/build/elements/video-box-slider.js',
+			BRICKSFLY_URL . 'public/build/elements/video-box-slider.js',
 			[ 'bricks-swiper' ],
 			'1.0.0',
 			true

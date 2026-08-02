@@ -6,10 +6,10 @@ import { cn } from "@/lib/utils";
 
 const GetProButton = ({ btnClassName }) => {
   const { activated } = useActivate();
-  const role = THEBRBRE_ADDONS_ADMIN.user_role;
+  const role = BRICKSFLY_ADDONS_ADMIN.user_role;
 
   const activePlugin = async () => {
-    await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
+    await fetch(BRICKSFLY_ADDONS_ADMIN.ajaxurl, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -17,9 +17,9 @@ const GetProButton = ({ btnClassName }) => {
       },
 
       body: new URLSearchParams({
-        action: "thebrbre_active_plugin",
+        action: "bricksfly_active_plugin",
         action_base: "the-bricksfly-pro/the-bricksfly-pro.php",
-        nonce: THEBRBRE_ADDONS_ADMIN.nonce,
+        nonce: BRICKSFLY_ADDONS_ADMIN.nonce,
       }),
     })
       .then((response) => {
@@ -66,7 +66,7 @@ const GetProButton = ({ btnClassName }) => {
           <Button
             variant="pro"
             onClick={() => {
-              window.location.href = THEBRBRE_ADDONS_ADMIN.license_settings_url;
+              window.location.href = BRICKSFLY_ADDONS_ADMIN.license_settings_url;
             }}
             className={btnClassName}
           >

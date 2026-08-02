@@ -2,13 +2,13 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class THEBRBRE_Bricks_Image_Accordion extends \Bricks\Element {
+class BRICKSFLY_Bricks_Image_Accordion extends \Bricks\Element {
 
 	public $category     = 'bricks fly';
 	public $name         = 'aab-image-accordion';
 	public $icon         = 'ti-layout-accordion-merged aab-element-marker';
 	public $css_selector = '.aab-image-accordion';
-	public $scripts      = [ 'thebrbreImageAccordion' ];
+	public $scripts      = [ 'bricksflyImageAccordion' ];
 
 	public function get_label() {
 		return esc_html__('Image Accordion', 'bricksfly-elements-for-bricks');
@@ -21,14 +21,14 @@ class THEBRBRE_Bricks_Image_Accordion extends \Bricks\Element {
 	public function enqueue_scripts() {
 		wp_enqueue_style(
 			'aab-image-accordion',
-			THEBRBRE_URL . 'public/build/elements/image-accordion.css',
+			BRICKSFLY_URL . 'public/build/elements/image-accordion.css',
 			[],
 			'1.0.0'
 		);
 
 		wp_enqueue_script(
 			'aab-image-accordion',
-			THEBRBRE_URL . 'public/build/elements/image-accordion.js',
+			BRICKSFLY_URL . 'public/build/elements/image-accordion.js',
 			[],
 			'1.0.0',
 			true

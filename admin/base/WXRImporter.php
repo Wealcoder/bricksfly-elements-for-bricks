@@ -82,7 +82,7 @@ class WXRImporter extends \WP_Importer {
 		$status = $reader->open( $file );
 
 		if ( ! $status ) {
-			return new WP_Error( 'thebrbre_importer.cannot_parse', __( 'Could not open the file for parsing', 'bricksfly-elements-for-bricks' ) );
+			return new WP_Error( 'bricksfly_importer.cannot_parse', __( 'Could not open the file for parsing', 'bricksfly-elements-for-bricks' ) );
 		}
 
 		return $reader;
@@ -217,7 +217,7 @@ class WXRImporter extends \WP_Importer {
 	}
 
 	public function import( $file ) {
-		add_filter('thebrbre_import_post_meta_key', array( $this, 'is_valid_meta_key' ) );
+		add_filter('bricksfly_import_post_meta_key', array( $this, 'is_valid_meta_key' ) );
 		add_filter( 'http_request_timeout', array( &$this, 'bump_request_timeout' ) );
 
 		$result = $this->import_start( $file );
@@ -240,7 +240,7 @@ class WXRImporter extends \WP_Importer {
 		$this->version  = '1.0';
 		$this->base_url = '';
 
-		$thebrbre_counter_progress = 0;
+		$bricksfly_counter_progress = 0;
 
 		while ( $reader->read() ) {
 			if ( $reader->nodeType !== XMLReader::ELEMENT ) {
@@ -269,13 +269,13 @@ class WXRImporter extends \WP_Importer {
 				case 'item':
 					$node   = $reader->expand();
 					$parsed = $this->parse_post_node( $node );
-					$thebrbre_counter_progress += 1;
-					update_option( 'thebrbre_template_import_progress', [
+					$bricksfly_counter_progress += 1;
+					update_option( 'bricksfly_template_import_progress', [
 						'type'        => 'single',
 						'total_items' => $total_init,
 						'title'       => $temp_title,
-						'progress'    => $thebrbre_counter_progress,
-						'data'        => [ 'Posts: ' . $thebrbre_counter_progress ],
+						'progress'    => $bricksfly_counter_progress,
+						'data'        => [ 'Posts: ' . $bricksfly_counter_progress ],
 					] );
 					if ( is_wp_error( $parsed ) ) {
 						$this->log_error( $parsed );
@@ -289,18 +289,18 @@ class WXRImporter extends \WP_Importer {
 				case 'wp:author':
 					$node   = $reader->expand();
 					$parsed = $this->parse_author_node( $node );
-					$thebrbre_counter_progress += 1;
+					$bricksfly_counter_progress += 1;
 					if ( is_wp_error( $parsed ) ) {
 						$this->log_error( $parsed );
 						$reader->next();
 						break;
 					}
-					update_option( 'thebrbre_template_import_progress', [
+					update_option( 'bricksfly_template_import_progress', [
 						'type'        => 'single',
 						'total_items' => $total_init,
 						'title'       => $temp_title,
-						'progress'    => $thebrbre_counter_progress,
-						'data'        => [ 'Posts: ' . $thebrbre_counter_progress ],
+						'progress'    => $bricksfly_counter_progress,
+						'data'        => [ 'Posts: ' . $bricksfly_counter_progress ],
 					] );
 					$status = $this->process_author( $parsed['data'], $parsed['meta'] );
 					if ( is_wp_error( $status ) ) {
@@ -317,13 +317,13 @@ class WXRImporter extends \WP_Importer {
 						$reader->next();
 						break;
 					}
-					$thebrbre_counter_progress += 1;
-					update_option( 'thebrbre_template_import_progress', [
+					$bricksfly_counter_progress += 1;
+					update_option( 'bricksfly_template_import_progress', [
 						'type'        => 'single',
 						'total_items' => $total_init,
 						'title'       => $temp_title,
-						'progress'    => $thebrbre_counter_progress,
-						'data'        => [ 'Category: ' . $thebrbre_counter_progress ],
+						'progress'    => $bricksfly_counter_progress,
+						'data'        => [ 'Category: ' . $bricksfly_counter_progress ],
 					] );
 					$status = $this->process_term( $parsed['data'], $parsed['meta'] );
 					$reader->next();
@@ -332,13 +332,13 @@ class WXRImporter extends \WP_Importer {
 				case 'wp:tag':
 					$node   = $reader->expand();
 					$parsed = $this->parse_term_node( $node, 'tag' );
-					$thebrbre_counter_progress += 1;
-					update_option( 'thebrbre_template_import_progress', [
+					$bricksfly_counter_progress += 1;
+					update_option( 'bricksfly_template_import_progress', [
 						'type'        => 'single',
 						'total_items' => $total_init,
 						'title'       => $temp_title,
-						'progress'    => $thebrbre_counter_progress,
-						'data'        => [ 'Terms: ' . $thebrbre_counter_progress ],
+						'progress'    => $bricksfly_counter_progress,
+						'data'        => [ 'Terms: ' . $bricksfly_counter_progress ],
 					] );
 					if ( is_wp_error( $parsed ) ) {
 						$this->log_error( $parsed );
@@ -352,18 +352,18 @@ class WXRImporter extends \WP_Importer {
 				case 'wp:term':
 					$node   = $reader->expand();
 					$parsed = $this->parse_term_node( $node );
-					$thebrbre_counter_progress += 1;
+					$bricksfly_counter_progress += 1;
 					if ( is_wp_error( $parsed ) ) {
 						$this->log_error( $parsed );
 						$reader->next();
 						break;
 					}
-					update_option( 'thebrbre_template_import_progress', [
+					update_option( 'bricksfly_template_import_progress', [
 						'type'        => 'single',
-						'progress'    => $thebrbre_counter_progress,
+						'progress'    => $bricksfly_counter_progress,
 						'title'       => $temp_title,
 						'total_items' => $total_init,
-						'data'        => [ 'Terms: ' . $thebrbre_counter_progress ],
+						'data'        => [ 'Terms: ' . $bricksfly_counter_progress ],
 					] );
 					$status = $this->process_term( $parsed['data'], $parsed['meta'] );
 					$reader->next();
@@ -378,9 +378,9 @@ class WXRImporter extends \WP_Importer {
 
 		if ( $this->options['aggressive_url_search'] ) {
 			$this->replace_attachment_urls_in_content();
-			$thebrbre_counter_progress += 1;
+			$bricksfly_counter_progress += 1;
 		}
-		$this->thebrbre_remap_featured_images();
+		$this->bricksfly_remap_featured_images();
 		$this->import_end();
 	}
 
@@ -390,7 +390,7 @@ class WXRImporter extends \WP_Importer {
 
 	protected function import_start( $file ) {
 		if ( ! is_file( $file ) ) {
-			return new WP_Error( 'thebrbre_importer.file_missing', __( 'The file does not exist, please try again.', 'bricksfly-elements-for-bricks' ) );
+			return new WP_Error( 'bricksfly_importer.file_missing', __( 'The file does not exist, please try again.', 'bricksfly-elements-for-bricks' ) );
 		}
 
 		wp_defer_term_counting( true );
@@ -408,7 +408,7 @@ class WXRImporter extends \WP_Importer {
 		}
 
 		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
-		do_action( 'thebrbre_import_start' );
+		do_action( 'bricksfly_import_start' );
 	}
 
 	protected function import_end() {
@@ -426,7 +426,7 @@ class WXRImporter extends \WP_Importer {
 		flush_rewrite_rules();
 
 		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
-		do_action( 'thebrbre_import_end' );
+		do_action( 'bricksfly_import_end' );
 	}
 
 	public function set_user_mapping( $mapping ) {
@@ -478,7 +478,7 @@ class WXRImporter extends \WP_Importer {
 				case 'wp:status':
 					$data['post_status'] = $child->textContent;
 					if ( $data['post_status'] === 'auto-draft' ) {
-						return new WP_Error( 'thebrbre_importer.post.cannot_import_draft', __( 'Cannot import auto-draft posts', 'bricksfly-elements-for-bricks' ), $data );
+						return new WP_Error( 'bricksfly_importer.post.cannot_import_draft', __( 'Cannot import auto-draft posts', 'bricksfly-elements-for-bricks' ), $data );
 					}
 					break;
 				case 'wp:post_parent':    $data['post_parent']    = $child->textContent; break;
@@ -512,7 +512,7 @@ class WXRImporter extends \WP_Importer {
 
 	protected function process_post( $data, $meta, $comments, $terms ) {
 		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
-		$data = apply_filters( 'thebrbre_importer.pre_process.post', $data, $meta, $comments, $terms );
+		$data = apply_filters( 'bricksfly_importer.pre_process.post', $data, $meta, $comments, $terms );
 		if ( empty( $data ) ) {
 			return false;
 		}
@@ -532,7 +532,7 @@ class WXRImporter extends \WP_Importer {
 		$post_exists = $this->post_exists( $data );
 		if ( $post_exists ) {
 			$this->process_comments( $comments, $original_id, $data, $post_exists );
-			do_action('thebrbre_import_existing_post', $post_exists, $original_id, $data, $data );
+			do_action('bricksfly_import_existing_post', $post_exists, $original_id, $data, $data );
 			return false;
 		}
 
@@ -541,7 +541,7 @@ class WXRImporter extends \WP_Importer {
 			if ( isset( $this->mapping['post'][ $parent_id ] ) ) {
 				$data['post_parent'] = $this->mapping['post'][ $parent_id ];
 			} else {
-				$meta[]             = array( 'key' => '_thebrbre_import_parent', 'value' => $parent_id );
+				$meta[]             = array( 'key' => '_bricksfly_import_parent', 'value' => $parent_id );
 				$requires_remapping = true;
 				$data['post_parent'] = 0;
 			}
@@ -553,13 +553,13 @@ class WXRImporter extends \WP_Importer {
 		} elseif ( isset( $this->mapping['user_slug'][ $author ] ) ) {
 			$data['post_author'] = $this->mapping['user_slug'][ $author ];
 		} else {
-			$meta[]              = array( 'key' => '_thebrbre_import_user_slug', 'value' => $author );
+			$meta[]              = array( 'key' => '_bricksfly_import_user_slug', 'value' => $author );
 			$requires_remapping  = true;
 			$data['post_author'] = (int) get_current_user_id();
 		}
 
 		if ( preg_match( self::REGEX_HAS_ATTACHMENT_REFS, $data['post_content'] ) ) {
-			$meta[]             = array( 'key' => '_thebrbre_import_has_attachment_refs', 'value' => true );
+			$meta[]             = array( 'key' => '_bricksfly_import_has_attachment_refs', 'value' => true );
 			$requires_remapping = true;
 		}
 
@@ -582,7 +582,7 @@ class WXRImporter extends \WP_Importer {
 		if ( 'attachment' === $postdata['post_type'] ) {
 			$remote_url = ! empty( $data['attachment_url'] ) ? $data['attachment_url'] : $data['guid'];
 			if ( ! $this->options['fetch_attachments'] ) {
-				update_option( 'thebrbre_template_import_state', __( 'fetching attachments disabled', 'bricksfly-elements-for-bricks' ) );
+				update_option( 'bricksfly_template_import_state', __( 'fetching attachments disabled', 'bricksfly-elements-for-bricks' ) );
 				return false;
 			}
 			$post_id = $this->process_attachment( $postdata, $meta, $remote_url );
@@ -595,7 +595,7 @@ class WXRImporter extends \WP_Importer {
 		if ( is_wp_error( $post_id ) ) {
 			$this->logger->debug( $post_id->get_error_message() );
 			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
-			do_action( 'thebrbre_importer.process_failed.post', $post_id, $data, $meta, $comments, $terms );
+			do_action( 'bricksfly_importer.process_failed.post', $post_id, $data, $meta, $comments, $terms );
 			return false;
 		}
 
@@ -637,7 +637,7 @@ class WXRImporter extends \WP_Importer {
 							$term_ids[ $taxonomy ][] = intval( $term_id );
 						}
 					} else {
-						$meta[]             = array( 'key' => '_thebrbre_import_term', 'value' => $term );
+						$meta[]             = array( 'key' => '_bricksfly_import_term', 'value' => $term );
 						$requires_remapping = true;
 					}
 				}
@@ -658,7 +658,7 @@ class WXRImporter extends \WP_Importer {
 		}
 
 		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
-		do_action( 'thebrbre_importer.processed.post', $post_id, $data, $meta, $comments, $terms );
+		do_action( 'bricksfly_importer.processed.post', $post_id, $data, $meta, $comments, $terms );
 	}
 
 	protected function process_menu_item_meta( $post_id, $data, $meta ) {
@@ -674,7 +674,7 @@ class WXRImporter extends \WP_Importer {
 				if ( isset( $this->mapping['term_id'][ $original_object_id ] ) ) {
 					$object_id = $this->mapping['term_id'][ $original_object_id ];
 				} else {
-					add_post_meta( $post_id, '_thebrbre_import_menu_item', wp_slash( $original_object_id ) );
+					add_post_meta( $post_id, '_bricksfly_import_menu_item', wp_slash( $original_object_id ) );
 					$requires_remapping = true;
 				}
 				break;
@@ -682,7 +682,7 @@ class WXRImporter extends \WP_Importer {
 				if ( isset( $this->mapping['post'][ $original_object_id ] ) ) {
 					$object_id = $this->mapping['post'][ $original_object_id ];
 				} else {
-					add_post_meta( $post_id, '_thebrbre_import_menu_item', wp_slash( $original_object_id ) );
+					add_post_meta( $post_id, '_bricksfly_import_menu_item', wp_slash( $original_object_id ) );
 					$requires_remapping = true;
 				}
 				break;
@@ -771,10 +771,10 @@ class WXRImporter extends \WP_Importer {
 
 		foreach ( $meta as $meta_item ) {
 			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
-			$meta_item = apply_filters( 'thebrbre_importer.pre_process.post_meta', $meta_item, $post_id );
+			$meta_item = apply_filters( 'bricksfly_importer.pre_process.post_meta', $meta_item, $post_id );
 			if ( empty( $meta_item ) ) { return false; }
 
-			$key   = apply_filters('thebrbre_import_post_meta_key', $meta_item['key'], $post_id, $post );
+			$key   = apply_filters('bricksfly_import_post_meta_key', $meta_item['key'], $post_id, $post );
 			$value = false;
 
 			if ( '_edit_last' === $key ) {
@@ -788,7 +788,7 @@ class WXRImporter extends \WP_Importer {
 					$value = maybe_unserialize( $meta_item['value'] );
 				}
 				add_post_meta( $post_id, wp_slash( $key ), wp_slash( $value ) );
-				do_action('thebrbre_import_post_meta', $post_id, $key, $value );
+				do_action('bricksfly_import_post_meta', $post_id, $key, $value );
 				if ( '_thumbnail_id' === $key ) {
 					$this->featured_images[ $post_id ] = (int) $value;
 				}
@@ -834,7 +834,7 @@ class WXRImporter extends \WP_Importer {
 
 		foreach ( $comments as $key => $comment ) {
 			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
-			$comment = apply_filters( 'thebrbre_importer.pre_process.comment', $comment, $post_id );
+			$comment = apply_filters( 'bricksfly_importer.pre_process.comment', $comment, $post_id );
 			if ( empty( $comment ) ) { return false; }
 
 			$original_id = isset( $comment['comment_id'] )      ? (int) $comment['comment_id']      : 0;
@@ -857,7 +857,7 @@ class WXRImporter extends \WP_Importer {
 				if ( isset( $this->mapping['comment'][ $parent_id ] ) ) {
 					$comment['comment_parent'] = $this->mapping['comment'][ $parent_id ];
 				} else {
-					$meta[]             = array( 'key' => '_thebrbre_import_parent', 'value' => $parent_id );
+					$meta[]             = array( 'key' => '_bricksfly_import_parent', 'value' => $parent_id );
 					$requires_remapping = true;
 					$comment['comment_parent'] = 0;
 				}
@@ -867,7 +867,7 @@ class WXRImporter extends \WP_Importer {
 				if ( isset( $this->mapping['user'][ $author_id ] ) ) {
 					$comment['user_id'] = $this->mapping['user'][ $author_id ];
 				} else {
-					$meta[]             = array( 'key' => '_thebrbre_import_user', 'value' => $author_id );
+					$meta[]             = array( 'key' => '_bricksfly_import_user', 'value' => $author_id );
 					$requires_remapping = true;
 					$comment['user_id'] = 0;
 				}
@@ -891,7 +891,7 @@ class WXRImporter extends \WP_Importer {
 			}
 
 			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
-			do_action( 'thebrbre_importer.processed.comment', $comment_id, $comment, $meta, $post_id );
+			do_action( 'bricksfly_importer.processed.comment', $comment_id, $comment, $meta, $post_id );
 			$num_comments++;
 		}
 
@@ -933,7 +933,7 @@ class WXRImporter extends \WP_Importer {
 
 	protected function process_author( $data, $meta ) {
 		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
-		$data = apply_filters( 'thebrbre_importer.pre_process.user', $data, $meta );
+		$data = apply_filters( 'bricksfly_importer.pre_process.user', $data, $meta );
 		if ( empty( $data ) ) { return false; }
 
 		$original_id   = isset( $data['ID'] ) ? $data['ID'] : 0;
@@ -972,7 +972,7 @@ class WXRImporter extends \WP_Importer {
 		if ( is_wp_error( $user_id ) ) {
 			$this->logger->debug( $user_id->get_error_message() );
 			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
-			do_action( 'thebrbre_importer.process_failed.user', $user_id, $userdata );
+			do_action( 'bricksfly_importer.process_failed.user', $user_id, $userdata );
 			return false;
 		}
 
@@ -982,7 +982,7 @@ class WXRImporter extends \WP_Importer {
 		$this->mapping['user_slug'][ $original_slug ] = $user_id;
 
 		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
-		do_action( 'thebrbre_importer.processed.user', $user_id, $userdata );
+		do_action( 'bricksfly_importer.processed.user', $user_id, $userdata );
 	}
 
 	protected function parse_term_node( $node, $type = 'term' ) {
@@ -1034,7 +1034,7 @@ class WXRImporter extends \WP_Importer {
 
 	protected function process_term( $data, $meta ) {
 		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
-		$data = apply_filters( 'thebrbre_importer.pre_process.term', $data, $meta );
+		$data = apply_filters( 'bricksfly_importer.pre_process.term', $data, $meta );
 		if ( empty( $data ) ) { return false; }
 
 		$original_id = isset( $data['id'] ) ? (int) $data['id'] : 0;
@@ -1059,7 +1059,7 @@ class WXRImporter extends \WP_Importer {
 			if ( isset( $this->mapping['term_slug'][ $parent_slug ] ) ) {
 				$data['parent'] = $this->mapping['term_slug'][ $parent_slug ];
 			} else {
-				$meta[]             = array( 'key' => '_thebrbre_import_parent', 'value' => $parent_slug );
+				$meta[]             = array( 'key' => '_bricksfly_import_parent', 'value' => $parent_slug );
 				$requires_remapping = true;
 				$data['parent']     = 0;
 			}
@@ -1076,7 +1076,7 @@ class WXRImporter extends \WP_Importer {
 			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
 			do_action( 'wp_import_insert_term_failed', $result, $data );
 			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
-			do_action( 'thebrbre_importer.process_failed.term', $result, $data, $meta );
+			do_action( 'bricksfly_importer.process_failed.term', $result, $data, $meta );
 			return false;
 		}
 
@@ -1095,7 +1095,7 @@ class WXRImporter extends \WP_Importer {
 		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
 		do_action( 'wp_import_insert_term', $term_id, $data );
 		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
-		do_action( 'thebrbre_importer.processed.term', $term_id, $data );
+		do_action( 'bricksfly_importer.processed.term', $term_id, $data );
 	}
 
 	protected function process_term_meta( $meta, $term_id, $term ) {
@@ -1103,21 +1103,21 @@ class WXRImporter extends \WP_Importer {
 
 		foreach ( $meta as $meta_item ) {
 			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
-			$meta_item = apply_filters( 'thebrbre_importer.pre_process.term_meta', $meta_item, $term_id );
+			$meta_item = apply_filters( 'bricksfly_importer.pre_process.term_meta', $meta_item, $term_id );
 			if ( empty( $meta_item ) ) { continue; }
 
 			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
-			$key   = apply_filters( 'thebrbre_import_term_meta_key', $meta_item['key'], $term_id, $term );
+			$key   = apply_filters( 'bricksfly_import_term_meta_key', $meta_item['key'], $term_id, $term );
 			$value = false;
 			if ( $key ) {
 				if ( ! $value ) { $value = maybe_unserialize( $meta_item['value'] ); }
 				$result = add_term_meta( $term_id, $key, $value );
 				if ( is_wp_error( $result ) ) {
 					// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
-					do_action( 'thebrbre_importer.process_failed.termmeta', $result, $meta_item, $term_id, $term );
+					do_action( 'bricksfly_importer.process_failed.termmeta', $result, $meta_item, $term_id, $term );
 				}
 				// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
-				do_action( 'thebrbre_import_term_meta', $term_id, $key, $value );
+				do_action( 'bricksfly_import_term_meta', $term_id, $key, $value );
 			}
 		}
 		return true;
@@ -1162,15 +1162,15 @@ class WXRImporter extends \WP_Importer {
 
 	protected function post_process() {
 		if ( ! empty( $this->requires_remapping['post'] ) ) {
-			update_option( 'thebrbre_template_import_state', esc_html__( 'Processing Posts', 'bricksfly-elements-for-bricks' ) );
+			update_option( 'bricksfly_template_import_state', esc_html__( 'Processing Posts', 'bricksfly-elements-for-bricks' ) );
 			$this->post_process_posts( $this->requires_remapping['post'] );
 		}
 		if ( ! empty( $this->requires_remapping['comment'] ) ) {
-			update_option( 'thebrbre_template_import_state', esc_html__( 'Processing Comments', 'bricksfly-elements-for-bricks' ) );
+			update_option( 'bricksfly_template_import_state', esc_html__( 'Processing Comments', 'bricksfly-elements-for-bricks' ) );
 			$this->post_process_comments( $this->requires_remapping['comment'] );
 		}
 		if ( ! empty( $this->requires_remapping['term'] ) ) {
-			update_option( 'thebrbre_template_import_state', esc_html__( 'Processing Terms', 'bricksfly-elements-for-bricks' ) );
+			update_option( 'bricksfly_template_import_state', esc_html__( 'Processing Terms', 'bricksfly-elements-for-bricks' ) );
 			$this->post_process_terms( $this->requires_remapping['term'] );
 		}
 	}
@@ -1178,19 +1178,19 @@ class WXRImporter extends \WP_Importer {
 	protected function post_process_posts( $todo ) {
 		foreach ( $todo as $post_id => $_ ) {
 			$data      = array();
-			$parent_id = get_post_meta( $post_id, '_thebrbre_import_parent', true );
+			$parent_id = get_post_meta( $post_id, '_bricksfly_import_parent', true );
 			if ( ! empty( $parent_id ) ) {
 				if ( isset( $this->mapping['post'][ $parent_id ] ) ) {
 					$data['post_parent'] = $this->mapping['post'][ $parent_id ];
 				}
 			}
-			$author_slug = get_post_meta( $post_id, '_thebrbre_import_user_slug', true );
+			$author_slug = get_post_meta( $post_id, '_bricksfly_import_user_slug', true );
 			if ( ! empty( $author_slug ) ) {
 				if ( isset( $this->mapping['user_slug'][ $author_slug ] ) ) {
 					$data['post_author'] = $this->mapping['user_slug'][ $author_slug ];
 				}
 			}
-			$has_attachments = get_post_meta( $post_id, '_thebrbre_import_has_attachment_refs', true );
+			$has_attachments = get_post_meta( $post_id, '_bricksfly_import_has_attachment_refs', true );
 			if ( ! empty( $has_attachments ) ) {
 				$post        = get_post( $post_id );
 				$content     = $post->post_content;
@@ -1204,14 +1204,14 @@ class WXRImporter extends \WP_Importer {
 			$result     = wp_update_post( $data, true );
 			if ( is_wp_error( $result ) ) { continue; }
 
-			delete_post_meta( $post_id, '_thebrbre_import_parent' );
-			delete_post_meta( $post_id, '_thebrbre_import_user_slug' );
-			delete_post_meta( $post_id, '_thebrbre_import_has_attachment_refs' );
+			delete_post_meta( $post_id, '_bricksfly_import_parent' );
+			delete_post_meta( $post_id, '_bricksfly_import_user_slug' );
+			delete_post_meta( $post_id, '_bricksfly_import_has_attachment_refs' );
 		}
 	}
 
 	protected function post_process_menu_item( $post_id ) {
-		$menu_object_id = get_post_meta( $post_id, '_thebrbre_import_menu_item', true );
+		$menu_object_id = get_post_meta( $post_id, '_bricksfly_import_menu_item', true );
 		if ( empty( $menu_object_id ) ) { return; }
 
 		$menu_item_type = get_post_meta( $post_id, '_menu_item_type', true );
@@ -1230,17 +1230,17 @@ class WXRImporter extends \WP_Importer {
 			update_post_meta( $post_id, '_menu_item_object_id', wp_slash( $menu_object ) );
 		}
 
-		delete_post_meta( $post_id, '_thebrbre_import_menu_item' );
+		delete_post_meta( $post_id, '_bricksfly_import_menu_item' );
 	}
 
 	protected function post_process_comments( $todo ) {
 		foreach ( $todo as $comment_id => $_ ) {
 			$data      = array();
-			$parent_id = get_comment_meta( $comment_id, '_thebrbre_import_parent', true );
+			$parent_id = get_comment_meta( $comment_id, '_bricksfly_import_parent', true );
 			if ( ! empty( $parent_id ) && isset( $this->mapping['comment'][ $parent_id ] ) ) {
 				$data['comment_parent'] = $this->mapping['comment'][ $parent_id ];
 			}
-			$author_id = get_comment_meta( $comment_id, '_thebrbre_import_user', true );
+			$author_id = get_comment_meta( $comment_id, '_bricksfly_import_user', true );
 			if ( ! empty( $author_id ) && isset( $this->mapping['user'][ $author_id ] ) ) {
 				$data['user_id'] = $this->mapping['user'][ $author_id ];
 			}
@@ -1248,8 +1248,8 @@ class WXRImporter extends \WP_Importer {
 			$data['comment_ID'] = $comment_id;
 			$result             = wp_update_comment( wp_slash( $data ) );
 			if ( ! empty( $result ) ) {
-				delete_comment_meta( $comment_id, '_thebrbre_import_parent' );
-				delete_comment_meta( $comment_id, '_thebrbre_import_user' );
+				delete_comment_meta( $comment_id, '_bricksfly_import_parent' );
+				delete_comment_meta( $comment_id, '_bricksfly_import_user' );
 			}
 		}
 	}
@@ -1261,7 +1261,7 @@ class WXRImporter extends \WP_Importer {
 			$term_id = (int) $termid;
 			if ( empty( $term_taxonomy ) ) { continue; }
 
-			$parent_slug = get_term_meta( $term_id, '_thebrbre_import_parent', true );
+			$parent_slug = get_term_meta( $term_id, '_bricksfly_import_parent', true );
 			if ( empty( $parent_slug ) ) { continue; }
 			if ( ! isset( $this->mapping['term_slug'][ $parent_slug ] ) || ! is_numeric( $this->mapping['term_slug'][ $parent_slug ] ) ) { continue; }
 
@@ -1269,13 +1269,13 @@ class WXRImporter extends \WP_Importer {
 			$termattributes = get_term_by( 'id', $term_id, $term_taxonomy, ARRAY_A );
 			if ( empty( $termattributes ) ) { continue; }
 			if ( isset( $termattributes['parent'] ) && $termattributes['parent'] == $mapped_parent ) {
-				delete_term_meta( $term_id, '_thebrbre_import_parent' );
+				delete_term_meta( $term_id, '_bricksfly_import_parent' );
 				continue;
 			}
 			$termattributes['parent'] = $mapped_parent;
 			$result                   = wp_update_term( $term_id, $termattributes['taxonomy'], $termattributes );
 			if ( ! is_wp_error( $result ) ) {
-				delete_term_meta( $term_id, '_thebrbre_import_parent' );
+				delete_term_meta( $term_id, '_bricksfly_import_parent' );
 			}
 		}
 	}
@@ -1295,9 +1295,9 @@ class WXRImporter extends \WP_Importer {
 		}
 	}
 
-	function thebrbre_remap_featured_images() {
+	function bricksfly_remap_featured_images() {
 		if ( empty( $this->featured_images ) ) { return; }
-		update_option( 'thebrbre_template_import_state', esc_html__( 'Starting remapping of featured images', 'bricksfly-elements-for-bricks' ) );
+		update_option( 'bricksfly_template_import_state', esc_html__( 'Starting remapping of featured images', 'bricksfly-elements-for-bricks' ) );
 		foreach ( $this->featured_images as $post_id => $value ) {
 			if ( isset( $this->mapping['post'][ $value ] ) ) {
 				$new_id = $this->mapping['post'][ $value ];
@@ -1313,7 +1313,7 @@ class WXRImporter extends \WP_Importer {
 
 	protected function max_attachment_size() {
 		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress Importer API hook.
-		return apply_filters( 'thebrbre_import_attachment_size_limit', 0 );
+		return apply_filters( 'bricksfly_import_attachment_size_limit', 0 );
 	}
 
 	function bump_request_timeout( $val ) { return 60; }
@@ -1346,7 +1346,7 @@ class WXRImporter extends \WP_Importer {
 
 	protected function prefill_existing_comments() {
 		global $wpdb;
-		update_option( 'thebrbre_template_import_state', esc_html__( 'Comment checking', 'bricksfly-elements-for-bricks' ) );
+		update_option( 'bricksfly_template_import_state', esc_html__( 'Comment checking', 'bricksfly-elements-for-bricks' ) );
 		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- table-name interpolation only, no user input.
 		$posts = $wpdb->get_results( "SELECT comment_ID, comment_author, comment_date FROM {$wpdb->comments}" );
 		foreach ( $posts as $item ) {

@@ -20,7 +20,7 @@ if (! defined('ABSPATH')) {
 	exit;
 }
 
-class THEBRBRE_Starter_Animations
+class BRICKSFLY_Starter_Animations
 {
 
 	/**
@@ -39,8 +39,8 @@ class THEBRBRE_Starter_Animations
 	 */
 	const CONTAINER_WIDGETS = ['container', 'section', 'block', 'div'];
 
-	const GROUP_ID            = '_thebrbre_starter_animations';
-	const GROUP_ID_CONTAINER  = '_thebrbre_starter_animations_container';
+	const GROUP_ID            = '_bricksfly_starter_animations';
+	const GROUP_ID_CONTAINER  = '_bricksfly_starter_animations_container';
 
 	private static $instance = null;
 
@@ -165,7 +165,7 @@ class THEBRBRE_Starter_Animations
 	{
 
 		// Animation picker
-		$controls['_thebrbre_starter_anim'] = [
+		$controls['_bricksfly_starter_anim'] = [
 			'tab'         => 'content',
 			'group'       => self::GROUP_ID,
 			'label'       => esc_html__('Animation', 'bricksfly-elements-for-bricks'),
@@ -176,7 +176,7 @@ class THEBRBRE_Starter_Animations
 		];
 
 		// Common timing — duration / delay / easing
-		$controls['_thebrbre_anim_duration'] = [
+		$controls['_bricksfly_anim_duration'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
 			'label'    => esc_html__('Duration (ms)', 'bricksfly-elements-for-bricks'),
@@ -185,17 +185,17 @@ class THEBRBRE_Starter_Animations
 			'min'      => 100,
 			'max'      => 10000,
 			'step'     => 50,
-			'required' => ['_thebrbre_starter_anim', '!=', ['', 'none']],
+			'required' => ['_bricksfly_starter_anim', '!=', ['', 'none']],
 			'css'      => [
 				[
-					'property' => '--thebrbre-duration',
+					'property' => '--bricksfly-duration',
 					'selector' => '',
 					'value'    => '%sms',
 				],
 			],
 		];
 
-		$controls['_thebrbre_anim_delay'] = [
+		$controls['_bricksfly_anim_delay'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
 			'label'    => esc_html__('Delay (ms)', 'bricksfly-elements-for-bricks'),
@@ -204,17 +204,17 @@ class THEBRBRE_Starter_Animations
 			'min'      => 0,
 			'max'      => 10000,
 			'step'     => 50,
-			'required' => ['_thebrbre_starter_anim', '!=', ['', 'none']],
+			'required' => ['_bricksfly_starter_anim', '!=', ['', 'none']],
 			'css'      => [
 				[
-					'property' => '--thebrbre-delay',
+					'property' => '--bricksfly-delay',
 					'selector' => '',
 					'value'    => '%sms',
 				],
 			],
 		];
 
-		$controls['_thebrbre_anim_ease'] = [
+		$controls['_bricksfly_anim_ease'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
 			'label'    => esc_html__('Easing', 'bricksfly-elements-for-bricks'),
@@ -222,10 +222,10 @@ class THEBRBRE_Starter_Animations
 			'options'  => $this->get_easing_options(),
 			'default'  => 'ease',
 			'inline'   => true,
-			'required' => ['_thebrbre_starter_anim', '!=', ['', 'none']],
+			'required' => ['_bricksfly_starter_anim', '!=', ['', 'none']],
 			'css'      => [
 				[
-					'property' => '--thebrbre-ease',
+					'property' => '--bricksfly-ease',
 					'selector' => '',
 				],
 			],
@@ -233,22 +233,22 @@ class THEBRBRE_Starter_Animations
 
 		if ($is_text) {
 			// ---- text-glow ----
-			$controls['_thebrbre_glow_color'] = [
+			$controls['_bricksfly_glow_color'] = [
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
 				'label'    => esc_html__('Glow Color', 'bricksfly-elements-for-bricks'),
 				'type'     => 'color',
 				'default'  => ['hex' => '#0000ff'],
-				'required' => ['_thebrbre_starter_anim', '=', 'text-glow'],
+				'required' => ['_bricksfly_starter_anim', '=', 'text-glow'],
 				'css'      => [
 					[
-						'property' => '--thebrbre-glow-color',
+						'property' => '--bricksfly-glow-color',
 						'selector' => '',
 					],
 				],
 			];
 
-			$controls['_thebrbre_glow_size'] = [
+			$controls['_bricksfly_glow_size'] = [
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
 				'label'    => esc_html__('Glow Size (px)', 'bricksfly-elements-for-bricks'),
@@ -256,17 +256,17 @@ class THEBRBRE_Starter_Animations
 				'default'  => 20,
 				'min'      => 5,
 				'max'      => 100,
-				'required' => ['_thebrbre_starter_anim', '=', 'text-glow'],
+				'required' => ['_bricksfly_starter_anim', '=', 'text-glow'],
 				'css'      => [
 					[
-						'property' => '--thebrbre-glow-size',
+						'property' => '--bricksfly-glow-size',
 						'selector' => '',
 						'value'    => '%spx',
 					],
 				],
 			];
 
-			$controls['_thebrbre_glow_iteration'] = [
+			$controls['_bricksfly_glow_iteration'] = [
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
 				'label'    => esc_html__('Animation Loop', 'bricksfly-elements-for-bricks'),
@@ -277,26 +277,26 @@ class THEBRBRE_Starter_Animations
 				],
 				'default'  => 'infinite',
 				'inline'   => true,
-				'required' => ['_thebrbre_starter_anim', '=', 'text-glow'],
+				'required' => ['_bricksfly_starter_anim', '=', 'text-glow'],
 				'css'      => [
 					[
-						'property' => '--thebrbre-iteration',
+						'property' => '--bricksfly-iteration',
 						'selector' => '',
 					],
 				],
 			];
 
 			// ---- text-mask-wipe ----
-			$controls['_thebrbre_mask_wipe_bg'] = [
+			$controls['_bricksfly_mask_wipe_bg'] = [
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
 				'label'    => esc_html__('Mask Color', 'bricksfly-elements-for-bricks'),
 				'type'     => 'color',
 				'default'  => ['hex' => '#000000'],
-				'required' => ['_thebrbre_starter_anim', '=', 'text-mask-wipe'],
+				'required' => ['_bricksfly_starter_anim', '=', 'text-mask-wipe'],
 				'css'      => [
 					[
-						'property' => '--thebrbre-mask-bg',
+						'property' => '--bricksfly-mask-bg',
 						'selector' => '',
 					],
 				],
@@ -304,7 +304,7 @@ class THEBRBRE_Starter_Animations
 		} // end if ( $is_text ) — text-glow / text-mask-wipe
 
 		// ---- reveal ----
-		$controls['_thebrbre_reveal_direction'] = [
+		$controls['_bricksfly_reveal_direction'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
 			'label'    => esc_html__('Direction', 'bricksfly-elements-for-bricks'),
@@ -318,29 +318,29 @@ class THEBRBRE_Starter_Animations
 			],
 			'default'  => 'bottom',
 			'inline'   => true,
-			'required' => ['_thebrbre_starter_anim', '=', 'reveal'],
+			'required' => ['_bricksfly_starter_anim', '=', 'reveal'],
 		];
 
-		$controls['_thebrbre_reveal_fade'] = [
+		$controls['_bricksfly_reveal_fade'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
 			'label'    => esc_html__('Enable Fade', 'bricksfly-elements-for-bricks'),
 			'type'     => 'checkbox',
 			'default'  => false,
-			'required' => ['_thebrbre_starter_anim', '=', 'reveal'],
+			'required' => ['_bricksfly_starter_anim', '=', 'reveal'],
 		];
 
 		if ($is_text) {
 			// ---- text-wave ----
-			$controls['_thebrbre_wave_fill_color'] = [
+			$controls['_bricksfly_wave_fill_color'] = [
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
 				'label'    => esc_html__('Wave Fill Color', 'bricksfly-elements-for-bricks'),
 				'type'     => 'color',
-				'required' => ['_thebrbre_starter_anim', '=', 'text-wave'],
+				'required' => ['_bricksfly_starter_anim', '=', 'text-wave'],
 				'css'      => [
 					[
-						'property' => '--thebrbre-wave-fill',
+						'property' => '--bricksfly-wave-fill',
 						'selector' => '',
 					],
 				],
@@ -349,18 +349,18 @@ class THEBRBRE_Starter_Animations
 			// ---- text-bg-clip ----
 			// Image source for the background-clip text effect. The control returns
 			// a Bricks image array; the URL is emitted as inline style for the
-			// `--thebrbre-bg-text-image` CSS variable in apply_render_classes() because
+			// `--bricksfly-bg-text-image` CSS variable in apply_render_classes() because
 			// Bricks's `css` array doesn't unwrap image arrays into CSS-variable
 			// values cleanly.
-			$controls['_thebrbre_bg_text_image'] = [
+			$controls['_bricksfly_bg_text_image'] = [
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
 				'label'    => esc_html__('Background Image', 'bricksfly-elements-for-bricks'),
 				'type'     => 'image',
-				'required' => ['_thebrbre_starter_anim', '=', 'text-bg-clip'],
+				'required' => ['_bricksfly_starter_anim', '=', 'text-bg-clip'],
 			];
 
-			$controls['_thebrbre_bg_text_speed'] = [
+			$controls['_bricksfly_bg_text_speed'] = [
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
 				'label'    => esc_html__('Animation Speed (s)', 'bricksfly-elements-for-bricks'),
@@ -368,10 +368,10 @@ class THEBRBRE_Starter_Animations
 				'default'  => 15,
 				'min'      => 1,
 				'max'      => 60,
-				'required' => ['_thebrbre_starter_anim', '=', 'text-bg-clip'],
+				'required' => ['_bricksfly_starter_anim', '=', 'text-bg-clip'],
 				'css'      => [
 					[
-						'property' => '--thebrbre-bg-speed',
+						'property' => '--bricksfly-bg-speed',
 						'selector' => '',
 						'value'    => '%ss',
 					],
@@ -379,7 +379,7 @@ class THEBRBRE_Starter_Animations
 			];
 
 			// ---- text-char-animate ----
-			$controls['_thebrbre_char_preset'] = [
+			$controls['_bricksfly_char_preset'] = [
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
 				'label'    => esc_html__('Character Preset', 'bricksfly-elements-for-bricks'),
@@ -394,79 +394,79 @@ class THEBRBRE_Starter_Animations
 				],
 				'default'  => 'revolve',
 				'inline'   => true,
-				'required' => ['_thebrbre_starter_anim', '=', 'text-char-animate'],
+				'required' => ['_bricksfly_starter_anim', '=', 'text-char-animate'],
 			];
 
-			$controls['_thebrbre_char_revolve_x'] = [
+			$controls['_bricksfly_char_revolve_x'] = [
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
 				'label'    => esc_html__('Translate X (px)', 'bricksfly-elements-for-bricks'),
 				'type'     => 'number',
 				'default'  => -150,
 				'required' => [
-					['_thebrbre_starter_anim', '=', 'text-char-animate'],
-					['_thebrbre_char_preset',  '=', 'revolve'],
+					['_bricksfly_starter_anim', '=', 'text-char-animate'],
+					['_bricksfly_char_preset',  '=', 'revolve'],
 				],
 				'css'      => [
 					[
-						'property' => '--thebrbre-char-x',
+						'property' => '--bricksfly-char-x',
 						'selector' => '',
 						'value'    => '%spx',
 					],
 				],
 			];
 
-			$controls['_thebrbre_char_revolve_y'] = [
+			$controls['_bricksfly_char_revolve_y'] = [
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
 				'label'    => esc_html__('Translate Y (px)', 'bricksfly-elements-for-bricks'),
 				'type'     => 'number',
 				'default'  => -50,
 				'required' => [
-					['_thebrbre_starter_anim', '=', 'text-char-animate'],
-					['_thebrbre_char_preset',  '=', 'revolve'],
+					['_bricksfly_starter_anim', '=', 'text-char-animate'],
+					['_bricksfly_char_preset',  '=', 'revolve'],
 				],
 				'css'      => [
 					[
-						'property' => '--thebrbre-char-y',
+						'property' => '--bricksfly-char-y',
 						'selector' => '',
 						'value'    => '%spx',
 					],
 				],
 			];
 
-			$controls['_thebrbre_char_ball_y'] = [
+			$controls['_bricksfly_char_ball_y'] = [
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
 				'label'    => esc_html__('Drop Distance (px)', 'bricksfly-elements-for-bricks'),
 				'type'     => 'number',
 				'default'  => 200,
 				'required' => [
-					['_thebrbre_starter_anim', '=', 'text-char-animate'],
-					['_thebrbre_char_preset',  '=', 'ball'],
+					['_bricksfly_starter_anim', '=', 'text-char-animate'],
+					['_bricksfly_char_preset',  '=', 'ball'],
 				],
 				'css'      => [
 					[
-						'property' => '--thebrbre-char-y',
+						'property' => '--bricksfly-char-y',
 						'selector' => '',
 						'value'    => '%spx',
 					],
 				],
 			];
 
-			$controls['_thebrbre_char_twister_rotate'] = [
+			$controls['_bricksfly_char_twister_rotate'] = [
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
 				'label'    => esc_html__('Rotate Degree', 'bricksfly-elements-for-bricks'),
 				'type'     => 'number',
 				'default'  => -180,
 				'required' => [
-					['_thebrbre_starter_anim', '=', 'text-char-animate'],
-					['_thebrbre_char_preset',  '=', 'twister'],
+					['_bricksfly_starter_anim', '=', 'text-char-animate'],
+					['_bricksfly_char_preset',  '=', 'twister'],
 				],
 				'css'      => [
 					[
-						'property' => '--thebrbre-char-rotate',
+						'property' => '--bricksfly-char-rotate',
 						'selector' => '',
 						'value'    => '%sdeg',
 					],
@@ -475,7 +475,7 @@ class THEBRBRE_Starter_Animations
 		} // end if ( $is_text ) — text-wave / text-bg-clip / text-char-animate
 
 		// ---- scale-up ----
-		$controls['_thebrbre_scale_start'] = [
+		$controls['_bricksfly_scale_start'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
 			'label'    => esc_html__('Start Scale', 'bricksfly-elements-for-bricks'),
@@ -484,16 +484,16 @@ class THEBRBRE_Starter_Animations
 			'step'     => 0.1,
 			'min'      => 0,
 			'max'      => 3,
-			'required' => ['_thebrbre_starter_anim', '=', 'scale-up'],
+			'required' => ['_bricksfly_starter_anim', '=', 'scale-up'],
 			'css'      => [
 				[
-					'property' => '--thebrbre-scale-start',
+					'property' => '--bricksfly-scale-start',
 					'selector' => '',
 				],
 			],
 		];
 
-		$controls['_thebrbre_scale_end'] = [
+		$controls['_bricksfly_scale_end'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
 			'label'    => esc_html__('End Scale', 'bricksfly-elements-for-bricks'),
@@ -502,16 +502,16 @@ class THEBRBRE_Starter_Animations
 			'step'     => 0.1,
 			'min'      => 0,
 			'max'      => 3,
-			'required' => ['_thebrbre_starter_anim', '=', 'scale-up'],
+			'required' => ['_bricksfly_starter_anim', '=', 'scale-up'],
 			'css'      => [
 				[
-					'property' => '--thebrbre-scale-end',
+					'property' => '--bricksfly-scale-end',
 					'selector' => '',
 				],
 			],
 		];
 
-		$controls['_thebrbre_scale_origin'] = [
+		$controls['_bricksfly_scale_origin'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
 			'label'    => esc_html__('Scale From', 'bricksfly-elements-for-bricks'),
@@ -525,17 +525,17 @@ class THEBRBRE_Starter_Animations
 			],
 			'default'  => 'center',
 			'inline'   => true,
-			'required' => ['_thebrbre_starter_anim', '=', 'scale-up'],
+			'required' => ['_bricksfly_starter_anim', '=', 'scale-up'],
 			'css'      => [
 				[
-					'property' => '--thebrbre-scale-origin',
+					'property' => '--bricksfly-scale-origin',
 					'selector' => '',
 				],
 			],
 		];
 
 		// ---- slide ----
-		$controls['_thebrbre_slide_direction'] = [
+		$controls['_bricksfly_slide_direction'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
 			'label'    => esc_html__('Direction', 'bricksfly-elements-for-bricks'),
@@ -548,10 +548,10 @@ class THEBRBRE_Starter_Animations
 			],
 			'default'  => 'bottom',
 			'inline'   => true,
-			'required' => ['_thebrbre_starter_anim', '=', 'slide'],
+			'required' => ['_bricksfly_starter_anim', '=', 'slide'],
 		];
 
-		$controls['_thebrbre_slide_distance'] = [
+		$controls['_bricksfly_slide_distance'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
 			'label'    => esc_html__('Distance (px)', 'bricksfly-elements-for-bricks'),
@@ -560,10 +560,10 @@ class THEBRBRE_Starter_Animations
 			'min'      => 0,
 			'max'      => 500,
 			'step'     => 5,
-			'required' => ['_thebrbre_starter_anim', '=', 'slide'],
+			'required' => ['_bricksfly_starter_anim', '=', 'slide'],
 			'css'      => [
 				[
-					'property' => '--thebrbre-slide-distance',
+					'property' => '--bricksfly-slide-distance',
 					'selector' => '',
 					'value'    => '%spx',
 				],
@@ -571,32 +571,32 @@ class THEBRBRE_Starter_Animations
 		];
 
 		// ---- skew-reveal ----
-		$controls['_thebrbre_skew_angle'] = [
+		$controls['_bricksfly_skew_angle'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
 			'label'    => esc_html__('Skew Angle (deg)', 'bricksfly-elements-for-bricks'),
 			'type'     => 'number',
 			'default'  => 18,
-			'required' => ['_thebrbre_starter_anim', '=', 'skew-reveal'],
+			'required' => ['_bricksfly_starter_anim', '=', 'skew-reveal'],
 			'css'      => [
 				[
-					'property' => '--thebrbre-skew-angle',
+					'property' => '--bricksfly-skew-angle',
 					'selector' => '',
 					'value'    => '%sdeg',
 				],
 			],
 		];
 
-		$controls['_thebrbre_skew_distance'] = [
+		$controls['_bricksfly_skew_distance'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
 			'label'    => esc_html__('Translate Distance (px)', 'bricksfly-elements-for-bricks'),
 			'type'     => 'number',
 			'default'  => 40,
-			'required' => ['_thebrbre_starter_anim', '=', 'skew-reveal'],
+			'required' => ['_bricksfly_starter_anim', '=', 'skew-reveal'],
 			'css'      => [
 				[
-					'property' => '--thebrbre-skew-distance',
+					'property' => '--bricksfly-skew-distance',
 					'selector' => '',
 					'value'    => '%spx',
 				],
@@ -604,7 +604,7 @@ class THEBRBRE_Starter_Animations
 		];
 
 		// ---- flip ----
-		$controls['_thebrbre_flip_axis'] = [
+		$controls['_bricksfly_flip_axis'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
 			'label'    => esc_html__('Flip Direction', 'bricksfly-elements-for-bricks'),
@@ -615,35 +615,35 @@ class THEBRBRE_Starter_Animations
 			],
 			'default'  => 'x',
 			'inline'   => true,
-			'required' => ['_thebrbre_starter_anim', '=', 'flip'],
+			'required' => ['_bricksfly_starter_anim', '=', 'flip'],
 		];
 
-		$controls['_thebrbre_flip_angle'] = [
+		$controls['_bricksfly_flip_angle'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
 			'label'    => esc_html__('Flip Angle (deg)', 'bricksfly-elements-for-bricks'),
 			'type'     => 'number',
 			'default'  => 90,
-			'required' => ['_thebrbre_starter_anim', '=', 'flip'],
+			'required' => ['_bricksfly_starter_anim', '=', 'flip'],
 			'css'      => [
 				[
-					'property' => '--thebrbre-flip-angle',
+					'property' => '--bricksfly-flip-angle',
 					'selector' => '',
 					'value'    => '%sdeg',
 				],
 			],
 		];
 
-		$controls['_thebrbre_flip_perspective'] = [
+		$controls['_bricksfly_flip_perspective'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
 			'label'    => esc_html__('Perspective (px)', 'bricksfly-elements-for-bricks'),
 			'type'     => 'number',
 			'default'  => 800,
-			'required' => ['_thebrbre_starter_anim', '=', 'flip'],
+			'required' => ['_bricksfly_starter_anim', '=', 'flip'],
 			'css'      => [
 				[
-					'property' => '--thebrbre-flip-perspective',
+					'property' => '--bricksfly-flip-perspective',
 					'selector' => '',
 					'value'    => '%spx',
 				],
@@ -651,7 +651,7 @@ class THEBRBRE_Starter_Animations
 		];
 
 		// ---- repeat-on-enter (footer) ----
-		$controls['_thebrbre_repeat_on_enter'] = [
+		$controls['_bricksfly_repeat_on_enter'] = [
 			'tab'         => 'content',
 			'group'       => self::GROUP_ID,
 			'label'       => esc_html__('Repeat Animation?', 'bricksfly-elements-for-bricks'),
@@ -663,30 +663,30 @@ class THEBRBRE_Starter_Animations
 			],
 			'default'     => 'no',
 			'inline'      => true,
-			'required'    => ['_thebrbre_starter_anim', '!=', ['', 'none']],
+			'required'    => ['_bricksfly_starter_anim', '!=', ['', 'none']],
 		];
 
 
 		// ---- editor preview ----
-		$controls['_thebrbre_anim_editor_enabled'] = [
+		$controls['_bricksfly_anim_editor_enabled'] = [
 			'tab'         => 'content',
 			'group'       => self::GROUP_ID,
 			'label'       => esc_html__('Enable On Editor', 'bricksfly-elements-for-bricks'),
 			'description' => esc_html__('For better performance in editor mode, keep this off.', 'bricksfly-elements-for-bricks'),
 			'type'        => 'checkbox',
 			'inline'      => true,
-			'required'    => ['_thebrbre_starter_anim', '!=', ['', 'none']],
+			'required'    => ['_bricksfly_starter_anim', '!=', ['', 'none']],
 			'separator'   => 'before',
 		];
 
-		$controls['_thebrbre_play_starter_animation'] = [
+		$controls['_bricksfly_play_starter_animation'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
 			'type'     => 'info',
-			'content'  => '<button type="button" class="thebrbre-free-play-animation"><span class="thebrbre-free-play-animation__icon" aria-hidden="true">▶</span><span class="thebrbre-free-play-animation__label">PLAY ANIMATION</span></button>',
+			'content'  => '<button type="button" class="bricksfly-free-play-animation"><span class="bricksfly-free-play-animation__icon" aria-hidden="true">▶</span><span class="bricksfly-free-play-animation__label">PLAY ANIMATION</span></button>',
 			'required' => [
-				['_thebrbre_starter_anim', '!=', ['', 'none']],
-				['_thebrbre_anim_editor_enabled', '=', true],
+				['_bricksfly_starter_anim', '!=', ['', 'none']],
+				['_bricksfly_anim_editor_enabled', '=', true],
 			],
 		];
 
@@ -700,7 +700,7 @@ class THEBRBRE_Starter_Animations
 	public function inject_container_controls($controls)
 	{
 
-		$controls['_thebrbre_starter_anim_container'] = [
+		$controls['_bricksfly_starter_anim_container'] = [
 			'tab'     => 'content',
 			'group'   => self::GROUP_ID_CONTAINER,
 			'label'   => esc_html__('Animation', 'bricksfly-elements-for-bricks'),
@@ -715,7 +715,7 @@ class THEBRBRE_Starter_Animations
 		];
 
 		// ---- container slide ----
-		$controls['_thebrbre_slide_direction_container'] = [
+		$controls['_bricksfly_slide_direction_container'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID_CONTAINER,
 			'label'    => esc_html__('Slide Direction', 'bricksfly-elements-for-bricks'),
@@ -728,58 +728,58 @@ class THEBRBRE_Starter_Animations
 			],
 			'default'  => 'bottom',
 			'inline'   => true,
-			'required' => ['_thebrbre_starter_anim_container', '=', 'slide'],
+			'required' => ['_bricksfly_starter_anim_container', '=', 'slide'],
 		];
 
-		$controls['_thebrbre_slide_distance_container'] = [
+		$controls['_bricksfly_slide_distance_container'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID_CONTAINER,
 			'label'    => esc_html__('Distance (px)', 'bricksfly-elements-for-bricks'),
 			'type'     => 'number',
 			'default'  => 40,
-			'required' => ['_thebrbre_starter_anim_container', '=', 'slide'],
+			'required' => ['_bricksfly_starter_anim_container', '=', 'slide'],
 			'css'      => [
 				[
-					'property' => '--thebrbre-slide-distance',
+					'property' => '--bricksfly-slide-distance',
 					'selector' => '',
 					'value'    => '%spx',
 				],
 			],
 		];
 
-		$controls['_thebrbre_slide_duration_container'] = [
+		$controls['_bricksfly_slide_duration_container'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID_CONTAINER,
 			'label'    => esc_html__('Duration (ms)', 'bricksfly-elements-for-bricks'),
 			'type'     => 'number',
 			'default'  => 600,
-			'required' => ['_thebrbre_starter_anim_container', '=', 'slide'],
+			'required' => ['_bricksfly_starter_anim_container', '=', 'slide'],
 			'css'      => [
 				[
-					'property' => '--thebrbre-slide-duration',
+					'property' => '--bricksfly-slide-duration',
 					'selector' => '',
 					'value'    => '%sms',
 				],
 			],
 		];
 
-		$controls['_thebrbre_slide_delay_container'] = [
+		$controls['_bricksfly_slide_delay_container'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID_CONTAINER,
 			'label'    => esc_html__('Delay (ms)', 'bricksfly-elements-for-bricks'),
 			'type'     => 'number',
 			'default'  => 0,
-			'required' => ['_thebrbre_starter_anim_container', '=', 'slide'],
+			'required' => ['_bricksfly_starter_anim_container', '=', 'slide'],
 			'css'      => [
 				[
-					'property' => '--thebrbre-slide-delay',
+					'property' => '--bricksfly-slide-delay',
 					'selector' => '',
 					'value'    => '%sms',
 				],
 			],
 		];
 
-		$controls['_thebrbre_slide_ease_container'] = [
+		$controls['_bricksfly_slide_ease_container'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID_CONTAINER,
 			'label'    => esc_html__('Easing', 'bricksfly-elements-for-bricks'),
@@ -787,17 +787,17 @@ class THEBRBRE_Starter_Animations
 			'options'  => $this->get_easing_options(),
 			'default'  => 'ease',
 			'inline'   => true,
-			'required' => ['_thebrbre_starter_anim_container', '=', 'slide'],
+			'required' => ['_bricksfly_starter_anim_container', '=', 'slide'],
 			'css'      => [
 				[
-					'property' => '--thebrbre-slide-ease',
+					'property' => '--bricksfly-slide-ease',
 					'selector' => '',
 				],
 			],
 		];
 
 		// ---- container flip ----
-		$controls['_thebrbre_flip_axis_container'] = [
+		$controls['_bricksfly_flip_axis_container'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID_CONTAINER,
 			'label'    => esc_html__('Flip Direction', 'bricksfly-elements-for-bricks'),
@@ -808,35 +808,35 @@ class THEBRBRE_Starter_Animations
 			],
 			'default'  => 'x',
 			'inline'   => true,
-			'required' => ['_thebrbre_starter_anim_container', '=', 'flip'],
+			'required' => ['_bricksfly_starter_anim_container', '=', 'flip'],
 		];
 
-		$controls['_thebrbre_flip_angle_container'] = [
+		$controls['_bricksfly_flip_angle_container'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID_CONTAINER,
 			'label'    => esc_html__('Flip Angle (deg)', 'bricksfly-elements-for-bricks'),
 			'type'     => 'number',
 			'default'  => 90,
-			'required' => ['_thebrbre_starter_anim_container', '=', 'flip'],
+			'required' => ['_bricksfly_starter_anim_container', '=', 'flip'],
 			'css'      => [
 				[
-					'property' => '--thebrbre-flip-angle-container',
+					'property' => '--bricksfly-flip-angle-container',
 					'selector' => '',
 					'value'    => '%sdeg',
 				],
 			],
 		];
 
-		$controls['_thebrbre_flip_perspective_container'] = [
+		$controls['_bricksfly_flip_perspective_container'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID_CONTAINER,
 			'label'    => esc_html__('Perspective (px)', 'bricksfly-elements-for-bricks'),
 			'type'     => 'number',
 			'default'  => 800,
-			'required' => ['_thebrbre_starter_anim_container', '=', 'flip'],
+			'required' => ['_bricksfly_starter_anim_container', '=', 'flip'],
 			'css'      => [
 				[
-					'property' => '--thebrbre-flip-perspective-container',
+					'property' => '--bricksfly-flip-perspective-container',
 					'selector' => '',
 					'value'    => '%spx',
 				],
@@ -844,7 +844,7 @@ class THEBRBRE_Starter_Animations
 		];
 
 		// Repeat behavior on containers as well.
-		$controls['_thebrbre_repeat_on_enter_container'] = [
+		$controls['_bricksfly_repeat_on_enter_container'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID_CONTAINER,
 			'label'    => esc_html__('Repeat Animation?', 'bricksfly-elements-for-bricks'),
@@ -855,28 +855,28 @@ class THEBRBRE_Starter_Animations
 			],
 			'default'  => 'no',
 			'inline'   => true,
-			'required' => ['_thebrbre_starter_anim_container', '!=', ['', 'none']],
+			'required' => ['_bricksfly_starter_anim_container', '!=', ['', 'none']],
 		];
 
-		$controls['_thebrbre_anim_editor_enabled_container'] = [
+		$controls['_bricksfly_anim_editor_enabled_container'] = [
 			'tab'         => 'content',
 			'group'       => self::GROUP_ID_CONTAINER,
 			'label'       => esc_html__('Enable On Editor', 'bricksfly-elements-for-bricks'),
 			'description' => esc_html__('For better performance in editor mode, keep this off.', 'bricksfly-elements-for-bricks'),
 			'type'        => 'checkbox',
 			'inline'      => true,
-			'required'    => ['_thebrbre_starter_anim_container', '!=', ['', 'none']],
+			'required'    => ['_bricksfly_starter_anim_container', '!=', ['', 'none']],
 			'separator'   => 'before',
 		];
 
-		$controls['_thebrbre_play_starter_animation_container'] = [
+		$controls['_bricksfly_play_starter_animation_container'] = [
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID_CONTAINER,
 			'type'     => 'info',
-			'content'  => '<button type="button" class="thebrbre-free-play-animation"><span class="thebrbre-free-play-animation__icon" aria-hidden="true">▶</span><span class="thebrbre-free-play-animation__label">PLAY ANIMATION</span></button>',
+			'content'  => '<button type="button" class="bricksfly-free-play-animation"><span class="bricksfly-free-play-animation__icon" aria-hidden="true">▶</span><span class="bricksfly-free-play-animation__label">PLAY ANIMATION</span></button>',
 			'required' => [
-				['_thebrbre_starter_anim_container', '!=', ['', 'none']],
-				['_thebrbre_anim_editor_enabled_container', '=', true],
+				['_bricksfly_starter_anim_container', '!=', ['', 'none']],
+				['_bricksfly_anim_editor_enabled_container', '=', true],
 			],
 		];
 
@@ -948,19 +948,19 @@ public function apply_render_classes($attributes, $key, $element)
 	};
 
 	if ($is_text) {
-		$anim = isset($settings['_thebrbre_starter_anim']) ? $settings['_thebrbre_starter_anim'] : '';
+		$anim = isset($settings['_bricksfly_starter_anim']) ? $settings['_bricksfly_starter_anim'] : '';
 		if ($anim && $anim !== 'none') {
-			$add('thebrbre-starter-animations-' . $anim);
-			$add('thebrbre-target-self');
+			$add('bricksfly-starter-animations-' . $anim);
+			$add('bricksfly-target-self');
 
-			$repeat = ($settings['_thebrbre_repeat_on_enter'] ?? '') === 'yes' ? 'yes' : 'no';
-			$add('thebrbre-repeat-' . $repeat);
+			$repeat = ($settings['_bricksfly_repeat_on_enter'] ?? '') === 'yes' ? 'yes' : 'no';
+			$add('bricksfly-repeat-' . $repeat);
 
 
 			// text-bg-clip needs the image URL piped into a CSS variable. (Image
 			// elements never use this preset, so this only runs for text widgets.)
-			if ($anim === 'text-bg-clip' && ! empty($settings['_thebrbre_bg_text_image'])) {
-				$img    = $settings['_thebrbre_bg_text_image'];
+			if ($anim === 'text-bg-clip' && ! empty($settings['_bricksfly_bg_text_image'])) {
+				$img    = $settings['_bricksfly_bg_text_image'];
 				$bg_url = '';
 				if (is_array($img)) {
 					if (! empty($img['url'])) {
@@ -974,7 +974,7 @@ public function apply_render_classes($attributes, $key, $element)
 				}
 
 				if ($bg_url !== '') {
-					$style_decl = '--thebrbre-bg-text-image:url(' . esc_url_raw($bg_url) . ');';
+					$style_decl = '--bricksfly-bg-text-image:url(' . esc_url_raw($bg_url) . ');';
 					$existing   = isset($attributes[$root_key]['style']) ? $attributes[$root_key]['style'] : '';
 					if (is_array($existing)) {
 						$existing[]                      = $style_decl;
@@ -986,49 +986,49 @@ public function apply_render_classes($attributes, $key, $element)
 			}
 
 			if ($anim === 'reveal') {
-				$direction = ! empty($settings['_thebrbre_reveal_direction']) ? $settings['_thebrbre_reveal_direction'] : 'bottom';
-				$add('thebrbre-reveal-' . $direction);
-				if (! empty($settings['_thebrbre_reveal_fade'])) {
-					$add('thebrbre-reveal-yes');
+				$direction = ! empty($settings['_bricksfly_reveal_direction']) ? $settings['_bricksfly_reveal_direction'] : 'bottom';
+				$add('bricksfly-reveal-' . $direction);
+				if (! empty($settings['_bricksfly_reveal_fade'])) {
+					$add('bricksfly-reveal-yes');
 				}
 			}
 
 			if ($anim === 'text-char-animate') {
-				$preset = ! empty($settings['_thebrbre_char_preset']) ? $settings['_thebrbre_char_preset'] : 'revolve';
-				$add('thebrbre-char-preset-' . $preset);
+				$preset = ! empty($settings['_bricksfly_char_preset']) ? $settings['_bricksfly_char_preset'] : 'revolve';
+				$add('bricksfly-char-preset-' . $preset);
 			}
 
 			if ($anim === 'slide') {
-				$direction = ! empty($settings['_thebrbre_slide_direction']) ? $settings['_thebrbre_slide_direction'] : 'bottom';
-				$add('thebrbre-slide-' . $direction);
+				$direction = ! empty($settings['_bricksfly_slide_direction']) ? $settings['_bricksfly_slide_direction'] : 'bottom';
+				$add('bricksfly-slide-' . $direction);
 			}
 
 			if ($anim === 'flip') {
-				$axis = ! empty($settings['_thebrbre_flip_axis']) ? $settings['_thebrbre_flip_axis'] : 'x';
-				$add('thebrbre-flip-axis-' . $axis);
+				$axis = ! empty($settings['_bricksfly_flip_axis']) ? $settings['_bricksfly_flip_axis'] : 'x';
+				$add('bricksfly-flip-axis-' . $axis);
 			}
 		}
 
 	}
 
 	if ($is_container) {
-		$anim = isset($settings['_thebrbre_starter_anim_container']) ? $settings['_thebrbre_starter_anim_container'] : '';
+		$anim = isset($settings['_bricksfly_starter_anim_container']) ? $settings['_bricksfly_starter_anim_container'] : '';
 		if ($anim && $anim !== 'none') {
-			$add('thebrbre-starter-animations-' . $anim);
+			$add('bricksfly-starter-animations-' . $anim);
 
 			if ($anim === 'slide') {
-				$direction = ! empty($settings['_thebrbre_slide_direction_container']) ? $settings['_thebrbre_slide_direction_container'] : 'bottom';
-				$add('thebrbre-slide-' . $direction);
+				$direction = ! empty($settings['_bricksfly_slide_direction_container']) ? $settings['_bricksfly_slide_direction_container'] : 'bottom';
+				$add('bricksfly-slide-' . $direction);
 			}
 
 			if ($anim === 'flip') {
-				$axis = ! empty($settings['_thebrbre_flip_axis_container']) ? $settings['_thebrbre_flip_axis_container'] : 'x';
-				$add('thebrbre-flip-axis-container-' . $axis);
+				$axis = ! empty($settings['_bricksfly_flip_axis_container']) ? $settings['_bricksfly_flip_axis_container'] : 'x';
+				$add('bricksfly-flip-axis-container-' . $axis);
 			}
 
-			// reads `thebrbre-repeat-yes` — so never emit the no-op `thebrbre-repeat-no`.
-			$repeat = ($settings['_thebrbre_repeat_on_enter_container'] ?? '') === 'yes' ? 'yes' : 'no';
-			$add('thebrbre-repeat-' . $repeat);
+			// reads `bricksfly-repeat-yes` — so never emit the no-op `bricksfly-repeat-no`.
+			$repeat = ($settings['_bricksfly_repeat_on_enter_container'] ?? '') === 'yes' ? 'yes' : 'no';
+			$add('bricksfly-repeat-' . $repeat);
 		}
 	
 	}
@@ -1042,13 +1042,13 @@ public function apply_render_classes($attributes, $key, $element)
 
 	public function enqueue_assets()
 	{
-		$css_path = THEBRBRE_PATH . 'public/build/extensions/starter-animations-client.css';
-		$css_ver  = file_exists($css_path) ? filemtime($css_path) : THEBRBRE_VERSION;
+		$css_path = BRICKSFLY_PATH . 'public/build/extensions/starter-animations-client.css';
+		$css_ver  = file_exists($css_path) ? filemtime($css_path) : BRICKSFLY_VERSION;
 
 		// Animation CSS is needed in every context.
 		wp_enqueue_style(
-			'thebrbre-starter-animations-client',
-			THEBRBRE_URL . 'public/build/extensions/starter-animations-client.css',
+			'bricksfly-starter-animations-client',
+			BRICKSFLY_URL . 'public/build/extensions/starter-animations-client.css',
 			[],
 			$css_ver
 		);
@@ -1058,27 +1058,27 @@ public function apply_render_classes($attributes, $key, $element)
 		if ($in_builder_iframe) {
 			// Builder iframe: lightweight preview bundle — handles Play-button
 			// messages, no IntersectionObserver.
-			$js_path = THEBRBRE_PATH . 'public/build/extensions/starter-animations-builder.js';
+			$js_path = BRICKSFLY_PATH . 'public/build/extensions/starter-animations-builder.js';
 			wp_enqueue_script(
-				'thebrbre-starter-animations-preview',
-				THEBRBRE_URL . 'public/build/extensions/starter-animations-builder.js',
+				'bricksfly-starter-animations-preview',
+				BRICKSFLY_URL . 'public/build/extensions/starter-animations-builder.js',
 				[],
-				file_exists($js_path) ? filemtime($js_path) : THEBRBRE_VERSION,
+				file_exists($js_path) ? filemtime($js_path) : BRICKSFLY_VERSION,
 				true
 			);
 		} else {
 			// Frontend (and builder parent frame as a no-op): full scroll-driven
 			// animation bundle with IntersectionObserver.
-			$js_path = THEBRBRE_PATH . 'public/build/extensions/starter-animations-client.js';
+			$js_path = BRICKSFLY_PATH . 'public/build/extensions/starter-animations-client.js';
 			wp_enqueue_script(
-				'thebrbre-starter-animations-client',
-				THEBRBRE_URL . 'public/build/extensions/starter-animations-client.js',
+				'bricksfly-starter-animations-client',
+				BRICKSFLY_URL . 'public/build/extensions/starter-animations-client.js',
 				[],
-				file_exists($js_path) ? filemtime($js_path) : THEBRBRE_VERSION,
+				file_exists($js_path) ? filemtime($js_path) : BRICKSFLY_VERSION,
 				true
 			);
 		}
 	}
 }
 
-THEBRBRE_Starter_Animations::instance();
+BRICKSFLY_Starter_Animations::instance();

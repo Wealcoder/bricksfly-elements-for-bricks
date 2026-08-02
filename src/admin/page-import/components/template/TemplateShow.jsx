@@ -58,7 +58,7 @@ const TemplateShow = ({ allTemplate, metaData, setMetaData }) => {
 
   const saveWishlist = async (data) => {
     try {
-      await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
+      await fetch(BRICKSFLY_ADDONS_ADMIN.ajaxurl, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
@@ -66,9 +66,9 @@ const TemplateShow = ({ allTemplate, metaData, setMetaData }) => {
         },
 
         body: new URLSearchParams({
-          action: "thebrbre_wishlist_option",
+          action: "bricksfly_wishlist_option",
           wishlist: JSON.stringify(data),
-          nonce: THEBRBRE_ADDONS_ADMIN.nonce,
+          nonce: BRICKSFLY_ADDONS_ADMIN.nonce,
           settings: "wcf_save_widgets",
         }),
       })
@@ -82,7 +82,7 @@ const TemplateShow = ({ allTemplate, metaData, setMetaData }) => {
               wishlist: return_content.data,
               pageNum: 1,
             }));
-            THEBRBRE_ADDONS_ADMIN.addons_config.wishlist = return_content.data;
+            BRICKSFLY_ADDONS_ADMIN.addons_config.wishlist = return_content.data;
           }
         });
     } catch (error) {}

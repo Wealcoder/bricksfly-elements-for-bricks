@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 const MainNav = () => {
   const [currentPath, setCurrentPath] = useState("");
   const navItems = MainNavData;
-  const role = THEBRBRE_ADDONS_ADMIN.user_role;
+  const role = BRICKSFLY_ADDONS_ADMIN.user_role;
 
   const { setTabKey } = useTNavigation();
 

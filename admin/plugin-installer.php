@@ -10,19 +10,19 @@ if (! defined('ABSPATH')) {
  * AJAX endpoints for activating / deactivating other WordPress plugins from
  * the React dashboard (GetProButton, IntegrationCard, ProConfirmDialog).
  */
-class THEBRBRE_Plugin_Installer
+class BRICKSFLY_Plugin_Installer
 {
 
 	public function __construct()
 	{
-		add_action('wp_ajax_thebrbre_active_plugin', [$this, 'ajax_activate_plugin']);
-		add_action('wp_ajax_thebrbre_deactive_plugin', [$this, 'ajax_deactivate_plugin']);
+		add_action('wp_ajax_bricksfly_active_plugin', [$this, 'ajax_activate_plugin']);
+		add_action('wp_ajax_bricksfly_deactive_plugin', [$this, 'ajax_deactivate_plugin']);
 	}
 
 	public function ajax_activate_plugin()
 	{
 
-		check_ajax_referer('thebrbre_admin_nonce', 'nonce');
+		check_ajax_referer('bricksfly_admin_nonce', 'nonce');
 
 		if (! current_user_can('activate_plugins')) {
 			wp_send_json_error(__('You are not allowed to do this action', 'bricksfly-elements-for-bricks'));
@@ -40,7 +40,7 @@ class THEBRBRE_Plugin_Installer
 
 	public function ajax_deactivate_plugin()
 	{
-		check_ajax_referer('thebrbre_admin_nonce', 'nonce');
+		check_ajax_referer('bricksfly_admin_nonce', 'nonce');
 
 		if (! current_user_can('activate_plugins')) {
 			wp_send_json_error(__('You are not allowed to do this action', 'bricksfly-elements-for-bricks'));
@@ -57,4 +57,4 @@ class THEBRBRE_Plugin_Installer
 	}
 }
 
-new THEBRBRE_Plugin_Installer();
+new BRICKSFLY_Plugin_Installer();

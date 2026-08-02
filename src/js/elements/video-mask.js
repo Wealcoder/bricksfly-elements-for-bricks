@@ -62,9 +62,9 @@ import "../../scss/elements/video-mask.scss";
     initAll();
   });
 
-  // Bricks builder calls window.thebrbreVideoMask() with NO arguments on
+  // Bricks builder calls window.bricksflyVideoMask() with NO arguments on
   // re-render, so the global must be a no-arg-safe entrypoint (matching the
   // convention used by every other element in this plugin) rather than
   // initElement directly, which assumes its argument is always a valid element.
-  window.thebrbreVideoMask = initAll;
+  window.bricksflyVideoMask = initAll;
 })();

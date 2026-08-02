@@ -7,7 +7,7 @@ const Extensions = () => {
   const searchParamTab = urlParams.get("cTab");
   const searchParamPluginId = urlParams.get("pluginId");
   const [extensionCount, setExtensionCount] = useState(
-    THEBRBRE_ADDONS_ADMIN.extensions,
+    BRICKSFLY_ADDONS_ADMIN.extensions,
   );
   const [filterKey, setFilterKey] = useState("free-pro");
 

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 
 
-class THEBRBRE_Deactivator {
+class BRICKSFLY_Deactivator {
 
 	/**
 	 * Short Description. (use period)

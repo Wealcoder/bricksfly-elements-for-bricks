@@ -4,7 +4,7 @@ if (! defined('ABSPATH')) {
 	exit;  // Exit if accessed directly.
 }
 
-$thebrbre_config = array(
+$bricksfly_config = array(
 	'widgets'            => array(
 		'is_active' => false,
 		'elements'  => array(
@@ -1352,7 +1352,7 @@ $thebrbre_config = array(
 	),
 );
 
-$thebrbre_dashboard_pro_widget_slugs = array(
+$bricksfly_dashboard_pro_widget_slugs = array(
 	'animated-heading',
 	'icon-box',
 	'social-icons',
@@ -1360,23 +1360,23 @@ $thebrbre_dashboard_pro_widget_slugs = array(
 	'testimonial-1',
 	'button-pro',
 );
-$thebrbre_widget_index = array();
-if (! empty($thebrbre_config['widgets']['elements']) && is_array($thebrbre_config['widgets']['elements'])) {
-	foreach ($thebrbre_config['widgets']['elements'] as $thebrbre_group) {
-		if (empty($thebrbre_group['elements']) || ! is_array($thebrbre_group['elements'])) {
+$bricksfly_widget_index = array();
+if (! empty($bricksfly_config['widgets']['elements']) && is_array($bricksfly_config['widgets']['elements'])) {
+	foreach ($bricksfly_config['widgets']['elements'] as $bricksfly_group) {
+		if (empty($bricksfly_group['elements']) || ! is_array($bricksfly_group['elements'])) {
 			continue;
 		}
-		foreach ($thebrbre_group['elements'] as $thebrbre_slug => $thebrbre_widget) {
-			$thebrbre_widget_index[$thebrbre_slug] = $thebrbre_widget;
+		foreach ($bricksfly_group['elements'] as $bricksfly_slug => $bricksfly_widget) {
+			$bricksfly_widget_index[$bricksfly_slug] = $bricksfly_widget;
 		}
 	}
 }
-$thebrbre_dashboard_pro_widgets = array();
-foreach ($thebrbre_dashboard_pro_widget_slugs as $thebrbre_slug) {
-	if (isset($thebrbre_widget_index[$thebrbre_slug])) {
-		$thebrbre_dashboard_pro_widgets[$thebrbre_slug] = $thebrbre_widget_index[$thebrbre_slug];
+$bricksfly_dashboard_pro_widgets = array();
+foreach ($bricksfly_dashboard_pro_widget_slugs as $bricksfly_slug) {
+	if (isset($bricksfly_widget_index[$bricksfly_slug])) {
+		$bricksfly_dashboard_pro_widgets[$bricksfly_slug] = $bricksfly_widget_index[$bricksfly_slug];
 	}
 }
-$thebrbre_config['dashboardProWidget'] = $thebrbre_dashboard_pro_widgets;
+$bricksfly_config['dashboardProWidget'] = $bricksfly_dashboard_pro_widgets;
 
-$GLOBALS['thebrbre_config'] = $thebrbre_config;
+$GLOBALS['bricksfly_config'] = $bricksfly_config;

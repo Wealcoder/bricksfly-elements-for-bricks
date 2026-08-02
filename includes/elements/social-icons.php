@@ -2,7 +2,7 @@
 
 if (! defined('ABSPATH')) exit;
 
-class THEBRBRE_Bricks_Social_Icons extends \Bricks\Element
+class BRICKSFLY_Bricks_Social_Icons extends \Bricks\Element
 {
 
 	public $category     = 'bricks fly';
@@ -28,7 +28,7 @@ class THEBRBRE_Bricks_Social_Icons extends \Bricks\Element
 
 		wp_enqueue_style(
 			'aab-social-icons',
-			THEBRBRE_URL . 'public/build/elements/social-icons.css',
+			BRICKSFLY_URL . 'public/build/elements/social-icons.css',
 			[],
 			'1.0.0'
 		);

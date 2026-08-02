@@ -34,14 +34,14 @@ class Helpers {
 
 		$downloader = new Downloader();
 
-		$import_file_info = self::apply_filters('thebrbre/pre_download_import_files', $import_file_info );
+		$import_file_info = self::apply_filters('bricksfly/pre_download_import_files', $import_file_info );
 
 		if ( empty( $import_file_info['import_file_url'] ) ) {
 			if ( file_exists( $import_file_info['local_import_file'] ) ) {
 				$downloaded_files['content'] = $import_file_info['local_import_file'];
 			}
 		} else {
-			$content_filename = self::apply_filters('thebrbre/downloaded_content_file_prefix', 'demo-content-import-file_' ) . self::$demo_import_start_time . self::apply_filters('thebrbre/downloaded_content_file_suffix_and_file_extension', '.xml' );
+			$content_filename = self::apply_filters('bricksfly/downloaded_content_file_prefix', 'demo-content-import-file_' ) . self::$demo_import_start_time . self::apply_filters('bricksfly/downloaded_content_file_suffix_and_file_extension', '.xml' );
 
 			$downloaded_files['content'] = $downloader->download_file( $import_file_info['import_file_url'], $content_filename );
 
@@ -83,7 +83,7 @@ class Helpers {
 		if ( is_wp_error( $verified_credentials ) ) {
 			return $verified_credentials;
 		}
-		update_option( 'thebrbre_template_import_state', $content );
+		update_option( 'bricksfly_template_import_state', $content );
 
 		global $wp_filesystem;
 
@@ -136,10 +136,10 @@ class Helpers {
 	}
 
 	public static function get_plugin_page_setup_data() {
-		return Helpers::apply_filters('thebrbre/plugin_page_setup', array(
-			'parent_slug' => 'thebrbre_addons_settings',
+		return Helpers::apply_filters('bricksfly/plugin_page_setup', array(
+			'parent_slug' => 'bricksfly_addons_settings',
 			'capability'  => 'import',
-			'menu_slug'   => 'thebrbre_addons_settings',
+			'menu_slug'   => 'bricksfly_addons_settings',
 		) );
 	}
 
@@ -185,9 +185,9 @@ class Helpers {
 
 	public static function get_log_path() {
 		$upload_dir  = wp_upload_dir();
-		$upload_path = self::apply_filters('thebrbre/upload_file_path', trailingslashit( $upload_dir['path'] ) );
+		$upload_path = self::apply_filters('bricksfly/upload_file_path', trailingslashit( $upload_dir['path'] ) );
 
-		$log_path = $upload_path . self::apply_filters('thebrbre/log_file_prefix', 'log_file_' ) . self::$demo_import_start_time . self::apply_filters('thebrbre/log_file_suffix_and_file_extension', '.txt' );
+		$log_path = $upload_path . self::apply_filters('bricksfly/log_file_prefix', 'log_file_' ) . self::$demo_import_start_time . self::apply_filters('bricksfly/log_file_suffix_and_file_extension', '.txt' );
 
 		self::register_file_as_media_attachment( $log_path );
 
@@ -196,12 +196,12 @@ class Helpers {
 
 	public static function register_file_as_media_attachment( $log_path ) {
 		$log_mimes = array( 'txt' => 'text/plain' );
-		$filetype  = wp_check_filetype( basename( $log_path ), self::apply_filters('thebrbre/file_mimes', $log_mimes ) );
+		$filetype  = wp_check_filetype( basename( $log_path ), self::apply_filters('bricksfly/file_mimes', $log_mimes ) );
 
 		$attachment = array(
 			'guid'           => self::get_log_url( $log_path ),
 			'post_mime_type' => $filetype['type'],
-			'post_title'     => self::apply_filters('thebrbre/attachment_prefix', esc_html__( 'Starter Template Import - ', 'bricksfly-elements-for-bricks' ) ) . preg_replace( '/\.[^.]+$/', '', basename( $log_path ) ),
+			'post_title'     => self::apply_filters('bricksfly/attachment_prefix', esc_html__( 'Starter Template Import - ', 'bricksfly-elements-for-bricks' ) ) . preg_replace( '/\.[^.]+$/', '', basename( $log_path ) ),
 			'post_content'   => '',
 			'post_status'    => 'inherit',
 		);
@@ -211,13 +211,13 @@ class Helpers {
 
 	public static function get_log_url( $log_path ) {
 		$upload_dir = wp_upload_dir();
-		$upload_url = self::apply_filters('thebrbre/upload_file_url', trailingslashit( $upload_dir['url'] ) );
+		$upload_url = self::apply_filters('bricksfly/upload_file_url', trailingslashit( $upload_dir['url'] ) );
 
 		return $upload_url . basename( $log_path );
 	}
 
 	public static function verify_ajax_call() {
-		check_ajax_referer( 'thebrbre_admin_nonce', 'nonce' );
+		check_ajax_referer( 'bricksfly_admin_nonce', 'nonce' );
 
 		if ( ! current_user_can( 'import' ) ) {
 			wp_die(
@@ -307,11 +307,11 @@ class Helpers {
 	}
 
 	public static function set_demo_import_start_time() {
-		self::$demo_import_start_time = gmdate( self::apply_filters('thebrbre/date_format_for_file_names', 'Y-m-d__H-i-s' ) );
+		self::$demo_import_start_time = gmdate( self::apply_filters('bricksfly/date_format_for_file_names', 'Y-m-d__H-i-s' ) );
 	}
 
 	public static function set_st_import_data_transient( $data ) {
-		set_transient( 'thebrbre_st_importer_data', $data, 0.1 * HOUR_IN_SECONDS );
+		set_transient( 'bricksfly_st_importer_data', $data, 0.1 * HOUR_IN_SECONDS );
 	}
 
 	public static function apply_filters( $hook, $default_data ) {
@@ -334,7 +334,7 @@ class Helpers {
 	}
 
 	public static function get_failed_attachment_imports() {
-		return get_transient( 'thebrbre_st_importer_data_failed_attachment_imports' );
+		return get_transient( 'bricksfly_st_importer_data_failed_attachment_imports' );
 	}
 
 	public static function set_failed_attachment_import( $attachment_url ) {
@@ -346,6 +346,6 @@ class Helpers {
 
 		$failed_media_imports[] = $attachment_url;
 
-		set_transient( 'thebrbre_st_importer_data_failed_attachment_imports', $failed_media_imports, HOUR_IN_SECONDS );
+		set_transient( 'bricksfly_st_importer_data_failed_attachment_imports', $failed_media_imports, HOUR_IN_SECONDS );
 	}
 }

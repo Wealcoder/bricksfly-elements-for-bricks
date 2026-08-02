@@ -15,7 +15,7 @@ if (! defined('ABSPATH')) {
  */
 
 
-class THEBRBRE_Public
+class BRICKSFLY_Public
 {
 
 	/**
@@ -57,7 +57,7 @@ class THEBRBRE_Public
 	 */
 	public function enqueue_styles()
 	{
-		wp_enqueue_style($this->plugin_name, THEBRBRE_URL . 'public/build/frontend.css', array('bricks-frontend'), $this->version, 'all');
+		wp_enqueue_style($this->plugin_name, BRICKSFLY_URL . 'public/build/frontend.css', array('bricks-frontend'), $this->version, 'all');
 	}
 
 	/**
@@ -73,7 +73,7 @@ class THEBRBRE_Public
 		// `scroll-smoother` handles via includes/core/lib-scripts.php.
 
 		// Base plugin script.
-		wp_enqueue_script($this->plugin_name, THEBRBRE_URL . 'public/build/frontend.js', array(), $this->version, false);
+		wp_enqueue_script($this->plugin_name, BRICKSFLY_URL . 'public/build/frontend.js', array(), $this->version, false);
 	}
 
 	public function enqueue_editor_panel()
@@ -83,8 +83,8 @@ class THEBRBRE_Public
 		}
 
 		wp_enqueue_script(
-			'thebrbre-editor-panel-free',
-			THEBRBRE_URL . 'public/build/extensions/editor-panel.js',
+			'bricksfly-editor-panel-free',
+			BRICKSFLY_URL . 'public/build/extensions/editor-panel.js',
 			[],
 			$this->version,
 			true

@@ -18,7 +18,7 @@ if (! defined('ABSPATH')) {
  */
 
 
-class THEBRBRE_Plugin
+class BRICKSFLY_Plugin
 {
 	use \wealcoder\thebricksfly\Includes\Traits\Extension_Widgets_Trait;
 
@@ -28,7 +28,7 @@ class THEBRBRE_Plugin
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      THEBRBRE_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      BRICKSFLY_Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -61,8 +61,8 @@ class THEBRBRE_Plugin
 	 */
 	public function __construct()
 	{
-		if (defined('THEBRBRE_VERSION')) {
-			$this->version = THEBRBRE_VERSION;
+		if (defined('BRICKSFLY_VERSION')) {
+			$this->version = BRICKSFLY_VERSION;
 		} else {
 			$this->version = '1.0.0';
 		}
@@ -78,9 +78,9 @@ class THEBRBRE_Plugin
 	 *
 	 * Include the following files that make up the plugin:
 	 *
-	 * - THEBRBRE_Loader. Orchestrates the hooks of the plugin.
-	 * - THEBRBRE_Admin. Defines all hooks for the admin area.
-	 * - THEBRBRE_Public. Defines all hooks for the public side of the site.
+	 * - BRICKSFLY_Loader. Orchestrates the hooks of the plugin.
+	 * - BRICKSFLY_Admin. Defines all hooks for the admin area.
+	 * - BRICKSFLY_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
@@ -91,19 +91,19 @@ class THEBRBRE_Plugin
 	private function load_dependencies()
 	{
 		// Core classes.
-		require_once THEBRBRE_PATH . 'includes/class-bricks-animation-addons-loader.php';
-		require_once THEBRBRE_PATH . 'admin/class-bricks-animation-addons-admin.php';
-		require_once THEBRBRE_PATH . 'public/class-bricks-animation-addons-public.php';
+		require_once BRICKSFLY_PATH . 'includes/class-bricks-animation-addons-loader.php';
+		require_once BRICKSFLY_PATH . 'admin/class-bricks-animation-addons-admin.php';
+		require_once BRICKSFLY_PATH . 'public/class-bricks-animation-addons-public.php';
 
 		// Extension helpers.
-		require_once THEBRBRE_PATH . 'includes/extensions/helpers/ResponsiveHelper.php';
-		require_once THEBRBRE_PATH . 'includes/extensions/helpers/BRICKS_ELEMENTS.php';
-		require_once THEBRBRE_PATH . 'includes/extensions/helpers/BricksElementsHelper.php';
+		require_once BRICKSFLY_PATH . 'includes/extensions/helpers/ResponsiveHelper.php';
+		require_once BRICKSFLY_PATH . 'includes/extensions/helpers/BRICKS_ELEMENTS.php';
+		require_once BRICKSFLY_PATH . 'includes/extensions/helpers/BricksElementsHelper.php';
 
 		// License AJAX endpoints + admin status notice live in the Pro plugin
 		// (includes/license/update.php) — Pro must be active to activate or
 		// deactivate a license. The free plugin only reads the resulting
-		// option value via thebrbre_is_license_valid() / thebrbre_is_pro_active().
+		// option value via bricksfly_is_license_valid() / bricksfly_is_pro_active().
 
 		// Admin pages. "CPT Builder" is now a Pro-only feature entirely — its
 		// menu, settings UI, and CPT/taxonomy registration all live in the
@@ -111,11 +111,11 @@ class THEBRBRE_Plugin
 		// placeholder. "Site Settings" is also Pro-only; the real UI lives in
 		// the Pro plugin and only registers when a valid license is active.
 		if (is_admin()) {
-			require_once THEBRBRE_PATH . 'admin/pages/dashboard.php';
-			require_once THEBRBRE_PATH . 'admin/pages/template-importer.php';
-			require_once THEBRBRE_PATH . 'admin/pages/page-import.php';
+			require_once BRICKSFLY_PATH . 'admin/pages/dashboard.php';
+			require_once BRICKSFLY_PATH . 'admin/pages/template-importer.php';
+			require_once BRICKSFLY_PATH . 'admin/pages/page-import.php';
 
-			// require_once THEBRBRE_PATH . 'admin/pages/settings-placeholder.php';
+			// require_once BRICKSFLY_PATH . 'admin/pages/settings-placeholder.php';
 		}
 
 		// Builder Template Library — adds the "Import Section" button to
@@ -123,7 +123,7 @@ class THEBRBRE_Plugin
 		// load on every request (not just is_admin()) because the Bricks
 		// builder runs on the frontend with `wp_enqueue_scripts`, and the
 		// admin-ajax endpoints need to be hooked before the AJAX call hits.
-		require_once THEBRBRE_PATH . 'admin/pages/builder-template-library.php';
+		require_once BRICKSFLY_PATH . 'admin/pages/builder-template-library.php';
 
 		// Extensions.
 		$this->register_elements();
@@ -131,21 +131,21 @@ class THEBRBRE_Plugin
 
 		// Dispatch the Pro plugin bootstrap action once every plugin file has
 		// been parsed (so the pro plugin has had a chance to register its
-		// add_action('thebrbre/pro/register', …) handler).
+		// add_action('bricksfly/pro/register', …) handler).
 		add_action('plugins_loaded', function () {
-			if (function_exists('thebrbre_is_pro_active') && thebrbre_is_pro_active()) {
-				do_action('thebrbre/pro/register');
+			if (function_exists('bricksfly_is_pro_active') && bricksfly_is_pro_active()) {
+				do_action('bricksfly/pro/register');
 			}
 		}, 20);
 
-		$this->loader = new THEBRBRE_Loader();
+		$this->loader = new BRICKSFLY_Loader();
 	}
 
 	/**
 	 * Register extensions from config.php.
 	 *
 	 * Reads the extensions → gsap-extensions groups and loads each
-	 * child extension whose slug is active in `thebrbre_save_extensions`.
+	 * child extension whose slug is active in `bricksfly_save_extensions`.
 	 * Skips extensions marked as upcoming.
 	 * In Bricks builder, all extensions are loaded for live preview.
 	 *
@@ -155,7 +155,7 @@ class THEBRBRE_Plugin
 	private function register_extensions()
 	{
 		$extention_list = self::get_extensions();
-		$ext_dir        = THEBRBRE_PATH . 'includes/extensions/';
+		$ext_dir        = BRICKSFLY_PATH . 'includes/extensions/';
 
 		foreach ($extention_list as $slug => $data) {
 			// Skip upcoming extensions.
@@ -167,7 +167,7 @@ class THEBRBRE_Plugin
 			// exclusively by the Pro plugin. The free plugin must NEVER load
 			// them so Pro features stay disabled without the Pro plugin
 			// folder installed. Pro, when active, loads its own copies via
-			// `thebrbre_pro_register()`.
+			// `bricksfly_pro_register()`.
 			if (! empty($data['is_pro'])) {
 				continue;
 			}
@@ -187,7 +187,7 @@ class THEBRBRE_Plugin
 	 * Register elements from config.php.
 	 *
 	 * Reads the widgets groups and registers each child element
-	 * whose slug is active in `thebrbre_save_widgets`.
+	 * whose slug is active in `bricksfly_save_widgets`.
 	 * Skips elements marked as upcoming.
 	 *
 	 * @since    1.0.0
@@ -205,7 +205,7 @@ class THEBRBRE_Plugin
 
 			$widget_list  = self::get_widgets();
 
-			$elements_dir = THEBRBRE_PATH . 'includes/elements/';
+			$elements_dir = BRICKSFLY_PATH . 'includes/elements/';
 
 			foreach ($widget_list as $slug => $data) {
 
@@ -240,15 +240,15 @@ class THEBRBRE_Plugin
 		// have already run.
 		add_action('init', function () {
 
-			if (! class_exists('\Bricks\Elements') || ! function_exists('thebrbre_register_widget_placeholder')) {
+			if (! class_exists('\Bricks\Elements') || ! function_exists('bricksfly_register_widget_placeholder')) {
 				return;
 			}
 
 			$active_widgets = self::get_widgets();
-			$elements_dir   = THEBRBRE_PATH . 'includes/elements/';
+			$elements_dir   = BRICKSFLY_PATH . 'includes/elements/';
 			$leaves         = array();
 
-			self::collect_config_leaves($GLOBALS['thebrbre_config']['widgets']['elements'] ?? array(), $leaves);
+			self::collect_config_leaves($GLOBALS['bricksfly_config']['widgets']['elements'] ?? array(), $leaves);
 
 			foreach ($leaves as $slug => $data) {
 
@@ -265,9 +265,9 @@ class THEBRBRE_Plugin
 					continue;
 				}
 
-				$bricks_name = thebrbre_get_element_bricks_name($slug);
+				$bricks_name = bricksfly_get_element_bricks_name($slug);
 
-				thebrbre_register_widget_placeholder($bricks_name, $data['label'] ?? $slug);
+				bricksfly_register_widget_placeholder($bricks_name, $data['label'] ?? $slug);
 			}
 		}, 12);
 	}
@@ -276,7 +276,7 @@ class THEBRBRE_Plugin
 	 * Recursively collect every leaf widget node (not a group) from the
 	 * config `widgets.elements` tree. A node is a leaf when it carries
 	 * `is_active`, `is_extension` and `is_pro` — the same convention
-	 * thebrbre_get_total_config_elements_by_key() uses.
+	 * bricksfly_get_total_config_elements_by_key() uses.
 	 *
 	 * @param array $nodes
 	 * @param array $leaves Slug => node data, populated by reference.
@@ -309,7 +309,7 @@ class THEBRBRE_Plugin
 	private function define_admin_hooks()
 	{
 
-		$plugin_admin = new THEBRBRE_Admin($this->get_plugin_name(), $this->get_version());
+		$plugin_admin = new BRICKSFLY_Admin($this->get_plugin_name(), $this->get_version());
 
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
@@ -325,7 +325,7 @@ class THEBRBRE_Plugin
 	private function define_public_hooks()
 	{
 
-		$plugin_public = new THEBRBRE_Public($this->get_plugin_name(), $this->get_version());
+		$plugin_public = new BRICKSFLY_Public($this->get_plugin_name(), $this->get_version());
 
 		add_action('bricks/frontend/enqueue_scripts', $plugin_public, 'enqueue_scripts');
 
@@ -361,7 +361,7 @@ class THEBRBRE_Plugin
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
 	 * @since     1.0.0
-	 * @return    THEBRBRE_Loader    Orchestrates the hooks of the plugin.
+	 * @return    BRICKSFLY_Loader    Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader()
 	{

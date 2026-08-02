@@ -2,13 +2,13 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class THEBRBRE_Bricks_Video_Story extends \Bricks\Element {
+class BRICKSFLY_Bricks_Video_Story extends \Bricks\Element {
 
 	public $category     = 'bricks fly';
 	public $name         = 'aab-video-story';
 	public $icon         = 'ti-video-clapper aab-element-marker';
 	public $css_selector = '.aab--video-story';
-	public $scripts      = [ 'thebrbreVideoStory' ];
+	public $scripts      = [ 'bricksflyVideoStory' ];
 
 	public function get_label() {
 		return esc_html__('Video Story', 'bricksfly-elements-for-bricks');
@@ -21,14 +21,14 @@ class THEBRBRE_Bricks_Video_Story extends \Bricks\Element {
 	public function enqueue_scripts() {
 		wp_enqueue_style(
 			'aab-video-story',
-			THEBRBRE_URL . 'public/build/elements/video-story.css',
+			BRICKSFLY_URL . 'public/build/elements/video-story.css',
 			[],
 			'1.0.0'
 		);
 
 		wp_enqueue_script(
 			'aab-video-story',
-			THEBRBRE_URL . 'public/build/elements/video-story.js',
+			BRICKSFLY_URL . 'public/build/elements/video-story.js',
 			[],
 			'1.0.0',
 			true

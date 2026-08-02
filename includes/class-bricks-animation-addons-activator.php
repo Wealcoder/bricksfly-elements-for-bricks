@@ -15,7 +15,7 @@ if (! defined('ABSPATH')) {
  */
 
 
-class THEBRBRE_Activator
+class BRICKSFLY_Activator
 {
 
 	/**
@@ -27,7 +27,7 @@ class THEBRBRE_Activator
 	 * subsite re-flushes on its next `wp_loaded` (handled by CPT Builder, a
 	 * Pro-only feature — see the-bricksfly-pro/admin/pages/cpt-builder.php).
 	 *
-	 * Also seeds the `thebrbre_save_widgets` option with every shipped widget set
+	 * Also seeds the `bricksfly_save_widgets` option with every shipped widget set
 	 * to active — first install only, so reactivations don't clobber the
 	 * user's deliberate toggles.
 	 *
@@ -41,19 +41,19 @@ class THEBRBRE_Activator
 			$site_ids = get_sites(array('fields' => 'ids', 'number' => 0));
 			foreach ($site_ids as $blog_id) {
 				switch_to_blog($blog_id);
-				update_option('thebrbre_needs_rewrite_flush', 1, false);
+				update_option('bricksfly_needs_rewrite_flush', 1, false);
 				self::maybe_seed_widget_defaults();
 				restore_current_blog();
 			}
 			return;
 		}
 
-		update_option('thebrbre_needs_rewrite_flush', 1, false);
+		update_option('bricksfly_needs_rewrite_flush', 1, false);
 		self::maybe_seed_widget_defaults();
 	}
 
 	/**
-	 * Seed `thebrbre_save_widgets` with every shipped widget enabled.
+	 * Seed `bricksfly_save_widgets` with every shipped widget enabled.
 	 *
 	 * Runs only when the option is missing (fresh install or post-uninstall
 	 * reinstall). Walks the `widgets` branch of the plugin config and emits
@@ -69,23 +69,23 @@ class THEBRBRE_Activator
 		// Sentinel default — distinguishes "no row in wp_options" from "row
 		// containing an empty array" so a user who deactivated every widget
 		// isn't reseeded back to all-on.
-		if (false !== get_option('thebrbre_save_widgets', false)) {
+		if (false !== get_option('bricksfly_save_widgets', false)) {
 			return;
 		}
 
-		if (! isset($GLOBALS['thebrbre_config']) && defined('THEBRBRE_PATH')) {
-			require_once THEBRBRE_PATH . 'config.php';
+		if (! isset($GLOBALS['bricksfly_config']) && defined('BRICKSFLY_PATH')) {
+			require_once BRICKSFLY_PATH . 'config.php';
 		}
 
-		$widgets_config = isset($GLOBALS['thebrbre_config']['widgets'])
-			? $GLOBALS['thebrbre_config']['widgets']
+		$widgets_config = isset($GLOBALS['bricksfly_config']['widgets'])
+			? $GLOBALS['bricksfly_config']['widgets']
 			: array();
 
 		$map = array();
 		self::collect_widget_slugs($widgets_config, $map);
 
 		if (! empty($map)) {
-			update_option('thebrbre_save_widgets', $map, false);
+			update_option('bricksfly_save_widgets', $map, false);
 		}
 	}
 
@@ -122,7 +122,7 @@ class THEBRBRE_Activator
 
 
 	/**
-	 * Seed `thebrbre_save_extensions` with every shipped extension enabled.
+	 * Seed `bricksfly_save_extensions` with every shipped extension enabled.
 	 *
 	 * Called when a Pro license is successfully activated — not during plugin
 	 * activation — so extensions are only seeded once a valid license exists.
@@ -132,23 +132,23 @@ class THEBRBRE_Activator
 	public static function maybe_seed_extension_defaults()
 	{
 
-		if (false !== get_option('thebrbre_save_extensions', false)) {
+		if (false !== get_option('bricksfly_save_extensions', false)) {
 			return;
 		}
 
-		if (! isset($GLOBALS['thebrbre_config']) && defined('THEBRBRE_PATH')) {
-			require_once THEBRBRE_PATH . 'config.php';
+		if (! isset($GLOBALS['bricksfly_config']) && defined('BRICKSFLY_PATH')) {
+			require_once BRICKSFLY_PATH . 'config.php';
 		}
 
-		$extensions_config = isset($GLOBALS['thebrbre_config']['extensions'])
-			? $GLOBALS['thebrbre_config']['extensions']
+		$extensions_config = isset($GLOBALS['bricksfly_config']['extensions'])
+			? $GLOBALS['bricksfly_config']['extensions']
 			: array();
 
 		$map = array();
 		self::collect_extension_slugs($extensions_config, $map);
 
 		if (! empty($map)) {
-			update_option('thebrbre_save_extensions', $map, false);
+			update_option('bricksfly_save_extensions', $map, false);
 		}
 	}
 

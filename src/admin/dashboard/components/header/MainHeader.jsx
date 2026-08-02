@@ -15,7 +15,7 @@ const MainHeader = ({ open, setOpen }) => {
   useEffect(() => {
     const url = new URL(window.location.href);
     if (url.searchParams.get("bf-license") === "1") {
-      window.location.replace(THEBRBRE_ADDONS_ADMIN.license_settings_url);
+      window.location.replace(BRICKSFLY_ADDONS_ADMIN.license_settings_url);
     }
   }, []);
 

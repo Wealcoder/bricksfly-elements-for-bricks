@@ -31,7 +31,7 @@ export function handleChar(wrapper) {
 
   words.forEach((word, wordIndex) => {
     const wordSpan = document.createElement("span");
-    wordSpan.classList.add("thebrbre-word");
+    wordSpan.classList.add("bricksfly-word");
     wordSpan.style.display = "inline-block";
 
     [...word].forEach((char) => {
@@ -54,7 +54,7 @@ export function handleChar(wrapper) {
 }
 
 export function handleTypewriter(wrapper) {
-  if (!wrapper.classList.contains("thebrbre-starter-animations-text-typewriter"))
+  if (!wrapper.classList.contains("bricksfly-starter-animations-text-typewriter"))
     return;
   const target = getAnimTarget(wrapper);
   if (!target || target.dataset.typewriterInit) return;
@@ -84,8 +84,8 @@ export function runTypewriter(wrapper) {
 
   const cs = window.getComputedStyle(wrapper);
   const duration =
-    parseTimeMs(cs.getPropertyValue("--thebrbre-duration")) || 1500;
-  const delay = parseTimeMs(cs.getPropertyValue("--thebrbre-delay"));
+    parseTimeMs(cs.getPropertyValue("--bricksfly-duration")) || 1500;
+  const delay = parseTimeMs(cs.getPropertyValue("--bricksfly-delay"));
   const perChar = duration / Math.max(text.length, 1);
   let i = 0;
 
@@ -103,7 +103,7 @@ export function runTypewriter(wrapper) {
 }
 
 export function handleWave(wrapper) {
-  if (!wrapper.classList.contains("thebrbre-starter-animations-text-wave")) return;
+  if (!wrapper.classList.contains("bricksfly-starter-animations-text-wave")) return;
   const target = getAnimTarget(wrapper);
   if (!target) return;
   target.setAttribute("data-text", target.textContent.trim());

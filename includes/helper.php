@@ -4,8 +4,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! function_exists( 'thebrbre_validate_content_json' ) ) {
-	function thebrbre_validate_content_json( $input ) {
+if ( ! function_exists( 'bricksfly_validate_content_json' ) ) {
+	function bricksfly_validate_content_json( $input ) {
 		if ( ! is_string( $input ) || empty( $input ) ) {
 			return false;
 		}
@@ -18,8 +18,8 @@ if ( ! function_exists( 'thebrbre_validate_content_json' ) ) {
 }
 
 
-if (! function_exists('thebrbre_get_current_user_roles')) {
-  function thebrbre_get_current_user_roles()
+if (! function_exists('bricksfly_get_current_user_roles')) {
+  function bricksfly_get_current_user_roles()
   {
 
     if (is_user_logged_in()) {
@@ -42,8 +42,8 @@ if (! function_exists('thebrbre_get_current_user_roles')) {
 }
 
 
-if (! function_exists('thebrbre_get_total_config_elements_by_key')) {
-  function thebrbre_get_total_config_elements_by_key($array, &$foundKeys = 0)
+if (! function_exists('bricksfly_get_total_config_elements_by_key')) {
+  function bricksfly_get_total_config_elements_by_key($array, &$foundKeys = 0)
   {
     foreach ($array as $key => $value) {
       // Check if the current key is one we're looking for
@@ -53,15 +53,15 @@ if (! function_exists('thebrbre_get_total_config_elements_by_key')) {
 
       // If value is an array, recurse into it
       if (is_array($value)) {
-        thebrbre_get_total_config_elements_by_key($value, $foundKeys);
+        bricksfly_get_total_config_elements_by_key($value, $foundKeys);
       }
     }
   }
 }
 
 
-if (! function_exists('thebrbre_get_nested_active_config_keys')) {
-  function thebrbre_get_nested_active_config_keys($array, &$foundKeys, &$active)
+if (! function_exists('bricksfly_get_nested_active_config_keys')) {
+  function bricksfly_get_nested_active_config_keys($array, &$foundKeys, &$active)
   {
     foreach ($array as $key => $value) {
       // Check if the current key is one we're looking for
@@ -76,20 +76,20 @@ if (! function_exists('thebrbre_get_nested_active_config_keys')) {
 
       // If value is an array, recurse into it
       if (is_array($value)) {
-        thebrbre_get_nested_active_config_keys($value, $foundKeys, $active);
+        bricksfly_get_nested_active_config_keys($value, $foundKeys, $active);
       }
     }
   }
 }
 
 
-if (! function_exists('thebrbre_get_nested_config_keys')) {
+if (! function_exists('bricksfly_get_nested_config_keys')) {
   // Walks the config tree and emits a flat slug => bool map for every node
   // that exposes an is_active flag (leaves AND group/subgroup containers).
   // Groups need to be included because the React UI surfaces master toggles
   // for them (e.g. extensions sub-groups like `aab-smooth-scroller`, widget
   // group master switches). Skipping them would drop that toggle state.
-  function thebrbre_get_nested_config_keys($array, &$foundKeys, &$active)
+  function bricksfly_get_nested_config_keys($array, &$foundKeys, &$active)
   {
     if (! is_array($array)) {
       return;
@@ -100,15 +100,15 @@ if (! function_exists('thebrbre_get_nested_config_keys')) {
         $active[$key] = ! empty($value['is_active']);
       }
       if (is_array($value)) {
-        thebrbre_get_nested_config_keys($value, $foundKeys, $active);
+        bricksfly_get_nested_config_keys($value, $foundKeys, $active);
       }
     }
   }
 }
 
 
-if (! function_exists('thebrbre_get_search_active_keys')) {
-  function thebrbre_get_search_active_keys($array, $keysToFind, &$foundKeys, &$active)
+if (! function_exists('bricksfly_get_search_active_keys')) {
+  function bricksfly_get_search_active_keys($array, $keysToFind, &$foundKeys, &$active)
   {
 
     foreach ($array as $key => $value) {
@@ -122,7 +122,7 @@ if (! function_exists('thebrbre_get_search_active_keys')) {
       }
       // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
       if (is_array($value)) {
-        thebrbre_get_search_active_keys($value, $keysToFind, $foundKeys, $active);
+        bricksfly_get_search_active_keys($value, $keysToFind, $foundKeys, $active);
       }
     }
   }
@@ -137,8 +137,8 @@ if (! function_exists('thebrbre_get_search_active_keys')) {
  *
  * @return false|mixed|string
  */
-if (! function_exists('thebrbre_get_local_plugin_data')) :
-  function thebrbre_get_local_plugin_data($basename = '')
+if (! function_exists('bricksfly_get_local_plugin_data')) :
+  function bricksfly_get_local_plugin_data($basename = '')
   {
     if (empty($basename)) {
       return false;
@@ -159,9 +159,9 @@ if (! function_exists('thebrbre_get_local_plugin_data')) :
 endif;
 
 
-if (! function_exists('thebrbre_get_db_updated_config')) {
+if (! function_exists('bricksfly_get_db_updated_config')) {
 
-  function thebrbre_get_db_updated_config(array &$configs, array $dbActiveElements)
+  function bricksfly_get_db_updated_config(array &$configs, array $dbActiveElements)
   {
     // Loop through each item in the configs array
     foreach ($configs as $key => &$element) {
@@ -176,7 +176,7 @@ if (! function_exists('thebrbre_get_db_updated_config')) {
 
       // Recursively call the function for any nested elements
       if (is_array($element)) {
-        thebrbre_get_db_updated_config($element, $dbActiveElements);
+        bricksfly_get_db_updated_config($element, $dbActiveElements);
       }
     }
   }
@@ -185,19 +185,19 @@ if (! function_exists('thebrbre_get_db_updated_config')) {
 
 
 
-if (! function_exists('thebrbre_get_settings')) {
+if (! function_exists('bricksfly_get_settings')) {
 
   /**
    * Return saved settings
    */
-  function thebrbre_get_settings($option_name, $element = null)
+  function bricksfly_get_settings($option_name, $element = null)
   {
     $elements = get_option($option_name);
     return (isset($element) ? (isset($elements[$element]) ? $elements[$element] : 0) : array_keys(array_filter($elements)));
   }
 }
 
-if (! function_exists('thebrbre_is_extension_active')) {
+if (! function_exists('bricksfly_is_extension_active')) {
 
   /**
    * Check if a specific extension is active.
@@ -205,13 +205,13 @@ if (! function_exists('thebrbre_is_extension_active')) {
    * @param string $slug Extension slug (e.g. 'aab-smooth-scroller').
    * @return bool
    */
-  function thebrbre_is_extension_active($slug)
+  function bricksfly_is_extension_active($slug)
   {
-    return (bool) thebrbre_get_settings('thebrbre_save_extensions', $slug);
+    return (bool) bricksfly_get_settings('bricksfly_save_extensions', $slug);
   }
 }
 
-if (! function_exists('thebrbre_is_widget_active')) {
+if (! function_exists('bricksfly_is_widget_active')) {
 
   /**
    * Check if a specific widget is active.
@@ -219,34 +219,34 @@ if (! function_exists('thebrbre_is_widget_active')) {
    * @param string $slug Widget slug (e.g. 'animated-offcanvas').
    * @return bool
    */
-  function thebrbre_is_widget_active($slug)
+  function bricksfly_is_widget_active($slug)
   {
-    return (bool) thebrbre_get_settings('thebrbre_save_widgets', $slug);
+    return (bool) bricksfly_get_settings('bricksfly_save_widgets', $slug);
   }
 }
 
 
-if (! function_exists('thebrbre_get_config')) {
+if (! function_exists('bricksfly_get_config')) {
 
   /**
    * Return the merged plugin config tree (widgets / extensions / integrations).
    *
-   * Built by `config.php` into `$GLOBALS['thebrbre_config']` at load time,
+   * Built by `config.php` into `$GLOBALS['bricksfly_config']` at load time,
    * then filtered through the dashboard config filter to fold in DB state.
    *
    * @return array
    */
-  function thebrbre_get_config()
+  function bricksfly_get_config()
   {
-    $config = isset($GLOBALS['thebrbre_config']) && is_array($GLOBALS['thebrbre_config'])
-      ? $GLOBALS['thebrbre_config']
+    $config = isset($GLOBALS['bricksfly_config']) && is_array($GLOBALS['bricksfly_config'])
+      ? $GLOBALS['bricksfly_config']
       : array();
 
-    return apply_filters('thebrbre_dashboard_config', $config);
+    return apply_filters('bricksfly_dashboard_config', $config);
   }
 }
 
-if (! function_exists('thebrbre_translate_config_tree')) {
+if (! function_exists('bricksfly_translate_config_tree')) {
 
   /**
    * Recursively translate the user-facing strings in the config tree.
@@ -255,7 +255,7 @@ if (! function_exists('thebrbre_translate_config_tree')) {
    * cannot call `__()` directly without triggering WP 6.7+ "translation
    * loaded too early" notices. Instead, the labels stay raw English in the
    * static array and are translated on demand here — wired into the
-   * `thebrbre_addons_dashboard_config` filter so the React dashboard receives
+   * `bricksfly_addons_dashboard_config` filter so the React dashboard receives
    * translated strings.
    *
    * Translatable keys: `label`, `title`, `description`. Slugs, icons,
@@ -267,7 +267,7 @@ if (! function_exists('thebrbre_translate_config_tree')) {
    * @param array $node
    * @return array
    */
-  function thebrbre_translate_config_tree($node)
+  function bricksfly_translate_config_tree($node)
   {
     // Skip translation before `init` fires — Pro's bootstrap reads the
     // config on plugins_loaded for widget file-loading (slugs only, no
@@ -285,14 +285,14 @@ if (! function_exists('thebrbre_translate_config_tree')) {
 
     static $translations = null;
     if (null === $translations) {
-      $translations = function_exists('thebrbre_get_config_translations')
-        ? thebrbre_get_config_translations()
+      $translations = function_exists('bricksfly_get_config_translations')
+        ? bricksfly_get_config_translations()
         : array();
     }
 
     foreach ($node as $key => $value) {
       if (is_array($value)) {
-        $node[$key] = thebrbre_translate_config_tree($value);
+        $node[$key] = bricksfly_translate_config_tree($value);
       } elseif (is_string($value) && in_array($key, $translatable_keys, true) && $value !== '') {
         $node[$key] = isset($translations[$value]) ? $translations[$value] : $value;
       }
@@ -302,18 +302,18 @@ if (! function_exists('thebrbre_translate_config_tree')) {
   }
 }
 
-add_filter('thebrbre_dashboard_config', 'thebrbre_translate_config_tree', 5);
+add_filter('bricksfly_dashboard_config', 'bricksfly_translate_config_tree', 5);
 
-if (! function_exists('thebrbre_is_pro_active')) {
+if (! function_exists('bricksfly_is_pro_active')) {
 
   /**
    * Whether the Bricksfly Pro plugin is installed and active.
    *
    * @return bool
    */
-  function thebrbre_is_pro_active()
+  function bricksfly_is_pro_active()
   {
-    if (defined('THEBRBRE_PRO_VERSION')) {
+    if (defined('BRICKSFLY_PRO_VERSION')) {
       return true;
     }
 
@@ -325,7 +325,7 @@ if (! function_exists('thebrbre_is_pro_active')) {
   }
 }
 
-if (! function_exists('thebrbre_is_pro_installed')) {
+if (! function_exists('bricksfly_is_pro_installed')) {
 
   /**
    * Whether the Bricksfly Pro plugin folder + main file exist on
@@ -335,40 +335,40 @@ if (! function_exists('thebrbre_is_pro_installed')) {
    *
    * @return bool
    */
-  function thebrbre_is_pro_installed()
+  function bricksfly_is_pro_installed()
   {
     return file_exists(WP_PLUGIN_DIR . '/the-bricksfly-pro/the-bricksfly-pro.php');
   }
 }
 
 
-if (! function_exists('thebrbre_is_license_valid')) {
+if (! function_exists('bricksfly_is_license_valid')) {
 
   /**
    * Whether the license is active AND the Pro plugin folder exists on disk.
    *
    * The stored license option is unreliable on its own: if the user removes
-   * the Pro plugin folder manually, `thebrbre_license_status` stays
+   * the Pro plugin folder manually, `bricksfly_license_status` stays
    * 'valid' until the next remote check. We require both to be true before
    * unlocking Pro-gated UI / features.
    *
    * @return bool
    */
-  function thebrbre_is_license_valid()
+  function bricksfly_is_license_valid()
   {
-    return thebrbre_is_pro_installed()
-      && ('valid' === get_option('thebrbre_license_status'));
+    return bricksfly_is_pro_installed()
+      && ('valid' === get_option('bricksfly_license_status'));
   }
 }
 
-if (! function_exists('thebrbre_get_license_limitations')) {
+if (! function_exists('bricksfly_get_license_limitations')) {
 
   /**
    * Return the per-feature limitation flags for the active license.
    *
    * The flags are written by the Pro plugin's license activate/check flow
    * (see the-bricksfly-pro/includes/license/update.php) into the
-   * `thebrbre_license_limitations` option, as a map of feature => bool.
+   * `bricksfly_license_limitations` option, as a map of feature => bool.
    *
    * Known feature keys (tier-dependent — any may be absent):
    *   - starter_tpl_import  Template (starter / full-demo) import
@@ -379,23 +379,23 @@ if (! function_exists('thebrbre_get_license_limitations')) {
    *   - animation           Animations
    *
    * Returns an empty array when there is no valid license, so every feature
-   * resolves to "not allowed" via thebrbre_is_feature_allowed().
+   * resolves to "not allowed" via bricksfly_is_feature_allowed().
    *
    * @return array<string,bool>
    */
-  function thebrbre_get_license_limitations()
+  function bricksfly_get_license_limitations()
   {
-    if (! thebrbre_is_license_valid()) {
+    if (! bricksfly_is_license_valid()) {
       return array();
     }
 
-    $limitations = get_option('thebrbre_license_limitations', array());
+    $limitations = get_option('bricksfly_license_limitations', array());
 
     return is_array($limitations) ? $limitations : array();
   }
 }
 
-if (! function_exists('thebrbre_is_feature_allowed')) {
+if (! function_exists('bricksfly_is_feature_allowed')) {
 
   /**
    * Whether a license-gated feature is available on this site.
@@ -411,15 +411,15 @@ if (! function_exists('thebrbre_is_feature_allowed')) {
    * @param string $feature Feature key, e.g. 'starter_tpl_import'.
    * @return bool
    */
-  function thebrbre_is_feature_allowed($feature)
+  function bricksfly_is_feature_allowed($feature)
   {
-    $limitations = thebrbre_get_license_limitations();
+    $limitations = bricksfly_get_license_limitations();
 
     return ! empty($limitations[$feature]);
   }
 }
 
-if (! function_exists('thebrbre_get_element_bricks_name')) {
+if (! function_exists('bricksfly_get_element_bricks_name')) {
 
   /**
    * Resolve a widget's real Bricks element `$name` from its element file's
@@ -435,7 +435,7 @@ if (! function_exists('thebrbre_get_element_bricks_name')) {
    * @param string $slug Config slug.
    * @return string Bricks element name, or '' if it can't be resolved.
    */
-  function thebrbre_get_element_bricks_name($slug)
+  function bricksfly_get_element_bricks_name($slug)
   {
     static $cache = array();
 
@@ -443,7 +443,7 @@ if (! function_exists('thebrbre_get_element_bricks_name')) {
       return $cache[$slug];
     }
 
-    $path = THEBRBRE_PATH . 'includes/elements/' . $slug . '.php';
+    $path = BRICKSFLY_PATH . 'includes/elements/' . $slug . '.php';
 
     if (file_exists($path)) {
       $contents = file_get_contents($path);
@@ -457,7 +457,7 @@ if (! function_exists('thebrbre_get_element_bricks_name')) {
   }
 }
 
-if (! function_exists('thebrbre_register_widget_placeholder')) {
+if (! function_exists('bricksfly_register_widget_placeholder')) {
 
   /**
    * Register a branded placeholder Bricks element under a widget's real
@@ -466,7 +466,7 @@ if (! function_exists('thebrbre_register_widget_placeholder')) {
    * fallback never fires. Used for widgets that are configured but not
    * currently loaded (toggled off, or Pro/license unavailable) — the
    * placeholder carries no real widget behavior, only a short admin-facing
-   * notice shown inside the builder (see THEBRBRE_Placeholder_Element).
+   * notice shown inside the builder (see BRICKSFLY_Placeholder_Element).
    *
    * Shared between the free and Pro plugins so both loading paths produce
    * the same placeholder instead of duplicating the class-generation logic.
@@ -477,7 +477,7 @@ if (! function_exists('thebrbre_register_widget_placeholder')) {
    * @param string $bricks_name Real Bricks element name (e.g. 'aab-button-pro').
    * @param string $label       Human-readable widget label for the message.
    */
-  function thebrbre_register_widget_placeholder($bricks_name, $label)
+  function bricksfly_register_widget_placeholder($bricks_name, $label)
   {
     if (empty($bricks_name) || ! class_exists('\Bricks\Elements')) {
       return;
@@ -489,8 +489,8 @@ if (! function_exists('thebrbre_register_widget_placeholder')) {
       return;
     }
 
-    if (! class_exists('THEBRBRE_Placeholder_Element')) {
-      $base = THEBRBRE_PATH . 'includes/elements/class-thebrbre-placeholder-element.php';
+    if (! class_exists('BRICKSFLY_Placeholder_Element')) {
+      $base = BRICKSFLY_PATH . 'includes/elements/class-bricksfly-placeholder-element.php';
 
       if (! file_exists($base)) {
         return;
@@ -505,27 +505,27 @@ if (! function_exists('thebrbre_register_widget_placeholder')) {
     // name. class_alias() gives every widget a unique, independently
     // `new`-able name for the same shared class body — no eval() needed,
     // since per-widget identity (real name + label) now lives in
-    // THEBRBRE_Placeholder_Element's static registry, keyed by that class
+    // BRICKSFLY_Placeholder_Element's static registry, keyed by that class
     // name, rather than in hardcoded subclass property defaults.
     // md5() keeps the generated identifier valid regardless of characters
     // in $bricks_name.
-    $class_name = 'THEBRBRE_Placeholder_' . md5($bricks_name);
+    $class_name = 'BRICKSFLY_Placeholder_' . md5($bricks_name);
 
     if (! class_exists($class_name)) {
-      class_alias('THEBRBRE_Placeholder_Element', $class_name);
+      class_alias('BRICKSFLY_Placeholder_Element', $class_name);
     }
 
-    THEBRBRE_Placeholder_Element::register($class_name, $bricks_name, $label);
+    BRICKSFLY_Placeholder_Element::register($class_name, $bricks_name, $label);
 
     \Bricks\Elements::register_element(
-      THEBRBRE_PATH . 'includes/elements/class-thebrbre-placeholder-element.php',
+      BRICKSFLY_PATH . 'includes/elements/class-bricksfly-placeholder-element.php',
       '',
       $class_name
     );
   }
 }
 
-if (! function_exists('thebrbre_feature_denied_message')) {
+if (! function_exists('bricksfly_feature_denied_message')) {
 
   /**
    * Human-readable message shown when a license-gated feature is blocked.
@@ -535,7 +535,7 @@ if (! function_exists('thebrbre_feature_denied_message')) {
    * @param string $feature Feature key.
    * @return string
    */
-  function thebrbre_feature_denied_message($feature)
+  function bricksfly_feature_denied_message($feature)
   {
     switch ($feature) {
       case 'starter_tpl_import':

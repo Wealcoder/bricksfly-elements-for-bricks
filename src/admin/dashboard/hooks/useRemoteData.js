@@ -20,7 +20,7 @@ export const useRemoteData = (endpoint, fallback) => {
     setLoading(true);
 
     fetch(endpoint, {
-      headers: { "X-WP-Nonce": THEBRBRE_ADDONS_ADMIN.nonce },
+      headers: { "X-WP-Nonce": BRICKSFLY_ADDONS_ADMIN.nonce },
     })
       .then((res) => res.json())
       .then((json) => {

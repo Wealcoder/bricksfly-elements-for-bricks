@@ -2,7 +2,7 @@ const HeroBanner = () => {
   return (
     <div className="relative h-full">
       <img
-        src={`${THEBRBRE_ADDONS_ADMIN.plugin_url}public/images/animate-anything-banner.png`}
+        src={`${BRICKSFLY_ADDONS_ADMIN.plugin_url}public/images/animate-anything-banner.png`}
         className="w-full h-full object-cover rounded-[10px]"
         alt="Fly Beyond Bricks"
       />

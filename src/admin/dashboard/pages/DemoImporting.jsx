@@ -67,7 +67,7 @@ const DemoImporting = () => {
     debounceFn(async (id) => {
       try {
         const url = new URL(
-          `${THEBRBRE_ADDONS_ADMIN?.st_template_domain}wp-json/wp/v2/brk-templates`
+          `${BRICKSFLY_ADDONS_ADMIN?.st_template_domain}wp-json/wp/v2/brk-templates`
         );
 
         if (id) {
@@ -98,9 +98,9 @@ const DemoImporting = () => {
         return; // If the tab is complete-import, do not fetch progress 
       }
       const formData = new URLSearchParams();     
-      formData.append("action", "thebrbre_heartbeat_data");
-      formData.append("nonce", THEBRBRE_ADDONS_ADMIN.nonce);  
-      const response = await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
+      formData.append("action", "bricksfly_heartbeat_data");
+      formData.append("nonce", BRICKSFLY_ADDONS_ADMIN.nonce);  
+      const response = await fetch(BRICKSFLY_ADDONS_ADMIN.ajaxurl, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
@@ -158,18 +158,18 @@ const DemoImporting = () => {
         const formData = new URLSearchParams();
 
         if (tpldata?.next_step && tpldata.next_step == "download-xml-file") {
-          formData.append("action", "thebrbre_upload_manual_import_file");
+          formData.append("action", "bricksfly_upload_manual_import_file");
         } else {
-          formData.append("action", "thebrbre_template_installer");
+          formData.append("action", "bricksfly_template_installer");
         }
         formData.append("import_type", 'full-demo');
         formData.append("template_data", JSON.stringify(tpldata));
-        formData.append("nonce", THEBRBRE_ADDONS_ADMIN.nonce);
+        formData.append("nonce", BRICKSFLY_ADDONS_ADMIN.nonce);
         if (plugins) formData.append("user_plugins", plugins);
         formData.append("attachment", attachment);
         formData.append("enable_widgets", enableWidgets ?? "true");
         formData.append("enable_extensions", enableExtensions ?? "true");
-        const response = await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
+        const response = await fetch(BRICKSFLY_ADDONS_ADMIN.ajaxurl, {
           method: "POST",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
@@ -268,7 +268,7 @@ const DemoImporting = () => {
         </div>
         <div className="mb-8">
           <img
-            src={`${THEBRBRE_ADDONS_ADMIN.plugin_url}public/images/demo-importing-bg.png`}
+            src={`${BRICKSFLY_ADDONS_ADMIN.plugin_url}public/images/demo-importing-bg.png`}
             className="w-[616px] h-[258px]"
             alt="demo importing"
           />

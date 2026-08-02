@@ -199,7 +199,7 @@ import "../../scss/elements/video-box-slider.scss";
     // Handle both — the no-arg path is what fires after the user changes
     // "Slides to Show" in the panel; missing it left the canvas stuck on
     // the old slide count.
-    window.thebrbreVideoBoxSlider = function (el) {
+    window.bricksflyVideoBoxSlider = function (el) {
         if (el) {
             initElement(el);
         } else {

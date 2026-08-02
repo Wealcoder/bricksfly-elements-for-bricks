@@ -18,8 +18,8 @@ import {
 
 // Mark the document so CSS knows we're in the builder iframe.
 const markBuilder = () => {
-  document.documentElement.classList.add("thebrbre-builder");
-  document.body && document.body.classList.add("thebrbre-builder");
+  document.documentElement.classList.add("bricksfly-builder");
+  document.body && document.body.classList.add("bricksfly-builder");
 };
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", markBuilder);
@@ -27,7 +27,7 @@ if (document.readyState === "loading") {
   markBuilder();
 }
 
-// Animation-type class names emitted by class-thebrbre-starter-animations.php.
+// Animation-type class names emitted by class-bricksfly-starter-animations.php.
 const ALL_TYPES = [
   "reveal",
   "scale-up",
@@ -62,55 +62,55 @@ const ALL_CHAR_PRESETS = [
  * refresh — this patches them before every play click.
  */
 function applyStarterAnimClasses(el, settings) {
-  ALL_TYPES.forEach((t) => el.classList.remove("thebrbre-starter-animations-" + t));
+  ALL_TYPES.forEach((t) => el.classList.remove("bricksfly-starter-animations-" + t));
 
   ALL_DIRECTIONS.forEach((d) => {
-    el.classList.remove("thebrbre-reveal-" + d, "thebrbre-slide-" + d);
+    el.classList.remove("bricksfly-reveal-" + d, "bricksfly-slide-" + d);
   });
   el.classList.remove(
-    "thebrbre-reveal-yes",
-    "thebrbre-flip-axis-x",
-    "thebrbre-flip-axis-y",
-    "thebrbre-flip-axis-container-x",
-    "thebrbre-flip-axis-container-y",
-    "thebrbre-repeat-yes",
-    "thebrbre-repeat-no",
+    "bricksfly-reveal-yes",
+    "bricksfly-flip-axis-x",
+    "bricksfly-flip-axis-y",
+    "bricksfly-flip-axis-container-x",
+    "bricksfly-flip-axis-container-y",
+    "bricksfly-repeat-yes",
+    "bricksfly-repeat-no",
   );
-  ALL_CHAR_PRESETS.forEach((p) => el.classList.remove("thebrbre-char-preset-" + p));
+  ALL_CHAR_PRESETS.forEach((p) => el.classList.remove("bricksfly-char-preset-" + p));
 
   if (!settings.type || settings.type === "none") return;
 
-  el.classList.add("thebrbre-starter-animations-" + settings.type);
+  el.classList.add("bricksfly-starter-animations-" + settings.type);
 
   if (!settings.isContainer) {
-    el.classList.add("thebrbre-target-self");
+    el.classList.add("bricksfly-target-self");
   }
 
   if (settings.type === "reveal") {
-    el.classList.add("thebrbre-reveal-" + (settings.revealDirection || "bottom"));
-    if (settings.revealFade) el.classList.add("thebrbre-reveal-yes");
+    el.classList.add("bricksfly-reveal-" + (settings.revealDirection || "bottom"));
+    if (settings.revealFade) el.classList.add("bricksfly-reveal-yes");
   }
   if (settings.type === "slide") {
-    el.classList.add("thebrbre-slide-" + (settings.slideDirection || "bottom"));
+    el.classList.add("bricksfly-slide-" + (settings.slideDirection || "bottom"));
   }
   if (settings.type === "flip") {
     el.classList.add(
       settings.isContainer
-        ? "thebrbre-flip-axis-container-" + (settings.flipAxis || "x")
-        : "thebrbre-flip-axis-" + (settings.flipAxis || "x"),
+        ? "bricksfly-flip-axis-container-" + (settings.flipAxis || "x")
+        : "bricksfly-flip-axis-" + (settings.flipAxis || "x"),
     );
   }
   if (settings.type === "text-char-animate") {
-    el.classList.add("thebrbre-char-preset-" + (settings.charPreset || "revolve"));
+    el.classList.add("bricksfly-char-preset-" + (settings.charPreset || "revolve"));
   }
   if (settings.repeat === "yes") {
-    el.classList.add("thebrbre-repeat-yes");
+    el.classList.add("bricksfly-repeat-yes");
   }
-  // text-bg-clip needs --thebrbre-bg-text-image as an inline CSS variable because
+  // text-bg-clip needs --bricksfly-bg-text-image as an inline CSS variable because
   // PHP sets it via apply_render_classes, not a live Bricks css[] property.
   if (settings.type === "text-bg-clip" && settings.bgTextImageUrl) {
     el.style.setProperty(
-      "--thebrbre-bg-text-image",
+      "--bricksfly-bg-text-image",
       "url(" + settings.bgTextImageUrl + ")",
     );
   }
@@ -118,7 +118,7 @@ function applyStarterAnimClasses(el, settings) {
 
 // Fires when the editor panel "Play" button is clicked.
 window.addEventListener("message", function (e) {
-  if (!e.data || e.data.type !== "thebrbre-play-starter-animation") return;
+  if (!e.data || e.data.type !== "bricksfly-play-starter-animation") return;
 
   const elementId = e.data.elementId;
   if (!elementId) return;
@@ -128,10 +128,10 @@ window.addEventListener("message", function (e) {
 
   // Remove any leftover state from a previous play.
   el.classList.remove(
-    "thebrbre-animate",
-    "thebrbre-preinit",
-    "thebrbre-playing",
-    "thebrbre-played",
+    "bricksfly-animate",
+    "bricksfly-preinit",
+    "bricksfly-playing",
+    "bricksfly-played",
   );
 
   // Apply class-based settings from the panel.
@@ -175,18 +175,18 @@ window.addEventListener("message", function (e) {
   handleWave(el);
   handleTypewriter(el);
 
-  // Typewriter is JS-driven — thebrbre-animate alone doesn't type the text.
-  if (el.classList.contains("thebrbre-starter-animations-text-typewriter")) {
+  // Typewriter is JS-driven — bricksfly-animate alone doesn't type the text.
+  if (el.classList.contains("bricksfly-starter-animations-text-typewriter")) {
     runTypewriter(el);
   }
 
   // Force reflow so class removal takes effect before re-adding.
   void el.offsetWidth;
 
-  // thebrbre-playing (not thebrbre-preinit) gates hidden states in the builder.
-  el.classList.add("thebrbre-playing");
+  // bricksfly-playing (not bricksfly-preinit) gates hidden states in the builder.
+  el.classList.add("bricksfly-playing");
 
   requestAnimationFrame(function () {
-    el.classList.add("thebrbre-animate");
+    el.classList.add("bricksfly-animate");
   });
 });

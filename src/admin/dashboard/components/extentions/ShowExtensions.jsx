@@ -86,7 +86,7 @@ const ShowExtensions = ({
   const saveExtension = async () => {
     const isChanged = isEqual(
       allExtensions,
-      JSON.parse(JSON.stringify(THEBRBRE_ADDONS_ADMIN?.addons_config?.extensions)) ||
+      JSON.parse(JSON.stringify(BRICKSFLY_ADDONS_ADMIN?.addons_config?.extensions)) ||
         {},
     );
 
@@ -105,7 +105,7 @@ const ShowExtensions = ({
       updateNotice(sampleData);
     }
 
-    await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
+    await fetch(BRICKSFLY_ADDONS_ADMIN.ajaxurl, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -113,10 +113,10 @@ const ShowExtensions = ({
       },
 
       body: new URLSearchParams({
-        action: "thebrbre_save_settings",
+        action: "bricksfly_save_settings",
         fields: JSON.stringify(allExtensions),
-        nonce: THEBRBRE_ADDONS_ADMIN.nonce,
-        settings: "thebrbre_save_extensions",
+        nonce: BRICKSFLY_ADDONS_ADMIN.nonce,
+        settings: "bricksfly_save_extensions",
       }),
     })
       .then((response) => {

@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit();
 }
 
-class THEBRBRE_Row_Actions {
+class BRICKSFLY_Row_Actions {
 
 	private static $_instance = null;
 
@@ -20,9 +20,9 @@ class THEBRBRE_Row_Actions {
 	}
 
 	public function __construct() {
-		add_filter( 'plugin_action_links', [ $this, 'thebrbre_add_plugin_link' ], 10, 2 );
+		add_filter( 'plugin_action_links', [ $this, 'bricksfly_add_plugin_link' ], 10, 2 );
 		add_filter( 'plugin_row_meta', [ $this, '_plugin_row_meta' ], 10, 2 );
-		add_action( 'wp_ajax_thebrbre_deactivate_feedback', [ $this, 'handle_deactivate_feedback' ] );
+		add_action( 'wp_ajax_bricksfly_deactivate_feedback', [ $this, 'handle_deactivate_feedback' ] );
 	}
 
 	public function handle_deactivate_feedback() {
@@ -30,7 +30,7 @@ class THEBRBRE_Row_Actions {
 			wp_send_json_error( esc_html__( 'Missing parameters', 'bricksfly-elements-for-bricks' ) );
 		}
 		$nonce = sanitize_text_field( wp_unslash( $_POST['nonce'] ) );
-		if ( ! wp_verify_nonce( $nonce, 'thebrbre_deactivate_feedback_nonce' ) ) {
+		if ( ! wp_verify_nonce( $nonce, 'bricksfly_deactivate_feedback_nonce' ) ) {
 			wp_send_json_error( esc_html__( 'Invalid nonce', 'bricksfly-elements-for-bricks' ) );
 		}
 		if ( ! current_user_can( 'activate_plugins' ) ) {
@@ -46,18 +46,18 @@ class THEBRBRE_Row_Actions {
 			'user_id'        => get_current_user_id(),
 			'site_url'       => get_site_url(),
 			'timestamp'      => current_time( 'mysql' ),
-			'plugin_version' => THEBRBRE_VERSION,
+			'plugin_version' => BRICKSFLY_VERSION,
 		);
 
-		$existing_feedback   = get_option( 'thebrbre_deactivation_feedback', array() );
+		$existing_feedback   = get_option( 'bricksfly_deactivation_feedback', array() );
 		$existing_feedback[] = $feedback_data;
-		update_option( 'thebrbre_deactivation_feedback', $existing_feedback );
+		update_option( 'bricksfly_deactivation_feedback', $existing_feedback );
 
 		wp_send_json_success( esc_html__( 'Feedback submitted successfully', 'bricksfly-elements-for-bricks' ) );
 	}
 
 	function _plugin_row_meta( $meta, $plugin_file ) {
-		if ( basename( THEBRBRE_BASE ) !== basename( $plugin_file ) ) {
+		if ( basename( BRICKSFLY_BASE ) !== basename( $plugin_file ) ) {
 			return $meta;
 		}
 
@@ -70,12 +70,12 @@ class THEBRBRE_Row_Actions {
 		return $meta;
 	}
 
-	function thebrbre_add_plugin_link( $plugin_actions, $plugin_file ) {
+	function bricksfly_add_plugin_link( $plugin_actions, $plugin_file ) {
 		$new_actions = array();
-		if ( basename( THEBRBRE_BASE ) === basename( $plugin_file ) ) {
+		if ( basename( BRICKSFLY_BASE ) === basename( $plugin_file ) ) {
 			$new_actions['aab-dsb-settings'] = sprintf(
 				'<a href="%s">%s</a>',
-				esc_url( admin_url( 'admin.php?page=thebrbre_addons_settings' ) ),
+				esc_url( admin_url( 'admin.php?page=bricksfly_addons_settings' ) ),
 				esc_html__( 'Settings', 'bricksfly-elements-for-bricks' )
 			);
 		}
@@ -83,4 +83,4 @@ class THEBRBRE_Row_Actions {
 	}
 }
 
-new THEBRBRE_Row_Actions();
+new BRICKSFLY_Row_Actions();

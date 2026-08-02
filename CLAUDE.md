@@ -1,8 +1,8 @@
 # The BricksFly (free) — AI Assistant Rules
 
 This plugin holds only UI/menu entry points and read-only license-gating
-helpers (`thebrbre_is_feature_allowed()`, `thebrbre_get_license_limitations()`,
-`thebrbre_feature_denied_message()`, `aabaddons_is_pro_installed()`,
+helpers (`bricksfly_is_feature_allowed()`, `bricksfly_get_license_limitations()`,
+`bricksfly_feature_denied_message()`, `aabaddons_is_pro_installed()`,
 `aabaddons_is_license_valid()`). All real license I/O and the Connect
 OAuth flow live in the sibling `the-bricksfly-pro` plugin.
 

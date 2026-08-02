@@ -77,7 +77,7 @@ import "../../scss/elements/floating-elements.scss";
 //     }
 //   }
 
-//   window.thebrbreFloatingElements = thebrbreFloatingElements;
+//   window.bricksflyFloatingElements = bricksflyFloatingElements;
 // })();
 
 (function () {

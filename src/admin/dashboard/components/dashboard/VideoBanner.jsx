@@ -2,7 +2,7 @@ import { useState } from "react";
 import TutorialDialog from "./dialog/TutorialDialog";
 
 const VideoBanner = ({
-  thumbnail = `${THEBRBRE_ADDONS_ADMIN.plugin_url}public/images/bricksfly-video-banner.jpg`,
+  thumbnail = `${BRICKSFLY_ADDONS_ADMIN.plugin_url}public/images/bricksfly-video-banner.jpg`,
   videoUrl = "https://youtu.be/5wno9t4gR64?si=qgM8L6HyQHIouiyI",
   title = "Animation Addons",
 }) => {
@@ -23,7 +23,7 @@ const VideoBanner = ({
           <img
             width={50}
             height={50}
-            src={`${THEBRBRE_ADDONS_ADMIN.plugin_url}public/images/play-button.png`}
+            src={`${BRICKSFLY_ADDONS_ADMIN.plugin_url}public/images/play-button.png`}
             alt="play"
           />
         </div> */}

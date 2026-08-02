@@ -20,12 +20,12 @@ class Notices {
 	public function __construct() {
 		add_action( 'admin_init', array( $this, 'add_admin_notices' ) );
 
-		add_action( 'wp_ajax_thebrbre_notice_dismiss_notice', array( $this, 'ajax_dismiss_notice' ) );
+		add_action( 'wp_ajax_bricksfly_notice_dismiss_notice', array( $this, 'ajax_dismiss_notice' ) );
 		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
 	}
 
 	public function add_admin_notices() {
-		$installed_time = absint( get_option( 'thebrbre_installed' ) );
+		$installed_time = absint( get_option( 'bricksfly_installed' ) );
 		$current_time   = absint( wp_date( 'U' ) );
 		$plugin_file    = WP_PLUGIN_DIR . '/the-bricksfly-pro/the-bricksfly-pro.php';
 
@@ -35,7 +35,7 @@ class Notices {
 	}
 
 	public function ajax_dismiss_notice() {
-		if ( ! check_ajax_referer( 'thebrbre_notice_dismiss_notice', 'nonce', false ) || ! current_user_can( 'manage_options' ) ) {
+		if ( ! check_ajax_referer( 'bricksfly_notice_dismiss_notice', 'nonce', false ) || ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error();
 			exit;
 		}
@@ -91,8 +91,8 @@ class Notices {
 					esc_attr( $notice['type'] ),
 					esc_attr( implode( ' ', $classes ) ),
 					esc_attr( $notice['notice_id'] ),
-					esc_attr( wp_create_nonce( 'thebrbre_notice_dismiss_notice' ) ),
-					esc_attr( 'thebrbre_notice_dismiss_notice' ),
+					esc_attr( wp_create_nonce( 'bricksfly_notice_dismiss_notice' ) ),
+					esc_attr( 'bricksfly_notice_dismiss_notice' ),
 					esc_attr( $style ),
 					wp_kses_post( wptexturize( $message ) ),
 					$notice['dismissible'] ? '<button type="button" class="notice-dismiss"><span class="screen-reader-text">' . esc_html__( 'Dismiss this notice', 'bricksfly-elements-for-bricks' ) . '</span></button>' : ''
@@ -121,7 +121,7 @@ class Notices {
 			return;
 		}
 		if ( empty( $args['notice_id'] ) ) {
-			$args['notice_id'] = 'thebrbre_notice_' . md5( $args['message'] . $args['type'] );
+			$args['notice_id'] = 'bricksfly_notice_' . md5( $args['message'] . $args['type'] );
 		}
 		if ( true === filter_var( $args['dismissible'], FILTER_VALIDATE_BOOLEAN ) && $this->is_dismissed( $args['notice_id'] ) ) {
 			return;

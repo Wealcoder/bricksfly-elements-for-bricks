@@ -34,7 +34,7 @@ const StaterTemplate = () => {
       license,
       selectedCategory,
       allTemplate,
-      wishlist: THEBRBRE_ADDONS_ADMIN.addons_config?.wishlist?.toString() || "",
+      wishlist: BRICKSFLY_ADDONS_ADMIN.addons_config?.wishlist?.toString() || "",
     };
     getAllTemplate(meta);
   }, [searchKey, filterKey, pageNum, types, license, selectedCategory]);
@@ -44,7 +44,7 @@ const StaterTemplate = () => {
       setLoading(true);
       try {
         const url = new URL(
-          `${THEBRBRE_ADDONS_ADMIN?.st_template_domain}wp-json/wp/v2/brk-starter-page`
+          `${BRICKSFLY_ADDONS_ADMIN?.st_template_domain}wp-json/wp/v2/brk-starter-page`
         );
 
         if (meta.searchKey) url.searchParams.append("s", meta.searchKey);

@@ -2,14 +2,14 @@
 
 if (! defined('ABSPATH')) exit;
 
-class THEBRBRE_Bricks_Icon_Box extends \Bricks\Element
+class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 {
 
 	public $category     = 'bricks fly';
 	public $name         = 'aab-icon-box';
 	public $icon         = 'ti-layout-media-center-alt aab-element-marker';
 	public $css_selector = '.aab-icon-box';
-	public $scripts      = ['thebrbreIconBox'];
+	public $scripts      = ['bricksflyIconBox'];
 
 	public function get_label()
 	{
@@ -25,14 +25,14 @@ class THEBRBRE_Bricks_Icon_Box extends \Bricks\Element
 	{
 		wp_enqueue_style(
 			'aab-icon-box',
-			THEBRBRE_URL . 'public/build/elements/icon-box.css',
+			BRICKSFLY_URL . 'public/build/elements/icon-box.css',
 			[],
 			'1.0.0'
 		);
 
 		wp_enqueue_script(
 			'aab-icon-box',
-			THEBRBRE_URL . 'public/build/elements/icon-box.js',
+			BRICKSFLY_URL . 'public/build/elements/icon-box.js',
 			[],
 			'1.0.0',
 			true

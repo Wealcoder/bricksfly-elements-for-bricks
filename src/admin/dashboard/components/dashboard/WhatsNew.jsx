@@ -13,14 +13,14 @@ const WhatsNew = () => {
       <div className="shrink-0 mx-auto sm:mx-0 bg-white/80 rounded-3xl flex flex-col items-center justify-center gap-5 px-9 py-10 w-[220px]">
         <div className="w-[46px] h-[46px] rounded-full bg-[#FFF2E6] flex items-center justify-center">
           <img
-            src={`${THEBRBRE_ADDONS_ADMIN.plugin_url}public/images/whats-new-bell.png`}
+            src={`${BRICKSFLY_ADDONS_ADMIN.plugin_url}public/images/whats-new-bell.png`}
             alt=""
             className="w-[26px] h-[22px]"
           />
         </div>
         <div className="flex flex-col items-center gap-1 text-center">
           <p className="font-serif text-[32px] leading-none text-black">
-            V {THEBRBRE_ADDONS_ADMIN?.version}
+            V {BRICKSFLY_ADDONS_ADMIN?.version}
           </p>
           <p className="text-sm text-text-secondary">{data.date}</p>
         </div>

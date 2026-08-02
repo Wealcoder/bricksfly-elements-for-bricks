@@ -98,7 +98,7 @@ const ShowElements = ({
   const saveElement = async () => {
     const isChanged = isEqual(
       allElements,
-      JSON.parse(JSON.stringify(THEBRBRE_ADDONS_ADMIN?.addons_config?.widgets)) ||
+      JSON.parse(JSON.stringify(BRICKSFLY_ADDONS_ADMIN?.addons_config?.widgets)) ||
         {},
     );
 
@@ -117,7 +117,7 @@ const ShowElements = ({
       updateNotice(sampleData);
     }
 
-    await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
+    await fetch(BRICKSFLY_ADDONS_ADMIN.ajaxurl, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -125,10 +125,10 @@ const ShowElements = ({
       },
 
       body: new URLSearchParams({
-        action: "thebrbre_save_settings",
+        action: "bricksfly_save_settings",
         fields: JSON.stringify(allElements),
-        nonce: THEBRBRE_ADDONS_ADMIN.nonce,
-        settings: "thebrbre_save_widgets",
+        nonce: BRICKSFLY_ADDONS_ADMIN.nonce,
+        settings: "bricksfly_save_widgets",
       }),
     })
       .then((response) => {

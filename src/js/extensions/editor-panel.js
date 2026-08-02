@@ -225,11 +225,11 @@
   // the desktop text regardless of the active device. Returns a scalar
   // when only the base is set so the iframe-side `pickResponsive` can
   // short-circuit; otherwise returns a {bp_key: value} map that the
-  // shared `thebrbreResponsive.resolveResponsive` can cascade.
+  // shared `bricksflyResponsive.resolveResponsive` can cascade.
   function bricksToResponsive(s, baseKey, def) {
     var bps =
-      window.thebrbreBreakpoints && window.thebrbreBreakpoints.length
-        ? window.thebrbreBreakpoints
+      window.bricksflyBreakpoints && window.bricksflyBreakpoints.length
+        ? window.bricksflyBreakpoints
         : null;
 
     var rawBase = s[baseKey];
@@ -309,27 +309,27 @@
     }
 
     // Container elements use a separate control key
-    var containerType = g("_thebrbre_starter_anim_container", "none");
+    var containerType = g("_bricksfly_starter_anim_container", "none");
     if (containerType && containerType !== "none") {
       return {
         isContainer: true,
         type: containerType,
-        slideDirection: g("_thebrbre_slide_direction_container", "bottom"),
-        flipAxis: g("_thebrbre_flip_axis_container", "x"),
-        repeat: g("_thebrbre_repeat_on_enter_container", "no"),
+        slideDirection: g("_bricksfly_slide_direction_container", "bottom"),
+        flipAxis: g("_bricksfly_flip_axis_container", "x"),
+        repeat: g("_bricksfly_repeat_on_enter_container", "no"),
       };
     }
 
-    var bgImg = s._thebrbre_bg_text_image;
+    var bgImg = s._bricksfly_bg_text_image;
     return {
       isContainer: false,
-      type: g("_thebrbre_starter_anim", "none"),
-      revealDirection: g("_thebrbre_reveal_direction", "bottom"),
-      revealFade: !!s._thebrbre_reveal_fade,
-      slideDirection: g("_thebrbre_slide_direction", "bottom"),
-      flipAxis: g("_thebrbre_flip_axis", "x"),
-      charPreset: g("_thebrbre_char_preset", "revolve"),
-      repeat: g("_thebrbre_repeat_on_enter", "no"),
+      type: g("_bricksfly_starter_anim", "none"),
+      revealDirection: g("_bricksfly_reveal_direction", "bottom"),
+      revealFade: !!s._bricksfly_reveal_fade,
+      slideDirection: g("_bricksfly_slide_direction", "bottom"),
+      flipAxis: g("_bricksfly_flip_axis", "x"),
+      charPreset: g("_bricksfly_char_preset", "revolve"),
+      repeat: g("_bricksfly_repeat_on_enter", "no"),
       bgTextImageUrl:
         bgImg && typeof bgImg === "object" && bgImg.url ? bgImg.url : "",
     };
@@ -427,10 +427,10 @@
       }
     }
 
-    var starterType = s && s._thebrbre_starter_anim;
-    var containerType = s && s._thebrbre_starter_anim_container;
+    var starterType = s && s._bricksfly_starter_anim;
+    var containerType = s && s._bricksfly_starter_anim_container;
 
-    if (starterType && starterType !== "none" && s._thebrbre_anim_editor_enabled) {
+    if (starterType && starterType !== "none" && s._bricksfly_anim_editor_enabled) {
       iframe.contentWindow.postMessage(
         {
           type: "aab-play-starter-animation",
@@ -443,7 +443,7 @@
     } else if (
       containerType &&
       containerType !== "none" &&
-      s._thebrbre_anim_editor_enabled_container
+      s._bricksfly_anim_editor_enabled_container
     ) {
       iframe.contentWindow.postMessage(
         {
@@ -457,9 +457,9 @@
     }
   }
 
-  window.thebrbrePlayTextAnimation = playActiveAnimation;
+  window.bricksflyPlayTextAnimation = playActiveAnimation;
 
-  window.thebrbreDebugBricksState = function () {
+  window.bricksflyDebugBricksState = function () {
     var gp = getBricksGlobalProperties();
     console.log("[AAB debug] globalProperties:", gp);
     console.log("[AAB debug] $_state:", gp && gp.$_state);

@@ -1,4 +1,4 @@
-const isValid = THEBRBRE_ADDONS_ADMIN.addons_config.thebrbre_valid;
+const isValid = BRICKSFLY_ADDONS_ADMIN.addons_config.bricksfly_valid;
 
 export const libraryFn = (mainContent, data, dispatch) => {
   const result = Object.fromEntries(

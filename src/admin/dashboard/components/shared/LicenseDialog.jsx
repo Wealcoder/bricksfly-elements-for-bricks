@@ -46,7 +46,7 @@ const LicenseDialog = ({ open, setOpen }) => {
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      license: THEBRBRE_ADDONS_ADMIN.addons_config.sl_lic || "",
+      license: BRICKSFLY_ADDONS_ADMIN.addons_config.sl_lic || "",
     },
   });
 
@@ -56,18 +56,18 @@ const LicenseDialog = ({ open, setOpen }) => {
     const body_args = {
       action:
         activated?.product_status?.item_id === 39996
-          ? "thebrbre_license_deactivate"
-          : "thebrbre_license_activate",
-      thebrbre_license_key: data.license,
+          ? "bricksfly_license_deactivate"
+          : "bricksfly_license_activate",
+      bricksfly_license_key: data.license,
       email: "",
-      nonce: THEBRBRE_ADDONS_ADMIN.nonce,
+      nonce: BRICKSFLY_ADDONS_ADMIN.nonce,
     };
 
     if (activated?.product_status?.item_id === 39996) {
       body_args["edd_license_deactivate"] = true;
     }
 
-    await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
+    await fetch(BRICKSFLY_ADDONS_ADMIN.ajaxurl, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -85,7 +85,7 @@ const LicenseDialog = ({ open, setOpen }) => {
           const utcDate = date.toISOString();
 
           if (return_content?.license === "valid") {
-            // THEBRBRE_ADDONS_ADMIN.addons_config.thebrbre_valid = true;
+            // BRICKSFLY_ADDONS_ADMIN.addons_config.bricksfly_valid = true;
             // Guard: this dialog is shared with the Page Importer app, whose
             // context does not expose setActivated. Calling an undefined setter
             // here would throw and abort the rest of the success handler â€” so the
@@ -94,7 +94,7 @@ const LicenseDialog = ({ open, setOpen }) => {
             // freshly activated license anyway, so the in-memory update is
             // optional.
             if (typeof setActivated === "function") {
-              setActivated(THEBRBRE_ADDONS_ADMIN.addons_config);
+              setActivated(BRICKSFLY_ADDONS_ADMIN.addons_config);
             }
             toast.success("Activate Successful", {
               position: "top-right",
@@ -122,9 +122,9 @@ const LicenseDialog = ({ open, setOpen }) => {
             window.history.replaceState({}, "", url);
             window.location.reload();
           } else {
-            // THEBRBRE_ADDONS_ADMIN.addons_config.thebrbre_valid = false;
+            // BRICKSFLY_ADDONS_ADMIN.addons_config.bricksfly_valid = false;
             if (typeof setActivated === "function") {
-              setActivated(THEBRBRE_ADDONS_ADMIN.addons_config);
+              setActivated(BRICKSFLY_ADDONS_ADMIN.addons_config);
             }
             toast.success("Deactivate Successful", {
               position: "top-right",

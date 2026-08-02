@@ -2,13 +2,13 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
+class BRICKSFLY_Bricks_Video_Box extends \Bricks\Element {
 
 	public $category     = 'bricks fly';
 	public $name         = 'aab-video-box';
 	public $icon         = 'ti-video-clapper aab-element-marker';
 	public $css_selector = '.aab-video-box';
-	public $scripts      = [ 'thebrbreVideoBox' ];
+	public $scripts      = [ 'bricksflyVideoBox' ];
 
 	public function get_label() {
 		return esc_html__('Video Box', 'bricksfly-elements-for-bricks');
@@ -24,14 +24,14 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 
 		wp_enqueue_style(
 			'aab-video-popup',
-			THEBRBRE_URL . 'public/build/elements/video-popup.css',
+			BRICKSFLY_URL . 'public/build/elements/video-popup.css',
 			[],
 			'1.0.0'
 		);
 
 		wp_enqueue_style(
 			'aab-video-box',
-			THEBRBRE_URL . 'public/build/elements/video-box.css',
+			BRICKSFLY_URL . 'public/build/elements/video-box.css',
 			[],
 			'1.0.0'
 		);
@@ -39,7 +39,7 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 		// Reuse the video popup JS for open/close/GSAP
 		wp_enqueue_script(
 			'aab-video-popup',
-			THEBRBRE_URL . 'public/build/elements/video-popup.js',
+			BRICKSFLY_URL . 'public/build/elements/video-popup.js',
 			[],
 			'1.0.0',
 			true
@@ -47,7 +47,7 @@ class THEBRBRE_Bricks_Video_Box extends \Bricks\Element {
 
 		wp_enqueue_script(
 			'aab-video-box',
-			THEBRBRE_URL . 'public/build/elements/video-box.js',
+			BRICKSFLY_URL . 'public/build/elements/video-box.js',
 			[ 'aab-video-popup' ],
 			'1.0.0',
 			true

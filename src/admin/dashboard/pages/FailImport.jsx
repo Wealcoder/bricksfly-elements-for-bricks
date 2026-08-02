@@ -34,7 +34,7 @@ const FailImport = () => {
         </div>
         <div className="mb-6">
           <img
-            src={`${THEBRBRE_ADDONS_ADMIN.plugin_url}public/images/complete-bg.png`}
+            src={`${BRICKSFLY_ADDONS_ADMIN.plugin_url}public/images/complete-bg.png`}
             className="w-[616px] h-[258px]"
             alt="demo importing"
           />

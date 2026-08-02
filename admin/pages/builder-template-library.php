@@ -21,10 +21,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 1.0.0
  */
-class THEBRBRE_Builder_Template_Library {
+class BRICKSFLY_Builder_Template_Library {
 
-	const SCRIPT_HANDLE = 'thebrbre-builder-template-library';
-	const STYLE_HANDLE  = 'thebrbre-builder-template-library';
+	const SCRIPT_HANDLE = 'bricksfly-builder-template-library';
+	const STYLE_HANDLE  = 'bricksfly-builder-template-library';
 
 	private static $instance = null;
 
@@ -42,7 +42,7 @@ class THEBRBRE_Builder_Template_Library {
 		// AJAX endpoint — insert the selected template into the post being
 		// edited. The remote API now exposes `json_file.url` directly, so
 		// we no longer need a separate "fetch JSON content" proxy.
-		add_action( 'wp_ajax_thebrbre_builder_insert_template', [ $this, 'ajax_insert_template' ] );
+		add_action( 'wp_ajax_bricksfly_builder_insert_template', [ $this, 'ajax_insert_template' ] );
 	}
 
 	/**
@@ -75,22 +75,22 @@ class THEBRBRE_Builder_Template_Library {
 
 		wp_enqueue_style(
 			self::STYLE_HANDLE,
-			THEBRBRE_URL . 'public/build/admin/aab-template-library.css',
+			BRICKSFLY_URL . 'public/build/admin/aab-template-library.css',
 			[],
-			THEBRBRE_VERSION
+			BRICKSFLY_VERSION
 		);
 
 		wp_enqueue_script(
 			self::SCRIPT_HANDLE,
-			THEBRBRE_URL . 'public/build/admin/aab-template-library.js',
+			BRICKSFLY_URL . 'public/build/admin/aab-template-library.js',
 			[ 'jquery' ],
-			THEBRBRE_VERSION,
+			BRICKSFLY_VERSION,
 			true
 		);
 
-		$pro_installed = function_exists( 'thebrbre_is_pro_installed' ) ? thebrbre_is_pro_installed() : false;
-		$pro_active    = function_exists( 'thebrbre_is_pro_active' ) ? thebrbre_is_pro_active() : false;
-		$license_valid = function_exists( 'thebrbre_is_license_valid' ) ? thebrbre_is_license_valid() : false;
+		$pro_installed = function_exists( 'bricksfly_is_pro_installed' ) ? bricksfly_is_pro_installed() : false;
+		$pro_active    = function_exists( 'bricksfly_is_pro_active' ) ? bricksfly_is_pro_active() : false;
+		$license_valid = function_exists( 'bricksfly_is_license_valid' ) ? bricksfly_is_license_valid() : false;
 
 		// In the Bricks builder context, `get_the_ID()` resolves to the post
 		// being edited (Bricks loads the front-end template chain just like
@@ -107,37 +107,37 @@ class THEBRBRE_Builder_Template_Library {
 
 		wp_localize_script(
 			self::SCRIPT_HANDLE,
-			'THEBRBRE_TEMPLATE_LIBRARY',
+			'BRICKSFLY_TEMPLATE_LIBRARY',
 			[
 				'ajaxurl'         => admin_url( 'admin-ajax.php' ),
-				'nonce'           => wp_create_nonce( 'thebrbre-builder-template-library' ),
+				'nonce'           => wp_create_nonce( 'bricksfly-builder-template-library' ),
 				'post_id'         => $post_id,
 				// BricksFly brand mark shown inside the toolbar "Import Section"
 				// button. Uses the same canonical logo the rest of the admin uses.
-				'logo_url'        => esc_url( THEBRBRE_URL . 'public/images/plugin_logo.png' ),
+				'logo_url'        => esc_url( BRICKSFLY_URL . 'public/images/plugin_logo.png' ),
 				'template_types'  => self::get_template_types(),
-				'remote_api'      => apply_filters('thebrbre_builder_template_library_remote_api',
+				'remote_api'      => apply_filters('bricksfly_builder_template_library_remote_api',
 					'https://www.themecrowdy.com/wp-json/wp/v2/bricks-sections'
 				),
-				'remote_category' => apply_filters('thebrbre_builder_template_library_remote_category_api',
+				'remote_category' => apply_filters('bricksfly_builder_template_library_remote_category_api',
 					'https://www.themecrowdy.com/wp-json/wp/v2/bricks-sections-category',
 				),
 
-			   'remote_download' => apply_filters('thebrbre_builder_template_library_remote_section_download_api',
+			   'remote_download' => apply_filters('bricksfly_builder_template_library_remote_section_download_api',
 					'https://www.themecrowdy.com/wp-json/bricks-sections/v1/download?id=',
 				),
-				'default_type'    => apply_filters('thebrbre_builder_template_library_default_type', 'block' ),
-				'dashboard_link'  => admin_url( 'admin.php?page=thebrbre_addons_settings' ),
+				'default_type'    => apply_filters('bricksfly_builder_template_library_default_type', 'block' ),
+				'dashboard_link'  => admin_url( 'admin.php?page=bricksfly_addons_settings' ),
 				'pro_installed'   => $pro_installed,
 				'pro_active'      => $pro_active,
-				'config'          => apply_filters('thebrbre_builder_template_library_config',
+				'config'          => apply_filters('bricksfly_builder_template_library_config',
 					[
-						'thebrbre_valid' => $license_valid,
+						'bricksfly_valid' => $license_valid,
 						// Section import is gated by this flag (also enforced
 						// server-side in ajax_insert_template()). The JS uses it
 						// to show an upsell popup before the request is sent.
-						'section_import' => function_exists( 'thebrbre_is_feature_allowed' ) && thebrbre_is_feature_allowed( 'section_import' ),
-						'limitations'    => function_exists( 'thebrbre_get_license_limitations' ) ? thebrbre_get_license_limitations() : [],
+						'section_import' => function_exists( 'bricksfly_is_feature_allowed' ) && bricksfly_is_feature_allowed( 'section_import' ),
+						'limitations'    => function_exists( 'bricksfly_get_license_limitations' ) ? bricksfly_get_license_limitations() : [],
 					]
 				),
 				'i18n'            => [
@@ -174,7 +174,7 @@ class THEBRBRE_Builder_Template_Library {
 	 * @return array<string,array{label:string}>
 	 */
 	public static function get_template_types() {
-		return apply_filters('thebrbre_builder_template_library_types',
+		return apply_filters('bricksfly_builder_template_library_types',
 			[
 				'block' => [
 					'label' => esc_html__( 'Section Block', 'bricksfly-elements-for-bricks' ),
@@ -212,7 +212,7 @@ class THEBRBRE_Builder_Template_Library {
 	 * persist only on Save.)
 	 */
 	public function ajax_insert_template() {
-		check_ajax_referer( 'thebrbre-builder-template-library', 'nonce' );
+		check_ajax_referer( 'bricksfly-builder-template-library', 'nonce' );
 
 		$post_id = isset( $_POST['post_id'] ) ? absint( wp_unslash( $_POST['post_id'] ) ) : 0;
 
@@ -222,11 +222,11 @@ class THEBRBRE_Builder_Template_Library {
 
 		// License limitation gate — Section import requires the `section_import`
 		// flag on the active license. Enforced server-side so the client lock
-		// (THEBRBRE_TEMPLATE_LIBRARY.config.section_import) can't be bypassed by a
+		// (BRICKSFLY_TEMPLATE_LIBRARY.config.section_import) can't be bypassed by a
 		// forged AJAX call. `limited:true` lets the JS show the upsell popup.
-		if ( function_exists( 'thebrbre_is_feature_allowed' ) && ! thebrbre_is_feature_allowed( 'section_import' ) ) {
-			$message = function_exists( 'thebrbre_feature_denied_message' )
-				? thebrbre_feature_denied_message( 'section_import' )
+		if ( function_exists( 'bricksfly_is_feature_allowed' ) && ! bricksfly_is_feature_allowed( 'section_import' ) ) {
+			$message = function_exists( 'bricksfly_feature_denied_message' )
+				? bricksfly_feature_denied_message( 'section_import' )
 				: __( 'Section import is not included in your current license plan.', 'bricksfly-elements-for-bricks' );
 
 			wp_send_json_error( [
@@ -260,7 +260,7 @@ class THEBRBRE_Builder_Template_Library {
 		 * @param int   $post_id   The post being edited.
 		 * @param array $elements  The resolved element array (not yet saved).
 		 */
-		do_action('thebrbre_builder_template_library_inserted', $post_id, $elements );
+		do_action('bricksfly_builder_template_library_inserted', $post_id, $elements );
 
 		// Return the full Bricks export shape so the client can build the native
 		// paste envelope. Ids are NOT remapped here — Bricks' paste regenerates
@@ -292,7 +292,7 @@ class THEBRBRE_Builder_Template_Library {
 	 * @return array|\WP_Error { content, global_classes, globalVariables }
 	 */
 	private function resolve_template_payload( $template_id ) {
-		$meta_endpoint = apply_filters('thebrbre_builder_template_library_remote_single_api',
+		$meta_endpoint = apply_filters('bricksfly_builder_template_library_remote_single_api',
 			'https://www.themecrowdy.com/wp-json/bricks-sections/v1/list/' . $template_id,
 			$template_id
 		);
@@ -310,7 +310,7 @@ class THEBRBRE_Builder_Template_Library {
 		$meta      = json_decode( $meta_body, true );
 
 		if ( empty( $meta['json_file']['url'] ) ) {
-			return new \WP_Error( 'thebrbre_no_template_source', __( 'Could not resolve template source.', 'bricksfly-elements-for-bricks' ) );
+			return new \WP_Error( 'bricksfly_no_template_source', __( 'Could not resolve template source.', 'bricksfly-elements-for-bricks' ) );
 		}
 
 		$json_url = esc_url_raw( $meta['json_file']['url'] );
@@ -328,12 +328,12 @@ class THEBRBRE_Builder_Template_Library {
 		$body = wp_remote_retrieve_body( $response );
 
 		if ( $code !== 200 || empty( $body ) ) {
-			return new \WP_Error( 'thebrbre_empty_template', __( 'Empty template response.', 'bricksfly-elements-for-bricks' ) );
+			return new \WP_Error( 'bricksfly_empty_template', __( 'Empty template response.', 'bricksfly-elements-for-bricks' ) );
 		}
 
 		$decoded = json_decode( $body, true );
 		if ( json_last_error() !== JSON_ERROR_NONE ) {
-			return new \WP_Error( 'thebrbre_invalid_template_json', __( 'Invalid template JSON.', 'bricksfly-elements-for-bricks' ) );
+			return new \WP_Error( 'bricksfly_invalid_template_json', __( 'Invalid template JSON.', 'bricksfly-elements-for-bricks' ) );
 		}
 
 		// Return elements + globals untouched. The client builds Bricks' paste
@@ -413,4 +413,4 @@ class THEBRBRE_Builder_Template_Library {
 	}
 }
 
-THEBRBRE_Builder_Template_Library::instance();
+BRICKSFLY_Builder_Template_Library::instance();

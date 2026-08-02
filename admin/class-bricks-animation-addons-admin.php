@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 
 
-class THEBRBRE_Admin {
+class BRICKSFLY_Admin {
 
 	/**
 	 * The ID of this plugin.
@@ -60,15 +60,15 @@ class THEBRBRE_Admin {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in THEBRBRE_Loader as all of the hooks are defined
+		 * defined in BRICKSFLY_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The THEBRBRE_Loader will then create the relationship
+		 * The BRICKSFLY_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, THEBRBRE_URL . 'public/build/admin/bricks-animation-addons-admin.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, BRICKSFLY_URL . 'public/build/admin/bricks-animation-addons-admin.css', array(), $this->version, 'all' );
 
 	}
 
@@ -83,15 +83,15 @@ class THEBRBRE_Admin {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in THEBRBRE_Loader as all of the hooks are defined
+		 * defined in BRICKSFLY_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The THEBRBRE_Loader will then create the relationship
+		 * The BRICKSFLY_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, THEBRBRE_URL . 'public/build/admin/bricks-animation-addons-admin.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, BRICKSFLY_URL . 'public/build/admin/bricks-animation-addons-admin.js', array( 'jquery' ), $this->version, false );
 
 	}
 

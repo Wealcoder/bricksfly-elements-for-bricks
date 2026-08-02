@@ -11,7 +11,7 @@ const MainLayout = () => {
   const { setNotice } = useNotification();
 
   const fetchNotice = async () => {
-    await fetch(THEBRBRE_ADDONS_ADMIN.ajaxurl, {
+    await fetch(BRICKSFLY_ADDONS_ADMIN.ajaxurl, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -19,9 +19,9 @@ const MainLayout = () => {
       },
 
       body: new URLSearchParams({
-        action: "thebrbre_get_notice_data",
+        action: "bricksfly_get_notice_data",
 
-        nonce: THEBRBRE_ADDONS_ADMIN.nonce,
+        nonce: BRICKSFLY_ADDONS_ADMIN.nonce,
       }),
     })
       .then((response) => {

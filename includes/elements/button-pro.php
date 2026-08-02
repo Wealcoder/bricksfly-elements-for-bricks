@@ -2,14 +2,14 @@
 
 if (! defined('ABSPATH')) exit;
 
-class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
+class BRICKSFLY_Bricks_Button_Pro extends \Bricks\Element
 {
 
 	public $category     = 'bricks fly';
 	public $name         = 'aab-button-pro';
 	public $icon         = 'ti-mouse-alt aab-element-marker';
 	public $css_selector = '.aae--btn-pro-wrapper';
-	public $scripts      = ['thebrbreButtonPro'];
+	public $scripts      = ['bricksflyButtonPro'];
 
 	public function get_label()
 	{
@@ -28,14 +28,14 @@ class THEBRBRE_Bricks_Button_Pro extends \Bricks\Element
 
 		wp_enqueue_style(
 			'aab-button-pro',
-			THEBRBRE_URL . 'public/build/elements/button-pro.css',
+			BRICKSFLY_URL . 'public/build/elements/button-pro.css',
 			[],
 			'1.0.0'
 		);
 
 		wp_enqueue_script(
 			'aab-button-pro',
-			THEBRBRE_URL . 'public/build/elements/button-pro.js',
+			BRICKSFLY_URL . 'public/build/elements/button-pro.js',
 			[],
 			'1.0.0',
 			true

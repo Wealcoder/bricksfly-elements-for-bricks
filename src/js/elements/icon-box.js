@@ -7,9 +7,9 @@ import "../../scss/elements/icon-box.scss";
  *
  * @param {HTMLElement} el - The Bricks element wrapper
  */
-function thebrbreIconBox( el ) {
+function bricksflyIconBox( el ) {
 	if ( ! el ) return;
 	// Placeholder for future JS interactions (e.g. tilt, counter, etc.)
 }
 
-if (typeof window !== 'undefined') { window.thebrbreIconBox = thebrbreIconBox; }
+if (typeof window !== 'undefined') { window.bricksflyIconBox = bricksflyIconBox; }
