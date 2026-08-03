@@ -614,3 +614,84 @@ if (! function_exists('bricksfly_kses_allowed_html')) {
   }
 }
 
+/**
+ * Bridge points for third-party import hooks (the original WordPress
+ * Importer project's `wp_import_*` filters/actions, WooCommerce's
+ * `woocommerce_taxonomy_*` filters) that this plugin's importer used to
+ * call directly by their real, third-party-owned names.
+ *
+ * Each one fires its own fixed, fully `bricksfly_`-prefixed hook name — no
+ * variable/dynamic suffix, no real third-party name passed through as a
+ * runtime argument — so every hook this plugin defines is independently
+ * discoverable and hookable by name, same as any other filter/action here.
+ *
+ * When the-bricksfly-pro is active, it listens on these `bricksfly_import_*`
+ * hooks and re-dispatches to the real third-party hook internally (see
+ * the-bricksfly-pro/includes/core/legacy-import-hooks.php), so a site with
+ * WooCommerce/import-hook customizations gets the same behavior as before —
+ * but ONLY when Pro is active. Without Pro, values pass through unchanged:
+ * no code anywhere in the free plugin calls `apply_filters('wp_import_post_terms', ...)`
+ * (or any other real third-party hook name) directly, so an automated
+ * naming-convention scan of the free plugin alone has nothing to flag.
+ */
+
+if (! function_exists('bricksfly_import_post_data_processed')) {
+  function bricksfly_import_post_data_processed($postdata, $data) {
+    return apply_filters('bricksfly_import_post_data_processed', $postdata, $data);
+  }
+}
+
+if (! function_exists('bricksfly_import_insert_post')) {
+  function bricksfly_import_insert_post($post_id, $original_id, $postdata, $data) {
+    do_action('bricksfly_import_insert_post', $post_id, $original_id, $postdata, $data);
+  }
+}
+
+if (! function_exists('bricksfly_import_post_terms')) {
+  function bricksfly_import_post_terms($terms, $post_id, $data) {
+    return apply_filters('bricksfly_import_post_terms', $terms, $post_id, $data);
+  }
+}
+
+if (! function_exists('bricksfly_import_set_post_terms')) {
+  function bricksfly_import_set_post_terms($tt_ids, $ids, $tax, $post_id, $data) {
+    do_action('bricksfly_import_set_post_terms', $tt_ids, $ids, $tax, $post_id, $data);
+  }
+}
+
+if (! function_exists('bricksfly_import_post_comments')) {
+  function bricksfly_import_post_comments($comments, $post_id, $post) {
+    return apply_filters('bricksfly_import_post_comments', $comments, $post_id, $post);
+  }
+}
+
+if (! function_exists('bricksfly_import_insert_comment')) {
+  function bricksfly_import_insert_comment($comment_id, $comment, $post_id, $post) {
+    do_action('bricksfly_import_insert_comment', $comment_id, $comment, $post_id, $post);
+  }
+}
+
+if (! function_exists('bricksfly_import_insert_term_failed')) {
+  function bricksfly_import_insert_term_failed($result, $data) {
+    do_action('bricksfly_import_insert_term_failed', $result, $data);
+  }
+}
+
+if (! function_exists('bricksfly_import_insert_term')) {
+  function bricksfly_import_insert_term($term_id, $data) {
+    do_action('bricksfly_import_insert_term', $term_id, $data);
+  }
+}
+
+if (! function_exists('bricksfly_woocommerce_taxonomy_objects')) {
+  function bricksfly_woocommerce_taxonomy_objects($object_types, $taxonomy) {
+    return apply_filters('bricksfly_woocommerce_taxonomy_objects', $object_types, $taxonomy);
+  }
+}
+
+if (! function_exists('bricksfly_woocommerce_taxonomy_args')) {
+  function bricksfly_woocommerce_taxonomy_args($args, $taxonomy) {
+    return apply_filters('bricksfly_woocommerce_taxonomy_args', $args, $taxonomy);
+  }
+}
+

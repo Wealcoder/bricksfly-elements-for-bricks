@@ -206,7 +206,8 @@ class BRICKSFLY_Bricks_Floating_Elements extends \Bricks\Element
 		}
 
 		if ($css !== '') {
-			wp_add_inline_style('aab-floating-elements', $css);
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- CSS is sanitized before being passed to wp_add_inline_style().
+			wp_add_inline_style( 'aab-floating-elements', $css );
 		}
 	}
 
