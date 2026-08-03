@@ -28,6 +28,8 @@ const sources = [
     '!gulpfile.js',
     '!package-lock.json',
     '!dist/**',
+    '!webpack.config.dev',
+    '!webpack.config.production',
     '!CLAUDE.md',
     '!**/*.map',
     '!**/.DS_Store',

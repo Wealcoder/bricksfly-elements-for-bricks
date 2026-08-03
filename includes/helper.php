@@ -552,3 +552,65 @@ if (! function_exists('bricksfly_feature_denied_message')) {
   }
 }
 
+if (! function_exists('bricksfly_kses_allowed_html')) {
+
+  /**
+   * Allowed-tags map for echoing element markup that may include a Bricks
+   * icon rendered as inline SVG (\Bricks\Element::render_icon() emits raw
+   * <svg>/<path>/... when the user picks an SVG-type icon, not just an
+   * icon-font <i> tag). wp_kses_post()'s default allowlist doesn't include
+   * <svg> or its child elements, so wrapping SVG-icon-capable output in
+   * wp_kses_post() alone silently strips the icon instead of just escaping
+   * it. This starts from the same post-context allowlist wp_kses_post()
+   * uses and adds only the specific SVG elements/attributes Bricks itself
+   * can emit via render_icon().
+   *
+   * Used for the final, single point where an element echoes markup built
+   * from several already-sanitized pieces (image src/alt via esc_url()/
+   * esc_attr(), rich text via wp_kses_post(), icons via render_icon()) —
+   * escaping happens again here, late, at the actual echo site, per the
+   * WordPress.org "escape late" review guidance.
+   *
+   * Deliberately NOT wrapped in a custom escaping function (e.g. a
+   * "bricksfly_kses_post_with_svg()" helper) — the WordPress.org plugin
+   * review scanner's escaping sniff (WordPress.Security.EscapeOutput.OutputNotEscaped)
+   * only recognizes calls to core esc_*()/wp_kses*() functions written
+   * directly at the echo site; it does not trace into a custom-named
+   * wrapper to see what it calls internally, even if that wrapper's body
+   * is itself just wp_kses(). Call wp_kses() directly at each echo site,
+   * passing this function's return value as the allowed-tags argument:
+   *
+   *     echo wp_kses( $html, bricksfly_kses_allowed_html() );
+   *
+   * @return array<string,array<string,bool>>
+   */
+  function bricksfly_kses_allowed_html()
+  {
+    $allowed = wp_kses_allowed_html('post');
+
+    $svg_attrs = array_fill_keys([
+      'class', 'id', 'style', 'aria-hidden', 'aria-label', 'role', 'focusable',
+      'xmlns', 'viewbox', 'width', 'height', 'fill', 'stroke', 'stroke-width',
+      'stroke-linecap', 'stroke-linejoin', 'preserveaspectratio',
+    ], true);
+
+    $path_attrs = array_fill_keys([
+      'class', 'id', 'style', 'd', 'fill', 'stroke', 'stroke-width',
+      'stroke-linecap', 'stroke-linejoin', 'clip-rule', 'fill-rule',
+      'cx', 'cy', 'r', 'x', 'y', 'width', 'height', 'points', 'transform',
+    ], true);
+
+    $allowed['svg']      = $svg_attrs;
+    $allowed['g']        = $svg_attrs;
+    $allowed['use']      = array_merge($svg_attrs, array_fill_keys(['href', 'xlink:href'], true));
+    $allowed['path']     = $path_attrs;
+    $allowed['circle']   = $path_attrs;
+    $allowed['rect']     = $path_attrs;
+    $allowed['polygon']  = $path_attrs;
+    $allowed['line']     = $path_attrs;
+    $allowed['title']    = [];
+
+    return $allowed;
+  }
+}
+

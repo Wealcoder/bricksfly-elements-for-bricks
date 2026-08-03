@@ -14,7 +14,7 @@
  * @package Bricks_Animation_Addons
  */
 
-namespace wealcoder\thebricksfly\Includes\Extensions\Helpers;
+namespace wealcoder\bricksfly\Includes\Extensions\Helpers;
 
 defined('ABSPATH') || exit;
 

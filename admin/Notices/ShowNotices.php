@@ -1,6 +1,6 @@
 <?php
 
-namespace wealcoder\thebricksfly\Admin\Notices;
+namespace wealcoder\bricksfly\Admin\Notices;
 
 defined( 'ABSPATH' ) || exit();
 

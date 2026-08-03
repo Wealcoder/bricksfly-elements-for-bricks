@@ -1,6 +1,6 @@
 <?php
 
-namespace wealcoder\thebricksfly\Admin\Pages;
+namespace wealcoder\bricksfly\Admin\Pages;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit();
@@ -114,7 +114,7 @@ class BRICKSFLY_Page_Importer {
 		}
 
 		add_submenu_page(
-			\wealcoder\thebricksfly\Admin\Pages\BRICKSFLY_Admin_Init::MENU_PAGE_SLUG,
+			\wealcoder\bricksfly\Admin\Pages\BRICKSFLY_Admin_Init::MENU_PAGE_SLUG,
 			__( 'Page Import', 'bricksfly-elements-for-bricks' ),
 			__( 'Page Import', 'bricksfly-elements-for-bricks' ),
 			'manage_options',

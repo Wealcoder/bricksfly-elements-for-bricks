@@ -211,17 +211,24 @@ If an administrator enters a third-party media URL, visitors connect to that hos
 
 == Source Code ==
 
-Unminified JavaScript and CSS source for the React admin UI lives under `/src` in the plugin's public repository:
+This plugin's distributed `/public/build/` directory contains compiled/minified JavaScript and CSS produced by a Webpack build, including the numbered chunk files (e.g. `10.js`, `35.js`, `671.js`) generated for the React-based admin dashboard and page-import screens. The unminified, human-readable source for all of it — the React admin UI (`/src/admin/dashboard`, `/src/admin/page-import`), frontend/element/extension JS and SCSS (`/src/js`, `/src/scss`) — is publicly available in this plugin's source repository:
+
 https://github.com/Wealcoder/bricksfly-elements-for-bricks
+
+Build instructions:
+
+1. Clone the repository.
+2. Run `npm install`.
+3. Run `npm run build`.
+
+This produces the same `/public/build/` output shipped in this plugin, including the numbered chunk files referenced above.
+
 
 == Third-party Libraries ==
 
 The following third-party libraries or generated assets are included in the plugin's distributed files. Versions listed below are the versions used to produce the bundled assets in this release.
 
-= Animation engine =
-
-* **GSAP (GreenSock Animation Platform)** [ADD VERSION] - [ADD LICENSE, confirm GPL-compatible] - https://gsap.com/
-  GSAP powers the plugin's animation features, together with the ScrollTrigger, SplitText, ScrollSmoother, and ScrollTo plugins. [CONFIRM before release: state whether these files are bundled by this plugin (for example under /public/js/lib/) or provided by the required Bricks theme, and confirm the bundled build's license is GPL-compatible. If it is not GPL-compatible it cannot be distributed on WordPress.org.]
+Note: GSAP (GreenSock Animation Platform), together with its ScrollTrigger, SplitText, ScrollSmoother, and ScrollTo plugins, is bundled and documented in the companion "The BricksFly Pro" plugin's own readme — it is not included in this plugin's distributed files.
 
 = PHP importer =
 

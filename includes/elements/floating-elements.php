@@ -2,7 +2,7 @@
 
 if (! defined('ABSPATH')) exit;
 
-use wealcoder\thebricksfly\Includes\Extensions\Helpers\ResponsiveHelper;
+use wealcoder\bricksfly\Includes\Extensions\Helpers\ResponsiveHelper;
 
 class BRICKSFLY_Bricks_Floating_Elements extends \Bricks\Element
 {
@@ -56,9 +56,18 @@ class BRICKSFLY_Bricks_Floating_Elements extends \Bricks\Element
 	}
 
 	/**
-	 * Append px to bare numeric values so inline CSS is always valid.
-	 * Bricks number/slider controls save unit-picked values as e.g. "100px",
-	 * but typing a number with no unit picked leaves the value as a bare 100.
+	 * Append px to bare numeric values so inline CSS is always valid, and
+	 * strictly validate anything else against a CSS-length allowlist before
+	 * it can reach the generated <style> block via wp_add_inline_style().
+	 *
+	 * $value ultimately comes from a Bricks number/unit control's saved
+	 * setting (post meta) — admin-controlled, but not a hard type boundary:
+	 * a raw save request, an imported/copy-pasted template, or a future
+	 * control-type change could all put an arbitrary string here.
+	 * wp_add_inline_style() does not sanitize its input at all, so this is
+	 * the only gate before the value is concatenated into real CSS output.
+	 * Anything that isn't a plain number or number+standard-length-unit is
+	 * rejected outright (returns ''), rather than passed through unchanged.
 	 */
 	private function format_css_value($value): string
 	{
@@ -68,7 +77,16 @@ class BRICKSFLY_Bricks_Floating_Elements extends \Bricks\Element
 		if (is_numeric($value)) {
 			return $value . 'px';
 		}
-		return (string) $value;
+
+		$value = (string) $value;
+
+		// Number (incl. decimal/negative) + one standard CSS length/percentage
+		// unit — nothing else is accepted.
+		if (preg_match('/^-?\d+(?:\.\d+)?(?:px|%|em|rem|vh|vw|vmin|vmax)$/', $value)) {
+			return $value;
+		}
+
+		return '';
 	}
 
 	/**

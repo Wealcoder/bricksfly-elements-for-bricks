@@ -12,9 +12,9 @@
  * @package Bricks_Animation_Addons
  */
 
-namespace wealcoder\thebricksfly\Includes\Extensions;
+namespace wealcoder\bricksfly\Includes\Extensions;
 
-use wealcoder\thebricksfly\Includes\Extensions\Helpers\Label_Name_Helper;
+use wealcoder\bricksfly\Includes\Extensions\Helpers\Label_Name_Helper;
 
 if (! defined('ABSPATH')) {
 	exit;

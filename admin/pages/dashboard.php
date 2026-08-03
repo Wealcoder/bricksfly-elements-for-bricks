@@ -1,6 +1,6 @@
 <?php
 
-namespace wealcoder\thebricksfly\Admin\Pages;
+namespace wealcoder\bricksfly\Admin\Pages;
 
 if (! defined('ABSPATH')) {
 	exit();
@@ -10,7 +10,7 @@ class BRICKSFLY_Admin_Init
 {
 
 
-	use \wealcoder\thebricksfly\Includes\Traits\Extension_Widgets_Trait;
+	use \wealcoder\bricksfly\Includes\Traits\Extension_Widgets_Trait;
 
 	/**
 	 * Parent Menu Page Slug
@@ -253,7 +253,7 @@ class BRICKSFLY_Admin_Init
 		// registers any CPT Builder menu/placeholder.
 
 		// Initialize OneClickImport.
-		$oneimport = \wealcoder\thebricksfly\Admin\Base\OneClickImport::get_instance();
+		$oneimport = \wealcoder\bricksfly\Admin\Base\OneClickImport::get_instance();
 	}
 
 
@@ -291,11 +291,14 @@ class BRICKSFLY_Admin_Init
 		global $submenu;
 
 
-		// License link â€” navigates to the real License Settings page
-		// (bricksfly-license-settings), replacing the old React modal
-		// entry point (?bf-license=1).
+		// License link â€” navigates to the real License Settings page. The
+		// page slug is registered by the-bricksfly-pro itself
+		// (AAB_License_Settings_Init::SETTINGS_SLUG) as 'thebrbre-license-settings'
+		// — it must match exactly here or WordPress shows a generic "not
+		// allowed" error for the unregistered slug, replacing the old React
+		// modal entry point (?bf-license=1).
 		if (is_plugin_active('the-bricksfly-pro/the-bricksfly-pro.php')) {
-			$license_active = function_exists('bricksfly_license_is_valid') && bricksfly_license_is_valid();
+			$license_active = function_exists('bricksfly_is_license_valid') && bricksfly_is_license_valid();
 			$license_label  = esc_html__('License', 'bricksfly-elements-for-bricks');
 			if ($license_active) {
 				$license_label .= ' <span class="bf-license-menu-badge" style="display:inline-block;margin-left:6px;width:8px;height:8px;border-radius:50%;background:#10b981;vertical-align:middle;"></span>';
@@ -303,7 +306,7 @@ class BRICKSFLY_Admin_Init
 			$submenu[self::MENU_PAGE_SLUG][] = array(
 				$license_label,
 				'manage_options',
-				admin_url('admin.php?page=bricksfly-license-settings'),
+				admin_url('admin.php?page=thebrbre-license-settings'),
 			);
 		}
 
@@ -371,7 +374,7 @@ class BRICKSFLY_Admin_Init
 		// All Bricks breakpoints (defaults + custom). Routed through the shared
 		// ResponsiveHelper so the no-Bricks fallback (with label/icon) lives in
 		// one place â€” same source the frontend ResponsiveHelper consumers use.
-		$bricks_breakpoints = \wealcoder\thebricksfly\Includes\Extensions\Helpers\ResponsiveHelper::getBreakpoints();
+		$bricks_breakpoints = \wealcoder\bricksfly\Includes\Extensions\Helpers\ResponsiveHelper::getBreakpoints();
 
 		// License info for the React LicenseDialog (mirrors the shared contract
 		// from animation-addons-for-elementor-pro).
@@ -437,7 +440,7 @@ class BRICKSFLY_Admin_Init
 			'plugin_url' => BRICKSFLY_URL,
 			'has_pro' => file_exists($this->plugin_file),
 			'breakpoints' => $bricks_breakpoints,
-			'license_settings_url' => admin_url('admin.php?page=bricksfly-license-settings'),
+			'license_settings_url' => admin_url('admin.php?page=thebrbre-license-settings'),
 
 			// Dynamic replacement copy for the compiled React "Upgrade" dialog.
 			// The bundle hardcodes the default strings; a small inline script

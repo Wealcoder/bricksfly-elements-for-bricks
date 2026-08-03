@@ -1,6 +1,6 @@
 <?php
 
-namespace wealcoder\thebricksfly\Admin\Base;
+namespace wealcoder\bricksfly\Admin\Base;
 
 use WP_Error;
 
@@ -169,11 +169,11 @@ class OneClickImport {
 		// (→ `starter_tpl_import`). Enforced server-side so a forged request
 		// cannot bypass the UI lock. `guard_import_feature()` halts with a
 		// `limited:true` JSON envelope when the feature isn't in the plan.
-		if ( class_exists( '\wealcoder\thebricksfly\Admin\Pages\BRICKSFLY_Template_Importer' ) ) {
+		if ( class_exists( '\wealcoder\bricksfly\Admin\Pages\BRICKSFLY_Template_Importer' ) ) {
 			// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce is verified above by Helpers::verify_ajax_call().
 			$import_type = isset( $_POST['import_type'] ) ? sanitize_text_field( wp_unslash( $_POST['import_type'] ) ) : 'full-demo';
 			$feature     = ( 'page' === $import_type ) ? 'starter_page_import' : 'starter_tpl_import';
-			\wealcoder\thebricksfly\Admin\Pages\BRICKSFLY_Template_Importer::guard_import_feature( $feature );
+			\wealcoder\bricksfly\Admin\Pages\BRICKSFLY_Template_Importer::guard_import_feature( $feature );
 		}
 
 		$use_existing_importer_data = $this->use_existing_importer_data();
@@ -312,7 +312,14 @@ class OneClickImport {
 			$lines = explode( PHP_EOL, $text );
 		}
 		foreach ( $lines as $line ) {
-			if ( ! empty( $line ) && ! in_array( $line, $this->frontend_error_messages ) ) {
+			// Escape here, at the point the value enters $frontend_error_messages —
+			// this array is sent verbatim as JSON in the AJAX response (see
+			// get_current_importer_data()), so it must never carry raw text
+			// (which can include content pulled from the WXR file being
+			// imported) on the assumption some later display step will escape
+			// it before rendering.
+			$line = esc_html( $line );
+			if ( ! empty( $line ) && ! in_array( $line, $this->frontend_error_messages, true ) ) {
 				$this->frontend_error_messages[] = $line;
 			}
 		}
@@ -322,7 +329,9 @@ class OneClickImport {
 		$output = '';
 		if ( ! empty( $this->frontend_error_messages ) ) {
 			foreach ( $this->frontend_error_messages as $line ) {
-				$output .= esc_html( $line );
+				// $line is already esc_html()'d by append_to_frontend_error_messages() —
+				// do not escape again here, or entities double-encode (e.g. "&amp;" -> "&amp;amp;").
+				$output .= $line;
 				$output .= '<br>';
 			}
 		}

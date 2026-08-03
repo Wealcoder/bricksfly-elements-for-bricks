@@ -1,6 +1,6 @@
 <?php
 
-namespace wealcoder\thebricksfly\Includes;
+namespace wealcoder\bricksfly\Includes;
 
 defined('ABSPATH') || exit;
 

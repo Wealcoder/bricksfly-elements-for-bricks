@@ -20,7 +20,7 @@ if (! defined('ABSPATH')) {
 
 class BRICKSFLY_Plugin
 {
-	use \wealcoder\thebricksfly\Includes\Traits\Extension_Widgets_Trait;
+	use \wealcoder\bricksfly\Includes\Traits\Extension_Widgets_Trait;
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power

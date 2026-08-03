@@ -968,7 +968,7 @@ class BRICKSFLY_Bricks_Brand_Slider extends \Bricks\Element
 		echo wp_kses_post('<div ' . $this->render_attributes('_root') . '>');
 		echo '<div class="swiper">';
 		echo '<div class="swiper-wrapper">';
-		echo implode('', $slides); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wp_kses(implode('', $slides), bricksfly_kses_allowed_html());
 		echo '</div>';
 
 		if ($nav_anywhere && count($slides) > 1) {

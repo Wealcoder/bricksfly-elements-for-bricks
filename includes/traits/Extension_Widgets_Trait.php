@@ -1,6 +1,6 @@
 <?php
 
-namespace wealcoder\thebricksfly\Includes\Traits;
+namespace wealcoder\bricksfly\Includes\Traits;
 
 if (! defined('ABSPATH')) {
 	exit;
