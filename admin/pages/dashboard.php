@@ -293,7 +293,6 @@ class BRICKSFLY_Admin_Init
 
 		// License link â€” navigates to the real License Settings page. The
 		// page slug is registered by the-bricksfly-pro itself
-		// (AAB_License_Settings_Init::SETTINGS_SLUG) as 'thebrbre-license-settings'
 		// — it must match exactly here or WordPress shows a generic "not
 		// allowed" error for the unregistered slug, replacing the old React
 		// modal entry point (?bf-license=1).
@@ -306,7 +305,7 @@ class BRICKSFLY_Admin_Init
 			$submenu[self::MENU_PAGE_SLUG][] = array(
 				$license_label,
 				'manage_options',
-				admin_url('admin.php?page=thebrbre-license-settings'),
+				admin_url('admin.php?page=bricksfly-license-settings'),
 			);
 		}
 
@@ -440,8 +439,9 @@ class BRICKSFLY_Admin_Init
 			'plugin_url' => BRICKSFLY_URL,
 			'has_pro' => file_exists($this->plugin_file),
 			'breakpoints' => $bricks_breakpoints,
-			'license_settings_url' => admin_url('admin.php?page=thebrbre-license-settings'),
+			'license_settings_url' => admin_url('admin.php?page=bricksfly-license-settings'),
 
+			
 			// Dynamic replacement copy for the compiled React "Upgrade" dialog.
 			// The bundle hardcodes the default strings; a small inline script
 			// below swaps them at runtime based on current Pro/license state.
