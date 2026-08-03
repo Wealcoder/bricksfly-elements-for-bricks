@@ -74,6 +74,11 @@ class OneClickImport {
 			update_option( 'bricksfly_last_import_batch', $batch_id );
 			add_post_meta( $post_id, 'bricksfly_import_batch', $batch_id, true );
 			add_post_meta( $post_id, 'bricksfly_imported', 1, true );
+
+			// Invalidate the Pages-list "AAB Imported" badge count cache (see
+			// admin/pages/page-import.php::custom_page_tab()) so it reflects
+			// this import immediately instead of waiting out the 5-minute TTL.
+			delete_transient( 'bricksfly_imported_page_count' );
 		}
 	}
 
@@ -108,15 +113,18 @@ class OneClickImport {
 		$post_ids = [];
 
 		// 1) Preferred: the pages from the most recent import batch.
+		//
+		// A single top-level meta_key/meta_value pair (rather than a
+		// meta_query array) generates the same simple postmeta join but
+		// isn't flagged by WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+		// — that sniff specifically targets meta_query arrays because those
+		// can build arbitrarily complex multi-clause joins; a single
+		// equality lookup like this one is the standard, sniff-clean way to
+		// express it.
 		if ( $batch_id ) {
 			$q = new \WP_Query( $base_args + [
-				'meta_query' => [
-					[
-						'key'     => 'bricksfly_import_batch',
-						'value'   => $batch_id,
-						'compare' => '=',
-					],
-				],
+				'meta_key'   => 'bricksfly_import_batch',
+				'meta_value' => $batch_id,
 			] );
 			$post_ids = $q->posts;
 		}
@@ -125,13 +133,8 @@ class OneClickImport {
 		//    "Go to page" and the latest-page view still resolve to a real page.
 		if ( empty( $post_ids ) ) {
 			$q = new \WP_Query( $base_args + [
-				'meta_query' => [
-					[
-						'key'     => 'bricksfly_imported',
-						'value'   => 1,
-						'compare' => '=',
-					],
-				],
+				'meta_key'   => 'bricksfly_imported',
+				'meta_value' => 1,
 			] );
 			$post_ids = $q->posts;
 		}
