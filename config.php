@@ -1067,21 +1067,6 @@ $bricksfly_config = array(
 								'doc_url'      => 'https://bricksfly.com/docs/gsap-extensions/image-animation/',
 								'youtube_url'  => '',
 							),
-							'image-advanced-animation-effects' => array(
-								'label'        => 'Image Advanced Animation',
-								'location'     => array(
-									'cTab'     => 'gsap',
-									'pluginId' => 'aab-smooth-scroller',
-								),
-								'is_pro'       => true,
-								'is_active'    => false,
-								'is_extension' => false,
-								'is_upcoming'  => false,
-								'icon'         => 'wcf-icon-Image-Animation',
-								'demo_url'     => 'https://bricksfly.com/extensions/image-advanced-animation/',
-								'doc_url'      => 'https://bricksfly.com/docs/gsap-extensions/image-advanced-animation/',
-								'youtube_url'  => '',
-							),
 							'parallax-effect'         => array(
 								'label'        => 'Parallax Effect',
 								'location'     => array(
