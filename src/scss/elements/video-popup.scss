@@ -1,17 +1,17 @@
 /* ============================================================
    Video Popup — shared body-level overlay.
 
-   video-popup.js hoists the first .aab-popup-video-wrapper it
+   video-popup.js hoists the first .bricksfly-popup-video-wrapper it
    sees into <body>, then toggles `.is-open` on it to show/hide.
-   The host markup is left hidden inside .aab-popup-source as a
+   The host markup is left hidden inside .bricksfly-popup-source as a
    template fallback.
 ============================================================ */
 
-.aab-popup-source {
+.bricksfly-popup-source {
 	display: none;
 }
 
-body > .aab-popup-video-wrapper {
+body > .bricksfly-popup-video-wrapper {
 	position: fixed;
 	inset: 0;
 	display: flex;
@@ -24,13 +24,13 @@ body > .aab-popup-video-wrapper {
 	z-index: 99999;
 }
 
-body > .aab-popup-video-wrapper.is-open {
+body > .bricksfly-popup-video-wrapper.is-open {
 	opacity: 1;
 	visibility: visible;
 	transition: opacity 0.3s ease, visibility 0s linear 0s;
 }
 
-body > .aab-popup-video-wrapper .aab-popup-video {
+body > .bricksfly-popup-video-wrapper .bricksfly-popup-video {
 	position: relative;
 	width: min(900px, calc(100% - 80px));
 	aspect-ratio: 16 / 9;
@@ -39,17 +39,17 @@ body > .aab-popup-video-wrapper .aab-popup-video {
 	transition: transform 0.3s ease;
 }
 
-body > .aab-popup-video-wrapper.is-open .aab-popup-video {
+body > .bricksfly-popup-video-wrapper.is-open .bricksfly-popup-video {
 	transform: scale(1);
 }
 
-body > .aab-popup-video-wrapper .aab-popup-content-container {
+body > .bricksfly-popup-video-wrapper .bricksfly-popup-content-container {
 	width: 100%;
 	height: 100%;
 }
 
-body > .aab-popup-video-wrapper .aab-popup-content-container iframe,
-body > .aab-popup-video-wrapper .aab-popup-content-container video {
+body > .bricksfly-popup-video-wrapper .bricksfly-popup-content-container iframe,
+body > .bricksfly-popup-video-wrapper .bricksfly-popup-content-container video {
 	width: 100%;
 	height: 100%;
 	border: 0;
@@ -57,7 +57,7 @@ body > .aab-popup-video-wrapper .aab-popup-content-container video {
 	background: #000;
 }
 
-body > .aab-popup-video-wrapper .aab-popup-close {
+body > .bricksfly-popup-video-wrapper .bricksfly-popup-close {
 	position: absolute;
 	top: -44px;
 	right: -44px;
@@ -77,7 +77,7 @@ body > .aab-popup-video-wrapper .aab-popup-close {
 	transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
-body > .aab-popup-video-wrapper .aab-popup-close:hover {
+body > .bricksfly-popup-video-wrapper .bricksfly-popup-close:hover {
 	opacity: 1;
 	transform: rotate(90deg);
 }
@@ -85,13 +85,13 @@ body > .aab-popup-video-wrapper .aab-popup-close:hover {
 /* On narrow viewports the close button can't sit outside the box.
    Tuck it inside the top-right corner instead. */
 @media (max-width: 600px) {
-	body > .aab-popup-video-wrapper .aab-popup-close {
+	body > .bricksfly-popup-video-wrapper .bricksfly-popup-close {
 		top: 8px;
 		right: 8px;
 		background: rgba(0, 0, 0, 0.5);
 	}
 }
 
-body.aab-popup-open {
+body.bricksfly-popup-open {
 	overflow: hidden;
 }

@@ -1,9 +1,9 @@
-.aab-video-mask {
+.bricksfly-video-mask {
   border: 1px solid #ddd;
   position: relative;
 }
 
-.aab-video-mask .video-wrapper {
+.bricksfly-video-mask .video-wrapper {
   position: relative;
   z-index: 1;
   transition: all 0.3s;
@@ -13,7 +13,7 @@
   -webkit-mask-repeat: no-repeat;
 }
 
-.aab-video-mask .video--btn {
+.bricksfly-video-mask .video--btn {
   position: absolute;
   left: 60px;
   top: 50px;
@@ -30,22 +30,22 @@
   cursor: pointer;
 }
 
-.aab-video-mask .title {
+.bricksfly-video-mask .title {
   transition: all 0.3s;
   position: relative;
   z-index: 1;
   font-size: 18px;
 }
 
-.aab-video-mask .close-title.hidden {
+.bricksfly-video-mask .close-title.hidden {
   display: none;
 }
 
-.aab-video-mask .open-title.hidden {
+.bricksfly-video-mask .open-title.hidden {
   display: none;
 }
 
-.aab-video-mask .icon {
+.bricksfly-video-mask .icon {
   z-index: 1;
   position: relative;
   line-height: 1;
@@ -53,12 +53,12 @@
   font-size: 30px;
 }
 
-.aab-video-mask svg {
+.bricksfly-video-mask svg {
   width: 1em;
   height: 1em;
 }
 
-.aab-video-mask video {
+.bricksfly-video-mask video {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -66,7 +66,7 @@
 }
 
 /* Open state */
-.aab-video-mask.mask-open .video-wrapper {
+.bricksfly-video-mask.mask-open .video-wrapper {
   z-index: -1;
   -webkit-mask-size: 300% !important;
   -webkit-mask-position-x: 50% !important;

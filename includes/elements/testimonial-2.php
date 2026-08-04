@@ -7,8 +7,8 @@ class BRICKSFLY_Bricks_Testimonial2 extends \Bricks\Element
     public $category     = 'bricks fly';
     public $name         = 'aae-testimonial-2';
     public $icon         = 'ti-comment-alt aab-element-marker';
-    public $css_selector = '.aae-testimonial-2-wrapper';
-    public $scripts      = ['aaeTestimonial2'];
+    public $css_selector = '.bricksfly-testimonial-2-wrapper';
+    public $scripts      = ['bricksflyTestimonial2'];
 
     public function get_label()
     {
@@ -586,14 +586,14 @@ class BRICKSFLY_Bricks_Testimonial2 extends \Bricks\Element
 
         if ($show_arrows) {
             $slider_options['navigation'] = [
-                'nextEl' => '#aae-ts2-' . $this->id . ' .wcf-arrow-next',
-                'prevEl' => '#aae-ts2-' . $this->id . ' .wcf-arrow-prev',
+                'nextEl' => '#bricksfly-ts2-' . $this->id . ' .wcf-arrow-next',
+                'prevEl' => '#bricksfly-ts2-' . $this->id . ' .wcf-arrow-prev',
             ];
         }
 
         if ($show_dots) {
             $slider_options['pagination'] = [
-                'el'        => '#aae-ts2-' . $this->id . ' .swiper-pagination',
+                'el'        => '#bricksfly-ts2-' . $this->id . ' .swiper-pagination',
                 'clickable' => true,
             ];
         }
@@ -603,7 +603,7 @@ class BRICKSFLY_Bricks_Testimonial2 extends \Bricks\Element
         // this element. The custom id was only used for Swiper navigation/
         // pagination selectors below, but the JS already resolves those via
         // wrapper.querySelector(), so they're redundant.
-        $root_classes = ['aae-testimonial-2-wrapper', 'style-' . $style];
+        $root_classes = ['bricksfly-testimonial-2-wrapper', 'style-' . $style];
         $this->set_attribute('_root', 'class', $root_classes);
         $this->set_attribute('_root', 'data-swiper-options', wp_json_encode($slider_options));
 

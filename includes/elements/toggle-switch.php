@@ -7,8 +7,8 @@ class BRICKSFLY_Bricks_Toggle_Switch extends \Bricks\Element
     public $category     = 'bricks fly';
     public $name         = 'aae-toggle-switch';
     public $icon         = 'ti-control-shuffle aab-element-marker';
-    public $css_selector = '.aae-toggle-switch-wrapper';
-    public $scripts      = ['aaeToggleSwitch'];
+    public $css_selector = '.bricksfly-toggle-switch-wrapper';
+    public $scripts      = ['bricksflyToggleSwitch'];
 
     public function get_label()
     {
@@ -448,9 +448,9 @@ class BRICKSFLY_Bricks_Toggle_Switch extends \Bricks\Element
             ]);
         }
 
-        $this->set_attribute('_root', 'class', ['aae-toggle-switch-wrapper', 'style-' . $style]);
+        $this->set_attribute('_root', 'class', ['bricksfly-toggle-switch-wrapper', 'style-' . $style]);
 
-        $input_id = 'aae-toggle-' . $this->id;
+        $input_id = 'bricksfly-toggle-' . $this->id;
 
         $before = $items[0];
         $after  = $items[1];

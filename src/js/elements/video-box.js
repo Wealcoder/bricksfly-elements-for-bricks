@@ -8,7 +8,7 @@ import "../../scss/elements/video-box.scss";
  *
  * Bricks builder calls window.bricksflyVideoBox() with NO arguments on every
  * element re-render, so the global is a no-arg function that re-scans
- * the DOM and re-inits each .aab-video-box instance idempotently.
+ * the DOM and re-inits each .bricksfly-video-box instance idempotently.
  */
 ( function () {
 	'use strict';
@@ -53,7 +53,7 @@ import "../../scss/elements/video-box.scss";
 	}
 
 	function initAll() {
-		document.querySelectorAll( '.aab-video-box' ).forEach( function ( root ) {
+		document.querySelectorAll( '.bricksfly-video-box' ).forEach( function ( root ) {
 			initInstance( root );
 		} );
 	}

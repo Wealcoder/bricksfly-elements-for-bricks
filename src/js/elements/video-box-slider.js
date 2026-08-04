@@ -10,16 +10,16 @@ import "../../scss/elements/video-box-slider.scss";
 
         // Close popup
         document.addEventListener('click', function (e) {
-            var closeBtn = e.target.closest('.aab-popup-close');
+            var closeBtn = e.target.closest('.bricksfly-popup-close');
             if (!closeBtn) return;
 
             e.preventDefault();
 
-            var wrapper = closeBtn.closest('.aab-popup-video-wrapper');
+            var wrapper = closeBtn.closest('.bricksfly-popup-video-wrapper');
             if (!wrapper) return;
 
-            var inner = wrapper.querySelector('.aab-popup-video');
-            var container = wrapper.querySelector('.aab-popup-content-container');
+            var inner = wrapper.querySelector('.bricksfly-popup-video');
+            var container = wrapper.querySelector('.bricksfly-popup-content-container');
 
             if (typeof gsap === 'object') {
                 gsap.timeline({
@@ -42,8 +42,8 @@ import "../../scss/elements/video-box-slider.scss";
 
         // Close on backdrop click
         document.addEventListener('click', function (e) {
-            if (!e.target.classList.contains('aab-popup-video-wrapper')) return;
-            var closeBtn = e.target.querySelector('.aab-popup-close');
+            if (!e.target.classList.contains('bricksfly-popup-video-wrapper')) return;
+            var closeBtn = e.target.querySelector('.bricksfly-popup-close');
             if (closeBtn) closeBtn.click();
         });
 
@@ -120,14 +120,14 @@ import "../../scss/elements/video-box-slider.scss";
     }
 
     function transferPopup(root) {
-        var source = root.querySelector('.aab-popup-source');
+        var source = root.querySelector('.bricksfly-popup-source');
         if (!source) return;
 
-        var overlay = source.querySelector('.aab-popup-video-wrapper');
+        var overlay = source.querySelector('.bricksfly-popup-video-wrapper');
         if (overlay) {
             var ownerId = root.id || '';
             if (ownerId) {
-                var existing = document.body.querySelector('.aab-popup-video-wrapper[data-owner="' + ownerId + '"]');
+                var existing = document.body.querySelector('.bricksfly-popup-video-wrapper[data-owner="' + ownerId + '"]');
                 if (existing) existing.remove();
                 overlay.setAttribute('data-owner', ownerId);
             }
@@ -138,7 +138,7 @@ import "../../scss/elements/video-box-slider.scss";
 
     function bindPopupButtons(root) {
         var ownerId = root.id || '';
-        var buttons = root.querySelectorAll('.aab-popup-btn');
+        var buttons = root.querySelectorAll('.bricksfly-popup-btn');
 
         buttons.forEach(function (btn) {
             btn.addEventListener('click', function () {
@@ -146,17 +146,17 @@ import "../../scss/elements/video-box-slider.scss";
                 if (!url) return;
 
                 var popupWrapper = ownerId
-                    ? document.body.querySelector('.aab-popup-video-wrapper[data-owner="' + ownerId + '"]')
-                    : document.body.querySelector('.aab-popup-video-wrapper');
+                    ? document.body.querySelector('.bricksfly-popup-video-wrapper[data-owner="' + ownerId + '"]')
+                    : document.body.querySelector('.bricksfly-popup-video-wrapper');
 
                 if (!popupWrapper) return;
 
-                var container = popupWrapper.querySelector('.aab-popup-content-container');
+                var container = popupWrapper.querySelector('.bricksfly-popup-content-container');
                 if (container) {
                     container.innerHTML = '<iframe src="' + url + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>';
                 }
 
-                var inner = popupWrapper.querySelector('.aab-popup-video');
+                var inner = popupWrapper.querySelector('.bricksfly-popup-video');
 
                 if (typeof gsap === 'object') {
                     gsap.timeline({ defaults: { ease: 'power2.inOut' } })
@@ -174,9 +174,9 @@ import "../../scss/elements/video-box-slider.scss";
     function initElement(el) {
         if (!el) return;
 
-        var root = el.classList && el.classList.contains('aab-video-box-slider')
+        var root = el.classList && el.classList.contains('bricksfly-video-box-slider')
             ? el
-            : el.querySelector('.aab-video-box-slider');
+            : el.querySelector('.bricksfly-video-box-slider');
         if (!root) return;
 
         bindGlobalClose();
@@ -186,7 +186,7 @@ import "../../scss/elements/video-box-slider.scss";
     }
 
     function initAll() {
-        document.querySelectorAll('.aab-video-box-slider').forEach(function (el) {
+        document.querySelectorAll('.bricksfly-video-box-slider').forEach(function (el) {
             var owner = el.closest('[id^="brxe-"]') || el;
             initElement(owner);
         });

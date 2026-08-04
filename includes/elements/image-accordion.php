@@ -7,7 +7,7 @@ class BRICKSFLY_Bricks_Image_Accordion extends \Bricks\Element {
 	public $category     = 'bricks fly';
 	public $name         = 'aab-image-accordion';
 	public $icon         = 'ti-layout-accordion-merged aab-element-marker';
-	public $css_selector = '.aab-image-accordion';
+	public $css_selector = '.bricksfly-image-accordion';
 	public $scripts      = [ 'bricksflyImageAccordion' ];
 
 	public function get_label() {
@@ -231,7 +231,7 @@ class BRICKSFLY_Bricks_Image_Accordion extends \Bricks\Element {
 			'css' => [
 				[
 					'property' => 'height',
-					'selector' => '.aab-image-accordion',
+					'selector' => '.bricksfly-image-accordion',
 				],
 			],
 		];
@@ -244,7 +244,7 @@ class BRICKSFLY_Bricks_Image_Accordion extends \Bricks\Element {
 			'css'   => [
 				[
 					'property' => 'justify-content',
-					'selector' => '.aab-image-accordion .accordion-item',
+					'selector' => '.bricksfly-image-accordion .accordion-item',
 				],
 			],
 		];
@@ -257,7 +257,7 @@ class BRICKSFLY_Bricks_Image_Accordion extends \Bricks\Element {
 			'css'   => [
 				[
 					'property' => 'align-items',
-					'selector' => '.aab-image-accordion .accordion-item',
+					'selector' => '.bricksfly-image-accordion .accordion-item',
 				],
 			],
 		];
@@ -270,7 +270,7 @@ class BRICKSFLY_Bricks_Image_Accordion extends \Bricks\Element {
 			'css'   => [
 				[
 					'property' => 'text-align',
-					'selector' => '.aab-image-accordion .content',
+					'selector' => '.bricksfly-image-accordion .content',
 				],
 			],
 		];
@@ -469,7 +469,7 @@ class BRICKSFLY_Bricks_Image_Accordion extends \Bricks\Element {
 			'css'      => [
 				[
 					'property' => 'font',
-					'selector' => '.aab-btn',
+					'selector' => '.bricksfly-btn',
 				],
 			],
 			'required' => [ 'linkType', '=', 'button' ],
@@ -483,7 +483,7 @@ class BRICKSFLY_Bricks_Image_Accordion extends \Bricks\Element {
 			'css'      => [
 				[
 					'property' => 'color',
-					'selector' => '.aab-btn',
+					'selector' => '.bricksfly-btn',
 				],
 			],
 			'required' => [ 'linkType', '=', 'button' ],
@@ -497,7 +497,7 @@ class BRICKSFLY_Bricks_Image_Accordion extends \Bricks\Element {
 			'css'      => [
 				[
 					'property' => 'color',
-					'selector' => '.aab-btn:hover',
+					'selector' => '.bricksfly-btn:hover',
 				],
 			],
 			'required' => [ 'linkType', '=', 'button' ],
@@ -511,7 +511,7 @@ class BRICKSFLY_Bricks_Image_Accordion extends \Bricks\Element {
 			'css'      => [
 				[
 					'property' => 'background',
-					'selector' => '.aab-btn',
+					'selector' => '.bricksfly-btn',
 				],
 			],
 			'required' => [ 'linkType', '=', 'button' ],
@@ -525,7 +525,7 @@ class BRICKSFLY_Bricks_Image_Accordion extends \Bricks\Element {
 			'css'      => [
 				[
 					'property' => 'background',
-					'selector' => '.aab-btn:hover',
+					'selector' => '.bricksfly-btn:hover',
 				],
 			],
 			'required' => [ 'linkType', '=', 'button' ],
@@ -539,7 +539,7 @@ class BRICKSFLY_Bricks_Image_Accordion extends \Bricks\Element {
 			'css'      => [
 				[
 					'property' => 'border',
-					'selector' => '.aab-btn',
+					'selector' => '.bricksfly-btn',
 				],
 			],
 			'required' => [ 'linkType', '=', 'button' ],
@@ -553,7 +553,7 @@ class BRICKSFLY_Bricks_Image_Accordion extends \Bricks\Element {
 			'css'      => [
 				[
 					'property' => 'padding',
-					'selector' => '.aab-btn',
+					'selector' => '.bricksfly-btn',
 				],
 			],
 			'required' => [ 'linkType', '=', 'button' ],
@@ -601,7 +601,7 @@ class BRICKSFLY_Bricks_Image_Accordion extends \Bricks\Element {
 			$title_tag = 'h4';
 		}
 
-		$this->set_attribute( '_root', 'class', [ 'aab-image-accordion', 'accordion-layout-' . esc_attr( $layout ) ] );
+		$this->set_attribute( '_root', 'class', [ 'bricksfly-image-accordion', 'accordion-layout-' . esc_attr( $layout ) ] );
 		$this->set_attribute( '_root', 'data-expand', $expand );
 
 		// 1-based default-open index, clamped to the item count so an
@@ -659,10 +659,10 @@ class BRICKSFLY_Bricks_Image_Accordion extends \Bricks\Element {
 
 				if ( ! empty( $item['link'] ) ) {
 					$this->set_link_attributes( $link_key, $item['link'] );
-					$this->set_attribute( $link_key, 'class', 'aab-btn' );
+					$this->set_attribute( $link_key, 'class', 'bricksfly-btn' );
 					echo wp_kses_post('<a ' . $this->render_attributes( $link_key ) . '>' . esc_html( $btn_text ) . '</a>');
 				} else {
-					echo '<span class="aab-btn" role="button">' . esc_html( $btn_text ) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					echo '<span class="bricksfly-btn" role="button">' . esc_html( $btn_text ) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				}
 			}
 

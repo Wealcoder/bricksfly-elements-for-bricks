@@ -25,7 +25,7 @@ import "../../scss/elements/toggle-switch.scss";
     }
 
     function initAll() {
-        document.querySelectorAll('.aae-toggle-switch-wrapper').forEach(function (wrapper) {
+        document.querySelectorAll('.bricksfly-toggle-switch-wrapper').forEach(function (wrapper) {
             initInstance(wrapper);
         });
     }
@@ -36,6 +36,6 @@ import "../../scss/elements/toggle-switch.scss";
         initAll();
     }
 
-    // Bricks builder calls window.aaeToggleSwitch() with no args on each re-render.
-    window.aaeToggleSwitch = initAll;
+    // Bricks builder calls window.bricksflyToggleSwitch() with no args on each re-render.
+    window.bricksflyToggleSwitch = initAll;
 })();

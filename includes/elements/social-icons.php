@@ -8,7 +8,7 @@ class BRICKSFLY_Bricks_Social_Icons extends \Bricks\Element
 	public $category     = 'bricks fly';
 	public $name         = 'aab-social-icons';
 	public $icon         = 'ti-share aab-element-marker';
-	public $css_selector = '.aab-social-icons';
+	public $css_selector = '.bricksfly-social-icons';
 	public $scripts      = [];
 
 	public function get_label()
@@ -114,7 +114,7 @@ class BRICKSFLY_Bricks_Social_Icons extends \Bricks\Element
 		// 	'css'   => [
 		// 		[
 		// 			'property' => 'justify-content',
-		// 			'selector' => '.aab-social-icons-list',
+		// 			'selector' => '.bricksfly-social-icons-list',
 		// 		],
 		// 	],
 		// ];
@@ -133,7 +133,7 @@ class BRICKSFLY_Bricks_Social_Icons extends \Bricks\Element
 		// 	'css'     => [
 		// 		[
 		// 			'property' => 'flex-direction',
-		// 			'selector' => '.aab-social-icons-list',
+		// 			'selector' => '.bricksfly-social-icons-list',
 		// 		],
 		// 	],
 		// ];
@@ -153,7 +153,7 @@ class BRICKSFLY_Bricks_Social_Icons extends \Bricks\Element
 			'css'     => [
 				[
 					'property' => 'flex-direction',
-					'selector' => '.aab-social-icons-list',
+					'selector' => '.bricksfly-social-icons-list',
 				],
 			],
 		];
@@ -170,7 +170,7 @@ class BRICKSFLY_Bricks_Social_Icons extends \Bricks\Element
 			'css'   => [
 				[
 					'property' => 'justify-content',
-					'selector' => '.aab-social-icons-list',
+					'selector' => '.bricksfly-social-icons-list',
 				],
 			],
 		];
@@ -185,7 +185,7 @@ class BRICKSFLY_Bricks_Social_Icons extends \Bricks\Element
 			'css'   => [
 				[
 					'property' => 'align-items',
-					'selector' => '.aab-social-icons-list',
+					'selector' => '.bricksfly-social-icons-list',
 				],
 			],
 		];
@@ -200,11 +200,11 @@ class BRICKSFLY_Bricks_Social_Icons extends \Bricks\Element
 			'css'   => [
 				[
 					'property' => 'color',
-					'selector' => '.aab-social-icon',
+					'selector' => '.bricksfly-social-icon',
 				],
 				[
 					'property' => 'fill',
-					'selector' => '.aab-social-icon',
+					'selector' => '.bricksfly-social-icon',
 				],
 			],
 		];
@@ -217,7 +217,7 @@ class BRICKSFLY_Bricks_Social_Icons extends \Bricks\Element
 			'css'   => [
 				[
 					'property' => 'background-color',
-					'selector' => '.aab-social-icon',
+					'selector' => '.bricksfly-social-icon',
 				],
 			],
 		];
@@ -233,7 +233,7 @@ class BRICKSFLY_Bricks_Social_Icons extends \Bricks\Element
 			'css' => [
 				[
 					'property' => '--icon-size',
-					'selector' => '.aab-social-icon',
+					'selector' => '.bricksfly-social-icon',
 				],
 			],
 		];
@@ -249,7 +249,7 @@ class BRICKSFLY_Bricks_Social_Icons extends \Bricks\Element
 			'css' => [
 				[
 					'property' => '--icon-padding',
-					'selector' => '.aab-social-icon',
+					'selector' => '.bricksfly-social-icon',
 				],
 			],
 		];
@@ -265,7 +265,7 @@ class BRICKSFLY_Bricks_Social_Icons extends \Bricks\Element
 			'css' => [
 				[
 					'property' => 'gap',
-					'selector' => '.aab-social-icons-list',
+					'selector' => '.bricksfly-social-icons-list',
 				],
 			],
 		];
@@ -278,7 +278,7 @@ class BRICKSFLY_Bricks_Social_Icons extends \Bricks\Element
 			'css'   => [
 				[
 					'property' => 'border',
-					'selector' => '.aab-social-icon',
+					'selector' => '.bricksfly-social-icon',
 				],
 			],
 		];
@@ -295,7 +295,7 @@ class BRICKSFLY_Bricks_Social_Icons extends \Bricks\Element
 			'css' => [
 				[
 					'property' => 'border-radius',
-					'selector' => '.aab-social-icon',
+					'selector' => '.bricksfly-social-icon',
 				],
 			],
 		];
@@ -310,11 +310,11 @@ class BRICKSFLY_Bricks_Social_Icons extends \Bricks\Element
 			'css'   => [
 				[
 					'property' => 'color',
-					'selector' => '.aab-social-icon:hover',
+					'selector' => '.bricksfly-social-icon:hover',
 				],
 				[
 					'property' => 'fill',
-					'selector' => '.aab-social-icon:hover',
+					'selector' => '.bricksfly-social-icon:hover',
 				],
 			],
 		];
@@ -327,7 +327,7 @@ class BRICKSFLY_Bricks_Social_Icons extends \Bricks\Element
 			'css'   => [
 				[
 					'property' => 'background-color',
-					'selector' => '.aab-social-icon:hover',
+					'selector' => '.bricksfly-social-icon:hover',
 				],
 			],
 		];
@@ -340,7 +340,7 @@ class BRICKSFLY_Bricks_Social_Icons extends \Bricks\Element
 			'css'   => [
 				[
 					'property' => 'border-color',
-					'selector' => '.aab-social-icon:hover',
+					'selector' => '.bricksfly-social-icon:hover',
 				],
 			],
 		];
@@ -381,7 +381,7 @@ class BRICKSFLY_Bricks_Social_Icons extends \Bricks\Element
 
 	// 	return [
 	// 		[
-	// 			'selector' => '.aab-social-icons-list',
+	// 			'selector' => '.bricksfly-social-icons-list',
 	// 			'property' => $property,
 	// 			'value'    => $align,
 	// 		],
@@ -402,10 +402,10 @@ class BRICKSFLY_Bricks_Social_Icons extends \Bricks\Element
 
 		$hover_anim = ! empty($settings['hoverAnimation']) ? $settings['hoverAnimation'] : '';
 
-		$this->set_attribute('_root', 'class', ['aab-social-icons']);
+		$this->set_attribute('_root', 'class', ['bricksfly-social-icons']);
 
 		echo wp_kses_post('<div ' . $this->render_attributes('_root') . '>');
-		echo '<ul class="aab-social-icons-list">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo '<ul class="bricksfly-social-icons-list">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		foreach ($icons as $index => $item) {
 			if (empty($item['icon'])) {
@@ -429,9 +429,9 @@ class BRICKSFLY_Bricks_Social_Icons extends \Bricks\Element
 				}
 			}
 
-			$icon_classes = ['aab-social-icon'];
+			$icon_classes = ['bricksfly-social-icon'];
 			if ($hover_anim) {
-				$icon_classes[] = 'aab-hover-' . $hover_anim;
+				$icon_classes[] = 'bricksfly-hover-' . $hover_anim;
 			}
 			$this->set_attribute($link_key, 'class', $icon_classes);
 

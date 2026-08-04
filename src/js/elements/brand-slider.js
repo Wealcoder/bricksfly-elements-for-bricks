@@ -67,8 +67,8 @@ import "../../scss/elements/brand-slider.scss";
       // Resolve nav/pagination selectors to this wrapper's elements.
       if (opts.navigation) {
         opts.navigation = {
-          nextEl: wrapper.querySelector(".aab-arrow-next"),
-          prevEl: wrapper.querySelector(".aab-arrow-prev"),
+          nextEl: wrapper.querySelector(".bricksfly-arrow-next"),
+          prevEl: wrapper.querySelector(".bricksfly-arrow-prev"),
         };
       }
       if (opts.pagination) {
@@ -105,8 +105,8 @@ import "../../scss/elements/brand-slider.scss";
       // The arrow / pagination elements are always present in the DOM (so any range can
       // use them), but Swiper only wires up the modules it's given. Toggle their visibility
       // to match the active range, otherwise disabled arrows would still show.
-      var prevEl = wrapper.querySelector(".aab-arrow-prev");
-      var nextEl = wrapper.querySelector(".aab-arrow-next");
+      var prevEl = wrapper.querySelector(".bricksfly-arrow-prev");
+      var nextEl = wrapper.querySelector(".bricksfly-arrow-next");
       var pagEl = wrapper.querySelector(".swiper-pagination");
       var navOn = !!options.navigation;
       var pagOn = !!options.pagination;
@@ -158,7 +158,7 @@ import "../../scss/elements/brand-slider.scss";
 
   function initAll() {
     document
-      .querySelectorAll(".aab-brand-slider-wrapper")
+      .querySelectorAll(".bricksfly-brand-slider-wrapper")
       .forEach(function (wrapper) {
         initInstance(wrapper);
       });

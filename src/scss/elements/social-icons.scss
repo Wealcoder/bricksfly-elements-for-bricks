@@ -1,9 +1,9 @@
 
-.aab-social-icons{
+.bricksfly-social-icons{
   // display: flex;
   width: 100%;
 }
-.aab-social-icons .aab-social-icons-list {
+.bricksfly-social-icons .bricksfly-social-icons-list {
   margin: 0;
   padding: 0;
   display: flex;
@@ -13,12 +13,12 @@
   width: 100%;
 }
 
-.aab-social-icons .aab-social-icons-list li {
+.bricksfly-social-icons .bricksfly-social-icons-list li {
   list-style: none;
   line-height: 1;
 }
 
-.aab-social-icons .aab-social-icons-list li a.aab-social-icon {
+.bricksfly-social-icons .bricksfly-social-icons-list li a.bricksfly-social-icon {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -30,7 +30,7 @@
   transition: all 0.3s;
 }
 
-.aab-social-icons .aab-social-icons-list li a.aab-social-icon svg {
+.bricksfly-social-icons .bricksfly-social-icons-list li a.bricksfly-social-icon svg {
   width: 1em;
   height: 1em;
 }
@@ -40,20 +40,20 @@
 ------------------------- */
 
 /* Grow */
-.aab-hover-grow {
+.bricksfly-hover-grow {
   transition: transform 0.3s;
 }
 
-.aab-hover-grow:hover {
+.bricksfly-hover-grow:hover {
   transform: scale(1.1);
 }
 
 /* Shrink */
-.aab-hover-shrink {
+.bricksfly-hover-shrink {
   transition: transform 0.3s;
 }
 
-.aab-hover-shrink:hover {
+.bricksfly-hover-shrink:hover {
   transform: scale(0.9);
 }
 
@@ -70,15 +70,15 @@
   }
 }
 
-.aab-hover-pulse:hover {
+.bricksfly-hover-pulse:hover {
   animation: bricksfly-hover-pulse 0.6s ease-in-out;
 }
 
 /* Float Up */
-.aab-hover-float-up {
+.bricksfly-hover-float-up {
   transition: transform 0.3s;
 }
 
-.aab-hover-float-up:hover {
+.bricksfly-hover-float-up:hover {
   transform: translateY(-5px);
 }

@@ -1,24 +1,24 @@
-.aab-video-box-container {
+.bricksfly-video-box-container {
   display: flex;
   justify-content: flex-end;
 }
 
-.aab-video-box {
+.bricksfly-video-box {
   overflow: hidden;
   position: relative;
 }
 
-.aab-video-box .thumb {
+.bricksfly-video-box .thumb {
   line-height: 0;
 }
 
-.aab-video-box img,
-.aab-video-box video {
+.bricksfly-video-box img,
+.bricksfly-video-box video {
   width: 100%;
   object-fit: cover;
 }
 
-.aab-video-box .content {
+.bricksfly-video-box .content {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -29,8 +29,8 @@
   padding: 20px;
 }
 
-.aab-video-box .title,
-.aab-video-box .subtitle {
+.bricksfly-video-box .title,
+.bricksfly-video-box .subtitle {
   color: #fff;
   margin: 0;
 }
@@ -39,7 +39,7 @@
    PLAY BUTTON — base
 =========================== */
 
-.aab-video-box .aab-popup-btn {
+.bricksfly-video-box .bricksfly-popup-btn {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -68,8 +68,8 @@
 /* Gated on the .ripple class which render() only emits when the
    "Active Ripple" control is checked. Pseudo-elements expand via
    box-shadow, picking up the panel "Ripple Color" via currentColor. */
-.aab-popup-btn.ripple::before,
-.aab-popup-btn.ripple::after {
+.bricksfly-popup-btn.ripple::before,
+.bricksfly-popup-btn.ripple::after {
   content: " ";
   position: absolute;
   top: 0;
@@ -84,11 +84,11 @@
   z-index: -1;
 }
 
-.aab-popup-btn.ripple::before {
+.bricksfly-popup-btn.ripple::before {
   animation-delay: 0.9s;
 }
 
-.aab-popup-btn.ripple::after {
+.bricksfly-popup-btn.ripple::after {
   animation-delay: 0.3s;
 }
 
@@ -108,13 +108,13 @@
 =========================== */
 
 /* Hover (default) — hidden until parent hover */
-.aab-video-box.btn-hover .aab-popup-btn {
+.bricksfly-video-box.btn-hover .bricksfly-popup-btn {
   opacity: 0;
   visibility: hidden;
   transform: translate(-50%, calc(-50% + 20px));
 }
 
-.aab-video-box.btn-hover:hover .aab-popup-btn {
+.bricksfly-video-box.btn-hover:hover .bricksfly-popup-btn {
   opacity: 1;
   visibility: visible;
   transform: translate(-50%, -50%);
@@ -124,14 +124,14 @@
    style it without hovering each instance. Scoped to `.brx-body.iframe`
    (added by Bricks's before_site_wrapper for builder canvas only) so the
    frontend `hover` behaviour is untouched. */
-.brx-body.iframe .aab-video-box.btn-hover .aab-popup-btn {
+.brx-body.iframe .bricksfly-video-box.btn-hover .bricksfly-popup-btn {
   opacity: 1;
   visibility: visible;
   transform: translate(-50%, -50%);
 }
 
 /* Always show — fixed-centered, regardless of hover */
-.aab-video-box.btn-always .aab-popup-btn {
+.bricksfly-video-box.btn-always .bricksfly-popup-btn {
   opacity: 1;
   visibility: visible;
   transform: translate(-50%, -50%);
@@ -139,7 +139,7 @@
 
 /* Hide — render() omits the button entirely, but guard with CSS too
    in case markup is cached/legacy. */
-.aab-video-box.btn-hide .aab-popup-btn {
+.bricksfly-video-box.btn-hide .bricksfly-popup-btn {
   display: none !important;
 }
 
@@ -147,7 +147,7 @@
    STYLE 1
 =========================== */
 
-.aab-video-box.style-1 .content {
+.bricksfly-video-box.style-1 .content {
   flex-direction: column;
   justify-content: flex-end;
 }
@@ -156,16 +156,16 @@
    STYLE 2
 =========================== */
 
-.aab-video-box.style-2 .thumb img {
+.bricksfly-video-box.style-2 .thumb img {
   clip-path: polygon(0 0, 100% 0, 100% 100%, 55% 100%, 0 70%);
 }
 
-.aab-video-box.style-2 .content {
+.bricksfly-video-box.style-2 .content {
   flex-direction: column-reverse;
   justify-content: flex-start;
 }
 
-.aab-video-box.style-2 .title,
-.aab-video-box.style-2 .subtitle {
+.bricksfly-video-box.style-2 .title,
+.bricksfly-video-box.style-2 .subtitle {
   margin: 0;
 }

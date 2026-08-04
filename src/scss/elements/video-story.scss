@@ -2,17 +2,17 @@
    BASE
 =========================== */
 
-.aab--video-story {
+.bricksfly-video-story {
 	display: flex;
 	flex-direction: column;
 }
 
-.aab--video-story svg {
+.bricksfly-video-story svg {
 	width: 1em;
 	height: 1em;
 }
 
-.aab--video-story img {
+.bricksfly-video-story img {
 	object-fit: cover;
 }
 
@@ -20,7 +20,7 @@
    POSTS GRID
 =========================== */
 
-.aab--video-story .aab--posts {
+.bricksfly-video-story .bricksfly-posts {
 	display: grid;
 }
 
@@ -28,12 +28,12 @@
    POST ITEM
 =========================== */
 
-.aab--video-story .aab--post {
+.bricksfly-video-story .bricksfly-post {
 	position: relative;
 	transition: all 0.3s;
 }
 
-.aab--video-story .aab--post::after {
+.bricksfly-video-story .bricksfly-post::after {
 	position: absolute;
 	content: "";
 	width: 100%;
@@ -45,25 +45,25 @@
 	pointer-events: none;
 }
 
-.aab--video-story .aab--post.active::after,
-.aab--video-story .aab--post:hover::after {
+.bricksfly-video-story .bricksfly-post.active::after,
+.bricksfly-video-story .bricksfly-post:hover::after {
 	opacity: 0;
 	visibility: hidden;
 }
 
-.aab--video-story .aab--post.active .content,
-.aab--video-story .aab--post:hover .content {
+.bricksfly-video-story .bricksfly-post.active .content,
+.bricksfly-video-story .bricksfly-post:hover .content {
 	opacity: 0;
 	visibility: hidden;
 }
 
-.aab--video-story .aab--post img,
-.aab--video-story .aab--post video {
+.bricksfly-video-story .bricksfly-post img,
+.bricksfly-video-story .bricksfly-post video {
 	width: 100%;
 	height: 100%;
 }
 
-.aab--video-story .aab--post .thumb {
+.bricksfly-video-story .bricksfly-post .thumb {
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
@@ -73,7 +73,7 @@
    CONTENT OVERLAY
 =========================== */
 
-.aab--video-story .aab--post .content {
+.bricksfly-video-story .bricksfly-post .content {
 	position: absolute;
 	bottom: 0;
 	left: 0;
@@ -86,12 +86,12 @@
    TITLE
 =========================== */
 
-.aab--video-story .aab-post-title {
+.bricksfly-video-story .bricksfly-post-title {
 	margin: 0 0 15px 0;
 	color: #fff;
 }
 
-.aab--video-story .aab-post-title a {
+.bricksfly-video-story .bricksfly-post-title a {
 	color: inherit;
 	text-decoration: none;
 }
@@ -100,7 +100,7 @@
    EXCERPT
 =========================== */
 
-.aab--video-story .aab-post-excerpt {
+.bricksfly-video-story .bricksfly-post-excerpt {
 	color: rgba(255, 255, 255, 0.8);
 	margin: 0 0 10px 0;
 }
@@ -109,14 +109,14 @@
    TAXONOMY
 =========================== */
 
-.aab--video-story .aab-post-taxonomy {
+.bricksfly-video-story .bricksfly-post-taxonomy {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 6px;
 	margin-bottom: 10px;
 }
 
-.aab--video-story .aab-post-taxonomy a {
+.bricksfly-video-story .bricksfly-post-taxonomy a {
 	color: #fff;
 	text-decoration: none;
 	font-size: 0.85em;
@@ -126,7 +126,7 @@
    META
 =========================== */
 
-.aab--video-story .aab-post-meta {
+.bricksfly-video-story .bricksfly-post-meta {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
@@ -138,7 +138,7 @@
    DURATION
 =========================== */
 
-.aab--video-story .duration-wrap {
+.bricksfly-video-story .duration-wrap {
 	display: flex;
 	align-items: center;
 	gap: 8px;

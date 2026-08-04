@@ -8,7 +8,7 @@ class BRICKSFLY_Bricks_Counter extends \Bricks\Element
 	public $category     = 'bricks fly';
 	public $name         = 'aab-counter';
 	public $icon         = 'ti-timer aab-element-marker';
-	public $css_selector = '.aab-counter';
+	public $css_selector = '.bricksfly-counter';
 	public $scripts      = ['bricksflyCounter'];
 
 	public function get_label()
@@ -187,7 +187,7 @@ class BRICKSFLY_Bricks_Counter extends \Bricks\Element
 			'default' => 'column',
 			'css'     => [[
 				'property' => 'flex-direction',
-				'selector' => '.aab-counter__inner',
+				'selector' => '.bricksfly-counter__inner',
 			]],
 		];
 
@@ -198,7 +198,7 @@ class BRICKSFLY_Bricks_Counter extends \Bricks\Element
 			'css'     => [
 				[
 					'property' => 'align-items',
-					'selector' => '.aab-counter__inner',
+					'selector' => '.bricksfly-counter__inner',
 				],
 			],
 			'exclude' => ['space-between', 'space-around', 'space-evenly'], // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude -- Bricks control option, not a WP_Query arg
@@ -211,7 +211,7 @@ class BRICKSFLY_Bricks_Counter extends \Bricks\Element
 			'units' => true,
 			'css'   => [[
 				'property' => 'gap',
-				'selector' => '.aab-counter__inner',
+				'selector' => '.bricksfly-counter__inner',
 			]],
 		];
 
@@ -222,7 +222,7 @@ class BRICKSFLY_Bricks_Counter extends \Bricks\Element
 			'units' => true,
 			'css'   => [[
 				'property' => 'gap',
-				'selector' => '.aab-counter__number-wrap',
+				'selector' => '.bricksfly-counter__number-wrap',
 			]],
 		];
 
@@ -236,7 +236,7 @@ class BRICKSFLY_Bricks_Counter extends \Bricks\Element
 			'type'  => 'typography',
 			'css'   => [[
 				'property' => 'typography',
-				'selector' => '.aab-counter__number',
+				'selector' => '.bricksfly-counter__number',
 			]],
 		];
 
@@ -246,7 +246,7 @@ class BRICKSFLY_Bricks_Counter extends \Bricks\Element
 			'type'  => 'color',
 			'css'   => [[
 				'property' => 'background-color',
-				'selector' => '.aab-counter__number',
+				'selector' => '.bricksfly-counter__number',
 			]],
 		];
 
@@ -256,7 +256,7 @@ class BRICKSFLY_Bricks_Counter extends \Bricks\Element
 			'type'  => 'dimensions',
 			'css'   => [[
 				'property' => 'padding',
-				'selector' => '.aab-counter__number',
+				'selector' => '.bricksfly-counter__number',
 			]],
 		];
 
@@ -266,7 +266,7 @@ class BRICKSFLY_Bricks_Counter extends \Bricks\Element
 			'type'  => 'border',
 			'css'   => [[
 				'property' => 'border',
-				'selector' => '.aab-counter__number',
+				'selector' => '.bricksfly-counter__number',
 			]],
 		];
 
@@ -276,7 +276,7 @@ class BRICKSFLY_Bricks_Counter extends \Bricks\Element
 		// 	'type'  => 'dimensions',
 		// 	'css'   => [[
 		// 		'property' => 'border-radius',
-		// 		'selector' => '.aab-counter__number',
+		// 		'selector' => '.bricksfly-counter__number',
 		// 	]],
 		// ];
 
@@ -290,7 +290,7 @@ class BRICKSFLY_Bricks_Counter extends \Bricks\Element
 			'type'  => 'typography',
 			'css'   => [[
 				'property' => 'typography',
-				'selector' => '.aab-counter__prefix',
+				'selector' => '.bricksfly-counter__prefix',
 			]],
 		];
 
@@ -300,7 +300,7 @@ class BRICKSFLY_Bricks_Counter extends \Bricks\Element
 			'type'  => 'typography',
 			'css'   => [[
 				'property' => 'typography',
-				'selector' => '.aab-counter__suffix',
+				'selector' => '.bricksfly-counter__suffix',
 			]],
 		];
 
@@ -314,7 +314,7 @@ class BRICKSFLY_Bricks_Counter extends \Bricks\Element
 			'type'  => 'typography',
 			'css'   => [[
 				'property' => 'typography',
-				'selector' => '.aab-counter__title',
+				'selector' => '.bricksfly-counter__title',
 			]],
 		];
 
@@ -324,7 +324,7 @@ class BRICKSFLY_Bricks_Counter extends \Bricks\Element
 			'type'  => 'dimensions',
 			'css'   => [[
 				'property' => 'margin',
-				'selector' => '.aab-counter__title',
+				'selector' => '.bricksfly-counter__title',
 			]],
 		];
 	}
@@ -365,31 +365,31 @@ class BRICKSFLY_Bricks_Counter extends \Bricks\Element
 			'trigger'   => $trigger,
 		];
 
-		$this->set_attribute('_root', 'data-aab-counter', wp_json_encode($counter_data));
+		$this->set_attribute('_root', 'data-bricksfly-counter', wp_json_encode($counter_data));
 
 		echo wp_kses_post('<div ' . $this->render_attributes('_root') . '>');
-		echo '<div class="aab-counter__inner">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo '<div class="bricksfly-counter__inner">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		// Number row: prefix + number + suffix
-		echo '<div class="aab-counter__number-wrap">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo '<div class="bricksfly-counter__number-wrap">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		if (! empty($prefix)) {
-			echo '<span class="aab-counter__prefix">' . esc_html($prefix) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo '<span class="bricksfly-counter__prefix">' . esc_html($prefix) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 
 		// Display the starting number formatted
 		$display = $this->format_number($start, $decimals, $separator);
-		echo '<span class="aab-counter__number">' . esc_html($display) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo '<span class="bricksfly-counter__number">' . esc_html($display) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		if (! empty($suffix)) {
-			echo '<span class="aab-counter__suffix">' . esc_html($suffix) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo '<span class="bricksfly-counter__suffix">' . esc_html($suffix) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 
 		echo '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		// Title
 		if (! empty($title)) {
-			echo '<' . tag_escape($tag) . ' class="aab-counter__title">' . esc_html($title) . '</' . tag_escape($tag) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo '<' . tag_escape($tag) . ' class="bricksfly-counter__title">' . esc_html($title) . '</' . tag_escape($tag) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 
 		echo '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped

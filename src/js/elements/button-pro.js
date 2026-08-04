@@ -7,8 +7,8 @@ import "../../scss/elements/button-pro.scss";
     var btns = wrapper.querySelectorAll(".btn-hover");
     if (btns.length) {
       Array.prototype.forEach.call(btns, function (btn) {
-        if (btn.dataset.aabBtnProBound === "1") return;
-        btn.dataset.aabBtnProBound = "1";
+        if (btn.dataset.bricksflyBtnProBound === "1") return;
+        btn.dataset.bricksflyBtnProBound = "1";
 
         function updatePos(e) {
           var rect = btn.getBoundingClientRect();
@@ -32,8 +32,8 @@ import "../../scss/elements/button-pro.scss";
   function bindMagnetic(wrapper) {
     var btns = wrapper.querySelectorAll('[data-magnetic="true"]');
     Array.prototype.forEach.call(btns, function (btn) {
-      if (btn.dataset.aabBtnProMagnetic === "1") return;
-      btn.dataset.aabBtnProMagnetic = "1";
+      if (btn.dataset.bricksflyBtnProMagnetic === "1") return;
+      btn.dataset.bricksflyBtnProMagnetic = "1";
 
       btn.style.willChange = "transform";
       btn.style.transition = "transform 400ms cubic-bezier(.03,.98,.52,.99)";
@@ -56,8 +56,8 @@ import "../../scss/elements/button-pro.scss";
   function bindBgChange(wrapper) {
     var btns = wrapper.querySelectorAll(".btn-hover-bgchange");
     Array.prototype.forEach.call(btns, function (btn) {
-      if (btn.dataset.aabBtnProBg === "1") return;
-      btn.dataset.aabBtnProBg = "1";
+      if (btn.dataset.bricksflyBtnProBg === "1") return;
+      btn.dataset.bricksflyBtnProBg = "1";
 
       var span = btn.querySelector(":scope > span");
       if (!span) return;
@@ -77,10 +77,10 @@ import "../../scss/elements/button-pro.scss";
     if (!el) return;
 
     var wrappers;
-    if (el.classList && el.classList.contains("aae--btn-pro-wrapper")) {
+    if (el.classList && el.classList.contains("bricksfly-btn-pro-wrapper")) {
       wrappers = [el];
     } else {
-      wrappers = el.querySelectorAll(".aae--btn-pro-wrapper");
+      wrappers = el.querySelectorAll(".bricksfly-btn-pro-wrapper");
     }
 
     Array.prototype.forEach.call(wrappers, function (wrapper) {
@@ -90,7 +90,7 @@ import "../../scss/elements/button-pro.scss";
 
   document.addEventListener("DOMContentLoaded", function () {
     document
-      .querySelectorAll(".aae--btn-pro-wrapper")
+      .querySelectorAll(".bricksfly-btn-pro-wrapper")
       .forEach(function (wrapper) {
         bindCursorTracking(wrapper);
       });
@@ -101,7 +101,7 @@ import "../../scss/elements/button-pro.scss";
       initButtonPro(el);
     } else {
       document
-        .querySelectorAll(".aae--btn-pro-wrapper")
+        .querySelectorAll(".bricksfly-btn-pro-wrapper")
         .forEach(function (wrapper) {
           bindCursorTracking(wrapper);
         });

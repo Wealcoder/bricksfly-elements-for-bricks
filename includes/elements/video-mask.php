@@ -7,7 +7,7 @@ class BRICKSFLY_Bricks_Video_Mask extends \Bricks\Element {
 	public $category     = 'bricks fly';
 	public $name         = 'aab-video-mask';
 	public $icon         = 'ti-video-camera aab-element-marker';
-	public $css_selector = '.aab-video-mask';
+	public $css_selector = '.bricksfly-video-mask';
 	public $scripts      = [ 'bricksflyVideoMask' ];
 
 	public function get_label() {
@@ -69,7 +69,7 @@ class BRICKSFLY_Bricks_Video_Mask extends \Bricks\Element {
 			'group'       => 'button',
 			'label'       => esc_html__( 'Other Section Text Color (on open)', 'bricksfly-elements-for-bricks' ),
 			'type'        => 'color',
-			'description' => esc_html__( 'Applied to parent ".aab-video-mask-content" section when video is open.', 'bricksfly-elements-for-bricks' ),
+			'description' => esc_html__( 'Applied to parent ".bricksfly-video-mask-content" section when video is open.', 'bricksfly-elements-for-bricks' ),
 		];
 
 		$this->controls['openTitle'] = [
@@ -219,7 +219,7 @@ class BRICKSFLY_Bricks_Video_Mask extends \Bricks\Element {
 			'css'   => [
 				[
 					'property' => 'border',
-					'selector' => '.aab-video-mask',
+					'selector' => '.bricksfly-video-mask',
 				],
 			],
 		];
@@ -401,7 +401,7 @@ class BRICKSFLY_Bricks_Video_Mask extends \Bricks\Element {
 			}
 		}
 
-		$this->set_attribute( '_root', 'class', [ 'aab-video-mask' ] );
+		$this->set_attribute( '_root', 'class', [ 'bricksfly-video-mask' ] );
 
 		if ( $content_color ) {
 			$this->set_attribute( '_root', 'data-content-color', $content_color );

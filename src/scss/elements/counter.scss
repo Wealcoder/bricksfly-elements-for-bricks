@@ -2,12 +2,12 @@
    COUNTER - BASE
 =========================== */
 
-.aab-counter {
+.bricksfly-counter {
 	position: relative;
 	width: 100%;
 }
 
-.aab-counter__inner {
+.bricksfly-counter__inner {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -18,22 +18,22 @@
    NUMBER ROW
 =========================== */
 
-.aab-counter__number-wrap {
+.bricksfly-counter__number-wrap {
 	display: flex;
 	align-items: baseline;
 	gap: 4px;
 	line-height: 1;
 }
 
-.aab-counter__number {
+.bricksfly-counter__number {
 	font-size: 3rem;
 	font-weight: 700;
 	line-height: 1.1;
 	display: inline-block;
 }
 
-.aab-counter__prefix,
-.aab-counter__suffix {
+.bricksfly-counter__prefix,
+.bricksfly-counter__suffix {
 	font-size: 1.5rem;
 	font-weight: 600;
 	line-height: 1.1;
@@ -44,7 +44,7 @@
    TITLE
 =========================== */
 
-.aab-counter__title {
+.bricksfly-counter__title {
 	margin: 0;
 	font-size: 1rem;
 	line-height: 1.4;

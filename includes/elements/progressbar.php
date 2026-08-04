@@ -8,7 +8,7 @@ class BRICKSFLY_Bricks_Progressbar extends \Bricks\Element
 	public $category     = 'bricks fly';
 	public $name         = 'aab-progressbar';
 	public $icon         = 'ti-stats-up aab-element-marker';
-	public $css_selector = '.aab-progressbar';
+	public $css_selector = '.bricksfly-progressbar';
 	public $scripts      = ['bricksflyProgressbar'];
 
 	public function get_label()
@@ -296,8 +296,8 @@ class BRICKSFLY_Bricks_Progressbar extends \Bricks\Element
 			$progressbar_settings['display-percentage'] = 'show';
 		}
 
-		$this->set_attribute('_root', 'class', ['aab-progressbar', 'style-' . $style]);
-		$this->set_attribute('_root', 'data-aab-progressbar', wp_json_encode($progressbar_settings));
+		$this->set_attribute('_root', 'class', ['bricksfly-progressbar', 'style-' . $style]);
+		$this->set_attribute('_root', 'data-bricksfly-progressbar', wp_json_encode($progressbar_settings));
 
 		echo wp_kses_post('<div ' . $this->render_attributes('_root') . '>');
 

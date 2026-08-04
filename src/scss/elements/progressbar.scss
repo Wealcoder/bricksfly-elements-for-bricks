@@ -2,12 +2,12 @@
    PROGRESS BAR - BASE
 =========================== */
 
-.aab-progressbar {
+.bricksfly-progressbar {
 	position: relative;
 	width: 100%;
 }
 
-.aab-progressbar.style-2 {
+.bricksfly-progressbar.style-2 {
 	height: 150px;
 	width: 150px;
 }
@@ -16,12 +16,12 @@
    STYLE 3 — DOTS
 =========================== */
 
-.aab-progressbar.style-3 .dots {
+.bricksfly-progressbar.style-3 .dots {
 	gap: 10px;
 	display: flex;
 }
 
-.aab-progressbar.style-3 .dot {
+.bricksfly-progressbar.style-3 .dot {
 	border: 1px solid #F9B099;
 	display: inline-block;
 	border-radius: 50%;
@@ -29,7 +29,7 @@
 	width: 15px;
 }
 
-.aab-progressbar.style-3 .dot.active {
+.bricksfly-progressbar.style-3 .dot.active {
 	background-color: #7DDED8;
 }
 
@@ -40,29 +40,29 @@
    controls win without fighting inline styles).
 =========================== */
 
-.aab-progressbar .progressbar-text {
+.bricksfly-progressbar .progressbar-text {
 	line-height: 1;
 	margin: 0;
 	padding: 0;
 }
 
 /* Line layout: text floats above the bar at progress edge */
-.aab-progressbar.style-1 {
+.bricksfly-progressbar.style-1 {
 	position: relative;
 }
 
-.aab-progressbar.style-1 .progressbar-text {
+.bricksfly-progressbar.style-1 .progressbar-text {
 	position: absolute;
 	top: -30px; /* overridden by Position Y control */
-	right: var(--aab-progressbar-text-right, 50%);
+	right: var(--bricksfly-progressbar-text-right, 50%);
 }
 
 /* Circle layout: text centered inside the circle */
-.aab-progressbar.style-2 {
+.bricksfly-progressbar.style-2 {
 	position: relative;
 }
 
-.aab-progressbar.style-2 .progressbar-text {
+.bricksfly-progressbar.style-2 .progressbar-text {
 	position: absolute;
 	top: 50%;
 	left: 50%;

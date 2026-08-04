@@ -20,8 +20,8 @@ import "../../scss/elements/draggable-items.scss";
     }
 
     function playDropIn($wrapper) {
-        if ($wrapper.data('aab-drag-played')) return;
-        $wrapper.data('aab-drag-played', true);
+        if ($wrapper.data('bricksfly-drag-played')) return;
+        $wrapper.data('bricksfly-drag-played', true);
 
         var $items = $wrapper.find('.drag--item');
         if (!$items.length) return;
@@ -77,8 +77,8 @@ import "../../scss/elements/draggable-items.scss";
 
         $wrappers.each(function () {
             var $wrapper = $(this);
-            if ($wrapper.data('aab-drag-initialized')) return;
-            $wrapper.data('aab-drag-initialized', true);
+            if ($wrapper.data('bricksfly-drag-initialized')) return;
+            $wrapper.data('bricksfly-drag-initialized', true);
 
             observeWrapper($wrapper);
         });
@@ -94,8 +94,8 @@ import "../../scss/elements/draggable-items.scss";
         if (el) {
             var $root = $(el);
             var $wrappers = $root.hasClass('draggable--items') ? $root : $root.find('.draggable--items');
-            $wrappers.removeData('aab-drag-initialized');
-            $wrappers.removeData('aab-drag-played');
+            $wrappers.removeData('bricksfly-drag-initialized');
+            $wrappers.removeData('bricksfly-drag-played');
             $wrappers.find('.drag--item').each(function () {
                 var $item = $(this);
                 if ($item.data('ui-draggable')) {

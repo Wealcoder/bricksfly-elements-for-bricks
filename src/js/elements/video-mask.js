@@ -4,7 +4,7 @@ import "../../scss/elements/video-mask.scss";
   'use strict';
 
   function initElement(el) {
-    var root = el.querySelector('.aab-video-mask') || el;
+    var root = el.querySelector('.bricksfly-video-mask') || el;
     if (!root) return;
 
     var btns = root.querySelectorAll('.video--btn');
@@ -23,7 +23,7 @@ import "../../scss/elements/video-mask.scss";
         // Apply content color to parent section
         var contentColor = root.getAttribute('data-content-color');
         if (contentColor) {
-          var parent = root.closest('.aab-video-mask-content');
+          var parent = root.closest('.bricksfly-video-mask-content');
           if (parent) {
             if (root.classList.contains('mask-open')) {
               parent.style.cssText = 'color: ' + contentColor + ' !important; fill: ' + contentColor + ' !important;';
@@ -52,7 +52,7 @@ import "../../scss/elements/video-mask.scss";
       initElement(el);
       return;
     }
-    document.querySelectorAll('.aab-video-mask').forEach(function (root) {
+    document.querySelectorAll('.bricksfly-video-mask').forEach(function (root) {
       var wrapper = root.closest('[id^="brxe-"]') || root.parentElement;
       initElement(wrapper);
     });
