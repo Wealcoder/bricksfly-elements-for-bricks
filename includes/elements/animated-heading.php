@@ -154,6 +154,8 @@ class BRICKSFLY_Bricks_Animated_Heading extends \Bricks\Element {
 			'type'     => 'number',
 			'default'  => 1,
 			'step'     => 0.1,
+			'min'      => 0.1,
+			'max'      => 10,
 			'required' => [['animation_type', '!=', 'none']],
 		];
 
@@ -163,6 +165,8 @@ class BRICKSFLY_Bricks_Animated_Heading extends \Bricks\Element {
 			'type'     => 'number',
 			'default'  => 0,
 			'step'     => 0.1,
+			'min'      => 0,
+			'max'      => 10,
 			'required' => [['animation_type', '!=', 'none']],
 		];
 
@@ -172,6 +176,8 @@ class BRICKSFLY_Bricks_Animated_Heading extends \Bricks\Element {
 			'type'     => 'number',
 			'default'  => 0.02,
 			'step'     => 0.01,
+			'min'      => 0,
+			'max'      => 1,
 			'required' => [['animation_type', '=', ['character', 'typewriter', 'water_wave']]],
 		];
 
