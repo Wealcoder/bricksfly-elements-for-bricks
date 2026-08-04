@@ -58,7 +58,7 @@
 }
 
 /* Pulse */
-@keyframes aab-hover-pulse {
+@keyframes bricksfly-hover-pulse {
   0% {
     transform: scale(1);
   }
@@ -71,7 +71,7 @@
 }
 
 .aab-hover-pulse:hover {
-  animation: aab-hover-pulse 0.6s ease-in-out;
+  animation: bricksfly-hover-pulse 0.6s ease-in-out;
 }
 
 /* Float Up */

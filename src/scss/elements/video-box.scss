@@ -79,7 +79,7 @@
   color: #1e90ff;
   border-radius: 100%;
   box-shadow: 0 0 0 0 currentColor;
-  animation: 3s ease-out infinite aab-button-ripple;
+  animation: 3s ease-out infinite bricksfly-button-ripple;
   opacity: 0.6;
   z-index: -1;
 }
@@ -92,7 +92,7 @@
   animation-delay: 0.3s;
 }
 
-@keyframes aab-button-ripple {
+@keyframes bricksfly-button-ripple {
   70% {
     box-shadow: 0 0 0 15px currentColor;
     opacity: 0.25;

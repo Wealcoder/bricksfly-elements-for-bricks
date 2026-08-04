@@ -10,11 +10,11 @@ import "../../scss/elements/animated-heading.scss";
 function bricksflyAnimatedHeading( el ) {
 	if ( ! el ) return;
 
-	var heading = el.querySelector( '.aab-animated-heading' );
+	var heading = el.querySelector( '.bricksfly-animated-heading' );
 	if ( ! heading ) return;
 
 	// Parse settings
-	var raw = heading.getAttribute( 'data-aab-anim' );
+	var raw = heading.getAttribute( 'data-bricksfly-anim' );
 	if ( ! raw ) return;
 
 	var settings;
@@ -32,7 +32,7 @@ function bricksflyAnimatedHeading( el ) {
 		heading._aabCleanup = null;
 	}
 
-	var extras = heading.querySelectorAll( '.aab-anim-cursor, .aab-anim-mask' );
+	var extras = heading.querySelectorAll( '.bricksfly-anim-cursor, .bricksfly-anim-mask' );
 	for ( var i = 0; i < extras.length; i++ ) extras[i].remove();
 
 	// Restore original text if split previously
@@ -392,7 +392,7 @@ function aabAH_glowPulse( el, duration, delay, trigger, trigSel ) {
 		el.style.opacity = '1';
 		// Start pulse after fade-in
 		setTimeout( function() {
-			el.style.animation = 'aab-glow-pulse 2s ease-in-out infinite alternate';
+			el.style.animation = 'bricksfly-glow-pulse 2s ease-in-out infinite alternate';
 		}, duration * 1000 );
 	}
 
@@ -464,7 +464,7 @@ function aabAH_typewriter( el, _duration, delay, stagger, trigger, trigSel ) {
 
 	// Cursor
 	var cursor = document.createElement( 'span' );
-	cursor.className = 'aab-anim-cursor';
+	cursor.className = 'bricksfly-anim-cursor';
 	cursor.textContent = '|';
 	cursor.style.opacity = '0';
 	var container = el.querySelector( 'a' ) || el;
@@ -530,7 +530,7 @@ function aabAH_maskWipe( el, duration, delay, trigger, trigSel ) {
 	el.style.overflow = 'hidden';
 
 	var mask = document.createElement( 'div' );
-	mask.className = 'aab-anim-mask';
+	mask.className = 'bricksfly-anim-mask';
 	mask.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;background:currentColor;z-index:2;pointer-events:none;';
 	mask.style.transform = 'translate3d(-101%,0,0)';
 	mask.style.transition = 'none';
@@ -542,7 +542,7 @@ function aabAH_maskWipe( el, duration, delay, trigger, trigSel ) {
 		// Wrap text content for opacity control
 		var children = Array.prototype.slice.call( el.childNodes );
 		var wrapper = document.createElement( 'span' );
-		wrapper.className = 'aab-mask-inner';
+		wrapper.className = 'bricksfly-mask-inner';
 		children.forEach( function( child ) {
 			if ( child !== mask ) wrapper.appendChild( child );
 		} );
@@ -627,7 +627,7 @@ function aabAH_backgroundClip( el, duration, delay, trigger, trigSel ) {
 	function playClip() {
 		el.style.transition = 'opacity 0.5s ease';
 		el.style.opacity = '1';
-		el.style.animation = 'aab-bg-shift ' + ( duration * 2 ) + 's ease infinite alternate';
+		el.style.animation = 'bricksfly-bg-shift ' + ( duration * 2 ) + 's ease infinite alternate';
 	}
 
 	if ( trigger === 'play_with_scroll' ) {
