@@ -27,9 +27,10 @@ class BRICKSFLY_Activator
 	 * subsite re-flushes on its next `wp_loaded` (handled by CPT Builder, a
 	 * Pro-only feature — see the-bricksfly-pro/admin/pages/cpt-builder.php).
 	 *
-	 * Also seeds the `bricksfly_save_widgets` option with every shipped widget set
-	 * to active — first install only, so reactivations don't clobber the
-	 * user's deliberate toggles.
+	 * Also seeds the `bricksfly_save_widgets` and `bricksfly_save_extensions`
+	 * options with every shipped widget/extension set to active — first
+	 * install only, so reactivations don't clobber the user's deliberate
+	 * toggles.
 	 *
 	 * @since 1.0.0
 	 *
@@ -43,6 +44,7 @@ class BRICKSFLY_Activator
 				switch_to_blog($blog_id);
 				update_option('bricksfly_needs_rewrite_flush', 1, false);
 				self::maybe_seed_widget_defaults();
+				self::maybe_seed_extension_defaults();
 				restore_current_blog();
 			}
 			return;
@@ -50,6 +52,7 @@ class BRICKSFLY_Activator
 
 		update_option('bricksfly_needs_rewrite_flush', 1, false);
 		self::maybe_seed_widget_defaults();
+		self::maybe_seed_extension_defaults();
 	}
 
 	/**
@@ -124,10 +127,11 @@ class BRICKSFLY_Activator
 	/**
 	 * Seed `bricksfly_save_extensions` with every shipped extension enabled.
 	 *
-	 * Called when a Pro license is successfully activated — not during plugin
-	 * activation — so extensions are only seeded once a valid license exists.
-	 * Skips seeding if the option already exists, so a user who deliberately
-	 * toggled extensions off isn't reset on license renewal/reactivation.
+	 * Called both on plugin activation and when a Pro license is successfully
+	 * activated, so the option exists (all-on) whether or not the site ever
+	 * had a license. Skips seeding if the option already exists, so a user
+	 * who deliberately toggled extensions off isn't reset on license
+	 * renewal/reactivation.
 	 */
 	public static function maybe_seed_extension_defaults()
 	{
