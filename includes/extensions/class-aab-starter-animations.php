@@ -74,8 +74,16 @@ class BRICKSFLY_Starter_Animations
 
 		add_filter('bricks/element/render_attributes', [$this, 'apply_render_classes'], 10, 3);
 
-		add_action('wp_enqueue_scripts', [$this, 'enqueue_assets']);
+		add_action('wp_footer', [$this, 'enqueue_assets'], 1);
 	}
+
+	/**
+	 * Set once apply_render_classes() finds an element actually using an
+	 * animation (i.e. not "none"). enqueue_assets() only loads the starter
+	 * animation CSS/JS when this is true, so pages with no starter
+	 * animations in use don't pay for the request.
+	 */
+	private static $animation_in_use = false;
 
 	/* =====================================================================
 	 * Control group registration
@@ -950,6 +958,8 @@ public function apply_render_classes($attributes, $key, $element)
 	if ($is_text) {
 		$anim = isset($settings['_bricksfly_starter_anim']) ? $settings['_bricksfly_starter_anim'] : '';
 		if ($anim && $anim !== 'none') {
+			self::$animation_in_use = true;
+
 			$add('bricksfly-starter-animations-' . $anim);
 			$add('bricksfly-target-self');
 
@@ -1014,6 +1024,8 @@ public function apply_render_classes($attributes, $key, $element)
 	if ($is_container) {
 		$anim = isset($settings['_bricksfly_starter_anim_container']) ? $settings['_bricksfly_starter_anim_container'] : '';
 		if ($anim && $anim !== 'none') {
+			self::$animation_in_use = true;
+
 			$add('bricksfly-starter-animations-' . $anim);
 
 			if ($anim === 'slide') {
@@ -1042,18 +1054,24 @@ public function apply_render_classes($attributes, $key, $element)
 
 	public function enqueue_assets()
 	{
+		$in_builder_iframe = function_exists('bricks_is_builder_iframe') && bricks_is_builder_iframe();
+
+		// Frontend: only load once an element on the page actually uses an
+		// animation (i.e. isn't "none"). Builder iframe always loads so a
+		// newly-picked animation previews immediately without a page reload.
+		if (! $in_builder_iframe && ! self::$animation_in_use) {
+			return;
+		}
+
 		$css_path = BRICKSFLY_PATH . 'public/build/extensions/starter-animations-client.css';
 		$css_ver  = file_exists($css_path) ? filemtime($css_path) : BRICKSFLY_VERSION;
 
-		// Animation CSS is needed in every context.
 		wp_enqueue_style(
 			'bricksfly-starter-animations-client',
 			BRICKSFLY_URL . 'public/build/extensions/starter-animations-client.css',
 			[],
 			$css_ver
 		);
-
-		$in_builder_iframe = function_exists('bricks_is_builder_iframe') && bricks_is_builder_iframe();
 
 		if ($in_builder_iframe) {
 			// Builder iframe: lightweight preview bundle — handles Play-button
@@ -1078,6 +1096,10 @@ public function apply_render_classes($attributes, $key, $element)
 				true
 			);
 		}
+
+		// Enqueued on wp_footer (after wp_head already printed), so styles
+		// need an explicit print call — WP won't auto-flush late styles.
+		wp_print_styles(['bricksfly-starter-animations-client']);
 	}
 }
 
