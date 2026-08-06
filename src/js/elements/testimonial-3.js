@@ -42,7 +42,7 @@ import "../../scss/elements/testimonial-3.scss";
     }
 
     function initAll() {
-        document.querySelectorAll('.bricksfly-testimonial-3-wrapper').forEach(function (el) {
+        document.querySelectorAll('.aae-testimonial-3-wrapper').forEach(function (el) {
             initTestimonial3(el);
         });
     }
@@ -54,11 +54,11 @@ import "../../scss/elements/testimonial-3.scss";
     }
 
     // Bricks may call this with the element wrapper or with no args.
-    window.bricksflyTestimonial3 = function (el) {
+    window.aaeTestimonial3 = function (el) {
         if (el) {
-            var wrapper = el.classList && el.classList.contains('bricksfly-testimonial-3-wrapper')
+            var wrapper = el.classList && el.classList.contains('aae-testimonial-3-wrapper')
                 ? el
-                : (el.closest && el.closest('.bricksfly-testimonial-3-wrapper')) || el.querySelector('.bricksfly-testimonial-3-wrapper');
+                : (el.closest && el.closest('.aae-testimonial-3-wrapper')) || el.querySelector('.aae-testimonial-3-wrapper');
             initTestimonial3(wrapper);
         } else {
             initAll();

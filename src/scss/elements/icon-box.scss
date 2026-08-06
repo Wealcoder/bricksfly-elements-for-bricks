@@ -2,7 +2,7 @@
    BASE
 =========================== */
 
-.bricksfly-icon-box {
+.aab-icon-box {
 	display: flex;
 	position: relative;
 	box-sizing: border-box;
@@ -10,51 +10,51 @@
 	gap: 20px;
 }
 
-.bricksfly-icon-box *,
-.bricksfly-icon-box *::before,
-.bricksfly-icon-box *::after {
+.aab-icon-box *,
+.aab-icon-box *::before,
+.aab-icon-box *::after {
 	box-sizing: border-box;
 }
 
 /* Direction */
-.bricksfly-icon-box--vertical          { flex-direction: column; }
-.bricksfly-icon-box--vertical-reverse  { flex-direction: column-reverse; }
-.bricksfly-icon-box--horizontal        { flex-direction: row; }
-.bricksfly-icon-box--horizontal-reverse { flex-direction: row-reverse; }
+.aab-icon-box--vertical          { flex-direction: column; }
+.aab-icon-box--vertical-reverse  { flex-direction: column-reverse; }
+.aab-icon-box--horizontal        { flex-direction: row; }
+.aab-icon-box--horizontal-reverse { flex-direction: row-reverse; }
 
 /* Alignment - vertical */
-.bricksfly-icon-box--align-left.bricksfly-icon-box--vertical,
-.bricksfly-icon-box--align-left.bricksfly-icon-box--vertical-reverse {
+.aab-icon-box--align-left.aab-icon-box--vertical,
+.aab-icon-box--align-left.aab-icon-box--vertical-reverse {
 	align-items: flex-start;
 	text-align: left;
 }
-.bricksfly-icon-box--align-center.bricksfly-icon-box--vertical,
-.bricksfly-icon-box--align-center.bricksfly-icon-box--vertical-reverse {
+.aab-icon-box--align-center.aab-icon-box--vertical,
+.aab-icon-box--align-center.aab-icon-box--vertical-reverse {
 	align-items: center;
 	text-align: center;
 }
-.bricksfly-icon-box--align-right.bricksfly-icon-box--vertical,
-.bricksfly-icon-box--align-right.bricksfly-icon-box--vertical-reverse {
+.aab-icon-box--align-right.aab-icon-box--vertical,
+.aab-icon-box--align-right.aab-icon-box--vertical-reverse {
 	align-items: flex-end;
 	text-align: right;
 }
 
 /* Alignment - horizontal */
-.bricksfly-icon-box--align-left   { text-align: left; }
-.bricksfly-icon-box--align-center { text-align: center; }
-.bricksfly-icon-box--align-right  { text-align: right; }
+.aab-icon-box--align-left   { text-align: left; }
+.aab-icon-box--align-center { text-align: center; }
+.aab-icon-box--align-right  { text-align: right; }
 
 /* Icon vertical align (horizontal modes) */
-.bricksfly-icon-box--icon-top    { align-items: flex-start; }
-.bricksfly-icon-box--icon-center { align-items: center; }
-.bricksfly-icon-box--icon-bottom { align-items: flex-end; }
+.aab-icon-box--icon-top    { align-items: flex-start; }
+.aab-icon-box--icon-center { align-items: center; }
+.aab-icon-box--icon-bottom { align-items: flex-end; }
 
 
 /* ===========================
    ICON
 =========================== */
 
-.bricksfly-icon-box__icon {
+.aab-icon-box__icon {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -64,12 +64,12 @@
 	transition: all 0.3s ease;
 }
 
-.bricksfly-icon-box__icon i,
-.bricksfly-icon-box__icon svg {
+.aab-icon-box__icon i,
+.aab-icon-box__icon svg {
 	display: block;
 }
 
-.bricksfly-icon-box__icon svg {
+.aab-icon-box__icon svg {
 	width: 1em;
 	height: 1em;
 	fill: currentColor;
@@ -80,24 +80,24 @@
    CONTENT
 =========================== */
 
-.bricksfly-icon-box__content {
+.aab-icon-box__content {
 	flex: 1;
 	min-width: 0;
 }
 
-.bricksfly-icon-box__title {
+.aab-icon-box__title {
 	margin: 0 0 10px;
 	line-height: 1.3;
 	transition: color 0.3s ease;
 }
 
-.bricksfly-icon-box__desc {
+.aab-icon-box__desc {
 	margin: 0 0 15px;
 	line-height: 1.6;
 	transition: color 0.3s ease;
 }
 
-.bricksfly-icon-box__desc:last-child {
+.aab-icon-box__desc:last-child {
 	margin-bottom: 0;
 }
 
@@ -106,7 +106,7 @@
    BOX LINK OVERLAY
 =========================== */
 
-.bricksfly-icon-box__link-overlay {
+.aab-icon-box__link-overlay {
 	position: absolute;
 	inset: 0;
 	z-index: 1;
@@ -117,7 +117,7 @@
    1. DEFAULT
 =========================== */
 
-.bricksfly-icon-box--default {
+.aab-icon-box--default {
 	padding: 30px;
 }
 
@@ -126,14 +126,14 @@
    2. STACKED CARD
 =========================== */
 
-.bricksfly-icon-box--stacked {
+.aab-icon-box--stacked {
 	padding: 40px 30px;
 	background: #fff;
 	border-radius: 8px;
 	box-shadow: 0 2px 20px rgba(0,0,0,0.06);
 }
 
-.bricksfly-icon-box--stacked:hover {
+.aab-icon-box--stacked:hover {
 	box-shadow: 0 8px 30px rgba(0,0,0,0.12);
 	transform: translateY(-4px);
 }
@@ -143,13 +143,13 @@
    3. BORDERED
 =========================== */
 
-.bricksfly-icon-box--bordered {
+.aab-icon-box--bordered {
 	padding: 30px;
 	border: 2px solid #e0e0e0;
 	border-radius: 8px;
 }
 
-.bricksfly-icon-box--bordered:hover {
+.aab-icon-box--bordered:hover {
 	border-color: #111;
 }
 
@@ -158,7 +158,7 @@
    4. MINIMAL
 =========================== */
 
-.bricksfly-icon-box--minimal {
+.aab-icon-box--minimal {
 	padding: 0;
 }
 
@@ -167,15 +167,15 @@
    5. FLOATING ICON
 =========================== */
 
-.bricksfly-icon-box--floating {
+.aab-icon-box--floating {
 	padding: 40px 30px 30px;
 	background: #fff;
 	border-radius: 8px;
 	box-shadow: 0 2px 20px rgba(0,0,0,0.06);
 }
 
-.bricksfly-icon-box--floating.bricksfly-icon-box--vertical > .bricksfly-icon-box__icon,
-.bricksfly-icon-box--floating.bricksfly-icon-box--vertical-reverse > .bricksfly-icon-box__icon {
+.aab-icon-box--floating.aab-icon-box--vertical > .aab-icon-box__icon,
+.aab-icon-box--floating.aab-icon-box--vertical-reverse > .aab-icon-box__icon {
 	margin-top: -60px;
 	background: #fff;
 	padding: 15px;
@@ -188,7 +188,7 @@
    6. GRADIENT BAR
 =========================== */
 
-.bricksfly-icon-box--gradient-bar {
+.aab-icon-box--gradient-bar {
 	padding: 30px;
 	background: #fff;
 	border-radius: 8px;
@@ -196,7 +196,7 @@
 	overflow: hidden;
 }
 
-.bricksfly-icon-box--gradient-bar::before {
+.aab-icon-box--gradient-bar::before {
 	content: '';
 	position: absolute;
 	top: 0;
@@ -207,7 +207,7 @@
 	transition: height 0.3s ease;
 }
 
-.bricksfly-icon-box--gradient-bar:hover::before {
+.aab-icon-box--gradient-bar:hover::before {
 	height: 6px;
 }
 
@@ -216,11 +216,11 @@
    7. ICON + LEFT LINE
 =========================== */
 
-.bricksfly-icon-box--icon-left-line {
+.aab-icon-box--icon-left-line {
 	padding: 20px 0;
 }
 
-.bricksfly-icon-box--icon-left-line .bricksfly-icon-box__line {
+.aab-icon-box--icon-left-line .aab-icon-box__line {
 	width: 3px;
 	align-self: stretch;
 	background-color: #6366f1;
@@ -229,13 +229,13 @@
 	transition: width 0.3s ease, background-color 0.3s ease;
 }
 
-.bricksfly-icon-box--icon-left-line:hover .bricksfly-icon-box__line {
+.aab-icon-box--icon-left-line:hover .aab-icon-box__line {
 	width: 5px;
 }
 
 /* Force horizontal for this layout */
-.bricksfly-icon-box--icon-left-line.bricksfly-icon-box--vertical,
-.bricksfly-icon-box--icon-left-line.bricksfly-icon-box--vertical-reverse {
+.aab-icon-box--icon-left-line.aab-icon-box--vertical,
+.aab-icon-box--icon-left-line.aab-icon-box--vertical-reverse {
 	flex-direction: row;
 }
 
@@ -244,7 +244,7 @@
    8. ZOOM ON HOVER
 =========================== */
 
-.bricksfly-icon-box--zoom-hover {
+.aab-icon-box--zoom-hover {
 	padding: 30px;
 	background: #fff;
 	border-radius: 8px;
@@ -253,12 +253,12 @@
 	transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
-.bricksfly-icon-box--zoom-hover:hover {
+.aab-icon-box--zoom-hover:hover {
 	transform: scale(1.04);
 	box-shadow: 0 12px 40px rgba(0,0,0,0.15);
 }
 
-.bricksfly-icon-box--zoom-hover:hover .bricksfly-icon-box__icon {
+.aab-icon-box--zoom-hover:hover .aab-icon-box__icon {
 	transform: scale(1.2) rotate(5deg);
 }
 
@@ -267,7 +267,7 @@
    9. FLIP CARD
 =========================== */
 
-.bricksfly-icon-box--flip-card {
+.aab-icon-box--flip-card {
 	perspective: 800px;
 	position: relative;
 	width: 100%;
@@ -277,8 +277,8 @@
 	background: transparent;
 }
 
-.bricksfly-icon-box--flip-card .bricksfly-icon-box__flip-front,
-.bricksfly-icon-box--flip-card .bricksfly-icon-box__flip-back {
+.aab-icon-box--flip-card .aab-icon-box__flip-front,
+.aab-icon-box--flip-card .aab-icon-box__flip-back {
 	position: absolute;
 	inset: 0;
 	display: flex;
@@ -292,41 +292,41 @@
 	transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.bricksfly-icon-box--flip-card .bricksfly-icon-box__flip-front,
-.bricksfly-icon-box--flip-card .bricksfly-icon-box__flip-back {
+.aab-icon-box--flip-card .aab-icon-box__flip-front,
+.aab-icon-box--flip-card .aab-icon-box__flip-back {
     border-radius: var(--box-border-radius);
 }
 
-.bricksfly-icon-box--flip-card .bricksfly-icon-box__flip-front {
+.aab-icon-box--flip-card .aab-icon-box__flip-front {
 	background: #fff;
 	box-shadow: 0 2px 20px rgba(0,0,0,0.08);
 }
 
-.bricksfly-icon-box--flip-card .bricksfly-icon-box__flip-back {
+.aab-icon-box--flip-card .aab-icon-box__flip-back {
 	background: #111;
 	color: #fff;
 	box-shadow: 0 2px 20px rgba(0,0,0,0.15);
 }
 
 /* Horizontal flip */
-.bricksfly-icon-box--flip-horizontal .bricksfly-icon-box__flip-back {
+.aab-icon-box--flip-horizontal .aab-icon-box__flip-back {
 	transform: rotateY(180deg);
 }
-.bricksfly-icon-box--flip-horizontal:hover .bricksfly-icon-box__flip-front {
+.aab-icon-box--flip-horizontal:hover .aab-icon-box__flip-front {
 	transform: rotateY(-180deg);
 }
-.bricksfly-icon-box--flip-horizontal:hover .bricksfly-icon-box__flip-back {
+.aab-icon-box--flip-horizontal:hover .aab-icon-box__flip-back {
 	transform: rotateY(0deg);
 }
 
 /* Vertical flip */
-.bricksfly-icon-box--flip-vertical .bricksfly-icon-box__flip-back {
+.aab-icon-box--flip-vertical .aab-icon-box__flip-back {
 	transform: rotateX(180deg);
 }
-.bricksfly-icon-box--flip-vertical:hover .bricksfly-icon-box__flip-front {
+.aab-icon-box--flip-vertical:hover .aab-icon-box__flip-front {
 	transform: rotateX(-180deg);
 }
-.bricksfly-icon-box--flip-vertical:hover .bricksfly-icon-box__flip-back {
+.aab-icon-box--flip-vertical:hover .aab-icon-box__flip-back {
 	transform: rotateX(0deg);
 }
 
@@ -335,7 +335,7 @@
    10. SLIDE UP REVEAL
 =========================== */
 
-.bricksfly-icon-box--slide-up {
+.aab-icon-box--slide-up {
 	padding: 30px;
 	background: #fff;
 	border-radius: 8px;
@@ -344,8 +344,8 @@
 }
 
 /* Hide description + button in main content for slide-up */
-.bricksfly-icon-box--slide-up > .bricksfly-icon-box__content > .bricksfly-icon-box__desc,
-.bricksfly-icon-box--slide-up > .bricksfly-icon-box__content > .bricksfly-icon-box__btn {
+.aab-icon-box--slide-up > .aab-icon-box__content > .aab-icon-box__desc,
+.aab-icon-box--slide-up > .aab-icon-box__content > .aab-icon-box__btn {
 	opacity: 0;
 	visibility: hidden;
 	height: 0;
@@ -353,7 +353,7 @@
 	overflow: hidden;
 }
 
-.bricksfly-icon-box__slide-overlay {
+.aab-icon-box__slide-overlay {
 	position: absolute;
 	bottom: 0;
 	left: 0;
@@ -367,11 +367,11 @@
 	z-index: 2;
 }
 
-.bricksfly-icon-box--slide-up:hover .bricksfly-icon-box__slide-overlay {
+.aab-icon-box--slide-up:hover .aab-icon-box__slide-overlay {
 	transform: translateY(0);
 }
 
-.bricksfly-icon-box__slide-overlay .bricksfly-icon-box__desc {
+.aab-icon-box__slide-overlay .aab-icon-box__desc {
 	color: rgba(255,255,255,0.85);
 }
 
@@ -380,7 +380,7 @@
    BUTTON - BASE
 =========================== */
 
-.bricksfly-icon-box__btn {
+.aab-icon-box__btn {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -395,34 +395,34 @@
 	border: none;
 }
 
-.bricksfly-icon-box__btn--full {
+.aab-icon-box__btn--full {
 	width: 100%;
 }
 
-.bricksfly-icon-box__btn-icon {
+.aab-icon-box__btn-icon {
 	display: inline-flex;
 	align-items: center;
 	line-height: 1;
 	transition: transform 0.3s ease;
 }
 
-.bricksfly-icon-box__btn-icon i,
-.bricksfly-icon-box__btn-icon svg {
+.aab-icon-box__btn-icon i,
+.aab-icon-box__btn-icon svg {
 	display: block;
 }
 
 /* Button Sizes */
-.bricksfly-icon-box__btn--xs { padding: 4px 10px; font-size: 12px; }
-.bricksfly-icon-box__btn--sm { padding: 8px 18px; font-size: 13px; }
-.bricksfly-icon-box__btn--md { padding: 10px 24px; font-size: 15px; }
-.bricksfly-icon-box__btn--lg { padding: 14px 32px; font-size: 17px; }
+.aab-icon-box__btn--xs { padding: 4px 10px; font-size: 12px; }
+.aab-icon-box__btn--sm { padding: 8px 18px; font-size: 13px; }
+.aab-icon-box__btn--md { padding: 10px 24px; font-size: 15px; }
+.aab-icon-box__btn--lg { padding: 14px 32px; font-size: 17px; }
 
 
 /* ===========================
    BUTTON STYLE: SOLID
 =========================== */
 
-.bricksfly-icon-box__btn--solid {
+.aab-icon-box__btn--solid {
 	background: #111;
 	color: #fff;
 	border-radius: 4px;
@@ -433,7 +433,7 @@
    BUTTON STYLE: OUTLINE
 =========================== */
 
-.bricksfly-icon-box__btn--outline {
+.aab-icon-box__btn--outline {
 	background: transparent;
 	color: #111;
 	border: 2px solid #111;
@@ -445,7 +445,7 @@
    BUTTON STYLE: GHOST
 =========================== */
 
-.bricksfly-icon-box__btn--ghost {
+.aab-icon-box__btn--ghost {
 	background: transparent;
 	color: #111;
 	padding-left: 0;
@@ -457,7 +457,7 @@
    BUTTON STYLE: UNDERLINE
 =========================== */
 
-.bricksfly-icon-box__btn--underline {
+.aab-icon-box__btn--underline {
 	background: transparent;
 	color: #111;
 	padding-left: 0;
@@ -471,10 +471,10 @@
    BUTTON HOVER: FILL
 =========================== */
 
-.bricksfly-icon-box__btn--hover-fill-left::before,
-.bricksfly-icon-box__btn--hover-fill-right::before,
-.bricksfly-icon-box__btn--hover-fill-top::before,
-.bricksfly-icon-box__btn--hover-fill-bottom::before {
+.aab-icon-box__btn--hover-fill-left::before,
+.aab-icon-box__btn--hover-fill-right::before,
+.aab-icon-box__btn--hover-fill-top::before,
+.aab-icon-box__btn--hover-fill-bottom::before {
 	content: '';
 	position: absolute;
 	inset: 0;
@@ -484,38 +484,38 @@
 	pointer-events: none;
 }
 
-.bricksfly-icon-box__btn--hover-fill-left::before {
+.aab-icon-box__btn--hover-fill-left::before {
 	transform: scaleX(0); transform-origin: left;
 }
-.bricksfly-icon-box__btn--hover-fill-left:hover::before {
+.aab-icon-box__btn--hover-fill-left:hover::before {
 	transform: scaleX(1);
 }
 
-.bricksfly-icon-box__btn--hover-fill-right::before {
+.aab-icon-box__btn--hover-fill-right::before {
 	transform: scaleX(0); transform-origin: right;
 }
-.bricksfly-icon-box__btn--hover-fill-right:hover::before {
+.aab-icon-box__btn--hover-fill-right:hover::before {
 	transform: scaleX(1);
 }
 
-.bricksfly-icon-box__btn--hover-fill-top::before {
+.aab-icon-box__btn--hover-fill-top::before {
 	transform: scaleY(0); transform-origin: top;
 }
-.bricksfly-icon-box__btn--hover-fill-top:hover::before {
+.aab-icon-box__btn--hover-fill-top:hover::before {
 	transform: scaleY(1);
 }
 
-.bricksfly-icon-box__btn--hover-fill-bottom::before {
+.aab-icon-box__btn--hover-fill-bottom::before {
 	transform: scaleY(0); transform-origin: bottom;
 }
-.bricksfly-icon-box__btn--hover-fill-bottom:hover::before {
+.aab-icon-box__btn--hover-fill-bottom:hover::before {
 	transform: scaleY(1);
 }
 
-.bricksfly-icon-box__btn--hover-fill-left:hover,
-.bricksfly-icon-box__btn--hover-fill-right:hover,
-.bricksfly-icon-box__btn--hover-fill-top:hover,
-.bricksfly-icon-box__btn--hover-fill-bottom:hover {
+.aab-icon-box__btn--hover-fill-left:hover,
+.aab-icon-box__btn--hover-fill-right:hover,
+.aab-icon-box__btn--hover-fill-top:hover,
+.aab-icon-box__btn--hover-fill-bottom:hover {
 	color: #fff;
 }
 
@@ -524,11 +524,11 @@
    BUTTON HOVER: SHRINK / GROW
 =========================== */
 
-.bricksfly-icon-box__btn--hover-shrink:hover {
+.aab-icon-box__btn--hover-shrink:hover {
 	transform: scale(0.95);
 }
 
-.bricksfly-icon-box__btn--hover-grow:hover {
+.aab-icon-box__btn--hover-grow:hover {
 	transform: scale(1.05);
 }
 
@@ -537,15 +537,15 @@
    BUTTON HOVER: ICON SLIDE
 =========================== */
 
-.bricksfly-icon-box__btn--hover-icon-slide .bricksfly-icon-box__btn-icon {
+.aab-icon-box__btn--hover-icon-slide .aab-icon-box__btn-icon {
 	transition: transform 0.3s ease;
 }
 
-.bricksfly-icon-box__btn--hover-icon-slide.bricksfly-icon-box__btn--icon-after:hover .bricksfly-icon-box__btn-icon {
+.aab-icon-box__btn--hover-icon-slide.aab-icon-box__btn--icon-after:hover .aab-icon-box__btn-icon {
 	transform: translateX(5px);
 }
 
-.bricksfly-icon-box__btn--hover-icon-slide.bricksfly-icon-box__btn--icon-before:hover .bricksfly-icon-box__btn-icon {
+.aab-icon-box__btn--hover-icon-slide.aab-icon-box__btn--icon-before:hover .aab-icon-box__btn-icon {
 	transform: translateX(-5px);
 }
 
@@ -554,21 +554,21 @@
    FLIP CARD — BACK FACE
 =========================== */
 
-// .bricksfly-icon-box--flip-card .bricksfly-icon-box__flip-back {
+// .aab-icon-box--flip-card .aab-icon-box__flip-back {
 //     background: #111;
 //     color: #fff;
 // }
 
-// .bricksfly-icon-box--flip-card .bricksfly-icon-box__flip-back .bricksfly-icon-box__desc {
+// .aab-icon-box--flip-card .aab-icon-box__flip-back .aab-icon-box__desc {
 //     color: inherit;
 //     margin: 0 0 15px;
 // }
 
-// // .bricksfly-icon-box--flip-card .bricksfly-icon-box__flip-back .bricksfly-icon-box__desc:last-child {
+// // .aab-icon-box--flip-card .aab-icon-box__flip-back .aab-icon-box__desc:last-child {
 // //     margin-bottom: 0;
 // // }
 
-// .bricksfly-icon-box--flip-card .bricksfly-icon-box__flip-back {
+// .aab-icon-box--flip-card .aab-icon-box__flip-back {
 //     border: inherit;
 // }
 
@@ -577,7 +577,7 @@
    FLIP CARD — BACK FACE
 =========================== */
 
-.bricksfly-icon-box--flip-card .bricksfly-icon-box__flip-back {
+.aab-icon-box--flip-card .aab-icon-box__flip-back {
     background: #111;
     color: #fff;
     border-style: solid;   /* required so border-color control works */
@@ -585,11 +585,11 @@
     border-color: transparent; /* invisible by default until user sets a color */
 }
 
-.bricksfly-icon-box--flip-card .bricksfly-icon-box__flip-back .bricksfly-icon-box__desc {
+.aab-icon-box--flip-card .aab-icon-box__flip-back .aab-icon-box__desc {
     color: inherit;
     margin: 0 0 15px;
 }
 
-.bricksfly-icon-box--flip-card .bricksfly-icon-box__flip-back .bricksfly-icon-box__desc:last-child {
+.aab-icon-box--flip-card .aab-icon-box__flip-back .aab-icon-box__desc:last-child {
     margin-bottom: 0;
 }

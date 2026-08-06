@@ -1,42 +1,42 @@
-.bricksfly-team-wrapper li {
+.aae-team-wrapper li {
   list-style: none;
 }
 
-.bricksfly-team-wrapper li svg {
+.aae-team-wrapper li svg {
   width: 1em;
   height: 1em;
 }
 
-.bricksfly-team-wrapper .name a {
+.aae-team-wrapper .name a {
   transition: all 0.3s;
   text-decoration: none;
   color: inherit;
 }
 
-.bricksfly-team-wrapper .thumb {
+.aae-team-wrapper .thumb {
   display: block;
   line-height: 0;
   position: relative;
   overflow: hidden;
 }
 
-.bricksfly-team-wrapper .thumb img {
+.aae-team-wrapper .thumb img {
   margin: 0;
   transition: opacity 0.3s, filter 0.3s;
 }
 
-.bricksfly-team-wrapper .designation {
+.aae-team-wrapper .designation {
   color: #1C1D20;
   font-size: 14px;
 }
 
-.bricksfly-team-wrapper .social-media {
+.aae-team-wrapper .social-media {
   display: inline-flex;
   flex-wrap: wrap;
   gap: 10px;
 }
 
-.bricksfly-team-wrapper .social-media a {
+.aae-team-wrapper .social-media a {
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -49,7 +49,7 @@
 }
 
 /* Style 2 — social overlay on image */
-.bricksfly-team-wrapper.style-2 .social-media {
+.aae-team-wrapper.style-2 .social-media {
   display: flex;
   position: absolute;
   align-items: center;
@@ -61,24 +61,24 @@
   transition: 0.5s;
 }
 
-.bricksfly-team-wrapper.style-2:hover .social-media {
+.aae-team-wrapper.style-2:hover .social-media {
   opacity: 1;
   visibility: visible;
 }
 
 /* Social Placement — Style 2 */
-.bricksfly-social-placement-bottom .social-media {
+.aae-social-placement-bottom .social-media {
   left: 0;
   bottom: 0;
   width: 100%;
   transform: translateY(100%);
 }
 
-.bricksfly-social-placement-bottom:hover .social-media {
+.aae-social-placement-bottom:hover .social-media {
   transform: translateY(0);
 }
 
-.bricksfly-social-placement-left .social-media {
+.aae-social-placement-left .social-media {
   top: 0;
   left: 0;
   height: 100%;
@@ -86,11 +86,11 @@
   transform: translateX(-100%);
 }
 
-.bricksfly-social-placement-left:hover .social-media {
+.aae-social-placement-left:hover .social-media {
   transform: translateX(0);
 }
 
-.bricksfly-social-placement-right .social-media {
+.aae-social-placement-right .social-media {
   top: 0;
   right: 0;
   height: 100%;
@@ -98,16 +98,16 @@
   transform: translateX(100%);
 }
 
-.bricksfly-social-placement-right:hover .social-media {
+.aae-social-placement-right:hover .social-media {
   transform: translateX(0);
 }
 
-.bricksfly-social-placement-center .social-media {
+.aae-social-placement-center .social-media {
   left: 50%;
   top: 60%;
   transform: translate(-50%, -50%);
 }
 
-.bricksfly-social-placement-center:hover .social-media {
+.aae-social-placement-center:hover .social-media {
   top: 50%;
 }

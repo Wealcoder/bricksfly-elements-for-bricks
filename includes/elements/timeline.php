@@ -7,7 +7,7 @@ class BRICKSFLY_Bricks_Timeline extends \Bricks\Element
     public $category     = 'bricks fly';
     public $name         = 'aae-timeline';
     public $icon         = 'ti-time aab-element-marker';
-    public $css_selector = '.bricksfly-timeline-wrapper';
+    public $css_selector = '.aae-timeline-wrapper';
 
     public function get_label()
     {
@@ -193,7 +193,7 @@ class BRICKSFLY_Bricks_Timeline extends \Bricks\Element
             'default' => 60,
             'placeholder' => '60',
             'units' => ['px' => ['min' => 1, 'max' => 300]],
-            'css'   => [['property' => '--content-gap', 'selector' => '&.bricksfly-timeline']],
+            'css'   => [['property' => '--content-gap', 'selector' => '&.aae-timeline']],
         ];
 
         $this->controls['contentBottomSpace'] = [
@@ -454,7 +454,7 @@ class BRICKSFLY_Bricks_Timeline extends \Bricks\Element
             'label' => esc_html__('Icon Size (Width/Height)', 'bricksfly-elements-for-bricks'),
             'type'  => 'number',
             'units' => ['px' => ['min' => 6, 'max' => 300]],
-            'css'   => [['property' => '--icon-size', 'selector' => '&.bricksfly-timeline']],
+            'css'   => [['property' => '--icon-size', 'selector' => '&.aae-timeline']],
         ];
 
         $this->controls['stepTextSize'] = [
@@ -470,7 +470,7 @@ class BRICKSFLY_Bricks_Timeline extends \Bricks\Element
             'label' => esc_html__('Padding', 'bricksfly-elements-for-bricks'),
             'type'  => 'number',
             'units' => ['px' => ['min' => 1, 'max' => 300]],
-            'css'   => [['property' => '--icon-padding', 'selector' => '&.bricksfly-timeline']],
+            'css'   => [['property' => '--icon-padding', 'selector' => '&.aae-timeline']],
         ];
 
         $this->controls['stepBorder'] = [
@@ -609,7 +609,7 @@ class BRICKSFLY_Bricks_Timeline extends \Bricks\Element
         $image_size     = $settings['imageSize'] ?? 'full';
         $show_indicator = !empty($settings['showIndicator']);
 
-        $this->set_attribute('_root', 'class', ['bricksfly-timeline-wrapper', 'bricksfly-timeline', 'style-' . $style]);
+        $this->set_attribute('_root', 'class', ['aae-timeline-wrapper', 'aae-timeline', 'style-' . $style]);
 
         echo wp_kses_post('<div ' . $this->render_attributes('_root') . '>');
 

@@ -7,7 +7,7 @@ class BRICKSFLY_Bricks_Video_Box_Slider extends \Bricks\Element {
 	public $category     = 'bricks fly';
 	public $name         = 'aab-video-box-slider';
 	public $icon         = 'ti-video-clapper aab-element-marker';
-	public $css_selector = '.bricksfly-video-box-slider';
+	public $css_selector = '.aab-video-box-slider';
 	public $scripts      = [ 'bricksflyVideoBoxSlider' ];
 
 	public function get_label() {
@@ -279,7 +279,7 @@ class BRICKSFLY_Bricks_Video_Box_Slider extends \Bricks\Element {
 			'css'   => [
 				[
 					'property' => 'gap',
-					'selector' => '.bricksfly-popup-btn',
+					'selector' => '.aab-popup-btn',
 				],
 			],
 		];
@@ -300,11 +300,11 @@ class BRICKSFLY_Bricks_Video_Box_Slider extends \Bricks\Element {
 			'css'      => [
 				[
 					'property' => 'color',
-					'selector' => '.bricksfly-popup-btn.ripple::before',
+					'selector' => '.aab-popup-btn.ripple::before',
 				],
 				[
 					'property' => 'color',
-					'selector' => '.bricksfly-popup-btn.ripple::after',
+					'selector' => '.aab-popup-btn.ripple::after',
 				],
 			],
 			'required' => [ 'activeRipple', '!=', '' ],
@@ -787,7 +787,7 @@ class BRICKSFLY_Bricks_Video_Box_Slider extends \Bricks\Element {
 			'css'   => [
 				[
 					'property' => 'font',
-					'selector' => '.bricksfly-popup-btn',
+					'selector' => '.aab-popup-btn',
 				],
 			],
 		];
@@ -806,7 +806,7 @@ class BRICKSFLY_Bricks_Video_Box_Slider extends \Bricks\Element {
 			'css'   => [
 				[
 					'property' => 'width',
-					'selector' => '.bricksfly-popup-btn',
+					'selector' => '.aab-popup-btn',
 				],
 			],
 		];
@@ -825,7 +825,7 @@ class BRICKSFLY_Bricks_Video_Box_Slider extends \Bricks\Element {
 			'css'   => [
 				[
 					'property' => 'height',
-					'selector' => '.bricksfly-popup-btn',
+					'selector' => '.aab-popup-btn',
 				],
 			],
 		];
@@ -838,7 +838,7 @@ class BRICKSFLY_Bricks_Video_Box_Slider extends \Bricks\Element {
 			'css'   => [
 				[
 					'property' => 'border',
-					'selector' => '.bricksfly-popup-btn',
+					'selector' => '.aab-popup-btn',
 				],
 			],
 		];
@@ -851,19 +851,19 @@ class BRICKSFLY_Bricks_Video_Box_Slider extends \Bricks\Element {
 		// 	'css'   => [
 		// 		[
 		// 			'property' => 'border-radius',
-		// 			'selector' => '.bricksfly-popup-btn',
+		// 			'selector' => '.aab-popup-btn',
 		// 		],
 		// 		[
 		// 			'property' => 'border-radius',
-		// 			'selector' => '.bricksfly-popup-btn::before',
+		// 			'selector' => '.aab-popup-btn::before',
 		// 		],
 		// 		[
 		// 			'property' => 'border-radius',
-		// 			'selector' => '.bricksfly-popup-btn::after',
+		// 			'selector' => '.aab-popup-btn::after',
 		// 		],
 		// 		[
 		// 			'property' => 'border-radius',
-		// 			'selector' => '.bricksfly-popup-btn .spinner-image',
+		// 			'selector' => '.aab-popup-btn .spinner-image',
 		// 		],
 		// 	],
 		// ];
@@ -876,7 +876,7 @@ class BRICKSFLY_Bricks_Video_Box_Slider extends \Bricks\Element {
 			'css'   => [
 				[
 					'property' => 'box-shadow',
-					'selector' => '.bricksfly-popup-btn',
+					'selector' => '.aab-popup-btn',
 				],
 			],
 		];
@@ -891,7 +891,7 @@ class BRICKSFLY_Bricks_Video_Box_Slider extends \Bricks\Element {
 			'css'   => [
 				[
 					'property' => 'padding',
-					'selector' => '.bricksfly-popup-btn',
+					'selector' => '.aab-popup-btn',
 				],
 			],
 		];
@@ -904,11 +904,11 @@ class BRICKSFLY_Bricks_Video_Box_Slider extends \Bricks\Element {
 			'css'   => [
 				[
 					'property' => 'color',
-					'selector' => '.bricksfly-popup-btn',
+					'selector' => '.aab-popup-btn',
 				],
 				[
 					'property' => 'fill',
-					'selector' => '.bricksfly-popup-btn',
+					'selector' => '.aab-popup-btn',
 				],
 			],
 		];
@@ -921,7 +921,7 @@ class BRICKSFLY_Bricks_Video_Box_Slider extends \Bricks\Element {
 			'css'   => [
 				[
 					'property' => 'background',
-					'selector' => '.bricksfly-popup-btn',
+					'selector' => '.aab-popup-btn',
 				],
 			],
 		];
@@ -938,11 +938,11 @@ class BRICKSFLY_Bricks_Video_Box_Slider extends \Bricks\Element {
 			'css'   => [
 				[
 					'property' => 'color',
-					'selector' => '.bricksfly-popup-btn:hover',
+					'selector' => '.aab-popup-btn:hover',
 				],
 				[
 					'property' => 'fill',
-					'selector' => '.bricksfly-popup-btn:hover svg',
+					'selector' => '.aab-popup-btn:hover svg',
 				],
 			],
 		];
@@ -955,7 +955,7 @@ class BRICKSFLY_Bricks_Video_Box_Slider extends \Bricks\Element {
 			'css'   => [
 				[
 					'property' => 'background',
-					'selector' => '.bricksfly-popup-btn:hover',
+					'selector' => '.aab-popup-btn:hover',
 				],
 			],
 		];
@@ -968,7 +968,7 @@ class BRICKSFLY_Bricks_Video_Box_Slider extends \Bricks\Element {
 			'css'   => [
 				[
 					'property' => 'border-color',
-					'selector' => '.bricksfly-popup-btn:hover',
+					'selector' => '.aab-popup-btn:hover',
 				],
 			],
 		];
@@ -1400,7 +1400,7 @@ class BRICKSFLY_Bricks_Video_Box_Slider extends \Bricks\Element {
 		$pag_type    = $settings['paginationType'] ?? 'bullets';
 
 		// Root classes (Elementor prefix_class equivalents)
-		$root_classes = [ 'bricksfly-video-box-slider', 'wcf__slider-wrapper', 'wcf__video_slider' ];
+		$root_classes = [ 'aab-video-box-slider', 'wcf__slider-wrapper', 'wcf__video_slider' ];
 
 		if ( ! empty( $settings['showThumbAfter'] ) ) {
 			$root_classes[] = 'wcf-thumb-yes';
@@ -1464,7 +1464,7 @@ class BRICKSFLY_Bricks_Video_Box_Slider extends \Bricks\Element {
 			}
 			$alt_text    = esc_attr( $item['title'] ?? '' );
 			$video_link  = ! empty( $item['videoLink'] ) ? $this->parse_video_url( $item['videoLink'] ) : '';
-			$btn_classes = [ 'bricksfly-popup-btn', 'wcf-popup-btn' ];
+			$btn_classes = [ 'aab-popup-btn', 'wcf-popup-btn' ];
 			if ( ! empty( $settings['activeRipple'] ) ) {
 				$btn_classes[] = 'ripple';
 			}
@@ -1528,11 +1528,11 @@ class BRICKSFLY_Bricks_Video_Box_Slider extends \Bricks\Element {
 		}
 
 		// Popup overlay (hidden source — JS moves to body)
-		echo '<div class="bricksfly-popup-source" hidden>';
-		echo '<div class="bricksfly-popup-video-wrapper">';
-		echo '<div class="bricksfly-popup-video">';
-		echo '<button class="bricksfly-popup-close" aria-label="' . esc_attr__( 'Close', 'bricksfly-elements-for-bricks' ) . '">&times;</button>';
-		echo '<div class="bricksfly-popup-content-container"></div>';
+		echo '<div class="aab-popup-source" hidden>';
+		echo '<div class="aab-popup-video-wrapper">';
+		echo '<div class="aab-popup-video">';
+		echo '<button class="aab-popup-close" aria-label="' . esc_attr__( 'Close', 'bricksfly-elements-for-bricks' ) . '">&times;</button>';
+		echo '<div class="aab-popup-content-container"></div>';
 		echo '</div>';
 		echo '</div>';
 		echo '</div>';

@@ -7,8 +7,8 @@ class BRICKSFLY_Bricks_Testimonial extends \Bricks\Element
     public $category     = 'bricks fly';
     public $name         = 'aae-testimonial';
     public $icon         = 'ti-comment-alt aab-element-marker';
-    public $css_selector = '.bricksfly-testimonial-wrapper';
-    public $scripts      = ['bricksflyTestimonial'];
+    public $css_selector = '.aae-testimonial-wrapper';
+    public $scripts      = ['aaeTestimonial'];
 
     public function get_label()
     {
@@ -813,7 +813,7 @@ class BRICKSFLY_Bricks_Testimonial extends \Bricks\Element
         }
 
         // Root classes
-        $root_classes = ['bricksfly-testimonial-wrapper', 'wcf__testimonial'];
+        $root_classes = ['aae-testimonial-wrapper', 'wcf__testimonial'];
         if ($element_list !== '') {
             $root_classes[] = 'style-' . $element_list;
         }

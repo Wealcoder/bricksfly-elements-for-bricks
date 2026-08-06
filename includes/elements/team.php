@@ -7,7 +7,7 @@ class BRICKSFLY_Bricks_Team extends \Bricks\Element
     public $category     = 'bricks fly';
     public $name         = 'aae-team';
     public $icon         = 'ti-user aab-element-marker';
-    public $css_selector = '.bricksfly-team-wrapper';
+    public $css_selector = '.aae-team-wrapper';
 
     public function get_label()
     {
@@ -537,9 +537,9 @@ class BRICKSFLY_Bricks_Team extends \Bricks\Element
 
         $social_placement = ($style === '2' && !empty($settings['socialPosition'])) ? $settings['socialPosition'] : 'bottom';
 
-        $root_classes = ['bricksfly-team-wrapper', 'bricksfly-team', 'style-' . $style];
+        $root_classes = ['aae-team-wrapper', 'aae-team', 'style-' . $style];
         if ($style === '2') {
-            $root_classes[] = 'bricksfly-social-placement-' . $social_placement;
+            $root_classes[] = 'aae-social-placement-' . $social_placement;
         }
         $this->set_attribute('_root', 'class', $root_classes);
 

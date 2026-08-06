@@ -19,10 +19,10 @@ function bricksflyVideoStory( el ) {
 		root._aabVS = null;
 	}
 
-	var videos = root.querySelectorAll( '.bricksfly-video-story .thumb video' );
+	var videos = root.querySelectorAll( '.aab--video-story .thumb video' );
 
 	if ( ! videos.length ) {
-		// Re-check: root itself might be .bricksfly-video-story
+		// Re-check: root itself might be .aab--video-story
 		videos = root.querySelectorAll( '.thumb video' );
 	}
 
@@ -31,7 +31,7 @@ function bricksflyVideoStory( el ) {
 	var cleanups = [];
 
 	videos.forEach( function( video ) {
-		var article = video.closest( 'article.bricksfly-post' );
+		var article = video.closest( 'article.aab--post' );
 		if ( ! article ) return;
 
 		var clicked = false;
@@ -81,7 +81,7 @@ function bricksflyVideoStory( el ) {
 					other.currentTime = 0;
 					other.muted = true;
 					other.removeAttribute( 'controls' );
-					var otherArticle = other.closest( 'article.bricksfly-post' );
+					var otherArticle = other.closest( 'article.aab--post' );
 					if ( otherArticle ) otherArticle.classList.remove( 'active' );
 				}
 			} );
@@ -96,7 +96,7 @@ function bricksflyVideoStory( el ) {
 			clicked = true;
 
 			// Active state
-			root.querySelectorAll( '.bricksfly-post' ).forEach( function( el ) {
+			root.querySelectorAll( '.aab--post' ).forEach( function( el ) {
 				el.classList.remove( 'active' );
 			} );
 			article.classList.add( 'active' );

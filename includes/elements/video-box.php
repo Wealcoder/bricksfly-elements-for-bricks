@@ -7,7 +7,7 @@ class BRICKSFLY_Bricks_Video_Box extends \Bricks\Element {
 	public $category     = 'bricks fly';
 	public $name         = 'aab-video-box';
 	public $icon         = 'ti-video-clapper aab-element-marker';
-	public $css_selector = '.bricksfly-video-box';
+	public $css_selector = '.aab-video-box';
 	public $scripts      = [ 'bricksflyVideoBox' ];
 
 	public function get_label() {
@@ -131,7 +131,7 @@ class BRICKSFLY_Bricks_Video_Box extends \Bricks\Element {
 			'css'   => [
 				[
 					'property' => 'text-align',
-					'selector' => '.bricksfly-video-box',
+					'selector' => '.aab-video-box',
 				],
 			],
 		];
@@ -251,7 +251,7 @@ class BRICKSFLY_Bricks_Video_Box extends \Bricks\Element {
 			'css'   => [
 				[
 					'property' => 'gap',
-					'selector' => '.bricksfly-popup-btn',
+					'selector' => '.aab-popup-btn',
 				],
 			],
 		];
@@ -272,11 +272,11 @@ class BRICKSFLY_Bricks_Video_Box extends \Bricks\Element {
 			'css'      => [
 				[
 					'property' => 'color',
-					'selector' => '.bricksfly-popup-btn.ripple::before',
+					'selector' => '.aab-popup-btn.ripple::before',
 				],
 				[
 					'property' => 'color',
-					'selector' => '.bricksfly-popup-btn.ripple::after',
+					'selector' => '.aab-popup-btn.ripple::after',
 				],
 			],
 			'required' => [ 'activeRipple', '!=', '' ],
@@ -316,7 +316,7 @@ class BRICKSFLY_Bricks_Video_Box extends \Bricks\Element {
 			'group' => 'box_style',
 			'label' => esc_html__( 'Border', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'border',
-			'css'   => [ [ 'property' => 'border', 'selector' => '.bricksfly-video-box' ] ],
+			'css'   => [ [ 'property' => 'border', 'selector' => '.aab-video-box' ] ],
 		];
 
 		$this->controls['boxBorderRadius'] = [
@@ -333,7 +333,7 @@ class BRICKSFLY_Bricks_Video_Box extends \Bricks\Element {
 				'px' => [ 'min' => 0, 'max' => 500 ],
 				'%'  => [ 'min' => 0, 'max' => 100 ],
 			],
-			'css'   => [ [ 'property' => 'border-radius', 'selector' => '.bricksfly-video-box' ] ],
+			'css'   => [ [ 'property' => 'border-radius', 'selector' => '.aab-video-box' ] ],
 		];
 
 		// --- Style: Thumbnail ---
@@ -348,8 +348,8 @@ class BRICKSFLY_Bricks_Video_Box extends \Bricks\Element {
 				'%'  => [ 'min' => 0, 'max' => 100 ],
 			],
 			'css' => [
-				[ 'property' => 'height', 'selector' => '.bricksfly-video-box img' ],
-				[ 'property' => 'height', 'selector' => '.bricksfly-video-box .thumb video' ],
+				[ 'property' => 'height', 'selector' => '.aab-video-box img' ],
+				[ 'property' => 'height', 'selector' => '.aab-video-box .thumb video' ],
 			],
 		];
 
@@ -428,7 +428,7 @@ class BRICKSFLY_Bricks_Video_Box extends \Bricks\Element {
 			'group' => 'btn_style',
 			'label' => esc_html__( 'Typography', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'typography',
-			'css'   => [ [ 'property' => 'font', 'selector' => '.bricksfly-popup-btn' ] ],
+			'css'   => [ [ 'property' => 'font', 'selector' => '.aab-popup-btn' ] ],
 		];
 
 		$this->controls['btnWidth'] = [
@@ -437,7 +437,7 @@ class BRICKSFLY_Bricks_Video_Box extends \Bricks\Element {
 			'label' => esc_html__( 'Width', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'number',
 			'units' => [ 'px' => [ 'min' => 0, 'max' => 500 ], '%' => [ 'min' => 0, 'max' => 100 ] ],
-			'css'   => [ [ 'property' => 'width', 'selector' => '.bricksfly-popup-btn' ] ],
+			'css'   => [ [ 'property' => 'width', 'selector' => '.aab-popup-btn' ] ],
 		];
 
 		$this->controls['btnHeight'] = [
@@ -446,7 +446,7 @@ class BRICKSFLY_Bricks_Video_Box extends \Bricks\Element {
 			'label' => esc_html__( 'Height', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'number',
 			'units' => [ 'px' => [ 'min' => 0, 'max' => 500 ], '%' => [ 'min' => 0, 'max' => 100 ] ],
-			'css'   => [ [ 'property' => 'height', 'selector' => '.bricksfly-popup-btn' ] ],
+			'css'   => [ [ 'property' => 'height', 'selector' => '.aab-popup-btn' ] ],
 		];
 
 		$this->controls['btnBorder'] = [
@@ -454,7 +454,7 @@ class BRICKSFLY_Bricks_Video_Box extends \Bricks\Element {
 			'group' => 'btn_style',
 			'label' => esc_html__( 'Border', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'border',
-			'css'   => [ [ 'property' => 'border', 'selector' => '.bricksfly-popup-btn' ] ],
+			'css'   => [ [ 'property' => 'border', 'selector' => '.aab-popup-btn' ] ],
 		];
 
 		$this->controls['btnBorderRadius'] = [
@@ -469,10 +469,10 @@ class BRICKSFLY_Bricks_Video_Box extends \Bricks\Element {
 				'%'  => [ 'min' => 0, 'max' => 100 ],
 			],
 			'css'   => [
-				[ 'property' => 'border-radius', 'selector' => '.bricksfly-popup-btn' ],
-				[ 'property' => 'border-radius', 'selector' => '.bricksfly-popup-btn::before' ],
-				[ 'property' => 'border-radius', 'selector' => '.bricksfly-popup-btn::after' ],
-				[ 'property' => 'border-radius', 'selector' => '.bricksfly-popup-btn .spinner-image' ],
+				[ 'property' => 'border-radius', 'selector' => '.aab-popup-btn' ],
+				[ 'property' => 'border-radius', 'selector' => '.aab-popup-btn::before' ],
+				[ 'property' => 'border-radius', 'selector' => '.aab-popup-btn::after' ],
+				[ 'property' => 'border-radius', 'selector' => '.aab-popup-btn .spinner-image' ],
 			],
 		];
 
@@ -481,7 +481,7 @@ class BRICKSFLY_Bricks_Video_Box extends \Bricks\Element {
 			'group' => 'btn_style',
 			'label' => esc_html__( 'Box Shadow', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'box-shadow',
-			'css'   => [ [ 'property' => 'box-shadow', 'selector' => '.bricksfly-popup-btn' ] ],
+			'css'   => [ [ 'property' => 'box-shadow', 'selector' => '.aab-popup-btn' ] ],
 		];
 
 		$this->controls['btnColor'] = [
@@ -490,8 +490,8 @@ class BRICKSFLY_Bricks_Video_Box extends \Bricks\Element {
 			'label' => esc_html__( 'Color', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'color',
 			'css'   => [
-				[ 'property' => 'color', 'selector' => '.bricksfly-popup-btn' ],
-				[ 'property' => 'fill', 'selector' => '.bricksfly-popup-btn' ],
+				[ 'property' => 'color', 'selector' => '.aab-popup-btn' ],
+				[ 'property' => 'fill', 'selector' => '.aab-popup-btn' ],
 			],
 		];
 
@@ -500,7 +500,7 @@ class BRICKSFLY_Bricks_Video_Box extends \Bricks\Element {
 			'group' => 'btn_style',
 			'label' => esc_html__( 'Background', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'background',
-			'css'   => [ [ 'property' => 'background', 'selector' => '.bricksfly-popup-btn' ] ],
+			'css'   => [ [ 'property' => 'background', 'selector' => '.aab-popup-btn' ] ],
 		];
 
 		// --- Style: Button Hover ---
@@ -511,8 +511,8 @@ class BRICKSFLY_Bricks_Video_Box extends \Bricks\Element {
 			'label' => esc_html__( 'Color', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'color',
 			'css'   => [
-				[ 'property' => 'color', 'selector' => '.bricksfly-popup-btn:hover' ],
-				[ 'property' => 'fill', 'selector' => '.bricksfly-popup-btn:hover svg' ],
+				[ 'property' => 'color', 'selector' => '.aab-popup-btn:hover' ],
+				[ 'property' => 'fill', 'selector' => '.aab-popup-btn:hover svg' ],
 			],
 		];
 
@@ -521,7 +521,7 @@ class BRICKSFLY_Bricks_Video_Box extends \Bricks\Element {
 			'group' => 'btn_hover',
 			'label' => esc_html__( 'Background', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'background',
-			'css'   => [ [ 'property' => 'background', 'selector' => '.bricksfly-popup-btn:hover' ] ],
+			'css'   => [ [ 'property' => 'background', 'selector' => '.aab-popup-btn:hover' ] ],
 		];
 
 		$this->controls['btnHoverBorderColor'] = [
@@ -529,7 +529,7 @@ class BRICKSFLY_Bricks_Video_Box extends \Bricks\Element {
 			'group' => 'btn_hover',
 			'label' => esc_html__( 'Border Color', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'color',
-			'css'   => [ [ 'property' => 'border-color', 'selector' => '.bricksfly-popup-btn:hover' ] ],
+			'css'   => [ [ 'property' => 'border-color', 'selector' => '.aab-popup-btn:hover' ] ],
 		];
 	}
 
@@ -591,7 +591,7 @@ class BRICKSFLY_Bricks_Video_Box extends \Bricks\Element {
 			$title_tag = 'h4';
 		}
 
-		$this->set_attribute( '_root', 'class', [ 'bricksfly-video-box', 'style-' . $style, 'btn-' . $btn_visibility ] );
+		$this->set_attribute( '_root', 'class', [ 'aab-video-box', 'style-' . $style, 'btn-' . $btn_visibility ] );
 
 		echo wp_kses_post('<div ' . $this->render_attributes( '_root' ) . '>');
 
@@ -628,7 +628,7 @@ class BRICKSFLY_Bricks_Video_Box extends \Bricks\Element {
 		// Play button — skip entirely when set to hide so the markup is
 		// gone (CSS .btn-hide is a belt-and-suspenders guard for cached HTML).
 		if ( 'hide' !== $btn_visibility ) {
-			$btn_classes = [ 'bricksfly-popup-btn' ];
+			$btn_classes = [ 'aab-popup-btn' ];
 			if ( ! empty( $settings['activeRipple'] ) ) {
 				$btn_classes[] = 'ripple';
 			}
@@ -654,11 +654,11 @@ class BRICKSFLY_Bricks_Video_Box extends \Bricks\Element {
 		}
 
 		// Popup overlay (hidden, JS moves to body via video-popup.js)
-		echo '<div class="bricksfly-popup-source" hidden>';
-		echo '<div class="bricksfly-popup-video-wrapper">';
-		echo '<div class="bricksfly-popup-video">';
-		echo '<button class="bricksfly-popup-close" aria-label="' . esc_attr__( 'Close', 'bricksfly-elements-for-bricks' ) . '">&times;</button>';
-		echo '<div class="bricksfly-popup-content-container"></div>';
+		echo '<div class="aab-popup-source" hidden>';
+		echo '<div class="aab-popup-video-wrapper">';
+		echo '<div class="aab-popup-video">';
+		echo '<button class="aab-popup-close" aria-label="' . esc_attr__( 'Close', 'bricksfly-elements-for-bricks' ) . '">&times;</button>';
+		echo '<div class="aab-popup-content-container"></div>';
 		echo '</div>';
 		echo '</div>';
 		echo '</div>';

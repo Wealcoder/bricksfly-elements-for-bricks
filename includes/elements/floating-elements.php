@@ -10,7 +10,7 @@ class BRICKSFLY_Bricks_Floating_Elements extends \Bricks\Element
 	public $category     = 'bricks fly';
 	public $name         = 'aab-floating-elements';
 	public $icon         = 'ti-layout-media-overlay aab-element-marker';
-	public $css_selector = '.bricksfly-floating-elements';
+	public $css_selector = '.aab-floating-elements';
 	public $scripts      = ['bricksflyFloatingElements'];
 
 	public function get_label()
@@ -371,7 +371,7 @@ class BRICKSFLY_Bricks_Floating_Elements extends \Bricks\Element
 			]);
 		}
 
-		$this->set_attribute('_root', 'class', ['bricksfly-floating-elements']);
+		$this->set_attribute('_root', 'class', ['aab-floating-elements']);
 
 		echo wp_kses_post('<div ' . $this->render_attributes('_root') . '>');
 
@@ -389,7 +389,7 @@ class BRICKSFLY_Bricks_Floating_Elements extends \Bricks\Element
 			$classes[] = $v_orient === 'bottom' ? 'v-bottom' : 'v-top';
 
 			if ($anim) {
-				$classes[] = 'bricksfly-live-anim-' . sanitize_html_class($anim);
+				$classes[] = 'aab-live-anim-' . sanitize_html_class($anim);
 			}
 
 			// Only z-index goes in the inline style — all responsive values

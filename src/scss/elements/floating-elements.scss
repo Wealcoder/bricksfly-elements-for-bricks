@@ -1,8 +1,8 @@
-.bricksfly-floating-elements {
+.aab-floating-elements {
   position: relative;
 }
 
-.bricksfly-floating-elements .floating-element {
+.aab-floating-elements .floating-element {
   position: absolute;
   line-height: 0;
   z-index: 1; // fallback; overridden by inline style per item
@@ -38,7 +38,7 @@
   }
 }
 
-.bricksfly-floating-elements .floating-element img {
+.aab-floating-elements .floating-element img {
   width: 100%;
   height: auto;
   display: block;
@@ -74,7 +74,7 @@
   100% { transform: translateY(0px); }
 }
 
-.bricksfly-live-anim-float > * {
+.aab-live-anim-float > * {
   animation: bricksfly-floating-float 6s ease-in-out infinite;
 }
 
@@ -85,7 +85,7 @@
   100% { transform: translateX(0px); }
 }
 
-.bricksfly-live-anim-float-x > * {
+.aab-live-anim-float-x > * {
   animation: bricksfly-floating-float-x 6s ease-in-out infinite;
 }
 
@@ -95,7 +95,7 @@
   to   { transform: rotate(360deg); }
 }
 
-.bricksfly-live-anim-spin > * {
+.aab-live-anim-spin > * {
   animation: bricksfly-floating-spin 6s linear infinite;
 }
 
@@ -105,7 +105,7 @@
   to   { transform: scale(0.8); }
 }
 
-.bricksfly-live-anim-scale > * {
+.aab-live-anim-scale > * {
   animation: bricksfly-floating-scale 3s linear infinite alternate;
 }
 
@@ -120,6 +120,6 @@
   40%, 100% { transform: rotateZ(0); }
 }
 
-.bricksfly-live-anim-wiggle > * {
+.aab-live-anim-wiggle > * {
   animation: bricksfly-floating-wiggle 2s linear infinite;
 }

@@ -7,8 +7,8 @@ class BRICKSFLY_Bricks_Testimonial3 extends \Bricks\Element
     public $category     = 'bricks fly';
     public $name         = 'aae-testimonial-3';
     public $icon         = 'ti-comment-alt aab-element-marker';
-    public $css_selector = '.bricksfly-testimonial-3-wrapper';
-    public $scripts      = ['bricksflyTestimonial3'];
+    public $css_selector = '.aae-testimonial-3-wrapper';
+    public $scripts      = ['aaeTestimonial3'];
 
     public function get_label()
     {
@@ -284,18 +284,18 @@ class BRICKSFLY_Bricks_Testimonial3 extends \Bricks\Element
             'label' => esc_html__('Color', 'bricksfly-elements-for-bricks'),
             'type'  => 'color',
             'css'   => [
-                ['property' => 'border-inline-end-color', 'selector' => '.bricksfly-testimonial-3-wrapper.style-1 .quote'],
-                ['property' => 'background-color', 'selector' => '.bricksfly-testimonial-3-wrapper.style-1 .quote::before'],
-                ['property' => 'background-color', 'selector' => '.bricksfly-testimonial-3-wrapper.style-1 .quote::after'],
-                ['property' => 'border-color', 'selector' => '.bricksfly-testimonial-3-wrapper.style-1'],
-                ['property' => 'border-top-color', 'selector' => '.bricksfly-testimonial-3-wrapper.style-1 .wcf-arrow-next'],
-                ['property' => 'background-color', 'selector' => '.bricksfly-testimonial-3-wrapper.style-1 .wcf-arrow-next::before'],
-                ['property' => 'border-inline-end-color', 'selector' => '.bricksfly-testimonial-3-wrapper.style-1 .main-title'],
-                ['property' => 'background-color', 'selector' => '.bricksfly-testimonial-3-wrapper.style-1 .main-title::before'],
-                ['property' => 'background-color', 'selector' => '.bricksfly-testimonial-3-wrapper.style-1 .main-title::after'],
-                ['property' => 'border-inline-end-color', 'selector' => '.bricksfly-testimonial-3-wrapper.style-1 .wcf__slider'],
-                ['property' => 'background-color', 'selector' => '.bricksfly-testimonial-3-wrapper.style-1 .ts-navigation::after'],
-                ['property' => 'background-color', 'selector' => '.bricksfly-testimonial-3-wrapper.style-1 .ts-navigation::before'],
+                ['property' => 'border-inline-end-color', 'selector' => '.aae-testimonial-3-wrapper.style-1 .quote'],
+                ['property' => 'background-color', 'selector' => '.aae-testimonial-3-wrapper.style-1 .quote::before'],
+                ['property' => 'background-color', 'selector' => '.aae-testimonial-3-wrapper.style-1 .quote::after'],
+                ['property' => 'border-color', 'selector' => '.aae-testimonial-3-wrapper.style-1'],
+                ['property' => 'border-top-color', 'selector' => '.aae-testimonial-3-wrapper.style-1 .wcf-arrow-next'],
+                ['property' => 'background-color', 'selector' => '.aae-testimonial-3-wrapper.style-1 .wcf-arrow-next::before'],
+                ['property' => 'border-inline-end-color', 'selector' => '.aae-testimonial-3-wrapper.style-1 .main-title'],
+                ['property' => 'background-color', 'selector' => '.aae-testimonial-3-wrapper.style-1 .main-title::before'],
+                ['property' => 'background-color', 'selector' => '.aae-testimonial-3-wrapper.style-1 .main-title::after'],
+                ['property' => 'border-inline-end-color', 'selector' => '.aae-testimonial-3-wrapper.style-1 .wcf__slider'],
+                ['property' => 'background-color', 'selector' => '.aae-testimonial-3-wrapper.style-1 .ts-navigation::after'],
+                ['property' => 'background-color', 'selector' => '.aae-testimonial-3-wrapper.style-1 .ts-navigation::before'],
             ],
         ];
 
@@ -599,14 +599,14 @@ class BRICKSFLY_Bricks_Testimonial3 extends \Bricks\Element
 
         if ($show_arrows) {
             $slider_options['navigation'] = [
-                'nextEl' => '#bricksfly-ts3-' . $this->id . ' .wcf-arrow-next',
-                'prevEl' => '#bricksfly-ts3-' . $this->id . ' .wcf-arrow-prev',
+                'nextEl' => '#aae-ts3-' . $this->id . ' .wcf-arrow-next',
+                'prevEl' => '#aae-ts3-' . $this->id . ' .wcf-arrow-prev',
             ];
         }
 
         if ($show_dots) {
             $slider_options['pagination'] = [
-                'el'        => '#bricksfly-ts3-' . $this->id . ' .swiper-pagination',
+                'el'        => '#aae-ts3-' . $this->id . ' .swiper-pagination',
                 'clickable' => true,
             ];
         }
@@ -615,7 +615,7 @@ class BRICKSFLY_Bricks_Testimonial3 extends \Bricks\Element
         // CSS to `#brxe-XXX`. Overriding the id breaks every style control on
         // this element. The JS resolves navigation/pagination via DOM queries,
         // so the custom id isn't needed.
-        $this->set_attribute('_root', 'class', ['bricksfly-testimonial-3-wrapper', 'style-1']);
+        $this->set_attribute('_root', 'class', ['aae-testimonial-3-wrapper', 'style-1']);
         $this->set_attribute('_root', 'data-swiper-options', wp_json_encode($slider_options));
 
         // arrowsOffset / arrowsOffsetVertical / dotsOffset are now applied

@@ -3,7 +3,7 @@ import "../../scss/elements/progressbar.scss";
 /**
  * Progress Bar — Bricks Element Script
  *
- * Reads settings from data-bricksfly-progressbar on the root element and
+ * Reads settings from data-aab-progressbar on the root element and
  * renders a line / circle (via ProgressBar.js) or a dots animation.
  */
 (function () {
@@ -21,23 +21,23 @@ import "../../scss/elements/progressbar.scss";
   }
 
   function destroyInstance(root) {
-    if (root._bricksflyProgressbar) {
+    if (root._aabProgressbar) {
       try {
-        if (typeof root._bricksflyProgressbar.destroy === "function") {
-          root._bricksflyProgressbar.destroy();
+        if (typeof root._aabProgressbar.destroy === "function") {
+          root._aabProgressbar.destroy();
         }
       } catch (e) {}
-      root._bricksflyProgressbar = null;
+      root._aabProgressbar = null;
     }
-    if (root._bricksflyProgressObserver) {
+    if (root._aabProgressObserver) {
       try {
-        root._bricksflyProgressObserver.disconnect();
+        root._aabProgressObserver.disconnect();
       } catch (e) {}
-      root._bricksflyProgressObserver = null;
+      root._aabProgressObserver = null;
     }
-    if (root._bricksflyProgressDotTimer) {
-      clearInterval(root._bricksflyProgressDotTimer);
-      root._bricksflyProgressDotTimer = null;
+    if (root._aabProgressDotTimer) {
+      clearInterval(root._aabProgressDotTimer);
+      root._aabProgressDotTimer = null;
     }
     // Clear inner content rendered by previous ProgressBar.js instance
     var bar = root.querySelector(".progressbar");
@@ -59,10 +59,10 @@ import "../../scss/elements/progressbar.scss";
     if (animationDots > dots.length) animationDots = dots.length;
 
     var count = 0;
-    root._bricksflyProgressDotTimer = setInterval(function () {
+    root._aabProgressDotTimer = setInterval(function () {
       if (count >= animationDots) {
-        clearInterval(root._bricksflyProgressDotTimer);
-        root._bricksflyProgressDotTimer = null;
+        clearInterval(root._aabProgressDotTimer);
+        root._aabProgressDotTimer = null;
         return;
       }
       dots[count].classList.add("active");
@@ -96,7 +96,7 @@ import "../../scss/elements/progressbar.scss";
 
       if ("line" === settings["progress-type"]) {
         root.style.setProperty(
-          "--bricksfly-progressbar-text-right",
+          "--aab-progressbar-text-right",
           100 - settings.percentage + "%",
         );
       }
@@ -114,7 +114,7 @@ import "../../scss/elements/progressbar.scss";
   function initInstance(root) {
     if (!root) return;
 
-    var raw = root.getAttribute("data-bricksfly-progressbar");
+    var raw = root.getAttribute("data-aab-progressbar");
     var settings = parseSettings(raw);
     if (!settings) return;
 
@@ -131,7 +131,7 @@ import "../../scss/elements/progressbar.scss";
       }
       var instance = buildProgressBar(root, settings);
       if (instance) {
-        root._bricksflyProgressbar = instance;
+        root._aabProgressbar = instance;
         instance.animate(percent);
       }
     };
@@ -147,14 +147,14 @@ import "../../scss/elements/progressbar.scss";
       return;
     }
 
-    root._bricksflyProgressObserver = new IntersectionObserver(
+    root._aabProgressObserver = new IntersectionObserver(
       function (entries) {
         for (var i = 0; i < entries.length; i++) {
           if (entries[i].isIntersecting) {
             run();
-            if (root._bricksflyProgressObserver) {
-              root._bricksflyProgressObserver.disconnect();
-              root._bricksflyProgressObserver = null;
+            if (root._aabProgressObserver) {
+              root._aabProgressObserver.disconnect();
+              root._aabProgressObserver = null;
             }
             break;
           }
@@ -163,12 +163,12 @@ import "../../scss/elements/progressbar.scss";
       { threshold: 0 },
     );
 
-    root._bricksflyProgressObserver.observe(root);
+    root._aabProgressObserver.observe(root);
   }
 
   function initAll() {
     var roots = document.querySelectorAll(
-      ".bricksfly-progressbar[data-bricksfly-progressbar]",
+      ".aab-progressbar[data-aab-progressbar]",
     );
     for (var i = 0; i < roots.length; i++) {
       initInstance(roots[i]);

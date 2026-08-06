@@ -61,7 +61,7 @@ import "../../scss/elements/testimonial.scss";
     }
 
     function initAll() {
-        document.querySelectorAll('.bricksfly-testimonial-wrapper').forEach(function (el) {
+        document.querySelectorAll('.aae-testimonial-wrapper').forEach(function (el) {
             initTestimonial(el);
         });
     }
@@ -74,11 +74,11 @@ import "../../scss/elements/testimonial.scss";
 
     // Bricks calls this from $scripts. With an element it inits that one;
     // without it (some builder re-render paths) it re-inits all instances.
-    window.bricksflyTestimonial = function (el) {
+    window.aaeTestimonial = function (el) {
         if (el) {
-            var wrapper = el.classList && el.classList.contains('bricksfly-testimonial-wrapper')
+            var wrapper = el.classList && el.classList.contains('aae-testimonial-wrapper')
                 ? el
-                : el.querySelector('.bricksfly-testimonial-wrapper');
+                : el.querySelector('.aae-testimonial-wrapper');
             initTestimonial(wrapper);
         } else {
             initAll();

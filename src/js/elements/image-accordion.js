@@ -12,8 +12,8 @@ import "../../scss/elements/image-accordion.scss";
 
 	function getWrapper(el) {
 		if (!el || !el.classList) return null;
-		if (el.classList.contains('bricksfly-image-accordion')) return el;
-		return el.querySelector ? el.querySelector('.bricksfly-image-accordion') : null;
+		if (el.classList.contains('aab-image-accordion')) return el;
+		return el.querySelector ? el.querySelector('.aab-image-accordion') : null;
 	}
 
 	function openAccordion(items, activeItem) {
@@ -49,8 +49,8 @@ import "../../scss/elements/image-accordion.scss";
 
 		// Idempotency for event binding only. A fresh DOM node (from a full
 		// re-render) won't carry this flag, so listeners reattach correctly.
-		if (wrapper.dataset.bricksflyAccordionInit === '1') return;
-		wrapper.dataset.bricksflyAccordionInit = '1';
+		if (wrapper.dataset.aabAccordionInit === '1') return;
+		wrapper.dataset.aabAccordionInit = '1';
 
 		var expand     = wrapper.getAttribute('data-expand') || 'hover';
 		var breakpoint = parseInt(wrapper.getAttribute('data-breakpoint') || '0', 10);
@@ -63,9 +63,9 @@ import "../../scss/elements/image-accordion.scss";
 		// scope so the rule still applies if neither is set.
 		if (breakpoint > 0) {
 			var scriptId = wrapper.getAttribute('data-script-id') || wrapper.id || '';
-			var scope = scriptId ? '[data-script-id="' + scriptId + '"]' : '.bricksfly-image-accordion';
+			var scope = scriptId ? '[data-script-id="' + scriptId + '"]' : '.aab-image-accordion';
 			var style = document.createElement('style');
-			style.textContent = '@media (max-width: ' + breakpoint + 'px) { ' + scope + '.bricksfly-image-accordion { flex-direction: column !important; } }';
+			style.textContent = '@media (max-width: ' + breakpoint + 'px) { ' + scope + '.aab-image-accordion { flex-direction: column !important; } }';
 			wrapper.appendChild(style);
 		}
 
@@ -87,7 +87,7 @@ import "../../scss/elements/image-accordion.scss";
 	}
 
 	function scanAll(root) {
-		(root || document).querySelectorAll('.bricksfly-image-accordion').forEach(initElement);
+		(root || document).querySelectorAll('.aab-image-accordion').forEach(initElement);
 	}
 
 	function boot() {
@@ -102,7 +102,7 @@ import "../../scss/elements/image-accordion.scss";
 
 				if (m.type === 'attributes') {
 					var target = m.target;
-					if (target && target.classList && target.classList.contains('bricksfly-image-accordion')) {
+					if (target && target.classList && target.classList.contains('aab-image-accordion')) {
 						applyDefaultActive(target);
 					}
 					continue;
@@ -112,7 +112,7 @@ import "../../scss/elements/image-accordion.scss";
 				for (var j = 0; j < added.length; j++) {
 					var node = added[j];
 					if (node.nodeType !== 1) continue;
-					if (node.classList && node.classList.contains('bricksfly-image-accordion')) {
+					if (node.classList && node.classList.contains('aab-image-accordion')) {
 						initElement(node);
 					}
 					if (node.querySelectorAll) {

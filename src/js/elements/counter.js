@@ -3,7 +3,7 @@ import "../../scss/elements/counter.scss";
 /**
  * Counter — Bricks Element Script (No GSAP)
  *
- * Self-initializing: scans the DOM for [data-bricksfly-counter] roots and
+ * Self-initializing: scans the DOM for [data-aab-counter] roots and
  * starts each one. Bricks calls window.bricksflyCounter() (with or without
  * the wrapper) on builder re-render and on frontend init — both paths
  * end up calling initAll().
@@ -69,10 +69,10 @@ import "../../scss/elements/counter.scss";
 	function initInstance( root ) {
 		if ( ! root ) return;
 
-		var numberEl = root.querySelector( '.bricksfly-counter__number' );
+		var numberEl = root.querySelector( '.aab-counter__number' );
 		if ( ! numberEl ) return;
 
-		var settings = parseSettings( root.getAttribute( 'data-bricksfly-counter' ) );
+		var settings = parseSettings( root.getAttribute( 'data-aab-counter' ) );
 		if ( ! settings ) return;
 
 		destroyInstance( root );
@@ -153,7 +153,7 @@ import "../../scss/elements/counter.scss";
 	}
 
 	function initAll() {
-		var roots = document.querySelectorAll( '[data-bricksfly-counter]' );
+		var roots = document.querySelectorAll( '[data-aab-counter]' );
 		for ( var i = 0; i < roots.length; i++ ) {
 			initInstance( roots[ i ] );
 		}

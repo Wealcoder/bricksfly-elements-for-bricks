@@ -1,52 +1,52 @@
-.bricksfly-brand-slider-wrapper {
+.aab-brand-slider-wrapper {
   overflow: hidden;
   position: relative;
 }
 
-.bricksfly-brand-slider-wrapper .swiper {
+.aab-brand-slider-wrapper .swiper {
   overflow: hidden;
 }
 
 /* Linear timing must be forced via CSS for accurate Marquee transitions */
-.bricksfly-brand-slider-wrapper .swiper-wrapper {
+.aab-brand-slider-wrapper .swiper-wrapper {
   align-items: center;
   -webkit-transition-timing-function: linear !important;
   -o-transition-timing-function: linear !important;
   transition-timing-function: linear !important;
 }
 
-.bricksfly-brand-slider-wrapper .text-slide-content {
+.aab-brand-slider-wrapper .text-slide-content {
   display: flex;
   align-items: center;
   gap: 30px;
   white-space: nowrap;
 }
-.bricksfly-brand-slider-wrapper .swiper-slide {
+.aab-brand-slider-wrapper .swiper-slide {
   display:flex;
 }
 
-.bricksfly-brand-slider-wrapper.slide-width-auto .swiper-slide {
+.aab-brand-slider-wrapper.slide-width-auto .swiper-slide {
   width: auto !important;
 }
 
-.bricksfly-brand-slider-wrapper .swiper-slide img {
+.aab-brand-slider-wrapper .swiper-slide img {
   display: block;
   max-width: 100%;
 }
 
-.bricksfly-brand-slider-wrapper .bricksfly-separator-icon {
+.aab-brand-slider-wrapper .aab-separator-icon {
   display: inline-flex;
   line-height: 1;
 }
 
-.bricksfly-brand-slider-wrapper .bricksfly-separator-icon svg {
+.aab-brand-slider-wrapper .aab-separator-icon svg {
   width: 1em;
   height: 1em;
 }
 
 /* Navigation arrows */
-.bricksfly-brand-slider-wrapper .bricksfly-arrow-prev,
-.bricksfly-brand-slider-wrapper .bricksfly-arrow-next {
+.aab-brand-slider-wrapper .aab-arrow-prev,
+.aab-brand-slider-wrapper .aab-arrow-next {
   width: 40px;
   height: 40px;
   display: flex;
@@ -60,45 +60,45 @@
   transition: all 0.3s;
 }
 
-.bricksfly-brand-slider-wrapper .bricksfly-arrow-prev {
+.aab-brand-slider-wrapper .aab-arrow-prev {
   left: 0;
 }
 
-.bricksfly-brand-slider-wrapper .bricksfly-arrow-next {
+.aab-brand-slider-wrapper .aab-arrow-next {
   right: 0;
 }
 
-.bricksfly-brand-slider-wrapper .bricksfly-arrow-prev svg,
-.bricksfly-brand-slider-wrapper .bricksfly-arrow-next svg {
+.aab-brand-slider-wrapper .aab-arrow-prev svg,
+.aab-brand-slider-wrapper .aab-arrow-next svg {
   width: 1em;
   height: 1em;
 }
 
 /* Pagination */
-.bricksfly-brand-slider-wrapper .swiper-pagination {
+.aab-brand-slider-wrapper .swiper-pagination {
   position: static;
   margin-top: 15px;
   text-align: center;
 }
 
-.bricksfly-brand-slider-wrapper .swiper-pagination-bullets {
+.aab-brand-slider-wrapper .swiper-pagination-bullets {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.bricksfly-brand-slider-wrapper .swiper-pagination-bullets .swiper-pagination-bullet {
+.aab-brand-slider-wrapper .swiper-pagination-bullets .swiper-pagination-bullet {
   margin: 0;
 }
 
-.bricksfly-brand-slider-wrapper .swiper-pagination-fraction {
+.aab-brand-slider-wrapper .swiper-pagination-fraction {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 4px;
 }
 
-.bricksfly-brand-slider-wrapper .swiper-pagination-progressbar {
+.aab-brand-slider-wrapper .swiper-pagination-progressbar {
   position: relative;
   height: 4px;
   margin-top: 15px;

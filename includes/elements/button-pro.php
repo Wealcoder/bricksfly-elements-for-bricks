@@ -8,7 +8,7 @@ class BRICKSFLY_Bricks_Button_Pro extends \Bricks\Element
 	public $category     = 'bricks fly';
 	public $name         = 'aab-button-pro';
 	public $icon         = 'ti-mouse-alt aab-element-marker';
-	public $css_selector = '.bricksfly-btn-pro-wrapper';
+	public $css_selector = '.aae--btn-pro-wrapper';
 	public $scripts      = ['bricksflyButtonPro'];
 
 	public function get_label()
@@ -210,7 +210,7 @@ class BRICKSFLY_Bricks_Button_Pro extends \Bricks\Element
 			'css'      => [
 				[
 					'property' => 'flex-direction',
-					'selector' => '.bricksfly-btn-pro, .wcf__btn a',
+					'selector' => '.aae--btn-pro, .wcf__btn a',
 				],
 			],
 		];
@@ -233,7 +233,7 @@ class BRICKSFLY_Bricks_Button_Pro extends \Bricks\Element
 			'css'      => [
 				[
 					'property' => '--outline-gap',
-					'selector' => '&.style-7 .bricksfly-btn-pro',
+					'selector' => '&.style-7 .aae--btn-pro',
 				],
 			],
 		];
@@ -262,7 +262,7 @@ class BRICKSFLY_Bricks_Button_Pro extends \Bricks\Element
 			'css'   => [
 				[
 					'property' => 'typography',
-					'selector' => '.bricksfly-btn-pro, .g-btn-text, .wcf__btn a',
+					'selector' => '.aae--btn-pro, .g-btn-text, .wcf__btn a',
 				],
 			],
 		];
@@ -276,7 +276,7 @@ class BRICKSFLY_Bricks_Button_Pro extends \Bricks\Element
 			'css'      => [
 				[
 					'property' => 'background',
-					'selector' => '.bricksfly-btn-pro, .g-btn-text, .g-btn-icon, .wcf__btn a',
+					'selector' => '.aae--btn-pro, .g-btn-text, .g-btn-icon, .wcf__btn a',
 				],
 			],
 		];
@@ -304,7 +304,7 @@ class BRICKSFLY_Bricks_Button_Pro extends \Bricks\Element
 			'css'      => [
 				[
 					'property' => 'background',
-					'selector' => '.bricksfly-btn-pro::after',
+					'selector' => '.aae--btn-pro::after',
 				],
 			],
 		];
@@ -317,7 +317,7 @@ class BRICKSFLY_Bricks_Button_Pro extends \Bricks\Element
 			'css'   => [
 				[
 					'property' => 'border',
-					'selector' => '.bricksfly-btn-pro, .g-btn-text, .g-btn-icon, .wcf__btn a',
+					'selector' => '.aae--btn-pro, .g-btn-text, .g-btn-icon, .wcf__btn a',
 				],
 			],
 		];
@@ -347,7 +347,7 @@ class BRICKSFLY_Bricks_Button_Pro extends \Bricks\Element
 			'css'   => [
 				[
 					'property' => 'padding',
-					'selector' => '.bricksfly-btn-pro, .g-btn-text, .wcf__btn a',
+					'selector' => '.aae--btn-pro, .g-btn-text, .wcf__btn a',
 				],
 			],
 		];
@@ -368,11 +368,11 @@ class BRICKSFLY_Bricks_Button_Pro extends \Bricks\Element
 			'css'   => [
 				[
 					'property' => 'font-size',
-					'selector' => '.bricksfly-btn-pro .icon, .g-btn-icon, .wcf__btn a i',
+					'selector' => '.aae--btn-pro .icon, .g-btn-icon, .wcf__btn a i',
 				],
 				[
 					'property' => 'width',
-					'selector' => '&.style-4 .bricksfly-btn-pro strong',
+					'selector' => '&.style-4 .aae--btn-pro strong',
 				],
 			],
 		];
@@ -387,7 +387,7 @@ class BRICKSFLY_Bricks_Button_Pro extends \Bricks\Element
 			'css'   => [
 				[
 					'property' => 'width',
-					'selector' => '.bricksfly-btn-pro strong',
+					'selector' => '.aae--btn-pro strong',
 				],
 				
 			],
@@ -404,17 +404,17 @@ class BRICKSFLY_Bricks_Button_Pro extends \Bricks\Element
 			'css'   => [
 				[
 					'property' => 'height',
-					'selector' => '.bricksfly-btn-pro strong',
+					'selector' => '.aae--btn-pro strong',
 				],
 
 				[
 					'property' => 'border-right-width',
-					'selector' => '.bricksfly-btn-pro strong::after',
+					'selector' => '.aae--btn-pro strong::after',
 				],
 
 				[
 					'property' => 'border-bottom-width',
-					'selector' => '.bricksfly-btn-pro strong::after',
+					'selector' => '.aae--btn-pro strong::after',
 				],
 				
 			],
@@ -458,7 +458,7 @@ class BRICKSFLY_Bricks_Button_Pro extends \Bricks\Element
 			'css'      => [
 				[
 					'property' => 'gap',
-					'selector' => '.bricksfly-btn-pro, .g-btn-text, .wcf__btn a',
+					'selector' => '.aae--btn-pro, .g-btn-text, .wcf__btn a',
 				],
 			],
 		];
@@ -478,15 +478,15 @@ class BRICKSFLY_Bricks_Button_Pro extends \Bricks\Element
 			'css'   => [
 				[
 					'property' => 'color',
-					'selector' => '.bricksfly-btn-pro, .btn-text-flip span, .g-btn-text, .g-btn-icon, .wcf__btn a',
+					'selector' => '.aae--btn-pro, .btn-text-flip span, .g-btn-text, .g-btn-icon, .wcf__btn a',
 				],
 				[
 					'property' => 'fill',
-					'selector' => '.bricksfly-btn-pro, .g-btn-text, .g-btn-icon, .wcf__btn a',
+					'selector' => '.aae--btn-pro, .g-btn-text, .g-btn-icon, .wcf__btn a',
 				],
 				[
 					'property' => 'background-color',
-					'selector' => '&.style-4 .bricksfly-btn-pro strong',
+					'selector' => '&.style-4 .aae--btn-pro strong',
 				],
 			],
 		];
@@ -514,15 +514,15 @@ class BRICKSFLY_Bricks_Button_Pro extends \Bricks\Element
 			'css'   => [
 				[
 					'property' => 'color',
-					'selector' => '.bricksfly-btn-pro:hover, .bricksfly-btn-pro:hover .icon, .btn-text-flip:hover span, .bricksfly-btn-pro-group:hover .g-btn-text, .bricksfly-btn-pro-group:hover .g-btn-icon, .wcf__btn a:hover',
+					'selector' => '.aae--btn-pro:hover, .aae--btn-pro:hover .icon, .btn-text-flip:hover span, .aae-btn-pro-group:hover .g-btn-text, .aae-btn-pro-group:hover .g-btn-icon, .wcf__btn a:hover',
 				],
 				[
 					'property' => 'fill',
-					'selector' => '.bricksfly-btn-pro:hover, .bricksfly-btn-pro:hover .icon, .bricksfly-btn-pro-group:hover .g-btn-icon, .wcf__btn a:hover',
+					'selector' => '.aae--btn-pro:hover, .aae--btn-pro:hover .icon, .aae-btn-pro-group:hover .g-btn-icon, .wcf__btn a:hover',
 				],
 				[
 					'property' => 'background-color',
-					'selector' => '&.style-4 .bricksfly-btn-pro:hover strong',
+					'selector' => '&.style-4 .aae--btn-pro:hover strong',
 				],
 			],
 		];
@@ -537,12 +537,12 @@ class BRICKSFLY_Bricks_Button_Pro extends \Bricks\Element
 				// Icon (font icon) color on hover — overrides the inherited text hover color.
 				[
 					'property' => 'color',
-					'selector' => '.bricksfly-btn-pro:hover .icon, .bricksfly-btn-pro-group:hover .g-btn-icon, .wcf__btn a:hover i',
+					'selector' => '.aae--btn-pro:hover .icon, .aae-btn-pro-group:hover .g-btn-icon, .wcf__btn a:hover i',
 				],
 				// SVG icon fill on hover.
 				[
 					'property' => 'fill',
-					'selector' => '.bricksfly-btn-pro:hover .icon, .bricksfly-btn-pro-group:hover .g-btn-icon, .wcf__btn a:hover svg',
+					'selector' => '.aae--btn-pro:hover .icon, .aae-btn-pro-group:hover .g-btn-icon, .wcf__btn a:hover svg',
 				],
 			],
 		];
@@ -557,12 +557,12 @@ class BRICKSFLY_Bricks_Button_Pro extends \Bricks\Element
 				// Icon (font icon) color on hover — overrides the inherited text hover color.
 				[
 					'property' => 'background-color',
-					'selector' => '.bricksfly-btn-pro strong',
+					'selector' => '.aae--btn-pro strong',
 				],
 
 				[
 					'property' => 'border-color',
-					'selector' => '.bricksfly-btn-pro strong::after',
+					'selector' => '.aae--btn-pro strong::after',
 				],
                
 			
@@ -579,7 +579,7 @@ class BRICKSFLY_Bricks_Button_Pro extends \Bricks\Element
 			'css'   => [
 				[
 					'property' => 'border-color',
-					'selector' => '.bricksfly-btn-pro:hover, .g-btn-text:hover, .btn-border-divide:hover .text, .btn-border-divide:hover .icon, .wcf__btn a:hover, .g-btn-icon:hover',
+					'selector' => '.aae--btn-pro:hover, .g-btn-text:hover, .btn-border-divide:hover .text, .btn-border-divide:hover .icon, .wcf__btn a:hover, .g-btn-icon:hover',
 				],
 			],
 		];
@@ -592,7 +592,7 @@ class BRICKSFLY_Bricks_Button_Pro extends \Bricks\Element
 		// 	'css'   => [
 		// 		[
 		// 			'property' => 'background',
-		// 			'selector' => '.bricksfly-btn-pro:hover, .bricksfly-btn-pro-group:hover .g-btn-text, .bricksfly-btn-pro-group:hover .g-btn-icon, .wcf__btn a:hover',
+		// 			'selector' => '.aae--btn-pro:hover, .aae-btn-pro-group:hover .g-btn-text, .aae-btn-pro-group:hover .g-btn-icon, .wcf__btn a:hover',
 		// 		],
 		// 	],
 		// ];
@@ -605,7 +605,7 @@ class BRICKSFLY_Bricks_Button_Pro extends \Bricks\Element
 			'css'   => [
 				[
 					'property' => 'background',
-					'selector' => '.bricksfly-btn-pro:hover, .bricksfly-btn-pro-group:hover .g-btn-text, .bricksfly-btn-pro-group:hover .g-btn-icon, .wcf__btn a:hover',
+					'selector' => '.aae--btn-pro:hover, .aae-btn-pro-group:hover .g-btn-text, .aae-btn-pro-group:hover .g-btn-icon, .wcf__btn a:hover',
 				],
 			],
 			
@@ -626,7 +626,7 @@ class BRICKSFLY_Bricks_Button_Pro extends \Bricks\Element
 			'css'      => [
 				[
 					'property' => 'background-color',
-					'selector' => '&.style-4 .bricksfly-btn-pro span',
+					'selector' => '&.style-4 .aae--btn-pro span',
 				],
 				[
 					'property' => '--btn-hover-bg',
@@ -649,7 +649,7 @@ class BRICKSFLY_Bricks_Button_Pro extends \Bricks\Element
 			'css'      => [
 				[
 					'property' => 'box-shadow',
-					'selector' => '&.style-2 .bricksfly-btn-pro:hover',
+					'selector' => '&.style-2 .aae--btn-pro:hover',
 				],
 			],
 		];
@@ -665,7 +665,7 @@ class BRICKSFLY_Bricks_Button_Pro extends \Bricks\Element
 			'css'      => [
 				[
 					'property' => 'top',
-					'selector' => '&.style-7 .bricksfly-btn-pro:hover::after',
+					'selector' => '&.style-7 .aae--btn-pro:hover::after',
 				],
 			],
 		];
@@ -681,7 +681,7 @@ class BRICKSFLY_Bricks_Button_Pro extends \Bricks\Element
 			'css'      => [
 				[
 					'property' => 'left',
-					'selector' => '&.style-8 .bricksfly-btn-pro:hover::after',
+					'selector' => '&.style-8 .aae--btn-pro:hover::after',
 				],
 			],
 		];
@@ -730,7 +730,7 @@ class BRICKSFLY_Bricks_Button_Pro extends \Bricks\Element
 		$text_html    = wp_kses($text, $allowed_html);
 		$text_plain   = wp_strip_all_tags($text);
 
-		$this->set_attribute('_root', 'class', ['bricksfly-btn-pro-wrapper', 'style-' . $style]);
+		$this->set_attribute('_root', 'class', ['aae--btn-pro-wrapper', 'style-' . $style]);
 
 		$link_key = 'btn-link';
 
@@ -812,7 +812,7 @@ class BRICKSFLY_Bricks_Button_Pro extends \Bricks\Element
 		switch ($style) {
 
 			case '1':
-				$this->set_attribute($link_key, 'class', ['bricksfly-btn-pro', 'btn-border-divide']);
+				$this->set_attribute($link_key, 'class', ['aae--btn-pro', 'btn-border-divide']);
 				echo wp_kses_post('<a ' . $this->render_attributes($link_key) . '>');
 				echo wp_kses_post('<span class="text">' . $text_html . '</span>');
 				echo wp_kses_post('<span class="icon">' . $icon_html . $icon_html . '</span>');
@@ -820,7 +820,7 @@ class BRICKSFLY_Bricks_Button_Pro extends \Bricks\Element
 				break;
 
 			case '2':
-				$this->set_attribute($link_key, 'class', ['bricksfly-btn-pro']);
+				$this->set_attribute($link_key, 'class', ['aae--btn-pro']);
 				echo wp_kses_post('<a ' . $this->render_attributes($link_key) . '>');
 				echo wp_kses_post( $text_html );
 				echo wp_kses_post('<span class="icon">' . $icon_html . '</span>');
@@ -828,7 +828,7 @@ class BRICKSFLY_Bricks_Button_Pro extends \Bricks\Element
 				break;
 
 			case '3':
-				$this->set_attribute($link_key, 'class', ['bricksfly-btn-pro', 'btn-text-flip']);
+				$this->set_attribute($link_key, 'class', ['aae--btn-pro', 'btn-text-flip']);
 				echo wp_kses_post('<a ' . $this->render_attributes($link_key) . '>');
 				// data-text is an attribute → plain text only.
 				echo wp_kses_post('<span data-text="' . esc_attr($text_plain) . '">' . $text_html . '</span>');
@@ -837,7 +837,7 @@ class BRICKSFLY_Bricks_Button_Pro extends \Bricks\Element
 				break;
 
 			case '4':
-				$this->set_attribute($link_key, 'class', ['btn-hover', 'bricksfly-btn-pro']);
+				$this->set_attribute($link_key, 'class', ['btn-hover', 'aae--btn-pro']);
 				echo wp_kses_post('<a ' . $this->render_attributes($link_key) . '>');
 				echo '<span></span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo wp_kses_post( $text_html );
@@ -847,7 +847,7 @@ class BRICKSFLY_Bricks_Button_Pro extends \Bricks\Element
 
 			case '5':
 			case '6':
-				$this->set_attribute($link_key, 'class', ['bricksfly-btn-pro-group']);
+				$this->set_attribute($link_key, 'class', ['aae-btn-pro-group']);
 				echo wp_kses_post('<a ' . $this->render_attributes($link_key) . '>');
 				echo wp_kses_post('<span class="g-btn-icon">' . $icon_html . '</span>');
 				echo wp_kses_post('<span class="g-btn-text">' . $text_html . '</span>');
@@ -858,7 +858,7 @@ class BRICKSFLY_Bricks_Button_Pro extends \Bricks\Element
 			case '7':
 			case '8':
 			default:
-				$this->set_attribute($link_key, 'class', ['bricksfly-btn-pro']);
+				$this->set_attribute($link_key, 'class', ['aae--btn-pro']);
 				echo wp_kses_post('<a ' . $this->render_attributes($link_key) . '>');
 				echo wp_kses_post( $text_html );
 				echo wp_kses_post('<span class="icon">' . $icon_html . '</span>');

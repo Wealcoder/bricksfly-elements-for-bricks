@@ -7,7 +7,7 @@ class BRICKSFLY_Bricks_Video_Story extends \Bricks\Element {
 	public $category     = 'bricks fly';
 	public $name         = 'aab-video-story';
 	public $icon         = 'ti-video-clapper aab-element-marker';
-	public $css_selector = '.bricksfly-video-story';
+	public $css_selector = '.aab--video-story';
 	public $scripts      = [ 'bricksflyVideoStory' ];
 
 	public function get_label() {
@@ -255,7 +255,7 @@ class BRICKSFLY_Bricks_Video_Story extends \Bricks\Element {
 			'default' => 3,
 			'css'     => [[
 				'property' => 'grid-template-columns',
-				'selector' => '.bricksfly-posts',
+				'selector' => '.aab--posts',
 				'value'    => 'repeat(%s, 1fr)',
 			]],
 		];
@@ -267,7 +267,7 @@ class BRICKSFLY_Bricks_Video_Story extends \Bricks\Element {
 			'units' => true,
 			'css'   => [[
 				'property' => 'column-gap',
-				'selector' => '.bricksfly-posts',
+				'selector' => '.aab--posts',
 			]],
 			'default' => '30px',
 		];
@@ -279,7 +279,7 @@ class BRICKSFLY_Bricks_Video_Story extends \Bricks\Element {
 			'units' => true,
 			'css'   => [[
 				'property' => 'row-gap',
-				'selector' => '.bricksfly-posts',
+				'selector' => '.aab--posts',
 			]],
 			'default' => '35px',
 		];
@@ -290,7 +290,7 @@ class BRICKSFLY_Bricks_Video_Story extends \Bricks\Element {
 			'type'  => 'color',
 			'css'   => [[
 				'property' => 'background-color',
-				'selector' => '.bricksfly-post::after',
+				'selector' => '.aab--post::after',
 			]],
 		];
 
@@ -372,7 +372,7 @@ class BRICKSFLY_Bricks_Video_Story extends \Bricks\Element {
 			'type'     => 'typography',
 			'css'      => [[
 				'property' => 'typography',
-				'selector' => '.bricksfly-post-title',
+				'selector' => '.aab-post-title',
 			]],
 			'required' => [[ 'show_title', '!=', '' ]],
 		];
@@ -383,7 +383,7 @@ class BRICKSFLY_Bricks_Video_Story extends \Bricks\Element {
 			'type'     => 'color',
 			'css'      => [[
 				'property' => 'color',
-				'selector' => '.bricksfly-post-title',
+				'selector' => '.aab-post-title',
 			]],
 			'required' => [[ 'show_title', '!=', '' ]],
 		];
@@ -394,7 +394,7 @@ class BRICKSFLY_Bricks_Video_Story extends \Bricks\Element {
 			'type'     => 'dimensions',
 			'css'      => [[
 				'property' => 'margin',
-				'selector' => '.bricksfly-post-title',
+				'selector' => '.aab-post-title',
 			]],
 			'required' => [[ 'show_title', '!=', '' ]],
 		];
@@ -406,7 +406,7 @@ class BRICKSFLY_Bricks_Video_Story extends \Bricks\Element {
 			'type'     => 'color',
 			'css'      => [[
 				'property' => 'color',
-				'selector' => '.bricksfly-post-excerpt',
+				'selector' => '.aab-post-excerpt',
 			]],
 			'required' => [[ 'show_excerpt', '!=', '' ]],
 		];
@@ -417,7 +417,7 @@ class BRICKSFLY_Bricks_Video_Story extends \Bricks\Element {
 			'type'     => 'typography',
 			'css'      => [[
 				'property' => 'typography',
-				'selector' => '.bricksfly-post-excerpt',
+				'selector' => '.aab-post-excerpt',
 			]],
 			'required' => [[ 'show_excerpt', '!=', '' ]],
 		];
@@ -429,7 +429,7 @@ class BRICKSFLY_Bricks_Video_Story extends \Bricks\Element {
 			'type'     => 'typography',
 			'css'      => [[
 				'property' => 'typography',
-				'selector' => '.bricksfly-post-taxonomy a',
+				'selector' => '.aab-post-taxonomy a',
 			]],
 			'required' => [[ 'show_taxonomy', '!=', '' ]],
 		];
@@ -440,7 +440,7 @@ class BRICKSFLY_Bricks_Video_Story extends \Bricks\Element {
 			'type'     => 'color',
 			'css'      => [[
 				'property' => 'color',
-				'selector' => '.bricksfly-post-taxonomy a',
+				'selector' => '.aab-post-taxonomy a',
 			]],
 			'required' => [[ 'show_taxonomy', '!=', '' ]],
 		];
@@ -451,7 +451,7 @@ class BRICKSFLY_Bricks_Video_Story extends \Bricks\Element {
 			'type'     => 'color',
 			'css'      => [[
 				'property' => 'background-color',
-				'selector' => '.bricksfly-post-taxonomy a',
+				'selector' => '.aab-post-taxonomy a',
 			]],
 			'required' => [[ 'show_taxonomy', '!=', '' ]],
 		];
@@ -462,7 +462,7 @@ class BRICKSFLY_Bricks_Video_Story extends \Bricks\Element {
 			'type'     => 'dimensions',
 			'css'      => [[
 				'property' => 'padding',
-				'selector' => '.bricksfly-post-taxonomy a',
+				'selector' => '.aab-post-taxonomy a',
 			]],
 			'required' => [[ 'show_taxonomy', '!=', '' ]],
 		];
@@ -473,7 +473,7 @@ class BRICKSFLY_Bricks_Video_Story extends \Bricks\Element {
 			'type'     => 'border',
 			'css'      => [[
 				'property' => 'border',
-				'selector' => '.bricksfly-post-taxonomy a',
+				'selector' => '.aab-post-taxonomy a',
 			]],
 			'required' => [[ 'show_taxonomy', '!=', '' ]],
 		];
@@ -485,7 +485,7 @@ class BRICKSFLY_Bricks_Video_Story extends \Bricks\Element {
 			'type'     => 'color',
 			'css'      => [[
 				'property' => 'color',
-				'selector' => '.bricksfly-post-meta',
+				'selector' => '.aab-post-meta',
 			]],
 			'required' => [[ 'show_meta', '!=', '' ]],
 		];
@@ -496,7 +496,7 @@ class BRICKSFLY_Bricks_Video_Story extends \Bricks\Element {
 			'type'     => 'typography',
 			'css'      => [[
 				'property' => 'typography',
-				'selector' => '.bricksfly-post-meta',
+				'selector' => '.aab-post-meta',
 			]],
 			'required' => [[ 'show_meta', '!=', '' ]],
 		];
@@ -508,7 +508,7 @@ class BRICKSFLY_Bricks_Video_Story extends \Bricks\Element {
 			'units'    => true,
 			'css'      => [[
 				'property' => 'gap',
-				'selector' => '.bricksfly-post-meta',
+				'selector' => '.aab-post-meta',
 			]],
 			'required' => [[ 'show_meta', '!=', '' ]],
 		];
@@ -547,16 +547,16 @@ class BRICKSFLY_Bricks_Video_Story extends \Bricks\Element {
 			return;
 		}
 
-		$this->set_attribute( '_root', 'class', 'bricksfly-video-story' );
+		$this->set_attribute( '_root', 'class', 'aab--video-story' );
 
 		echo wp_kses_post('<div ' . $this->render_attributes( '_root' ) . '>');
-		echo '<div class="bricksfly-posts">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo '<div class="aab--posts">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		while ( $query->have_posts() ) {
 			$query->the_post();
 			$post_id = get_the_ID();
 
-			echo '<article class="bricksfly-post">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo '<article class="aab--post">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 			// Thumbnail / Video
 			echo '<div class="thumb">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -580,7 +580,7 @@ class BRICKSFLY_Bricks_Video_Story extends \Bricks\Element {
 			if ( $show_taxonomy ) {
 				$terms = get_the_terms( $post_id, $taxonomy );
 				if ( $terms && ! is_wp_error( $terms ) ) {
-					echo '<div class="bricksfly-post-taxonomy">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					echo '<div class="aab-post-taxonomy">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					$count = 0;
 					foreach ( $terms as $term ) {
 						if ( $tax_limit > 0 && $count >= $tax_limit ) break;
@@ -597,19 +597,19 @@ class BRICKSFLY_Bricks_Video_Story extends \Bricks\Element {
 				if ( $title_length > 0 ) {
 					$title = wp_trim_words( $title, $title_length, '...' );
 				}
-				echo '<' . tag_escape( $title_tag ) . ' class="bricksfly-post-title">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo '<' . tag_escape( $title_tag ) . ' class="aab-post-title">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo '<a href="' . esc_url( get_permalink() ) . '">' . esc_html( $title ) . '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo '</' . tag_escape( $title_tag ) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			}
 
 			// Excerpt
 			if ( $show_excerpt ) {
-				echo '<div class="bricksfly-post-excerpt">' . esc_html( wp_trim_words( get_the_excerpt(), $excerpt_length, '...' ) ) . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo '<div class="aab-post-excerpt">' . esc_html( wp_trim_words( get_the_excerpt(), $excerpt_length, '...' ) ) . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			}
 
 			// Meta
 			if ( $show_meta ) {
-				echo '<div class="bricksfly-post-meta">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo '<div class="aab-post-meta">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo '<span>' . esc_html( get_the_date() ) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			}

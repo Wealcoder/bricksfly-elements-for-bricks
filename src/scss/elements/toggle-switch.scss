@@ -1,9 +1,9 @@
-.bricksfly-toggle-switch-wrapper {
+.aae-toggle-switch-wrapper {
     display: flex;
     flex-direction: column;
 }
 
-.bricksfly-toggle-switch-wrapper .slide-toggle-wrapper {
+.aae-toggle-switch-wrapper .slide-toggle-wrapper {
     --switcher-width: 40px;
     --switcher-border-width: 2px;
     --switcher-indicator-width: 16px;
@@ -20,25 +20,25 @@
 
 }
 
-.bricksfly-toggle-switch-wrapper .slide-toggle-wrapper input {
+.aae-toggle-switch-wrapper .slide-toggle-wrapper input {
     display: none;
 }
 
-.bricksfly-toggle-switch-wrapper .before_label,
-.bricksfly-toggle-switch-wrapper .after_label {
+.aae-toggle-switch-wrapper .before_label,
+.aae-toggle-switch-wrapper .after_label {
     cursor: pointer;
 }
 
-.bricksfly-toggle-switch-wrapper .toggle-pane {
+.aae-toggle-switch-wrapper .toggle-pane {
     display: none;
 }
 
-.bricksfly-toggle-switch-wrapper .toggle-pane.show {
+.aae-toggle-switch-wrapper .toggle-pane.show {
     display: block;
 }
 
 /* Style 1 — slider toggle */
-.bricksfly-toggle-switch-wrapper.style-1 .switcher {
+.aae-toggle-switch-wrapper.style-1 .switcher {
     display: inline-block;
     width: var(--switcher-width);
     height: 20px;
@@ -49,7 +49,7 @@
     cursor: pointer;
 }
 
-.bricksfly-toggle-switch-wrapper.style-1 .switcher::before {
+.aae-toggle-switch-wrapper.style-1 .switcher::before {
     content: "";
     position: absolute;
     top: 50%;
@@ -62,29 +62,29 @@
     transform: translate(0px, -50%);
 }
 
-.bricksfly-toggle-switch-wrapper.style-1 input:checked + .switcher::before {
+.aae-toggle-switch-wrapper.style-1 input:checked + .switcher::before {
     transform: translate(calc(var(--switcher-width) - (var(--switcher-indicator-width) + 2 * var(--switcher-border-width))), -50%);
 }
 
-.bricksfly-toggle-switch-wrapper.style-1 input:checked + .switcher {
+.aae-toggle-switch-wrapper.style-1 input:checked + .switcher {
     background-color: #000;
     border-color: #000;
 }
 
 /* Style 2 — tab style with sliding background */
-.bricksfly-toggle-switch-wrapper.style-2 .switcher {
+.aae-toggle-switch-wrapper.style-2 .switcher {
     display: none;
 }
 
-.bricksfly-toggle-switch-wrapper.style-2 .before_label,
-.bricksfly-toggle-switch-wrapper.style-2 .after_label {
+.aae-toggle-switch-wrapper.style-2 .before_label,
+.aae-toggle-switch-wrapper.style-2 .after_label {
     padding: 10px 20px;
     position: relative;
     z-index: 2;
 }
 
-.bricksfly-toggle-switch-wrapper.style-2 .before_label::after,
-.bricksfly-toggle-switch-wrapper.style-2 .after_label::after {
+.aae-toggle-switch-wrapper.style-2 .before_label::after,
+.aae-toggle-switch-wrapper.style-2 .after_label::after {
     content: '';
     width: 100%;
     height: 100%;
@@ -106,22 +106,22 @@
     border-radius:inherit;
 }
 
-.bricksfly-toggle-switch-wrapper.style-2 .before_label.active,
-.bricksfly-toggle-switch-wrapper.style-2 .after_label.active {
+.aae-toggle-switch-wrapper.style-2 .before_label.active,
+.aae-toggle-switch-wrapper.style-2 .after_label.active {
     color: #fff;
 }
 
-.bricksfly-toggle-switch-wrapper.style-2 .before_label.active::after,
-.bricksfly-toggle-switch-wrapper.style-2 .after_label.active::after {
+.aae-toggle-switch-wrapper.style-2 .before_label.active::after,
+.aae-toggle-switch-wrapper.style-2 .after_label.active::after {
     opacity: 1;
     visibility: visible;
     transform: translatex(0);
 }
 
-.bricksfly-toggle-switch-wrapper.style-2 .before_label::after {
+.aae-toggle-switch-wrapper.style-2 .before_label::after {
     transform: translatex(100%);
 }
 
-.bricksfly-toggle-switch-wrapper.style-2 .after_label::after {
+.aae-toggle-switch-wrapper.style-2 .after_label::after {
     transform: translatex(-100%);
 }

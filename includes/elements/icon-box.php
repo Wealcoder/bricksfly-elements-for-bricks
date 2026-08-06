@@ -8,7 +8,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 	public $category     = 'bricks fly';
 	public $name         = 'aab-icon-box';
 	public $icon         = 'ti-layout-media-center-alt aab-element-marker';
-	public $css_selector = '.bricksfly-icon-box';
+	public $css_selector = '.aab-icon-box';
 	public $scripts      = ['bricksflyIconBox'];
 
 	public function get_label()
@@ -217,7 +217,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'units' => true,
 			'css'   => [[
 				'property' => 'gap',
-				'selector' => '.bricksfly-icon-box',
+				'selector' => '.aab-icon-box',
 			]],
 		];
 
@@ -250,7 +250,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'required' => [['layout_preset', '=', 'gradient-bar']],
 			'css'      => [[
 				'property' => 'background',
-				'selector' => '.bricksfly-icon-box::before',
+				'selector' => '.aab-icon-box::before',
 			]],
 		];
 
@@ -262,7 +262,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'required' => [['layout_preset', '=', 'icon-left-line']],
 			'css'      => [[
 				'property' => 'background-color',
-				'selector' => '.bricksfly-icon-box__line',
+				'selector' => '.aab-icon-box__line',
 			]],
 		];
 
@@ -374,7 +374,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'type'  => 'background',
 			'css'   => [[
 				'property' => 'background',
-				'selector' => '.bricksfly-icon-box',
+				'selector' => '.aab-icon-box',
 			]],
 		];
 
@@ -384,7 +384,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'type'  => 'dimensions',
 			'css'   => [[
 				'property' => 'padding',
-				'selector' => '.bricksfly-icon-box',
+				'selector' => '.aab-icon-box',
 			]],
 		];
 
@@ -396,11 +396,11 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'css'   => [
 				[
 					'property' => 'border',
-					'selector' => '.bricksfly-icon-box:not(.bricksfly-icon-box--flip-card) ',
+					'selector' => '.aab-icon-box:not(.aab-icon-box--flip-card) ',
 				],
 				[
 					'property' => 'border-radius',
-					'selector' => '.bricksfly-icon-box--flip-card .bricksfly-icon-box__flip-front, .bricksfly-icon-box--flip-card .bricksfly-icon-box__flip-back',
+					'selector' => '.aab-icon-box--flip-card .aab-icon-box__flip-front, .aab-icon-box--flip-card .aab-icon-box__flip-back',
 				],
 			],
 		];
@@ -412,11 +412,11 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 		// 	'css'   => [
 		// 		[
 		// 			'property' => 'border',
-		// 			'selector' => '.bricksfly-icon-box',
+		// 			'selector' => '.aab-icon-box',
 		// 		],
 		// 		[
 		// 			'property' => 'border-radius',
-		// 			'selector' => '.bricksfly-icon-box--flip-card .bricksfly-icon-box__flip-front, .bricksfly-icon-box--flip-card .bricksfly-icon-box__flip-back',
+		// 			'selector' => '.aab-icon-box--flip-card .aab-icon-box__flip-front, .aab-icon-box--flip-card .aab-icon-box__flip-back',
 		// 		],
 		// 	],
 		// ];
@@ -427,7 +427,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'type'  => 'box-shadow',
 			'css'   => [[
 				'property' => 'box-shadow',
-				'selector' => '.bricksfly-icon-box',
+				'selector' => '.aab-icon-box',
 			]],
 		];
 
@@ -437,7 +437,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'type'  => 'background',
 			'css'   => [[
 				'property' => 'background',
-				'selector' => '.bricksfly-icon-box:hover',
+				'selector' => '.aab-icon-box:hover',
 			]],
 		];
 
@@ -447,7 +447,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'type'  => 'color',
 			'css'   => [[
 				'property' => 'border-color',
-				'selector' => '.bricksfly-icon-box:hover',
+				'selector' => '.aab-icon-box:hover',
 			]],
 		];
 
@@ -457,7 +457,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'type'  => 'box-shadow',
 			'css'   => [[
 				'property' => 'box-shadow',
-				'selector' => '.bricksfly-icon-box:hover',
+				'selector' => '.aab-icon-box:hover',
 			]],
 		];
 
@@ -468,7 +468,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'default' => 300,
 			'css'     => [[
 				'property' => 'transition-duration',
-				'selector' => '.bricksfly-icon-box',
+				'selector' => '.aab-icon-box',
 				'value'    => '%sms',
 			]],
 		];
@@ -484,7 +484,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'units' => true,
 			'css'   => [[
 				'property' => 'font-size',
-				'selector' => '.bricksfly-icon-box__icon',
+				'selector' => '.aab-icon-box__icon',
 			]],
 		];
 
@@ -494,7 +494,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'type'  => 'color',
 			'css'   => [[
 				'property' => 'color',
-				'selector' => '.bricksfly-icon-box__icon',
+				'selector' => '.aab-icon-box__icon',
 			]],
 		];
 
@@ -504,7 +504,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'type'  => 'color',
 			'css'   => [[
 				'property' => 'background-color',
-				'selector' => '.bricksfly-icon-box__icon',
+				'selector' => '.aab-icon-box__icon',
 			]],
 		];
 
@@ -516,11 +516,11 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'css'   => [
 				[
 					'property' => 'width',
-					'selector' => '.bricksfly-icon-box__icon',
+					'selector' => '.aab-icon-box__icon',
 				],
 				[
 					'property' => 'height',
-					'selector' => '.bricksfly-icon-box__icon',
+					'selector' => '.aab-icon-box__icon',
 				],
 			],
 		];
@@ -531,7 +531,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'type'  => 'border',
 			'css'   => [[
 				'property' => 'border',
-				'selector' => '.bricksfly-icon-box__icon',
+				'selector' => '.aab-icon-box__icon',
 			]],
 		];
 
@@ -541,7 +541,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'type'  => 'dimensions',
 			'css'   => [[
 				'property' => 'padding',
-				'selector' => '.bricksfly-icon-box__icon',
+				'selector' => '.aab-icon-box__icon',
 			]],
 		];
 
@@ -551,7 +551,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'type'  => 'box-shadow',
 			'css'   => [[
 				'property' => 'box-shadow',
-				'selector' => '.bricksfly-icon-box__icon',
+				'selector' => '.aab-icon-box__icon',
 			]],
 		];
 
@@ -561,7 +561,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'type'  => 'color',
 			'css'   => [[
 				'property' => 'color',
-				'selector' => '.bricksfly-icon-box:hover .bricksfly-icon-box__icon',
+				'selector' => '.aab-icon-box:hover .aab-icon-box__icon',
 			]],
 		];
 
@@ -571,7 +571,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'type'  => 'color',
 			'css'   => [[
 				'property' => 'background-color',
-				'selector' => '.bricksfly-icon-box:hover .bricksfly-icon-box__icon',
+				'selector' => '.aab-icon-box:hover .aab-icon-box__icon',
 			]],
 		];
 
@@ -582,7 +582,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'units' => true,
 			'css'   => [[
 				'property' => 'margin-bottom',
-				'selector' => '.bricksfly-icon-box__icon',
+				'selector' => '.aab-icon-box__icon',
 			]],
 		];
 
@@ -596,7 +596,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'type'  => 'typography',
 			'css'   => [[
 				'property' => 'typography',
-				'selector' => '.bricksfly-icon-box__title',
+				'selector' => '.aab-icon-box__title',
 			]],
 		];
 
@@ -606,7 +606,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'type'  => 'color',
 			'css'   => [[
 				'property' => 'color',
-				'selector' => '.bricksfly-icon-box__title',
+				'selector' => '.aab-icon-box__title',
 			]],
 		];
 
@@ -616,7 +616,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'type'  => 'color',
 			'css'   => [[
 				'property' => 'color',
-				'selector' => '.bricksfly-icon-box:hover .bricksfly-icon-box__title',
+				'selector' => '.aab-icon-box:hover .aab-icon-box__title',
 			]],
 		];
 
@@ -626,7 +626,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'type'  => 'dimensions',
 			'css'   => [[
 				'property' => 'margin',
-				'selector' => '.bricksfly-icon-box__title',
+				'selector' => '.aab-icon-box__title',
 			]],
 		];
 
@@ -640,7 +640,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'type'  => 'typography',
 			'css'   => [[
 				'property' => 'typography',
-				'selector' => '.bricksfly-icon-box__desc',
+				'selector' => '.aab-icon-box__desc',
 			]],
 		];
 
@@ -650,7 +650,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'type'  => 'color',
 			'css'   => [[
 				'property' => 'color',
-				'selector' => '.bricksfly-icon-box__desc',
+				'selector' => '.aab-icon-box__desc',
 			]],
 		];
 
@@ -660,7 +660,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'type'  => 'color',
 			'css'   => [[
 				'property' => 'color',
-				'selector' => '.bricksfly-icon-box:hover .bricksfly-icon-box__desc',
+				'selector' => '.aab-icon-box:hover .aab-icon-box__desc',
 			]],
 		];
 
@@ -670,7 +670,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'type'  => 'dimensions',
 			'css'   => [[
 				'property' => 'margin',
-				'selector' => '.bricksfly-icon-box__desc',
+				'selector' => '.aab-icon-box__desc',
 			]],
 		];
 
@@ -684,7 +684,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'type'  => 'typography',
 			'css'   => [[
 				'property' => 'typography',
-				'selector' => '.bricksfly-icon-box__btn',
+				'selector' => '.aab-icon-box__btn',
 			]],
 		];
 
@@ -694,7 +694,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'type'  => 'color',
 			'css'   => [[
 				'property' => 'color',
-				'selector' => '.bricksfly-icon-box__btn',
+				'selector' => '.aab-icon-box__btn',
 			]],
 		];
 
@@ -704,7 +704,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'type'  => 'color',
 			'css'   => [[
 				'property' => 'background-color',
-				'selector' => '.bricksfly-icon-box__btn',
+				'selector' => '.aab-icon-box__btn',
 			]],
 		];
 
@@ -714,7 +714,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'type'  => 'border',
 			'css'   => [[
 				'property' => 'border',
-				'selector' => '.bricksfly-icon-box__btn',
+				'selector' => '.aab-icon-box__btn',
 			]],
 		];
 
@@ -724,7 +724,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'type'  => 'dimensions',
 			'css'   => [[
 				'property' => 'padding',
-				'selector' => '.bricksfly-icon-box__btn',
+				'selector' => '.aab-icon-box__btn',
 			]],
 		];
 
@@ -734,7 +734,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'type'  => 'box-shadow',
 			'css'   => [[
 				'property' => 'box-shadow',
-				'selector' => '.bricksfly-icon-box__btn',
+				'selector' => '.aab-icon-box__btn',
 			]],
 		];
 
@@ -745,7 +745,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'units' => true,
 			'css'   => [[
 				'property' => 'font-size',
-				'selector' => '.bricksfly-icon-box__btn-icon',
+				'selector' => '.aab-icon-box__btn-icon',
 			]],
 		];
 
@@ -756,7 +756,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'units' => true,
 			'css'   => [[
 				'property' => 'gap',
-				'selector' => '.bricksfly-icon-box__btn',
+				'selector' => '.aab-icon-box__btn',
 			]],
 		];
 
@@ -770,7 +770,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'type'  => 'color',
 			'css'   => [[
 				'property' => 'color',
-				'selector' => '.bricksfly-icon-box__btn:hover',
+				'selector' => '.aab-icon-box__btn:hover',
 			]],
 		];
 
@@ -780,7 +780,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'type'  => 'color',
 			'css'   => [[
 				'property' => 'background-color',
-				'selector' => '.bricksfly-icon-box__btn:hover',
+				'selector' => '.aab-icon-box__btn:hover',
 			]],
 		];
 
@@ -790,7 +790,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'type'  => 'color',
 			'css'   => [[
 				'property' => 'border-color',
-				'selector' => '.bricksfly-icon-box__btn:hover',
+				'selector' => '.aab-icon-box__btn:hover',
 			]],
 		];
 
@@ -800,7 +800,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'type'  => 'box-shadow',
 			'css'   => [[
 				'property' => 'box-shadow',
-				'selector' => '.bricksfly-icon-box__btn:hover',
+				'selector' => '.aab-icon-box__btn:hover',
 			]],
 		];
 
@@ -811,7 +811,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'required' => [['btn_hover_type', '=', ['fill-left', 'fill-right', 'fill-top', 'fill-bottom']]],
 			'css'      => [[
 				'property' => 'background-color',
-				'selector' => '.bricksfly-icon-box__btn::before',
+				'selector' => '.aab-icon-box__btn::before',
 			]],
 		];
 
@@ -822,7 +822,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'default' => 300,
 			'css'     => [[
 				'property' => 'transition-duration',
-				'selector' => '.bricksfly-icon-box__btn',
+				'selector' => '.aab-icon-box__btn',
 				'value'    => '%sms',
 			]],
 		];
@@ -840,7 +840,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'required' => [['layout_preset', '=', 'flip-card']],
 			'css'      => [[
 				'property' => 'background',
-				'selector' => '.bricksfly-icon-box__flip-back',
+				'selector' => '.aab-icon-box__flip-back',
 			]],
 		];
 
@@ -851,7 +851,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'required' => [['layout_preset', '=', 'flip-card']],
 			'css'      => [[
 				'property' => 'padding',
-				'selector' => '.bricksfly-icon-box__flip-back',
+				'selector' => '.aab-icon-box__flip-back',
 			]],
 		];
 
@@ -862,7 +862,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 		// 	'required' => [['layout_preset', '=', 'flip-card']],
 		// 	'css'      => [[
 		// 		'property' => 'border',
-		// 		'selector' => '.bricksfly-icon-box__flip-back',
+		// 		'selector' => '.aab-icon-box__flip-back',
 		// 	]],
 		// ];
 
@@ -873,7 +873,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'required' => [['layout_preset', '=', 'flip-card']],
 			'css'      => [[
 				'property' => 'border-color',
-				'selector' => '.bricksfly-icon-box--flip-card .bricksfly-icon-box__flip-back',
+				'selector' => '.aab-icon-box--flip-card .aab-icon-box__flip-back',
 			]],
 		];
 
@@ -884,7 +884,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'required' => [['layout_preset', '=', 'flip-card']],
 			'css'      => [[
 				'property' => 'box-shadow',
-				'selector' => '.bricksfly-icon-box__flip-back',
+				'selector' => '.aab-icon-box__flip-back',
 			]],
 		];
 
@@ -895,7 +895,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'required' => [['layout_preset', '=', 'flip-card']],
 			'css'      => [[
 				'property' => 'typography',
-				'selector' => '.bricksfly-icon-box__flip-back .bricksfly-icon-box__desc',
+				'selector' => '.aab-icon-box__flip-back .aab-icon-box__desc',
 			]],
 		];
 
@@ -906,7 +906,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 		// 	'required' => [['layout_preset', '=', 'flip-card']],
 		// 	'css'      => [[
 		// 		'property' => 'color',
-		// 		'selector' => '.bricksfly-icon-box__flip-back .bricksfly-icon-box__desc',
+		// 		'selector' => '.aab-icon-box__flip-back .aab-icon-box__desc',
 		// 	]],
 		// ];
 
@@ -917,7 +917,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 			'required' => [['layout_preset', '=', 'flip-card']],
 			'css'      => [[
 				'property' => 'margin',
-				'selector' => '.bricksfly-icon-box__flip-back .bricksfly-icon-box__desc',
+				'selector' => '.aab-icon-box__flip-back .aab-icon-box__desc',
 			]],
 		];
 	}
@@ -939,14 +939,14 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 
 		// Box classes
 		$box_classes = [
-			'bricksfly-icon-box',
-			'bricksfly-icon-box--' . $layout,
-			'bricksfly-icon-box--' . $direction,
-			'bricksfly-icon-box--align-' . $align,
+			'aab-icon-box',
+			'aab-icon-box--' . $layout,
+			'aab-icon-box--' . $direction,
+			'aab-icon-box--align-' . $align,
 		];
 
 		if (in_array($direction, ['horizontal', 'horizontal-reverse'], true)) {
-			$box_classes[] = 'bricksfly-icon-box--icon-' . $icon_pos;
+			$box_classes[] = 'aab-icon-box--icon-' . $icon_pos;
 		}
 
 		$this->set_attribute('box', 'class', $box_classes);
@@ -959,29 +959,29 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 
 		// Icon
 		if (! empty($s['icon'])) {
-			echo '<div class="bricksfly-icon-box__icon">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo '<div class="aab-icon-box__icon">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo wp_kses_post(self::render_icon($s['icon']));
 			echo '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 
 		// Line element for icon-left-line layout
 		if ($layout === 'icon-left-line') {
-			echo '<div class="bricksfly-icon-box__line"></div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo '<div class="aab-icon-box__line"></div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 
 		// Content wrapper
-		echo '<div class="bricksfly-icon-box__content">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo '<div class="aab-icon-box__content">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		// Title
 		$tag = $s['title_tag'] ?? 'h3';
 		$tag = in_array($tag, ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'span', 'div'], true) ? $tag : 'h3';
 		if (! empty($s['title'])) {
-			echo '<' . tag_escape($tag) . ' class="bricksfly-icon-box__title">' . esc_html($s['title']) . '</' . tag_escape($tag) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo '<' . tag_escape($tag) . ' class="aab-icon-box__title">' . esc_html($s['title']) . '</' . tag_escape($tag) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 
 		// Description
 		if (! empty($s['description'])) {
-			echo '<p class="bricksfly-icon-box__desc">' . esc_html($s['description']) . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo '<p class="aab-icon-box__desc">' . esc_html($s['description']) . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 
 		// Button
@@ -993,9 +993,9 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 
 		// Slide-up overlay
 		if ($layout === 'slide-up') {
-			echo '<div class="bricksfly-icon-box__slide-overlay">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo '<div class="aab-icon-box__slide-overlay">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			if (! empty($s['description'])) {
-				echo '<p class="bricksfly-icon-box__desc">' . esc_html($s['description']) . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo '<p class="aab-icon-box__desc">' . esc_html($s['description']) . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			}
 			if (! empty($s['show_button'])) {
 				$this->render_button($s);
@@ -1005,7 +1005,7 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 
 		// Box link overlay
 		if ($has_box_link) {
-			$this->set_attribute('box-link', 'class', 'bricksfly-icon-box__link-overlay');
+			$this->set_attribute('box-link', 'class', 'aab-icon-box__link-overlay');
 			$this->set_attribute('box-link', 'href', esc_url($s['box_link']['url']));
 			if (! empty($s['box_link']['newTab'])) {
 				$this->set_attribute('box-link', 'target', '_blank');
@@ -1024,10 +1024,10 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 		$back_text = $s['flip_back_text'] ?? '';
 
 		$box_classes = [
-			'bricksfly-icon-box',
-			'bricksfly-icon-box--flip-card',
-			'bricksfly-icon-box--flip-' . $flip_dir,
-			'bricksfly-icon-box--align-' . ($s['align'] ?? 'center'),
+			'aab-icon-box',
+			'aab-icon-box--flip-card',
+			'aab-icon-box--flip-' . $flip_dir,
+			'aab-icon-box--align-' . ($s['align'] ?? 'center'),
 		];
 
 		$this->set_attribute('box', 'class', $box_classes);
@@ -1039,29 +1039,29 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 		echo wp_kses_post('<div ' . $this->render_attributes('box') . '>');
 
 		// Front
-		echo '<div class="bricksfly-icon-box__flip-front">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo '<div class="aab-icon-box__flip-front">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		if (! empty($s['icon'])) {
-			echo wp_kses_post('<div class="bricksfly-icon-box__icon">' . self::render_icon($s['icon']) . '</div>');
+			echo wp_kses_post('<div class="aab-icon-box__icon">' . self::render_icon($s['icon']) . '</div>');
 		}
 		if (! empty($s['title'])) {
-			echo '<' . tag_escape($tag) . ' class="bricksfly-icon-box__title">' . esc_html($s['title']) . '</' . tag_escape($tag) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo '<' . tag_escape($tag) . ' class="aab-icon-box__title">' . esc_html($s['title']) . '</' . tag_escape($tag) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 		if (! empty($s['description'])) {
-			echo '<p class="bricksfly-icon-box__desc">' . esc_html($s['description']) . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo '<p class="aab-icon-box__desc">' . esc_html($s['description']) . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 		echo '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		// Back
-		echo '<div class="bricksfly-icon-box__flip-back">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo '<div class="aab-icon-box__flip-back">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		if (! empty($back_text)) {
-			echo '<p class="bricksfly-icon-box__desc">' . esc_html($back_text) . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo '<p class="aab-icon-box__desc">' . esc_html($back_text) . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 		if (! empty($s['show_button'])) {
 			$this->render_button($s);
 		}
 		// Box link on back
 		if (! empty($s['box_link']['url'])) {
-			echo '<a class="bricksfly-icon-box__link-overlay" href="' . esc_url($s['box_link']['url']) . '"'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo '<a class="aab-icon-box__link-overlay" href="' . esc_url($s['box_link']['url']) . '"'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			if (! empty($s['box_link']['newTab'])) {
 				echo ' target="_blank" rel="noopener noreferrer"'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			}
@@ -1081,20 +1081,20 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 		$icon_pos   = $s['btn_icon_position'] ?? 'after';
 
 		$btn_classes = [
-			'bricksfly-icon-box__btn',
-			'bricksfly-icon-box__btn--' . $btn_style,
-			'bricksfly-icon-box__btn--' . $btn_size,
+			'aab-icon-box__btn',
+			'aab-icon-box__btn--' . $btn_style,
+			'aab-icon-box__btn--' . $btn_size,
 		];
 
 		if ($btn_hover !== 'none') {
-			$btn_classes[] = 'bricksfly-icon-box__btn--hover-' . $btn_hover;
+			$btn_classes[] = 'aab-icon-box__btn--hover-' . $btn_hover;
 		}
 
 		if (! empty($s['btn_full_width'])) {
-			$btn_classes[] = 'bricksfly-icon-box__btn--full';
+			$btn_classes[] = 'aab-icon-box__btn--full';
 		}
 
-		$btn_classes[] = 'bricksfly-icon-box__btn--icon-' . $icon_pos;
+		$btn_classes[] = 'aab-icon-box__btn--icon-' . $icon_pos;
 
 		$this->set_attribute('btn', 'class', $btn_classes);
 
@@ -1109,13 +1109,13 @@ class BRICKSFLY_Bricks_Icon_Box extends \Bricks\Element
 		echo wp_kses_post('<a ' . $this->render_attributes('btn') . '>');
 
 		if (! empty($s['btn_icon']) && $icon_pos === 'before') {
-			echo wp_kses_post('<span class="bricksfly-icon-box__btn-icon">' . self::render_icon($s['btn_icon']) . '</span>');
+			echo wp_kses_post('<span class="aab-icon-box__btn-icon">' . self::render_icon($s['btn_icon']) . '</span>');
 		}
 
-		echo '<span class="bricksfly-icon-box__btn-text">' . esc_html($s['btn_text'] ?? esc_html__('Read More', 'bricksfly-elements-for-bricks')) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo '<span class="aab-icon-box__btn-text">' . esc_html($s['btn_text'] ?? esc_html__('Read More', 'bricksfly-elements-for-bricks')) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		if (! empty($s['btn_icon']) && $icon_pos === 'after') {
-			echo wp_kses_post('<span class="bricksfly-icon-box__btn-icon">' . self::render_icon($s['btn_icon']) . '</span>');
+			echo wp_kses_post('<span class="aab-icon-box__btn-icon">' . self::render_icon($s['btn_icon']) . '</span>');
 		}
 
 		echo '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped

@@ -8,7 +8,7 @@ class BRICKSFLY_Bricks_Brand_Slider extends \Bricks\Element
 	public $category     = 'bricks fly';
 	public $name         = 'aab-brand-slider';
 	public $icon         = 'ti-layout-slider aab-element-marker';
-	public $css_selector = '.bricksfly-brand-slider-wrapper';
+	public $css_selector = '.aab-brand-slider-wrapper';
 	public $scripts      = ['bricksflyBrandSlider'];
 
 	public function get_label()
@@ -465,8 +465,8 @@ class BRICKSFLY_Bricks_Brand_Slider extends \Bricks\Element
 			'label'    => esc_html__('Separator Color', 'bricksfly-elements-for-bricks'),
 			'type'     => 'color',
 			'css'      => [
-				['property' => 'color', 'selector' => '.bricksfly-separator-icon i'],
-				['property' => 'fill', 'selector' => '.bricksfly-separator-icon svg'],
+				['property' => 'color', 'selector' => '.aab-separator-icon i'],
+				['property' => 'fill', 'selector' => '.aab-separator-icon svg'],
 			],
 			'required' => ['slideContent', '=', 'text'],
 		];
@@ -477,7 +477,7 @@ class BRICKSFLY_Bricks_Brand_Slider extends \Bricks\Element
 			'label'    => esc_html__('Separator Size', 'bricksfly-elements-for-bricks'),
 			'type'     => 'number',
 			'units'    => ['px' => ['min' => 6, 'max' => 300]],
-			'css'      => [['property' => 'font-size', 'selector' => '.bricksfly-separator-icon']],
+			'css'      => [['property' => 'font-size', 'selector' => '.aab-separator-icon']],
 			'required' => ['slideContent', '=', 'text'],
 		];
 
@@ -489,7 +489,7 @@ class BRICKSFLY_Bricks_Brand_Slider extends \Bricks\Element
 			'label'    => esc_html__('Arrow Color', 'bricksfly-elements-for-bricks'),
 			'type'     => 'color',
 			'css'      => [
-				['property' => 'color', 'selector' => '.bricksfly-arrow-prev, .bricksfly-arrow-next'],
+				['property' => 'color', 'selector' => '.aab-arrow-prev, .aab-arrow-next'],
 			],
 			'required' => ['showNavigation', '=', 'on'],
 		];
@@ -500,7 +500,7 @@ class BRICKSFLY_Bricks_Brand_Slider extends \Bricks\Element
 			'label'    => esc_html__('Arrow Background', 'bricksfly-elements-for-bricks'),
 			'type'     => 'color',
 			'css'      => [
-				['property' => 'background-color', 'selector' => '.bricksfly-arrow-prev, .bricksfly-arrow-next'],
+				['property' => 'background-color', 'selector' => '.aab-arrow-prev, .aab-arrow-next'],
 			],
 			'required' => ['showNavigation', '=', 'on'],
 		];
@@ -512,8 +512,8 @@ class BRICKSFLY_Bricks_Brand_Slider extends \Bricks\Element
 			'type'     => 'number',
 			'units'    => ['px' => ['min' => 10, 'max' => 100]],
 			'css'      => [
-				['property' => 'width', 'selector' => '.bricksfly-arrow-prev, .bricksfly-arrow-next'],
-				['property' => 'height', 'selector' => '.bricksfly-arrow-prev, .bricksfly-arrow-next'],
+				['property' => 'width', 'selector' => '.aab-arrow-prev, .aab-arrow-next'],
+				['property' => 'height', 'selector' => '.aab-arrow-prev, .aab-arrow-next'],
 			],
 			'required' => ['showNavigation', '=', 'on'],
 		];
@@ -524,7 +524,7 @@ class BRICKSFLY_Bricks_Brand_Slider extends \Bricks\Element
 			'label'    => esc_html__('Arrow Border', 'bricksfly-elements-for-bricks'),
 			'type'     => 'border',
 			'css'      => [
-				['property' => 'border', 'selector' => '.bricksfly-arrow-prev, .bricksfly-arrow-next'],
+				['property' => 'border', 'selector' => '.aab-arrow-prev, .aab-arrow-next'],
 			],
 			'required' => ['showNavigation', '=', 'on'],
 		];
@@ -550,8 +550,8 @@ class BRICKSFLY_Bricks_Brand_Slider extends \Bricks\Element
 			],
 			'description' => esc_html__('Positive: inside the slider. Negative: outside.', 'bricksfly-elements-for-bricks'),
 			'css'         => [
-				['property' => 'left',  'selector' => '.bricksfly-arrow-prev'],
-				['property' => 'right', 'selector' => '.bricksfly-arrow-next'],
+				['property' => 'left',  'selector' => '.aab-arrow-prev'],
+				['property' => 'right', 'selector' => '.aab-arrow-next'],
 			],
 			'required'    => ['showNavigation', '=', 'on'],
 		];
@@ -566,7 +566,7 @@ class BRICKSFLY_Bricks_Brand_Slider extends \Bricks\Element
 				'px' => ['min' => -200, 'max' => 1000],
 			],
 			'css'      => [
-				['property' => 'top', 'selector' => '.bricksfly-arrow-prev, .bricksfly-arrow-next'],
+				['property' => 'top', 'selector' => '.aab-arrow-prev, .aab-arrow-next'],
 			],
 			'required' => ['showNavigation', '=', 'on'],
 		];
@@ -820,7 +820,7 @@ class BRICKSFLY_Bricks_Brand_Slider extends \Bricks\Element
 			}
 
 			$opts['navigation'] = $nav
-				? ['nextEl' => '.bricksfly-arrow-next', 'prevEl' => '.bricksfly-arrow-prev']
+				? ['nextEl' => '.aab-arrow-next', 'prevEl' => '.aab-arrow-prev']
 				: false;
 
 			$opts['pagination'] = $pag
@@ -906,7 +906,7 @@ class BRICKSFLY_Bricks_Brand_Slider extends \Bricks\Element
 		$nav_anywhere = $show_nav || in_array(true, $nav_map, true);
 		$pag_anywhere = $show_pag || in_array(true, $pag_map, true);
 
-		$this->set_attribute('_root', 'class', ['bricksfly-brand-slider-wrapper' . $auto_class]);
+		$this->set_attribute('_root', 'class', ['aab-brand-slider-wrapper' . $auto_class]);
 		$this->set_attribute('_root', 'data-swiper', wp_json_encode($swiper_options));
 		if (! empty($responsive)) {
 			$this->set_attribute('_root', 'data-swiper-responsive', wp_json_encode($responsive));
@@ -947,7 +947,7 @@ class BRICKSFLY_Bricks_Brand_Slider extends \Bricks\Element
 			$separator  = '';
 
 			if (! empty($settings['separatorIcon'])) {
-				$separator = '<span class="bricksfly-separator-icon">' . self::render_icon($settings['separatorIcon'], ['aria-hidden' => 'true']) . '</span>';
+				$separator = '<span class="aab-separator-icon">' . self::render_icon($settings['separatorIcon'], ['aria-hidden' => 'true']) . '</span>';
 			}
 
 			foreach ($text_items as $item) {
@@ -972,8 +972,8 @@ class BRICKSFLY_Bricks_Brand_Slider extends \Bricks\Element
 		echo '</div>';
 
 		if ($nav_anywhere && count($slides) > 1) {
-			echo '<div class="bricksfly-arrow-prev"><i class="fas fa-chevron-left" aria-hidden="true"></i></div>';
-			echo '<div class="bricksfly-arrow-next"><i class="fas fa-chevron-right" aria-hidden="true"></i></div>';
+			echo '<div class="aab-arrow-prev"><i class="fas fa-chevron-left" aria-hidden="true"></i></div>';
+			echo '<div class="aab-arrow-next"><i class="fas fa-chevron-right" aria-hidden="true"></i></div>';
 		}
 
 		if ($pag_anywhere && count($slides) > 1) {

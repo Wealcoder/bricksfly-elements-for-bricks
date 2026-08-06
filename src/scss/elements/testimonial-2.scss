@@ -1,11 +1,11 @@
 /* Wrapper is the positioning context for the absolutely-positioned
    .ts-navigation underneath (driven by the arrowsOffset / arrowsOffsetVertical
    controls — see render() in testimonial-2.php). */
-.bricksfly-testimonial-2-wrapper {
+.aae-testimonial-2-wrapper {
   position: relative;
 }
 
-.bricksfly-testimonial-2-wrapper .ts-navigation {
+.aae-testimonial-2-wrapper .ts-navigation {
   position: absolute;
   display: flex;
   justify-content: center;
@@ -13,66 +13,66 @@
   width: 100%;
 }
 
-.bricksfly-testimonial-2-wrapper .ts-pagination {
+.aae-testimonial-2-wrapper .ts-pagination {
   position: absolute;
   width: 100%;
   display: flex;
   justify-content: center;
 }
 
-.bricksfly-testimonial-2-wrapper .wcf__slider {
+.aae-testimonial-2-wrapper .wcf__slider {
   text-align: left;
   /* Self-contained clipping + positioning so we don't depend on Bricks's
      Swiper CSS being present on every frontend page. */
   position: relative;
   overflow: hidden;
 }
-.bricksfly-testimonial-2-wrapper .wcf__slider:not(.swiper-initialized) .swiper-wrapper {
+.aae-testimonial-2-wrapper .wcf__slider:not(.swiper-initialized) .swiper-wrapper {
   display: flex;
 }
 
-.bricksfly-testimonial-2-wrapper .slide {
+.aae-testimonial-2-wrapper .slide {
   gap: 70px;
   display: grid;
 }
 
 @media (max-width: 1199px) {
-  .bricksfly-testimonial-2-wrapper .slide {
+  .aae-testimonial-2-wrapper .slide {
     gap: 50px;
   }
 }
 
 @media (max-width: 991px) {
-  .bricksfly-testimonial-2-wrapper .slide {
+  .aae-testimonial-2-wrapper .slide {
     gap: 30px;
   }
 }
 
-.bricksfly-testimonial-2-wrapper .image {
+.aae-testimonial-2-wrapper .image {
   margin-bottom: 45px;
 }
 
 @media (max-width: 1199px) {
-  .bricksfly-testimonial-2-wrapper .image {
+  .aae-testimonial-2-wrapper .image {
     margin-bottom: 30px;
   }
 }
 
 @media (max-width: 767px) {
-  .bricksfly-testimonial-2-wrapper .image {
+  .aae-testimonial-2-wrapper .image {
     margin-bottom: 20px;
   }
 }
 
-.bricksfly-testimonial-2-wrapper .image img {
+.aae-testimonial-2-wrapper .image img {
   max-width: 80px;
 }
 
-.bricksfly-testimonial-2-wrapper .picture img {
+.aae-testimonial-2-wrapper .picture img {
   object-fit: cover;
 }
 
-.bricksfly-testimonial-2-wrapper .feedback {
+.aae-testimonial-2-wrapper .feedback {
   font-size: 18px;
   font-weight: 400;
   line-height: 1.5;
@@ -80,13 +80,13 @@
 }
 
 @media (max-width: 767px) {
-  .bricksfly-testimonial-2-wrapper .feedback {
+  .aae-testimonial-2-wrapper .feedback {
     font-size: 16px;
     padding-bottom: 20px;
   }
 }
 
-.bricksfly-testimonial-2-wrapper .name {
+.aae-testimonial-2-wrapper .name {
   font-weight: 500;
   font-size: 20px;
   line-height: 1.5;
@@ -94,35 +94,35 @@
 }
 
 @media (max-width: 767px) {
-  .bricksfly-testimonial-2-wrapper .name {
+  .aae-testimonial-2-wrapper .name {
     font-size: 16px;
   }
 }
 
-.bricksfly-testimonial-2-wrapper a.name {
+.aae-testimonial-2-wrapper a.name {
   color: inherit;
 }
 
-.bricksfly-testimonial-2-wrapper .designation {
+.aae-testimonial-2-wrapper .designation {
   font-weight: 400;
   font-size: 14px;
   line-height: 1.7;
   color: #A4ABBB;
 }
 
-.bricksfly-testimonial-2-wrapper .swiper-pagination {
+.aae-testimonial-2-wrapper .swiper-pagination {
   bottom: -40px;
   text-align: start;
 }
 
-.bricksfly-testimonial-2-wrapper .swiper-pagination-bullet {
+.aae-testimonial-2-wrapper .swiper-pagination-bullet {
   width: 10px;
   height: 10px;
   background-color: #E8BF96;
 }
 
 /* Style 1 */
-.bricksfly-testimonial-2-wrapper.style-1 .slide {
+.aae-testimonial-2-wrapper.style-1 .slide {
   grid-template-columns: 270px auto;
   align-items: center;
   border-radius: 30px;
@@ -130,70 +130,70 @@
 }
 
 @media (max-width: 767px) {
-  .bricksfly-testimonial-2-wrapper.style-1 .slide {
+  .aae-testimonial-2-wrapper.style-1 .slide {
     grid-template-columns: 1fr;
   }
 }
 
-.bricksfly-testimonial-2-wrapper.style-1 .picture {
+.aae-testimonial-2-wrapper.style-1 .picture {
   height: 100%;
 }
 
-.bricksfly-testimonial-2-wrapper.style-1 .picture img {
+.aae-testimonial-2-wrapper.style-1 .picture img {
   width: 100%;
   height: 100%;
   border-radius: 30px 0 0 30px;
 }
 
 @media (max-width: 767px) {
-  .bricksfly-testimonial-2-wrapper.style-1 .picture img {
+  .aae-testimonial-2-wrapper.style-1 .picture img {
     border-radius: 30px;
   }
 }
 
-.bricksfly-testimonial-2-wrapper.style-1 .content {
+.aae-testimonial-2-wrapper.style-1 .content {
   padding: 50px 50px 50px 0;
 }
 
 @media (max-width: 991px) {
-  .bricksfly-testimonial-2-wrapper.style-1 .content {
+  .aae-testimonial-2-wrapper.style-1 .content {
     padding: 30px 30px 30px 0;
   }
 }
 
 @media (max-width: 767px) {
-  .bricksfly-testimonial-2-wrapper.style-1 .content {
+  .aae-testimonial-2-wrapper.style-1 .content {
     padding: 0 20px 30px;
   }
 }
 
-.bricksfly-testimonial-2-wrapper.style-1 .name,
-.bricksfly-testimonial-2-wrapper.style-1 .feedback,
-.bricksfly-testimonial-2-wrapper.style-1 .designation {
+.aae-testimonial-2-wrapper.style-1 .name,
+.aae-testimonial-2-wrapper.style-1 .feedback,
+.aae-testimonial-2-wrapper.style-1 .designation {
   color: #16254C;
 }
 
-.bricksfly-testimonial-2-wrapper.style-1 .ts-navigation {
+.aae-testimonial-2-wrapper.style-1 .ts-navigation {
   gap: 50px;
   display: flex;
   justify-content: center;
   margin-top: 30px;
 }
 
-.bricksfly-testimonial-2-wrapper.style-1 .swiper-pagination {
+.aae-testimonial-2-wrapper.style-1 .swiper-pagination {
   text-align: center;
   display: inline-block;
 }
 
 /* Style 2 */
-.bricksfly-testimonial-2-wrapper.style-2 .slide {
+.aae-testimonial-2-wrapper.style-2 .slide {
   gap: 110px;
   grid-template-columns: 410px auto;
   margin-inline-start: 220px;
 }
 
 @media (max-width: 1199px) {
-  .bricksfly-testimonial-2-wrapper.style-2 .slide {
+  .aae-testimonial-2-wrapper.style-2 .slide {
     gap: 40px;
     grid-template-columns: 350px auto;
     margin-inline-start: 150px;
@@ -201,7 +201,7 @@
 }
 
 @media (max-width: 991px) {
-  .bricksfly-testimonial-2-wrapper.style-2 .slide {
+  .aae-testimonial-2-wrapper.style-2 .slide {
     gap: 30px;
     grid-template-columns: 280px auto;
     margin-inline-start: 100px;
@@ -209,38 +209,38 @@
 }
 
 @media (max-width: 767px) {
-  .bricksfly-testimonial-2-wrapper.style-2 .slide {
+  .aae-testimonial-2-wrapper.style-2 .slide {
     grid-template-columns: 1fr;
     margin-inline-start: 0;
   }
 }
 
-.bricksfly-testimonial-2-wrapper.style-2 .content {
+.aae-testimonial-2-wrapper.style-2 .content {
   padding-top: 60px;
 }
 
 @media (max-width: 1199px) {
-  .bricksfly-testimonial-2-wrapper.style-2 .content {
+  .aae-testimonial-2-wrapper.style-2 .content {
     padding-top: 20px;
   }
 }
 
 @media (max-width: 767px) {
-  .bricksfly-testimonial-2-wrapper.style-2 .content {
+  .aae-testimonial-2-wrapper.style-2 .content {
     padding-top: 0;
   }
 }
 
-.bricksfly-testimonial-2-wrapper.style-2 .picture {
+.aae-testimonial-2-wrapper.style-2 .picture {
   position: relative;
 }
 
-.bricksfly-testimonial-2-wrapper.style-2 .picture img {
+.aae-testimonial-2-wrapper.style-2 .picture img {
   width: 100%;
   height: 100%;
 }
 
-.bricksfly-testimonial-2-wrapper.style-2 .picture::before {
+.aae-testimonial-2-wrapper.style-2 .picture::before {
   position: absolute;
   content: "";
   inset-inline-start: -70px;
@@ -251,24 +251,24 @@
 }
 
 @media (max-width: 1199px) {
-  .bricksfly-testimonial-2-wrapper.style-2 .picture::before {
+  .aae-testimonial-2-wrapper.style-2 .picture::before {
     inset-inline-start: -40px;
   }
 }
 
 @media (max-width: 991px) {
-  .bricksfly-testimonial-2-wrapper.style-2 .picture::before {
+  .aae-testimonial-2-wrapper.style-2 .picture::before {
     inset-inline-start: -30px;
   }
 }
 
 @media (max-width: 767px) {
-  .bricksfly-testimonial-2-wrapper.style-2 .picture::before {
+  .aae-testimonial-2-wrapper.style-2 .picture::before {
     display: none;
   }
 }
 
-.bricksfly-testimonial-2-wrapper.style-2 .image {
+.aae-testimonial-2-wrapper.style-2 .image {
   position: absolute;
   inset-inline-start: 0;
   top: 50%;
@@ -276,53 +276,53 @@
 }
 
 @media (max-width: 767px) {
-  .bricksfly-testimonial-2-wrapper.style-2 .image {
+  .aae-testimonial-2-wrapper.style-2 .image {
     display: none;
   }
 }
 
 @media (max-width: 991px) {
-  .bricksfly-testimonial-2-wrapper.style-2 .image img {
+  .aae-testimonial-2-wrapper.style-2 .image img {
     max-width: 50px;
   }
 }
 
-.bricksfly-testimonial-2-wrapper.style-2 .feedback {
+.aae-testimonial-2-wrapper.style-2 .feedback {
   font-size: 36px;
   line-height: 1.2;
   padding-bottom: 40px;
 }
 
 @media (max-width: 1199px) {
-  .bricksfly-testimonial-2-wrapper.style-2 .feedback {
+  .aae-testimonial-2-wrapper.style-2 .feedback {
     font-size: 30px;
     padding-bottom: 30px;
   }
 }
 
 @media (max-width: 991px) {
-  .bricksfly-testimonial-2-wrapper.style-2 .feedback {
+  .aae-testimonial-2-wrapper.style-2 .feedback {
     font-size: 22px;
   }
 }
 
 @media (max-width: 767px) {
-  .bricksfly-testimonial-2-wrapper.style-2 .feedback {
+  .aae-testimonial-2-wrapper.style-2 .feedback {
     font-size: 20px;
     padding-bottom: 20px;
   }
 }
 
-.bricksfly-testimonial-2-wrapper.style-2 .name {
+.aae-testimonial-2-wrapper.style-2 .name {
   font-size: 22px;
 }
 
-.bricksfly-testimonial-2-wrapper.style-2 .designation {
+.aae-testimonial-2-wrapper.style-2 .designation {
   font-size: 18px;
   color: #666666;
 }
 
-.bricksfly-testimonial-2-wrapper.style-2 .ts-navigation {
+.aae-testimonial-2-wrapper.style-2 .ts-navigation {
   gap: 60px;
   display: flex;
   position: relative;
@@ -332,19 +332,19 @@
 }
 
 @media (max-width: 1199px) {
-  .bricksfly-testimonial-2-wrapper.style-2 .ts-navigation {
+  .aae-testimonial-2-wrapper.style-2 .ts-navigation {
     padding-inline-start: 540px;
   }
 }
 
 @media (max-width: 991px) {
-  .bricksfly-testimonial-2-wrapper.style-2 .ts-navigation {
+  .aae-testimonial-2-wrapper.style-2 .ts-navigation {
     padding-inline-start: 410px;
   }
 }
 
 @media (max-width: 767px) {
-  .bricksfly-testimonial-2-wrapper.style-2 .ts-navigation {
+  .aae-testimonial-2-wrapper.style-2 .ts-navigation {
     position: unset;
     padding-inline-start: 0;
     margin-top: 20px;
@@ -352,35 +352,35 @@
   }
 }
 
-.bricksfly-testimonial-2-wrapper.style-2 .ts-navigation img {
+.aae-testimonial-2-wrapper.style-2 .ts-navigation img {
   max-width: 60px;
 }
 
 @media (max-width: 991px) {
-  .bricksfly-testimonial-2-wrapper.style-2 .ts-navigation img {
+  .aae-testimonial-2-wrapper.style-2 .ts-navigation img {
     max-width: 40px;
   }
 }
 
-.bricksfly-testimonial-2-wrapper.style-2 .swiper-pagination {
+.aae-testimonial-2-wrapper.style-2 .swiper-pagination {
   inset-inline-start: 740px;
   width: auto;
 }
 
 @media (max-width: 1199px) {
-  .bricksfly-testimonial-2-wrapper.style-2 .swiper-pagination {
+  .aae-testimonial-2-wrapper.style-2 .swiper-pagination {
     inset-inline-start: 540px;
   }
 }
 
 @media (max-width: 991px) {
-  .bricksfly-testimonial-2-wrapper.style-2 .swiper-pagination {
+  .aae-testimonial-2-wrapper.style-2 .swiper-pagination {
     inset-inline-start: 410px;
   }
 }
 
 @media (max-width: 767px) {
-  .bricksfly-testimonial-2-wrapper.style-2 .swiper-pagination {
+  .aae-testimonial-2-wrapper.style-2 .swiper-pagination {
     bottom: -40px;
     inset-inline-start: auto;
     inset-inline-end: 0;
@@ -388,35 +388,35 @@
 }
 
 /* Style 3 */
-.bricksfly-testimonial-2-wrapper.style-3 .slide {
+.aae-testimonial-2-wrapper.style-3 .slide {
   align-items: center;
   grid-template-columns: 260px auto;
 }
 
 @media (max-width: 1199px) {
-  .bricksfly-testimonial-2-wrapper.style-3 .slide {
+  .aae-testimonial-2-wrapper.style-3 .slide {
     grid-template-columns: 200px auto;
   }
 }
 
 @media (max-width: 767px) {
-  .bricksfly-testimonial-2-wrapper.style-3 .slide {
+  .aae-testimonial-2-wrapper.style-3 .slide {
     grid-template-columns: 1fr;
   }
 }
 
-.bricksfly-testimonial-2-wrapper.style-3 .picture img {
+.aae-testimonial-2-wrapper.style-3 .picture img {
   width: 100px;
   height: 100px;
   border-radius: 100%;
   object-fit: cover;
 }
 
-.bricksfly-testimonial-2-wrapper.style-3 .content {
+.aae-testimonial-2-wrapper.style-3 .content {
   display: grid;
 }
 
-.bricksfly-testimonial-2-wrapper.style-3 .image {
+.aae-testimonial-2-wrapper.style-3 .image {
   margin-bottom: 0;
   width: 100px;
   height: 100px;
@@ -432,17 +432,17 @@
 }
 
 @media (max-width: 767px) {
-  .bricksfly-testimonial-2-wrapper.style-3 .image {
+  .aae-testimonial-2-wrapper.style-3 .image {
     top: 0;
     transform: translateY(0);
   }
 }
 
-.bricksfly-testimonial-2-wrapper.style-3 .image img {
+.aae-testimonial-2-wrapper.style-3 .image img {
   max-width: 36px;
 }
 
-.bricksfly-testimonial-2-wrapper.style-3 .feedback {
+.aae-testimonial-2-wrapper.style-3 .feedback {
   padding-bottom: 0;
   font-size: 20px;
   color: #1C1D20;
@@ -450,41 +450,41 @@
 }
 
 @media (max-width: 767px) {
-  .bricksfly-testimonial-2-wrapper.style-3 .feedback {
+  .aae-testimonial-2-wrapper.style-3 .feedback {
     font-size: 18px;
   }
 }
 
-.bricksfly-testimonial-2-wrapper.style-3 .name {
+.aae-testimonial-2-wrapper.style-3 .name {
   font-size: 50px;
   color: #1C1D20;
 }
 
 @media (max-width: 1199px) {
-  .bricksfly-testimonial-2-wrapper.style-3 .name {
+  .aae-testimonial-2-wrapper.style-3 .name {
     font-size: 36px;
   }
 }
 
 @media (max-width: 767px) {
-  .bricksfly-testimonial-2-wrapper.style-3 .name {
+  .aae-testimonial-2-wrapper.style-3 .name {
     font-size: 30px;
   }
 }
 
-.bricksfly-testimonial-2-wrapper.style-3 .designation {
+.aae-testimonial-2-wrapper.style-3 .designation {
   font-size: 16px;
   color: #1C1D20;
   padding-bottom: 30px;
 }
 
 @media (max-width: 767px) {
-  .bricksfly-testimonial-2-wrapper.style-3 .designation {
+  .aae-testimonial-2-wrapper.style-3 .designation {
     padding-bottom: 20px;
   }
 }
 
-.bricksfly-testimonial-2-wrapper.style-3 .ts-navigation {
+.aae-testimonial-2-wrapper.style-3 .ts-navigation {
   display: flex;
   gap: 40px;
   position: absolute;
@@ -495,24 +495,24 @@
 }
 
 @media (max-width: 1199px) {
-  .bricksfly-testimonial-2-wrapper.style-3 .ts-navigation {
+  .aae-testimonial-2-wrapper.style-3 .ts-navigation {
     inset-inline-start: 250px;
   }
 }
 
 @media (max-width: 991px) {
-  .bricksfly-testimonial-2-wrapper.style-3 .ts-navigation {
+  .aae-testimonial-2-wrapper.style-3 .ts-navigation {
     inset-inline-start: 230px;
   }
 }
 
 @media (max-width: 767px) {
-  .bricksfly-testimonial-2-wrapper.style-3 .ts-navigation {
+  .aae-testimonial-2-wrapper.style-3 .ts-navigation {
     inset-inline-start: 0;
   }
 }
 
-.bricksfly-testimonial-2-wrapper.style-3 .ts-navigation::after {
+.aae-testimonial-2-wrapper.style-3 .ts-navigation::after {
   position: absolute;
   content: "";
   inset-inline-start: 50%;
@@ -522,25 +522,25 @@
   background-color: #3F3A36;
 }
 
-.bricksfly-testimonial-2-wrapper.style-3 .swiper-pagination {
+.aae-testimonial-2-wrapper.style-3 .swiper-pagination {
   width: auto;
   inset-inline-start: 330px;
 }
 
 @media (max-width: 1199px) {
-  .bricksfly-testimonial-2-wrapper.style-3 .swiper-pagination {
+  .aae-testimonial-2-wrapper.style-3 .swiper-pagination {
     inset-inline-start: 250px;
   }
 }
 
 @media (max-width: 991px) {
-  .bricksfly-testimonial-2-wrapper.style-3 .swiper-pagination {
+  .aae-testimonial-2-wrapper.style-3 .swiper-pagination {
     inset-inline-start: 230px;
   }
 }
 
 @media (max-width: 767px) {
-  .bricksfly-testimonial-2-wrapper.style-3 .swiper-pagination {
+  .aae-testimonial-2-wrapper.style-3 .swiper-pagination {
     inset-inline-start: 0;
   }
 }

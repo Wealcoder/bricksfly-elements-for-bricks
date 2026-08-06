@@ -1,4 +1,4 @@
-.bricksfly-image-accordion {
+.aab-image-accordion {
   display: flex;
   height: 70vh;
   /* Bricks Section/Container/Block default to display:flex with
@@ -14,15 +14,15 @@
   min-width: 0;
 }
 
-.bricksfly-image-accordion.accordion-layout-horizontal {
+.aab-image-accordion.accordion-layout-horizontal {
   flex-direction: row;
 }
 
-.bricksfly-image-accordion.accordion-layout-vertical {
+.aab-image-accordion.accordion-layout-vertical {
   flex-direction: column;
 }
 
-.bricksfly-image-accordion .accordion-item {
+.aab-image-accordion .accordion-item {
   position: relative;
   overflow: hidden;
   flex: 1;
@@ -36,11 +36,11 @@
   align-items: center;
 }
 
-.bricksfly-image-accordion .accordion-item.accordion-hover-active {
+.aab-image-accordion .accordion-item.accordion-hover-active {
   flex: 3;
 }
 
-.bricksfly-image-accordion .accordion-item::after {
+.aab-image-accordion .accordion-item::after {
   content: '';
   width: 100%;
   height: 100%;
@@ -56,12 +56,12 @@
   background: rgba(0, 0, 0, 0.3);
 }
 
-.bricksfly-image-accordion .accordion-hover-active::after {
+.aab-image-accordion .accordion-hover-active::after {
   opacity: 1;
   visibility: visible;
 }
 
-.bricksfly-image-accordion .content {
+.aab-image-accordion .content {
   text-align: center;
   padding: 20px;
   position: absolute;
@@ -71,22 +71,22 @@
   transform: translateY(100px);
 }
 
-.bricksfly-image-accordion .accordion-hover-active .content {
+.aab-image-accordion .accordion-hover-active .content {
   transition: all 1s;
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
 }
 
-.bricksfly-image-accordion .subtitle {
+.aab-image-accordion .subtitle {
   margin-bottom: 10px;
 }
 
-.bricksfly-image-accordion .title {
+.aab-image-accordion .title {
   margin-bottom: 10px;
 }
 
-.bricksfly-image-accordion .bricksfly-btn {
+.aab-image-accordion .aab-btn {
   display: inline-block;
   margin-top: 20px;
   text-decoration: none;
