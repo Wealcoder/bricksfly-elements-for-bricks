@@ -25,7 +25,7 @@ class BRICKSFLY_Activator
 	 * builder is routed correctly after activation. On multisite, the flag
 	 * is set on every subsite when the plugin is network-activated, so each
 	 * subsite re-flushes on its next `wp_loaded` (handled by CPT Builder, a
-	 * Pro-only feature — see the-bricksfly-pro/admin/pages/cpt-builder.php).
+	 * Pro-only feature — see bricksfly-elements-for-bricks-pro/admin/pages/cpt-builder.php).
 	 *
 	 * Also seeds the `bricksfly_save_widgets` and `bricksfly_save_extensions`
 	 * options with every shipped widget/extension set to active — first

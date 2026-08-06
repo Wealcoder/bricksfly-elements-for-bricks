@@ -63,7 +63,7 @@ class BRICKSFLY_Row_Actions {
 
 		$meta[] = '<a href="https://bricksfly.com/docs/" target="_blank">' . esc_html__( 'Documentation', 'bricksfly-elements-for-bricks' ) . '</a>';
 		$meta[] = '<a href="#" target="_blank">' . esc_html__( 'Support', 'bricksfly-elements-for-bricks' ) . '</a>';
-		if ( ! file_exists( WP_PLUGIN_DIR . '/' . 'the-bricksfly-pro/the-bricksfly-pro.php' ) ) {
+		if ( ! file_exists( WP_PLUGIN_DIR . '/' . 'bricksfly-elements-for-bricks-pro/bricksfly-elements-for-bricks-pro.php' ) ) {
 			$meta[] = '<a href="https://bricksfly.com" style="color:#ff7a00; font-weight: bold;" target="_blank">' . esc_html__( 'Upgrade to Pro', 'bricksfly-elements-for-bricks' ) . '</a>';
 		}
 		$meta[] = '<a href="https://wordpress.org/support/plugin/the-bricksfly/reviews/#new-post" target="_blank">' . esc_html__( ' Rate the plugin', 'bricksfly-elements-for-bricks' ) . '</a>';

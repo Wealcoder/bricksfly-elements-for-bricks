@@ -321,7 +321,7 @@ if (! function_exists('bricksfly_is_pro_active')) {
       require_once ABSPATH . 'wp-admin/includes/plugin.php';
     }
 
-    return is_plugin_active('the-bricksfly-pro/the-bricksfly-pro.php');
+    return is_plugin_active('bricksfly-elements-for-bricks-pro/bricksfly-elements-for-bricks-pro.php');
   }
 }
 
@@ -337,7 +337,7 @@ if (! function_exists('bricksfly_is_pro_installed')) {
    */
   function bricksfly_is_pro_installed()
   {
-    return file_exists(WP_PLUGIN_DIR . '/the-bricksfly-pro/the-bricksfly-pro.php');
+    return file_exists(WP_PLUGIN_DIR . '/bricksfly-elements-for-bricks-pro/bricksfly-elements-for-bricks-pro.php');
   }
 }
 
@@ -367,7 +367,7 @@ if (! function_exists('bricksfly_get_license_limitations')) {
    * Return the per-feature limitation flags for the active license.
    *
    * The flags are written by the Pro plugin's license activate/check flow
-   * (see the-bricksfly-pro/includes/license/update.php) into the
+   * (see bricksfly-elements-for-bricks-pro/includes/license/update.php) into the
    * `bricksfly_license_limitations` option, as a map of feature => bool.
    *
    * Known feature keys (tier-dependent — any may be absent):
@@ -625,9 +625,9 @@ if (! function_exists('bricksfly_kses_allowed_html')) {
  * runtime argument — so every hook this plugin defines is independently
  * discoverable and hookable by name, same as any other filter/action here.
  *
- * When the-bricksfly-pro is active, it listens on these `bricksfly_import_*`
+ * When bricksfly-elements-for-bricks-pro is active, it listens on these `bricksfly_import_*`
  * hooks and re-dispatches to the real third-party hook internally (see
- * the-bricksfly-pro/includes/core/legacy-import-hooks.php), so a site with
+ * bricksfly-elements-for-bricks-pro/includes/core/legacy-import-hooks.php), so a site with
  * WooCommerce/import-hook customizations gets the same behavior as before —
  * but ONLY when Pro is active. Without Pro, values pass through unchanged:
  * no code anywhere in the free plugin calls `apply_filters('wp_import_post_terms', ...)`

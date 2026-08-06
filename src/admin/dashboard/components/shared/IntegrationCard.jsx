@@ -61,7 +61,7 @@ const IntegrationCard = ({ item, className }) => {
       body: new URLSearchParams({
         action: "bricksfly_active_plugin",
         action_base:
-          "the-bricksfly-pro/the-bricksfly-pro.php",
+          "bricksfly-elements-for-bricks-pro/bricksfly-elements-for-bricks-pro.php",
         nonce: BRICKSFLY_ADDONS_ADMIN.nonce,
       }),
     })

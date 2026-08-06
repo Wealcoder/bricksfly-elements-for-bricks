@@ -43,7 +43,7 @@ const ProConfirmDialog = ({ open, setOpen, reason }) => {
 
       body: new URLSearchParams({
         action: "bricksfly_active_plugin",
-        action_base: "the-bricksfly-pro/the-bricksfly-pro.php",
+        action_base: "bricksfly-elements-for-bricks-pro/bricksfly-elements-for-bricks-pro.php",
         nonce: BRICKSFLY_ADDONS_ADMIN.nonce,
       }),
     })
@@ -98,7 +98,7 @@ const ProConfirmDialog = ({ open, setOpen, reason }) => {
                   </span>
                   Upgrade Plan
                 </a>
-              ) : activated.integrations.plugins.elements["the-bricksfly-pro"]
+              ) : activated.integrations.plugins.elements["bricksfly-elements-for-bricks-pro"]
                 .action === "Active" ? (
                 <Button
                   variant="pro"
@@ -110,7 +110,7 @@ const ProConfirmDialog = ({ open, setOpen, reason }) => {
                   </span>
                   Active Plugin
                 </Button>
-              ) : activated.integrations.plugins.elements["the-bricksfly-pro"]
+              ) : activated.integrations.plugins.elements["bricksfly-elements-for-bricks-pro"]
                   .action === "Download" ? (
                 <a
                   href="https://bricksfly.com/"
