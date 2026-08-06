@@ -724,8 +724,16 @@ class WXRImporter extends \WP_Importer {
 			return $upload;
 		}
 
+		// wp_check_filetype() always returns an array (compact('ext','type')), so
+		// `! $info` never trips even when the extension isn't in the current
+		// upload_mimes allowlist — it returns array('ext'=>false,'type'=>false)
+		// for that case, which is truthy. Check ->type directly, or an
+		// unrecognized/disallowed file (e.g. .svg with no SVG mime support
+		// registered) gets inserted anyway with an empty post_mime_type instead
+		// of being skipped.
 		$info = wp_check_filetype( $upload['file'] );
-		if ( ! $info ) {
+		if ( empty( $info['type'] ) ) {
+			wp_delete_file( $upload['file'] );
 			return new WP_Error( 'attachment_processing_error', __( 'Invalid file type', 'bricksfly-elements-for-bricks' ) );
 		}
 
@@ -785,6 +793,16 @@ class WXRImporter extends \WP_Importer {
 				if ( ! $value ) {
 					$value = maybe_unserialize( $meta_item['value'] );
 				}
+
+				// Bricks stores its element tree (with logo/icon/image fields) as
+				// an array in these postmeta values, not as WXR <wp:attachment>
+				// nodes — the normal attachment pipeline never sees these image
+				// URLs at all, so they're left pointing at the original template
+				// source site unless we walk the tree here.
+				if ( is_array( $value ) && in_array( $key, array( '_bricks_page_content_2', '_bricks_page_header_2', '_bricks_page_footer_2' ), true ) ) {
+					$value = $this->import_bricks_element_images( $value );
+				}
+
 				add_post_meta( $post_id, wp_slash( $key ), wp_slash( $value ) );
 				do_action('bricksfly_import_post_meta', $post_id, $key, $value );
 				if ( '_thumbnail_id' === $key ) {
@@ -794,6 +812,166 @@ class WXRImporter extends \WP_Importer {
 		}
 
 		return true;
+	}
+
+	/**
+	 * True if a Bricks element `settings` value looks like an image/SVG
+	 * reference — {id, url, size, full} for a raster image, or any {..,url}
+	 * whose url ends in .svg (Bricks' SVG fields omit size/full). Mirrors
+	 * \Bricks\Templates::is_image() (themes/bricks/includes/templates.php)
+	 * since that logic never runs for WXR-based imports.
+	 *
+	 * @param mixed $setting
+	 * @return bool
+	 */
+	protected function is_bricks_image_setting( $setting ) {
+		if ( ! is_array( $setting ) || empty( $setting['url'] ) || ! is_string( $setting['url'] ) ) {
+			return false;
+		}
+		if ( isset( $setting['id'] ) && isset( $setting['size'] ) && isset( $setting['full'] ) ) {
+			return true;
+		}
+		return false !== strpos( $setting['url'], '.svg' );
+	}
+
+	/**
+	 * Recursively walk a Bricks element tree (as stored in _bricks_page_content_2
+	 * / _bricks_page_header_2 / _bricks_page_footer_2) and replace every
+	 * image/SVG reference that points at a remote URL with one pointing at a
+	 * newly-downloaded local attachment. Non-image values and values already
+	 * on this site (e.g. re-running an import) are left untouched.
+	 *
+	 * @param array $elements
+	 * @return array
+	 */
+	protected function import_bricks_element_images( $elements ) {
+		$this->walk_bricks_settings_for_images( $elements );
+		return $elements;
+	}
+
+	/**
+	 * @param mixed $node Reference into the element tree being walked.
+	 */
+	protected function walk_bricks_settings_for_images( &$node ) {
+		if ( ! is_array( $node ) ) {
+			return;
+		}
+
+		if ( $this->is_bricks_image_setting( $node ) ) {
+			$resolved = $this->resolve_bricks_remote_image( $node );
+			if ( null !== $resolved ) {
+				$node = $resolved;
+			}
+			return;
+		}
+
+		foreach ( $node as &$child ) {
+			$this->walk_bricks_settings_for_images( $child );
+		}
+	}
+
+	/**
+	 * Download (or find an already-imported copy of) a Bricks image/SVG
+	 * setting's remote URL, returning the replacement setting array, or null
+	 * to leave the original value as-is (already-local URL, or failure).
+	 *
+	 * @param array $image Setting value with at least a 'url' key.
+	 * @return array|null
+	 */
+	protected function resolve_bricks_remote_image( $image ) {
+		$url = $image['url'];
+
+		// Already pointing at this site (e.g. re-running an import, or the
+		// package shipped final URLs) — nothing to do. NOTE: $this->base_url is
+		// the SOURCE site's URL (only populated while parsing <wp:base_site_url>,
+		// empty otherwise — see import()) and strpos( $x, '' ) always returns 0,
+		// so it must never be used as the "is this local" needle on its own.
+		$this_site_url = home_url();
+		if ( '' !== $this_site_url && 0 === strpos( $url, $this_site_url ) ) {
+			return null;
+		}
+
+		if ( empty( $this->url_remap[ $url ] ) ) {
+			$existing_id = attachment_url_to_postid( $url );
+			if ( $existing_id ) {
+				$this->url_remap[ $url ] = wp_get_attachment_url( $existing_id );
+			}
+		}
+
+		if ( ! empty( $this->url_remap[ $url ] ) ) {
+			return $this->build_bricks_image_setting( $image, $this->url_remap[ $url ] );
+		}
+
+		$synthetic_post = array(
+			'post_date'    => current_time( 'mysql' ),
+			'upload_date'  => current_time( 'mysql' ),
+		);
+
+		$upload = $this->fetch_remote_file( $url, $synthetic_post );
+		if ( is_wp_error( $upload ) ) {
+			return null;
+		}
+
+		$info = wp_check_filetype( $upload['file'] );
+		if ( empty( $info['type'] ) ) {
+			wp_delete_file( $upload['file'] );
+			return null;
+		}
+
+		$attachment_id = wp_insert_attachment( array(
+			'post_title'     => basename( $upload['file'] ),
+			'post_mime_type' => $info['type'],
+			'post_status'    => 'inherit',
+		), $upload['file'] );
+
+		if ( is_wp_error( $attachment_id ) ) {
+			return null;
+		}
+
+		$attachment_metadata = wp_generate_attachment_metadata( $attachment_id, $upload['file'] );
+		wp_update_attachment_metadata( $attachment_id, $attachment_metadata );
+		update_post_meta( $attachment_id, '_bricksfly_image_origin_url', $url );
+
+		$this->url_remap[ $url ] = $upload['url'];
+
+		return $this->build_bricks_image_setting( $image, $upload['url'], $attachment_id );
+	}
+
+	/**
+	 * Build the replacement Bricks image/SVG setting array: keeps every other
+	 * key from the original (filename, size, external, etc.) and only
+	 * updates the fields that point at a file location — 'url', 'full' (when
+	 * present), and 'id'.
+	 *
+	 * @param array    $original       Original setting value.
+	 * @param string   $new_url        The new (local) URL.
+	 * @param int|null $attachment_id  New attachment ID, if one was just created.
+	 * @return array
+	 */
+	protected function build_bricks_image_setting( $original, $new_url, $attachment_id = null ) {
+		$replacement = $original;
+		$replacement['url'] = $new_url;
+
+		if ( null !== $attachment_id ) {
+			$replacement['id'] = $attachment_id;
+		} elseif ( ! empty( $original['id'] ) ) {
+			$found_id = attachment_url_to_postid( $new_url );
+			if ( $found_id ) {
+				$replacement['id'] = $found_id;
+			}
+		}
+
+		// Update 'full' whenever the original had it, regardless of file type.
+		// Real Bricks data disproves the assumption that SVG fields never carry
+		// a 'full' key (e.g. a "logo" element's image control sets both 'url'
+		// and 'full' to the same value even for an .svg) — leaving it stale
+		// here means Bricks' own full-size lookups still resolve to the dead
+		// source-site URL even though 'url' was correctly rewritten.
+		if ( isset( $original['full'] ) ) {
+			$replacement['full'] = $new_url;
+		}
+
+		return $replacement;
 	}
 
 	protected function parse_comment_node( $node ) {
@@ -1116,7 +1294,15 @@ class WXRImporter extends \WP_Importer {
 	}
 
 	protected function fetch_remote_file( $url, $post ) {
-		$file_name = basename( $url );
+		// basename( $url ) on a query-string URL (e.g. "logo.svg?ver=6.3") keeps
+		// the query string, so the extension-anchored regex in wp_check_filetype()
+		// (\.(svg)$) never matches "logo.svg?ver=6.3" and the file gets treated as
+		// an unrecognized type even when its real extension is allowed. Strip the
+		// query/fragment via the URL path before taking the basename.
+		$file_name = basename( (string) wp_parse_url( $url, PHP_URL_PATH ) );
+		if ( '' === $file_name ) {
+			$file_name = basename( $url );
+		}
 		$upload    = wp_upload_bits( $file_name, null, '', $post['upload_date'] );
 		if ( $upload['error'] ) { return new WP_Error( 'upload_dir_error', $upload['error'] ); }
 

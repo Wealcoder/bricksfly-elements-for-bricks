@@ -420,7 +420,10 @@ class BRICKSFLY_Admin_Init
 			'nonce'               => wp_create_nonce('bricksfly_admin_nonce'),
 			'addons_config'       => $addons_config,
 			'adminURL'            => admin_url(),
-			'smoothScroller'      => json_decode(get_option('bricksfly_smooth_scroller')),
+			'smoothScroller'      => (function () {
+				$raw = get_option('bricksfly_smooth_scroller');
+				return is_string($raw) ? json_decode($raw) : null;
+			})(),
 			'cf_settings'         => is_string($font_settings) ? json_decode($font_settings) : array(),
 			'extensions'          => array(
 				'total'  => $total_extensions,

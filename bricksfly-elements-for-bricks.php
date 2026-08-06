@@ -182,7 +182,10 @@ function bricksfly_run()
 					'success' => esc_html__('Success', 'bricksfly-elements-for-bricks'),
 					'warning' => esc_html__('Warning', 'bricksfly-elements-for-bricks'),
 				),
-				'smoothScroller' => json_decode(get_option('bricksfly_smooth_scroller')),
+				'smoothScroller' => (function () {
+					$raw = get_option('bricksfly_smooth_scroller');
+					return is_string($raw) ? json_decode($raw) : null;
+				})(),
 				// All Bricks breakpoints (defaults + custom). Empty array if
 				// Bricks isn't active so JS can rely on a consistent shape.
 				'breakpoints'    => class_exists('\\Bricks\\Breakpoints')

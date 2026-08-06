@@ -436,6 +436,14 @@ class BRICKSFLY_Template_Importer {
 					$value    = $this->merge_bricks_option( $option_name, $existing, $value );
 				}
 
+				// bricksfly_smooth_scroller must always be stored as the JSON string
+				// shape save_smooth_scroller_settings() produces (dashboard.php) —
+				// json_decode(get_option(...)) at render time expects a string, not
+				// the PHP array maybe_unserialize() just gave us above.
+				if ( 'bricksfly_smooth_scroller' === $option_name ) {
+					$value = wp_json_encode( $value );
+				}
+
 				// update_option() re-serializes arrays/objects and inserts the row if
 				// missing — required for fresh imports where ACF repeater sub-rows
 				// (name_0_subfield, _name_0_subfield, …) do not yet exist.
