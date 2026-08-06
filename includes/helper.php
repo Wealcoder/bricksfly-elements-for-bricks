@@ -695,3 +695,43 @@ if (! function_exists('bricksfly_woocommerce_taxonomy_args')) {
   }
 }
 
+if (! function_exists('bricksfly_migrate_thebrbre_settings')) {
+
+  /**
+   * One-time migration: pull widget/extension enabled-state from the old
+   * `thebrbre_*` option names (pre-rebrand) into the current
+   * `bricksfly_*` ones.
+   *
+   * Runs on every request (called unconditionally below, before any code
+   * reads `bricksfly_save_widgets` / `bricksfly_save_extensions`) but only
+   * does real work once per option: it skips a key the moment
+   * `bricksfly_save_*` already exists, whether that's because this
+   * migration already ran or because the site is a fresh install that got
+   * seeded directly under the new names (see BRICKSFLY_Activator). Old
+   * `thebrbre_*` options are left untouched — not deleted — so rollback
+   * stays possible.
+   */
+  function bricksfly_migrate_thebrbre_settings()
+  {
+    $map = array(
+      'bricksfly_save_widgets'    => 'thebrbre_save_widgets',
+      'bricksfly_save_extensions' => 'thebrbre_save_extensions',
+    );
+
+    foreach ($map as $new_option => $old_option) {
+      // Sentinel default distinguishes "no row yet" from "row is an empty array".
+      if (false !== get_option($new_option, false)) {
+        continue;
+      }
+
+      $old_value = get_option($old_option, false);
+      if (false === $old_value) {
+        continue;
+      }
+
+      update_option($new_option, $old_value, false);
+    }
+  }
+}
+bricksfly_migrate_thebrbre_settings();
+
