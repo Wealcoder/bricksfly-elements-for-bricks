@@ -1,5 +1,5 @@
 === BricksFly Elements and Templates for Bricks with GSAP Animations ===
-Contributors: wealcoder
+Contributors: wealcoder, raselsec
 Tags: bricks, bricks builder, animation, templates
 Requires at least: 6.9
 Tested up to: 7.0
