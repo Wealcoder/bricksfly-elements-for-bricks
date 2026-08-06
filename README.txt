@@ -212,16 +212,11 @@ Start with the [Documentation](https://bricksfly.com/docs/) and [FAQ](https://br
 
 == Screenshots ==
 
-1. **Preset Animations**: Instantly apply ready-made animations without any hassle.
-2. **GSAP Animation Builder**: Build unlimited custom animations with intuitive controls and complete flexibility.
-3. **Pre-Built Templates**: Choose from a growing collection of ready-to-use Bricks templates.
-4. **Extensions Dashboard**: Enable only the Extensions you need to keep your site lightweight.
-5. **Powerful Dashboard**: Organize, manage, and monitor all your BricksFly settings in one clean interface.
-6. **Element Settings Panel**: Advanced controls and customization for every Bricks Element.
-7. **Live Section Download**: One-click import of pre-designed sections directly into your Bricks projects.
-8. **ScrollTrigger Animations**: Build advanced scroll-based animations powered by GSAP.
-9. **Cursor Effects**: Add custom cursor designs and interactive hover effects.
-10. **Template Library**: Browse and import full website templates with a single click.
+1. **Dashboard**: Smooth Dashboard
+2. **Extensions Dashboard**: Enable only the Extensions you need to keep your site lightweight.
+3. **Element Settings Panel**: Advanced controls and customization for every Bricks Element.
+4. **Pre-Built Templates**: Choose from a growing collection of ready-to-use Bricks templates.
+5. **Section Library**: Browse and import full website templates with a single click.
 
 == External Services ==
 
