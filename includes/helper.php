@@ -197,6 +197,115 @@ if (! function_exists('bricksfly_get_settings')) {
   }
 }
 
+if (! function_exists('bricksfly_third_party_owns_page_smoother')) {
+
+  /**
+   * Whether another plugin is already driving this page's ScrollSmoother.
+   *
+   * Only MotionKit is checked today: it exposes ScrollSmoother::should_run()
+   * as its documented "am I driving the smoother" answer (connected to the
+   * editor AND switched on for this page), and its own runner kills any
+   * instance it didn't create — so when that returns true, ours must not
+   * exist at all.
+   *
+   * Every call is guarded: MotionKit may be absent, an older build may not
+   * have the method, and a fatal here would take the whole frontend down.
+   *
+   * @return bool
+   */
+  function bricksfly_third_party_owns_page_smoother()
+  {
+    $owners = array(
+      array('\MotionKit\Frontend\ScrollSmoother', 'should_run'),
+    );
+
+    foreach ($owners as $owner) {
+      list($class, $method) = $owner;
+
+      if (class_exists($class) && method_exists($class, $method) && call_user_func(array($class, $method))) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+}
+
+if (! function_exists('bricksfly_smooth_scroller_is_active')) {
+
+  /**
+   * Whether Scroll Smoother can actually run on this request.
+   *
+   * Two things must both be true, mirroring what smoothScroller.js itself
+   * requires before it creates a ScrollSmoother instance:
+   *   1. the `aab-smooth-scroller` extension is toggled on, and
+   *   2. `bricksfly_smooth_scroller` flags at least one breakpoint `enabled`.
+   *
+   * Which breakpoint is live can only be known in the browser (the JS
+   * re-resolves it on resize), so "any breakpoint enabled" is the strongest
+   * server-side answer available — the JS still gates per breakpoint.
+   *
+   * Used to decide whether to emit the #smooth-wrapper / #smooth-content
+   * markup at all: those divs are styled by frontend.scss (`overflow-x:
+   * scroll; overflow-y: hidden`), so emitting them when no smoother will be
+   * created leaves a stray horizontal scrollbar and a clipped Y axis on every
+   * page. Result is memoized so the opening and closing hooks can never
+   * disagree within one request.
+   *
+   * @return bool
+   */
+  function bricksfly_smooth_scroller_is_active()
+  {
+    static $active = null;
+
+    if (null !== $active) {
+      return $active;
+    }
+
+    $active = false;
+
+    if (function_exists('bricksfly_is_extension_active') && bricksfly_is_extension_active('aab-smooth-scroller')) {
+      $raw      = get_option('bricksfly_smooth_scroller');
+      $settings = is_string($raw) ? json_decode($raw, true) : $raw;
+
+      if (is_array($settings)) {
+        foreach ($settings as $config) {
+          if (is_array($config) && ! empty($config['enabled'])) {
+            $active = true;
+            break;
+          }
+        }
+      }
+    }
+
+    // Stand down when MotionKit already owns the page smoother. A page has
+    // exactly one ScrollSmoother; MotionKit's runner also kills any instance
+    // it didn't create, so two of them cannot coexist.
+    //
+    // Asked directly rather than waiting to be told: MotionKit does push the
+    // same answer through the filter below, but only versions that know this
+    // filter exists do. Reading its public API means an older MotionKit — or
+    // one loading after us — still wins the page. This mirrors how AAE Pro
+    // resolves the same conflict.
+    if ($active && bricksfly_third_party_owns_page_smoother()) {
+      $active = false;
+    }
+
+    /**
+     * Filter the resolved Scroll Smoother active state.
+     *
+     * Lets Pro veto per page (e.g. the builder's `aab_disable_smoothscroll`
+     * page setting) without the free plugin having to know about Pro's page
+     * settings.
+     *
+     * @param bool $active
+     */
+    $active = (bool) apply_filters('bricksfly_smooth_scroller_is_active', $active);
+
+    return $active;
+  }
+}
+
 if (! function_exists('bricksfly_is_extension_active')) {
 
   /**

@@ -16,7 +16,7 @@
  * Plugin Name:       BricksFly Elements and Templates for Bricks with GSAP Animations
  * Plugin URI:        https://bricksfly.com/
  * Description:       Bricksfly for Bricks comes with GSAP Animation Builder, Customizable Elements, Header Footer, Single Post, Archive Page Builder, and Many more.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Author:            Wealcoder
  * Author URI:        https://profiles.wordpress.org/wealcoder/
  * License:           GPL-2.0+
@@ -68,7 +68,7 @@ if (! defined('BRICKSFLY_VERSION')) {
 	/**
 	 * Plugin Version.
 	 */
-	define('BRICKSFLY_VERSION', '1.0.0');
+	define('BRICKSFLY_VERSION', '1.0.1');
 }
 
 if (! defined('BRICKSFLY_TEMPLATE_STARTER_BASE_URL')) {
@@ -182,7 +182,19 @@ function bricksfly_run()
 					'success' => esc_html__('Success', 'bricksfly-elements-for-bricks'),
 					'warning' => esc_html__('Warning', 'bricksfly-elements-for-bricks'),
 				),
+				// Null unless Scroll Smoother can actually run — the same predicate
+				// that decides whether to emit #smooth-wrapper (includes/hook.php).
+				// Without this gate the JS would still read an enabled config and
+				// call ScrollSmoother.create() (which builds its own wrapper when
+				// ours is absent), so a plugin vetoing us through
+				// `bricksfly_smooth_scroller_is_active` — MotionKit does, when it
+				// owns the page smoother — would lose the wrapper but still end up
+				// with two smoothers fighting over one page.
 				'smoothScroller' => (function () {
+					if (function_exists('bricksfly_smooth_scroller_is_active') && ! bricksfly_smooth_scroller_is_active()) {
+						return null;
+					}
+
 					$raw = get_option('bricksfly_smooth_scroller');
 					return is_string($raw) ? json_decode($raw) : null;
 				})(),

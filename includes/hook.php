@@ -119,13 +119,34 @@ function bricksfly_kses_allow_element_attrs($tags, $context)
 add_filter('wp_kses_allowed_html', 'bricksfly_kses_allow_element_attrs', 10, 2);
 
 // smooth scroller
+//
+// Both hooks stay registered unconditionally and gate at call time:
+// bricksfly_smooth_scroller_is_active() reads the extension toggle and the
+// per-breakpoint option, neither of which is settled when this file loads.
+//
+// The closing hook keys off whether the opening one ACTUALLY ran, not off the
+// predicate again — otherwise a theme with no wp_body_open (or anything that
+// changed the option mid-request) would emit an unbalanced </div></div> and
+// collapse the page layout.
 function bricksfly_add_header_smoother_start()
 {
+  if (! function_exists('bricksfly_smooth_scroller_is_active') || ! bricksfly_smooth_scroller_is_active()) {
+    return;
+  }
+
+  $GLOBALS['bricksfly_smoother_wrapper_open'] = true;
+
   echo '<div id="smooth-wrapper"><div id="smooth-content">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 }
 
 function bricksfly_add_header_smoother_end()
 {
+  if (empty($GLOBALS['bricksfly_smoother_wrapper_open'])) {
+    return;
+  }
+
+  unset($GLOBALS['bricksfly_smoother_wrapper_open']);
+
   echo '</div></div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 }
 
@@ -173,3 +194,65 @@ function bricksfly_enqueue_element_logo_css()
   wp_add_inline_style('aab-element-logo', $css);
 }
 add_action('wp_enqueue_scripts', 'bricksfly_enqueue_element_logo_css', 100);
+
+/**
+ * Repair Bricks globals that a template import stored as an empty string.
+ *
+ * Before 1.0.1 the option importer wrote an export's empty <value> node
+ * straight through, so options like `bricks_theme_styles` and
+ * `bricks_global_variables` ended up EXISTING but holding '' instead of an
+ * array. Bricks reads them as `get_option( NAME, [] )`, and that default only
+ * applies when the option is absent — so the '' came back as-is and Bricks
+ * foreach()ed a string, printing PHP warnings above every page.
+ *
+ * Deleting restores Bricks' own default (it deletes these options itself when
+ * they're empty). Only an empty string is touched: that value carries no data,
+ * so the repair cannot lose anything, and any real array is left alone.
+ */
+function bricksfly_repair_scalar_bricks_globals()
+{
+  $options = array(
+    'bricks_theme_styles',
+    'bricks_global_variables',
+    'bricks_global_variables_categories',
+    'bricks_global_classes',
+    'bricks_global_settings',
+    'bricks_global_pseudo_classes',
+    'bricks_color_palette',
+    'bricks_style_manager',
+  );
+
+  foreach ($options as $option) {
+    if ('' === get_option($option, null)) {
+      delete_option($option);
+    }
+  }
+}
+
+/**
+ * One-time-per-version upgrade pass.
+ *
+ * Costs one autoloaded option read on a normal request; the repairs only run
+ * when the stored version differs from the shipped one.
+ *
+ * On `plugins_loaded`, not `init` or `admin_init`:
+ *   - the damage shows on the FRONT end, so a site nobody logs into still gets
+ *     healed on the next visit; and
+ *   - `plugins_loaded` fires before the theme's functions.php is even loaded,
+ *     while Bricks reads these options as early as its own bootstrap. Repairing
+ *     on `init` was measurably too late: the healing request still printed one
+ *     warning from a value Bricks had already read into a static.
+ */
+function bricksfly_maybe_upgrade()
+{
+  if (BRICKSFLY_VERSION === get_option('bricksfly_db_version')) {
+    return;
+  }
+
+  bricksfly_repair_scalar_bricks_globals();
+
+  // Autoloaded on purpose: it's read on every request, so paying for it in the
+  // one bulk options query beats a separate query each time.
+  update_option('bricksfly_db_version', BRICKSFLY_VERSION);
+}
+add_action('plugins_loaded', 'bricksfly_maybe_upgrade', 1);

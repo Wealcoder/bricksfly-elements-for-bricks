@@ -4,7 +4,7 @@ Tags: bricks, bricks builder, animation, templates
 Requires at least: 6.9
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -331,10 +331,21 @@ License texts:
 
 == Changelog ==
 
+= 1.0.1 - 10 August 2026 =
+- Fixed: Importing a starter template no longer switches off Elements and Extensions you already had enabled. Scroll Smoother in particular could be turned off by an import while the imported settings still expected it to run, so smooth scrolling silently stopped working.
+- Fixed: Importing a starter template could leave Bricks theme styles and global variables in an unreadable state, causing PHP warnings to appear at the top of every page. Existing sites are repaired automatically on update.
+- Fixed: Smooth Scroll no longer adds its scroll wrapper to pages where no smooth scrolling will run. The leftover wrapper could show a stray horizontal scrollbar and cut off content at the bottom of the page.
+- Fixed: Smooth Scroll settings and the scroll wrapper can no longer disagree with each other on the same page.
+- Added: BricksFly now steps aside automatically when MotionKit is handling smooth scrolling, so the two plugins no longer fight over the page.
+- Added: A `bricksfly_smooth_scroller_is_active` filter, so other plugins can turn Smooth Scroll off for a specific page.
+
 = 1.0.0 - 14 May 2026 =
 - Initial release.
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+Fixes a Smooth Scroll wrapper that could add a stray horizontal scrollbar and clip page content. Adds automatic handover to MotionKit when it is handling smooth scrolling.
 
 = 1.0.0 =
 Initial release.
