@@ -332,7 +332,8 @@ License texts:
 == Changelog ==
 
 = 1.0.1 - 10 August 2026 =
-- Fixed: Importing a starter template no longer switches off Elements and Extensions you already had enabled. Scroll Smoother in particular could be turned off by an import while the imported settings still expected it to run, so smooth scrolling silently stopped working.
+- Fixed: Importing a starter template now applies the Elements, Extensions and Scroll Smoother settings the template ships with. Templates published before the plugin was renamed store these under the old option names, so they were being saved somewhere the plugin never reads — the demo's smooth scrolling and element choices were silently dropped.
+- Fixed: Importing a starter template no longer switches off Elements and Extensions you already had enabled. An import can now only turn things on.
 - Fixed: Importing a starter template could leave Bricks theme styles and global variables in an unreadable state, causing PHP warnings to appear at the top of every page. Existing sites are repaired automatically on update.
 - Fixed: Smooth Scroll no longer adds its scroll wrapper to pages where no smooth scrolling will run. The leftover wrapper could show a stray horizontal scrollbar and cut off content at the bottom of the page.
 - Fixed: Smooth Scroll settings and the scroll wrapper can no longer disagree with each other on the same page.

@@ -414,6 +414,8 @@ class BRICKSFLY_Template_Importer {
 					continue;
 				}
 
+				$option_name = $this->map_legacy_option_name( $option_name );
+
 				// Use the raw XML text as-is. sanitize_text_field() strips newlines/tabs and
 				// breaks the byte-length prefixes in PHP-serialized data (e.g. s:15:"…"),
 				// which silently corrupts ACF repeater rows on unserialize.
@@ -460,7 +462,13 @@ class BRICKSFLY_Template_Importer {
 				// shape save_smooth_scroller_settings() produces (dashboard.php) —
 				// json_decode(get_option(...)) at render time expects a string, not
 				// the PHP array maybe_unserialize() just gave us above.
-				if ( 'bricksfly_smooth_scroller' === $option_name ) {
+				//
+				// Exports write this option as JSON text, which maybe_unserialize()
+				// hands back unchanged as a string. Encoding that again would store
+				// a quoted, escaped copy of the JSON ("{\"desktop\":…}"), and
+				// json_decode() would then return a string instead of the
+				// per-breakpoint map — so only encode what isn't already JSON.
+				if ( 'bricksfly_smooth_scroller' === $option_name && ! $this->is_json_object_string( $value ) ) {
 					$value = wp_json_encode( $value );
 				}
 
@@ -583,6 +591,60 @@ class BRICKSFLY_Template_Importer {
 			),
 			true
 		);
+	}
+
+	/**
+	 * Translate a pre-rebrand option name in an export to the name this plugin
+	 * actually reads today.
+	 *
+	 * Published templates were exported before the `thebrbre_*` → `bricksfly_*`
+	 * rename, so their options file still ships `thebrbre_save_extensions`,
+	 * `thebrbre_save_widgets` and `thebrbre_smooth_scroller`. Written verbatim
+	 * those rows land next to — not into — the options the plugin reads, and
+	 * `bricksfly_migrate_thebrbre_settings()` cannot rescue them: it only fills
+	 * a `bricksfly_*` option that is ABSENT, and activation seeds all of them.
+	 * The net effect is that a demo's Extensions, Elements and Scroll Smoother
+	 * settings are silently dropped on import.
+	 *
+	 * Deliberately only these three. The other `thebrbre_*` options in an export
+	 * (cursor, preloader, scroll indicator, scroll to top) are still the live
+	 * names Pro reads — renaming those would break them.
+	 *
+	 * @param string $option_name Option name as it appears in the export.
+	 * @return string Name to write.
+	 */
+	private function map_legacy_option_name( $option_name ) {
+		$renamed = array(
+			'thebrbre_save_extensions' => 'bricksfly_save_extensions',
+			'thebrbre_save_widgets'    => 'bricksfly_save_widgets',
+			'thebrbre_smooth_scroller' => 'bricksfly_smooth_scroller',
+		);
+
+		/**
+		 * Filter the pre-rebrand option names an import remaps.
+		 *
+		 * @param array<string,string> $renamed old name => current name.
+		 */
+		$renamed = apply_filters( 'bricksfly_import_legacy_option_map', $renamed );
+
+		return isset( $renamed[ $option_name ] ) ? $renamed[ $option_name ] : $option_name;
+	}
+
+	/**
+	 * Whether a value is already a JSON-encoded object/array, rather than a
+	 * value still waiting to be encoded.
+	 *
+	 * @param mixed $value
+	 * @return bool
+	 */
+	private function is_json_object_string( $value ) {
+		if ( ! is_string( $value ) || '' === $value ) {
+			return false;
+		}
+
+		$decoded = json_decode( $value, true );
+
+		return is_array( $decoded );
 	}
 
 	/**
