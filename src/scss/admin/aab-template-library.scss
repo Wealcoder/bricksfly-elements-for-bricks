@@ -425,10 +425,10 @@
 	border: 2px solid #d5d5d8;
 	border-top-color: #ffd53e;
 	border-radius: 50%;
-	animation: aab-tl-spin 0.8s linear infinite;
+	animation: bricksfly-tl-spin 0.8s linear infinite;
 }
 
-@keyframes aab-tl-spin {
+@keyframes bricksfly-tl-spin {
 	to {
 		transform: rotate(360deg);
 	}

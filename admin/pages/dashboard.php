@@ -53,7 +53,7 @@ class BRICKSFLY_Admin_Init
 
 	public function __construct()
 	{
-		$this->plugin_file = WP_PLUGIN_DIR . '/the-bricksfly-pro/the-bricksfly-pro.php';
+		$this->plugin_file = WP_PLUGIN_DIR . '/bricksfly-elements-for-bricks-pro/bricksfly-elements-for-bricks-pro.php';
 
 		$this->remove_all_notices();
 		$this->include();
@@ -248,7 +248,7 @@ class BRICKSFLY_Admin_Init
 		require_once $admin_dir . 'Notices/ShowNotices.php';
 
 		// CPT Builder moved to the Pro plugin entirely (Pro-only,
-		// license-gated) — see the-bricksfly-pro/admin/pages/cpt-builder.php,
+		// license-gated) — see bricksfly-elements-for-bricks-pro/admin/pages/cpt-builder.php,
 		// wired via bricksfly_pro_register(). The free plugin no longer
 		// registers any CPT Builder menu/placeholder.
 
@@ -292,11 +292,11 @@ class BRICKSFLY_Admin_Init
 
 
 		// License link â€” navigates to the real License Settings page. The
-		// page slug is registered by the-bricksfly-pro itself
+		// page slug is registered by bricksfly-elements-for-bricks-pro itself
 		// — it must match exactly here or WordPress shows a generic "not
 		// allowed" error for the unregistered slug, replacing the old React
 		// modal entry point (?bf-license=1).
-		if (is_plugin_active('the-bricksfly-pro/the-bricksfly-pro.php')) {
+		if (is_plugin_active('bricksfly-elements-for-bricks-pro/bricksfly-elements-for-bricks-pro.php')) {
 			$license_active = function_exists('bricksfly_is_license_valid') && bricksfly_is_license_valid();
 			$license_label  = esc_html__('License', 'bricksfly-elements-for-bricks');
 			if ($license_active) {
@@ -420,7 +420,10 @@ class BRICKSFLY_Admin_Init
 			'nonce'               => wp_create_nonce('bricksfly_admin_nonce'),
 			'addons_config'       => $addons_config,
 			'adminURL'            => admin_url(),
-			'smoothScroller'      => json_decode(get_option('bricksfly_smooth_scroller')),
+			'smoothScroller'      => (function () {
+				$raw = get_option('bricksfly_smooth_scroller');
+				return is_string($raw) ? json_decode($raw) : null;
+			})(),
 			'cf_settings'         => is_string($font_settings) ? json_decode($font_settings) : array(),
 			'extensions'          => array(
 				'total'  => $total_extensions,
@@ -462,7 +465,7 @@ class BRICKSFLY_Admin_Init
 	 */
 	private function get_pro_dialog_copy($license_status, $license_key)
 	{
-		$pro_basename  = 'the-bricksfly-pro/the-bricksfly-pro.php';
+		$pro_basename  = 'bricksfly-elements-for-bricks-pro/bricksfly-elements-for-bricks-pro.php';
 		$pro_installed = file_exists(WP_PLUGIN_DIR . '/' . $pro_basename);
 		$pro_active    = (function_exists('bricksfly_is_pro_active') && bricksfly_is_pro_active());
 

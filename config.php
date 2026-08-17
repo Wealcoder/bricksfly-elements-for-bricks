@@ -1194,9 +1194,9 @@ $bricksfly_config = array(
 				// when deciding which plugin counts as "the Pro". We keep that
 				// key for UI compatibility but point the basename at the
 				// Bricks Pro plugin so the detected state is correct.
-				'the-bricksfly-pro' => array(
+				'bricksfly-elements-for-bricks-pro' => array(
 					'label'        => ' Pro',
-					'basename'     => 'the-bricksfly-pro/the-bricksfly-pro.php',
+					'basename'     => 'bricksfly-elements-for-bricks-pro/bricksfly-elements-for-bricks-pro.php',
 					'source'       => 'custom',
 					'is_pro'       => false,
 					'slug'         => '',

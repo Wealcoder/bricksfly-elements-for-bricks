@@ -127,7 +127,7 @@
 .bricksfly-animate.bricksfly-starter-animations-reveal {
   .elementor-widget-container > *,
   > * {
-    animation-name: aab-reveal-anim;
+    animation-name: bricksfly-reveal-anim;
     animation-duration: var(--aab-duration, 700ms);
     animation-delay: var(--aab-delay, 0ms);
     animation-timing-function: var(--aab-ease, ease);
@@ -135,7 +135,7 @@
     animation-iteration-count: 1;
   }
   &.bricksfly-target-self {
-    animation-name: aab-reveal-anim;
+    animation-name: bricksfly-reveal-anim;
     animation-duration: var(--aab-duration, 700ms);
     animation-delay: var(--aab-delay, 0ms);
     animation-timing-function: var(--aab-ease, ease);
@@ -144,7 +144,7 @@
   }
 }
 
-@keyframes aab-reveal-anim {
+@keyframes bricksfly-reveal-anim {
   to {
     clip-path: inset(0 0 0 0);
     opacity: 1;
@@ -176,11 +176,11 @@
 
 .bricksfly-animate.bricksfly-starter-animations-scale-up {
   .elementor-widget-container > *, > *, &.bricksfly-target-self {
-    animation-name: aab-scale-up;
+    animation-name: bricksfly-scale-up;
   }
 }
 
-@keyframes aab-scale-up {
+@keyframes bricksfly-scale-up {
   to {
     transform: scale(var(--aab-scale-end, 1));
     opacity: 1;
@@ -200,11 +200,11 @@
 
 .bricksfly-animate.bricksfly-starter-animations-rotate-in {
   .elementor-widget-container > *, > *, &.bricksfly-target-self {
-    animation-name: aab-rotate-in;
+    animation-name: bricksfly-rotate-in;
   }
 }
 
-@keyframes aab-rotate-in {
+@keyframes bricksfly-rotate-in {
   to { transform: rotate(0); opacity: 1; }
 }
 
@@ -269,14 +269,14 @@
 .bricksfly-animate.bricksfly-starter-animations-slide {
   .elementor-widget-container > *,
   > * {
-    animation: aab-slide var(--aab-duration, 700ms) var(--aab-ease, ease) forwards;
+    animation: bricksfly-slide var(--aab-duration, 700ms) var(--aab-ease, ease) forwards;
   }
   &.bricksfly-target-self {
-    animation: aab-slide var(--aab-duration, 700ms) var(--aab-ease, ease) forwards;
+    animation: bricksfly-slide var(--aab-duration, 700ms) var(--aab-ease, ease) forwards;
   }
 }
 
-@keyframes aab-slide {
+@keyframes bricksfly-slide {
   to { transform: translateX(0) translateY(0); opacity: 1; }
 }
 
@@ -311,11 +311,11 @@
 
 .bricksfly-animate.bricksfly-starter-animations-skew-reveal {
   .elementor-widget-container > *, > *, &.bricksfly-target-self {
-    animation-name: aab-skew-reveal;
+    animation-name: bricksfly-skew-reveal;
   }
 }
 
-@keyframes aab-skew-reveal {
+@keyframes bricksfly-skew-reveal {
   to { transform: skewX(0deg) translateX(0); opacity: 1; }
 }
 
@@ -374,11 +374,11 @@
 
 .bricksfly-animate.bricksfly-starter-animations-flip {
   .elementor-widget-container > *, > *, &.bricksfly-target-self {
-    animation-name: aab-flip;
+    animation-name: bricksfly-flip;
   }
 }
 
-@keyframes aab-flip {
+@keyframes bricksfly-flip {
   to { transform: rotateX(0deg) rotateY(0deg); opacity: 1; }
 }
 
@@ -395,11 +395,11 @@
 
 .bricksfly-animate.bricksfly-starter-animations-zoom-in {
   .elementor-widget-container > *, > *, &.bricksfly-target-self {
-    animation-name: aab-zoom-in;
+    animation-name: bricksfly-zoom-in;
   }
 }
 
-@keyframes aab-zoom-in {
+@keyframes bricksfly-zoom-in {
   to { transform: scale(1); opacity: 1; }
 }
 
@@ -416,11 +416,11 @@
 
 .bricksfly-animate.bricksfly-starter-animations-combo-reveal {
   .elementor-widget-container > *, > *, &.bricksfly-target-self {
-    animation-name: aab-combo-reveal;
+    animation-name: bricksfly-combo-reveal;
   }
 }
 
-@keyframes aab-combo-reveal {
+@keyframes bricksfly-combo-reveal {
   to { transform: translateY(0) scale(1); opacity: 1; }
 }
 
@@ -432,11 +432,11 @@
 // Glow has no hidden state — it's a repeating animation so it starts
 // from its natural visible state.
 .bricksfly-animate.bricksfly-starter-animations-text-glow {
-  animation: aab-glow var(--aab-duration, 2s) var(--aab-ease, ease-in-out) alternate;
+  animation: bricksfly-glow var(--aab-duration, 2s) var(--aab-ease, ease-in-out) alternate;
   animation-iteration-count: var(--aab-iteration, infinite);
 }
 
-@keyframes aab-glow {
+@keyframes bricksfly-glow {
   from { text-shadow: 0 0 5px var(--aab-glow-color, #fff); }
   to   { text-shadow: 0 0 var(--aab-glow-size, 20px) var(--aab-glow-color, #00f); }
 }
@@ -447,10 +447,10 @@
 }
 
 .bricksfly-animate.bricksfly-starter-animations-text-pop {
-  animation: aab-text-pop 0.6s ease forwards;
+  animation: bricksfly-text-pop 0.6s ease forwards;
 }
 
-@keyframes aab-text-pop {
+@keyframes bricksfly-text-pop {
   70%  { transform: scale(1.1); }
   100% { transform: scale(1); opacity: 1; }
 }
@@ -475,10 +475,10 @@
   display: inline-block;
   margin-left: 1px;
   font-weight: normal;
-  animation: aab-typewriter-caret 0.8s step-end infinite;
+  animation: bricksfly-typewriter-caret 0.8s step-end infinite;
 }
 
-@keyframes aab-typewriter-caret {
+@keyframes bricksfly-typewriter-caret {
   50% { opacity: 0; }
 }
 
@@ -527,11 +527,11 @@
   .elementor-widget-container > *::after,
   > *::after,
   &.bricksfly-target-self::after {
-    animation: aab-mask-wipe var(--aab-duration, 1000ms) var(--aab-ease, cubic-bezier(0.77, 0, 0.18, 1)) var(--aab-delay, 0ms) forwards;
+    animation: bricksfly-mask-wipe var(--aab-duration, 1000ms) var(--aab-ease, cubic-bezier(0.77, 0, 0.18, 1)) var(--aab-delay, 0ms) forwards;
   }
 }
 
-@keyframes aab-mask-wipe {
+@keyframes bricksfly-mask-wipe {
   to { transform: translateX(100%); }
 }
 
@@ -569,11 +569,11 @@
   .elementor-widget-container > *::after,
   > *::after,
   &.bricksfly-target-self::after {
-    animation: aab-wave 4s ease-in-out infinite;
+    animation: bricksfly-wave 4s ease-in-out infinite;
   }
 }
 
-@keyframes aab-wave {
+@keyframes bricksfly-wave {
   0%, 100% {
     clip-path: polygon(0% 45%, 16% 44%, 33% 50%, 54% 60%, 70% 61%, 84% 59%, 100% 52%, 100% 100%, 0% 100%);
   }
@@ -605,11 +605,11 @@
   .elementor-widget-container > *,
   > *,
   &.bricksfly-target-self {
-    animation: aab-bg-text-animation var(--aab-bg-speed, 15s) linear infinite;
+    animation: bricksfly-bg-text-animation var(--aab-bg-speed, 15s) linear infinite;
   }
 }
 
-@keyframes aab-bg-text-animation {
+@keyframes bricksfly-bg-text-animation {
   0%   { background-position: left 0 top 50%; }
   50%  { background-position: left 1500px top 50%; }
   100% { background-position: left 0 top 50%; }
@@ -664,14 +664,14 @@
   .elementor-widget-container > * span,
   > * span,
   &.bricksfly-target-self span {
-    animation-name: aab-char;
+    animation-name: bricksfly-char;
     animation-duration: var(--aab-duration, 0.5s);
     animation-timing-function: var(--aab-ease, ease);
     animation-fill-mode: forwards;
   }
 }
 
-@keyframes aab-char {
+@keyframes bricksfly-char {
   to { opacity: 1; transform: translate(0, 0) rotate(0deg) scale(1); }
 }
 
@@ -695,9 +695,9 @@
 .bricksfly-slide-left.bricksfly-starter-animations-slide.e-con   { @include when-hidden-self { transform: translateX(calc(-1 * var(--aab-slide-distance, 40px))); } }
 .bricksfly-slide-right.bricksfly-starter-animations-slide.e-con  { @include when-hidden-self { transform: translateX(var(--aab-slide-distance, 40px)); } }
 
-.bricksfly-animate.bricksfly-starter-animations-slide.e-con { animation-name: aab-container-slide; }
+.bricksfly-animate.bricksfly-starter-animations-slide.e-con { animation-name: bricksfly-container-slide; }
 
-@keyframes aab-container-slide {
+@keyframes bricksfly-container-slide {
   to { transform: translateX(0) translateY(0); opacity: 1; }
 }
 
@@ -717,9 +717,9 @@
 .bricksfly-flip-axis-container-x.bricksfly-starter-animations-flip.e-con { @include when-hidden-self { transform: rotateX(var(--aab-flip-angle-container, 90deg)); } }
 .bricksfly-flip-axis-container-y.bricksfly-starter-animations-flip.e-con { @include when-hidden-self { transform: rotateY(var(--aab-flip-angle-container, 90deg)); } }
 
-.bricksfly-animate.bricksfly-starter-animations-flip.e-con { animation-name: aab-container-flip; }
+.bricksfly-animate.bricksfly-starter-animations-flip.e-con { animation-name: bricksfly-container-flip; }
 
-@keyframes aab-container-flip {
+@keyframes bricksfly-container-flip {
   to { transform: scaleX(1) scaleY(1); opacity: 1; }
 }
 
@@ -729,7 +729,7 @@
 
 // text-glow — bump specificity so shorthand wins on animation-fill-mode
 .bricksfly-animate.bricksfly-target-self.bricksfly-starter-animations-text-glow {
-  animation: aab-glow var(--aab-duration, 2s) var(--aab-ease, ease-in-out) alternate;
+  animation: bricksfly-glow var(--aab-duration, 2s) var(--aab-ease, ease-in-out) alternate;
   animation-iteration-count: var(--aab-iteration, infinite);
   animation-fill-mode: none;
 }
@@ -765,7 +765,7 @@ $bricks-containers: (
   #{$sel}.bricksfly-slide-top.bricksfly-starter-animations-slide    { @include when-hidden-self { transform: translateY(calc(-1 * var(--aab-slide-distance, 40px))); } }
   #{$sel}.bricksfly-slide-left.bricksfly-starter-animations-slide   { @include when-hidden-self { transform: translateX(calc(-1 * var(--aab-slide-distance, 40px))); } }
   #{$sel}.bricksfly-slide-right.bricksfly-starter-animations-slide  { @include when-hidden-self { transform: translateX(var(--aab-slide-distance, 40px)); } }
-  #{$sel}.bricksfly-animate.bricksfly-starter-animations-slide { animation-name: aab-container-slide; }
+  #{$sel}.bricksfly-animate.bricksfly-starter-animations-slide { animation-name: bricksfly-container-slide; }
 }
 
 // ----- Flip (per-child 2D scale) -----
@@ -789,7 +789,7 @@ $bricks-containers: (
     @include when-hidden { transform: scaleX(0) scaleY(1); }
   }
   #{$sel}.bricksfly-animate.bricksfly-starter-animations-flip > *:not(.bricksfly-target-self) {
-    animation-name: aab-container-flip;
+    animation-name: bricksfly-container-flip;
   }
 }
 

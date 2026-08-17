@@ -9,7 +9,6 @@
   display: flex;
   flex-wrap: wrap;
   list-style: none;
-  justify-content: var(--aab-justify, flex-start);
   width: 100%;
 }
 
@@ -58,7 +57,7 @@
 }
 
 /* Pulse */
-@keyframes aab-hover-pulse {
+@keyframes bricksfly-hover-pulse {
   0% {
     transform: scale(1);
   }
@@ -71,7 +70,7 @@
 }
 
 .aab-hover-pulse:hover {
-  animation: aab-hover-pulse 0.6s ease-in-out;
+  animation: bricksfly-hover-pulse 0.6s ease-in-out;
 }
 
 /* Float Up */
@@ -81,4 +80,32 @@
 
 .aab-hover-float-up:hover {
   transform: translateY(-5px);
+}
+
+/* -------------------------
+   Style Variations
+------------------------- */
+
+/* Style One - Basic clean style */
+.bricksfly-social-icons-style-1 .bricksfly-social-icon {
+  border-radius: 4px;
+}
+
+/* Style Two - Circular icons */
+.bricksfly-social-icons-style-2 .bricksfly-social-icon {
+  border-radius: 50%;
+  width: calc(var(--icon-size, 20px) + 2 * var(--icon-padding, 1px) + 10px);
+  height: calc(var(--icon-size, 20px) + 2 * var(--icon-padding, 1px) + 10px);
+}
+
+/* Style Three - Rounded rectangle with shadow */
+.bricksfly-social-icons-style-3 .bricksfly-social-icon {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+}
+
+.bricksfly-social-icons-style-3 .bricksfly-social-icon:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
 }

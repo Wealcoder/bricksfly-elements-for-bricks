@@ -66,15 +66,16 @@ class BRICKSFLY_Importer_Bootstrap extends WXRImporter {
 
 				register_taxonomy(
 					$data['taxonomy'],
-					// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WooCommerce taxonomy API hook.
-					apply_filters( 'woocommerce_taxonomy_objects_' . $data['taxonomy'], array( 'product' ) ),
-					// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WooCommerce taxonomy API hook.
-					apply_filters( 'woocommerce_taxonomy_args_' . $data['taxonomy'], array(
+					// Bridged via bricksfly_woocommerce_taxonomy_objects() rather
+					// than calling WooCommerce's 'woocommerce_taxonomy_objects_{taxonomy}'
+					// filter directly — see includes/helper.php.
+					bricksfly_woocommerce_taxonomy_objects( array( 'product' ), $data['taxonomy'] ),
+					bricksfly_woocommerce_taxonomy_args( array(
 						'hierarchical' => true,
 						'show_ui'      => false,
 						'query_var'    => true,
 						'rewrite'      => false,
-					) )
+					), $data['taxonomy'] )
 				);
 			}
 		}

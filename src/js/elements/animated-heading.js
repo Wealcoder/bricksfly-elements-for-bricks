@@ -10,11 +10,11 @@ import "../../scss/elements/animated-heading.scss";
 function bricksflyAnimatedHeading( el ) {
 	if ( ! el ) return;
 
-	var heading = el.querySelector( '.aab-animated-heading' );
+	var heading = el.querySelector( '.bricksfly-animated-heading' );
 	if ( ! heading ) return;
 
 	// Parse settings
-	var raw = heading.getAttribute( 'data-aab-anim' );
+	var raw = heading.getAttribute( 'data-bricksfly-anim' );
 	if ( ! raw ) return;
 
 	var settings;
@@ -32,7 +32,7 @@ function bricksflyAnimatedHeading( el ) {
 		heading._aabCleanup = null;
 	}
 
-	var extras = heading.querySelectorAll( '.aab-anim-cursor, .aab-anim-mask' );
+	var extras = heading.querySelectorAll( '.bricksfly-anim-cursor, .bricksfly-anim-mask' );
 	for ( var i = 0; i < extras.length; i++ ) extras[i].remove();
 
 	// Restore original text if split previously
@@ -50,9 +50,9 @@ function bricksflyAnimatedHeading( el ) {
 	var type     = settings.type || 'reveal';
 	if ( type === 'none' ) return;
 
-	var duration = parseFloat( settings.duration ) || 1;
-	var delay    = parseFloat( settings.delay ) || 0;
-	var stagger  = parseFloat( settings.stagger ) || 0.02;
+	var duration = Math.max( 0.1, Math.min( 10, parseFloat( settings.duration ) || 1 ) );
+	var delay    = Math.max( 0, Math.min( 10, parseFloat( settings.delay ) || 0 ) );
+	var stagger  = Math.max( 0, Math.min( 1, parseFloat( settings.stagger ) || 0.02 ) );
 	var trigger  = settings.trigger || 'on_scroll';
 	var trigSel  = settings.triggerSelector || null;
 
@@ -117,8 +117,17 @@ function bricksflyAnimatedHeading( el ) {
 =========================== */
 
 function aabAH_onTrigger( el, trigSel, trigger, callback ) {
-	var triggerEl = ( trigSel ? document.querySelector( trigSel ) : null ) || el;
+	var triggerEl = el;
 	var cleanups = [];
+
+	if ( trigSel ) {
+		var foundEl = document.querySelector( trigSel );
+		if ( foundEl ) {
+			triggerEl = foundEl;
+		} else {
+			console.warn( 'Animated Heading: trigger selector "' + trigSel + '" not found, using element itself' );
+		}
+	}
 
 	if ( trigger === 'on_page_load' ) {
 		callback();
@@ -392,7 +401,7 @@ function aabAH_glowPulse( el, duration, delay, trigger, trigSel ) {
 		el.style.opacity = '1';
 		// Start pulse after fade-in
 		setTimeout( function() {
-			el.style.animation = 'aab-glow-pulse 2s ease-in-out infinite alternate';
+			el.style.animation = 'bricksfly-glow-pulse 2s ease-in-out infinite alternate';
 		}, duration * 1000 );
 	}
 
@@ -464,7 +473,7 @@ function aabAH_typewriter( el, _duration, delay, stagger, trigger, trigSel ) {
 
 	// Cursor
 	var cursor = document.createElement( 'span' );
-	cursor.className = 'aab-anim-cursor';
+	cursor.className = 'bricksfly-anim-cursor';
 	cursor.textContent = '|';
 	cursor.style.opacity = '0';
 	var container = el.querySelector( 'a' ) || el;
@@ -530,7 +539,7 @@ function aabAH_maskWipe( el, duration, delay, trigger, trigSel ) {
 	el.style.overflow = 'hidden';
 
 	var mask = document.createElement( 'div' );
-	mask.className = 'aab-anim-mask';
+	mask.className = 'bricksfly-anim-mask';
 	mask.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;background:currentColor;z-index:2;pointer-events:none;';
 	mask.style.transform = 'translate3d(-101%,0,0)';
 	mask.style.transition = 'none';
@@ -542,7 +551,7 @@ function aabAH_maskWipe( el, duration, delay, trigger, trigSel ) {
 		// Wrap text content for opacity control
 		var children = Array.prototype.slice.call( el.childNodes );
 		var wrapper = document.createElement( 'span' );
-		wrapper.className = 'aab-mask-inner';
+		wrapper.className = 'bricksfly-mask-inner';
 		children.forEach( function( child ) {
 			if ( child !== mask ) wrapper.appendChild( child );
 		} );
@@ -627,7 +636,7 @@ function aabAH_backgroundClip( el, duration, delay, trigger, trigSel ) {
 	function playClip() {
 		el.style.transition = 'opacity 0.5s ease';
 		el.style.opacity = '1';
-		el.style.animation = 'aab-bg-shift ' + ( duration * 2 ) + 's ease infinite alternate';
+		el.style.animation = 'bricksfly-bg-shift ' + ( duration * 2 ) + 's ease infinite alternate';
 	}
 
 	if ( trigger === 'play_with_scroll' ) {
@@ -654,4 +663,130 @@ function aabAH_backgroundClip( el, duration, delay, trigger, trigSel ) {
 	el._aabCleanup = cleanup;
 }
 
-if (typeof window !== 'undefined') { window.bricksflyAnimatedHeading = bricksflyAnimatedHeading; }
+if (typeof window !== 'undefined') {
+	window.bricksflyAnimatedHeading = bricksflyAnimatedHeading;
+	// Add a refresh function for editor integration
+	window.bricksflyRefreshAnimatedHeadings = function() {
+		// Reset all initialized flags
+		var elements = document.querySelectorAll('.bricksfly-animated-heading');
+		elements.forEach(function(el) {
+			var wrapper = el.parentElement;
+			if (wrapper) {
+				wrapper._aabInitialized = false;
+				// Clean up any existing animations
+				if (el._aabCleanup) {
+					el._aabCleanup();
+					el._aabCleanup = null;
+				}
+			}
+		});
+		// Re-initialize everything
+		initAnimatedHeadings();
+	};
+}
+
+/* ===========================
+   INITIALIZATION
+=========================== */
+
+(function() {
+	// Initialize when DOM is ready
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', initAnimatedHeadings);
+	} else {
+		initAnimatedHeadings();
+	}
+
+	// Bricks Builder integration for live preview
+	if (window.Bricks && Bricks.builder) {
+		// Re-initialize when settings change in the builder
+		Bricks.builder.on('elementSettingsChange', function(data) {
+			if (data && data.elementId) {
+				// Find all animated headings and re-initialize
+				setTimeout(function() {
+					var elements = document.querySelectorAll('.bricksfly-animated-heading[data-bricksfly-anim]');
+					elements.forEach(function(el) {
+						var wrapper = el.parentElement;
+						if (wrapper) {
+							// Clean up previous animation
+							if (wrapper._aabCleanup) {
+								wrapper._aabCleanup();
+								wrapper._aabCleanup = null;
+							}
+							wrapper._aabInitialized = false;
+							// Re-initialize with new settings
+							window.bricksflyAnimatedHeading(wrapper);
+						}
+					});
+				}, 100);
+			}
+		});
+	}
+
+	// Also initialize after Bricks AJAX updates
+	if (window.Bricks && Bricks.ajax) {
+		Bricks.ajax.on('success', initAnimatedHeadings);
+	}
+
+	// MutationObserver for dynamic content and editor changes
+	var observer = new MutationObserver(function(mutations) {
+		// Check if any mutations involve our animated headings
+		var hasRelevantChanges = mutations.some(function(mutation) {
+			if (mutation.type === 'childList') {
+				return Array.from(mutation.addedNodes).some(function(node) {
+					return node.nodeType === 1 && (
+						node.classList && node.classList.contains('bricksfly-animated-heading') ||
+						(node.querySelector && node.querySelector('.bricksfly-animated-heading'))
+					);
+				});
+			}
+			if (mutation.type === 'attributes') {
+				return mutation.target.classList && mutation.target.classList.contains('bricksfly-animated-heading');
+			}
+			return false;
+		});
+
+		if (hasRelevantChanges) {
+			initAnimatedHeadings();
+		}
+	});
+
+	// Start observing the document for changes
+	observer.observe(document.body || document.documentElement, {
+		childList: true,
+		subtree: true,
+		attributes: true,
+		attributeFilter: ['data-bricksfly-anim', 'class']
+	});
+
+	function initAnimatedHeadings() {
+		var elements = document.querySelectorAll('.bricksfly-animated-heading[data-bricksfly-anim]');
+		elements.forEach(function(el) {
+			// Get the parent wrapper element (the div that wraps the heading tag)
+			var wrapper = el.parentElement;
+			if (wrapper && !wrapper._aabInitialized) {
+				// Force animation replay in editor mode
+				var isEditor = window.Bricks && Bricks.builder;
+				window.bricksflyAnimatedHeading(wrapper);
+				wrapper._aabInitialized = true;
+
+				// In editor, immediately replay animation for preview
+				if (isEditor) {
+					setTimeout(function() {
+						// Trigger the animation again for preview
+						var heading = wrapper.querySelector('.bricksfly-animated-heading');
+						if (heading && heading._aabCleanup) {
+							var cleanup = heading._aabCleanup;
+							heading._aabCleanup = null;
+							cleanup();
+							// Re-initialize
+							wrapper._aabInitialized = false;
+							window.bricksflyAnimatedHeading(wrapper);
+							wrapper._aabInitialized = true;
+						}
+					}, 50);
+				}
+			}
+		});
+	}
+})();

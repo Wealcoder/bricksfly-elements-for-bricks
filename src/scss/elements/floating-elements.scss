@@ -68,49 +68,49 @@
 ------------------------- */
 
 /* Float Y */
-@keyframes aab-floating-float {
+@keyframes bricksfly-floating-float {
   0%   { transform: translateY(0px); }
   50%  { transform: translateY(-20px); }
   100% { transform: translateY(0px); }
 }
 
 .aab-live-anim-float > * {
-  animation: aab-floating-float 6s ease-in-out infinite;
+  animation: bricksfly-floating-float 6s ease-in-out infinite;
 }
 
 /* Float X */
-@keyframes aab-floating-float-x {
+@keyframes bricksfly-floating-float-x {
   0%   { transform: translateX(0px); }
   50%  { transform: translateX(-20px); }
   100% { transform: translateX(0px); }
 }
 
 .aab-live-anim-float-x > * {
-  animation: aab-floating-float-x 6s ease-in-out infinite;
+  animation: bricksfly-floating-float-x 6s ease-in-out infinite;
 }
 
 /* Spin */
-@keyframes aab-floating-spin {
+@keyframes bricksfly-floating-spin {
   from { transform: rotate(0deg); }
   to   { transform: rotate(360deg); }
 }
 
 .aab-live-anim-spin > * {
-  animation: aab-floating-spin 6s linear infinite;
+  animation: bricksfly-floating-spin 6s linear infinite;
 }
 
 /* Scale */
-@keyframes aab-floating-scale {
+@keyframes bricksfly-floating-scale {
   from { transform: scale(1); }
   to   { transform: scale(0.8); }
 }
 
 .aab-live-anim-scale > * {
-  animation: aab-floating-scale 3s linear infinite alternate;
+  animation: bricksfly-floating-scale 3s linear infinite alternate;
 }
 
 /* Wiggle */
-@keyframes aab-floating-wiggle {
+@keyframes bricksfly-floating-wiggle {
   0%, 7%    { transform: rotateZ(0); }
   15%       { transform: rotateZ(-15deg); }
   20%       { transform: rotateZ(10deg); }
@@ -121,5 +121,5 @@
 }
 
 .aab-live-anim-wiggle > * {
-  animation: aab-floating-wiggle 2s linear infinite;
+  animation: bricksfly-floating-wiggle 2s linear infinite;
 }

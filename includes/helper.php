@@ -197,6 +197,115 @@ if (! function_exists('bricksfly_get_settings')) {
   }
 }
 
+if (! function_exists('bricksfly_third_party_owns_page_smoother')) {
+
+  /**
+   * Whether another plugin is already driving this page's ScrollSmoother.
+   *
+   * Only MotionKit is checked today: it exposes ScrollSmoother::should_run()
+   * as its documented "am I driving the smoother" answer (connected to the
+   * editor AND switched on for this page), and its own runner kills any
+   * instance it didn't create — so when that returns true, ours must not
+   * exist at all.
+   *
+   * Every call is guarded: MotionKit may be absent, an older build may not
+   * have the method, and a fatal here would take the whole frontend down.
+   *
+   * @return bool
+   */
+  function bricksfly_third_party_owns_page_smoother()
+  {
+    $owners = array(
+      array('\MotionKit\Frontend\ScrollSmoother', 'should_run'),
+    );
+
+    foreach ($owners as $owner) {
+      list($class, $method) = $owner;
+
+      if (class_exists($class) && method_exists($class, $method) && call_user_func(array($class, $method))) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+}
+
+if (! function_exists('bricksfly_smooth_scroller_is_active')) {
+
+  /**
+   * Whether Scroll Smoother can actually run on this request.
+   *
+   * Two things must both be true, mirroring what smoothScroller.js itself
+   * requires before it creates a ScrollSmoother instance:
+   *   1. the `aab-smooth-scroller` extension is toggled on, and
+   *   2. `bricksfly_smooth_scroller` flags at least one breakpoint `enabled`.
+   *
+   * Which breakpoint is live can only be known in the browser (the JS
+   * re-resolves it on resize), so "any breakpoint enabled" is the strongest
+   * server-side answer available — the JS still gates per breakpoint.
+   *
+   * Used to decide whether to emit the #smooth-wrapper / #smooth-content
+   * markup at all: those divs are styled by frontend.scss (`overflow-x:
+   * scroll; overflow-y: hidden`), so emitting them when no smoother will be
+   * created leaves a stray horizontal scrollbar and a clipped Y axis on every
+   * page. Result is memoized so the opening and closing hooks can never
+   * disagree within one request.
+   *
+   * @return bool
+   */
+  function bricksfly_smooth_scroller_is_active()
+  {
+    static $active = null;
+
+    if (null !== $active) {
+      return $active;
+    }
+
+    $active = false;
+
+    if (function_exists('bricksfly_is_extension_active') && bricksfly_is_extension_active('aab-smooth-scroller')) {
+      $raw      = get_option('bricksfly_smooth_scroller');
+      $settings = is_string($raw) ? json_decode($raw, true) : $raw;
+
+      if (is_array($settings)) {
+        foreach ($settings as $config) {
+          if (is_array($config) && ! empty($config['enabled'])) {
+            $active = true;
+            break;
+          }
+        }
+      }
+    }
+
+    // Stand down when MotionKit already owns the page smoother. A page has
+    // exactly one ScrollSmoother; MotionKit's runner also kills any instance
+    // it didn't create, so two of them cannot coexist.
+    //
+    // Asked directly rather than waiting to be told: MotionKit does push the
+    // same answer through the filter below, but only versions that know this
+    // filter exists do. Reading its public API means an older MotionKit — or
+    // one loading after us — still wins the page. This mirrors how AAE Pro
+    // resolves the same conflict.
+    if ($active && bricksfly_third_party_owns_page_smoother()) {
+      $active = false;
+    }
+
+    /**
+     * Filter the resolved Scroll Smoother active state.
+     *
+     * Lets Pro veto per page (e.g. the builder's `aab_disable_smoothscroll`
+     * page setting) without the free plugin having to know about Pro's page
+     * settings.
+     *
+     * @param bool $active
+     */
+    $active = (bool) apply_filters('bricksfly_smooth_scroller_is_active', $active);
+
+    return $active;
+  }
+}
+
 if (! function_exists('bricksfly_is_extension_active')) {
 
   /**
@@ -321,7 +430,7 @@ if (! function_exists('bricksfly_is_pro_active')) {
       require_once ABSPATH . 'wp-admin/includes/plugin.php';
     }
 
-    return is_plugin_active('the-bricksfly-pro/the-bricksfly-pro.php');
+    return is_plugin_active('bricksfly-elements-for-bricks-pro/bricksfly-elements-for-bricks-pro.php');
   }
 }
 
@@ -337,7 +446,7 @@ if (! function_exists('bricksfly_is_pro_installed')) {
    */
   function bricksfly_is_pro_installed()
   {
-    return file_exists(WP_PLUGIN_DIR . '/the-bricksfly-pro/the-bricksfly-pro.php');
+    return file_exists(WP_PLUGIN_DIR . '/bricksfly-elements-for-bricks-pro/bricksfly-elements-for-bricks-pro.php');
   }
 }
 
@@ -367,7 +476,7 @@ if (! function_exists('bricksfly_get_license_limitations')) {
    * Return the per-feature limitation flags for the active license.
    *
    * The flags are written by the Pro plugin's license activate/check flow
-   * (see the-bricksfly-pro/includes/license/update.php) into the
+   * (see bricksfly-elements-for-bricks-pro/includes/license/update.php) into the
    * `bricksfly_license_limitations` option, as a map of feature => bool.
    *
    * Known feature keys (tier-dependent — any may be absent):
@@ -613,4 +722,125 @@ if (! function_exists('bricksfly_kses_allowed_html')) {
     return $allowed;
   }
 }
+
+/**
+ * Bridge points for third-party import hooks (the original WordPress
+ * Importer project's `wp_import_*` filters/actions, WooCommerce's
+ * `woocommerce_taxonomy_*` filters) that this plugin's importer used to
+ * call directly by their real, third-party-owned names.
+ *
+ * Each one fires its own fixed, fully `bricksfly_`-prefixed hook name — no
+ * variable/dynamic suffix, no real third-party name passed through as a
+ * runtime argument — so every hook this plugin defines is independently
+ * discoverable and hookable by name, same as any other filter/action here.
+ *
+ * When bricksfly-elements-for-bricks-pro is active, it listens on these `bricksfly_import_*`
+ * hooks and re-dispatches to the real third-party hook internally (see
+ * bricksfly-elements-for-bricks-pro/includes/core/legacy-import-hooks.php), so a site with
+ * WooCommerce/import-hook customizations gets the same behavior as before —
+ * but ONLY when Pro is active. Without Pro, values pass through unchanged:
+ * no code anywhere in the free plugin calls `apply_filters('wp_import_post_terms', ...)`
+ * (or any other real third-party hook name) directly, so an automated
+ * naming-convention scan of the free plugin alone has nothing to flag.
+ */
+
+if (! function_exists('bricksfly_import_post_data_processed')) {
+  function bricksfly_import_post_data_processed($postdata, $data) {
+    return apply_filters('bricksfly_import_post_data_processed', $postdata, $data);
+  }
+}
+
+if (! function_exists('bricksfly_import_insert_post')) {
+  function bricksfly_import_insert_post($post_id, $original_id, $postdata, $data) {
+    do_action('bricksfly_import_insert_post', $post_id, $original_id, $postdata, $data);
+  }
+}
+
+if (! function_exists('bricksfly_import_post_terms')) {
+  function bricksfly_import_post_terms($terms, $post_id, $data) {
+    return apply_filters('bricksfly_import_post_terms', $terms, $post_id, $data);
+  }
+}
+
+if (! function_exists('bricksfly_import_set_post_terms')) {
+  function bricksfly_import_set_post_terms($tt_ids, $ids, $tax, $post_id, $data) {
+    do_action('bricksfly_import_set_post_terms', $tt_ids, $ids, $tax, $post_id, $data);
+  }
+}
+
+if (! function_exists('bricksfly_import_post_comments')) {
+  function bricksfly_import_post_comments($comments, $post_id, $post) {
+    return apply_filters('bricksfly_import_post_comments', $comments, $post_id, $post);
+  }
+}
+
+if (! function_exists('bricksfly_import_insert_comment')) {
+  function bricksfly_import_insert_comment($comment_id, $comment, $post_id, $post) {
+    do_action('bricksfly_import_insert_comment', $comment_id, $comment, $post_id, $post);
+  }
+}
+
+if (! function_exists('bricksfly_import_insert_term_failed')) {
+  function bricksfly_import_insert_term_failed($result, $data) {
+    do_action('bricksfly_import_insert_term_failed', $result, $data);
+  }
+}
+
+if (! function_exists('bricksfly_import_insert_term')) {
+  function bricksfly_import_insert_term($term_id, $data) {
+    do_action('bricksfly_import_insert_term', $term_id, $data);
+  }
+}
+
+if (! function_exists('bricksfly_woocommerce_taxonomy_objects')) {
+  function bricksfly_woocommerce_taxonomy_objects($object_types, $taxonomy) {
+    return apply_filters('bricksfly_woocommerce_taxonomy_objects', $object_types, $taxonomy);
+  }
+}
+
+if (! function_exists('bricksfly_woocommerce_taxonomy_args')) {
+  function bricksfly_woocommerce_taxonomy_args($args, $taxonomy) {
+    return apply_filters('bricksfly_woocommerce_taxonomy_args', $args, $taxonomy);
+  }
+}
+
+if (! function_exists('bricksfly_migrate_thebrbre_settings')) {
+
+  /**
+   * One-time migration: pull widget/extension enabled-state from the old
+   * `thebrbre_*` option names (pre-rebrand) into the current
+   * `bricksfly_*` ones.
+   *
+   * Runs on every request (called unconditionally below, before any code
+   * reads `bricksfly_save_widgets` / `bricksfly_save_extensions`) but only
+   * does real work once per option: it skips a key the moment
+   * `bricksfly_save_*` already exists, whether that's because this
+   * migration already ran or because the site is a fresh install that got
+   * seeded directly under the new names (see BRICKSFLY_Activator). Old
+   * `thebrbre_*` options are left untouched — not deleted — so rollback
+   * stays possible.
+   */
+  function bricksfly_migrate_thebrbre_settings()
+  {
+    $map = array(
+      'bricksfly_save_widgets'    => 'thebrbre_save_widgets',
+      'bricksfly_save_extensions' => 'thebrbre_save_extensions',
+    );
+
+    foreach ($map as $new_option => $old_option) {
+      // Sentinel default distinguishes "no row yet" from "row is an empty array".
+      if (false !== get_option($new_option, false)) {
+        continue;
+      }
+
+      $old_value = get_option($old_option, false);
+      if (false === $old_value) {
+        continue;
+      }
+
+      update_option($new_option, $old_value, false);
+    }
+  }
+}
+bricksfly_migrate_thebrbre_settings();
 

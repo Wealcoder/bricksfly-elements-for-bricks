@@ -282,14 +282,8 @@ class BRICKSFLY_Template_Importer {
 				$msg                        = __( 'Verifying Content Import', 'bricksfly-elements-for-bricks' );
 				update_option( 'bricksfly_template_import_state', __( 'Checking Theme', 'bricksfly-elements-for-bricks' ) );
 
-			} elseif ( $next_step === 'check-theme' ) {
-				if ( $theme_slug ) {
-					$template_data['next_step'] = 'install-theme';
-					$progress                   = '75';
-					update_option( 'bricksfly_template_import_state', __( 'Installing Theme', 'bricksfly-elements-for-bricks' ) );
-				} else {
-					$template_data['next_step'] = 'install-bricks-settings';
-				}
+			} elseif ( $next_step === 'check-theme' ) {				
+				$template_data['next_step'] = 'install-bricks-settings';			
 
 			} elseif ( $next_step === 'install-theme' ) {
 				$template_data['next_step'] = 'install-bricks-settings';
@@ -420,6 +414,8 @@ class BRICKSFLY_Template_Importer {
 					continue;
 				}
 
+				$option_name = $this->map_legacy_option_name( $option_name );
+
 				// Use the raw XML text as-is. sanitize_text_field() strips newlines/tabs and
 				// breaks the byte-length prefixes in PHP-serialized data (e.g. s:15:"…"),
 				// which silently corrupts ACF repeater rows on unserialize.
@@ -434,6 +430,46 @@ class BRICKSFLY_Template_Importer {
 				if ( $this->is_bricks_mergeable_option( $option_name ) ) {
 					$existing = get_option( $option_name );
 					$value    = $this->merge_bricks_option( $option_name, $existing, $value );
+				}
+
+				// Never store a non-array in a Bricks global that Bricks iterates.
+				// An empty <value> node in the export unserializes to '' (a string),
+				// and writing that leaves the option EXISTING but scalar — which
+				// defeats Bricks' own `get_option( NAME, [] )` default, since the
+				// default only applies when the option is absent. Bricks then
+				// foreach()es a string and warns on every page load, e.g.
+				// theme-styles.php `foreach ( $styles ... )` and assets.php
+				// format_variables_as_css(). Skipping the write leaves the option
+				// untouched, which is what an empty value meant in the first place.
+				if ( $this->is_bricks_array_option( $option_name ) && ! is_array( $value ) ) {
+					continue;
+				}
+
+				// An import may switch our own Extensions/Elements ON, never OFF.
+				// These options are `slug => bool` toggle maps, and a demo export
+				// carries whatever the site it was built on happened to have. A
+				// straight replace therefore silently disabled things the user had
+				// enabled — and a payload can even contradict itself, e.g. shipping
+				// `bricksfly_smooth_scroller` with a breakpoint enabled while its
+				// `bricksfly_save_extensions` disables `aab-smooth-scroller`, so the
+				// demo's own smooth scroll could never run. Union of "on" keeps the
+				// demo working without touching the user's choices.
+				if ( $this->is_bricksfly_toggle_option( $option_name ) ) {
+					$value = $this->merge_toggle_option( get_option( $option_name ), $value );
+				}
+
+				// bricksfly_smooth_scroller must always be stored as the JSON string
+				// shape save_smooth_scroller_settings() produces (dashboard.php) —
+				// json_decode(get_option(...)) at render time expects a string, not
+				// the PHP array maybe_unserialize() just gave us above.
+				//
+				// Exports write this option as JSON text, which maybe_unserialize()
+				// hands back unchanged as a string. Encoding that again would store
+				// a quoted, escaped copy of the JSON ("{\"desktop\":…}"), and
+				// json_decode() would then return a string instead of the
+				// per-breakpoint map — so only encode what isn't already JSON.
+				if ( 'bricksfly_smooth_scroller' === $option_name && ! $this->is_json_object_string( $value ) ) {
+					$value = wp_json_encode( $value );
 				}
 
 				// update_option() re-serializes arrays/objects and inserts the row if
@@ -532,6 +568,137 @@ class BRICKSFLY_Template_Importer {
 	}
 
 	/**
+	 * Bricks globals that must always hold an array.
+	 *
+	 * Every mergeable option, plus the array-shaped globals we don't merge.
+	 * Deliberately an allowlist rather than a `bricks_` prefix test: Bricks also
+	 * stores plain scalars under that prefix (`bricks_license_key`,
+	 * `bricks_breakpoints_last_generated`), and those are legitimately strings.
+	 *
+	 * @param string $option_name
+	 * @return bool
+	 */
+	private function is_bricks_array_option( $option_name ) {
+		if ( $this->is_bricks_mergeable_option( $option_name ) ) {
+			return true;
+		}
+
+		return in_array(
+			$option_name,
+			array(
+				'bricks_global_variables_categories',
+				'bricks_style_manager',
+			),
+			true
+		);
+	}
+
+	/**
+	 * Translate a pre-rebrand option name in an export to the name this plugin
+	 * actually reads today.
+	 *
+	 * Published templates were exported before the `thebrbre_*` → `bricksfly_*`
+	 * rename, so their options file still ships `thebrbre_save_extensions`,
+	 * `thebrbre_save_widgets` and `thebrbre_smooth_scroller`. Written verbatim
+	 * those rows land next to — not into — the options the plugin reads, and
+	 * `bricksfly_migrate_thebrbre_settings()` cannot rescue them: it only fills
+	 * a `bricksfly_*` option that is ABSENT, and activation seeds all of them.
+	 * The net effect is that a demo's Extensions, Elements and Scroll Smoother
+	 * settings are silently dropped on import.
+	 *
+	 * Deliberately only these three. The other `thebrbre_*` options in an export
+	 * (cursor, preloader, scroll indicator, scroll to top) are still the live
+	 * names Pro reads — renaming those would break them.
+	 *
+	 * @param string $option_name Option name as it appears in the export.
+	 * @return string Name to write.
+	 */
+	private function map_legacy_option_name( $option_name ) {
+		$renamed = array(
+			'thebrbre_save_extensions' => 'bricksfly_save_extensions',
+			'thebrbre_save_widgets'    => 'bricksfly_save_widgets',
+			'thebrbre_smooth_scroller' => 'bricksfly_smooth_scroller',
+		);
+
+		/**
+		 * Filter the pre-rebrand option names an import remaps.
+		 *
+		 * @param array<string,string> $renamed old name => current name.
+		 */
+		$renamed = apply_filters( 'bricksfly_import_legacy_option_map', $renamed );
+
+		return isset( $renamed[ $option_name ] ) ? $renamed[ $option_name ] : $option_name;
+	}
+
+	/**
+	 * Whether a value is already a JSON-encoded object/array, rather than a
+	 * value still waiting to be encoded.
+	 *
+	 * @param mixed $value
+	 * @return bool
+	 */
+	private function is_json_object_string( $value ) {
+		if ( ! is_string( $value ) || '' === $value ) {
+			return false;
+		}
+
+		$decoded = json_decode( $value, true );
+
+		return is_array( $decoded );
+	}
+
+	/**
+	 * Our own `slug => bool` Extension/Element toggle maps.
+	 *
+	 * @param string $option_name
+	 * @return bool
+	 */
+	private function is_bricksfly_toggle_option( $option_name ) {
+		$toggles = array(
+			'bricksfly_save_extensions',
+			'bricksfly_save_widgets',
+		);
+
+		/**
+		 * Filter the toggle maps an import is allowed to switch on but not off.
+		 *
+		 * @param string[] $toggles
+		 */
+		$toggles = apply_filters( 'bricksfly_import_toggle_options', $toggles );
+
+		return in_array( $option_name, $toggles, true );
+	}
+
+	/**
+	 * Union of "on" across the site's toggles and the import's.
+	 *
+	 * A slug enabled on either side ends up enabled; slugs the import doesn't
+	 * mention keep their current state. So an import can only ever add, which is
+	 * what makes re-importing a demo safe to do on a site already in use.
+	 *
+	 * @param mixed $existing Current option value.
+	 * @param mixed $incoming Value from the import.
+	 * @return array
+	 */
+	private function merge_toggle_option( $existing, $incoming ) {
+		if ( ! is_array( $incoming ) ) {
+			return is_array( $existing ) ? $existing : array();
+		}
+
+		if ( ! is_array( $existing ) ) {
+			return $incoming;
+		}
+
+		$merged = array();
+
+		foreach ( array_keys( $existing + $incoming ) as $slug ) {
+			$merged[ $slug ] = ! empty( $existing[ $slug ] ) || ! empty( $incoming[ $slug ] );
+		}
+
+		return $merged;
+	}
+
+	/**
 	 * Merge a Bricks global option with the value coming from the template
 	 * import, preserving user-defined data on conflict.
 	 *
@@ -551,12 +718,17 @@ class BRICKSFLY_Template_Importer {
 	 * @return mixed Merged value to pass to update_option().
 	 */
 	private function merge_bricks_option( $option_name, $existing, $incoming ) {
+		// Nothing usable came in — keep what the site already has. Checked BEFORE
+		// the $existing test on purpose: an empty <value> in the export arrives
+		// here as '' (a string), and on a fresh site $existing is `false`, so the
+		// old order returned that '' straight back to update_option().
+		if ( ! is_array( $incoming ) ) {
+			return is_array( $existing ) ? $existing : array();
+		}
+
 		// First-time import (option missing or wrong shape) — nothing to merge.
 		if ( ! is_array( $existing ) || empty( $existing ) ) {
 			return $incoming;
-		}
-		if ( ! is_array( $incoming ) ) {
-			return $existing;
 		}
 
 		// Associative settings maps — preserve user values, add missing keys

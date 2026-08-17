@@ -55,17 +55,25 @@ class BRICKSFLY_Page_Importer {
 	}
 
 	public function custom_page_tab( $views ) {
-		global $wpdb;
+		// Cached (5 min) rather than a raw direct query on every Pages-list
+		// view: this count only feeds a UI badge, so brief staleness is fine,
+		// and it's invalidated immediately on a fresh import anyway (see
+		// st-init.php's write of the 'bricksfly_imported' meta key).
+		$count = get_transient( 'bricksfly_imported_page_count' );
 
-		$count = $wpdb->get_var( "
-			SELECT COUNT(*) FROM $wpdb->posts
-			WHERE post_type = 'page'
-			AND post_status = 'publish'
-			AND ID IN (
-				SELECT post_id FROM $wpdb->postmeta
-				WHERE meta_key = 'bricksfly_imported' AND meta_value = '1'
-			)
-		" );
+		if ( false === $count ) {
+			$query = new \WP_Query( [
+				'post_type'      => 'page',
+				'post_status'    => 'publish',
+				'meta_key'       => 'bricksfly_imported',
+				'meta_value'     => 1,
+				'posts_per_page' => -1,
+				'no_found_rows'  => true,
+				'fields'         => 'ids',
+			] );
+			$count = count( $query->posts );
+			set_transient( 'bricksfly_imported_page_count', $count, 5 * MINUTE_IN_SECONDS );
+		}
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading URL parameter for view display only, not processing form data.
 		$latest_import             = isset( $_GET['aae-latest-import'] ) ? sanitize_key( wp_unslash( $_GET['aae-latest-import'] ) ) : '';

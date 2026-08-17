@@ -141,7 +141,7 @@ class BRICKSFLY_Builder_Template_Library {
 					]
 				),
 				'i18n'            => [
-					'modal_title'     => esc_html__( 'BrickFly Addons — Section Library', 'bricksfly-elements-for-bricks' ),
+					'modal_title'     => esc_html__( 'BricksFly Addons — Section Library', 'bricksfly-elements-for-bricks' ),
 					'button_label'    => esc_html__( 'Import Section', 'bricksfly-elements-for-bricks' ),
 					'insert'          => esc_html__( 'Insert', 'bricksfly-elements-for-bricks' ),
 					'inserting'       => esc_html__( 'Inserting…', 'bricksfly-elements-for-bricks' ),
