@@ -215,6 +215,15 @@ if (! function_exists('bricksfly_third_party_owns_page_smoother')) {
    */
   function bricksfly_third_party_owns_page_smoother()
   {
+    // MotionKit's declared public API comes first: it is the one entry point
+    // safe to call without knowing its internal class layout, which has already
+    // been renamed once. The class/method pair below stays as a fallback so a
+    // build predating the function still wins the page rather than silently
+    // letting two smoothers exist.
+    if (function_exists('motionkit_is_scroll_smoother_active')) {
+      return (bool) motionkit_is_scroll_smoother_active();
+    }
+
     $owners = array(
       array('\MotionKit\Frontend\ScrollSmoother', 'should_run'),
     );
