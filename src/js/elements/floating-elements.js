@@ -81,50 +81,44 @@ import "../../scss/elements/floating-elements.scss";
 // })();
 
 (function () {
-  var ELEMENT_NAME = "aab-floating-elements";
   var WATCHED_KEYS = ["size", "offsetX", "offsetXEnd", "offsetY", "offsetYEnd"];
 
-  function getBuilderPanel() {
-    // The Bricks control panel is in the parent document
-    return (
-      document.querySelector("#bricks-panel") ||
-      document.querySelector(".bricks-panel") ||
-      document.querySelector("#brx-panel") ||
-      document.body
-    );
-  }
-
-  function isOurElement() {
-    // Bricks adds the active element name as a data attribute or class on the panel
-    var panel =
-      document.querySelector('[data-element-name="' + ELEMENT_NAME + '"]') ||
-      document.querySelector(
-        '.bricks-panel-element[data-name="' + ELEMENT_NAME + '"]',
-      ) ||
-      document.querySelector("#bricks-panel");
-
-    if (!panel) return false;
-
-    // Fallback: check if any panel label contains our field names
-    return true;
+  // This script is enqueued on the element (bricks_is_builder() gate in
+  // enqueue_scripts()), so it runs inside the CANVAS IFRAME's own document.
+  // The Bricks settings panel is rendered in the top-level builder window,
+  // not the iframe — querying/listening on the bare `document` here can
+  // never see it. Everything below has to go through `window.parent.document`
+  // instead (same-origin with the canvas iframe, so this is safe).
+  function getPanelDocument() {
+    try {
+      if (window.parent && window.parent.document) {
+        return window.parent.document;
+      }
+    } catch (e) {
+      // Cross-origin (shouldn't happen for the Bricks canvas) — bail quietly.
+    }
+    return null;
   }
 
   function triggerSnapshotUpdate() {
-    // Find the hidden _cssSnapshot input inside the active repeater item
-    // and toggle its value to force Bricks to detect a change
-    var inputs = document.querySelectorAll(
+    var panelDoc = getPanelDocument();
+    if (!panelDoc) return;
+
+    // Find the (hidden) _cssSnapshot input inside the active repeater item
+    // and toggle its value to force Bricks to detect a settings change.
+    var inputs = panelDoc.querySelectorAll(
       'input[data-control-key="_cssSnapshot"], ' +
         '[class*="_cssSnapshot"] input, ' +
         'input[id*="_cssSnapshot"]',
     );
 
     inputs.forEach(function (input) {
-      var current = input.value || "";
       var next = String(Date.now());
 
-      // Use native input setter to trigger Vue reactivity
+      // Use the native setter (from the panel's own window) so React/Vue's
+      // patched `value` property doesn't swallow the change silently.
       var nativeInputValueSetter = Object.getOwnPropertyDescriptor(
-        window.HTMLInputElement.prototype,
+        window.parent.HTMLInputElement.prototype,
         "value",
       ).set;
       nativeInputValueSetter.call(input, next);
@@ -134,18 +128,43 @@ import "../../scss/elements/floating-elements.scss";
     });
   }
 
+  // _cssSnapshot is a real (but purely internal) Bricks control so Bricks'
+  // reactivity can see it — it has no reason to ever be user-facing. Best
+  // effort visual hide: walk up one level from the input to its control
+  // row and hide that, re-run whenever the panel changes since Bricks
+  // mounts/unmounts repeater item controls dynamically.
+  function hideSnapshotControls() {
+    var panelDoc = getPanelDocument();
+    if (!panelDoc) return;
+
+    var inputs = panelDoc.querySelectorAll(
+      'input[data-control-key="_cssSnapshot"], ' +
+        '[class*="_cssSnapshot"] input, ' +
+        'input[id*="_cssSnapshot"]',
+    );
+
+    inputs.forEach(function (input) {
+      var row = input.closest
+        ? input.closest('[class*="control"]') || input.parentElement
+        : input.parentElement;
+      if (row) row.style.display = "none";
+    });
+  }
+
   function attachPanelListener() {
-    var panel = getBuilderPanel();
-    if (!panel) {
+    var panelDoc = getPanelDocument();
+    if (!panelDoc) {
       setTimeout(attachPanelListener, 500);
       return;
     }
 
     var debounceTimer = null;
 
-    panel.addEventListener(
+    panelDoc.addEventListener(
       "input",
       function (e) {
+        hideSnapshotControls();
+
         var target = e.target;
         if (!target) return;
 
@@ -164,6 +183,10 @@ import "../../scss/elements/floating-elements.scss";
       },
       true,
     ); // capture phase so we catch all bubbled input events
+
+    // Repeater items mount their controls lazily (opening/reordering items),
+    // so also sweep periodically rather than only reacting to input events.
+    setInterval(hideSnapshotControls, 1000);
   }
 
   if (document.readyState === "loading") {

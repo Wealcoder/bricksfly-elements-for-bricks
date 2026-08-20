@@ -35,9 +35,6 @@ class BRICKSFLY_Bricks_Floating_Elements extends \Bricks\Element
 			file_exists($css_path) ? (string) filemtime($css_path) : BRICKSFLY_VERSION
 		);
 
-		$this->enqueue_responsive_styles();
-
-
 		if (bricks_is_builder()) {
 			wp_enqueue_script(
 				'aab-floating-elements-builder',
@@ -188,31 +185,6 @@ class BRICKSFLY_Bricks_Floating_Elements extends \Bricks\Element
 		return implode('', $rules);
 	}
 
-	/**
-	 * Add instance-specific responsive rules through WordPress' style API.
-	 */
-	private function enqueue_responsive_styles(): void
-	{
-		$items = ! empty($this->settings['floating_items']) ? $this->settings['floating_items'] : [];
-
-		if (empty($items)) {
-			return;
-		}
-
-		$css = '';
-		foreach ($items as $index => $item) {
-			$h_orient   = ! empty($item['horizontalOrientation']) ? $item['horizontalOrientation'] : 'left';
-			$v_orient   = ! empty($item['verticalOrientation']) ? $item['verticalOrientation'] : 'top';
-			$item_class = 'aab-fe-' . sanitize_html_class($this->id) . '-' . $index;
-			$css       .= $this->get_responsive_css('.' . $item_class, $item, $h_orient, $v_orient);
-		}
-
-		if ($css !== '') {
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- CSS is sanitized before being passed to wp_add_inline_style().
-			wp_add_inline_style( 'aab-floating-elements', $css );
-		}
-	}
-
 	public function set_controls()
 	{
 		$fields = [
@@ -334,6 +306,23 @@ class BRICKSFLY_Bricks_Floating_Elements extends \Bricks\Element
 				'required' => ['enableScrollSmoother', '!=', ''],
 			],
 
+			// Not shown to users (hidden via CSS in the builder panel, see
+			// editor-panel.js / floating-elements.js). Size/Offset are
+			// `responsive: true` with no `css` array, and Bricks only grants
+			// automatic live-preview reactivity to a control via one of those
+			// two paths — a plain (non-responsive) field change still forces
+			// Bricks' generic "settings changed -> re-render" path, which is
+			// how horizontalOrientation/verticalOrientation already update
+			// live. floating-elements.js writes a new value here whenever a
+			// watched Size/Offset field changes, purely to give Bricks a
+			// plain-field change to react to and pull a fresh render()
+			// (and thus the inline <style> it now emits) into the canvas.
+			'_cssSnapshot' => [
+				'label'   => esc_html__('_cssSnapshot', 'bricksfly-elements-for-bricks'),
+				'type'    => 'text',
+				'default' => '',
+			],
+
 		];
 
 		$this->controls['floating_items'] = [
@@ -374,6 +363,26 @@ class BRICKSFLY_Bricks_Floating_Elements extends \Bricks\Element
 		}
 
 		$this->set_attribute('_root', 'class', ['aab-floating-elements']);
+
+		// Emitted inline (not via wp_add_inline_style()/enqueue_scripts()) so it
+		// travels with the HTML on every render path, including Bricks' AJAX
+		// builder re-renders. Those only return render()'s echoed output
+		// (Ajax::render_element() -> Element::init() -> ob_get_clean()) — CSS
+		// queued through wp_add_inline_style() during that request is never
+		// flushed, since the request never calls wp_head()/wp_print_styles().
+		// That gap made width/offset edits invisible in the live preview
+		// (adding a repeater item still "worked" because that's plain HTML).
+		$css = '';
+		foreach ($items as $index => $item) {
+			$h_orient   = ! empty($item['horizontalOrientation']) ? $item['horizontalOrientation'] : 'left';
+			$v_orient   = ! empty($item['verticalOrientation']) ? $item['verticalOrientation'] : 'top';
+			$item_class = 'aab-fe-' . sanitize_html_class($element_id) . '-' . $index;
+			$css       .= $this->get_responsive_css('.' . $item_class, $item, $h_orient, $v_orient);
+		}
+		if ($css !== '') {
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- CSS is sanitized by format_css_value() before reaching get_responsive_css().
+			echo '<style>' . $css . '</style>';
+		}
 
 		echo wp_kses_post('<div ' . $this->render_attributes('_root') . '>');
 
