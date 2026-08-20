@@ -202,41 +202,21 @@ if (! function_exists('bricksfly_third_party_owns_page_smoother')) {
   /**
    * Whether another plugin is already driving this page's ScrollSmoother.
    *
-   * Only MotionKit is checked today: it exposes ScrollSmoother::should_run()
-   * as its documented "am I driving the smoother" answer (connected to the
-   * editor AND switched on for this page), and its own runner kills any
-   * instance it didn't create — so when that returns true, ours must not
-   * exist at all.
+   * Only MotionKit is checked today, and its mere presence is enough: a site
+   * with MotionKit installed configures smooth scrolling THERE, so switching
+   * its smoother off means no smoothing rather than a silent fallback to ours.
+   * Pro applies the same rule, so the two sides cannot disagree about who holds
+   * the page.
    *
-   * Every call is guarded: MotionKit may be absent, an older build may not
-   * have the method, and a fatal here would take the whole frontend down.
+   * MOTIONKIT_LOADED is defined unconditionally by motionkit.php at load, so
+   * this costs neither a query nor a plugin.php include. The class check covers
+   * a build predating the constant.
    *
    * @return bool
    */
   function bricksfly_third_party_owns_page_smoother()
   {
-    // MotionKit's declared public API comes first: it is the one entry point
-    // safe to call without knowing its internal class layout, which has already
-    // been renamed once. The class/method pair below stays as a fallback so a
-    // build predating the function still wins the page rather than silently
-    // letting two smoothers exist.
-    if (function_exists('motionkit_is_scroll_smoother_active')) {
-      return (bool) motionkit_is_scroll_smoother_active();
-    }
-
-    $owners = array(
-      array('\MotionKit\Frontend\ScrollSmoother', 'should_run'),
-    );
-
-    foreach ($owners as $owner) {
-      list($class, $method) = $owner;
-
-      if (class_exists($class) && method_exists($class, $method) && call_user_func(array($class, $method))) {
-        return true;
-      }
-    }
-
-    return false;
+    return defined('MOTIONKIT_LOADED') || class_exists('\\MotionKit\\Plugin');
   }
 }
 
