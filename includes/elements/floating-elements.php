@@ -25,12 +25,14 @@ class BRICKSFLY_Bricks_Floating_Elements extends \Bricks\Element
 
 	public function enqueue_scripts()
 	{
+		$css_path = BRICKSFLY_PATH . 'public/build/elements/floating-elements.css';
+		$js_path  = BRICKSFLY_PATH . 'public/build/elements/floating-elements.js';
 
 		wp_enqueue_style(
 			'aab-floating-elements',
 			BRICKSFLY_URL . 'public/build/elements/floating-elements.css',
 			[],
-			'1.0.0'
+			file_exists($css_path) ? (string) filemtime($css_path) : BRICKSFLY_VERSION
 		);
 
 		$this->enqueue_responsive_styles();
@@ -41,7 +43,7 @@ class BRICKSFLY_Bricks_Floating_Elements extends \Bricks\Element
 				'aab-floating-elements-builder',
 				BRICKSFLY_URL . 'public/build/elements/floating-elements.js',
 				[],
-				'1.0.0',
+				file_exists($js_path) ? (string) filemtime($js_path) : BRICKSFLY_VERSION,
 				true
 			);
 		}
