@@ -1,5 +1,31 @@
+// Bricks' native Style > Position control writes directly to `#brxe-{id}`
+// (ID selector), which outranks any class selector regardless of doubling
+// or load order — so `!important` is the only way to keep this property
+// from being silently overridden.
+//
+// This is meant to work like the original Elementor widget: a decorative
+// overlay whose floating items are scattered relative to the WHOLE section/
+// container it's dropped into, not relative to its own footprint. Elementor
+// got that for free (every widget wrapper is already `position: relative`
+// with real, section-sized dimensions); Bricks has no equivalent, so this
+// element has to both establish the containing block AND span the parent
+// itself — `position: absolute; inset: 0;` does that, stretching to the
+// nearest positioned ancestor's full box instead of contributing its own
+// in-flow height. A prior version used `position: relative; min-height: 1px`
+// (an in-flow sliver) — that made percentage/offset values meaningless for
+// anything but small `top`/`left` numbers: e.g. `bottom: 600px` is measured
+// from that 1px-tall box's own bottom edge, so it shoots the item ~600px
+// above that single flow position, off-canvas, instead of 600px up from the
+// section's actual bottom edge.
+//
+// Tradeoff: since this no longer contributes to layout, the parent needs
+// real height from somewhere (other content, or an explicit min-height on
+// the section) — standard for any absolutely-positioned overlay, and the
+// expected way this element gets used (dropped into a hero/section that
+// already has height), not a new limitation.
 .aab-floating-elements {
-  position: relative;
+  position: absolute !important;
+  inset: 0;
 }
 
 .aab-floating-elements .floating-element {
@@ -8,32 +34,46 @@
   z-index: 1; // fallback; overridden by inline style per item
 
   // ── Size ──────────────────────────────────────────────────────────────────
-  // --aab-fe-width is set (with @media wrappers) by render_responsive_styles()
-  width: var(--aab-fe-width);
+  // --aab-fe-width is set (with @media wrappers) by render_responsive_styles().
+  // The 100px fallback matches the original Elementor widget's hardcoded
+  // default (`width: 100px;`, unconditional). Without it, an unset Size at
+  // the active breakpoint left `width` fully `auto` on a position:absolute
+  // box whose only content is a `width:100%` <img> — a circular percentage
+  // reference (the box's shrink-to-fit width depends on the img, the img's
+  // width depends on the box) that browsers can resolve down to ~0 width,
+  // silently hiding the element even though top/left were fine.
+  width: var(--aab-fe-width, 100px);
 
   // ── Horizontal position ────────────────────────────────────────────────────
   // Only the active side's var is consumed; the inactive side resets to auto
   // so a previously stored value from the opposite orientation never bleeds.
 
+  // No responsive value set for a breakpoint (e.g. only Tablet was ever
+  // configured, never Desktop) falls back to a hard 0 — flush against the
+  // active edge. `auto` used to be the fallback here, but `top/left: auto`
+  // on an absolutely positioned box forces the browser to fall back to the
+  // "static position" (where it would've landed in normal flow), which
+  // depends on which ancestor ends up as the containing block — a fragile,
+  // easy-to-accidentally-hide result. 0 is deterministic regardless.
   &.h-left {
-    left:  var(--aab-fe-left, auto);
+    left:  var(--aab-fe-left, 0);
     right: auto;
   }
 
   &.h-right {
-    right: var(--aab-fe-right, auto);
+    right: var(--aab-fe-right, 0);
     left:  auto;
   }
 
   // ── Vertical position ──────────────────────────────────────────────────────
 
   &.v-top {
-    top:    var(--aab-fe-top, auto);
+    top:    var(--aab-fe-top, 0);
     bottom: auto;
   }
 
   &.v-bottom {
-    bottom: var(--aab-fe-bottom, auto);
+    bottom: var(--aab-fe-bottom, 0);
     top:    auto;
   }
 }
