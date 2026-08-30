@@ -104,12 +104,15 @@ import "../../scss/elements/floating-elements.scss";
     var panelDoc = getPanelDocument();
     if (!panelDoc) return;
 
-    // Find the (hidden) _cssSnapshot input inside the active repeater item
-    // and toggle its value to force Bricks to detect a settings change.
+    // Bricks puts the field key in `data-control-key` on the *wrapper* div
+    // around each repeater sub-field (see main.min.js: `data-control-key: r`
+    // on the ".repeater-item-inner" div) — the actual <input> rendered
+    // inside it carries no such attribute. So the selector has to look for
+    // an input *descending from* that wrapper, not carrying the attribute
+    // itself.
     var inputs = panelDoc.querySelectorAll(
-      'input[data-control-key="_cssSnapshot"], ' +
-        '[class*="_cssSnapshot"] input, ' +
-        'input[id*="_cssSnapshot"]',
+      '[data-control-key="_cssSnapshot"] input, ' +
+        '[data-control-key="_cssSnapshot"] textarea',
     );
 
     inputs.forEach(function (input) {
@@ -137,17 +140,9 @@ import "../../scss/elements/floating-elements.scss";
     var panelDoc = getPanelDocument();
     if (!panelDoc) return;
 
-    var inputs = panelDoc.querySelectorAll(
-      'input[data-control-key="_cssSnapshot"], ' +
-        '[class*="_cssSnapshot"] input, ' +
-        'input[id*="_cssSnapshot"]',
-    );
-
-    inputs.forEach(function (input) {
-      var row = input.closest
-        ? input.closest('[class*="control"]') || input.parentElement
-        : input.parentElement;
-      if (row) row.style.display = "none";
+    var wrappers = panelDoc.querySelectorAll('[data-control-key="_cssSnapshot"]');
+    wrappers.forEach(function (wrapper) {
+      wrapper.style.display = "none";
     });
   }
 
@@ -168,12 +163,15 @@ import "../../scss/elements/floating-elements.scss";
         var target = e.target;
         if (!target) return;
 
-        // Only react to inputs that look like our responsive fields
-        // Bricks names repeater sub-field inputs with the field key in their path
-        var name =
-          target.name || target.id || target.getAttribute("data-control") || "";
+        // The field key lives in `data-control-key` on the wrapper div
+        // around each repeater sub-field, not on the <input> that actually
+        // fired this event — walk up to find it.
+        var wrapper = target.closest
+          ? target.closest("[data-control-key]")
+          : null;
+        var key = wrapper ? wrapper.getAttribute("data-control-key") || "" : "";
         var isWatched = WATCHED_KEYS.some(function (k) {
-          return name.indexOf(k) !== -1;
+          return key.indexOf(k) !== -1;
         });
 
         if (!isWatched) return;

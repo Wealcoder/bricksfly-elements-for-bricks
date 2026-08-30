@@ -67,13 +67,22 @@ class BRICKSFLY_Bricks_Floating_Elements extends \Bricks\Element
 	 * the only gate before the value is concatenated into real CSS output.
 	 * Anything that isn't a plain number or number+standard-length-unit is
 	 * rejected outright (returns ''), rather than passed through unchanged.
+	 *
+	 * @param bool $allow_negative  Pass false for values that must never be
+	 *                              negative (e.g. width/size) — Bricks'
+	 *                              slider control's paired number box lets
+	 *                              the admin type past its own `min`, so the
+	 *                              server-side clamp here is the real gate.
 	 */
-	private function format_css_value($value): string
+	private function format_css_value($value, bool $allow_negative = true): string
 	{
 		if ($value === '' || $value === null) {
 			return '';
 		}
 		if (is_numeric($value)) {
+			if (! $allow_negative && (float) $value < 0) {
+				return '0px';
+			}
 			return $value . 'px';
 		}
 
@@ -81,7 +90,10 @@ class BRICKSFLY_Bricks_Floating_Elements extends \Bricks\Element
 
 		// Number (incl. decimal/negative) + one standard CSS length/percentage
 		// unit — nothing else is accepted.
-		if (preg_match('/^-?\d+(?:\.\d+)?(?:px|%|em|rem|vh|vw|vmin|vmax)$/', $value)) {
+		if (preg_match('/^(-?\d+(?:\.\d+)?)((?:px|%|em|rem|vh|vw|vmin|vmax))$/', $value, $matches)) {
+			if (! $allow_negative && (float) $matches[1] < 0) {
+				return '0' . $matches[2];
+			}
 			return $value;
 		}
 
@@ -142,7 +154,9 @@ class BRICKSFLY_Bricks_Floating_Elements extends \Bricks\Element
 			$vars = [];
 
 			if ($size_map !== null && isset($size_map[$key]) && $size_map[$key] !== null && $size_map[$key] !== '') {
-				$vars['--aab-fe-width'] = $this->format_css_value($size_map[$key]);
+				// Width can never be negative, regardless of what the builder's
+				// slider control let the admin type into its paired number box.
+				$vars['--aab-fe-width'] = $this->format_css_value($size_map[$key], false);
 			}
 			if ($offset_x_map !== null && isset($offset_x_map[$key]) && $offset_x_map[$key] !== null && $offset_x_map[$key] !== '') {
 				$vars[$css_var_h] = $this->format_css_value($offset_x_map[$key]);
@@ -199,8 +213,16 @@ class BRICKSFLY_Bricks_Floating_Elements extends \Bricks\Element
 			// which rebuilds the per-item rules in enqueue_responsive_styles().
 			'size' => [
 				'label'      => esc_html__('Size', 'bricksfly-elements-for-bricks'),
-				'type'       => 'number',
-				'units'      => true,
+				// Experiment: native range-slider control instead of the
+				// number+unit control, to test whether a <select>-like
+				// (native, single-event) control reacts live in the builder
+				// the way orientation selects do. No 'units' here — the
+				// slider control has no unit dropdown; format_css_value()
+				// already appends 'px' to a bare numeric value.
+				'type'       => 'slider',
+				'min'        => 0,
+				'max'        => 1000,
+				'step'       => 1,
 				'responsive' => true,
 			],
 
@@ -219,16 +241,20 @@ class BRICKSFLY_Bricks_Floating_Elements extends \Bricks\Element
 
 			'offsetX' => [
 				'label'      => esc_html__('Offset', 'bricksfly-elements-for-bricks'),
-				'type'       => 'number',
-				'units'      => true,
+				'type'       => 'slider',
+				'min'        => -1000,
+				'max'        => 1000,
+				'step'       => 1,
 				'responsive' => true,
 				'required'   => ['horizontalOrientation', '!=', 'right'],
 			],
 
 			'offsetXEnd' => [
 				'label'      => esc_html__('Offset', 'bricksfly-elements-for-bricks'),
-				'type'       => 'number',
-				'units'      => true,
+				'type'       => 'slider',
+				'min'        => -1000,
+				'max'        => 1000,
+				'step'       => 1,
 				'responsive' => true,
 				'required'   => ['horizontalOrientation', '=', 'right'],
 			],
@@ -248,16 +274,20 @@ class BRICKSFLY_Bricks_Floating_Elements extends \Bricks\Element
 
 			'offsetY' => [
 				'label'      => esc_html__('Offset', 'bricksfly-elements-for-bricks'),
-				'type'       => 'number',
-				'units'      => true,
+				'type'       => 'slider',
+				'min'        => -1000,
+				'max'        => 1000,
+				'step'       => 1,
 				'responsive' => true,
 				'required'   => ['verticalOrientation', '!=', 'bottom'],
 			],
 
 			'offsetYEnd' => [
 				'label'      => esc_html__('Offset', 'bricksfly-elements-for-bricks'),
-				'type'       => 'number',
-				'units'      => true,
+				'type'       => 'slider',
+				'min'        => -1000,
+				'max'        => 1000,
+				'step'       => 1,
 				'responsive' => true,
 				'required'   => ['verticalOrientation', '=', 'bottom'],
 			],
@@ -372,6 +402,16 @@ class BRICKSFLY_Bricks_Floating_Elements extends \Bricks\Element
 		// flushed, since the request never calls wp_head()/wp_print_styles().
 		// That gap made width/offset edits invisible in the live preview
 		// (adding a repeater item still "worked" because that's plain HTML).
+		//
+		// Must be echoed AFTER the root div is opened (as its first child),
+		// never before it: Bricks' canvas applies every AJAX re-render via
+		// `body.firstElementChild` on the parsed response (iframe.min.js
+		// Element.setHTML()) — a <style> tag echoed before the div becomes
+		// that first element instead of the div itself, so the canvas swaps
+		// in the empty <style> tag and silently drops the real markup. This
+		// is invisible until $css is non-empty for the first time, which is
+		// exactly when Size/Offset get their first responsive value — so
+		// only those fields ever appeared "broken" in the builder.
 		$css = '';
 		foreach ($items as $index => $item) {
 			$h_orient   = ! empty($item['horizontalOrientation']) ? $item['horizontalOrientation'] : 'left';
@@ -379,12 +419,13 @@ class BRICKSFLY_Bricks_Floating_Elements extends \Bricks\Element
 			$item_class = 'aab-fe-' . sanitize_html_class($element_id) . '-' . $index;
 			$css       .= $this->get_responsive_css('.' . $item_class, $item, $h_orient, $v_orient);
 		}
+
+		echo wp_kses_post('<div ' . $this->render_attributes('_root') . '>');
+
 		if ($css !== '') {
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- CSS is sanitized by format_css_value() before reaching get_responsive_css().
 			echo '<style>' . $css . '</style>';
 		}
-
-		echo wp_kses_post('<div ' . $this->render_attributes('_root') . '>');
 
 		foreach ($items as $index => $item) {
 
