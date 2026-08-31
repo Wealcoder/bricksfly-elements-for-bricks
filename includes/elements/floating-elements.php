@@ -134,9 +134,13 @@ class BRICKSFLY_Bricks_Floating_Elements extends \Bricks\Element
 		$h_field = $h_orient === 'right' ? 'offsetXEnd' : 'offsetX';
 		$v_field = $v_orient === 'bottom' ? 'offsetYEnd' : 'offsetY';
 
-		$size_map     = ResponsiveHelper::normalize($item, 'size');
-		$offset_x_map = ResponsiveHelper::normalize($item, $h_field);
-		$offset_y_map = ResponsiveHelper::normalize($item, $v_field);
+		// Size/offsets default to 120px/10px (forced, even when the item's
+		// own settings never touched the field) so a freshly added item has
+		// a sensible size and floats slightly off the edge instead of
+		// collapsing to 0 width at 0,0.
+		$size_map     = ResponsiveHelper::normalize($item, 'size', 120, true);
+		$offset_x_map = ResponsiveHelper::normalize($item, $h_field, 10, true);
+		$offset_y_map = ResponsiveHelper::normalize($item, $v_field, 10, true);
 
 		$css_var_h = $h_orient === 'right' ? '--aab-fe-right' : '--aab-fe-left';
 		$css_var_v = $v_orient === 'bottom' ? '--aab-fe-bottom' : '--aab-fe-top';
@@ -213,16 +217,15 @@ class BRICKSFLY_Bricks_Floating_Elements extends \Bricks\Element
 			// which rebuilds the per-item rules in enqueue_responsive_styles().
 			'size' => [
 				'label'      => esc_html__('Size', 'bricksfly-elements-for-bricks'),
-				// Experiment: native range-slider control instead of the
-				// number+unit control, to test whether a <select>-like
-				// (native, single-event) control reacts live in the builder
-				// the way orientation selects do. No 'units' here — the
-				// slider control has no unit dropdown; format_css_value()
+				// Plain number input, not the slider — no drag handle, admin
+				// just types the value. No 'units' here; format_css_value()
 				// already appends 'px' to a bare numeric value.
-				'type'       => 'slider',
+				'type'       => 'number',
 				'min'        => 0,
 				'max'        => 1000,
 				'step'       => 1,
+				'default'    => 120,
+				'placeholder' => 120,
 				'responsive' => true,
 			],
 
@@ -239,22 +242,32 @@ class BRICKSFLY_Bricks_Floating_Elements extends \Bricks\Element
 				'default' => 'left',
 			],
 
+			// 'default' alone doesn't show in this control's number box —
+			// Bricks' control-number component only reads `placeholder` for
+			// the empty-field display (confirmed in main.min.js:
+			// getPlaceholder() checks control.placeholder, not .default).
+			// Both are set below: `default` for whatever seeds new repeater
+			// items, `placeholder` for what's actually shown on screen.
 			'offsetX' => [
 				'label'      => esc_html__('Offset', 'bricksfly-elements-for-bricks'),
-				'type'       => 'slider',
+				'type'       => 'number',
 				'min'        => -1000,
 				'max'        => 1000,
 				'step'       => 1,
+				'default'    => 10,
+				'placeholder' => 10,
 				'responsive' => true,
 				'required'   => ['horizontalOrientation', '!=', 'right'],
 			],
 
 			'offsetXEnd' => [
 				'label'      => esc_html__('Offset', 'bricksfly-elements-for-bricks'),
-				'type'       => 'slider',
+				'type'       => 'number',
 				'min'        => -1000,
 				'max'        => 1000,
 				'step'       => 1,
+				'default'    => 10,
+				'placeholder' => 10,
 				'responsive' => true,
 				'required'   => ['horizontalOrientation', '=', 'right'],
 			],
@@ -274,20 +287,24 @@ class BRICKSFLY_Bricks_Floating_Elements extends \Bricks\Element
 
 			'offsetY' => [
 				'label'      => esc_html__('Offset', 'bricksfly-elements-for-bricks'),
-				'type'       => 'slider',
+				'type'       => 'number',
 				'min'        => -1000,
 				'max'        => 1000,
 				'step'       => 1,
+				'default'    => 10,
+				'placeholder' => 10,
 				'responsive' => true,
 				'required'   => ['verticalOrientation', '!=', 'bottom'],
 			],
 
 			'offsetYEnd' => [
 				'label'      => esc_html__('Offset', 'bricksfly-elements-for-bricks'),
-				'type'       => 'slider',
+				'type'       => 'number',
 				'min'        => -1000,
 				'max'        => 1000,
 				'step'       => 1,
+				'default'    => 10,
+				'placeholder' => 10,
 				'responsive' => true,
 				'required'   => ['verticalOrientation', '=', 'bottom'],
 			],

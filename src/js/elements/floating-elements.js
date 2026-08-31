@@ -100,6 +100,20 @@ import "../../scss/elements/floating-elements.scss";
     return null;
   }
 
+  // Use the native setter (from the panel's own window) so React/Vue's
+  // patched `value` property doesn't swallow the change silently, then fire
+  // the same events a real user edit would.
+  function setInputValue(input, next) {
+    var nativeInputValueSetter = Object.getOwnPropertyDescriptor(
+      window.parent.HTMLInputElement.prototype,
+      "value",
+    ).set;
+    nativeInputValueSetter.call(input, next);
+
+    input.dispatchEvent(new Event("input", { bubbles: true }));
+    input.dispatchEvent(new Event("change", { bubbles: true }));
+  }
+
   function triggerSnapshotUpdate() {
     var panelDoc = getPanelDocument();
     if (!panelDoc) return;
@@ -116,19 +130,40 @@ import "../../scss/elements/floating-elements.scss";
     );
 
     inputs.forEach(function (input) {
-      var next = String(Date.now());
-
-      // Use the native setter (from the panel's own window) so React/Vue's
-      // patched `value` property doesn't swallow the change silently.
-      var nativeInputValueSetter = Object.getOwnPropertyDescriptor(
-        window.parent.HTMLInputElement.prototype,
-        "value",
-      ).set;
-      nativeInputValueSetter.call(input, next);
-
-      input.dispatchEvent(new Event("input", { bubbles: true }));
-      input.dispatchEvent(new Event("change", { bubbles: true }));
+      setInputValue(input, String(Date.now()));
     });
+  }
+
+  // Bricks' slider control pairs a native <input type="range"> (which the
+  // browser itself clamps to min/max when dragged) with a plain
+  // <input type="text"> number box that ignores min/max entirely —
+  // main.min.js's control-number component just does
+  // `onInput: (e) => this.$emit("input", e)`, no Math.max/min guard on
+  // typed input. That box does carry the control's real bounds as
+  // `data-min`/`data-max` attributes (set from the control's own `min`/`max`
+  // PHP config), so read those directly instead of hardcoding a value here
+  // — keeps this correct for every watched field (size, offsetX/Y, ...) and
+  // for whatever min/max the PHP side is configured with, now or later.
+  function clampToControlBounds(target) {
+    if (!target || !target.dataset || typeof target.value !== "string") return;
+
+    var parsed = parseFloat(target.value);
+    if (isNaN(parsed)) return;
+
+    var min = target.dataset.min !== undefined && target.dataset.min !== ""
+      ? parseFloat(target.dataset.min)
+      : null;
+    var max = target.dataset.max !== undefined && target.dataset.max !== ""
+      ? parseFloat(target.dataset.max)
+      : null;
+
+    var clamped = parsed;
+    if (min !== null && !isNaN(min) && clamped < min) clamped = min;
+    if (max !== null && !isNaN(max) && clamped > max) clamped = max;
+
+    if (clamped !== parsed) {
+      setInputValue(target, String(clamped));
+    }
   }
 
   // _cssSnapshot is a real (but purely internal) Bricks control so Bricks'
@@ -175,6 +210,8 @@ import "../../scss/elements/floating-elements.scss";
         });
 
         if (!isWatched) return;
+
+        clampToControlBounds(target);
 
         clearTimeout(debounceTimer);
         debounceTimer = setTimeout(triggerSnapshotUpdate, 150);
