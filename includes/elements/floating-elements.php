@@ -226,7 +226,7 @@ class BRICKSFLY_Bricks_Floating_Elements extends \Bricks\Element
 				'step'       => 1,
 				'default'    => 120,
 				'placeholder' => 120,
-				'responsive' => true,
+				'breakpoints' => true,
 			],
 
 			// ── Horizontal offset ──────────────────────────────────────────────
@@ -256,7 +256,7 @@ class BRICKSFLY_Bricks_Floating_Elements extends \Bricks\Element
 				'step'       => 1,
 				'default'    => 10,
 				'placeholder' => 10,
-				'responsive' => true,
+				'breakpoints' => true,
 				'required'   => ['horizontalOrientation', '!=', 'right'],
 			],
 
@@ -268,7 +268,7 @@ class BRICKSFLY_Bricks_Floating_Elements extends \Bricks\Element
 				'step'       => 1,
 				'default'    => 10,
 				'placeholder' => 10,
-				'responsive' => true,
+				'breakpoints' => true,
 				'required'   => ['horizontalOrientation', '=', 'right'],
 			],
 
@@ -293,7 +293,7 @@ class BRICKSFLY_Bricks_Floating_Elements extends \Bricks\Element
 				'step'       => 1,
 				'default'    => 10,
 				'placeholder' => 10,
-				'responsive' => true,
+				'breakpoints' => true,
 				'required'   => ['verticalOrientation', '!=', 'bottom'],
 			],
 
@@ -305,7 +305,7 @@ class BRICKSFLY_Bricks_Floating_Elements extends \Bricks\Element
 				'step'       => 1,
 				'default'    => 10,
 				'placeholder' => 10,
-				'responsive' => true,
+				'breakpoints' => true,
 				'required'   => ['verticalOrientation', '=', 'bottom'],
 			],
 
