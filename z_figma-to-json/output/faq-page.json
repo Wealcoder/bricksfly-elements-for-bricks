@@ -1,0 +1,5199 @@
+{
+  "title": "FAQ page (Figma POC)",
+  "type": "content",
+  "templateType": "content",
+  "tags": [],
+  "bundles": [],
+  "content": [
+    {
+      "id": "jc1e3y",
+      "name": "section",
+      "parent": 0,
+      "children": [
+        "k8ue3y"
+      ],
+      "settings": {
+        "_padding": {
+          "top": "16",
+          "right": "24",
+          "bottom": "16",
+          "left": "24"
+        },
+        "_background": {
+          "color": {
+            "raw": "#f8f2e9"
+          }
+        }
+      },
+      "label": "Header"
+    },
+    {
+      "id": "k8ue3y",
+      "name": "container",
+      "parent": "jc1e3y",
+      "children": [
+        "xsnc3y",
+        "os6d3y",
+        "l4oe3y"
+      ],
+      "settings": {
+        "_width": "100%",
+        "_widthMax": "1320px",
+        "_direction": "row",
+        "_justifyContent": "space-between",
+        "_alignItems": "center",
+        "_columnGap:tablet_portrait": "16"
+      }
+    },
+    {
+      "id": "xsnc3y",
+      "name": "image",
+      "parent": "k8ue3y",
+      "children": [],
+      "settings": {
+        "image": {
+          "url": "https://placehold.co/144x40/png?text=Logo",
+          "external": true,
+          "filename": "logo.png"
+        },
+        "altText": "Animation Addons",
+        "_width": "144px"
+      },
+      "label": "Logo"
+    },
+    {
+      "id": "os6d3y",
+      "name": "nav-nested",
+      "parent": "k8ue3y",
+      "children": [
+        "qkud3y",
+        "po0d3y"
+      ],
+      "settings": {
+        "gap": "40",
+        "mobileMenu": "tablet_portrait",
+        "mobileMenuBackgroundColor": {
+          "raw": "#f8f2e9"
+        },
+        "itemTypography": {
+          "font-family": "Figtree",
+          "font-weight": "400",
+          "font-size": "18",
+          "color": {
+            "raw": "#323232"
+          }
+        },
+        "itemTypography:tablet_portrait": {
+          "font-size": "24"
+        },
+        "_order:tablet_portrait": "3"
+      },
+      "label": "Nav"
+    },
+    {
+      "id": "qkud3y",
+      "name": "block",
+      "parent": "os6d3y",
+      "children": [
+        "wwtc3y",
+        "v0zc3y",
+        "u45c3y",
+        "t8bd3y",
+        "scid3y",
+        "rgod3y"
+      ],
+      "settings": {
+        "tag": "ul",
+        "_hidden": {
+          "_cssClasses": "brx-nav-nested-items"
+        },
+        "_background": {
+          "color": {
+            "raw": "#f5efe7"
+          }
+        },
+        "_border": {
+          "width": {
+            "top": "1",
+            "right": "1",
+            "bottom": "1",
+            "left": "1"
+          },
+          "style": "solid",
+          "color": {
+            "raw": "#ffffff"
+          },
+          "radius": {
+            "top": "100",
+            "right": "100",
+            "bottom": "100",
+            "left": "100"
+          }
+        },
+        "_padding": {
+          "top": "8",
+          "right": "24",
+          "bottom": "8",
+          "left": "24"
+        },
+        "_background:tablet_portrait": {
+          "color": {
+            "raw": "#f8f2e9"
+          }
+        },
+        "_border:tablet_portrait": {
+          "width": {
+            "top": "0",
+            "right": "0",
+            "bottom": "0",
+            "left": "0"
+          },
+          "radius": {
+            "top": "0",
+            "right": "0",
+            "bottom": "0",
+            "left": "0"
+          }
+        }
+      },
+      "label": "Nav items"
+    },
+    {
+      "id": "wwtc3y",
+      "name": "text-link",
+      "parent": "qkud3y",
+      "children": [],
+      "settings": {
+        "text": "Solution",
+        "link": {
+          "type": "external",
+          "url": "#"
+        }
+      },
+      "label": "Nav link"
+    },
+    {
+      "id": "v0zc3y",
+      "name": "text-link",
+      "parent": "qkud3y",
+      "children": [],
+      "settings": {
+        "text": "Feature",
+        "link": {
+          "type": "external",
+          "url": "#"
+        }
+      },
+      "label": "Nav link"
+    },
+    {
+      "id": "u45c3y",
+      "name": "text-link",
+      "parent": "qkud3y",
+      "children": [],
+      "settings": {
+        "text": "Preset Library",
+        "link": {
+          "type": "external",
+          "url": "#"
+        }
+      },
+      "label": "Nav link"
+    },
+    {
+      "id": "t8bd3y",
+      "name": "text-link",
+      "parent": "qkud3y",
+      "children": [],
+      "settings": {
+        "text": "Pricing",
+        "link": {
+          "type": "external",
+          "url": "#"
+        }
+      },
+      "label": "Nav link"
+    },
+    {
+      "id": "scid3y",
+      "name": "text-link",
+      "parent": "qkud3y",
+      "children": [],
+      "settings": {
+        "text": "FAQ",
+        "link": {
+          "type": "external",
+          "url": "#"
+        }
+      },
+      "label": "Nav link"
+    },
+    {
+      "id": "rgod3y",
+      "name": "toggle",
+      "parent": "qkud3y",
+      "children": [],
+      "settings": {
+        "_hidden": {
+          "_cssClasses": "brx-toggle-div"
+        }
+      },
+      "label": "Toggle (Close: Mobile)"
+    },
+    {
+      "id": "po0d3y",
+      "name": "toggle",
+      "parent": "os6d3y",
+      "children": [],
+      "settings": {},
+      "label": "Toggle (Open: Mobile)"
+    },
+    {
+      "id": "l4oe3y",
+      "name": "div",
+      "parent": "k8ue3y",
+      "children": [
+        "nwce3y",
+        "m0ie3y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_direction": "row",
+        "_alignItems": "center",
+        "_columnGap": "10",
+        "_order:tablet_portrait": "2"
+      },
+      "label": "Header actions"
+    },
+    {
+      "id": "nwce3y",
+      "name": "image",
+      "parent": "l4oe3y",
+      "children": [],
+      "settings": {
+        "image": {
+          "url": "https://placehold.co/40x40/png?text=Avatar",
+          "external": true,
+          "filename": "avatar.png"
+        },
+        "altText": "Account",
+        "_width": "40px",
+        "_height": "40px",
+        "_objectFit": "cover",
+        "_border": {
+          "radius": {
+            "top": "50%",
+            "right": "50%",
+            "bottom": "50%",
+            "left": "50%"
+          }
+        }
+      },
+      "label": "Avatar"
+    },
+    {
+      "id": "m0ie3y",
+      "name": "button",
+      "parent": "l4oe3y",
+      "children": [],
+      "settings": {
+        "text": "Get 25% Off",
+        "circle": true,
+        "link": {
+          "type": "external",
+          "url": "#"
+        },
+        "_background": {
+          "color": {
+            "raw": "#f67d32"
+          }
+        },
+        "_typography": {
+          "font-family": "Figtree",
+          "font-weight": "500",
+          "font-size": "17",
+          "line-height": "1.5",
+          "color": {
+            "raw": "#ffffff"
+          }
+        },
+        "_padding": {
+          "top": "7",
+          "right": "22",
+          "bottom": "7",
+          "left": "22"
+        },
+        "_display:mobile_portrait": "none"
+      },
+      "label": "Header CTA"
+    },
+    {
+      "id": "7hqh4y",
+      "name": "section",
+      "parent": 0,
+      "children": [
+        "8dkh4y"
+      ],
+      "settings": {
+        "_padding": {
+          "top": "110",
+          "right": "24",
+          "bottom": "145",
+          "left": "24"
+        },
+        "_padding:tablet_portrait": {
+          "top": "90",
+          "bottom": "100"
+        },
+        "_padding:mobile_portrait": {
+          "top": "60",
+          "bottom": "70"
+        },
+        "_background": {
+          "color": {
+            "raw": "#f8f2e9"
+          }
+        }
+      },
+      "label": "FAQ"
+    },
+    {
+      "id": "8dkh4y",
+      "name": "container",
+      "parent": "7hqh4y",
+      "children": [
+        "c47f3y",
+        "99dh4y"
+      ],
+      "settings": {
+        "_width": "100%",
+        "_widthMax": "1320px",
+        "_direction": "column",
+        "_rowGap": "88",
+        "_rowGap:mobile_portrait": "48"
+      }
+    },
+    {
+      "id": "c47f3y",
+      "name": "block",
+      "parent": "8dkh4y",
+      "children": [
+        "ewvf3y",
+        "d01f3y"
+      ],
+      "settings": {
+        "_direction": "row",
+        "_justifyContent": "space-between",
+        "_alignItems": "flex-end",
+        "_columnGap": "40",
+        "_direction:tablet_portrait": "column",
+        "_alignItems:tablet_portrait": "flex-start",
+        "_rowGap:tablet_portrait": "24"
+      },
+      "label": "Intro"
+    },
+    {
+      "id": "ewvf3y",
+      "name": "div",
+      "parent": "c47f3y",
+      "children": [
+        "gojf3y",
+        "fspf3y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_direction": "column",
+        "_rowGap": "16"
+      },
+      "label": "Intro left"
+    },
+    {
+      "id": "gojf3y",
+      "name": "div",
+      "parent": "ewvf3y",
+      "children": [
+        "ig7e3y",
+        "hkdf3y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_direction": "row",
+        "_alignItems": "center",
+        "_columnGap": "8"
+      },
+      "label": "Eyebrow"
+    },
+    {
+      "id": "ig7e3y",
+      "name": "icon",
+      "parent": "gojf3y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-ios-help-circle",
+          "library": "ionicons"
+        },
+        "iconSize": "20",
+        "iconColor": {
+          "raw": "#f67d32"
+        }
+      }
+    },
+    {
+      "id": "hkdf3y",
+      "name": "text-basic",
+      "parent": "gojf3y",
+      "children": [],
+      "settings": {
+        "text": "FAQ",
+        "_typography": {
+          "font-family": "Figtree",
+          "font-weight": "500",
+          "font-size": "16",
+          "color": {
+            "raw": "#f67d32"
+          }
+        }
+      }
+    },
+    {
+      "id": "fspf3y",
+      "name": "heading",
+      "parent": "ewvf3y",
+      "children": [],
+      "settings": {
+        "text": "Frequently Asked Question",
+        "tag": "h2",
+        "_widthMax": "660px",
+        "_typography": {
+          "font-family": "Source Serif 4",
+          "font-weight": "400",
+          "font-size": "76",
+          "line-height": "1",
+          "letter-spacing": "-1px",
+          "color": {
+            "raw": "#18181b"
+          }
+        },
+        "_typography:tablet_portrait": {
+          "font-size": "60"
+        },
+        "_typography:mobile_portrait": {
+          "font-size": "44"
+        }
+      }
+    },
+    {
+      "id": "d01f3y",
+      "name": "text-basic",
+      "parent": "c47f3y",
+      "children": [],
+      "settings": {
+        "text": "Find answers to questions about features, pricing, and how to get most out of the platform so you can move forward with confidence and clarity.",
+        "tag": "p",
+        "_widthMax": "480px",
+        "_typography": {
+          "font-family": "Figtree",
+          "font-size": "18",
+          "line-height": "1.6",
+          "color": {
+            "raw": "#52525c"
+          }
+        }
+      }
+    },
+    {
+      "id": "99dh4y",
+      "name": "tabs-nested",
+      "parent": "8dkh4y",
+      "children": [
+        "zjfi3y",
+        "a67g4y"
+      ],
+      "settings": {
+        "direction": "row",
+        "direction:tablet_portrait": "column",
+        "titleWidth": "100%",
+        "titlePadding": {
+          "top": "16",
+          "right": "20",
+          "bottom": "16",
+          "left": "24"
+        },
+        "titleTypography": {
+          "font-family": "Source Serif 4",
+          "font-weight": "400",
+          "font-size": "24",
+          "color": {
+            "raw": "#18181b"
+          }
+        },
+        "titleActiveBackgroundColor": {
+          "raw": "#fffaf7"
+        },
+        "titleActiveBorder": {
+          "radius": {
+            "top": "8",
+            "right": "8",
+            "bottom": "8",
+            "left": "8"
+          }
+        },
+        "contentPadding": {
+          "top": "0",
+          "right": "0",
+          "bottom": "0",
+          "left": "0"
+        },
+        "contentBorder": {
+          "width": {
+            "top": "0",
+            "right": "0",
+            "bottom": "0",
+            "left": "0"
+          }
+        }
+      },
+      "label": "FAQ tabs"
+    },
+    {
+      "id": "zjfi3y",
+      "name": "block",
+      "parent": "99dh4y",
+      "children": [
+        "9fqg3y",
+        "6r8g3y",
+        "33qh3y",
+        "0f9h3y"
+      ],
+      "settings": {
+        "_direction": "column",
+        "_display": "flex",
+        "_width": "410px",
+        "_flexShrink": "0",
+        "_margin": {
+          "right": "88"
+        },
+        "_width:tablet_portrait": "100%",
+        "_margin:tablet_portrait": {
+          "right": "0",
+          "bottom": "32"
+        },
+        "_hidden": {
+          "_cssClasses": "tab-menu"
+        }
+      },
+      "label": "Tab menu"
+    },
+    {
+      "id": "9fqg3y",
+      "name": "div",
+      "parent": "zjfi3y",
+      "children": [
+        "b8dg3y",
+        "ackg3y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_direction": "row",
+        "_justifyContent": "space-between",
+        "_alignItems": "center",
+        "_hidden": {
+          "_cssClasses": "tab-title"
+        }
+      },
+      "label": "Title"
+    },
+    {
+      "id": "b8dg3y",
+      "name": "text-basic",
+      "parent": "9fqg3y",
+      "children": [],
+      "settings": {
+        "text": "General"
+      }
+    },
+    {
+      "id": "ackg3y",
+      "name": "icon",
+      "parent": "9fqg3y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-ios-arrow-forward",
+          "library": "ionicons"
+        },
+        "iconSize": "22",
+        "iconColor": {
+          "raw": "#18181b"
+        }
+      }
+    },
+    {
+      "id": "6r8g3y",
+      "name": "div",
+      "parent": "zjfi3y",
+      "children": [
+        "8jwg3y",
+        "7n2g3y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_direction": "row",
+        "_justifyContent": "space-between",
+        "_alignItems": "center",
+        "_hidden": {
+          "_cssClasses": "tab-title"
+        }
+      },
+      "label": "Title"
+    },
+    {
+      "id": "8jwg3y",
+      "name": "text-basic",
+      "parent": "6r8g3y",
+      "children": [],
+      "settings": {
+        "text": "General"
+      }
+    },
+    {
+      "id": "7n2g3y",
+      "name": "icon",
+      "parent": "6r8g3y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-ios-arrow-forward",
+          "library": "ionicons"
+        },
+        "iconSize": "22",
+        "iconColor": {
+          "raw": "#18181b"
+        }
+      }
+    },
+    {
+      "id": "33qh3y",
+      "name": "div",
+      "parent": "zjfi3y",
+      "children": [
+        "5veh3y",
+        "4zkh3y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_direction": "row",
+        "_justifyContent": "space-between",
+        "_alignItems": "center",
+        "_hidden": {
+          "_cssClasses": "tab-title"
+        }
+      },
+      "label": "Title"
+    },
+    {
+      "id": "5veh3y",
+      "name": "text-basic",
+      "parent": "33qh3y",
+      "children": [],
+      "settings": {
+        "text": "General"
+      }
+    },
+    {
+      "id": "4zkh3y",
+      "name": "icon",
+      "parent": "33qh3y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-ios-arrow-forward",
+          "library": "ionicons"
+        },
+        "iconSize": "22",
+        "iconColor": {
+          "raw": "#18181b"
+        }
+      }
+    },
+    {
+      "id": "0f9h3y",
+      "name": "div",
+      "parent": "zjfi3y",
+      "children": [
+        "27wh3y",
+        "1b3h3y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_direction": "row",
+        "_justifyContent": "space-between",
+        "_alignItems": "center",
+        "_hidden": {
+          "_cssClasses": "tab-title"
+        }
+      },
+      "label": "Title"
+    },
+    {
+      "id": "27wh3y",
+      "name": "text-basic",
+      "parent": "0f9h3y",
+      "children": [],
+      "settings": {
+        "text": "General"
+      }
+    },
+    {
+      "id": "1b3h3y",
+      "name": "icon",
+      "parent": "0f9h3y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-ios-arrow-forward",
+          "library": "ionicons"
+        },
+        "iconSize": "22",
+        "iconColor": {
+          "raw": "#18181b"
+        }
+      }
+    },
+    {
+      "id": "a67g4y",
+      "name": "block",
+      "parent": "99dh4y",
+      "children": [
+        "k62q3y",
+        "5sqz3y",
+        "qfe83y",
+        "b21g4y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_flexGrow": "1",
+        "_hidden": {
+          "_cssClasses": "tab-content"
+        }
+      },
+      "label": "Tab content"
+    },
+    {
+      "id": "k62q3y",
+      "name": "block",
+      "parent": "a67g4y",
+      "children": [
+        "l2wq3y"
+      ],
+      "settings": {
+        "_hidden": {
+          "_cssClasses": "tab-pane"
+        }
+      },
+      "label": "Pane"
+    },
+    {
+      "id": "l2wq3y",
+      "name": "accordion-nested",
+      "parent": "k62q3y",
+      "children": [
+        "sbmj3y",
+        "l3sk3y",
+        "evzl3y",
+        "7m6m3y",
+        "0edo3y",
+        "t6jp3y",
+        "myqq3y"
+      ],
+      "settings": {
+        "expandItem": "1",
+        "faqSchema": true,
+        "titleHeight": "62px",
+        "titlePadding": {
+          "top": "14",
+          "right": "24",
+          "bottom": "14",
+          "left": "24"
+        },
+        "titleTypography": {
+          "font-family": "Source Serif 4",
+          "font-weight": "400",
+          "font-size": "24",
+          "line-height": "1.3",
+          "color": {
+            "raw": "#18181b"
+          }
+        },
+        "titleTypography:mobile_portrait": {
+          "font-size": "19"
+        },
+        "contentPadding": {
+          "top": "0",
+          "right": "24",
+          "bottom": "20",
+          "left": "24"
+        },
+        "contentTypography": {
+          "font-family": "Figtree",
+          "font-size": "17",
+          "line-height": "1.7",
+          "color": {
+            "raw": "#52525c"
+          }
+        }
+      }
+    },
+    {
+      "id": "sbmj3y",
+      "name": "block",
+      "parent": "l2wq3y",
+      "children": [
+        "vz3i3y",
+        "t7fj3y"
+      ],
+      "settings": {
+        "_background": {
+          "color": {
+            "raw": "#fffaf7"
+          }
+        },
+        "_border": {
+          "width": {
+            "top": "1",
+            "right": "1",
+            "bottom": "1",
+            "left": "1"
+          },
+          "style": "solid",
+          "color": {
+            "raw": "#fef2eb"
+          },
+          "radius": {
+            "top": "10",
+            "right": "10",
+            "bottom": "10",
+            "left": "10"
+          }
+        },
+        "_margin": {
+          "bottom": "10"
+        }
+      },
+      "label": "Item"
+    },
+    {
+      "id": "vz3i3y",
+      "name": "block",
+      "parent": "sbmj3y",
+      "children": [
+        "ynli3y",
+        "xrri3y",
+        "wvxi3y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_flexWrap": "nowrap",
+        "_alignItems": "center",
+        "_direction": "row",
+        "_justifyContent": "space-between",
+        "_columnGap": "16",
+        "_hidden": {
+          "_cssClasses": "accordion-title-wrapper"
+        }
+      },
+      "label": "Title"
+    },
+    {
+      "id": "ynli3y",
+      "name": "heading",
+      "parent": "vz3i3y",
+      "children": [],
+      "settings": {
+        "text": "How many sections does BricksFly include?",
+        "tag": "h3"
+      }
+    },
+    {
+      "id": "xrri3y",
+      "name": "icon",
+      "parent": "vz3i3y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-add",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "collapsed"
+      },
+      "label": "Icon (collapsed)"
+    },
+    {
+      "id": "wvxi3y",
+      "name": "icon",
+      "parent": "vz3i3y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-remove",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "expanded"
+      },
+      "label": "Icon (expanded)"
+    },
+    {
+      "id": "t7fj3y",
+      "name": "block",
+      "parent": "sbmj3y",
+      "children": [
+        "u39i3y"
+      ],
+      "settings": {
+        "_hidden": {
+          "_cssClasses": "accordion-content-wrapper"
+        }
+      },
+      "label": "Content"
+    },
+    {
+      "id": "u39i3y",
+      "name": "text-basic",
+      "parent": "t7fj3y",
+      "children": [],
+      "settings": {
+        "text": "Answer placeholder — replace with the real answer.",
+        "tag": "p"
+      }
+    },
+    {
+      "id": "l3sk3y",
+      "name": "block",
+      "parent": "l2wq3y",
+      "children": [
+        "orak3y",
+        "mzmk3y"
+      ],
+      "settings": {
+        "_background": {
+          "color": {
+            "raw": "#fffaf7"
+          }
+        },
+        "_border": {
+          "width": {
+            "top": "1",
+            "right": "1",
+            "bottom": "1",
+            "left": "1"
+          },
+          "style": "solid",
+          "color": {
+            "raw": "#fef2eb"
+          },
+          "radius": {
+            "top": "10",
+            "right": "10",
+            "bottom": "10",
+            "left": "10"
+          }
+        },
+        "_margin": {
+          "bottom": "10"
+        }
+      },
+      "label": "Item"
+    },
+    {
+      "id": "orak3y",
+      "name": "block",
+      "parent": "l3sk3y",
+      "children": [
+        "rfsj3y",
+        "qjyj3y",
+        "pn4j3y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_flexWrap": "nowrap",
+        "_alignItems": "center",
+        "_direction": "row",
+        "_justifyContent": "space-between",
+        "_columnGap": "16",
+        "_hidden": {
+          "_cssClasses": "accordion-title-wrapper"
+        }
+      },
+      "label": "Title"
+    },
+    {
+      "id": "rfsj3y",
+      "name": "heading",
+      "parent": "orak3y",
+      "children": [],
+      "settings": {
+        "text": "How do I add a BricksFly section to my site?",
+        "tag": "h3"
+      }
+    },
+    {
+      "id": "qjyj3y",
+      "name": "icon",
+      "parent": "orak3y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-add",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "collapsed"
+      },
+      "label": "Icon (collapsed)"
+    },
+    {
+      "id": "pn4j3y",
+      "name": "icon",
+      "parent": "orak3y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-remove",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "expanded"
+      },
+      "label": "Icon (expanded)"
+    },
+    {
+      "id": "mzmk3y",
+      "name": "block",
+      "parent": "l3sk3y",
+      "children": [
+        "nvgk3y"
+      ],
+      "settings": {
+        "_hidden": {
+          "_cssClasses": "accordion-content-wrapper"
+        }
+      },
+      "label": "Content"
+    },
+    {
+      "id": "nvgk3y",
+      "name": "text-basic",
+      "parent": "mzmk3y",
+      "children": [],
+      "settings": {
+        "text": "hree ways: click Live Copy and paste it straight onto your Bricks canvas, download it as JSON and import it, or import it directly. Every section works with all three methods.",
+        "tag": "p"
+      }
+    },
+    {
+      "id": "evzl3y",
+      "name": "block",
+      "parent": "l2wq3y",
+      "children": [
+        "hjhl3y",
+        "frtl3y"
+      ],
+      "settings": {
+        "_background": {
+          "color": {
+            "raw": "#fffaf7"
+          }
+        },
+        "_border": {
+          "width": {
+            "top": "1",
+            "right": "1",
+            "bottom": "1",
+            "left": "1"
+          },
+          "style": "solid",
+          "color": {
+            "raw": "#fef2eb"
+          },
+          "radius": {
+            "top": "10",
+            "right": "10",
+            "bottom": "10",
+            "left": "10"
+          }
+        },
+        "_margin": {
+          "bottom": "10"
+        }
+      },
+      "label": "Item"
+    },
+    {
+      "id": "hjhl3y",
+      "name": "block",
+      "parent": "evzl3y",
+      "children": [
+        "k7yk3y",
+        "jb5k3y",
+        "ifbl3y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_flexWrap": "nowrap",
+        "_alignItems": "center",
+        "_direction": "row",
+        "_justifyContent": "space-between",
+        "_columnGap": "16",
+        "_hidden": {
+          "_cssClasses": "accordion-title-wrapper"
+        }
+      },
+      "label": "Title"
+    },
+    {
+      "id": "k7yk3y",
+      "name": "heading",
+      "parent": "hjhl3y",
+      "children": [],
+      "settings": {
+        "text": "Are the sections animation-ready?",
+        "tag": "h3"
+      }
+    },
+    {
+      "id": "jb5k3y",
+      "name": "icon",
+      "parent": "hjhl3y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-add",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "collapsed"
+      },
+      "label": "Icon (collapsed)"
+    },
+    {
+      "id": "ifbl3y",
+      "name": "icon",
+      "parent": "hjhl3y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-remove",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "expanded"
+      },
+      "label": "Icon (expanded)"
+    },
+    {
+      "id": "frtl3y",
+      "name": "block",
+      "parent": "evzl3y",
+      "children": [
+        "gnnl3y"
+      ],
+      "settings": {
+        "_hidden": {
+          "_cssClasses": "accordion-content-wrapper"
+        }
+      },
+      "label": "Content"
+    },
+    {
+      "id": "gnnl3y",
+      "name": "text-basic",
+      "parent": "frtl3y",
+      "children": [],
+      "settings": {
+        "text": "Answer placeholder — replace with the real answer.",
+        "tag": "p"
+      }
+    },
+    {
+      "id": "7m6m3y",
+      "name": "block",
+      "parent": "l2wq3y",
+      "children": [
+        "abom3y",
+        "8i0m3y"
+      ],
+      "settings": {
+        "_background": {
+          "color": {
+            "raw": "#fffaf7"
+          }
+        },
+        "_border": {
+          "width": {
+            "top": "1",
+            "right": "1",
+            "bottom": "1",
+            "left": "1"
+          },
+          "style": "solid",
+          "color": {
+            "raw": "#fef2eb"
+          },
+          "radius": {
+            "top": "10",
+            "right": "10",
+            "bottom": "10",
+            "left": "10"
+          }
+        },
+        "_margin": {
+          "bottom": "10"
+        }
+      },
+      "label": "Item"
+    },
+    {
+      "id": "abom3y",
+      "name": "block",
+      "parent": "7m6m3y",
+      "children": [
+        "dz5l3y",
+        "c3bm3y",
+        "b7hm3y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_flexWrap": "nowrap",
+        "_alignItems": "center",
+        "_direction": "row",
+        "_justifyContent": "space-between",
+        "_columnGap": "16",
+        "_hidden": {
+          "_cssClasses": "accordion-title-wrapper"
+        }
+      },
+      "label": "Title"
+    },
+    {
+      "id": "dz5l3y",
+      "name": "heading",
+      "parent": "abom3y",
+      "children": [],
+      "settings": {
+        "text": "Do I need Bricks Builder to use the sections?",
+        "tag": "h3"
+      }
+    },
+    {
+      "id": "c3bm3y",
+      "name": "icon",
+      "parent": "abom3y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-add",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "collapsed"
+      },
+      "label": "Icon (collapsed)"
+    },
+    {
+      "id": "b7hm3y",
+      "name": "icon",
+      "parent": "abom3y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-remove",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "expanded"
+      },
+      "label": "Icon (expanded)"
+    },
+    {
+      "id": "8i0m3y",
+      "name": "block",
+      "parent": "7m6m3y",
+      "children": [
+        "9eum3y"
+      ],
+      "settings": {
+        "_hidden": {
+          "_cssClasses": "accordion-content-wrapper"
+        }
+      },
+      "label": "Content"
+    },
+    {
+      "id": "9eum3y",
+      "name": "text-basic",
+      "parent": "8i0m3y",
+      "children": [],
+      "settings": {
+        "text": "Answer placeholder — replace with the real answer.",
+        "tag": "p"
+      }
+    },
+    {
+      "id": "0edo3y",
+      "name": "block",
+      "parent": "l2wq3y",
+      "children": [
+        "32un3y",
+        "1a7n3y"
+      ],
+      "settings": {
+        "_background": {
+          "color": {
+            "raw": "#fffaf7"
+          }
+        },
+        "_border": {
+          "width": {
+            "top": "1",
+            "right": "1",
+            "bottom": "1",
+            "left": "1"
+          },
+          "style": "solid",
+          "color": {
+            "raw": "#fef2eb"
+          },
+          "radius": {
+            "top": "10",
+            "right": "10",
+            "bottom": "10",
+            "left": "10"
+          }
+        },
+        "_margin": {
+          "bottom": "10"
+        }
+      },
+      "label": "Item"
+    },
+    {
+      "id": "32un3y",
+      "name": "block",
+      "parent": "0edo3y",
+      "children": [
+        "6qcn3y",
+        "5uin3y",
+        "4yon3y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_flexWrap": "nowrap",
+        "_alignItems": "center",
+        "_direction": "row",
+        "_justifyContent": "space-between",
+        "_columnGap": "16",
+        "_hidden": {
+          "_cssClasses": "accordion-title-wrapper"
+        }
+      },
+      "label": "Title"
+    },
+    {
+      "id": "6qcn3y",
+      "name": "heading",
+      "parent": "32un3y",
+      "children": [],
+      "settings": {
+        "text": "Can I customize the sections?",
+        "tag": "h3"
+      }
+    },
+    {
+      "id": "5uin3y",
+      "name": "icon",
+      "parent": "32un3y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-add",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "collapsed"
+      },
+      "label": "Icon (collapsed)"
+    },
+    {
+      "id": "4yon3y",
+      "name": "icon",
+      "parent": "32un3y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-remove",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "expanded"
+      },
+      "label": "Icon (expanded)"
+    },
+    {
+      "id": "1a7n3y",
+      "name": "block",
+      "parent": "0edo3y",
+      "children": [
+        "260n3y"
+      ],
+      "settings": {
+        "_hidden": {
+          "_cssClasses": "accordion-content-wrapper"
+        }
+      },
+      "label": "Content"
+    },
+    {
+      "id": "260n3y",
+      "name": "text-basic",
+      "parent": "1a7n3y",
+      "children": [],
+      "settings": {
+        "text": "Answer placeholder — replace with the real answer.",
+        "tag": "p"
+      }
+    },
+    {
+      "id": "t6jp3y",
+      "name": "block",
+      "parent": "l2wq3y",
+      "children": [
+        "wu1o3y",
+        "u2dp3y"
+      ],
+      "settings": {
+        "_background": {
+          "color": {
+            "raw": "#fffaf7"
+          }
+        },
+        "_border": {
+          "width": {
+            "top": "1",
+            "right": "1",
+            "bottom": "1",
+            "left": "1"
+          },
+          "style": "solid",
+          "color": {
+            "raw": "#fef2eb"
+          },
+          "radius": {
+            "top": "10",
+            "right": "10",
+            "bottom": "10",
+            "left": "10"
+          }
+        },
+        "_margin": {
+          "bottom": "10"
+        }
+      },
+      "label": "Item"
+    },
+    {
+      "id": "wu1o3y",
+      "name": "block",
+      "parent": "t6jp3y",
+      "children": [
+        "zijo3y",
+        "ympo3y",
+        "xqvo3y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_flexWrap": "nowrap",
+        "_alignItems": "center",
+        "_direction": "row",
+        "_justifyContent": "space-between",
+        "_columnGap": "16",
+        "_hidden": {
+          "_cssClasses": "accordion-title-wrapper"
+        }
+      },
+      "label": "Title"
+    },
+    {
+      "id": "zijo3y",
+      "name": "heading",
+      "parent": "wu1o3y",
+      "children": [],
+      "settings": {
+        "text": "What's the difference between a section and a template?",
+        "tag": "h3"
+      }
+    },
+    {
+      "id": "ympo3y",
+      "name": "icon",
+      "parent": "wu1o3y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-add",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "collapsed"
+      },
+      "label": "Icon (collapsed)"
+    },
+    {
+      "id": "xqvo3y",
+      "name": "icon",
+      "parent": "wu1o3y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-remove",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "expanded"
+      },
+      "label": "Icon (expanded)"
+    },
+    {
+      "id": "u2dp3y",
+      "name": "block",
+      "parent": "t6jp3y",
+      "children": [
+        "vy7o3y"
+      ],
+      "settings": {
+        "_hidden": {
+          "_cssClasses": "accordion-content-wrapper"
+        }
+      },
+      "label": "Content"
+    },
+    {
+      "id": "vy7o3y",
+      "name": "text-basic",
+      "parent": "u2dp3y",
+      "children": [],
+      "settings": {
+        "text": "Answer placeholder — replace with the real answer.",
+        "tag": "p"
+      }
+    },
+    {
+      "id": "myqq3y",
+      "name": "block",
+      "parent": "l2wq3y",
+      "children": [
+        "pm8p3y",
+        "nukq3y"
+      ],
+      "settings": {
+        "_background": {
+          "color": {
+            "raw": "#fffaf7"
+          }
+        },
+        "_border": {
+          "width": {
+            "top": "1",
+            "right": "1",
+            "bottom": "1",
+            "left": "1"
+          },
+          "style": "solid",
+          "color": {
+            "raw": "#fef2eb"
+          },
+          "radius": {
+            "top": "10",
+            "right": "10",
+            "bottom": "10",
+            "left": "10"
+          }
+        },
+        "_margin": {
+          "bottom": "10"
+        }
+      },
+      "label": "Item"
+    },
+    {
+      "id": "pm8p3y",
+      "name": "block",
+      "parent": "myqq3y",
+      "children": [
+        "saqp3y",
+        "rewp3y",
+        "qi2p3y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_flexWrap": "nowrap",
+        "_alignItems": "center",
+        "_direction": "row",
+        "_justifyContent": "space-between",
+        "_columnGap": "16",
+        "_hidden": {
+          "_cssClasses": "accordion-title-wrapper"
+        }
+      },
+      "label": "Title"
+    },
+    {
+      "id": "saqp3y",
+      "name": "heading",
+      "parent": "pm8p3y",
+      "children": [],
+      "settings": {
+        "text": "Will adding sections slow down my site?",
+        "tag": "h3"
+      }
+    },
+    {
+      "id": "rewp3y",
+      "name": "icon",
+      "parent": "pm8p3y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-add",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "collapsed"
+      },
+      "label": "Icon (collapsed)"
+    },
+    {
+      "id": "qi2p3y",
+      "name": "icon",
+      "parent": "pm8p3y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-remove",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "expanded"
+      },
+      "label": "Icon (expanded)"
+    },
+    {
+      "id": "nukq3y",
+      "name": "block",
+      "parent": "myqq3y",
+      "children": [
+        "oqeq3y"
+      ],
+      "settings": {
+        "_hidden": {
+          "_cssClasses": "accordion-content-wrapper"
+        }
+      },
+      "label": "Content"
+    },
+    {
+      "id": "oqeq3y",
+      "name": "text-basic",
+      "parent": "nukq3y",
+      "children": [],
+      "settings": {
+        "text": "Answer placeholder — replace with the real answer.",
+        "tag": "p"
+      }
+    },
+    {
+      "id": "5sqz3y",
+      "name": "block",
+      "parent": "a67g4y",
+      "children": [
+        "6okz3y"
+      ],
+      "settings": {
+        "_hidden": {
+          "_cssClasses": "tab-pane"
+        }
+      },
+      "label": "Pane"
+    },
+    {
+      "id": "6okz3y",
+      "name": "accordion-nested",
+      "parent": "5sqz3y",
+      "children": [
+        "dy9r3y",
+        "6pgt3y",
+        "zhnu3y",
+        "s9tv3y",
+        "l10w3y",
+        "et7x3y",
+        "7kez3y"
+      ],
+      "settings": {
+        "expandItem": "1",
+        "faqSchema": true,
+        "titleHeight": "62px",
+        "titlePadding": {
+          "top": "14",
+          "right": "24",
+          "bottom": "14",
+          "left": "24"
+        },
+        "titleTypography": {
+          "font-family": "Source Serif 4",
+          "font-weight": "400",
+          "font-size": "24",
+          "line-height": "1.3",
+          "color": {
+            "raw": "#18181b"
+          }
+        },
+        "titleTypography:mobile_portrait": {
+          "font-size": "19"
+        },
+        "contentPadding": {
+          "top": "0",
+          "right": "24",
+          "bottom": "20",
+          "left": "24"
+        },
+        "contentTypography": {
+          "font-family": "Figtree",
+          "font-size": "17",
+          "line-height": "1.7",
+          "color": {
+            "raw": "#52525c"
+          }
+        }
+      }
+    },
+    {
+      "id": "dy9r3y",
+      "name": "block",
+      "parent": "6okz3y",
+      "children": [
+        "gmrr3y",
+        "eu3r3y"
+      ],
+      "settings": {
+        "_background": {
+          "color": {
+            "raw": "#fffaf7"
+          }
+        },
+        "_border": {
+          "width": {
+            "top": "1",
+            "right": "1",
+            "bottom": "1",
+            "left": "1"
+          },
+          "style": "solid",
+          "color": {
+            "raw": "#fef2eb"
+          },
+          "radius": {
+            "top": "10",
+            "right": "10",
+            "bottom": "10",
+            "left": "10"
+          }
+        },
+        "_margin": {
+          "bottom": "10"
+        }
+      },
+      "label": "Item"
+    },
+    {
+      "id": "gmrr3y",
+      "name": "block",
+      "parent": "dy9r3y",
+      "children": [
+        "ja9q3y",
+        "iefr3y",
+        "hilr3y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_flexWrap": "nowrap",
+        "_alignItems": "center",
+        "_direction": "row",
+        "_justifyContent": "space-between",
+        "_columnGap": "16",
+        "_hidden": {
+          "_cssClasses": "accordion-title-wrapper"
+        }
+      },
+      "label": "Title"
+    },
+    {
+      "id": "ja9q3y",
+      "name": "heading",
+      "parent": "gmrr3y",
+      "children": [],
+      "settings": {
+        "text": "How many sections does BricksFly include?",
+        "tag": "h3"
+      }
+    },
+    {
+      "id": "iefr3y",
+      "name": "icon",
+      "parent": "gmrr3y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-add",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "collapsed"
+      },
+      "label": "Icon (collapsed)"
+    },
+    {
+      "id": "hilr3y",
+      "name": "icon",
+      "parent": "gmrr3y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-remove",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "expanded"
+      },
+      "label": "Icon (expanded)"
+    },
+    {
+      "id": "eu3r3y",
+      "name": "block",
+      "parent": "dy9r3y",
+      "children": [
+        "fqxr3y"
+      ],
+      "settings": {
+        "_hidden": {
+          "_cssClasses": "accordion-content-wrapper"
+        }
+      },
+      "label": "Content"
+    },
+    {
+      "id": "fqxr3y",
+      "name": "text-basic",
+      "parent": "eu3r3y",
+      "children": [],
+      "settings": {
+        "text": "Answer placeholder — replace with the real answer.",
+        "tag": "p"
+      }
+    },
+    {
+      "id": "6pgt3y",
+      "name": "block",
+      "parent": "6okz3y",
+      "children": [
+        "9dys3y",
+        "7lat3y"
+      ],
+      "settings": {
+        "_background": {
+          "color": {
+            "raw": "#fffaf7"
+          }
+        },
+        "_border": {
+          "width": {
+            "top": "1",
+            "right": "1",
+            "bottom": "1",
+            "left": "1"
+          },
+          "style": "solid",
+          "color": {
+            "raw": "#fef2eb"
+          },
+          "radius": {
+            "top": "10",
+            "right": "10",
+            "bottom": "10",
+            "left": "10"
+          }
+        },
+        "_margin": {
+          "bottom": "10"
+        }
+      },
+      "label": "Item"
+    },
+    {
+      "id": "9dys3y",
+      "name": "block",
+      "parent": "6pgt3y",
+      "children": [
+        "c2fs3y",
+        "b6ls3y",
+        "aass3y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_flexWrap": "nowrap",
+        "_alignItems": "center",
+        "_direction": "row",
+        "_justifyContent": "space-between",
+        "_columnGap": "16",
+        "_hidden": {
+          "_cssClasses": "accordion-title-wrapper"
+        }
+      },
+      "label": "Title"
+    },
+    {
+      "id": "c2fs3y",
+      "name": "heading",
+      "parent": "9dys3y",
+      "children": [],
+      "settings": {
+        "text": "How do I add a BricksFly section to my site?",
+        "tag": "h3"
+      }
+    },
+    {
+      "id": "b6ls3y",
+      "name": "icon",
+      "parent": "9dys3y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-add",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "collapsed"
+      },
+      "label": "Icon (collapsed)"
+    },
+    {
+      "id": "aass3y",
+      "name": "icon",
+      "parent": "9dys3y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-remove",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "expanded"
+      },
+      "label": "Icon (expanded)"
+    },
+    {
+      "id": "7lat3y",
+      "name": "block",
+      "parent": "6pgt3y",
+      "children": [
+        "8h4s3y"
+      ],
+      "settings": {
+        "_hidden": {
+          "_cssClasses": "accordion-content-wrapper"
+        }
+      },
+      "label": "Content"
+    },
+    {
+      "id": "8h4s3y",
+      "name": "text-basic",
+      "parent": "7lat3y",
+      "children": [],
+      "settings": {
+        "text": "hree ways: click Live Copy and paste it straight onto your Bricks canvas, download it as JSON and import it, or import it directly. Every section works with all three methods.",
+        "tag": "p"
+      }
+    },
+    {
+      "id": "zhnu3y",
+      "name": "block",
+      "parent": "6okz3y",
+      "children": [
+        "254t3y",
+        "0dhu3y"
+      ],
+      "settings": {
+        "_background": {
+          "color": {
+            "raw": "#fffaf7"
+          }
+        },
+        "_border": {
+          "width": {
+            "top": "1",
+            "right": "1",
+            "bottom": "1",
+            "left": "1"
+          },
+          "style": "solid",
+          "color": {
+            "raw": "#fef2eb"
+          },
+          "radius": {
+            "top": "10",
+            "right": "10",
+            "bottom": "10",
+            "left": "10"
+          }
+        },
+        "_margin": {
+          "bottom": "10"
+        }
+      },
+      "label": "Item"
+    },
+    {
+      "id": "254t3y",
+      "name": "block",
+      "parent": "zhnu3y",
+      "children": [
+        "5tmt3y",
+        "4xst3y",
+        "31yt3y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_flexWrap": "nowrap",
+        "_alignItems": "center",
+        "_direction": "row",
+        "_justifyContent": "space-between",
+        "_columnGap": "16",
+        "_hidden": {
+          "_cssClasses": "accordion-title-wrapper"
+        }
+      },
+      "label": "Title"
+    },
+    {
+      "id": "5tmt3y",
+      "name": "heading",
+      "parent": "254t3y",
+      "children": [],
+      "settings": {
+        "text": "Are the sections animation-ready?",
+        "tag": "h3"
+      }
+    },
+    {
+      "id": "4xst3y",
+      "name": "icon",
+      "parent": "254t3y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-add",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "collapsed"
+      },
+      "label": "Icon (collapsed)"
+    },
+    {
+      "id": "31yt3y",
+      "name": "icon",
+      "parent": "254t3y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-remove",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "expanded"
+      },
+      "label": "Icon (expanded)"
+    },
+    {
+      "id": "0dhu3y",
+      "name": "block",
+      "parent": "zhnu3y",
+      "children": [
+        "19au3y"
+      ],
+      "settings": {
+        "_hidden": {
+          "_cssClasses": "accordion-content-wrapper"
+        }
+      },
+      "label": "Content"
+    },
+    {
+      "id": "19au3y",
+      "name": "text-basic",
+      "parent": "0dhu3y",
+      "children": [],
+      "settings": {
+        "text": "Answer placeholder — replace with the real answer.",
+        "tag": "p"
+      }
+    },
+    {
+      "id": "s9tv3y",
+      "name": "block",
+      "parent": "6okz3y",
+      "children": [
+        "vxbv3y",
+        "t5nv3y"
+      ],
+      "settings": {
+        "_background": {
+          "color": {
+            "raw": "#fffaf7"
+          }
+        },
+        "_border": {
+          "width": {
+            "top": "1",
+            "right": "1",
+            "bottom": "1",
+            "left": "1"
+          },
+          "style": "solid",
+          "color": {
+            "raw": "#fef2eb"
+          },
+          "radius": {
+            "top": "10",
+            "right": "10",
+            "bottom": "10",
+            "left": "10"
+          }
+        },
+        "_margin": {
+          "bottom": "10"
+        }
+      },
+      "label": "Item"
+    },
+    {
+      "id": "vxbv3y",
+      "name": "block",
+      "parent": "s9tv3y",
+      "children": [
+        "yltu3y",
+        "xpzu3y",
+        "wt5u3y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_flexWrap": "nowrap",
+        "_alignItems": "center",
+        "_direction": "row",
+        "_justifyContent": "space-between",
+        "_columnGap": "16",
+        "_hidden": {
+          "_cssClasses": "accordion-title-wrapper"
+        }
+      },
+      "label": "Title"
+    },
+    {
+      "id": "yltu3y",
+      "name": "heading",
+      "parent": "vxbv3y",
+      "children": [],
+      "settings": {
+        "text": "Do I need Bricks Builder to use the sections?",
+        "tag": "h3"
+      }
+    },
+    {
+      "id": "xpzu3y",
+      "name": "icon",
+      "parent": "vxbv3y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-add",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "collapsed"
+      },
+      "label": "Icon (collapsed)"
+    },
+    {
+      "id": "wt5u3y",
+      "name": "icon",
+      "parent": "vxbv3y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-remove",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "expanded"
+      },
+      "label": "Icon (expanded)"
+    },
+    {
+      "id": "t5nv3y",
+      "name": "block",
+      "parent": "s9tv3y",
+      "children": [
+        "u1hv3y"
+      ],
+      "settings": {
+        "_hidden": {
+          "_cssClasses": "accordion-content-wrapper"
+        }
+      },
+      "label": "Content"
+    },
+    {
+      "id": "u1hv3y",
+      "name": "text-basic",
+      "parent": "t5nv3y",
+      "children": [],
+      "settings": {
+        "text": "Answer placeholder — replace with the real answer.",
+        "tag": "p"
+      }
+    },
+    {
+      "id": "l10w3y",
+      "name": "block",
+      "parent": "6okz3y",
+      "children": [
+        "opiw3y",
+        "mxuw3y"
+      ],
+      "settings": {
+        "_background": {
+          "color": {
+            "raw": "#fffaf7"
+          }
+        },
+        "_border": {
+          "width": {
+            "top": "1",
+            "right": "1",
+            "bottom": "1",
+            "left": "1"
+          },
+          "style": "solid",
+          "color": {
+            "raw": "#fef2eb"
+          },
+          "radius": {
+            "top": "10",
+            "right": "10",
+            "bottom": "10",
+            "left": "10"
+          }
+        },
+        "_margin": {
+          "bottom": "10"
+        }
+      },
+      "label": "Item"
+    },
+    {
+      "id": "opiw3y",
+      "name": "block",
+      "parent": "l10w3y",
+      "children": [
+        "rd0v3y",
+        "qh6v3y",
+        "plcw3y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_flexWrap": "nowrap",
+        "_alignItems": "center",
+        "_direction": "row",
+        "_justifyContent": "space-between",
+        "_columnGap": "16",
+        "_hidden": {
+          "_cssClasses": "accordion-title-wrapper"
+        }
+      },
+      "label": "Title"
+    },
+    {
+      "id": "rd0v3y",
+      "name": "heading",
+      "parent": "opiw3y",
+      "children": [],
+      "settings": {
+        "text": "Can I customize the sections?",
+        "tag": "h3"
+      }
+    },
+    {
+      "id": "qh6v3y",
+      "name": "icon",
+      "parent": "opiw3y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-add",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "collapsed"
+      },
+      "label": "Icon (collapsed)"
+    },
+    {
+      "id": "plcw3y",
+      "name": "icon",
+      "parent": "opiw3y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-remove",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "expanded"
+      },
+      "label": "Icon (expanded)"
+    },
+    {
+      "id": "mxuw3y",
+      "name": "block",
+      "parent": "l10w3y",
+      "children": [
+        "ntow3y"
+      ],
+      "settings": {
+        "_hidden": {
+          "_cssClasses": "accordion-content-wrapper"
+        }
+      },
+      "label": "Content"
+    },
+    {
+      "id": "ntow3y",
+      "name": "text-basic",
+      "parent": "mxuw3y",
+      "children": [],
+      "settings": {
+        "text": "Answer placeholder — replace with the real answer.",
+        "tag": "p"
+      }
+    },
+    {
+      "id": "et7x3y",
+      "name": "block",
+      "parent": "6okz3y",
+      "children": [
+        "hhpx3y",
+        "fp1x3y"
+      ],
+      "settings": {
+        "_background": {
+          "color": {
+            "raw": "#fffaf7"
+          }
+        },
+        "_border": {
+          "width": {
+            "top": "1",
+            "right": "1",
+            "bottom": "1",
+            "left": "1"
+          },
+          "style": "solid",
+          "color": {
+            "raw": "#fef2eb"
+          },
+          "radius": {
+            "top": "10",
+            "right": "10",
+            "bottom": "10",
+            "left": "10"
+          }
+        },
+        "_margin": {
+          "bottom": "10"
+        }
+      },
+      "label": "Item"
+    },
+    {
+      "id": "hhpx3y",
+      "name": "block",
+      "parent": "et7x3y",
+      "children": [
+        "k56w3y",
+        "j9cx3y",
+        "idjx3y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_flexWrap": "nowrap",
+        "_alignItems": "center",
+        "_direction": "row",
+        "_justifyContent": "space-between",
+        "_columnGap": "16",
+        "_hidden": {
+          "_cssClasses": "accordion-title-wrapper"
+        }
+      },
+      "label": "Title"
+    },
+    {
+      "id": "k56w3y",
+      "name": "heading",
+      "parent": "hhpx3y",
+      "children": [],
+      "settings": {
+        "text": "What's the difference between a section and a template?",
+        "tag": "h3"
+      }
+    },
+    {
+      "id": "j9cx3y",
+      "name": "icon",
+      "parent": "hhpx3y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-add",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "collapsed"
+      },
+      "label": "Icon (collapsed)"
+    },
+    {
+      "id": "idjx3y",
+      "name": "icon",
+      "parent": "hhpx3y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-remove",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "expanded"
+      },
+      "label": "Icon (expanded)"
+    },
+    {
+      "id": "fp1x3y",
+      "name": "block",
+      "parent": "et7x3y",
+      "children": [
+        "glvx3y"
+      ],
+      "settings": {
+        "_hidden": {
+          "_cssClasses": "accordion-content-wrapper"
+        }
+      },
+      "label": "Content"
+    },
+    {
+      "id": "glvx3y",
+      "name": "text-basic",
+      "parent": "fp1x3y",
+      "children": [],
+      "settings": {
+        "text": "Answer placeholder — replace with the real answer.",
+        "tag": "p"
+      }
+    },
+    {
+      "id": "7kez3y",
+      "name": "block",
+      "parent": "6okz3y",
+      "children": [
+        "a9vy3y",
+        "8g8y3y"
+      ],
+      "settings": {
+        "_background": {
+          "color": {
+            "raw": "#fffaf7"
+          }
+        },
+        "_border": {
+          "width": {
+            "top": "1",
+            "right": "1",
+            "bottom": "1",
+            "left": "1"
+          },
+          "style": "solid",
+          "color": {
+            "raw": "#fef2eb"
+          },
+          "radius": {
+            "top": "10",
+            "right": "10",
+            "bottom": "10",
+            "left": "10"
+          }
+        },
+        "_margin": {
+          "bottom": "10"
+        }
+      },
+      "label": "Item"
+    },
+    {
+      "id": "a9vy3y",
+      "name": "block",
+      "parent": "7kez3y",
+      "children": [
+        "dxdy3y",
+        "c1jy3y",
+        "b5py3y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_flexWrap": "nowrap",
+        "_alignItems": "center",
+        "_direction": "row",
+        "_justifyContent": "space-between",
+        "_columnGap": "16",
+        "_hidden": {
+          "_cssClasses": "accordion-title-wrapper"
+        }
+      },
+      "label": "Title"
+    },
+    {
+      "id": "dxdy3y",
+      "name": "heading",
+      "parent": "a9vy3y",
+      "children": [],
+      "settings": {
+        "text": "Will adding sections slow down my site?",
+        "tag": "h3"
+      }
+    },
+    {
+      "id": "c1jy3y",
+      "name": "icon",
+      "parent": "a9vy3y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-add",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "collapsed"
+      },
+      "label": "Icon (collapsed)"
+    },
+    {
+      "id": "b5py3y",
+      "name": "icon",
+      "parent": "a9vy3y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-remove",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "expanded"
+      },
+      "label": "Icon (expanded)"
+    },
+    {
+      "id": "8g8y3y",
+      "name": "block",
+      "parent": "7kez3y",
+      "children": [
+        "9c2y3y"
+      ],
+      "settings": {
+        "_hidden": {
+          "_cssClasses": "accordion-content-wrapper"
+        }
+      },
+      "label": "Content"
+    },
+    {
+      "id": "9c2y3y",
+      "name": "text-basic",
+      "parent": "8g8y3y",
+      "children": [],
+      "settings": {
+        "text": "Answer placeholder — replace with the real answer.",
+        "tag": "p"
+      }
+    },
+    {
+      "id": "qfe83y",
+      "name": "block",
+      "parent": "a67g4y",
+      "children": [
+        "rb873y"
+      ],
+      "settings": {
+        "_hidden": {
+          "_cssClasses": "tab-pane"
+        }
+      },
+      "label": "Pane"
+    },
+    {
+      "id": "rb873y",
+      "name": "accordion-nested",
+      "parent": "qfe83y",
+      "children": [
+        "ykx03y",
+        "rc413y",
+        "k4a33y",
+        "dwh43y",
+        "6no53y",
+        "zfv63y",
+        "s7173y"
+      ],
+      "settings": {
+        "expandItem": "1",
+        "faqSchema": true,
+        "titleHeight": "62px",
+        "titlePadding": {
+          "top": "14",
+          "right": "24",
+          "bottom": "14",
+          "left": "24"
+        },
+        "titleTypography": {
+          "font-family": "Source Serif 4",
+          "font-weight": "400",
+          "font-size": "24",
+          "line-height": "1.3",
+          "color": {
+            "raw": "#18181b"
+          }
+        },
+        "titleTypography:mobile_portrait": {
+          "font-size": "19"
+        },
+        "contentPadding": {
+          "top": "0",
+          "right": "24",
+          "bottom": "20",
+          "left": "24"
+        },
+        "contentTypography": {
+          "font-family": "Figtree",
+          "font-size": "17",
+          "line-height": "1.7",
+          "color": {
+            "raw": "#52525c"
+          }
+        }
+      }
+    },
+    {
+      "id": "ykx03y",
+      "name": "block",
+      "parent": "rb873y",
+      "children": [
+        "18e03y",
+        "zgr03y"
+      ],
+      "settings": {
+        "_background": {
+          "color": {
+            "raw": "#fffaf7"
+          }
+        },
+        "_border": {
+          "width": {
+            "top": "1",
+            "right": "1",
+            "bottom": "1",
+            "left": "1"
+          },
+          "style": "solid",
+          "color": {
+            "raw": "#fef2eb"
+          },
+          "radius": {
+            "top": "10",
+            "right": "10",
+            "bottom": "10",
+            "left": "10"
+          }
+        },
+        "_margin": {
+          "bottom": "10"
+        }
+      },
+      "label": "Item"
+    },
+    {
+      "id": "18e03y",
+      "name": "block",
+      "parent": "ykx03y",
+      "children": [
+        "4wwz3y",
+        "302z3y",
+        "248z3y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_flexWrap": "nowrap",
+        "_alignItems": "center",
+        "_direction": "row",
+        "_justifyContent": "space-between",
+        "_columnGap": "16",
+        "_hidden": {
+          "_cssClasses": "accordion-title-wrapper"
+        }
+      },
+      "label": "Title"
+    },
+    {
+      "id": "4wwz3y",
+      "name": "heading",
+      "parent": "18e03y",
+      "children": [],
+      "settings": {
+        "text": "How many sections does BricksFly include?",
+        "tag": "h3"
+      }
+    },
+    {
+      "id": "302z3y",
+      "name": "icon",
+      "parent": "18e03y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-add",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "collapsed"
+      },
+      "label": "Icon (collapsed)"
+    },
+    {
+      "id": "248z3y",
+      "name": "icon",
+      "parent": "18e03y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-remove",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "expanded"
+      },
+      "label": "Icon (expanded)"
+    },
+    {
+      "id": "zgr03y",
+      "name": "block",
+      "parent": "ykx03y",
+      "children": [
+        "0cl03y"
+      ],
+      "settings": {
+        "_hidden": {
+          "_cssClasses": "accordion-content-wrapper"
+        }
+      },
+      "label": "Content"
+    },
+    {
+      "id": "0cl03y",
+      "name": "text-basic",
+      "parent": "zgr03y",
+      "children": [],
+      "settings": {
+        "text": "Answer placeholder — replace with the real answer.",
+        "tag": "p"
+      }
+    },
+    {
+      "id": "rc413y",
+      "name": "block",
+      "parent": "rb873y",
+      "children": [
+        "u0l13y",
+        "s8x13y"
+      ],
+      "settings": {
+        "_background": {
+          "color": {
+            "raw": "#fffaf7"
+          }
+        },
+        "_border": {
+          "width": {
+            "top": "1",
+            "right": "1",
+            "bottom": "1",
+            "left": "1"
+          },
+          "style": "solid",
+          "color": {
+            "raw": "#fef2eb"
+          },
+          "radius": {
+            "top": "10",
+            "right": "10",
+            "bottom": "10",
+            "left": "10"
+          }
+        },
+        "_margin": {
+          "bottom": "10"
+        }
+      },
+      "label": "Item"
+    },
+    {
+      "id": "u0l13y",
+      "name": "block",
+      "parent": "rc413y",
+      "children": [
+        "xo303y",
+        "ws903y",
+        "vwf13y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_flexWrap": "nowrap",
+        "_alignItems": "center",
+        "_direction": "row",
+        "_justifyContent": "space-between",
+        "_columnGap": "16",
+        "_hidden": {
+          "_cssClasses": "accordion-title-wrapper"
+        }
+      },
+      "label": "Title"
+    },
+    {
+      "id": "xo303y",
+      "name": "heading",
+      "parent": "u0l13y",
+      "children": [],
+      "settings": {
+        "text": "How do I add a BricksFly section to my site?",
+        "tag": "h3"
+      }
+    },
+    {
+      "id": "ws903y",
+      "name": "icon",
+      "parent": "u0l13y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-add",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "collapsed"
+      },
+      "label": "Icon (collapsed)"
+    },
+    {
+      "id": "vwf13y",
+      "name": "icon",
+      "parent": "u0l13y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-remove",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "expanded"
+      },
+      "label": "Icon (expanded)"
+    },
+    {
+      "id": "s8x13y",
+      "name": "block",
+      "parent": "rc413y",
+      "children": [
+        "t4r13y"
+      ],
+      "settings": {
+        "_hidden": {
+          "_cssClasses": "accordion-content-wrapper"
+        }
+      },
+      "label": "Content"
+    },
+    {
+      "id": "t4r13y",
+      "name": "text-basic",
+      "parent": "s8x13y",
+      "children": [],
+      "settings": {
+        "text": "hree ways: click Live Copy and paste it straight onto your Bricks canvas, download it as JSON and import it, or import it directly. Every section works with all three methods.",
+        "tag": "p"
+      }
+    },
+    {
+      "id": "k4a33y",
+      "name": "block",
+      "parent": "rb873y",
+      "children": [
+        "nss23y",
+        "l0423y"
+      ],
+      "settings": {
+        "_background": {
+          "color": {
+            "raw": "#fffaf7"
+          }
+        },
+        "_border": {
+          "width": {
+            "top": "1",
+            "right": "1",
+            "bottom": "1",
+            "left": "1"
+          },
+          "style": "solid",
+          "color": {
+            "raw": "#fef2eb"
+          },
+          "radius": {
+            "top": "10",
+            "right": "10",
+            "bottom": "10",
+            "left": "10"
+          }
+        },
+        "_margin": {
+          "bottom": "10"
+        }
+      },
+      "label": "Item"
+    },
+    {
+      "id": "nss23y",
+      "name": "block",
+      "parent": "k4a33y",
+      "children": [
+        "qga23y",
+        "pkg23y",
+        "oom23y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_flexWrap": "nowrap",
+        "_alignItems": "center",
+        "_direction": "row",
+        "_justifyContent": "space-between",
+        "_columnGap": "16",
+        "_hidden": {
+          "_cssClasses": "accordion-title-wrapper"
+        }
+      },
+      "label": "Title"
+    },
+    {
+      "id": "qga23y",
+      "name": "heading",
+      "parent": "nss23y",
+      "children": [],
+      "settings": {
+        "text": "Are the sections animation-ready?",
+        "tag": "h3"
+      }
+    },
+    {
+      "id": "pkg23y",
+      "name": "icon",
+      "parent": "nss23y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-add",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "collapsed"
+      },
+      "label": "Icon (collapsed)"
+    },
+    {
+      "id": "oom23y",
+      "name": "icon",
+      "parent": "nss23y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-remove",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "expanded"
+      },
+      "label": "Icon (expanded)"
+    },
+    {
+      "id": "l0423y",
+      "name": "block",
+      "parent": "k4a33y",
+      "children": [
+        "mwy23y"
+      ],
+      "settings": {
+        "_hidden": {
+          "_cssClasses": "accordion-content-wrapper"
+        }
+      },
+      "label": "Content"
+    },
+    {
+      "id": "mwy23y",
+      "name": "text-basic",
+      "parent": "l0423y",
+      "children": [],
+      "settings": {
+        "text": "Answer placeholder — replace with the real answer.",
+        "tag": "p"
+      }
+    },
+    {
+      "id": "dwh43y",
+      "name": "block",
+      "parent": "rb873y",
+      "children": [
+        "gkz33y",
+        "esb43y"
+      ],
+      "settings": {
+        "_background": {
+          "color": {
+            "raw": "#fffaf7"
+          }
+        },
+        "_border": {
+          "width": {
+            "top": "1",
+            "right": "1",
+            "bottom": "1",
+            "left": "1"
+          },
+          "style": "solid",
+          "color": {
+            "raw": "#fef2eb"
+          },
+          "radius": {
+            "top": "10",
+            "right": "10",
+            "bottom": "10",
+            "left": "10"
+          }
+        },
+        "_margin": {
+          "bottom": "10"
+        }
+      },
+      "label": "Item"
+    },
+    {
+      "id": "gkz33y",
+      "name": "block",
+      "parent": "dwh43y",
+      "children": [
+        "j8g33y",
+        "icn33y",
+        "hgt33y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_flexWrap": "nowrap",
+        "_alignItems": "center",
+        "_direction": "row",
+        "_justifyContent": "space-between",
+        "_columnGap": "16",
+        "_hidden": {
+          "_cssClasses": "accordion-title-wrapper"
+        }
+      },
+      "label": "Title"
+    },
+    {
+      "id": "j8g33y",
+      "name": "heading",
+      "parent": "gkz33y",
+      "children": [],
+      "settings": {
+        "text": "Do I need Bricks Builder to use the sections?",
+        "tag": "h3"
+      }
+    },
+    {
+      "id": "icn33y",
+      "name": "icon",
+      "parent": "gkz33y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-add",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "collapsed"
+      },
+      "label": "Icon (collapsed)"
+    },
+    {
+      "id": "hgt33y",
+      "name": "icon",
+      "parent": "gkz33y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-remove",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "expanded"
+      },
+      "label": "Icon (expanded)"
+    },
+    {
+      "id": "esb43y",
+      "name": "block",
+      "parent": "dwh43y",
+      "children": [
+        "fo533y"
+      ],
+      "settings": {
+        "_hidden": {
+          "_cssClasses": "accordion-content-wrapper"
+        }
+      },
+      "label": "Content"
+    },
+    {
+      "id": "fo533y",
+      "name": "text-basic",
+      "parent": "esb43y",
+      "children": [],
+      "settings": {
+        "text": "Answer placeholder — replace with the real answer.",
+        "tag": "p"
+      }
+    },
+    {
+      "id": "6no53y",
+      "name": "block",
+      "parent": "rb873y",
+      "children": [
+        "9b643y",
+        "7ji53y"
+      ],
+      "settings": {
+        "_background": {
+          "color": {
+            "raw": "#fffaf7"
+          }
+        },
+        "_border": {
+          "width": {
+            "top": "1",
+            "right": "1",
+            "bottom": "1",
+            "left": "1"
+          },
+          "style": "solid",
+          "color": {
+            "raw": "#fef2eb"
+          },
+          "radius": {
+            "top": "10",
+            "right": "10",
+            "bottom": "10",
+            "left": "10"
+          }
+        },
+        "_margin": {
+          "bottom": "10"
+        }
+      },
+      "label": "Item"
+    },
+    {
+      "id": "9b643y",
+      "name": "block",
+      "parent": "6no53y",
+      "children": [
+        "c0n43y",
+        "b4t43y",
+        "a8z43y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_flexWrap": "nowrap",
+        "_alignItems": "center",
+        "_direction": "row",
+        "_justifyContent": "space-between",
+        "_columnGap": "16",
+        "_hidden": {
+          "_cssClasses": "accordion-title-wrapper"
+        }
+      },
+      "label": "Title"
+    },
+    {
+      "id": "c0n43y",
+      "name": "heading",
+      "parent": "9b643y",
+      "children": [],
+      "settings": {
+        "text": "Can I customize the sections?",
+        "tag": "h3"
+      }
+    },
+    {
+      "id": "b4t43y",
+      "name": "icon",
+      "parent": "9b643y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-add",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "collapsed"
+      },
+      "label": "Icon (collapsed)"
+    },
+    {
+      "id": "a8z43y",
+      "name": "icon",
+      "parent": "9b643y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-remove",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "expanded"
+      },
+      "label": "Icon (expanded)"
+    },
+    {
+      "id": "7ji53y",
+      "name": "block",
+      "parent": "6no53y",
+      "children": [
+        "8fc53y"
+      ],
+      "settings": {
+        "_hidden": {
+          "_cssClasses": "accordion-content-wrapper"
+        }
+      },
+      "label": "Content"
+    },
+    {
+      "id": "8fc53y",
+      "name": "text-basic",
+      "parent": "7ji53y",
+      "children": [],
+      "settings": {
+        "text": "Answer placeholder — replace with the real answer.",
+        "tag": "p"
+      }
+    },
+    {
+      "id": "zfv63y",
+      "name": "block",
+      "parent": "rb873y",
+      "children": [
+        "23c63y",
+        "0bp63y"
+      ],
+      "settings": {
+        "_background": {
+          "color": {
+            "raw": "#fffaf7"
+          }
+        },
+        "_border": {
+          "width": {
+            "top": "1",
+            "right": "1",
+            "bottom": "1",
+            "left": "1"
+          },
+          "style": "solid",
+          "color": {
+            "raw": "#fef2eb"
+          },
+          "radius": {
+            "top": "10",
+            "right": "10",
+            "bottom": "10",
+            "left": "10"
+          }
+        },
+        "_margin": {
+          "bottom": "10"
+        }
+      },
+      "label": "Item"
+    },
+    {
+      "id": "23c63y",
+      "name": "block",
+      "parent": "zfv63y",
+      "children": [
+        "5ru53y",
+        "4v053y",
+        "3z653y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_flexWrap": "nowrap",
+        "_alignItems": "center",
+        "_direction": "row",
+        "_justifyContent": "space-between",
+        "_columnGap": "16",
+        "_hidden": {
+          "_cssClasses": "accordion-title-wrapper"
+        }
+      },
+      "label": "Title"
+    },
+    {
+      "id": "5ru53y",
+      "name": "heading",
+      "parent": "23c63y",
+      "children": [],
+      "settings": {
+        "text": "What's the difference between a section and a template?",
+        "tag": "h3"
+      }
+    },
+    {
+      "id": "4v053y",
+      "name": "icon",
+      "parent": "23c63y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-add",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "collapsed"
+      },
+      "label": "Icon (collapsed)"
+    },
+    {
+      "id": "3z653y",
+      "name": "icon",
+      "parent": "23c63y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-remove",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "expanded"
+      },
+      "label": "Icon (expanded)"
+    },
+    {
+      "id": "0bp63y",
+      "name": "block",
+      "parent": "zfv63y",
+      "children": [
+        "17i63y"
+      ],
+      "settings": {
+        "_hidden": {
+          "_cssClasses": "accordion-content-wrapper"
+        }
+      },
+      "label": "Content"
+    },
+    {
+      "id": "17i63y",
+      "name": "text-basic",
+      "parent": "0bp63y",
+      "children": [],
+      "settings": {
+        "text": "Answer placeholder — replace with the real answer.",
+        "tag": "p"
+      }
+    },
+    {
+      "id": "s7173y",
+      "name": "block",
+      "parent": "rb873y",
+      "children": [
+        "vvj73y",
+        "t3v73y"
+      ],
+      "settings": {
+        "_background": {
+          "color": {
+            "raw": "#fffaf7"
+          }
+        },
+        "_border": {
+          "width": {
+            "top": "1",
+            "right": "1",
+            "bottom": "1",
+            "left": "1"
+          },
+          "style": "solid",
+          "color": {
+            "raw": "#fef2eb"
+          },
+          "radius": {
+            "top": "10",
+            "right": "10",
+            "bottom": "10",
+            "left": "10"
+          }
+        },
+        "_margin": {
+          "bottom": "10"
+        }
+      },
+      "label": "Item"
+    },
+    {
+      "id": "vvj73y",
+      "name": "block",
+      "parent": "s7173y",
+      "children": [
+        "yj163y",
+        "xn763y",
+        "wrd73y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_flexWrap": "nowrap",
+        "_alignItems": "center",
+        "_direction": "row",
+        "_justifyContent": "space-between",
+        "_columnGap": "16",
+        "_hidden": {
+          "_cssClasses": "accordion-title-wrapper"
+        }
+      },
+      "label": "Title"
+    },
+    {
+      "id": "yj163y",
+      "name": "heading",
+      "parent": "vvj73y",
+      "children": [],
+      "settings": {
+        "text": "Will adding sections slow down my site?",
+        "tag": "h3"
+      }
+    },
+    {
+      "id": "xn763y",
+      "name": "icon",
+      "parent": "vvj73y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-add",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "collapsed"
+      },
+      "label": "Icon (collapsed)"
+    },
+    {
+      "id": "wrd73y",
+      "name": "icon",
+      "parent": "vvj73y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-remove",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "expanded"
+      },
+      "label": "Icon (expanded)"
+    },
+    {
+      "id": "t3v73y",
+      "name": "block",
+      "parent": "s7173y",
+      "children": [
+        "uzp73y"
+      ],
+      "settings": {
+        "_hidden": {
+          "_cssClasses": "accordion-content-wrapper"
+        }
+      },
+      "label": "Content"
+    },
+    {
+      "id": "uzp73y",
+      "name": "text-basic",
+      "parent": "t3v73y",
+      "children": [],
+      "settings": {
+        "text": "Answer placeholder — replace with the real answer.",
+        "tag": "p"
+      }
+    },
+    {
+      "id": "b21g4y",
+      "name": "block",
+      "parent": "a67g4y",
+      "children": [
+        "cyvg4y"
+      ],
+      "settings": {
+        "_hidden": {
+          "_cssClasses": "tab-pane"
+        }
+      },
+      "label": "Pane"
+    },
+    {
+      "id": "cyvg4y",
+      "name": "accordion-nested",
+      "parent": "b21g4y",
+      "children": [
+        "j7k93y",
+        "czra4y",
+        "5qyb4y",
+        "yi5c4y",
+        "race4y",
+        "k2if4y",
+        "dupg4y"
+      ],
+      "settings": {
+        "expandItem": "1",
+        "faqSchema": true,
+        "titleHeight": "62px",
+        "titlePadding": {
+          "top": "14",
+          "right": "24",
+          "bottom": "14",
+          "left": "24"
+        },
+        "titleTypography": {
+          "font-family": "Source Serif 4",
+          "font-weight": "400",
+          "font-size": "24",
+          "line-height": "1.3",
+          "color": {
+            "raw": "#18181b"
+          }
+        },
+        "titleTypography:mobile_portrait": {
+          "font-size": "19"
+        },
+        "contentPadding": {
+          "top": "0",
+          "right": "24",
+          "bottom": "20",
+          "left": "24"
+        },
+        "contentTypography": {
+          "font-family": "Figtree",
+          "font-size": "17",
+          "line-height": "1.7",
+          "color": {
+            "raw": "#52525c"
+          }
+        }
+      }
+    },
+    {
+      "id": "j7k93y",
+      "name": "block",
+      "parent": "cyvg4y",
+      "children": [
+        "mv283y",
+        "k3e93y"
+      ],
+      "settings": {
+        "_background": {
+          "color": {
+            "raw": "#fffaf7"
+          }
+        },
+        "_border": {
+          "width": {
+            "top": "1",
+            "right": "1",
+            "bottom": "1",
+            "left": "1"
+          },
+          "style": "solid",
+          "color": {
+            "raw": "#fef2eb"
+          },
+          "radius": {
+            "top": "10",
+            "right": "10",
+            "bottom": "10",
+            "left": "10"
+          }
+        },
+        "_margin": {
+          "bottom": "10"
+        }
+      },
+      "label": "Item"
+    },
+    {
+      "id": "mv283y",
+      "name": "block",
+      "parent": "j7k93y",
+      "children": [
+        "pjk83y",
+        "onq83y",
+        "nrw83y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_flexWrap": "nowrap",
+        "_alignItems": "center",
+        "_direction": "row",
+        "_justifyContent": "space-between",
+        "_columnGap": "16",
+        "_hidden": {
+          "_cssClasses": "accordion-title-wrapper"
+        }
+      },
+      "label": "Title"
+    },
+    {
+      "id": "pjk83y",
+      "name": "heading",
+      "parent": "mv283y",
+      "children": [],
+      "settings": {
+        "text": "How many sections does BricksFly include?",
+        "tag": "h3"
+      }
+    },
+    {
+      "id": "onq83y",
+      "name": "icon",
+      "parent": "mv283y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-add",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "collapsed"
+      },
+      "label": "Icon (collapsed)"
+    },
+    {
+      "id": "nrw83y",
+      "name": "icon",
+      "parent": "mv283y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-remove",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "expanded"
+      },
+      "label": "Icon (expanded)"
+    },
+    {
+      "id": "k3e93y",
+      "name": "block",
+      "parent": "j7k93y",
+      "children": [
+        "lz883y"
+      ],
+      "settings": {
+        "_hidden": {
+          "_cssClasses": "accordion-content-wrapper"
+        }
+      },
+      "label": "Content"
+    },
+    {
+      "id": "lz883y",
+      "name": "text-basic",
+      "parent": "k3e93y",
+      "children": [],
+      "settings": {
+        "text": "Answer placeholder — replace with the real answer.",
+        "tag": "p"
+      }
+    },
+    {
+      "id": "czra4y",
+      "name": "block",
+      "parent": "cyvg4y",
+      "children": [
+        "fn993y",
+        "dvla4y"
+      ],
+      "settings": {
+        "_background": {
+          "color": {
+            "raw": "#fffaf7"
+          }
+        },
+        "_border": {
+          "width": {
+            "top": "1",
+            "right": "1",
+            "bottom": "1",
+            "left": "1"
+          },
+          "style": "solid",
+          "color": {
+            "raw": "#fef2eb"
+          },
+          "radius": {
+            "top": "10",
+            "right": "10",
+            "bottom": "10",
+            "left": "10"
+          }
+        },
+        "_margin": {
+          "bottom": "10"
+        }
+      },
+      "label": "Item"
+    },
+    {
+      "id": "fn993y",
+      "name": "block",
+      "parent": "czra4y",
+      "children": [
+        "ibr93y",
+        "hfx93y",
+        "gj393y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_flexWrap": "nowrap",
+        "_alignItems": "center",
+        "_direction": "row",
+        "_justifyContent": "space-between",
+        "_columnGap": "16",
+        "_hidden": {
+          "_cssClasses": "accordion-title-wrapper"
+        }
+      },
+      "label": "Title"
+    },
+    {
+      "id": "ibr93y",
+      "name": "heading",
+      "parent": "fn993y",
+      "children": [],
+      "settings": {
+        "text": "How do I add a BricksFly section to my site?",
+        "tag": "h3"
+      }
+    },
+    {
+      "id": "hfx93y",
+      "name": "icon",
+      "parent": "fn993y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-add",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "collapsed"
+      },
+      "label": "Icon (collapsed)"
+    },
+    {
+      "id": "gj393y",
+      "name": "icon",
+      "parent": "fn993y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-remove",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "expanded"
+      },
+      "label": "Icon (expanded)"
+    },
+    {
+      "id": "dvla4y",
+      "name": "block",
+      "parent": "czra4y",
+      "children": [
+        "erfa4y"
+      ],
+      "settings": {
+        "_hidden": {
+          "_cssClasses": "accordion-content-wrapper"
+        }
+      },
+      "label": "Content"
+    },
+    {
+      "id": "erfa4y",
+      "name": "text-basic",
+      "parent": "dvla4y",
+      "children": [],
+      "settings": {
+        "text": "hree ways: click Live Copy and paste it straight onto your Bricks canvas, download it as JSON and import it, or import it directly. Every section works with all three methods.",
+        "tag": "p"
+      }
+    },
+    {
+      "id": "5qyb4y",
+      "name": "block",
+      "parent": "cyvg4y",
+      "children": [
+        "8egb4y",
+        "6msb4y"
+      ],
+      "settings": {
+        "_background": {
+          "color": {
+            "raw": "#fffaf7"
+          }
+        },
+        "_border": {
+          "width": {
+            "top": "1",
+            "right": "1",
+            "bottom": "1",
+            "left": "1"
+          },
+          "style": "solid",
+          "color": {
+            "raw": "#fef2eb"
+          },
+          "radius": {
+            "top": "10",
+            "right": "10",
+            "bottom": "10",
+            "left": "10"
+          }
+        },
+        "_margin": {
+          "bottom": "10"
+        }
+      },
+      "label": "Item"
+    },
+    {
+      "id": "8egb4y",
+      "name": "block",
+      "parent": "5qyb4y",
+      "children": [
+        "b3xa4y",
+        "a73a4y",
+        "9aab4y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_flexWrap": "nowrap",
+        "_alignItems": "center",
+        "_direction": "row",
+        "_justifyContent": "space-between",
+        "_columnGap": "16",
+        "_hidden": {
+          "_cssClasses": "accordion-title-wrapper"
+        }
+      },
+      "label": "Title"
+    },
+    {
+      "id": "b3xa4y",
+      "name": "heading",
+      "parent": "8egb4y",
+      "children": [],
+      "settings": {
+        "text": "Are the sections animation-ready?",
+        "tag": "h3"
+      }
+    },
+    {
+      "id": "a73a4y",
+      "name": "icon",
+      "parent": "8egb4y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-add",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "collapsed"
+      },
+      "label": "Icon (collapsed)"
+    },
+    {
+      "id": "9aab4y",
+      "name": "icon",
+      "parent": "8egb4y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-remove",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "expanded"
+      },
+      "label": "Icon (expanded)"
+    },
+    {
+      "id": "6msb4y",
+      "name": "block",
+      "parent": "5qyb4y",
+      "children": [
+        "7imb4y"
+      ],
+      "settings": {
+        "_hidden": {
+          "_cssClasses": "accordion-content-wrapper"
+        }
+      },
+      "label": "Content"
+    },
+    {
+      "id": "7imb4y",
+      "name": "text-basic",
+      "parent": "6msb4y",
+      "children": [],
+      "settings": {
+        "text": "Answer placeholder — replace with the real answer.",
+        "tag": "p"
+      }
+    },
+    {
+      "id": "yi5c4y",
+      "name": "block",
+      "parent": "cyvg4y",
+      "children": [
+        "16mc4y",
+        "zezc4y"
+      ],
+      "settings": {
+        "_background": {
+          "color": {
+            "raw": "#fffaf7"
+          }
+        },
+        "_border": {
+          "width": {
+            "top": "1",
+            "right": "1",
+            "bottom": "1",
+            "left": "1"
+          },
+          "style": "solid",
+          "color": {
+            "raw": "#fef2eb"
+          },
+          "radius": {
+            "top": "10",
+            "right": "10",
+            "bottom": "10",
+            "left": "10"
+          }
+        },
+        "_margin": {
+          "bottom": "10"
+        }
+      },
+      "label": "Item"
+    },
+    {
+      "id": "16mc4y",
+      "name": "block",
+      "parent": "yi5c4y",
+      "children": [
+        "4u4b4y",
+        "3yac4y",
+        "22gc4y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_flexWrap": "nowrap",
+        "_alignItems": "center",
+        "_direction": "row",
+        "_justifyContent": "space-between",
+        "_columnGap": "16",
+        "_hidden": {
+          "_cssClasses": "accordion-title-wrapper"
+        }
+      },
+      "label": "Title"
+    },
+    {
+      "id": "4u4b4y",
+      "name": "heading",
+      "parent": "16mc4y",
+      "children": [],
+      "settings": {
+        "text": "Do I need Bricks Builder to use the sections?",
+        "tag": "h3"
+      }
+    },
+    {
+      "id": "3yac4y",
+      "name": "icon",
+      "parent": "16mc4y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-add",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "collapsed"
+      },
+      "label": "Icon (collapsed)"
+    },
+    {
+      "id": "22gc4y",
+      "name": "icon",
+      "parent": "16mc4y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-remove",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "expanded"
+      },
+      "label": "Icon (expanded)"
+    },
+    {
+      "id": "zezc4y",
+      "name": "block",
+      "parent": "yi5c4y",
+      "children": [
+        "0atc4y"
+      ],
+      "settings": {
+        "_hidden": {
+          "_cssClasses": "accordion-content-wrapper"
+        }
+      },
+      "label": "Content"
+    },
+    {
+      "id": "0atc4y",
+      "name": "text-basic",
+      "parent": "zezc4y",
+      "children": [],
+      "settings": {
+        "text": "Answer placeholder — replace with the real answer.",
+        "tag": "p"
+      }
+    },
+    {
+      "id": "race4y",
+      "name": "block",
+      "parent": "cyvg4y",
+      "children": [
+        "uytd4y",
+        "s65d4y"
+      ],
+      "settings": {
+        "_background": {
+          "color": {
+            "raw": "#fffaf7"
+          }
+        },
+        "_border": {
+          "width": {
+            "top": "1",
+            "right": "1",
+            "bottom": "1",
+            "left": "1"
+          },
+          "style": "solid",
+          "color": {
+            "raw": "#fef2eb"
+          },
+          "radius": {
+            "top": "10",
+            "right": "10",
+            "bottom": "10",
+            "left": "10"
+          }
+        },
+        "_margin": {
+          "bottom": "10"
+        }
+      },
+      "label": "Item"
+    },
+    {
+      "id": "uytd4y",
+      "name": "block",
+      "parent": "race4y",
+      "children": [
+        "xmbd4y",
+        "wqhd4y",
+        "vund4y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_flexWrap": "nowrap",
+        "_alignItems": "center",
+        "_direction": "row",
+        "_justifyContent": "space-between",
+        "_columnGap": "16",
+        "_hidden": {
+          "_cssClasses": "accordion-title-wrapper"
+        }
+      },
+      "label": "Title"
+    },
+    {
+      "id": "xmbd4y",
+      "name": "heading",
+      "parent": "uytd4y",
+      "children": [],
+      "settings": {
+        "text": "Can I customize the sections?",
+        "tag": "h3"
+      }
+    },
+    {
+      "id": "wqhd4y",
+      "name": "icon",
+      "parent": "uytd4y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-add",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "collapsed"
+      },
+      "label": "Icon (collapsed)"
+    },
+    {
+      "id": "vund4y",
+      "name": "icon",
+      "parent": "uytd4y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-remove",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "expanded"
+      },
+      "label": "Icon (expanded)"
+    },
+    {
+      "id": "s65d4y",
+      "name": "block",
+      "parent": "race4y",
+      "children": [
+        "t2zd4y"
+      ],
+      "settings": {
+        "_hidden": {
+          "_cssClasses": "accordion-content-wrapper"
+        }
+      },
+      "label": "Content"
+    },
+    {
+      "id": "t2zd4y",
+      "name": "text-basic",
+      "parent": "s65d4y",
+      "children": [],
+      "settings": {
+        "text": "Answer placeholder — replace with the real answer.",
+        "tag": "p"
+      }
+    },
+    {
+      "id": "k2if4y",
+      "name": "block",
+      "parent": "cyvg4y",
+      "children": [
+        "nq0e4y",
+        "lycf4y"
+      ],
+      "settings": {
+        "_background": {
+          "color": {
+            "raw": "#fffaf7"
+          }
+        },
+        "_border": {
+          "width": {
+            "top": "1",
+            "right": "1",
+            "bottom": "1",
+            "left": "1"
+          },
+          "style": "solid",
+          "color": {
+            "raw": "#fef2eb"
+          },
+          "radius": {
+            "top": "10",
+            "right": "10",
+            "bottom": "10",
+            "left": "10"
+          }
+        },
+        "_margin": {
+          "bottom": "10"
+        }
+      },
+      "label": "Item"
+    },
+    {
+      "id": "nq0e4y",
+      "name": "block",
+      "parent": "k2if4y",
+      "children": [
+        "qeie4y",
+        "pioe4y",
+        "omue4y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_flexWrap": "nowrap",
+        "_alignItems": "center",
+        "_direction": "row",
+        "_justifyContent": "space-between",
+        "_columnGap": "16",
+        "_hidden": {
+          "_cssClasses": "accordion-title-wrapper"
+        }
+      },
+      "label": "Title"
+    },
+    {
+      "id": "qeie4y",
+      "name": "heading",
+      "parent": "nq0e4y",
+      "children": [],
+      "settings": {
+        "text": "What's the difference between a section and a template?",
+        "tag": "h3"
+      }
+    },
+    {
+      "id": "pioe4y",
+      "name": "icon",
+      "parent": "nq0e4y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-add",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "collapsed"
+      },
+      "label": "Icon (collapsed)"
+    },
+    {
+      "id": "omue4y",
+      "name": "icon",
+      "parent": "nq0e4y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-remove",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "expanded"
+      },
+      "label": "Icon (expanded)"
+    },
+    {
+      "id": "lycf4y",
+      "name": "block",
+      "parent": "k2if4y",
+      "children": [
+        "mu6e4y"
+      ],
+      "settings": {
+        "_hidden": {
+          "_cssClasses": "accordion-content-wrapper"
+        }
+      },
+      "label": "Content"
+    },
+    {
+      "id": "mu6e4y",
+      "name": "text-basic",
+      "parent": "lycf4y",
+      "children": [],
+      "settings": {
+        "text": "Answer placeholder — replace with the real answer.",
+        "tag": "p"
+      }
+    },
+    {
+      "id": "dupg4y",
+      "name": "block",
+      "parent": "cyvg4y",
+      "children": [
+        "gi7f4y",
+        "eqjg4y"
+      ],
+      "settings": {
+        "_background": {
+          "color": {
+            "raw": "#fffaf7"
+          }
+        },
+        "_border": {
+          "width": {
+            "top": "1",
+            "right": "1",
+            "bottom": "1",
+            "left": "1"
+          },
+          "style": "solid",
+          "color": {
+            "raw": "#fef2eb"
+          },
+          "radius": {
+            "top": "10",
+            "right": "10",
+            "bottom": "10",
+            "left": "10"
+          }
+        },
+        "_margin": {
+          "bottom": "10"
+        }
+      },
+      "label": "Item"
+    },
+    {
+      "id": "gi7f4y",
+      "name": "block",
+      "parent": "dupg4y",
+      "children": [
+        "j6of4y",
+        "iavf4y",
+        "he1f4y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_flexWrap": "nowrap",
+        "_alignItems": "center",
+        "_direction": "row",
+        "_justifyContent": "space-between",
+        "_columnGap": "16",
+        "_hidden": {
+          "_cssClasses": "accordion-title-wrapper"
+        }
+      },
+      "label": "Title"
+    },
+    {
+      "id": "j6of4y",
+      "name": "heading",
+      "parent": "gi7f4y",
+      "children": [],
+      "settings": {
+        "text": "Will adding sections slow down my site?",
+        "tag": "h3"
+      }
+    },
+    {
+      "id": "iavf4y",
+      "name": "icon",
+      "parent": "gi7f4y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-add",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "collapsed"
+      },
+      "label": "Icon (collapsed)"
+    },
+    {
+      "id": "he1f4y",
+      "name": "icon",
+      "parent": "gi7f4y",
+      "children": [],
+      "settings": {
+        "icon": {
+          "icon": "ion-md-remove",
+          "library": "ionicons"
+        },
+        "iconSize": "24",
+        "iconColor": {
+          "raw": "#18181b"
+        },
+        "_flexShrink": "0",
+        "isAccordionIcon": true,
+        "accordionTitleIconState": "expanded"
+      },
+      "label": "Icon (expanded)"
+    },
+    {
+      "id": "eqjg4y",
+      "name": "block",
+      "parent": "dupg4y",
+      "children": [
+        "fmdg4y"
+      ],
+      "settings": {
+        "_hidden": {
+          "_cssClasses": "accordion-content-wrapper"
+        }
+      },
+      "label": "Content"
+    },
+    {
+      "id": "fmdg4y",
+      "name": "text-basic",
+      "parent": "eqjg4y",
+      "children": [],
+      "settings": {
+        "text": "Answer placeholder — replace with the real answer.",
+        "tag": "p"
+      }
+    },
+    {
+      "id": "np4k4y",
+      "name": "section",
+      "parent": 0,
+      "children": [
+        "olyk4y"
+      ],
+      "settings": {
+        "_padding": {
+          "top": "100",
+          "right": "24",
+          "bottom": "100",
+          "left": "24"
+        },
+        "_padding:mobile_portrait": {
+          "top": "64",
+          "bottom": "64"
+        },
+        "_background": {
+          "color": {
+            "raw": "#ede2d6"
+          }
+        }
+      },
+      "label": "CTA"
+    },
+    {
+      "id": "olyk4y",
+      "name": "container",
+      "parent": "np4k4y",
+      "children": [
+        "6lwh4y",
+        "5p2h4y",
+        "21ki4y",
+        "phsk4y"
+      ],
+      "settings": {
+        "_width": "100%",
+        "_widthMax": "1320px",
+        "_direction": "column",
+        "_alignItems": "center"
+      }
+    },
+    {
+      "id": "6lwh4y",
+      "name": "heading",
+      "parent": "olyk4y",
+      "children": [],
+      "settings": {
+        "text": "Build your next Elementor 4 website with the toolkit made for it.",
+        "tag": "h2",
+        "_widthMax": "1100px",
+        "_typography": {
+          "font-family": "Source Serif 4",
+          "font-weight": "400",
+          "font-size": "58",
+          "line-height": "1.05",
+          "color": {
+            "raw": "#18181b"
+          },
+          "text-align": "center"
+        },
+        "_typography:tablet_portrait": {
+          "font-size": "46"
+        },
+        "_typography:mobile_portrait": {
+          "font-size": "34"
+        }
+      }
+    },
+    {
+      "id": "5p2h4y",
+      "name": "text-basic",
+      "parent": "olyk4y",
+      "children": [],
+      "settings": {
+        "text": "Get 40+ Atomic Widgets, 20+ Extensions, 30+ Website Templates, 500+ Section Templates, and advanced GSAP animation in one complete toolkit.",
+        "tag": "p",
+        "_widthMax": "780px",
+        "_margin": {
+          "top": "20"
+        },
+        "_typography": {
+          "font-family": "Figtree",
+          "font-size": "17",
+          "line-height": "1.7",
+          "color": {
+            "raw": "#52525c"
+          },
+          "text-align": "center"
+        }
+      }
+    },
+    {
+      "id": "21ki4y",
+      "name": "div",
+      "parent": "olyk4y",
+      "children": [
+        "4t8h4y",
+        "3xei4y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_direction": "row",
+        "_columnGap": "16",
+        "_rowGap": "12",
+        "_flexWrap": "wrap",
+        "_justifyContent": "center",
+        "_margin": {
+          "top": "36"
+        }
+      },
+      "label": "Buttons"
+    },
+    {
+      "id": "4t8h4y",
+      "name": "button",
+      "parent": "21ki4y",
+      "children": [],
+      "settings": {
+        "text": "Get 25% Early Bird Off",
+        "circle": true,
+        "size": "lg",
+        "link": {
+          "type": "external",
+          "url": "#"
+        },
+        "_background": {
+          "color": {
+            "raw": "#f67d32"
+          }
+        },
+        "_typography": {
+          "font-family": "Figtree",
+          "font-weight": "500",
+          "font-size": "18",
+          "color": {
+            "raw": "#ffffff"
+          }
+        },
+        "_padding": {
+          "top": "12",
+          "right": "30",
+          "bottom": "12",
+          "left": "30"
+        }
+      },
+      "label": "Primary CTA"
+    },
+    {
+      "id": "3xei4y",
+      "name": "button",
+      "parent": "21ki4y",
+      "children": [],
+      "settings": {
+        "text": "Review The Toolkit",
+        "circle": true,
+        "size": "lg",
+        "link": {
+          "type": "external",
+          "url": "#"
+        },
+        "_background": {
+          "color": {
+            "raw": "#ffffff"
+          }
+        },
+        "_typography": {
+          "font-family": "Figtree",
+          "font-weight": "500",
+          "font-size": "18",
+          "color": {
+            "raw": "#18181b"
+          }
+        },
+        "_padding": {
+          "top": "12",
+          "right": "30",
+          "bottom": "12",
+          "left": "30"
+        }
+      },
+      "label": "Secondary CTA"
+    },
+    {
+      "id": "phsk4y",
+      "name": "div",
+      "parent": "olyk4y",
+      "children": [
+        "zd3i4y",
+        "wplj4y",
+        "t13j4y",
+        "qdmk4y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_direction": "row",
+        "_flexWrap": "wrap",
+        "_justifyContent": "center",
+        "_columnGap": "16",
+        "_rowGap": "12",
+        "_margin": {
+          "top": "40"
+        }
+      },
+      "label": "Badges"
+    },
+    {
+      "id": "zd3i4y",
+      "name": "div",
+      "parent": "phsk4y",
+      "children": [
+        "15qi4y",
+        "09wi4y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_direction": "row",
+        "_alignItems": "center",
+        "_columnGap": "8"
+      },
+      "label": "Badge"
+    },
+    {
+      "id": "15qi4y",
+      "name": "image",
+      "parent": "zd3i4y",
+      "children": [],
+      "settings": {
+        "image": {
+          "url": "https://placehold.co/48x48/png?text=Limited",
+          "external": true,
+          "filename": "limited.png"
+        },
+        "altText": "Limited",
+        "_width": "24px",
+        "_height": "24px"
+      },
+      "label": "Limited icon"
+    },
+    {
+      "id": "09wi4y",
+      "name": "text-basic",
+      "parent": "zd3i4y",
+      "children": [],
+      "settings": {
+        "text": "Limited to the first 200 Early Bird purchase",
+        "_typography": {
+          "font-family": "Figtree",
+          "font-size": "15",
+          "color": {
+            "raw": "#52525c"
+          }
+        }
+      }
+    },
+    {
+      "id": "wplj4y",
+      "name": "div",
+      "parent": "phsk4y",
+      "children": [
+        "yh9i4y",
+        "xlfj4y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_direction": "row",
+        "_alignItems": "center",
+        "_columnGap": "8"
+      },
+      "label": "Badge"
+    },
+    {
+      "id": "yh9i4y",
+      "name": "image",
+      "parent": "wplj4y",
+      "children": [],
+      "settings": {
+        "image": {
+          "url": "https://placehold.co/48x48/png?text=Payment",
+          "external": true,
+          "filename": "payment.png"
+        },
+        "altText": "Payment",
+        "_width": "24px",
+        "_height": "24px"
+      },
+      "label": "Payment icon"
+    },
+    {
+      "id": "xlfj4y",
+      "name": "text-basic",
+      "parent": "wplj4y",
+      "children": [],
+      "settings": {
+        "text": "One Time payment",
+        "_typography": {
+          "font-family": "Figtree",
+          "font-size": "15",
+          "color": {
+            "raw": "#52525c"
+          }
+        }
+      }
+    },
+    {
+      "id": "t13j4y",
+      "name": "div",
+      "parent": "phsk4y",
+      "children": [
+        "vtrj4y",
+        "uxxj4y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_direction": "row",
+        "_alignItems": "center",
+        "_columnGap": "8"
+      },
+      "label": "Badge"
+    },
+    {
+      "id": "vtrj4y",
+      "name": "image",
+      "parent": "t13j4y",
+      "children": [],
+      "settings": {
+        "image": {
+          "url": "https://placehold.co/48x48/png?text=Support",
+          "external": true,
+          "filename": "support.png"
+        },
+        "altText": "Support",
+        "_width": "24px",
+        "_height": "24px"
+      },
+      "label": "Support icon"
+    },
+    {
+      "id": "uxxj4y",
+      "name": "text-basic",
+      "parent": "t13j4y",
+      "children": [],
+      "settings": {
+        "text": "Lifetime Updates & Support",
+        "_typography": {
+          "font-family": "Figtree",
+          "font-size": "15",
+          "color": {
+            "raw": "#52525c"
+          }
+        }
+      }
+    },
+    {
+      "id": "qdmk4y",
+      "name": "div",
+      "parent": "phsk4y",
+      "children": [
+        "s59j4y",
+        "r9fk4y"
+      ],
+      "settings": {
+        "_display": "flex",
+        "_direction": "row",
+        "_alignItems": "center",
+        "_columnGap": "8"
+      },
+      "label": "Badge"
+    },
+    {
+      "id": "s59j4y",
+      "name": "image",
+      "parent": "qdmk4y",
+      "children": [],
+      "settings": {
+        "image": {
+          "url": "https://placehold.co/48x48/png?text=Guarantee",
+          "external": true,
+          "filename": "guarantee.png"
+        },
+        "altText": "Guarantee",
+        "_width": "24px",
+        "_height": "24px"
+      },
+      "label": "Guarantee icon"
+    },
+    {
+      "id": "r9fk4y",
+      "name": "text-basic",
+      "parent": "qdmk4y",
+      "children": [],
+      "settings": {
+        "text": "15-Days Money Back Guarantee",
+        "_typography": {
+          "font-family": "Figtree",
+          "font-size": "15",
+          "color": {
+            "raw": "#52525c"
+          }
+        }
+      }
+    }
+  ]
+}

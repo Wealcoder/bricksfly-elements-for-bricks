@@ -1,0 +1,550 @@
+# Bricks + Bricksfly Figma-to-JSON POC
+
+I want to build a proof-of-concept that converts a website design/screenshot into a Bricks Builder website.
+
+The target workflow is:
+
+Figma screenshot/design
+→ AI analyzes the design
+→ AI determines the required Bricks/Bricksfly elements and settings
+→ AI generates Bricks JSON
+→ I import the JSON into Bricks Builder
+→ Bricks renders the website
+
+The website must be built using the existing **Bricks native functionality + Bricksfly functionality** available in this repository.
+
+Do NOT build an MCP server yet. This is only the first POC to prove that the screenshot/design can be converted into valid Bricks JSON.
+
+---
+
+# 1. CRITICAL RULE — USE EXISTING BRICKS + BRICKSFLY FUNCTIONALITY
+
+This is the most important requirement.
+
+The generated website must use existing:
+
+1. Bricks native elements/features
+2. Bricksfly elements/extensions
+
+Do not create new functionality when an existing Bricks or Bricksfly feature can implement the design.
+
+Use this decision order for every design feature:
+
+```text
+Figma/design feature
+        ↓
+Can Bricks native functionality implement it?
+        ↓
+      YES → use Bricks native
+        ↓ NO
+Can an existing Bricksfly element/extension implement it?
+        ↓
+      YES → use Bricksfly
+        ↓ NO
+Ask me whether custom JavaScript is acceptable
+```
+
+Do NOT automatically create a workaround.
+
+---
+
+# 2. DO NOT INVENT FUNCTIONALITY
+
+Do NOT:
+
+* create new Bricks elements
+* create new Bricksfly elements
+* create new Bricksfly extensions
+* invent Bricks control names
+* invent Bricksfly control names
+* invent Bricks settings
+* invent Bricksfly settings
+* create custom JavaScript automatically
+* create custom GSAP animations automatically
+* recreate an existing Bricksfly animation using JavaScript
+* recreate an existing Bricks native feature using JavaScript
+* create custom HTML when an existing Bricks element can be used
+* create custom CSS animations when Bricks/Bricksfly already provides the required functionality
+
+The purpose of this POC is to prove that the existing **Bricks + Bricksfly ecosystem** can reproduce the design.
+
+---
+
+# 3. CUSTOM JAVASCRIPT RULE
+
+There may be cases where the screenshot contains functionality that cannot be reproduced using existing Bricks or Bricksfly functionality.
+
+In that situation:
+
+DO NOT write custom JavaScript immediately.
+
+Instead, stop and ask me something like:
+
+> "This design feature cannot be implemented using the existing Bricks or Bricksfly functionality I found. Would you like me to create custom JavaScript for this feature?"
+
+Only after I explicitly approve it should you create the custom JavaScript.
+
+If custom JavaScript is approved:
+
+1. Explain why Bricks/Bricksfly cannot implement the feature.
+2. Explain what the custom JavaScript will do.
+3. Provide the JavaScript separately.
+4. Then include the required configuration/reference in the final Bricks JSON if applicable.
+
+Do not silently introduce custom JavaScript into the generated website.
+
+---
+
+# 4. INSPECT THE EXISTING PROJECT FIRST
+
+Before generating anything, inspect this repository carefully.
+
+This repository contains the Bricksfly WordPress plugin.
+
+Inspect:
+
+* Bricksfly element classes
+* Bricksfly extension classes
+* controls
+* control registration
+* default values
+* accepted values
+* responsive controls
+* generated settings
+* element names
+* element identifiers
+* CSS classes
+* JS handles
+* frontend scripts
+* frontend behavior
+* builder behavior
+* existing templates
+* existing JSON/export files
+* any existing Bricks element definitions
+
+Do not guess how Bricksfly works.
+
+Use the actual source code as the source of truth.
+
+---
+
+# 5. BRICKSFLY ELEMENTS AND EXTENSIONS
+
+Identify all relevant Bricksfly functionality available in this repository.
+
+Pay particular attention to things such as:
+
+* AAB_Bricks_Floating_Elements
+* Floating Elements
+* Pin Element
+* ScrollSmoother
+* other Bricksfly elements
+* other Bricksfly extensions
+
+However, do NOT assume the above list is complete.
+
+Inspect the repository and identify the actual available functionality.
+
+For every relevant Bricksfly feature, determine:
+
+* PHP class
+* element name
+* element identifier
+* category
+* controls
+* control IDs
+* control types
+* default values
+* available options
+* responsive behavior
+* generated classes
+* required scripts
+* required styles
+* how settings are stored inside Bricks element data
+
+Only use values confirmed by the source code.
+
+---
+
+# 6. INSPECT BRICKS NATIVE STRUCTURE
+
+Determine how the current Bricks version represents its native elements and page structure.
+
+Inspect any existing Bricks JSON/export/template files available in the repository.
+
+Determine the correct structure for:
+
+* section
+* container
+* block
+* div
+* heading
+* text/basic text
+* button
+* image
+* link
+* icon
+* list
+* video
+* other relevant native elements
+
+Determine:
+
+* element IDs
+* parent IDs
+* child relationships
+* element names
+* settings structure
+* responsive settings
+* typography settings
+* spacing settings
+* layout settings
+* colors
+* backgrounds
+* borders
+* shadows
+* positioning
+* classes
+* attributes
+* conditions where relevant
+
+Do NOT invent a Bricks JSON format.
+
+If the repository does not contain enough information to determine the correct Bricks JSON structure, tell me what is missing before generating the final JSON.
+
+---
+
+# 7. SCREENSHOT ANALYSIS
+
+When I provide a Figma screenshot/design, analyze it carefully.
+
+Identify:
+
+### Layout
+
+* page structure
+* sections
+* containers
+* columns
+* grids
+* flex layouts
+* gaps
+* widths
+* heights
+* alignment
+* positioning
+
+### Typography
+
+* font family, if identifiable
+* font size
+* font weight
+* line height
+* letter spacing
+* text color
+* text alignment
+
+### Spacing
+
+Estimate:
+
+* padding
+* margin
+* gaps
+* section spacing
+* element spacing
+
+### Visual design
+
+Identify:
+
+* colors
+* gradients
+* backgrounds
+* borders
+* border radius
+* shadows
+* images
+* icons
+* decorative elements
+
+### Responsive behavior
+
+Infer reasonable:
+
+* desktop
+* tablet
+* mobile
+
+behavior from the design.
+
+Do not claim that a responsive behavior is explicitly defined if it can only be inferred from the screenshot.
+
+---
+
+# 8. MAP DESIGN → BRICKS
+
+For every part of the screenshot, determine the appropriate existing Bricks element.
+
+For example:
+
+```text
+Design heading
+→ Bricks Heading
+
+Design paragraph
+→ Bricks Basic Text
+
+Design CTA
+→ Bricks Button
+
+Design image
+→ Bricks Image
+
+Design layout
+→ Bricks Section + Container + Block/Div
+
+Design sticky behavior
+→ Bricks native sticky feature OR Bricksfly Pin Element
+```
+
+Use the most appropriate native Bricks element rather than creating custom HTML.
+
+---
+
+# 9. MAP DESIGN → BRICKSFLY
+
+If a design feature can be implemented using Bricksfly, use the existing Bricksfly functionality.
+
+Examples:
+
+```text
+Floating animation
+→ Bricksfly Floating Elements
+
+Pin/sticky/scroll-based behavior
+→ Bricks native feature if sufficient
+→ otherwise Bricksfly Pin Element
+
+Smooth scrolling
+→ Bricksfly ScrollSmoother
+```
+
+These are examples only.
+
+Inspect the actual repository before deciding which feature to use.
+
+---
+
+# 10. DO NOT OVERUSE BRICKSFLY
+
+Do not use a Bricksfly feature just because it exists.
+
+If a feature can be implemented cleanly using Bricks native functionality, use Bricks native functionality.
+
+For example:
+
+```text
+Simple heading
+→ Bricks Heading
+```
+
+not a custom Bricksfly element.
+
+The goal is:
+
+```text
+Bricks native where possible
+Bricksfly where necessary/appropriate
+Custom JS only after explicit approval
+```
+
+---
+
+# 11. BRICKS JSON
+
+After analyzing the screenshot and determining the required elements, generate the complete Bricks JSON.
+
+The JSON must contain the complete page structure.
+
+Do not provide only fragments such as:
+
+```json
+{
+  "heading": {}
+}
+```
+
+I need the complete JSON required for testing/importing.
+
+The JSON must include:
+
+* all element IDs
+* parent relationships
+* children
+* element names
+* settings
+* typography
+* spacing
+* colors
+* responsive settings where required
+* Bricksfly settings where required
+
+Use valid JSON.
+
+Do not add comments inside JSON.
+
+Do not use pseudo-properties.
+
+Do not invent properties.
+
+---
+
+# 12. JSON VALIDATION
+
+Before providing the final JSON, validate it carefully.
+
+Check:
+
+### Syntax
+
+* valid JSON
+* no trailing commas
+* correct quotes
+* correct arrays/objects
+
+### Structure
+
+* every element has a valid ID
+* parent IDs exist
+* children reference valid elements
+* hierarchy is valid
+* element names are valid
+
+### Bricks
+
+* native element names correspond to actual Bricks elements
+* settings correspond to actual Bricks settings
+
+### Bricksfly
+
+* Bricksfly element names correspond to actual plugin source
+* Bricksfly controls correspond to actual controls
+* values correspond to actual accepted values
+* responsive settings use the actual structure
+
+Do not generate a JSON file merely because it looks plausible.
+
+The goal is JSON that can actually be tested in Bricks.
+
+---
+
+# 13. OUTPUT FORMAT
+
+After analyzing the screenshot, provide the result in this order.
+
+## A. Design analysis
+
+Briefly describe the structure you identified.
+
+Example:
+
+```text
+Hero
+├── Container
+│   ├── Left content
+│   │   ├── Heading
+│   │   ├── Paragraph
+│   │   └── Button
+│   └── Right image
+```
+
+## B. Element mapping
+
+Provide a table:
+
+| Design feature      | Implementation    | Type          |
+| ------------------- | ----------------- | ------------- |
+| Hero heading        | Heading           | Bricks native |
+| CTA                 | Button            | Bricks native |
+| Floating decoration | Floating Elements | Bricksfly     |
+| Sticky section      | Pin Element       | Bricksfly     |
+
+## C. Unsupported features
+
+List anything that cannot be implemented using existing Bricks or Bricksfly functionality.
+
+If something requires custom JavaScript, STOP and ask me for permission before generating it.
+
+## D. Complete Bricks JSON
+
+Provide the complete JSON in a code block.
+
+## E. Notes
+
+Mention:
+
+* anything inferred from the screenshot
+* anything that needs manual adjustment
+* any image/font assets that need to be supplied
+* any limitations
+
+---
+
+# 14. IMPORTANT — DO NOT STOP AT A VISUAL MOCKUP
+
+I am not looking for HTML/CSS that merely looks similar to the screenshot.
+
+I specifically want:
+
+```text
+Screenshot
+    ↓
+Bricks native elements
++
+Bricksfly elements/extensions
+    ↓
+Valid Bricks data
+    ↓
+Import into Bricks
+```
+
+The final result should remain editable through the Bricks Builder UI.
+
+Avoid solutions that require manually editing generated HTML.
+
+---
+
+# 15. FINAL OBJECTIVE
+
+The ultimate goal of this POC is to establish whether we can reliably do:
+
+```text
+Figma screenshot
+        ↓
+      ChatGPT
+        ↓
+Analyze design
+        ↓
+Choose existing Bricks functionality
+        +
+Choose existing Bricksfly functionality
+        ↓
+Generate complete Bricks JSON
+        ↓
+Import into Bricks
+        ↓
+Working editable website
+```
+
+Again, the priority is:
+
+**1. Bricks native**
+
+**2. Existing Bricksfly widgets/elements/extensions**
+
+**3. Ask me before creating custom JavaScript**
+
+**4. Never invent new Bricks/Bricksfly functionality**
+
+Do not build the MCP server during this POC. First make the screenshot → Bricks JSON → Bricks import workflow work reliably.

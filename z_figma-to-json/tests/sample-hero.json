@@ -1,0 +1,14 @@
+{
+  "title": "POC validator sample - hero",
+  "type": "content",
+  "templateType": "content",
+  "tags": [],
+  "bundles": [],
+  "content": [
+    {"id": "hr0sec", "name": "section", "parent": 0, "children": ["hr0cnt"], "settings": {"_padding": {"top": "120", "bottom": "120"}, "_padding:mobile_portrait": {"top": "60", "bottom": "60"}, "_background": {"color": {"raw": "#0f0f10"}}}},
+    {"id": "hr0cnt", "name": "container", "parent": "hr0sec", "children": ["hr0hed", "hr0txt", "hr0btn"], "settings": {"_direction": "column", "_alignItems": "center", "_rowGap": "24"}},
+    {"id": "hr0hed", "name": "heading", "parent": "hr0cnt", "children": [], "settings": {"text": "Build faster with Bricks", "tag": "h1", "_typography": {"font-family": "Inter", "font-weight": "700", "font-size": "72", "line-height": "1.1", "color": {"raw": "#ffffff"}, "text-align": "center"}, "_typography:tablet_portrait": {"font-size": "56"}, "_typography:mobile_portrait": {"font-size": "40"}, "_bricksfly_starter_anim": "reveal"}},
+    {"id": "hr0txt", "name": "text-basic", "parent": "hr0cnt", "children": [], "settings": {"text": "A short supporting paragraph.", "_typography": {"font-size": "20", "color": {"raw": "#b3b3b3"}}}},
+    {"id": "hr0btn", "name": "button", "parent": "hr0cnt", "children": [], "settings": {"text": "Get started", "style": "primary", "size": "lg", "link": {"type": "external", "url": "#"}}}
+  ]
+}
