@@ -13,3 +13,4 @@ package-lock.json
 .project
 Thumbs.db
 z_temp/
+z_figma-to-json/
