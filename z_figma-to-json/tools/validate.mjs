@@ -161,8 +161,11 @@ function checkValue(where, control, value) {
 				if (!isObj(item)) return err(`${where}[${i}]`, 'repeater item must be an object');
 				for (const [k, v] of Object.entries(item)) {
 					if (k === 'id') continue;
-					if (!fields[k]) err(`${where}[${i}]`, `unknown repeater field "${k}"`);
-					else checkValue(`${where}[${i}].${k}`, fields[k], v);
+					// Responsive repeater fields are stored as "field:breakpoint" (read by e.g. Bricksfly ResponsiveHelper::normalize).
+					const [field, bp, ...extra] = k.split(':');
+					if (!fields[field] || extra.length) err(`${where}[${i}]`, `unknown repeater field "${k}"`);
+					else if (bp !== undefined && !breakpoints.includes(bp)) err(`${where}[${i}]`, `repeater field "${k}": breakpoint "${bp}" not allowed (${bpMode})`);
+					else checkValue(`${where}[${i}].${k}`, fields[field], v);
 				}
 			});
 			return;

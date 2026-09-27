@@ -1,0 +1,642 @@
+{
+  "title": "Hero Header (from Elementor)",
+  "type": "content",
+  "templateType": "content",
+  "tags": [],
+  "bundles": [],
+  "content": [
+    {
+      "id": "w3wie2",
+      "name": "section",
+      "parent": 0,
+      "children": [
+        "zreie2",
+        "xzqie2"
+      ],
+      "settings": {
+        "_heightMin": "100vh",
+        "_rowGap": "30",
+        "_rowGap:mobile_portrait": "50",
+        "_background": {
+          "image": {
+            "url": "https://crowdytheme.com/assets/wp-content/uploads/2025/05/Group-427320115-1-2.webp",
+            "external": true,
+            "filename": "Group-427320115-1-2.webp"
+          },
+          "position": "center center",
+          "repeat": "no-repeat",
+          "size": "cover"
+        },
+        "_margin": {
+          "top": "-133",
+          "right": "0",
+          "bottom": "0",
+          "left": "0"
+        },
+        "_padding": {
+          "top": "180",
+          "right": "0",
+          "bottom": "0",
+          "left": "0"
+        },
+        "_padding:laptop": {
+          "top": "203",
+          "right": "20",
+          "bottom": "0",
+          "left": "20"
+        },
+        "_padding:tablet_portrait": {
+          "top": "183",
+          "right": "20",
+          "bottom": "0",
+          "left": "20"
+        },
+        "_padding:mobile_landscape": {
+          "top": "170",
+          "right": "20",
+          "bottom": "0",
+          "left": "20"
+        },
+        "_padding:mobile_portrait": {
+          "top": "135",
+          "right": "15",
+          "bottom": "0",
+          "left": "15"
+        }
+      },
+      "label": "Hero Section"
+    },
+    {
+      "id": "zreie2",
+      "name": "container",
+      "parent": "w3wie2",
+      "children": [
+        "7v1ge2",
+        "0n8he2"
+      ],
+      "settings": {
+        "_width": "100%",
+        "_widthMax": "1296px",
+        "_direction": "row",
+        "_justifyContent": "space-between",
+        "_alignItems": "flex-start",
+        "_flexWrap": "nowrap",
+        "_flexWrap:tablet_portrait": "wrap",
+        "_columnGap": "20",
+        "_rowGap": "20",
+        "_columnGap:mobile_landscape": "0",
+        "_rowGap:mobile_landscape": "0",
+        "_columnGap:mobile_portrait": "20",
+        "_rowGap:mobile_portrait": "20",
+        "_position": "relative"
+      }
+    },
+    {
+      "id": "7v1ge2",
+      "name": "block",
+      "parent": "zreie2",
+      "children": [
+        "e4ufe2",
+        "d80fe2",
+        "8rvge2"
+      ],
+      "settings": {
+        "_width": "61%",
+        "_width:tablet_portrait": "63%",
+        "_width:mobile_landscape": "51%",
+        "_width:mobile_portrait": "100%",
+        "_rowGap": "30",
+        "_flexWrap": "wrap",
+        "_justifyContent:mobile_landscape": "center",
+        "_alignItems:mobile_landscape": "flex-start",
+        "_heightMin:tablet_landscape": "68vh",
+        "_heightMin:mobile_portrait": "0vh",
+        "_position": "relative"
+      },
+      "label": "Content"
+    },
+    {
+      "id": "e4ufe2",
+      "name": "block",
+      "parent": "7v1ge2",
+      "children": [
+        "hscfe2",
+        "gwife2",
+        "f0ofe2"
+      ],
+      "settings": {
+        "tag": "custom",
+        "customTag": "h1",
+        "_display": "block",
+        "_typography": {
+          "font-family": "Sora",
+          "font-size": "72",
+          "font-weight": "700",
+          "line-height": "1",
+          "color": {
+            "raw": "#000000"
+          }
+        },
+        "_typography:tablet_portrait": {
+          "font-size": "54"
+        },
+        "_typography:mobile_landscape": {
+          "font-size": "40"
+        },
+        "_typography:mobile_portrait": {
+          "font-size": "30"
+        }
+      },
+      "label": "Heading (h1)"
+    },
+    {
+      "id": "hscfe2",
+      "name": "text-basic",
+      "parent": "e4ufe2",
+      "children": [],
+      "settings": {
+        "tag": "span",
+        "text": "Creative "
+      },
+      "label": "Title"
+    },
+    {
+      "id": "gwife2",
+      "name": "text-basic",
+      "parent": "e4ufe2",
+      "children": [],
+      "settings": {
+        "tag": "span",
+        "text": "Solutions",
+        "_typography": {
+          "color": {
+            "raw": "#5C2EDE"
+          },
+          "font-weight": "800",
+          "line-height": "1.4"
+        },
+        "_background": {
+          "image": {
+            "url": "https://crowdytheme.com/assets/wp-content/uploads/2025/05/Vector-31.webp",
+            "external": true,
+            "filename": "Vector-31.webp"
+          },
+          "position": "custom",
+          "positionX": "0%",
+          "positionY": "92%",
+          "repeat": "no-repeat",
+          "size": "contain"
+        },
+        "_background:tablet_portrait": {
+          "position": "custom",
+          "positionX": "0%",
+          "positionY": "88%"
+        },
+        "_background:mobile_portrait": {
+          "position": "custom",
+          "positionX": "0%",
+          "positionY": "98%"
+        }
+      },
+      "label": "Highlight"
+    },
+    {
+      "id": "f0ofe2",
+      "name": "text-basic",
+      "parent": "e4ufe2",
+      "children": [],
+      "settings": {
+        "tag": "span",
+        "text": "for Every Vision",
+        "_display": "block"
+      },
+      "label": "Title line 2"
+    },
+    {
+      "id": "d80fe2",
+      "name": "text",
+      "parent": "7v1ge2",
+      "children": [],
+      "settings": {
+        "text": "<p>Introducing digital Agency, the unsung hero of stream communication in the world of Software as a Service.</p>",
+        "_typography": {
+          "font-family": "Sora",
+          "font-size": "18",
+          "font-weight": "400",
+          "line-height": "1.8",
+          "color": {
+            "raw": "#494552"
+          }
+        },
+        "_typography:mobile_portrait": {
+          "line-height": "1.4"
+        },
+        "_width": "87%",
+        "_width:mobile_portrait": "100%"
+      }
+    },
+    {
+      "id": "8rvge2",
+      "name": "block",
+      "parent": "7v1ge2",
+      "children": [
+        "cc7fe2",
+        "bgdge2",
+        "akjge2",
+        "9npge2"
+      ],
+      "settings": {
+        "_direction": "row",
+        "_justifyContent": "flex-start",
+        "_alignItems": "flex-start",
+        "_flexWrap": "nowrap",
+        "_flexWrap:mobile_portrait": "wrap",
+        "_columnGap": "20",
+        "_rowGap": "20",
+        "_position": "relative"
+      },
+      "label": "CTA row"
+    },
+    {
+      "id": "cc7fe2",
+      "name": "aab-button-pro",
+      "parent": "8rvge2",
+      "children": [],
+      "settings": {
+        "btnStyle": "base-default",
+        "btnHoverVariant": "rollover-left",
+        "btnText": "contact us",
+        "btnLink": {
+          "type": "external",
+          "url": "https://templates.animation-addons.com/agivo-free/contact-us/"
+        },
+        "btnTypo": {
+          "font-family": "Sora",
+          "font-size": "16",
+          "font-weight": "700",
+          "text-transform": "capitalize",
+          "line-height": "1.2",
+          "letter-spacing": "0.5px"
+        },
+        "btnColor": {
+          "raw": "#FFFFFF"
+        },
+        "btnBg": {
+          "color": {
+            "raw": "#5C2EDE"
+          }
+        },
+        "btnBorder": {
+          "width": {
+            "top": "1",
+            "right": "1",
+            "bottom": "1",
+            "left": "1"
+          },
+          "style": "solid",
+          "color": {
+            "raw": "#5C2EDE"
+          },
+          "radius": {
+            "top": "33",
+            "right": "33",
+            "bottom": "33",
+            "left": "33"
+          }
+        },
+        "btnPadding": {
+          "top": "18",
+          "right": "36",
+          "bottom": "18",
+          "left": "36"
+        },
+        "btnPadding:mobile_portrait": {
+          "top": "12",
+          "right": "24",
+          "bottom": "12",
+          "left": "24"
+        },
+        "btnHColor": {
+          "raw": "#0F0629"
+        },
+        "btnHBorder": {
+          "raw": "#FFC300"
+        },
+        "btnRevealColor": {
+          "raw": "#FFC300"
+        }
+      }
+    },
+    {
+      "id": "bgdge2",
+      "name": "svg",
+      "parent": "8rvge2",
+      "children": [],
+      "settings": {
+        "file": {
+          "id": 249,
+          "url": "https://templates.animation-addons.com/agivo-free/wp-content/uploads/sites/176/2025/05/watch-video-1.svg",
+          "filename": "watch-video-1.svg"
+        },
+        "width": "170",
+        "height": "170",
+        "fill": {
+          "raw": "#0F0629"
+        },
+        "_alignSelf": "flex-start",
+        "_display:mobile_landscape": "none",
+        "_margin": {
+          "top": "-62"
+        }
+      },
+      "label": "Watch video (svg)"
+    },
+    {
+      "id": "akjge2",
+      "name": "svg",
+      "parent": "8rvge2",
+      "children": [],
+      "settings": {
+        "file": {
+          "id": 250,
+          "url": "https://templates.animation-addons.com/agivo-free/wp-content/uploads/sites/176/2025/05/Group-427320117.svg",
+          "filename": "Group-427320117.svg"
+        },
+        "width": "120",
+        "height": "120",
+        "fill": {
+          "raw": "#FFAD47"
+        },
+        "_alignSelf": "flex-start",
+        "_display:mobile_landscape": "none",
+        "_margin": {
+          "top": "27"
+        }
+      },
+      "label": "Arrow (svg)"
+    },
+    {
+      "id": "9npge2",
+      "name": "svg",
+      "parent": "8rvge2",
+      "children": [],
+      "settings": {
+        "file": {
+          "id": 251,
+          "url": "https://templates.animation-addons.com/agivo-free/wp-content/uploads/sites/176/2025/05/Group-41408.svg",
+          "filename": "Group-41408.svg"
+        },
+        "width": "46",
+        "height": "46",
+        "fill": {
+          "raw": "#0F0629"
+        },
+        "_alignSelf": "flex-start",
+        "_display:mobile_landscape": "none",
+        "_position": "absolute",
+        "_left": "55%",
+        "_left:laptop": "53%",
+        "_left:tablet_landscape": "61%",
+        "_left:tablet_portrait": "68%",
+        "_bottom": "-17%"
+      },
+      "label": "Sparkle (svg)"
+    },
+    {
+      "id": "0n8he2",
+      "name": "block",
+      "parent": "zreie2",
+      "children": [
+        "53dhe2",
+        "47jhe2",
+        "1j2he2"
+      ],
+      "settings": {
+        "_width": "39%",
+        "_width:tablet_portrait": "34%",
+        "_width:mobile_landscape": "45%",
+        "_width:mobile_portrait": "100%",
+        "_justifyContent": "flex-end",
+        "_justifyContent:tablet_portrait": "center",
+        "_justifyContent:mobile_portrait": "flex-end",
+        "_alignItems": "flex-end",
+        "_alignItems:tablet_portrait": "center",
+        "_alignItems:mobile_portrait": "center",
+        "_rowGap": "30",
+        "_heightMin": "551px",
+        "_heightMin:laptop": "68vh",
+        "_heightMin:tablet_portrait": "80vh",
+        "_heightMin:mobile_portrait": "55vh",
+        "_padding:tablet_portrait": {
+          "top": "75"
+        },
+        "_padding:mobile_portrait": {
+          "top": "0"
+        },
+        "_position": "relative"
+      },
+      "label": "Visual"
+    },
+    {
+      "id": "53dhe2",
+      "name": "block",
+      "parent": "0n8he2",
+      "children": [
+        "6z7ge2"
+      ],
+      "settings": {
+        "_position": "relative",
+        "_display:mobile_landscape": "none"
+      },
+      "label": "Floating globe"
+    },
+    {
+      "id": "6z7ge2",
+      "name": "aab-floating-elements",
+      "parent": "53dhe2",
+      "children": [],
+      "settings": {
+        "floating_items": [
+          {
+            "id": "e4a264",
+            "image": {
+              "url": "https://templates.animation-addons.com/agivo-free/wp-content/uploads/sites/176/2025/05/ezgif.com-speed.gif",
+              "external": true,
+              "filename": "ezgif.com-speed.gif"
+            },
+            "size": 400,
+            "size:tablet_portrait": 295,
+            "horizontalOrientation": "left",
+            "offsetX": "21%",
+            "offsetX:laptop": "10%",
+            "offsetX:tablet_landscape": "-1%",
+            "offsetX:mobile_landscape": "3%",
+            "offsetX:mobile_portrait": "12%",
+            "verticalOrientation": "top",
+            "offsetY": -435,
+            "offsetY:tablet_portrait": -290,
+            "offsetY:mobile_portrait": -305,
+            "liveAnimation": "spin",
+            "zIndex": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "47jhe2",
+      "name": "image",
+      "parent": "0n8he2",
+      "children": [],
+      "settings": {
+        "image": {
+          "url": "https://templates.animation-addons.com/agivo-free/wp-content/uploads/sites/176/2025/05/ezgif.com-speed.gif",
+          "external": true,
+          "filename": "ezgif.com-speed.gif"
+        },
+        "_display": "none",
+        "_display:mobile_landscape": "block"
+      },
+      "label": "Globe (mobile)"
+    },
+    {
+      "id": "1j2he2",
+      "name": "block",
+      "parent": "0n8he2",
+      "children": [
+        "3bqhe2",
+        "2fwhe2"
+      ],
+      "settings": {
+        "_width": "74%",
+        "_width:laptop": "83%",
+        "_width:tablet_landscape": "97%",
+        "_width:tablet_portrait": "100%",
+        "_direction": "row",
+        "_justifyContent": "center",
+        "_alignItems": "center",
+        "_flexWrap": "nowrap",
+        "_flexWrap:mobile_portrait": "wrap",
+        "_columnGap": "20",
+        "_rowGap": "20",
+        "_columnGap:tablet_portrait": "0",
+        "_rowGap:tablet_portrait": "0",
+        "_margin:tablet_portrait": {
+          "top": "25"
+        },
+        "_position": "relative"
+      },
+      "label": "Clients"
+    },
+    {
+      "id": "3bqhe2",
+      "name": "image",
+      "parent": "1j2he2",
+      "children": [],
+      "settings": {
+        "image": {
+          "url": "https://crowdytheme.com/assets/wp-content/uploads/2025/05/Group-427320116.webp",
+          "external": true,
+          "filename": "Group-427320116.webp"
+        },
+        "_margin:tablet_portrait": {
+          "right": "-11",
+          "left": "-13"
+        }
+      },
+      "label": "Avatars"
+    },
+    {
+      "id": "2fwhe2",
+      "name": "text",
+      "parent": "1j2he2",
+      "children": [],
+      "settings": {
+        "text": "<p>Satisfied clients<br />15k+ in globe</p>",
+        "_typography": {
+          "font-family": "Sora",
+          "font-size": "16",
+          "font-weight": "400",
+          "line-height": "1.6",
+          "color": {
+            "raw": "#000000"
+          }
+        }
+      }
+    },
+    {
+      "id": "xzqie2",
+      "name": "block",
+      "parent": "w3wie2",
+      "children": [
+        "yvkie2"
+      ],
+      "settings": {
+        "_padding": {
+          "top": "120",
+          "right": "0",
+          "bottom": "70",
+          "left": "0"
+        },
+        "_padding:laptop": {
+          "top": "220",
+          "right": "0",
+          "bottom": "170",
+          "left": "0"
+        },
+        "_padding:mobile_portrait": {
+          "top": "0",
+          "right": "0",
+          "bottom": "0",
+          "left": "0"
+        },
+        "_position": "relative"
+      },
+      "label": "Marquee"
+    },
+    {
+      "id": "yvkie2",
+      "name": "aab-brand-slider",
+      "parent": "xzqie2",
+      "children": [],
+      "settings": {
+        "slideContent": "text",
+        "textSlides": [
+          {
+            "id": "7c6201",
+            "text": "creative agency"
+          },
+          {
+            "id": "7c6202",
+            "text": "creative agency"
+          },
+          {
+            "id": "7c6203",
+            "text": "creative agency"
+          },
+          {
+            "id": "7c6204",
+            "text": "creative agency"
+          }
+        ],
+        "speed": 9000,
+        "autoplay": "on",
+        "autoplayDelay": 1,
+        "loop": "on",
+        "reverseDirection": true,
+        "textTypography": {
+          "font-family": "Sora",
+          "font-size": "160",
+          "font-weight": "700",
+          "text-transform": "capitalize",
+          "line-height": "1.3",
+          "letter-spacing": "0.5px"
+        },
+        "textColor": {
+          "raw": "rgba(15, 6, 41, 0.12)"
+        },
+        "_zIndex": "0",
+        "_display:laptop": "none"
+      }
+    }
+  ]
+}

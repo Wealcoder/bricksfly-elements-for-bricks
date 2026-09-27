@@ -1,0 +1,35 @@
+/* Video Popup — perspective + overflow for 3D/blur variations.
+ * Scoped to the shared global popup wrapper; only affects .wcf--popup-video styling.
+ */
+
+.wcf--popup-video-wrapper {
+    perspective: 1200px;
+
+    .wcf--popup-video {
+        transform-style: preserve-3d;
+        will-change: transform, opacity, filter;
+    }
+
+    .wcf--popup-close {
+        transition:
+            color 0.25s ease,
+            background-color 0.25s ease,
+            border-color 0.25s ease,
+            transform 0.25s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+        svg,
+        i {
+            width: 1em;
+            height: 1em;
+            display: inline-flex;
+        }
+
+        &:hover {
+            transform: rotate(90deg);
+        }
+    }
+}

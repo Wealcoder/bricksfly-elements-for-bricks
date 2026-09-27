@@ -1,0 +1,57 @@
+{
+    "global_classes": [
+        {
+            "id": "jyptxt",
+            "name": "secondary-title",
+            "settings": {
+                "_typography": {
+                    "font-size": "60",
+                    "font-family": "Space Grotesk",
+                    "font-weight": "400",
+                    "line-height": "1",
+                    "color": {
+                        "raw": "#0F0F0F"
+                    },
+                    "text-transform": "uppercase"
+                },
+                "_typography:mobile_portrait": {
+                    "font-size": "44"
+                },
+                "_typography:mobile": {
+                    "font-size": "36"
+                },
+                "_typography:tablet_portrait": {
+                    "font-size": "50"
+                },
+                "_typography:tablet_landscape": {
+                    "font-size": "50"
+                }
+            },
+            "modified": 1778749345,
+            "user_id": 1
+        },
+        {
+            "id": "erxbxu",
+            "name": "subtext",
+            "settings": {
+                "_typography": {
+                    "font-size": "18",
+                    "font-family": "custom_font_65",
+                    "font-weight": "400",
+                    "line-height": "1.44",
+                    "color": {
+                        "raw": "#555555"
+                    }
+                },
+                "_padding": {
+                    "top": "15"
+                }
+            },
+            "modified": 1778672691,
+            "user_id": 1
+        }
+    ],
+    "type": "bricks",
+    "title": "Home",
+    "version": "2.3.10"
+}

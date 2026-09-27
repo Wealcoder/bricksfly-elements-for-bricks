@@ -1,0 +1,27 @@
+Breakpoints
+Desktop
+Base breakpoint
+
+Mackbook
+max-width: 1680px
+
+Large Laptop
+max-width: 1440px
+
+Laptop
+max-width: 1366px
+
+Tablet Landscape
+max-width: 1200px
+
+Tablet portrait
+max-width: 1024px
+
+Mobile landscape
+max-width: 880px
+
+Mobile portrait
+max-width: 768px
+
+Mobile
+max-width: 576px

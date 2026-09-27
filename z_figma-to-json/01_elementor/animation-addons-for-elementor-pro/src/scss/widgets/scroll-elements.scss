@@ -1,0 +1,85 @@
+.wcf--scroll-elements{
+  display: flex;
+  gap: 100px;
+
+  .scroll-nav-bar{
+    width: 20%;
+    max-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  .scroll-title{
+    display: flex;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.3s;
+    color: #ddd;
+    &:hover,
+    &.active {
+      cursor: pointer;
+      color: #0a0a0a;
+    }
+    svg,
+    i{
+      align-self: start;
+      margin-top: 5px;
+      margin-right: 10px;
+      width: 1em;
+      height: 1em;
+    }
+  }
+
+  .scroll-content-wrap{
+    display: flex;
+    gap: 100px;
+    flex: 1;
+  }
+
+  .scroll-images {
+    width: 50%;
+    position: relative;
+    .image-wrap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      max-height: 100vh;
+      width: 100%;
+      overflow: hidden;
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        opacity: 0;
+        z-index: -1;
+      }
+    }
+  }
+  .scroll-contents{
+    flex: 1;
+  }
+
+}
+
+@media (max-width: 1024px) {
+  .elementor-widget-wcf--scroll-elements {
+    &.wcf-scroll-tablet {
+      .scroll-nav-bar,
+      .scroll-images{
+        display: none;
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .elementor-widget-wcf--scroll-elements {
+    &.wcf-scroll-mobile {
+      .scroll-nav-bar,
+      .scroll-images{
+        display: none;
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+.aae-hero-text-explode {
+	display: grid;
+	place-items: center;
+	overflow: hidden;
+
+	&--grid {
+		background-image:
+			linear-gradient(rgba(255, 255, 255, 0.05) 2px, transparent 2px),
+			linear-gradient(90deg, rgba(255, 255, 255, 0.05) 2px, transparent 2px),
+			linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+			linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+		background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+		background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
+	}
+
+	&__title {
+		margin: 0;
+		text-transform: uppercase;
+		font-weight: 900;
+		letter-spacing: -0.03em;
+		line-height: 0.9;
+		width: 100%;
+
+		> span {
+			display: block;
+		}
+	}
+
+	&__accent {
+		white-space: nowrap;
+	}
+
+	.aae-hero-text-explode-blast-char {
+		display: inline-block;
+		will-change: transform;
+	}
+}

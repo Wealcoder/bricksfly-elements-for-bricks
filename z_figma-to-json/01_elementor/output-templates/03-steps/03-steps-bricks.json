@@ -1,0 +1,869 @@
+{
+  "title": "Working Process (from Elementor)",
+  "type": "content",
+  "templateType": "content",
+  "tags": [],
+  "bundles": [],
+  "content": [
+    {
+      "id": "armmp5",
+      "name": "section",
+      "parent": 0,
+      "children": [
+        "bngmp5"
+      ],
+      "settings": {
+        "_gradient": {
+          "applyTo": "background",
+          "gradientType": "linear",
+          "angle": "90",
+          "colors": [
+            {
+              "color": {
+                "raw": "#F5F8FF"
+              },
+              "stop": "0"
+            },
+            {
+              "color": {
+                "raw": "#FFFCED"
+              },
+              "stop": "100"
+            }
+          ]
+        },
+        "_padding": {
+          "top": "100",
+          "right": "20",
+          "bottom": "122",
+          "left": "20"
+        },
+        "_padding:tablet_landscape": {
+          "top": "109",
+          "right": "20",
+          "bottom": "120",
+          "left": "20"
+        },
+        "_padding:tablet_portrait": {
+          "top": "90",
+          "right": "20",
+          "bottom": "100",
+          "left": "20"
+        },
+        "_padding:mobile_landscape": {
+          "top": "80",
+          "right": "20",
+          "bottom": "89",
+          "left": "20"
+        },
+        "_padding:mobile_portrait": {
+          "top": "55",
+          "right": "15",
+          "bottom": "69",
+          "left": "15"
+        }
+      },
+      "label": "Steps Section"
+    },
+    {
+      "id": "bngmp5",
+      "name": "container",
+      "parent": "armmp5",
+      "children": [
+        "y3jip5",
+        "x7pip5",
+        "cjamp5"
+      ],
+      "settings": {
+        "_width": "100%",
+        "_widthMax": "1296px",
+        "_alignItems": "center",
+        "_rowGap": "24",
+        "_position": "relative"
+      }
+    },
+    {
+      "id": "y3jip5",
+      "name": "block",
+      "parent": "bngmp5",
+      "children": [
+        "1r1hp5",
+        "0v7hp5",
+        "zzdip5"
+      ],
+      "settings": {
+        "tag": "custom",
+        "customTag": "h2",
+        "_display": "block",
+        "_width": "100%",
+        "_typography": {
+          "font-family": "Sora",
+          "font-size": "56",
+          "font-weight": "500",
+          "text-transform": "capitalize",
+          "line-height": "1.2",
+          "letter-spacing": "-0.25px",
+          "color": {
+            "raw": "#0F0629"
+          },
+          "text-align": "center"
+        },
+        "_typography:mobile_landscape": {
+          "font-size": "36"
+        },
+        "_typography:mobile_portrait": {
+          "font-size": "30"
+        }
+      },
+      "label": "Title (h2)"
+    },
+    {
+      "id": "1r1hp5",
+      "name": "text-basic",
+      "parent": "y3jip5",
+      "children": [],
+      "settings": {
+        "tag": "span",
+        "text": "Our "
+      },
+      "label": "Title"
+    },
+    {
+      "id": "0v7hp5",
+      "name": "text-basic",
+      "parent": "y3jip5",
+      "children": [],
+      "settings": {
+        "tag": "span",
+        "text": "Working",
+        "_typography": {
+          "color": {
+            "raw": "#5C2EDE"
+          },
+          "font-weight": "700"
+        },
+        "_background": {
+          "image": {
+            "url": "https://crowdytheme.com/assets/wp-content/uploads/2025/05/Vector-31.webp",
+            "external": true,
+            "filename": "Vector-31.webp"
+          },
+          "position": "custom",
+          "positionX": "29%",
+          "positionY": "94%",
+          "repeat": "no-repeat",
+          "size": "auto"
+        },
+        "_background:tablet_portrait": {
+          "position": "custom",
+          "positionX": "0%",
+          "positionY": "98%"
+        },
+        "_background:mobile_portrait": {
+          "position": "custom",
+          "positionX": "0%",
+          "positionY": "98%",
+          "size": "contain"
+        }
+      },
+      "label": "Highlight"
+    },
+    {
+      "id": "zzdip5",
+      "name": "text-basic",
+      "parent": "y3jip5",
+      "children": [],
+      "settings": {
+        "tag": "span",
+        "text": " Process"
+      },
+      "label": "Title end"
+    },
+    {
+      "id": "x7pip5",
+      "name": "text",
+      "parent": "bngmp5",
+      "children": [],
+      "settings": {
+        "text": "<p>where vision meets identity, empowering brands for bold tomorrow. Et auctor ac sed tincidunt fames.</p>",
+        "_typography": {
+          "font-family": "Sora",
+          "font-size": "16",
+          "font-weight": "400",
+          "text-transform": "capitalize",
+          "line-height": "1.6",
+          "color": {
+            "raw": "#494552"
+          },
+          "text-align": "center"
+        },
+        "_width": "50%",
+        "_width:mobile_landscape": "62%",
+        "_width:mobile_portrait": "99%"
+      }
+    },
+    {
+      "id": "cjamp5",
+      "name": "block",
+      "parent": "bngmp5",
+      "children": [
+        "rvqjp5",
+        "qzwjp5",
+        "knxkp5",
+        "jr3kp5",
+        "df4lp5"
+      ],
+      "settings": {
+        "_width": "100%",
+        "_direction": "row",
+        "_alignItems": "flex-end",
+        "_flexWrap": "nowrap",
+        "_flexWrap:mobile_portrait": "wrap",
+        "_columnGap": "20",
+        "_rowGap": "20",
+        "_justifyContent:tablet_landscape": "flex-end",
+        "_alignItems:tablet_landscape": "flex-end",
+        "_columnGap:tablet_landscape": "10",
+        "_rowGap:tablet_landscape": "10",
+        "_columnGap:mobile_portrait": "20",
+        "_rowGap:mobile_portrait": "20",
+        "_position": "relative"
+      },
+      "label": "Steps"
+    },
+    {
+      "id": "rvqjp5",
+      "name": "block",
+      "parent": "cjamp5",
+      "children": [
+        "wbwip5",
+        "srkjp5"
+      ],
+      "settings": {
+        "_width": "33.33%",
+        "_width:mobile_portrait": "100%",
+        "_rowGap": "50",
+        "_rowGap:mobile_portrait": "30",
+        "_justifyContent:tablet_landscape": "space-evenly",
+        "_position": "relative"
+      },
+      "label": "Step 01"
+    },
+    {
+      "id": "wbwip5",
+      "name": "svg",
+      "parent": "rvqjp5",
+      "children": [],
+      "settings": {
+        "file": {
+          "id": 804,
+          "url": "https://templates.animation-addons.com/agivo-free/wp-content/uploads/sites/176/2025/05/12.svg",
+          "filename": "12.svg"
+        },
+        "width": "80",
+        "height": "80",
+        "fill": {
+          "raw": "#5C2EDE"
+        },
+        "stroke": {
+          "raw": "#FFFFFF"
+        },
+        "strokeWidth": "1.5",
+        "_alignSelf": "center",
+        "_zIndex": "5",
+        "_margin": {
+          "bottom": "7"
+        }
+      },
+      "label": "Badge (svg)"
+    },
+    {
+      "id": "srkjp5",
+      "name": "block",
+      "parent": "rvqjp5",
+      "children": [
+        "vf2ip5",
+        "uj8ip5",
+        "tnejp5"
+      ],
+      "settings": {
+        "_background": {
+          "color": {
+            "raw": "#FFFFFF"
+          }
+        },
+        "_border": {
+          "width": {
+            "top": "1",
+            "right": "1",
+            "bottom": "1",
+            "left": "1"
+          },
+          "style": "solid",
+          "color": {
+            "raw": "#E6E9F0"
+          },
+          "radius": {
+            "top": "18",
+            "right": "18",
+            "bottom": "18",
+            "left": "18"
+          }
+        },
+        "_boxShadow": {
+          "values": {
+            "offsetX": "0",
+            "offsetY": "16",
+            "blur": "32",
+            "spread": "0"
+          },
+          "color": {
+            "raw": "rgba(9, 41, 30, 0.1)"
+          }
+        },
+        "_padding": {
+          "top": "32",
+          "right": "32",
+          "bottom": "32",
+          "left": "32"
+        },
+        "_overflow": "hidden",
+        "_rowGap": "20",
+        "_alignItems": "stretch",
+        "_position": "relative"
+      },
+      "label": "Card 01"
+    },
+    {
+      "id": "vf2ip5",
+      "name": "aab-animated-heading",
+      "parent": "srkjp5",
+      "children": [],
+      "settings": {
+        "heading_text": "step 01",
+        "heading_tag": "h2",
+        "animation_type": "none",
+        "text_align": "center",
+        "heading_typo": {
+          "font-family": "Sora",
+          "font-size": "64",
+          "font-weight": "700",
+          "text-transform": "capitalize",
+          "line-height": "1.3"
+        },
+        "heading_typo:laptop": {
+          "font-size": "58"
+        },
+        "heading_typo:tablet_landscape": {
+          "font-size": "50"
+        },
+        "heading_typo:tablet_portrait": {
+          "font-size": "46"
+        },
+        "heading_color": {
+          "raw": "rgba(2, 1, 1, 0)"
+        },
+        "stroke_color": {
+          "raw": "#E6E9F0"
+        },
+        "stroke_width": "1px",
+        "_width": "100%",
+        "_margin": {
+          "bottom": "-42"
+        }
+      },
+      "label": "Step outline (step 01)"
+    },
+    {
+      "id": "uj8ip5",
+      "name": "text",
+      "parent": "srkjp5",
+      "children": [],
+      "settings": {
+        "text": "<p>get an order</p>",
+        "_typography": {
+          "font-family": "Sora",
+          "font-size": "24",
+          "font-weight": "400",
+          "text-transform": "capitalize",
+          "font-style": "normal",
+          "line-height": "1.5",
+          "color": {
+            "raw": "#2C2933"
+          },
+          "text-align": "center"
+        },
+        "_typography:laptop": {
+          "font-size": "20"
+        },
+        "_typography:tablet_landscape": {
+          "font-size": "18"
+        },
+        "_margin": {
+          "top": "-34"
+        },
+        "_position": "relative"
+      },
+      "label": "Step name"
+    },
+    {
+      "id": "tnejp5",
+      "name": "text",
+      "parent": "srkjp5",
+      "children": [],
+      "settings": {
+        "text": "<p>Defining the strategies you will use Creating a distinct identity for your those goals or tasks.</p>",
+        "_typography": {
+          "font-family": "Sora",
+          "font-size": "16",
+          "font-weight": "400",
+          "text-transform": "capitalize",
+          "font-style": "normal",
+          "line-height": "1.6",
+          "color": {
+            "raw": "#494552"
+          },
+          "text-align": "center"
+        }
+      },
+      "label": "Step text"
+    },
+    {
+      "id": "qzwjp5",
+      "name": "svg",
+      "parent": "cjamp5",
+      "children": [],
+      "settings": {
+        "file": {
+          "id": 836,
+          "url": "https://templates.animation-addons.com/agivo-free/wp-content/uploads/sites/176/2025/05/Group-427320030.svg",
+          "filename": "Group-427320030.svg"
+        },
+        "width": "60",
+        "height": "60",
+        "fill": {
+          "raw": "#5C2EDE"
+        },
+        "_margin": {
+          "bottom": "64"
+        },
+        "_flexShrink": "0",
+        "_display:mobile_portrait": "none"
+      },
+      "label": "Arrow (svg)"
+    },
+    {
+      "id": "knxkp5",
+      "name": "block",
+      "parent": "cjamp5",
+      "children": [
+        "p32jp5",
+        "ljrkp5"
+      ],
+      "settings": {
+        "_width": "33.33%",
+        "_width:mobile_portrait": "100%",
+        "_rowGap": "50",
+        "_rowGap:mobile_portrait": "30",
+        "_position": "relative"
+      },
+      "label": "Step 02"
+    },
+    {
+      "id": "p32jp5",
+      "name": "svg",
+      "parent": "knxkp5",
+      "children": [],
+      "settings": {
+        "file": {
+          "id": 843,
+          "url": "https://templates.animation-addons.com/agivo-free/wp-content/uploads/sites/176/2025/05/12-1.svg",
+          "filename": "12-1.svg"
+        },
+        "width": "80",
+        "height": "80",
+        "fill": {
+          "raw": "#5C2EDE"
+        },
+        "stroke": {
+          "raw": "#FFFFFF"
+        },
+        "strokeWidth": "1.5",
+        "_alignSelf": "center",
+        "_zIndex": "2",
+        "_margin": {
+          "bottom": "7"
+        }
+      },
+      "label": "Badge (svg)"
+    },
+    {
+      "id": "ljrkp5",
+      "name": "block",
+      "parent": "knxkp5",
+      "children": [
+        "o78jp5",
+        "nbfkp5",
+        "mflkp5"
+      ],
+      "settings": {
+        "_background": {
+          "color": {
+            "raw": "#FFFFFF"
+          }
+        },
+        "_border": {
+          "width": {
+            "top": "1",
+            "right": "1",
+            "bottom": "1",
+            "left": "1"
+          },
+          "style": "solid",
+          "color": {
+            "raw": "#E6E9F0"
+          },
+          "radius": {
+            "top": "18",
+            "right": "18",
+            "bottom": "18",
+            "left": "18"
+          }
+        },
+        "_boxShadow": {
+          "values": {
+            "offsetX": "0",
+            "offsetY": "16",
+            "blur": "32",
+            "spread": "0"
+          },
+          "color": {
+            "raw": "rgba(9, 41, 30, 0.1)"
+          }
+        },
+        "_padding": {
+          "top": "91",
+          "right": "32",
+          "bottom": "32",
+          "left": "32"
+        },
+        "_overflow": "hidden",
+        "_rowGap": "20",
+        "_alignItems": "stretch",
+        "_position": "relative"
+      },
+      "label": "Card 02"
+    },
+    {
+      "id": "o78jp5",
+      "name": "aab-animated-heading",
+      "parent": "ljrkp5",
+      "children": [],
+      "settings": {
+        "heading_text": "step 02",
+        "heading_tag": "h2",
+        "animation_type": "none",
+        "text_align": "center",
+        "heading_typo": {
+          "font-family": "Sora",
+          "font-size": "64",
+          "font-weight": "700",
+          "text-transform": "capitalize",
+          "line-height": "1.3"
+        },
+        "heading_typo:laptop": {
+          "font-size": "58"
+        },
+        "heading_typo:tablet_landscape": {
+          "font-size": "50"
+        },
+        "heading_typo:tablet_portrait": {
+          "font-size": "46"
+        },
+        "heading_color": {
+          "raw": "rgba(2, 1, 1, 0)"
+        },
+        "stroke_color": {
+          "raw": "#E6E9F0"
+        },
+        "stroke_width": "1px",
+        "_position": "absolute",
+        "_left": "17%",
+        "_top": "16%",
+        "_zIndex": "0"
+      },
+      "label": "Step outline (step 02)"
+    },
+    {
+      "id": "nbfkp5",
+      "name": "text",
+      "parent": "ljrkp5",
+      "children": [],
+      "settings": {
+        "text": "<p>Design &amp; Development</p>",
+        "_typography": {
+          "font-family": "Sora",
+          "font-size": "24",
+          "font-weight": "400",
+          "text-transform": "capitalize",
+          "font-style": "normal",
+          "line-height": "1.5",
+          "color": {
+            "raw": "#2C2933"
+          },
+          "text-align": "center"
+        },
+        "_typography:laptop": {
+          "font-size": "20"
+        },
+        "_typography:tablet_landscape": {
+          "font-size": "18"
+        },
+        "_margin": {
+          "top": "-34"
+        },
+        "_position": "relative"
+      },
+      "label": "Step name"
+    },
+    {
+      "id": "mflkp5",
+      "name": "text",
+      "parent": "ljrkp5",
+      "children": [],
+      "settings": {
+        "text": "<p>Defining the strategies you will use Creating a distinct identity for your those goals or tasks.</p>",
+        "_typography": {
+          "font-family": "Sora",
+          "font-size": "16",
+          "font-weight": "400",
+          "text-transform": "capitalize",
+          "font-style": "normal",
+          "line-height": "1.6",
+          "color": {
+            "raw": "#494552"
+          },
+          "text-align": "center"
+        }
+      },
+      "label": "Step text"
+    },
+    {
+      "id": "jr3kp5",
+      "name": "svg",
+      "parent": "cjamp5",
+      "children": [],
+      "settings": {
+        "file": {
+          "id": 836,
+          "url": "https://templates.animation-addons.com/agivo-free/wp-content/uploads/sites/176/2025/05/Group-427320030.svg",
+          "filename": "Group-427320030.svg"
+        },
+        "width": "60",
+        "height": "60",
+        "fill": {
+          "raw": "#5C2EDE"
+        },
+        "_margin": {
+          "bottom": "64"
+        },
+        "_flexShrink": "0",
+        "_display:mobile_portrait": "none"
+      },
+      "label": "Arrow (svg)"
+    },
+    {
+      "id": "df4lp5",
+      "name": "block",
+      "parent": "cjamp5",
+      "children": [
+        "iv9kp5",
+        "ebylp5"
+      ],
+      "settings": {
+        "_width": "33.33%",
+        "_width:mobile_portrait": "100%",
+        "_rowGap": "50",
+        "_rowGap:mobile_portrait": "30",
+        "_position": "relative"
+      },
+      "label": "Step 03"
+    },
+    {
+      "id": "iv9kp5",
+      "name": "svg",
+      "parent": "df4lp5",
+      "children": [],
+      "settings": {
+        "file": {
+          "id": 851,
+          "url": "https://templates.animation-addons.com/agivo-free/wp-content/uploads/sites/176/2025/05/12-2.svg",
+          "filename": "12-2.svg"
+        },
+        "width": "80",
+        "height": "80",
+        "fill": {
+          "raw": "#5C2EDE"
+        },
+        "stroke": {
+          "raw": "#FFFFFF"
+        },
+        "strokeWidth": "1.5",
+        "_alignSelf": "center",
+        "_zIndex": "2",
+        "_margin": {
+          "bottom": "7"
+        }
+      },
+      "label": "Badge (svg)"
+    },
+    {
+      "id": "ebylp5",
+      "name": "block",
+      "parent": "df4lp5",
+      "children": [
+        "hzflp5",
+        "g3llp5",
+        "f7rlp5"
+      ],
+      "settings": {
+        "_background": {
+          "color": {
+            "raw": "#FFFFFF"
+          }
+        },
+        "_border": {
+          "width": {
+            "top": "1",
+            "right": "1",
+            "bottom": "1",
+            "left": "1"
+          },
+          "style": "solid",
+          "color": {
+            "raw": "#E6E9F0"
+          },
+          "radius": {
+            "top": "18",
+            "right": "18",
+            "bottom": "18",
+            "left": "18"
+          }
+        },
+        "_boxShadow": {
+          "values": {
+            "offsetX": "0",
+            "offsetY": "16",
+            "blur": "32",
+            "spread": "0"
+          },
+          "color": {
+            "raw": "rgba(9, 41, 30, 0.1)"
+          }
+        },
+        "_padding": {
+          "top": "32",
+          "right": "32",
+          "bottom": "32",
+          "left": "32"
+        },
+        "_overflow": "hidden",
+        "_rowGap": "20",
+        "_alignItems": "stretch",
+        "_position": "relative"
+      },
+      "label": "Card 03"
+    },
+    {
+      "id": "hzflp5",
+      "name": "aab-animated-heading",
+      "parent": "ebylp5",
+      "children": [],
+      "settings": {
+        "heading_text": "step 03",
+        "heading_tag": "h2",
+        "animation_type": "none",
+        "text_align": "center",
+        "heading_typo": {
+          "font-family": "Sora",
+          "font-size": "64",
+          "font-weight": "700",
+          "text-transform": "capitalize",
+          "line-height": "1.3"
+        },
+        "heading_typo:laptop": {
+          "font-size": "58"
+        },
+        "heading_typo:tablet_landscape": {
+          "font-size": "50"
+        },
+        "heading_typo:tablet_portrait": {
+          "font-size": "46"
+        },
+        "heading_color": {
+          "raw": "rgba(2, 1, 1, 0)"
+        },
+        "stroke_color": {
+          "raw": "#E6E9F0"
+        },
+        "stroke_width": "1px",
+        "_width": "100%",
+        "_margin": {
+          "bottom": "-42"
+        }
+      },
+      "label": "Step outline (step 03)"
+    },
+    {
+      "id": "g3llp5",
+      "name": "text",
+      "parent": "ebylp5",
+      "children": [],
+      "settings": {
+        "text": "<p>deliver</p>",
+        "_typography": {
+          "font-family": "Sora",
+          "font-size": "24",
+          "font-weight": "400",
+          "text-transform": "capitalize",
+          "font-style": "normal",
+          "line-height": "1.5",
+          "color": {
+            "raw": "#2C2933"
+          },
+          "text-align": "center"
+        },
+        "_typography:tablet_landscape": {
+          "font-size": "18"
+        },
+        "_margin": {
+          "top": "-34"
+        },
+        "_position": "relative"
+      },
+      "label": "Step name"
+    },
+    {
+      "id": "f7rlp5",
+      "name": "text",
+      "parent": "ebylp5",
+      "children": [],
+      "settings": {
+        "text": "<p>Defining the strategies you will use Creating a distinct identity for your those goals or tasks.</p>",
+        "_typography": {
+          "font-family": "Sora",
+          "font-size": "16",
+          "font-weight": "400",
+          "text-transform": "capitalize",
+          "font-style": "normal",
+          "line-height": "1.6",
+          "color": {
+            "raw": "#494552"
+          },
+          "text-align": "center"
+        }
+      },
+      "label": "Step text"
+    }
+  ]
+}

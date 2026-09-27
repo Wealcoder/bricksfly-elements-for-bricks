@@ -1,0 +1,400 @@
+.aae--weather {
+
+  svg {
+    width: 1em;
+    height: 1em;
+  }
+
+  sup {
+    font-size: 16px;
+  }
+
+  .weather-img {
+    line-height: 0;
+  }
+
+  .location {
+    gap: 5px;
+    display: flex;
+    align-items: center;
+
+    .icon {
+      line-height: 0;
+      display: inline-block;
+    }
+  }
+
+  &.style-1 {
+    position: relative;
+    width: 100%;
+    height: 100px;
+    overflow: hidden;
+
+    .time-info,
+    .weather-info {
+      position: absolute;
+      width: 100%;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      animation-duration: var(--duration, 10s);
+      animation-iteration-count: infinite;
+      animation-timing-function: ease-in-out;
+      animation-fill-mode: forwards;
+    }
+
+    .temp-wrap {
+      display: flex;
+      align-items: center;
+    }
+
+    .location-wrap {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .location {
+      position: relative;
+
+      &::after {
+        position: absolute;
+        content: "";
+        width: 6px;
+        height: 1px;
+        left: -11px;
+        top: 50%;
+        background: #121212;
+      }
+    }
+
+    .today,
+    .temp, {
+      font-size: 24px;
+    }
+
+    .date,
+    .desc,
+    .location {
+      font-size: 16px;
+      text-transform: capitalize;
+    }
+
+    .date {
+      padding-top: 5px;
+    }
+  }
+
+  &.style-2 {
+    background: #197bff;
+    border-radius: 10px;
+    padding: 20px;
+
+    .weather-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .location {
+      color: #fff;
+      fill: #fff;
+    }
+
+    .temp {
+      color: #fff;
+      font-size: 48px;
+      font-weight: 700;
+
+      sup {
+        font-size: 24px;
+      }
+    }
+
+    .feels-like {
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    .desc {
+      color: #fff;
+    }
+
+    .right-wrap {
+      text-align: right;
+    }
+
+    .hourly {
+      gap: 10px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .hour-block {
+      text-align: center;
+
+      img {
+        width: 30px;
+        height: 30px;
+      }
+    }
+
+    .hour-temp,
+    .hour-time {
+      color: #fff;
+    }
+
+    .forecast {
+      border-top: 1px solid rgba(255, 255, 255, 0.3);
+      padding-top: 15px;
+      margin-top: 15px;
+      display: grid;
+    }
+
+    .fc-block {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .fc-day {
+      flex: 1;
+      color: #fff;
+    }
+
+    .fc-temp {
+      flex: 1;
+      text-align: right;
+      color: #fff;
+    }
+
+    .min-temp {
+      margin-left: 20px;
+      display: inline-block;
+    }
+  }
+
+  &.left-right {
+    .time-info {
+      animation-name: slideTimeLtR;
+    }
+
+    .weather-info {
+      animation-name: slideWeatherLtR;
+    }
+  }
+
+  &.right-left {
+    .time-info {
+      animation-name: slideTimeRtL;
+    }
+
+    .weather-info {
+      animation-name: slideWeatherRtL;
+    }
+  }
+
+  &.top-bottom {
+    .time-info {
+      animation-name: slideTimeTtB;
+    }
+
+    .weather-info {
+      animation-name: slideWeatherTtB;
+    }
+  }
+
+  &.bottom-top {
+    .time-info {
+      animation-name: slideTimeBtT;
+    }
+
+    .weather-info {
+      animation-name: slideWeatherBtT;
+    }
+  }
+}
+
+@keyframes slideTimeRtL {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  5% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  45% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideWeatherRtL {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  55% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  95% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideTimeLtR {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  5% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  45% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideWeatherLtR {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  55% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  95% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideTimeTtB {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  5% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  45% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideWeatherTtB {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  55% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  95% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideTimeBtT {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  5% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  45% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideWeatherBtT {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  55% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  95% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
