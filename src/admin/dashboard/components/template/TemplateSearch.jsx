@@ -34,7 +34,7 @@ const TemplateSearch = ({ metaData, setMetaData, setOpenSearch }) => {
       setIsLoading(true);
 
       fetch(
-        `https://www.themecrowdy.com/wp-json/wp/v2/brk-templates?title-search=yes&s=${encodeURIComponent(
+        `${BRICKSFLY_ADDONS_ADMIN?.st_template_domain}wp-json/wp/v2/brk-templates?title-search=yes&s=${encodeURIComponent(
           searchQuery.toLowerCase(),
         )}`,
       )

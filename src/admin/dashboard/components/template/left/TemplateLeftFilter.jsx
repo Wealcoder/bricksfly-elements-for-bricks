@@ -18,21 +18,25 @@ import { useEffect, useState } from "react";
 const TemplateLeftFilter = ({
   types,
   setTypes,
-  license,
-  setLicense,
+  tier,
+  setTier,
   selectedCategory,
   setSelectedCategory,
   setPageNum,
+  // Library taxonomy listed under "Categories" (pages use Page Types).
+  taxonomy = "brk-cat",
 }) => {
   const [allCategory, setAllCategory] = useState([]);
 
   useEffect(() => {
-    fetch(`${BRICKSFLY_ADDONS_ADMIN?.st_template_domain}wp-json/wp/v2/brk-cat`)
+    fetch(
+      `${BRICKSFLY_ADDONS_ADMIN?.st_template_domain}wp-json/wp/v2/${taxonomy}?per_page=100&hide_empty=true`,
+    )
       .then((response) => response.json())
       .then((data) => {
-        setAllCategory(data);
+        setAllCategory(Array.isArray(data) ? data : []);
       });
-  }, []);
+  }, [taxonomy]);
 
   return (
     <div className="px-5 py-6 flex flex-col justify-between gap-5 h-full">
@@ -45,7 +49,7 @@ const TemplateLeftFilter = ({
           <div>
             <Accordion
               type="multiple"
-              defaultValue={["types", "license", "categories"]}
+              defaultValue={["types", "tier", "categories"]}
               className="w-full"
             >
               <AccordionItem value="types" className="border-b-0 border-t">
@@ -83,20 +87,28 @@ const TemplateLeftFilter = ({
                   </ToggleGroup>
                 </AccordionContent>
               </AccordionItem>
-              <AccordionItem value="license" className="border-b-0 border-t">
+              <AccordionItem value="tier" className="border-b-0 border-t">
                 <AccordionTrigger className="pt-5 pb-5 data-[state=open]:pb-2">
-                  License
+                  Free / Pro
                 </AccordionTrigger>
                 <AccordionContent className="pb-5">
                   <ToggleGroup
                     type="single"
                     className="justify-start flex-wrap gap-2"
-                    value={license}
+                    value={tier || "all"}
                     onValueChange={(value) => {
-                      setLicense(value);
+                      setTier(value || "all");
                       setPageNum(1);
                     }}
                   >
+                    <ToggleGroupItem
+                      value="all"
+                      variant="outline"
+                      className="ps-2"
+                      aria-label="Show all"
+                    >
+                      All
+                    </ToggleGroupItem>
                     <ToggleGroupItem
                       value="pro"
                       variant="outline"

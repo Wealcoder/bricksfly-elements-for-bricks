@@ -189,9 +189,9 @@ function bricksfly_enqueue_element_logo_css()
     . 'vertical-align:-2px;'
     . '}';
 
-  wp_register_style('aab-element-logo', false, [], BRICKSFLY_VERSION);
-  wp_enqueue_style('aab-element-logo');
-  wp_add_inline_style('aab-element-logo', $css);
+  wp_register_style('bricksfly-element-logo', false, [], BRICKSFLY_VERSION);
+  wp_enqueue_style('bricksfly-element-logo');
+  wp_add_inline_style('bricksfly-element-logo', $css);
 }
 add_action('wp_enqueue_scripts', 'bricksfly_enqueue_element_logo_css', 100);
 

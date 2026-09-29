@@ -111,11 +111,11 @@ const DemoImporting = () => {
           Math.round((importCount / totalCount) * 100),
           100
         );
-        const baseProgress = Math.floor(Math.random() * (44 - 40 + 1)) + 40;
-        const scaledImport = 50 * (importCount / totalCount);
+        // Content import runs between the download step (37%) and the end
+        // of content import (80%, set by the server).
         const totalProgress = Math.min(
-          Math.round(baseProgress + scaledImport),
-          100
+          37 + Math.round(42 * Math.min(importCount / totalCount, 1)),
+          79
         );
 
         setTemplateTitle(data.import_porgress?.title);
@@ -163,20 +163,6 @@ const DemoImporting = () => {
         const contentType = response.headers.get("content-type");
         if (contentType && contentType.includes("application/json")) {
           const data = await response.json();
-
-          // Server-side license limitation block. The gate should have caught
-          // this before we got here, but if the plan changed mid-flow (or the
-          // flow was entered directly via URL), stop cleanly and surface the
-          // reason instead of retrying the rejected step forever.
-          if (data?.limited) {
-            setMsg(data.message || "This feature is not included in your license plan.");
-            changeRoute("fail-import", {
-              plugins,
-              attachment,
-              msg: data.message,
-            });
-            return;
-          }
 
           if (
             "undefined" !== typeof data.status &&

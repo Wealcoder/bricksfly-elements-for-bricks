@@ -2,6 +2,9 @@
 
 namespace wealcoder\bricksfly\Admin\Pages;
 
+use wealcoder\bricksfly\Admin\BRICKSFLY_Library_Client;
+use wealcoder\bricksfly\Admin\BRICKSFLY_Section_Media;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit();
 }
@@ -88,10 +91,6 @@ class BRICKSFLY_Builder_Template_Library {
 			true
 		);
 
-		$pro_installed = function_exists( 'bricksfly_is_pro_installed' ) ? bricksfly_is_pro_installed() : false;
-		$pro_active    = function_exists( 'bricksfly_is_pro_active' ) ? bricksfly_is_pro_active() : false;
-		$license_valid = function_exists( 'bricksfly_is_license_valid' ) ? bricksfly_is_license_valid() : false;
-
 		// In the Bricks builder context, `get_the_ID()` resolves to the post
 		// being edited (Bricks loads the front-end template chain just like
 		// a normal page view). Fall back to common URL params for edge
@@ -117,40 +116,31 @@ class BRICKSFLY_Builder_Template_Library {
 				'logo_url'        => esc_url( BRICKSFLY_URL . 'public/images/plugin_logo.png' ),
 				'template_types'  => self::get_template_types(),
 				'remote_api'      => apply_filters('bricksfly_builder_template_library_remote_api',
-					'https://www.themecrowdy.com/wp-json/wp/v2/bricks-sections'
+					BRICKSFLY_Library_Client::api_url( 'wp/v2/bricks-sections' )
 				),
 				'remote_category' => apply_filters('bricksfly_builder_template_library_remote_category_api',
-					'https://www.themecrowdy.com/wp-json/wp/v2/bricks-sections-category',
-				),
-
-			   'remote_download' => apply_filters('bricksfly_builder_template_library_remote_section_download_api',
-					'https://www.themecrowdy.com/wp-json/bricks-sections/v1/download?id=',
+					BRICKSFLY_Library_Client::api_url( 'wp/v2/bricks-sections-category' )
 				),
 				'default_type'    => apply_filters('bricksfly_builder_template_library_default_type', 'block' ),
 				'dashboard_link'  => admin_url( 'admin.php?page=bricksfly_addons_settings' ),
-				'pro_installed'   => $pro_installed,
-				'pro_active'      => $pro_active,
-				'config'          => apply_filters('bricksfly_builder_template_library_config',
-					[
-						'bricksfly_valid' => $license_valid,
-						// Section import is gated by this flag (also enforced
-						// server-side in ajax_insert_template()). The JS uses it
-						// to show an upsell popup before the request is sent.
-						'section_import' => function_exists( 'bricksfly_is_feature_allowed' ) && bricksfly_is_feature_allowed( 'section_import' ),
-						'limitations'    => function_exists( 'bricksfly_get_license_limitations' ) ? bricksfly_get_license_limitations() : [],
-					]
-				),
+				// Pro sections are shown with a "Pro" badge and this link. The
+				// separate BricksFly Pro plugin sets `pro_library` so its users
+				// get an Insert button instead; the library itself decides
+				// whether it releases the section.
+				'pro_url'         => 'https://bricksfly.com/pricing/',
+				'pro_library'     => (bool) apply_filters( 'bricksfly_pro_library_enabled', false ),
+				// What the button on Pro cards does (get / activate Pro, or Pro's own action).
+				'pro_action'      => function_exists( 'bricksfly_pro_action' ) ? bricksfly_pro_action() : array(),
 				'i18n'            => [
 					'modal_title'     => esc_html__( 'BricksFly Addons — Section Library', 'bricksfly-elements-for-bricks' ),
 					'button_label'    => esc_html__( 'Import Section', 'bricksfly-elements-for-bricks' ),
 					'insert'          => esc_html__( 'Insert', 'bricksfly-elements-for-bricks' ),
 					'inserting'       => esc_html__( 'Inserting…', 'bricksfly-elements-for-bricks' ),
 					'preview'         => esc_html__( 'Preview', 'bricksfly-elements-for-bricks' ),
-					'go_premium'      => esc_html__( 'Go Premium', 'bricksfly-elements-for-bricks' ),
-					'activate'        => esc_html__( 'Activate License', 'bricksfly-elements-for-bricks' ),
-					'install_pro'     => esc_html__( 'Install Pro', 'bricksfly-elements-for-bricks' ),
-					'upgrade_plan'    => esc_html__( 'Upgrade Plan', 'bricksfly-elements-for-bricks' ),
-					'section_locked'  => esc_html__( 'Section import is not included in your current license plan. Please upgrade your plan to import sections.', 'bricksfly-elements-for-bricks' ),
+					'free'            => esc_html__( 'Free', 'bricksfly-elements-for-bricks' ),
+					'pro'             => esc_html__( 'Pro', 'bricksfly-elements-for-bricks' ),
+					'get_pro'         => esc_html__( 'Get BricksFly Pro', 'bricksfly-elements-for-bricks' ),
+					'all_items'       => esc_html__( 'All', 'bricksfly-elements-for-bricks' ),
 					'search'          => esc_html__( 'Search', 'bricksfly-elements-for-bricks' ),
 					'category'        => esc_html__( 'Category', 'bricksfly-elements-for-bricks' ),
 					'all_colors'      => esc_html__( 'All', 'bricksfly-elements-for-bricks' ),
@@ -220,22 +210,6 @@ class BRICKSFLY_Builder_Template_Library {
 			wp_send_json_error( [ 'message' => __( 'Permission denied for this post.', 'bricksfly-elements-for-bricks' ) ], 403 );
 		}
 
-		// License limitation gate — Section import requires the `section_import`
-		// flag on the active license. Enforced server-side so the client lock
-		// (BRICKSFLY_TEMPLATE_LIBRARY.config.section_import) can't be bypassed by a
-		// forged AJAX call. `limited:true` lets the JS show the upsell popup.
-		if ( function_exists( 'bricksfly_is_feature_allowed' ) && ! bricksfly_is_feature_allowed( 'section_import' ) ) {
-			$message = function_exists( 'bricksfly_feature_denied_message' )
-				? bricksfly_feature_denied_message( 'section_import' )
-				: __( 'Section import is not included in your current license plan.', 'bricksfly-elements-for-bricks' );
-
-			wp_send_json_error( [
-				'limited' => true,
-				'feature' => 'section_import',
-				'message' => $message,
-			], 403 );
-		}
-
 		$template_id = isset( $_POST['template_id'] ) ? absint( $_POST['template_id'] ) : 0;
 
 		if ( ! $template_id ) {
@@ -265,12 +239,22 @@ class BRICKSFLY_Builder_Template_Library {
 		// Return the full Bricks export shape so the client can build the native
 		// paste envelope. Ids are NOT remapped here — Bricks' paste regenerates
 		// element ids itself, so remapping server-side would be redundant work.
+		// Bring the section's images into the Media Library and point the
+		// settings at the local attachments (see admin/section-media.php).
+		$media = new BRICKSFLY_Section_Media();
+		list( $elements, $global_classes ) = $media->localize( $elements, is_array( $resolved['global_classes'] ) ? $resolved['global_classes'] : [] );
+
+		$message = __( 'Template resolved.', 'bricksfly-elements-for-bricks' );
+		if ( $media->skipped_svgs ) {
+			$message = __( 'Section inserted. Some SVG icons stay on the remote server because SVG uploads are disabled for your role in Bricks > Settings > General.', 'bricksfly-elements-for-bricks' );
+		}
+
 		wp_send_json_success( [
 			'content'         => $elements,
-			'global_classes'  => $resolved['global_classes'],
+			'global_classes'  => $global_classes,
 			'globalVariables' => $resolved['globalVariables'],
 			'inserted_count'  => count( $elements ),
-			'message'         => __( 'Template resolved.', 'bricksfly-elements-for-bricks' ),
+			'message'         => $message,
 		] );
 	}
 
@@ -292,32 +276,23 @@ class BRICKSFLY_Builder_Template_Library {
 	 * @return array|\WP_Error { content, global_classes, globalVariables }
 	 */
 	private function resolve_template_payload( $template_id ) {
-		$meta_endpoint = apply_filters('bricksfly_builder_template_library_remote_single_api',
-			'https://www.themecrowdy.com/wp-json/bricks-sections/v1/list/' . $template_id,
-			$template_id
-		);
+		$meta = BRICKSFLY_Library_Client::get_section( $template_id );
 
-		$meta_response = wp_remote_get(
-			$meta_endpoint,
-			[ 'timeout' => 30, 'sslverify' => true ]
-		);
-
-		if ( is_wp_error( $meta_response ) ) {
-			return $meta_response;
+		if ( is_wp_error( $meta ) ) {
+			return $meta;
 		}
 
-		$meta_body = wp_remote_retrieve_body( $meta_response );
-		$meta      = json_decode( $meta_body, true );
-
+		// The library withholds the file of a section it does not release.
 		if ( empty( $meta['json_file']['url'] ) ) {
+			if ( ! empty( $meta['is_pro'] ) ) {
+				return new \WP_Error( 'bricksfly_pro_item', BRICKSFLY_Library_Client::pro_item_message() );
+			}
 			return new \WP_Error( 'bricksfly_no_template_source', __( 'Could not resolve template source.', 'bricksfly-elements-for-bricks' ) );
 		}
 
-		$json_url = esc_url_raw( $meta['json_file']['url'] );
-
-		$response = wp_remote_get(
-			$json_url,
-			[ 'timeout' => 30, 'sslverify' => true ]
+		$response = BRICKSFLY_Library_Client::get(
+			esc_url_raw( $meta['json_file']['url'] ),
+			[ 'timeout' => 30 ]
 		);
 
 		if ( is_wp_error( $response ) ) {

@@ -1,4 +1,5 @@
-const isValid = BRICKSFLY_ADDONS_ADMIN.addons_config.bricksfly_valid;
+// Pro items belong to the separate BricksFly Pro plugin (see `pro_features`).
+const isValid = !!BRICKSFLY_ADDONS_ADMIN?.pro_features;
 
 export const libraryFn = (mainContent, data, dispatch) => {
   const result = Object.fromEntries(

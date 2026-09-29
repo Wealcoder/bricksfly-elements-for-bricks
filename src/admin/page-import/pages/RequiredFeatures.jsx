@@ -7,6 +7,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import RequiredPluginList from "@/components/shared/RequiredPluginList";
 import { useEffect, useState, useContext } from "react";
 import { AppContext } from "../context/app.context";
 
@@ -29,7 +30,11 @@ const RequiredFeatures = () => {
     url.searchParams.set("template", template);
     url.searchParams.set("templateid", templateid);
     url.searchParams.set("tab", value);
-    if (selectedPlugins && selectedPlugins.length) {
+    if (
+      BRICKSFLY_ADDONS_ADMIN?.import_plugins &&
+      selectedPlugins &&
+      selectedPlugins.length
+    ) {
       url.searchParams.set("plugins", selectedPlugins.toString());
     }
     url.searchParams.set("attachment", allowAttachment);
@@ -119,7 +124,7 @@ const RequiredFeatures = () => {
             <div className="mb-7">
               <h3 className="text-2xl font-medium">Required Features</h3>
               <p className="mt-1.5 text-text-secondary">
-                Install every plugin and extension listed below.
+                Review what this template needs before importing.
               </p>
             </div>
             <div>
@@ -143,43 +148,13 @@ const RequiredFeatures = () => {
                         </p>
                       </div>
                     </AccordionTrigger>
-                    <AccordionContent className="mt-2 space-y-4">
-                      {currenTemplate?.dependencies?.plugins?.map(
-                        (plugin, i) => (
-                          <div
-                            className="flex items-center space-x-2.5"
-                            key={plugin.slug + i}
-                          >
-                            <Checkbox
-                              id={`plugin-${plugin.slug}`}
-                              checked={selectedPlugins.includes(plugin?.slug)}
-                              disabled={plugin?.required}
-                              onCheckedChange={(value) =>
-                                setSelectedPlugins((prev) =>
-                                  value
-                                    ? [...prev, plugin?.slug]
-                                    : prev.filter((p) => p !== plugin?.slug)
-                                )
-                              }
-                            />
-                            <label
-                              htmlFor={`plugin-${plugin.slug}`}
-                              className="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                            >
-                              {plugin.name}
-                            </label>
-                            <Badge
-                              variant={
-                                plugin?.status === "Not Installed"
-                                  ? "inProgress"
-                                  : "installed"
-                              }
-                            >
-                              {plugin?.status}
-                            </Badge>
-                          </div>
-                        )
-                      )}
+                    <AccordionContent className="mt-2">
+                      <RequiredPluginList
+                        plugins={currenTemplate?.dependencies?.plugins}
+                        selectedPlugins={selectedPlugins}
+                        setSelectedPlugins={setSelectedPlugins}
+                        onRefresh={() => validateData(currenTemplate)}
+                      />
                     </AccordionContent>
                   </AccordionItem>
                 ) : (

@@ -7,6 +7,7 @@ import { StaterTemplateHeader } from "../components/header/StaterTemplateHeader"
 import StarterTemplateFilter from "../components/header/StarterTemplateFilter";
 import TemplateSearch from "../components/template/TemplateSearch";
 import TemplateSearchDialog from "../components/template/TemplateSearchDialog";
+import FreeProSwitch from "../components/template/FreeProSwitch";
 import {
   TooltipProvider,
   Tooltip,
@@ -23,7 +24,8 @@ const StaterTemplate = () => {
   const [hasReachedBottom, setHasReachedBottom] = useState(false);
   const [metaData, setMetaData] = useState({
     searchKey: "",
-    filterData: {},
+    // All templates, free ones first; the toolbar switch filters.
+    filterData: { mode: "all" },
     pageNum: 1,
     tempSelectedCategory: [],
     selectedCategory: [],
@@ -61,7 +63,7 @@ const StaterTemplate = () => {
         }
 
         if (meta.selectedCategory && meta.selectedCategory.length) {
-          url.searchParams.append("st-cat", meta.selectedCategory.toString());
+          url.searchParams.append("brk-cat", meta.selectedCategory.toString());
         }
 
         if (meta?.filterData?.wishlist) {
@@ -72,6 +74,8 @@ const StaterTemplate = () => {
           url.searchParams.append("premium", "yes");
         } else if (meta?.filterData?.mode === "free") {
           url.searchParams.append("premium", "no");
+        } else {
+          url.searchParams.append("free_first", 1);
         }
 
         // light dark
@@ -250,6 +254,17 @@ const StaterTemplate = () => {
                 </Tooltip>
               </TooltipProvider>
             </div>
+            <div className="flex items-center gap-4">
+            <FreeProSwitch
+              value={metaData?.filterData?.mode}
+              onChange={(mode) =>
+                setMetaData((pre) => ({
+                  ...pre,
+                  filterData: { ...pre?.filterData, mode },
+                  pageNum: 1,
+                }))
+              }
+            />
             <div className="hidden 2xl:block">
               <TemplateSearch
                 metaData={metaData}
@@ -270,6 +285,7 @@ const StaterTemplate = () => {
                 openSearch={openSearch}
                 setOpenSearch={setOpenSearch}
               />
+            </div>
             </div>
           </div>
         </div>

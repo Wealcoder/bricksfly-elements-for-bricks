@@ -100,22 +100,20 @@ class BRICKSFLY_Plugin
 		require_once BRICKSFLY_PATH . 'includes/extensions/helpers/BRICKS_ELEMENTS.php';
 		require_once BRICKSFLY_PATH . 'includes/extensions/helpers/BricksElementsHelper.php';
 
-		// License AJAX endpoints + admin status notice live in the Pro plugin
-		// (includes/license/update.php) — Pro must be active to activate or
-		// deactivate a license. The free plugin only reads the resulting
-		// option value via bricksfly_is_license_valid() / bricksfly_is_pro_active().
+		// Admin pages. "CPT Builder" and "Site Settings" are part of the
+		// separate BricksFly Pro plugin; their menus and UI live there, with
+		// no free-side placeholder.
 
-		// Admin pages. "CPT Builder" is now a Pro-only feature entirely — its
-		// menu, settings UI, and CPT/taxonomy registration all live in the
-		// Pro plugin (admin/pages/cpt-builder.php) with no free-side
-		// placeholder. "Site Settings" is also Pro-only; the real UI lives in
-		// the Pro plugin and only registers when a valid license is active.
+		// Template library client, shared by the importer (admin) and the
+		// builder section library (front end + admin-ajax).
+		require_once BRICKSFLY_PATH . 'admin/library-client.php';
+		require_once BRICKSFLY_PATH . 'admin/section-media.php';
+
 		if (is_admin()) {
 			require_once BRICKSFLY_PATH . 'admin/pages/dashboard.php';
 			require_once BRICKSFLY_PATH . 'admin/pages/template-importer.php';
 			require_once BRICKSFLY_PATH . 'admin/pages/page-import.php';
 
-			// require_once BRICKSFLY_PATH . 'admin/pages/settings-placeholder.php';
 		}
 
 		// Builder Template Library — adds the "Import Section" button to
@@ -216,8 +214,8 @@ class BRICKSFLY_Plugin
 
 				// `is_pro=true` widgets are owned exclusively by the Pro plugin
 				// (animated offcanvas, video popup, youtube videos, …). Free
-				// must never load them — Pro registers its own elements when a
-				// valid license is active.
+				// never loads them — their code ships only in BricksFly Pro,
+				// which registers them itself.
 				if (! empty($data['is_pro'])) {
 					continue;
 				}

@@ -4,7 +4,6 @@ import { Switch } from "../ui/switch";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import ProConfirmDialog from "./ProConfirmDialog";
-import { useActivate } from "@/hooks/app.hooks";
 import ExtensionCardSettings from "../extentions/ExtensionCardSettings";
 
 const ElementCard = ({
@@ -17,29 +16,14 @@ const ElementCard = ({
   preview = true,
   settingOpen = null,
 }) => {
-  const { activated } = useActivate();
-
   const [open, setOpen] = useState(false);
   const hash = window.location.hash;
   const hashValue = hash?.replace("#", "");
 
-  const checkStatus = () => {
-    if (element?.is_pro && (element?.pro_only ?? false)) {
-      if (activated?.product_status?.item_id === 39996) {
-        return true;
-      } else {
-        return false;
-      }
-    } else if (element?.is_pro) {
-      if (activated.bricksfly_valid) {
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      return true;
-    }
-  };
+  // Pro items are part of the separate BricksFly Pro plugin, which sets
+  // `pro_features` when they are available.
+  const checkStatus = () =>
+    !element?.is_pro || !!BRICKSFLY_ADDONS_ADMIN?.pro_features;
 
   const setCheck = (value, slug) => {
     if (checkStatus()) {

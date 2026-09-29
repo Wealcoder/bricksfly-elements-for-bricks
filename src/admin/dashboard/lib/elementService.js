@@ -1,6 +1,7 @@
-const isValid = BRICKSFLY_ADDONS_ADMIN.addons_config.bricksfly_valid;
-const isOnlyPro =
-  BRICKSFLY_ADDONS_ADMIN.addons_config?.product_status?.item_id === 39996;
+// Pro items belong to the separate BricksFly Pro plugin, which sets
+// `pro_features` when they are available.
+const isValid = !!BRICKSFLY_ADDONS_ADMIN?.pro_features;
+const isOnlyPro = isValid;
 
 export const activeElementFn = (mainContent, data, dispatch) => {
   const result = Object.fromEntries(

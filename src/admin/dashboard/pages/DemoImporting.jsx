@@ -123,10 +123,9 @@ const DemoImporting = () => {
             // 🎯 Content Import Only (0-100%)
             const contentProgress = Math.min(Math.round((importCount / totalCount) * 100), 100);
 
-            // 📊 Total Import (starting from plugin install)
-            const baseProgress = Math.floor(Math.random() * (44 - 40 + 1)) + 40;
-            const scaledImport = 50 * (importCount / totalCount);
-            const totalProgress = Math.min(Math.round(baseProgress + scaledImport), 100); 
+            // Content import runs between the download step (37%) and the
+            // end of content import (80%, set by the server).
+            const totalProgress = Math.min(37 + Math.round(42 * Math.min(importCount / totalCount, 1)), 79);
             setTemplateTitle(data.import_porgress?.title);          
             
             // 👇 You set both
@@ -184,15 +183,6 @@ const DemoImporting = () => {
 
         if (contentType && contentType.includes("application/json")) {
           const data = await response.json();
-
-          // Server-side license limitation block (starter_tpl_import). Stop
-          // cleanly and surface the reason instead of retrying the rejected
-          // step forever.
-          if (data?.limited) {
-            setMsg(data.message || "This feature is not included in your license plan.");
-            changeRoute("fail-import", { plugins, attachment, msg: data.message });
-            return;
-          }
 
           if ("undefined" !== typeof data.status && "newAJAX" === data.status) {
             if (data?.state && data.state !== "") {

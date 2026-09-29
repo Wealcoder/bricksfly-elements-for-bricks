@@ -8,6 +8,8 @@ module.exports = {
     "./src/admin/dashboard/components/**/*.{js,jsx}",
     "./src/admin/dashboard/layouts/**/*.{js,ts,jsx,tsx}",
     "./src/admin/dashboard/pages/**/*.{js,ts,jsx,tsx}",
+    // The page importer shares this stylesheet (it imports dashboard/index.css).
+    "./src/admin/page-import/**/*.{js,jsx}",
   ],
   prefix: "",
   important: ".wcf-anim2024",

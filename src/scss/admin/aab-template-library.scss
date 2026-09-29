@@ -370,6 +370,32 @@
 	color: #fff;
 }
 
+/* Free / Pro badge in the thumbnail corner. Sits above the hover scrim so
+   it stays readable while the preview link is shown. */
+.aab-tl-card__badge {
+	position: absolute;
+	top: 8px;
+	left: 8px;
+	z-index: 2;
+	padding: 2px 8px;
+	border-radius: 999px;
+	font-size: 11px;
+	font-weight: 600;
+	line-height: 18px;
+	letter-spacing: 0.02em;
+	pointer-events: none;
+}
+
+.aab-tl-card__badge--free {
+	background: #07b22b;
+	color: #fff;
+}
+
+.aab-tl-card__badge--pro {
+	background: #ffd53e;
+	color: #18181a;
+}
+
 .aab-tl-card__insert:disabled {
 	opacity: 0.6;
 	cursor: not-allowed;

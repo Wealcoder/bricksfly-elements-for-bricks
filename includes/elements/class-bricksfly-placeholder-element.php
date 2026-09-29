@@ -6,7 +6,7 @@ if (! defined('ABSPATH')) {
 
 /**
  * Branded stand-in for a Bricksfly widget whose real PHP class isn't
- * currently loaded (toggled off in Bricksfly settings, or Pro/license
+ * currently loaded (toggled off in Bricksfly settings, or BricksFly Pro
  * unavailable).
  *
  * Registered under the widget's real Bricks `$name` (see

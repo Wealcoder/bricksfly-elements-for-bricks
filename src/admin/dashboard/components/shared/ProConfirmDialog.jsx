@@ -5,150 +5,41 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Button, buttonVariants } from "../ui/button";
-import { RiKey2Line, RiVipCrown2Line } from "react-icons/ri";
-import { cn } from "@/lib/utils";
-import LicenseDialog from "./LicenseDialog";
-import { useState } from "react";
-import { useActivate } from "@/hooks/app.hooks";
-import { toast } from "sonner";
+import ProPluginButton from "./ProPluginButton";
 
-const ProConfirmDialog = ({ open, setOpen, reason }) => {
-  const { activated } = useActivate();
-  const [openLicense, setOpenLicense] = useState(false);
-
-  // Distinguish two block reasons:
-  //  - "license": Pro not installed / not active / not licensed for this site.
-  //  - "limitation": licensed for this site, but the plan tier doesn't include
-  //    the requested feature (e.g. starter_tpl_import / starter_page_import).
-  // A limitation block is shown as a plan-upgrade prompt, since re-activating
-  // the same key won't unlock the feature.
-  const isLicensed = activated?.product_status?.item_id === 39996;
-  const isLimitation = reason === "limitation" || (isLicensed && open);
-
-  const heading = isLimitation
-    ? "This feature isnâ€™t included in your current plan"
-    : "Upgrade to premium plan and unlock every features!";
-  const subtext = isLimitation
-    ? "Upgrade your license plan to unlock this import feature."
-    : "Upgrade and get access to every feature.";
-
-  const activePlugin = async () => {
-    await fetch(BRICKSFLY_ADDONS_ADMIN.ajaxurl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        Accept: "application/json",
-      },
-
-      body: new URLSearchParams({
-        action: "bricksfly_active_plugin",
-        action_base: "bricksfly-elements-for-bricks-pro/bricksfly-elements-for-bricks-pro.php",
-        nonce: BRICKSFLY_ADDONS_ADMIN.nonce,
-      }),
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((return_content) => {
-        if (return_content?.success) {
-          toast.success(return_content?.data?.message, {
-            position: "top-right",
-          });
-
-          window.location.reload();
-        }
-      });
-  };
-
+// Shown when a Pro item is clicked while BricksFly Pro's features aren't
+// available. Pro items are part of the separate BricksFly Pro plugin; this
+// only points the user to it.
+const ProConfirmDialog = ({ open, setOpen }) => {
   return (
-    <>
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="w-[380px] bg-background pr-0 gap-0 !rounded-2xl overflow-hidden [&>.wcf-dialog-close-button]:right-4 [&>.wcf-dialog-close-button]:top-4">
-          <DialogHeader className={"hidden"}>
-            <DialogTitle className={"hidden"}></DialogTitle>
-            <DialogDescription className={"hidden"}></DialogDescription>
-          </DialogHeader>
-          <div>
-            <img
-              src={`${BRICKSFLY_ADDONS_ADMIN.plugin_url}public/images/pro-dialog.png`}
-              className="w-full h-[174px]"
-              alt="pro dialog"
-            />
-            <div className="p-6 pt-2">
-              <h2 className="text-xl text-center font-medium">
-                <span dir="ltr">{heading}</span>
-              </h2>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogContent className="w-[380px] bg-background pr-0 gap-0 !rounded-2xl overflow-hidden [&>.wcf-dialog-close-button]:right-4 [&>.wcf-dialog-close-button]:top-4">
+        <DialogHeader className={"hidden"}>
+          <DialogTitle className={"hidden"}></DialogTitle>
+          <DialogDescription className={"hidden"}></DialogDescription>
+        </DialogHeader>
+        <div>
+          <img
+            src={`${BRICKSFLY_ADDONS_ADMIN.plugin_url}public/images/pro-dialog.png`}
+            className="w-full h-[174px]"
+            alt="pro dialog"
+          />
+          <div className="p-6 pt-2">
+            <h2 className="text-xl text-center font-medium">
+              <span dir="ltr">This is a BricksFly Pro feature</span>
+            </h2>
 
-              <p className="mt-2.5 text-sm text-text-secondary text-center">
-                <span dir="ltr">{subtext}</span>
-              </p>
+            <p className="mt-2.5 text-sm text-text-secondary text-center">
+              <span dir="ltr">
+                It is part of the separate BricksFly Pro plugin.
+              </span>
+            </p>
 
-              {isLimitation ? (
-                <a
-                  href="https://bricksfly.com/"
-                  target="_blank"
-                  className={cn(
-                    buttonVariants({ variant: "pro" }),
-                    "w-full mt-6",
-                  )}
-                >
-                  <span className="me-2 flex">
-                    <RiVipCrown2Line size={20} />
-                  </span>
-                  Upgrade Plan
-                </a>
-              ) : activated.integrations.plugins.elements["bricksfly-elements-for-bricks-pro"]
-                .action === "Active" ? (
-                <Button
-                  variant="pro"
-                  onClick={() => activePlugin()}
-                  className="w-full mt-6"
-                >
-                  <span className="me-2 flex">
-                    <RiVipCrown2Line size={20} />
-                  </span>
-                  Active Plugin
-                </Button>
-              ) : activated.integrations.plugins.elements["bricksfly-elements-for-bricks-pro"]
-                  .action === "Download" ? (
-                <a
-                  href="https://bricksfly.com/"
-                  target="_blank"
-                  className={cn(
-                    buttonVariants({ variant: "pro" }),
-                    "w-full mt-6",
-                  )}
-                >
-                  <span className="me-2 flex">
-                    <RiVipCrown2Line size={20} />
-                  </span>
-                  Get Pro Version
-                </a>
-              ) : (
-                <Button
-                  variant="pro"
-                  className="w-full mt-6"
-                  onClick={() => {
-                    setOpen(false);
-                    setOpenLicense(true);
-                  }}
-                >
-                  <span className="me-1.5 flex">
-                    <RiKey2Line size={20} />
-                  </span>
-
-                  {activated?.product_status?.item_id === 39996
-                    ? "Deactivate License"
-                    : "Activate License"}
-                </Button>
-              )}
-            </div>
+            <ProPluginButton className="w-full mt-6" />
           </div>
-        </DialogContent>
-      </Dialog>
-      <LicenseDialog open={openLicense} setOpen={setOpenLicense} />
-    </>
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 };
 

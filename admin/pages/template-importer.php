@@ -2,6 +2,8 @@
 
 namespace wealcoder\bricksfly\Admin\Pages;
 
+use wealcoder\bricksfly\Admin\BRICKSFLY_Library_Client;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit();
 }
@@ -25,7 +27,6 @@ class BRICKSFLY_Template_Importer {
 		add_action( 'wp_ajax_bricksfly_template_installer', [ $this, 'template_installer' ] );
 		add_action( 'wp_ajax_bricksfly_heartbeat_data', [ $this, 'heartbeat_data' ] );
 		add_action( 'wp_ajax_bricksfly_wishlist_option', [ $this, 'wishlist' ] );
-		add_action( 'wp_ajax_bricksfly_upload_manual_import_file', [ $this, 'template_installer' ] );
 		add_action( 'wp_ajax_bricksfly_template_dependency_status', [ $this, 'template_dependency_status' ] );
 		// NOTE: the 'bricksfly_get_latest_imported_pages' AJAX action is handled by
 	
@@ -106,11 +107,13 @@ class BRICKSFLY_Template_Importer {
 
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
-		// Check plugin statuses
+		// Check plugin statuses (read-only; nothing is installed or activated here).
 		if ( ! empty( $dependencies['plugins'] ) && is_array( $dependencies['plugins'] ) ) {
+			$installed = get_plugins();
+
 			foreach ( $dependencies['plugins'] as &$plugin ) {
-				$base_slug = $plugin['Base_Slug'] ?? '';
-				if ( $base_slug && file_exists( WP_PLUGIN_DIR . '/' . $base_slug ) ) {
+				$base_slug = isset( $plugin['Base_Slug'] ) ? plugin_basename( sanitize_text_field( (string) $plugin['Base_Slug'] ) ) : '';
+				if ( $base_slug && isset( $installed[ $base_slug ] ) ) {
 					if ( is_plugin_active( $base_slug ) ) {
 						$plugin['status'] = 'Active';
 					} else {
@@ -140,42 +143,69 @@ class BRICKSFLY_Template_Importer {
 	}
 
 	/**
-	 * Enforce a license limitation on an import AJAX request.
+	 * Per-user key for the server-side state of the running import.
 	 *
-	 * Sends a JSON error and halts (wp_send_json) when the feature is not
-	 * allowed for the active license. The response shape lets the client
-	 * distinguish a license block from a generic failure:
-	 *   { success:false, limited:true, feature:<key>, message:<string> }
+	 * @return string
+	 */
+	private static function state_key() {
+		return 'bricksfly_import_state_' . get_current_user_id();
+	}
+
+	/**
+	 * Content file the library released for the running import.
 	 *
-	 * Fail-open only if the free plugin's helper is somehow missing (should
-	 * never happen — it's loaded before the admin pages), to avoid hard-
-	 * breaking imports on a partial deploy.
+	 * Used by the content-import step (admin/st-init.php) so the file URL
+	 * always comes from the library, never from the browser.
 	 *
-	 * @param string $feature Feature key (e.g. 'starter_tpl_import').
+	 * @param int $template_id Library item id the caller is importing.
+	 * @return array|null { type, content_url, id } or null when unknown.
+	 */
+	public static function get_import_file( $template_id ) {
+		$state = get_transient( self::state_key() );
+
+		if ( ! is_array( $state ) || empty( $state['file']['content_url'] ) || absint( $template_id ) !== (int) $state['id'] ) {
+			return null;
+		}
+
+		return $state['file'];
+	}
+
+	/**
+	 * Read the fields the import step machine needs from the posted
+	 * template_data. Everything else about the template is read from the
+	 * library by id.
+	 *
+	 * @return array{id:int,next_step:string}
+	 */
+	public static function read_posted_step() {
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Callers verify the nonce first; the JSON is decoded and only `id` (absint) and `next_step` (sanitize_key) are read.
+		$raw  = isset( $_POST['template_data'] ) ? wp_unslash( $_POST['template_data'] ) : '';
+		$data = is_string( $raw ) ? json_decode( $raw, true ) : null;
+
+		return array(
+			'id'        => is_array( $data ) && isset( $data['id'] ) ? absint( $data['id'] ) : 0,
+			'next_step' => is_array( $data ) && isset( $data['next_step'] ) ? sanitize_key( (string) $data['next_step'] ) : '',
+		);
+	}
+
+	/**
+	 * Stop the import with a message.
+	 *
+	 * @param array  $template_data Current template data.
+	 * @param string $message       Message for the user.
 	 * @return void
 	 */
-	public static function guard_import_feature( $feature ) {
-		if ( ! function_exists( 'bricksfly_is_feature_allowed' ) ) {
-			return;
-		}
+	private function send_failure( $template_data, $message ) {
+		delete_transient( self::state_key() );
+		delete_option( 'bricksfly_template_import_progress' );
+		update_option( 'bricksfly_template_import_state', $message );
 
-		if ( bricksfly_is_feature_allowed( $feature ) ) {
-			return;
-		}
-
-		$message = function_exists( 'bricksfly_feature_denied_message' )
-			? bricksfly_feature_denied_message( $feature )
-			: __( 'This feature is not included in your current license plan.', 'bricksfly-elements-for-bricks' );
+		$template_data['next_step'] = 'fail';
 
 		wp_send_json( array(
-			'success'  => false,
-			'limited'  => true,
-			'feature'  => $feature,
-			'message'  => $message,
-			// Mirror the importer's own failure envelope so any client path
-			// that only checks `next_step`/`progress` still stops cleanly.
+			'template' => $template_data,
+			'msg'      => $message,
 			'progress' => 0,
-			'template' => array( 'next_step' => 'fail' ),
 		) );
 	}
 
@@ -186,150 +216,130 @@ class BRICKSFLY_Template_Importer {
 			wp_send_json_error( __( 'You are not allowed to do this action', 'bricksfly-elements-for-bricks' ) );
 		}
 
-		// License limitation gate. Page import (import_type=page) requires the
-		// `starter_page_import` flag; every other import type (full-demo /
-		// starter template) requires `starter_tpl_import`. Enforced here so a
-		// forged AJAX request can't bypass the React UI's lock. The gate returns
-		// `limited:true` + the feature key so the client can show the upsell
-		// popup instead of a generic failure.
-		$import_type = isset( $_POST['import_type'] ) ? sanitize_text_field( wp_unslash( $_POST['import_type'] ) ) : 'full-demo';
-		$feature     = ( 'page' === $import_type ) ? 'starter_page_import' : 'starter_tpl_import';
-		self::guard_import_feature( $feature );
-
-		$progress      = '25';
-		$msg           = '';
-		$template_data = [];
-		$user_plugins  = null;
+		$import_type  = isset( $_POST['import_type'] ) ? sanitize_key( wp_unslash( $_POST['import_type'] ) ) : 'full-demo';
+		$item_type    = ( 'page' === $import_type ) ? 'page' : 'template';
+		$posted       = self::read_posted_step();
+		$next_step    = $posted['next_step'];
+		$progress     = '25';
+		$msg          = '';
+		$user_plugins = array();
 
 		if ( isset( $_POST['user_plugins'] ) ) {
-			$user_plugins = sanitize_text_field( wp_unslash( $_POST['user_plugins'] ) );
-			$user_plugins = explode( ',', $user_plugins );
+			$user_plugins = array_filter( array_map( 'sanitize_key', explode( ',', sanitize_text_field( wp_unslash( $_POST['user_plugins'] ) ) ) ) );
 		}
 
-		if ( isset( $_POST['template_data'] ) ) {
-			$json_data     = sanitize_text_field( wp_unslash( $_POST['template_data'] ) );
-			$template_data = json_decode( $json_data, true );
+		// The template itself always comes from the library, by id.
+		$template_data = BRICKSFLY_Library_Client::get_template_item( $item_type, $posted['id'] );
 
-			if ( json_last_error() === JSON_ERROR_NONE ) {
-				array_walk_recursive( $template_data, function ( &$value ) {
-					if ( is_string( $value ) ) {
-						$value = sanitize_text_field( $value );
-					}
-				} );
-			}
-
-			$next_step = $template_data['next_step'] ?? '';
-
-			if ( $next_step === 'plugins-importer' ) {
-				$progress = '20';
-				require_once ABSPATH . 'wp-admin/includes/plugin.php';
-
-				if ( is_array( $user_plugins ) && $user_plugins ) {
-					if ( isset( $template_data['dependencies']['plugins'] ) && is_array( $template_data['dependencies']['plugins'] ) ) {
-						if ( current_user_can( 'activate_plugins' ) ) {
-							foreach ( $template_data['dependencies']['plugins'] as $item ) {
-								if ( file_exists( WP_PLUGIN_DIR . '/' . $item['Base_Slug'] ) ) {
-									// Only activate dependency plugins that are already
-									// installed. Automatic installation was removed; a
-									// required plugin that is not present must be
-									// installed manually by the administrator.
-									activate_plugin( $item['Base_Slug'], '', false, false );
-								} else {
-									if ( in_array( $item['slug'], $user_plugins ) ) {
-										update_option(
-											'bricksfly_template_import_state',
-											/* translators: %s: plugin name being installed. */
-											sprintf( __( 'Installing %s', 'bricksfly-elements-for-bricks' ), $item['name'] )
-										);
-										if ( isset( $item['host'] ) && isset( $item['slug'] ) ) {
-											$this->install_plugin_from_wp( $item['slug'] );
-										}
-									}
-								}
-							}
-						}
-						update_option( 'bricksfly_template_import_state', __( 'Plugin Installation Done', 'bricksfly-elements-for-bricks' ) );
-					}
-				}
-				$template_data['next_step'] = 'install-wp-options';
-
-			} elseif ( $next_step === 'check-template-status' ) {
-				$tpl = $this->validate_download_file( $template_data );
-				if ( $tpl ) {
-					update_option( 'bricksfly_template_import_state', __( 'Content file Downloading', 'bricksfly-elements-for-bricks' ) );
-					$template_data['next_step'] = 'download-xml-file';
-					$template_data['file']      = json_decode( $tpl );
-				} else {
-					update_option( 'bricksfly_template_import_state', __( 'Invalid file', 'bricksfly-elements-for-bricks' ) );
-					$template_data['next_step'] = 'fail';
-				}
-				$progress = '37';
-
-			} elseif ( $next_step === 'download-xml-file' ) {
-				if ( isset( $template_data['file']['content_url'] ) ) {
-					update_option( 'bricksfly_template_import_state', __( 'Content installing', 'bricksfly-elements-for-bricks' ) );
-					$template_data['next_step']  = 'install-template';
-					$template_data['local_path'] = $this->full_path;
-				} else {
-					$template_data['next_step'] = 'fail';
-					update_option( 'bricksfly_template_import_state', __( 'Missing Content file, contact author', 'bricksfly-elements-for-bricks' ) );
-				}
-				$progress = '40';
-
-			} elseif ( $next_step === 'install-template' ) {
-				$template_data['next_step'] = 'check-theme';
-				$progress                   = '50';
-				$msg                        = __( 'Verifying Content Import', 'bricksfly-elements-for-bricks' );
-				update_option( 'bricksfly_template_import_state', __( 'Checking Theme', 'bricksfly-elements-for-bricks' ) );
-
-			} elseif ( $next_step === 'check-theme' ) {				
-				$template_data['next_step'] = 'install-bricks-settings';			
-
-			} elseif ( $next_step === 'install-theme' ) {
-				$template_data['next_step'] = 'install-bricks-settings';
-				$progress                   = '75';
-				$msg                        = __( 'Verifying Content Import', 'bricksfly-elements-for-bricks' );
-				update_option( 'bricksfly_template_import_state', __( 'Verifying Content Import', 'bricksfly-elements-for-bricks' ) );
-
-			} elseif ( $next_step === 'install-bricks-settings' ) {
-				$template_data['next_step'] = 'done';
-				$progress                   = '100';						
-
-				$this->update_blog_and_homepage_options( $template_data );
-				do_action( 'bricksfly/starter-template/import/step/metasettings' );
-
-			} elseif ( $next_step === 'install-wp-options' ) {
-				$template_data['next_step'] = 'check-template-status';
-				$progress                   = '30';
-				$msg                        = __( 'Downloading Template', 'bricksfly-elements-for-bricks' );
-
-				if ( isset( $template_data['wp_options'] ) && is_array( $template_data['wp_options'] ) ) {
-					$this->install_options( $template_data['wp_options'] );
-				}
-
-				$import_type = isset( $_POST['import_type'] ) ? sanitize_text_field( wp_unslash( $_POST['import_type'] ) ) : 'full-demo';
-
-				if ( $import_type !== 'page' ) {
-					do_action( 'bricksfly/starter-template/import/step/wp_options' );
-				}
-
-				update_option( 'bricksfly_template_import_state', $msg );
-
-			} elseif ( $next_step === 'fail' ) {
-				$msg = __( 'Template Demo Import fail', 'bricksfly-elements-for-bricks' );
-
-			} else {
-				$template_data['next_step'] = 'plugins-importer';
-				$progress                   = '10';
-				update_option( 'bricksfly_template_import_state', __( 'Checking Setup requirement', 'bricksfly-elements-for-bricks' ) );
-			}
+		if ( is_wp_error( $template_data ) ) {
+			$this->send_failure( array( 'id' => $posted['id'] ), $template_data->get_error_message() );
 		}
 
-		wp_send_json( [
-			'template' => wp_unslash( $template_data ),
+		$template_data['next_step'] = $next_step;
+
+		if ( '' === $next_step ) {
+			// Ask the library for the content file before touching the site,
+			// so an item the library does not release stops here.
+			$file = BRICKSFLY_Library_Client::get_content_file( $template_data['id'] );
+
+			if ( is_wp_error( $file ) ) {
+				$this->send_failure( $template_data, $file->get_error_message() );
+			}
+
+			// Content progress of an earlier import must not show for this one.
+			delete_option( 'bricksfly_template_import_progress' );
+
+			set_transient(
+				self::state_key(),
+				array(
+					'id'   => (int) $template_data['id'],
+					'type' => $item_type,
+					'file' => $file,
+				),
+				DAY_IN_SECONDS
+			);
+
+			$template_data['next_step'] = 'plugins-importer';
+			$progress                   = '10';
+			update_option( 'bricksfly_template_import_state', __( 'Checking Setup requirement', 'bricksfly-elements-for-bricks' ) );
+
+		} elseif ( 'plugins-importer' === $next_step ) {
+			$progress = '20';
+
+			/**
+			 * Required plugins step.
+			 *
+			 * The free plugin does not install or activate plugins; the import
+			 * screen only shows each required plugin's status. An add-on may
+			 * handle the plugins the user selected here.
+			 *
+			 * @param array    $template_data Template read from the library (includes `dependencies`).
+			 * @param string[] $user_plugins  Plugin slugs the user selected in the import screen.
+			 * @param string   $item_type     'template' or 'page'.
+			 */
+			do_action( 'bricksfly/starter-template/import/step/plugins', $template_data, $user_plugins, $item_type );
+
+			$template_data['next_step'] = 'install-wp-options';
+
+		} elseif ( 'install-wp-options' === $next_step ) {
+			$template_data['next_step'] = 'check-template-status';
+			$progress                   = '30';
+			$msg                        = __( 'Downloading Template', 'bricksfly-elements-for-bricks' );
+
+			if ( isset( $template_data['wp_options'] ) && is_array( $template_data['wp_options'] ) ) {
+				$this->install_options( $template_data['wp_options'], $template_data, $item_type );
+			}
+
+			if ( 'page' !== $import_type ) {
+				do_action( 'bricksfly/starter-template/import/step/wp_options' );
+			}
+
+			update_option( 'bricksfly_template_import_state', $msg );
+
+		} elseif ( 'check-template-status' === $next_step ) {
+			$file = self::get_import_file( $template_data['id'] );
+
+			if ( ! $file ) {
+				$this->send_failure( $template_data, __( 'Missing Content file, contact author', 'bricksfly-elements-for-bricks' ) );
+			}
+
+			update_option( 'bricksfly_template_import_state', __( 'Content file Downloading', 'bricksfly-elements-for-bricks' ) );
+			$template_data['next_step'] = 'download-xml-file';
+			$template_data['file']      = $file;
+			$progress                   = '37';
+
+		} elseif ( 'install-template' === $next_step ) {
+			$template_data['next_step'] = 'check-theme';
+			$progress                   = '50';
+			$msg                        = __( 'Verifying Content Import', 'bricksfly-elements-for-bricks' );
+			update_option( 'bricksfly_template_import_state', __( 'Checking Theme', 'bricksfly-elements-for-bricks' ) );
+
+		} elseif ( 'check-theme' === $next_step || 'install-theme' === $next_step ) {
+			$template_data['next_step'] = 'install-bricks-settings';
+			$progress                   = '75';
+
+		} elseif ( 'install-bricks-settings' === $next_step ) {
+			$template_data['next_step'] = 'done';
+			$progress                   = '100';
+
+			$this->update_blog_and_homepage_options( $template_data );
+
+			if ( 'page' !== $item_type ) {
+				$this->enable_free_features();
+			}
+
+			do_action( 'bricksfly/starter-template/import/step/metasettings' );
+			delete_transient( self::state_key() );
+
+		} else {
+			$this->send_failure( $template_data, __( 'Template Demo Import fail', 'bricksfly-elements-for-bricks' ) );
+		}
+
+		wp_send_json( array(
+			'template' => $template_data,
 			'msg'      => $msg,
 			'progress' => $progress,
-		] );
+		) );
 	}
 
 	private function update_blog_and_homepage_options( $template_data ) {
@@ -364,13 +374,35 @@ class BRICKSFLY_Template_Importer {
 		}
 	}
 
-	private function install_options( $settings ) {
+	/**
+	 * Apply a template's options files.
+	 *
+	 * The free plugin only merges the template's Bricks design data (global
+	 * classes, variables, colour palette, theme styles) into the site, so the
+	 * imported pages render as designed. It only ever ADDS entries; the
+	 * site's own classes, variables and styles are never replaced. No other
+	 * option is written here.
+	 *
+	 * Every other option in the file is handed, unapplied, to the
+	 * `bricksfly/starter-template/import/options` action for an add-on.
+	 *
+	 * @param array  $settings      `wp_options` entries of the template (library data).
+	 * @param array  $template_data Template read from the library.
+	 * @param string $item_type     'template' or 'page'.
+	 * @return void
+	 */
+	private function install_options( $settings, $template_data, $item_type ) {
+		$addon_options      = array();
+		$custom_breakpoints = false;
+		$breakpoints_added  = false;
+
 		foreach ( $settings as $item ) {
 			if ( empty( $item['xml_file'] ) ) {
 				continue;
 			}
 
-			$response = wp_remote_get( $item['xml_file'], [ 'timeout' => 60 ] );
+			// Options files are only ever read from the template library.
+			$response = BRICKSFLY_Library_Client::get( (string) $item['xml_file'] );
 
 			if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
 				continue;
@@ -382,22 +414,15 @@ class BRICKSFLY_Template_Importer {
 			}
 
 			// Some option sources are Bricks export JSON files rather than WP
-			// options XML. The template entry flags these with an option_name like
-			// `page_global_class`, and the file is a Bricks export:
-			//   { "global_classes": [ { id, name, settings }, … ], "type":"bricks", … }
-			// In that case we don't have <name>/<value> nodes — instead we take the
-			// export's global_classes and MERGE them into `bricks_global_classes`
-			// (dedup by id, keep existing on conflict), the same merge used for the
-			// XML path. Detect by the declared option_name OR by the JSON shape.
+			// options XML (flagged `page_global_class`, or JSON-shaped). Their
+			// global_classes are merged into `bricks_global_classes`.
 			$declared_option = isset( $item['option_name'] ) ? sanitize_key( (string) $item['option_name'] ) : '';
 			if ( $this->maybe_install_global_class_settings_json( $declared_option, $body ) ) {
 				continue;
 			}
 
-			$xml_data = $body;
-
 			$prev_errors = libxml_use_internal_errors( true );
-			$xml         = simplexml_load_string( $xml_data, 'SimpleXMLElement', LIBXML_NOCDATA );
+			$xml         = simplexml_load_string( $body, 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NONET );
 			libxml_clear_errors();
 			libxml_use_internal_errors( $prev_errors );
 
@@ -416,68 +441,128 @@ class BRICKSFLY_Template_Importer {
 
 				$option_name = $this->map_legacy_option_name( $option_name );
 
-				// Use the raw XML text as-is. sanitize_text_field() strips newlines/tabs and
-				// breaks the byte-length prefixes in PHP-serialized data (e.g. s:15:"…"),
-				// which silently corrupts ACF repeater rows on unserialize.
+				// Raw XML text: sanitize_text_field() would break the byte-length
+				// prefixes of serialized data.
 				$raw_value = (string) $opt->value;
-				$value     = maybe_unserialize( $raw_value );
 
-				// For Bricks global data (classes, variables, color palettes, theme
-				// styles, global settings), merge with existing values instead of
-				// replacing. Existing pages reference these by ID — a plain
-				// update_option() would wipe out the user's classes/variables and
-				// break every page that referenced them.
-				if ( $this->is_bricks_mergeable_option( $option_name ) ) {
-					$existing = get_option( $option_name );
-					$value    = $this->merge_bricks_option( $option_name, $existing, $value );
+				// The template's responsive CSS targets its breakpoints, which
+				// Bricks only uses while "customBreakpoints" is on. Only that one
+				// flag is read from the global settings here.
+				if ( 'bricks_global_settings' === $option_name ) {
+					$global = self::decode_option_value( $raw_value );
+					if ( is_array( $global ) && ! empty( $global['customBreakpoints'] ) ) {
+						$custom_breakpoints = true;
+					}
 				}
 
-				// Never store a non-array in a Bricks global that Bricks iterates.
-				// An empty <value> node in the export unserializes to '' (a string),
-				// and writing that leaves the option EXISTING but scalar — which
-				// defeats Bricks' own `get_option( NAME, [] )` default, since the
-				// default only applies when the option is absent. Bricks then
-				// foreach()es a string and warns on every page load, e.g.
-				// theme-styles.php `foreach ( $styles ... )` and assets.php
-				// format_variables_as_css(). Skipping the write leaves the option
-				// untouched, which is what an empty value meant in the first place.
-				if ( $this->is_bricks_array_option( $option_name ) && ! is_array( $value ) ) {
+				if ( 'bricks_font_face_rules' === $option_name ) {
+					// Custom font CSS: added only when the site has none of its own.
+					$css = self::decode_option_value( $raw_value );
+					if ( is_string( $css ) && '' !== trim( $css ) && ! get_option( $option_name ) ) {
+						update_option( $option_name, wp_strip_all_tags( $css ) );
+					}
 					continue;
 				}
 
-				// An import may switch our own Extensions/Elements ON, never OFF.
-				// These options are `slug => bool` toggle maps, and a demo export
-				// carries whatever the site it was built on happened to have. A
-				// straight replace therefore silently disabled things the user had
-				// enabled — and a payload can even contradict itself, e.g. shipping
-				// `bricksfly_smooth_scroller` with a breakpoint enabled while its
-				// `bricksfly_save_extensions` disables `aab-smooth-scroller`, so the
-				// demo's own smooth scroll could never run. Union of "on" keeps the
-				// demo working without touching the user's choices.
-				if ( $this->is_bricksfly_toggle_option( $option_name ) ) {
-					$value = $this->merge_toggle_option( get_option( $option_name ), $value );
+				if ( ! $this->is_design_option( $option_name ) ) {
+					$addon_options[] = array(
+						'name'  => $option_name,
+						'value' => $raw_value,
+					);
+					continue;
 				}
 
-				// bricksfly_smooth_scroller must always be stored as the JSON string
-				// shape save_smooth_scroller_settings() produces (dashboard.php) —
-				// json_decode(get_option(...)) at render time expects a string, not
-				// the PHP array maybe_unserialize() just gave us above.
-				//
-				// Exports write this option as JSON text, which maybe_unserialize()
-				// hands back unchanged as a string. Encoding that again would store
-				// a quoted, escaped copy of the JSON ("{\"desktop\":…}"), and
-				// json_decode() would then return a string instead of the
-				// per-breakpoint map — so only encode what isn't already JSON.
-				if ( 'bricksfly_smooth_scroller' === $option_name && ! $this->is_json_object_string( $value ) ) {
-					$value = wp_json_encode( $value );
+				$value = self::decode_option_value( $raw_value );
+
+				// Design data is always an array; anything else is skipped.
+				if ( ! is_array( $value ) ) {
+					continue;
 				}
 
-				// update_option() re-serializes arrays/objects and inserts the row if
-				// missing — required for fresh imports where ACF repeater sub-rows
-				// (name_0_subfield, _name_0_subfield, …) do not yet exist.
-				update_option( $option_name, $value );
+				$existing = get_option( $option_name );
+				$merged   = $this->merge_bricks_option( $option_name, $existing, $value );
+
+				if ( $merged !== $existing ) {
+					update_option( $option_name, $merged );
+
+					if ( 'bricks_breakpoints' === $option_name ) {
+						$breakpoints_added = true;
+					}
+				}
 			}
 		}
+
+		if ( $breakpoints_added && $custom_breakpoints ) {
+			$global = get_option( 'bricks_global_settings', array() );
+			$global = is_array( $global ) ? $global : array();
+
+			if ( empty( $global['customBreakpoints'] ) ) {
+				$global['customBreakpoints'] = true;
+				update_option( 'bricks_global_settings', $global );
+			}
+
+			// Bricks regenerates its breakpoint CSS files when this no longer
+			// matches the installed version.
+			delete_option( 'bricks_breakpoints_last_generated' );
+		}
+
+		/**
+		 * The template's other options (not Bricks design data), for an add-on.
+		 *
+		 * The free plugin does not write these. Values are the raw strings from
+		 * the options file; an add-on must decide what it allows and decode
+		 * them safely.
+		 *
+		 * @param array<int,array{name:string,value:string}> $addon_options Options from the file.
+		 * @param array                                      $template_data Template read from the library.
+		 * @param string                                     $item_type     'template' or 'page'.
+		 */
+		do_action( 'bricksfly/starter-template/import/options', $addon_options, $template_data, $item_type );
+	}
+
+	/**
+	 * Decode an option value from an options file without ever creating
+	 * PHP objects.
+	 *
+	 * @param string $raw Raw value text.
+	 * @return mixed Decoded value, the raw string when not serialized, or null when invalid.
+	 */
+	public static function decode_option_value( $raw ) {
+		if ( ! is_serialized( $raw ) ) {
+			return $raw;
+		}
+
+		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_unserialize -- allowed_classes=false: arrays and scalars only, no objects.
+		$value = @unserialize( trim( $raw ), array( 'allowed_classes' => false ) );
+
+		if ( false === $value && 'b:0;' !== trim( $raw ) ) {
+			return null;
+		}
+
+		// Objects (even incomplete ones) are never accepted.
+		return self::contains_object( $value ) ? null : $value;
+	}
+
+	/**
+	 * Whether a decoded value is or contains an object.
+	 *
+	 * @param mixed $value Decoded value.
+	 * @return bool
+	 */
+	private static function contains_object( $value ) {
+		if ( is_object( $value ) ) {
+			return true;
+		}
+
+		if ( is_array( $value ) ) {
+			foreach ( $value as $item ) {
+				if ( self::contains_object( $item ) ) {
+					return true;
+				}
+			}
+		}
+
+		return false;
 	}
 
 	/**
@@ -488,23 +573,15 @@ class BRICKSFLY_Template_Importer {
 	 * The remote file looks like a standard Bricks export:
 	 *   { "global_classes": [ { id, name, settings }, … ], "type": "bricks", … }
 	 *
-	 * We extract `global_classes` and union it into `bricks_global_classes` with
-	 * the same id-keyed merge used for the XML option path (existing entries win
-	 * on conflict, new classes are appended) so pages that reference these class
-	 * ids resolve their CSS, without clobbering the user's own classes.
-	 *
 	 * @param string $declared_option The option_name declared in the template item.
 	 * @param string $body            The downloaded file body.
 	 * @return bool   True if the body was handled as global-settings JSON (caller
 	 *                should skip the XML path); false to fall through to XML.
 	 */
 	private function maybe_install_global_class_settings_json( $declared_option, $body ) {
-		// Only treat this as JSON global-settings when the template flags it, OR
-		// when the body is clearly a Bricks export carrying global_classes. This
-		// keeps every existing XML options file on the untouched XML path.
 		$is_flagged = ( 'page_global_class' === $declared_option );
 
-		$trimmed = ltrim( $body );
+		$trimmed    = ltrim( $body );
 		$looks_json = ( '' !== $trimmed && ( '{' === $trimmed[0] || '[' === $trimmed[0] ) );
 
 		if ( ! $is_flagged && ! $looks_json ) {
@@ -525,69 +602,41 @@ class BRICKSFLY_Template_Importer {
 			$incoming_classes = $data['globalClasses'];
 		}
 
-		// If it's JSON but has no global classes, there's nothing to merge — but
-		// it's still not an XML options file, so consider it handled (skip XML).
+		// JSON without global classes: nothing to merge, but not XML either.
 		if ( empty( $incoming_classes ) ) {
-			return $is_flagged || $looks_json;
+			return true;
 		}
 
-		$existing = get_option( 'bricks_global_classes' );
-		$merged   = $this->merge_bricks_option( 'bricks_global_classes', $existing, $incoming_classes );
+		$merged = $this->merge_bricks_option( 'bricks_global_classes', get_option( 'bricks_global_classes' ), $incoming_classes );
+		update_option( 'bricks_global_classes', $merged );
 		do_action( 'bricksfly/starter-template/import/step/global_classes', $merged );
 
 		return true;
 	}
 
 	/**
-	 * True if the option holds Bricks Builder global data that should be
-	 * merged (not replaced) on template import, so existing pages keep
-	 * resolving the classes / variables / colors / theme styles they
-	 * reference by ID.
+	 * Bricks design data the free importer merges into the site: global
+	 * classes, variables, colours, theme styles, style manager and
+	 * breakpoints (the imported pages' CSS depends on all of them).
+	 *
+	 * A fixed list. Besides these, only the custom font CSS (when the site has
+	 * none) and the `customBreakpoints` flag are written by the free plugin.
 	 *
 	 * @param string $option_name The option name.
 	 * @return bool
 	 */
-	private function is_bricks_mergeable_option( $option_name ) {
-		$mergeable = array(
-			'bricks_global_classes',
-			'bricks_global_variables',
-			'bricks_color_palette',
-			'bricks_theme_styles',
-			'bricks_global_settings',
-			'bricks_global_pseudo_classes',
-		);
-
-		/**
-		 * Filter the list of Bricks options that should be merged on import.
-		 * Useful if a future Bricks version adds another global option or a
-		 * site uses a custom one with the same merge semantics.
-		 */
-		$mergeable = apply_filters('bricksfly_bricks_mergeable_options', $mergeable );
-
-		return in_array( $option_name, $mergeable, true );
-	}
-
-	/**
-	 * Bricks globals that must always hold an array.
-	 *
-	 * Every mergeable option, plus the array-shaped globals we don't merge.
-	 * Deliberately an allowlist rather than a `bricks_` prefix test: Bricks also
-	 * stores plain scalars under that prefix (`bricks_license_key`,
-	 * `bricks_breakpoints_last_generated`), and those are legitimately strings.
-	 *
-	 * @param string $option_name
-	 * @return bool
-	 */
-	private function is_bricks_array_option( $option_name ) {
-		if ( $this->is_bricks_mergeable_option( $option_name ) ) {
-			return true;
-		}
-
+	private function is_design_option( $option_name ) {
 		return in_array(
 			$option_name,
 			array(
+				'bricks_global_classes',
+				'bricks_global_pseudo_classes',
+				'bricks_global_variables',
 				'bricks_global_variables_categories',
+				'bricks_color_palette',
+				'bricks_theme_styles',
 				'bricks_style_manager',
+				'bricks_breakpoints',
 			),
 			true
 		);
@@ -595,23 +644,11 @@ class BRICKSFLY_Template_Importer {
 
 	/**
 	 * Translate a pre-rebrand option name in an export to the name this plugin
-	 * actually reads today.
-	 *
-	 * Published templates were exported before the `thebrbre_*` → `bricksfly_*`
-	 * rename, so their options file still ships `thebrbre_save_extensions`,
-	 * `thebrbre_save_widgets` and `thebrbre_smooth_scroller`. Written verbatim
-	 * those rows land next to — not into — the options the plugin reads, and
-	 * `bricksfly_migrate_thebrbre_settings()` cannot rescue them: it only fills
-	 * a `bricksfly_*` option that is ABSENT, and activation seeds all of them.
-	 * The net effect is that a demo's Extensions, Elements and Scroll Smoother
-	 * settings are silently dropped on import.
-	 *
-	 * Deliberately only these three. The other `thebrbre_*` options in an export
-	 * (cursor, preloader, scroll indicator, scroll to top) are still the live
-	 * names Pro reads — renaming those would break them.
+	 * reads today (`thebrbre_*` → `bricksfly_*`), so add-ons receive the
+	 * current names.
 	 *
 	 * @param string $option_name Option name as it appears in the export.
-	 * @return string Name to write.
+	 * @return string Current name.
 	 */
 	private function map_legacy_option_name( $option_name ) {
 		$renamed = array(
@@ -620,82 +657,72 @@ class BRICKSFLY_Template_Importer {
 			'thebrbre_smooth_scroller' => 'bricksfly_smooth_scroller',
 		);
 
-		/**
-		 * Filter the pre-rebrand option names an import remaps.
-		 *
-		 * @param array<string,string> $renamed old name => current name.
-		 */
-		$renamed = apply_filters( 'bricksfly_import_legacy_option_map', $renamed );
-
 		return isset( $renamed[ $option_name ] ) ? $renamed[ $option_name ] : $option_name;
 	}
 
 	/**
-	 * Whether a value is already a JSON-encoded object/array, rather than a
-	 * value still waiting to be encoded.
+	 * Switch on every free widget and extension after a starter template
+	 * import, when the user left "Enable all Widgets / Extensions" ticked.
 	 *
-	 * @param mixed $value
-	 * @return bool
+	 * Only BricksFly's own toggles, only free items, and only ever ON: a
+	 * widget or extension the user already enabled or disabled elsewhere
+	 * keeps every other setting.
+	 *
+	 * @return void
 	 */
-	private function is_json_object_string( $value ) {
-		if ( ! is_string( $value ) || '' === $value ) {
-			return false;
+	private function enable_free_features() {
+		// phpcs:disable WordPress.Security.NonceVerification.Missing -- Called from template_installer() after check_ajax_referer().
+		$widgets    = ! isset( $_POST['enable_widgets'] ) || filter_var( wp_unslash( $_POST['enable_widgets'] ), FILTER_VALIDATE_BOOLEAN );
+		$extensions = ! isset( $_POST['enable_extensions'] ) || filter_var( wp_unslash( $_POST['enable_extensions'] ), FILTER_VALIDATE_BOOLEAN );
+		// phpcs:enable
+
+		$config = isset( $GLOBALS['bricksfly_config'] ) && is_array( $GLOBALS['bricksfly_config'] ) ? $GLOBALS['bricksfly_config'] : array();
+
+		if ( $widgets && ! empty( $config['widgets'] ) ) {
+			$this->enable_free_slugs( $config['widgets'], 'bricksfly_save_widgets' );
 		}
 
-		$decoded = json_decode( $value, true );
-
-		return is_array( $decoded );
+		if ( $extensions && ! empty( $config['extensions'] ) ) {
+			$this->enable_free_slugs( $config['extensions'], 'bricksfly_save_extensions' );
+		}
 	}
 
 	/**
-	 * Our own `slug => bool` Extension/Element toggle maps.
+	 * Set every free, released slug of a config section to ON in its option.
 	 *
-	 * @param string $option_name
-	 * @return bool
+	 * @param array  $section     Config section, e.g. `['elements' => [...]]`.
+	 * @param string $option_name Toggle option (slug => bool).
+	 * @return void
 	 */
-	private function is_bricksfly_toggle_option( $option_name ) {
-		$toggles = array(
-			'bricksfly_save_extensions',
-			'bricksfly_save_widgets',
-		);
+	private function enable_free_slugs( $section, $option_name ) {
+		$slugs = array();
 
-		/**
-		 * Filter the toggle maps an import is allowed to switch on but not off.
-		 *
-		 * @param string[] $toggles
-		 */
-		$toggles = apply_filters( 'bricksfly_import_toggle_options', $toggles );
+		$walk = function ( $elements ) use ( &$walk, &$slugs ) {
+			foreach ( (array) $elements as $slug => $node ) {
+				if ( ! is_array( $node ) ) {
+					continue;
+				}
 
-		return in_array( $option_name, $toggles, true );
-	}
+				if ( empty( $node['is_upcoming'] ) && empty( $node['is_pro'] ) ) {
+					$slugs[ $slug ] = true;
+				}
 
-	/**
-	 * Union of "on" across the site's toggles and the import's.
-	 *
-	 * A slug enabled on either side ends up enabled; slugs the import doesn't
-	 * mention keep their current state. So an import can only ever add, which is
-	 * what makes re-importing a demo safe to do on a site already in use.
-	 *
-	 * @param mixed $existing Current option value.
-	 * @param mixed $incoming Value from the import.
-	 * @return array
-	 */
-	private function merge_toggle_option( $existing, $incoming ) {
-		if ( ! is_array( $incoming ) ) {
-			return is_array( $existing ) ? $existing : array();
+				if ( isset( $node['elements'] ) && is_array( $node['elements'] ) ) {
+					$walk( $node['elements'] );
+				}
+			}
+		};
+
+		$walk( isset( $section['elements'] ) ? $section['elements'] : array() );
+
+		if ( empty( $slugs ) ) {
+			return;
 		}
 
-		if ( ! is_array( $existing ) ) {
-			return $incoming;
-		}
+		$existing = get_option( $option_name, array() );
+		$existing = is_array( $existing ) ? $existing : array();
 
-		$merged = array();
-
-		foreach ( array_keys( $existing + $incoming ) as $slug ) {
-			$merged[ $slug ] = ! empty( $existing[ $slug ] ) || ! empty( $incoming[ $slug ] );
-		}
-
-		return $merged;
+		update_option( $option_name, array_merge( $existing, $slugs ) );
 	}
 
 	/**
@@ -733,64 +760,25 @@ class BRICKSFLY_Template_Importer {
 
 		// Associative settings maps — preserve user values, add missing keys
 		// from the import.
-		if ( in_array( $option_name, array( 'bricks_global_settings', 'bricks_theme_styles' ), true ) ) {
+		if ( in_array( $option_name, array( 'bricks_theme_styles', 'bricks_style_manager' ), true ) ) {
 			return array_replace_recursive( $incoming, $existing );
 		}
 
-		// Lists keyed by `id` — union by id, keep existing on conflict.
-		$by_id = array();
+		// Lists keyed by `id` (breakpoints by `key`) — union, keep existing on conflict.
+		$id_key = 'bricks_breakpoints' === $option_name ? 'key' : 'id';
+		$by_id  = array();
 		foreach ( $existing as $item ) {
-			if ( is_array( $item ) && isset( $item['id'] ) ) {
-				$by_id[ $item['id'] ] = $item;
+			if ( is_array( $item ) && isset( $item[ $id_key ] ) ) {
+				$by_id[ $item[ $id_key ] ] = $item;
 			}
 		}
 		foreach ( $incoming as $item ) {
-			if ( is_array( $item ) && isset( $item['id'] ) && ! isset( $by_id[ $item['id'] ] ) ) {
-				$by_id[ $item['id'] ] = $item;
+			if ( is_array( $item ) && isset( $item[ $id_key ] ) && ! isset( $by_id[ $item[ $id_key ] ] ) ) {
+				$by_id[ $item[ $id_key ] ] = $item;
 			}
 		}
 
 		return array_values( $by_id );
-	}
-
-
-	private function validate_download_file( $template ) {
-		if ( empty( $template ) ) {
-			update_option( 'bricksfly_template_import_state', __( 'Template Required', 'bricksfly-elements-for-bricks' ) );
-			return false;
-		}
-
-		$remote_url = BRICKSFLY_TEMPLATE_STARTER_BASE_URL . 'wp-json/brk-starter-templates/download';
-
-		if ( ! empty( $template['base_path'] ) ) {
-			$remote_url = $template['base_path'] . 'wp-json/brk-starter-templates/download';
-		}
-
-		$args = [
-			'timeout'   => 90,
-			'body'      => [ 'template' => $template ],
-			'sslverify' => true,
-		];
-
-		$response = wp_remote_get( $remote_url, $args );
-
-		if ( is_wp_error( $response ) ) {
-			update_option( 'bricksfly_template_import_state', __( 'Failed to validate file from remote URL.', 'bricksfly-elements-for-bricks' ) );
-			return false;
-		}
-
-		if ( 200 !== wp_remote_retrieve_response_code( $response ) ) {
-			update_option( 'bricksfly_template_import_state', __( 'Invalid file arguments.', 'bricksfly-elements-for-bricks' ) );
-			return false;
-		}
-
-		$body = wp_remote_retrieve_body( $response );
-		if ( empty( $body ) ) {
-			update_option( 'bricksfly_template_import_state', __( 'The downloadable file is empty.', 'bricksfly-elements-for-bricks' ) );
-			return false;
-		}
-
-		return $body;
 	}
 
 }

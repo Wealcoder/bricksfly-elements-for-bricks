@@ -1,11 +1,10 @@
 ﻿import { formatNumber } from "@//lib/utils";
-import ProConfirmDialog from "@/components/shared/ProConfirmDialog";
 import { Badge } from "@/components/ui/badge";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Toggle } from "@/components/ui/toggle";
-import { useActivate, useTNavigation } from "../../hooks/app.hooks";
+import { useTNavigation } from "../../hooks/app.hooks";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import ProCardButton from "@/components/template/ProCardButton";
 import {
   TooltipProvider,
   Tooltip,
@@ -13,34 +12,18 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-// This page imports whole PAGES, so it is gated by the license plan's
-// `starter_page_import` feature flag (also enforced server-side in
-// admin/pages/template-importer.php + admin/st-init.php). A missing/false
-// flag means the tier doesn't include page import.
-const PAGE_IMPORT_FEATURE = "starter_page_import";
+// Items the template library marks `is_pro` show a "Pro" badge and a link to
+// BricksFly Pro. The separate BricksFly Pro plugin sets `pro_library` so its
+// users get the Import button instead; the library itself decides whether it
+// releases an item.
+const isProItem = (item) =>
+  item?.is_pro === true || item?.is_pro === 1 || String(item?.is_pro) === "1";
 
 const TemplateShow = ({ allTemplate, metaData, setMetaData }) => {
-  const [open, setOpen] = useState(false);
-
   const { setTabKey } = useTNavigation();
-  const { activated } = useActivate();
-
-  const isLicensed = activated?.product_status?.item_id === 39996;
-  const pageImportAllowed =
-    isLicensed &&
-    !!activated?.product_status?.limitations?.[PAGE_IMPORT_FEATURE];
+  const proLibrary = !!BRICKSFLY_ADDONS_ADMIN?.pro_library;
 
   const changeRoute = (value, slug, id, is_pro) => {
-    // Gate BEFORE navigating to the import flow. Page import always needs the
-    // `starter_page_import` entitlement â€” even for "free" templates, since the
-    // page import machinery itself is the licensed feature. When it isn't
-    // allowed, show the upsell popup instead of starting an import the server
-    // would reject anyway.
-    if (!pageImportAllowed) {
-      setOpen(value || true);
-      return;
-    }
-
     const url = new URL(window.location.href);
     const pageQuery = url.searchParams.get("page");
 
@@ -106,6 +89,16 @@ const TemplateShow = ({ allTemplate, metaData, setMetaData }) => {
                 }}
               >
                 <div className="w-full h-full group-hover:bg-[#000000]/70 relative">
+                  <span
+                    className={cn(
+                      "absolute top-3 left-3 z-10 px-2 h-5 inline-flex items-center rounded-full text-[11px] font-semibold",
+                      isProItem(template)
+                        ? "bg-[#FFD53E] text-[#18181A]"
+                        : "bg-[#07B22B] text-white"
+                    )}
+                  >
+                    {isProItem(template) ? "Pro" : "Free"}
+                  </span>
                   <div className="w-full h-full hidden group-hover:flex flex-col justify-center items-center gap-4">
                     <a
                       href={template?.demo_link}
@@ -134,6 +127,7 @@ const TemplateShow = ({ allTemplate, metaData, setMetaData }) => {
                       </svg>{" "}
                       Preview
                     </a>
+                    {!isProItem(template) || proLibrary ? (
                     <Button
                       className="h-7 w-[120px] bg-[#FFD53E] hover:bg-[#E8C238] border-2 border-[#FFD53E] hover:border-[#E8C238] text-[#525866] rounded-full text-xs font-medium capitalize gap-1 transition-all duration-300 ease-out hover:scale-105 [&_svg_path]:transition-colors"
                       onClick={() =>
@@ -165,6 +159,9 @@ const TemplateShow = ({ allTemplate, metaData, setMetaData }) => {
                       </svg>{" "}
                       Import
                     </Button>
+                    ) : (
+                      <ProCardButton className="h-7 w-[120px] bg-[#FFD53E] hover:bg-[#E8C238] border-2 border-[#FFD53E] hover:border-[#E8C238] text-[#525866] rounded-full text-xs font-medium gap-1 transition-all duration-300 ease-out hover:scale-105" />
+                    )}
                     <Toggle
                       aria-label="Wishlist"
                       pressed={metaData?.wishlist?.includes(
@@ -274,11 +271,6 @@ const TemplateShow = ({ allTemplate, metaData, setMetaData }) => {
           <p className="text-lg font-semibold">No Item Found</p>
         </div>
       )}
-      <ProConfirmDialog
-        open={open}
-        setOpen={setOpen}
-        reason={isLicensed ? "limitation" : "license"}
-      />
     </>
   );
 };

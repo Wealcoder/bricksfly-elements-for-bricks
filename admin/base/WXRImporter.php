@@ -224,12 +224,14 @@ class WXRImporter extends \WP_Importer {
 		if ( is_wp_error( $result ) ) {
 			return $result;
 		}
-		$data       = (array) $this->get_preliminary_information( $file );
+		$info       = $this->get_preliminary_information( $file );
 		$total_init = 0;
 		$temp_title = '';
-		if ( ! is_wp_error( $data ) ) {
-			$total_init = $data['post_count'] + $data['media_count'] + $data['comment_count'] + $data['term_count'];
-			$temp_title = isset( $data['title'] ) ? $data['title'] : '';
+		if ( ! is_wp_error( $info ) ) {
+			// Everything the loop below counts: authors, items (posts and
+			// media) and terms. Comments are imported with their post.
+			$total_init = count( $info->users ) + $info->post_count + $info->media_count + $info->term_count;
+			$temp_title = (string) $info->title;
 		}
 
 		$reader = $this->get_reader( $file );

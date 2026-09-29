@@ -79,23 +79,6 @@ if (! defined('BRICKSFLY_TEMPLATE_STARTER_BASE_URL')) {
 }
 
 /**
- * Shared EDD Software Licensing identifiers.
- *
- * The license activation/deactivation handlers live in the Pro plugin
- * (includes/license/update.php), but the free dashboard reads these
- * constants when localizing the React UI. Defining them here keeps the
- * dashboard renderable when Pro is inactive. Pro's own files re-define
- * the same names with `! defined()` guards, so this is safe.
- */
-
-if (! defined('BRICKSFLY_PRO_ITEM_ID')) {
-	define('BRICKSFLY_PRO_ITEM_ID', 39996);
-}
-if (! defined('BRICKSFLY_PRO_ITEM_NAME')) {
-	define('BRICKSFLY_PRO_ITEM_NAME', 'TheBricksFly');
-}
-
-/**
  * The code that runs during plugin activation
  * This action is documented in includes/class-bricks-animation-addons-activator.php
  */

@@ -1,3 +1,27 @@
+# ── Line endings ──────────────────────────────────────────────────────────
+# Without this, what lands in a working copy depends on each contributor's
+# core.autocrlf setting: the same file arrives LF on one machine and CRLF on
+# another, and Git warns that it is about to convert it. `text=auto` makes the
+# repository authoritative — every text file is stored with LF and checked out
+# in the platform's native ending — so the warning has nothing left to warn
+# about and no diff is ever just a line-ending change.
+* text=auto
+
+# Binary files Git must never convert, whatever content detection decides.
+*.png    binary
+*.jpg    binary
+*.jpeg   binary
+*.gif    binary
+*.webp   binary
+*.ico    binary
+*.zip    binary
+*.woff   binary
+*.woff2  binary
+*.ttf    binary
+*.otf    binary
+*.eot    binary
+*.mo     binary
+
 # Files and directories excluded from the wp.org / GitHub release zip.
 # `git archive` will skip anything marked `export-ignore`.
 

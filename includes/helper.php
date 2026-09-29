@@ -440,80 +440,56 @@ if (! function_exists('bricksfly_is_pro_installed')) {
 }
 
 
-if (! function_exists('bricksfly_is_license_valid')) {
+if (! function_exists('bricksfly_pro_action')) {
 
   /**
-   * Whether the license is active AND the Pro plugin folder exists on disk.
+   * What the "Pro" button on a Pro template / page / section card does,
+   * depending on whether the separate BricksFly Pro plugin is here:
    *
-   * The stored license option is unreliable on its own: if the user removes
-   * the Pro plugin folder manually, `bricksfly_license_status` stays
-   * 'valid' until the next remote check. We require both to be true before
-   * unlocking Pro-gated UI / features.
+   *  - not installed        → link to the BricksFly Pro page (new tab);
+   *  - installed, inactive  → activate the plugin (`type` = activate);
+   *  - active               → the call-to-action BricksFly Pro supplies via
+   *                           `bricksfly_pro_cta` (e.g. its settings screen).
    *
-   * @return bool
+   * @return array{state:string,type:string,label:string,url:string,new_tab:bool}
    */
-  function bricksfly_is_license_valid()
+  function bricksfly_pro_action()
   {
-    return bricksfly_is_pro_installed()
-      && ('valid' === get_option('bricksfly_license_status'));
-  }
-}
+    if (bricksfly_is_pro_active()) {
+      $cta = apply_filters(
+        'bricksfly_pro_cta',
+        array(
+          'label' => __('Open BricksFly Pro', 'bricksfly-elements-for-bricks'),
+          'url'   => admin_url('admin.php?page=bricksfly_addons_page'),
+        )
+      );
 
-if (! function_exists('bricksfly_get_license_limitations')) {
-
-  /**
-   * Return the per-feature limitation flags for the active license.
-   *
-   * The flags are written by the Pro plugin's license activate/check flow
-   * (see bricksfly-elements-for-bricks-pro/includes/license/update.php) into the
-   * `bricksfly_license_limitations` option, as a map of feature => bool.
-   *
-   * Known feature keys (tier-dependent — any may be absent):
-   *   - starter_tpl_import  Template (starter / full-demo) import
-   *   - section_import      Section import in the Bricks builder
-   *   - starter_page_import Page import (Page Importer)
-   *   - live_copy           Live copy
-   *   - widget              Widgets
-   *   - animation           Animations
-   *
-   * Returns an empty array when there is no valid license, so every feature
-   * resolves to "not allowed" via bricksfly_is_feature_allowed().
-   *
-   * @return array<string,bool>
-   */
-  function bricksfly_get_license_limitations()
-  {
-    if (! bricksfly_is_license_valid()) {
-      return array();
+      return array(
+        'state'   => 'active',
+        'type'    => 'link',
+        'label'   => isset($cta['label']) ? (string) $cta['label'] : '',
+        'url'     => isset($cta['url']) ? esc_url_raw((string) $cta['url']) : '',
+        'new_tab' => false,
+      );
     }
 
-    $limitations = get_option('bricksfly_license_limitations', array());
+    if (bricksfly_is_pro_installed()) {
+      return array(
+        'state'   => 'inactive',
+        'type'    => 'activate',
+        'label'   => __('Activate Pro', 'bricksfly-elements-for-bricks'),
+        'url'     => admin_url('plugins.php?plugin_status=inactive'),
+        'new_tab' => false,
+      );
+    }
 
-    return is_array($limitations) ? $limitations : array();
-  }
-}
-
-if (! function_exists('bricksfly_is_feature_allowed')) {
-
-  /**
-   * Whether a license-gated feature is available on this site.
-   *
-   * A feature is allowed only when BOTH:
-   *   1. the license is valid (Pro installed + status "valid"), AND
-   *   2. the license's limitations map flags the feature as `true`.
-   *
-   * A missing flag counts as not allowed (fail-closed), so a license tier
-   * that doesn't include a feature — or a forged request that never went
-   * through activation — cannot unlock it.
-   *
-   * @param string $feature Feature key, e.g. 'starter_tpl_import'.
-   * @return bool
-   */
-  function bricksfly_is_feature_allowed($feature)
-  {
-    $limitations = bricksfly_get_license_limitations();
-
-    return ! empty($limitations[$feature]);
+    return array(
+      'state'   => 'missing',
+      'type'    => 'link',
+      'label'   => __('Get Pro', 'bricksfly-elements-for-bricks'),
+      'url'     => 'https://bricksfly.com/pricing/',
+      'new_tab' => true,
+    );
   }
 }
 
@@ -522,7 +498,7 @@ if (! function_exists('bricksfly_get_element_bricks_name')) {
   /**
    * Resolve a widget's real Bricks element `$name` from its element file's
    * declared property, without ever `require`ing the file — so an element
-   * that's toggled off, or Pro-only without a valid license, never has its
+   * that's toggled off, or Pro-only while BricksFly Pro isn't active, never has its
    * real code loaded just to resolve its name for a placeholder.
    *
    * The config slug (e.g. `button-pro`, same as the element's filename in
@@ -562,7 +538,7 @@ if (! function_exists('bricksfly_register_widget_placeholder')) {
    * Bricks `$name`, so `class_exists()` succeeds in Bricks core's
    * `Frontend::render_element()` and its raw "PHP class does not exist"
    * fallback never fires. Used for widgets that are configured but not
-   * currently loaded (toggled off, or Pro/license unavailable) — the
+   * currently loaded (toggled off, or BricksFly Pro unavailable) — the
    * placeholder carries no real widget behavior, only a short admin-facing
    * notice shown inside the builder (see BRICKSFLY_Placeholder_Element).
    *
@@ -620,33 +596,6 @@ if (! function_exists('bricksfly_register_widget_placeholder')) {
       '',
       $class_name
     );
-  }
-}
-
-if (! function_exists('bricksfly_feature_denied_message')) {
-
-  /**
-   * Human-readable message shown when a license-gated feature is blocked.
-   * Centralized so the server AJAX handlers and the client popups agree on
-   * the wording per feature.
-   *
-   * @param string $feature Feature key.
-   * @return string
-   */
-  function bricksfly_feature_denied_message($feature)
-  {
-    switch ($feature) {
-      case 'starter_tpl_import':
-        return __('Starter template import is not included in your current license plan. Please upgrade your plan to import starter templates.', 'bricksfly-elements-for-bricks');
-      case 'section_import':
-        return __('Section import is not included in your current license plan. Please upgrade your plan to import sections.', 'bricksfly-elements-for-bricks');
-      case 'starter_page_import':
-        return __('Page import is not included in your current license plan. Please upgrade your plan to import pages.', 'bricksfly-elements-for-bricks');
-      case 'live_copy':
-        return __('Live Copy is not included in your current license plan. Please upgrade your plan to use it.', 'bricksfly-elements-for-bricks');
-      default:
-        return __('This feature is not included in your current license plan. Please upgrade your plan to use it.', 'bricksfly-elements-for-bricks');
-    }
   }
 }
 

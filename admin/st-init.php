@@ -166,43 +166,27 @@ class OneClickImport {
 
 		Helpers::verify_ajax_call();
 
-		// License limitation gate. This callback performs the actual content
-		// download + import for both page import (import_type=page →
-		// `starter_page_import`) and full-demo / starter template import
-		// (→ `starter_tpl_import`). Enforced server-side so a forged request
-		// cannot bypass the UI lock. `guard_import_feature()` halts with a
-		// `limited:true` JSON envelope when the feature isn't in the plan.
-		if ( class_exists( '\wealcoder\bricksfly\Admin\Pages\BRICKSFLY_Template_Importer' ) ) {
-			// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce is verified above by Helpers::verify_ajax_call().
-			$import_type = isset( $_POST['import_type'] ) ? sanitize_text_field( wp_unslash( $_POST['import_type'] ) ) : 'full-demo';
-			$feature     = ( 'page' === $import_type ) ? 'starter_page_import' : 'starter_tpl_import';
-			\wealcoder\bricksfly\Admin\Pages\BRICKSFLY_Template_Importer::guard_import_feature( $feature );
-		}
-
 		$use_existing_importer_data = $this->use_existing_importer_data();
 
 		if ( ! $use_existing_importer_data ) {
 			Helpers::set_demo_import_start_time();
 			$this->log_file_path  = Helpers::get_log_path();
 			$this->selected_index = 0;
-			$template_data        = [];
 
 			check_ajax_referer( 'bricksfly_admin_nonce', 'nonce' );
-			if ( isset( $_POST['template_data'] ) ) {
-				$json_data     = sanitize_text_field( wp_unslash( $_POST['template_data'] ) );
-				$template_data = json_decode( $json_data, true );
 
-				if ( json_last_error() === JSON_ERROR_NONE ) {
-					array_walk_recursive( $template_data, function ( &$value ) {
-						if ( is_string( $value ) ) {
-							$value = sanitize_text_field( $value );
-						}
-					} );
-				}
-			}
+			// The content file URL is the one the template library released
+			// for this import (stored server-side by the template importer),
+			// never a URL posted from the browser.
+			$posted        = \wealcoder\bricksfly\Admin\Pages\BRICKSFLY_Template_Importer::read_posted_step();
+			$template_data = [
+				'id'        => $posted['id'],
+				'next_step' => $posted['next_step'],
+			];
+			$import_file   = \wealcoder\bricksfly\Admin\Pages\BRICKSFLY_Template_Importer::get_import_file( $posted['id'] );
 
-			if ( isset( $template_data['file']['content_url'] ) ) {
-				$file_path                   = $template_data['file']['content_url'];
+			if ( $import_file && \wealcoder\bricksfly\Admin\BRICKSFLY_Library_Client::is_library_url( $import_file['content_url'] ) ) {
+				$file_path                   = $import_file['content_url'];
 				$this->selected_import_files = Helpers::download_import_files( [ 'import_file_url' => $file_path ] );
 
 				if ( is_wp_error( $this->selected_import_files ) ) {
@@ -256,6 +240,7 @@ class OneClickImport {
 
 	private function final_response() {
 		delete_transient( 'bricksfly_st_importer_data' );
+		delete_option( 'bricksfly_template_import_progress' );
 		delete_transient( 'bricksfly_st_mporter_data_failed_attachment_imports' );
 		delete_transient( 'bricksfly_import_menu_mapping' );
 		delete_transient( 'bricksfly_import_posts_with_nav_block' );
@@ -264,15 +249,11 @@ class OneClickImport {
 		$response['progress'] = 80;
 
 		check_ajax_referer( 'bricksfly_admin_nonce', 'nonce' );
-		if ( isset( $_POST['template_data'] ) ) {
-			if ( isset( $template_data['local_path'] ) ) {
-				unset( $template_data['local_path'] );
-			}
-			$json_data                  = sanitize_text_field( wp_unslash( $_POST['template_data'] ) );
-			$template_data              = json_decode( $json_data, true );
-			$template_data['next_step'] = 'install-bricks-settings';
-			$response['template']       = wp_unslash( $template_data );
-		}
+		$posted               = \wealcoder\bricksfly\Admin\Pages\BRICKSFLY_Template_Importer::read_posted_step();
+		$response['template'] = [
+			'id'        => $posted['id'],
+			'next_step' => 'install-bricks-settings',
+		];
 
 		wp_send_json( $response );
 	}
@@ -341,7 +322,35 @@ class OneClickImport {
 		return $output;
 	}
 
+	/**
+	 * Load the WXR importer classes. Only needed while a content import runs,
+	 * so core's class-wp-importer.php is not loaded on other admin requests.
+	 *
+	 * @return void
+	 */
+	private static function load_importer_classes() {
+		if ( class_exists( __NAMESPACE__ . '\\Importer', false ) ) {
+			return;
+		}
+
+		if ( ! class_exists( 'WP_Importer', false ) ) {
+			require_once ABSPATH . 'wp-admin/includes/class-wp-importer.php';
+		}
+
+		require_once BRICKSFLY_PATH . 'admin/base/WXRImporter.php';
+		require_once BRICKSFLY_PATH . 'admin/aab-importer.php';
+		require_once BRICKSFLY_PATH . 'admin/Importer.php';
+	}
+
 	public function setup_st_importer() {
+		// Only the content-import AJAX request needs the importer.
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Routing check only; the nonce is verified below and in the AJAX callback.
+		$action = isset( $_REQUEST['action'] ) ? sanitize_key( wp_unslash( $_REQUEST['action'] ) ) : '';
+
+		if ( ! wp_doing_ajax() || 'bricksfly_upload_manual_import_file' !== $action ) {
+			return;
+		}
+
 		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verification happens at the AJAX callback level; this runs on admin_init for importer setup.
 		// Reject every POST request that does not carry a valid importer nonce.
 		if ( ! empty( $_POST ) ) {
@@ -367,6 +376,7 @@ class OneClickImport {
 		$logger            = new Logger();
 		$logger->min_level = $logger_options['logger_min_level'];
 
+		self::load_importer_classes();
 		$this->importer = new Importer( $importer_options, $logger );
 	}
 

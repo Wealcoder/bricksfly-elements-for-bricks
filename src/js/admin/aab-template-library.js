@@ -34,6 +34,7 @@ import "../../scss/admin/aab-template-library.scss";
 		type: 'block',
 		category: '',
 		colorType: '',
+		premium: '', // all sections, free ones listed first
 		search: '',
 		page: 1,
 		loading: false,
@@ -255,6 +256,13 @@ import "../../scss/admin/aab-template-library.scss";
 							'<option value="dark">' + escapeHtml(I18N.dark || 'Dark') + '</option>' +
 						'</select>' +
 					'</div>' +
+					'<div class="aab-tl-filter">' +
+						'<select id="aab-tl-filter-mode">' +
+							'<option value="" selected>' + escapeHtml(I18N.all_items || 'All') + '</option>' +
+							'<option value="no">' + escapeHtml(I18N.free || 'Free') + '</option>' +
+							'<option value="yes">' + escapeHtml(I18N.pro || 'Pro') + '</option>' +
+						'</select>' +
+					'</div>' +
 					'<div class="aab-tl-search">' +
 						'<input type="search" id="aab-tl-search" placeholder="' + escapeAttr(I18N.search || 'Search') + '">' +
 					'</div>' +
@@ -296,6 +304,13 @@ import "../../scss/admin/aab-template-library.scss";
 		// Color change.
 		modal.querySelector('#aab-tl-filter-color').addEventListener('change', function (e) {
 			state.colorType = e.target.value;
+			fetchTemplates({ reset: true });
+		});
+
+		// Free / Pro change.
+		modal.querySelector('#aab-tl-filter-mode').value = state.premium;
+		modal.querySelector('#aab-tl-filter-mode').addEventListener('change', function (e) {
+			state.premium = e.target.value;
 			fetchTemplates({ reset: true });
 		});
 
@@ -410,7 +425,15 @@ import "../../scss/admin/aab-template-library.scss";
 		url.searchParams.set('per_page', 24);
 		url.searchParams.set('type', type);
 		if (state.category) {
+			// The library reads `cat`; `category` is kept for older servers.
+			url.searchParams.set('cat', state.category);
 			url.searchParams.set('category', state.category);
+		}
+		if (state.premium) {
+			url.searchParams.set('premium', state.premium);
+		} else {
+			// All: the library lists free sections before Pro ones.
+			url.searchParams.set('free_first', '1');
 		}
 		if (state.colorType) {
 			url.searchParams.set('color_type', state.colorType);
@@ -449,37 +472,19 @@ import "../../scss/admin/aab-template-library.scss";
 			});
 	}
 
-	/**
-	 * Mark each template as valid (Insert button enabled) if it is free or
-	 * the user has a valid Pro license AND the license plan includes section
-	 * import. `is_pro` from the new API is a proper boolean (the legacy API
-	 * used strings, so accept both).
-	 *
-	 * Two independent gates:
-	 *   - bricksfly_valid: Pro installed + license active for this site.
-	 *   - section_import: the license tier includes the Section Import feature
-	 *                     (server-authoritative; also enforced on insert).
-	 * A Pro section needs both; a free section only needs the site to be able
-	 * to import at all, which still requires the section_import entitlement.
-	 */
-	function sectionImportAllowed() {
-		// Fall back to true only when the flag was never localized (older PHP),
-		// so we never hard-lock on a partial deploy â€” the server still guards.
-		if (!CFG.config || typeof CFG.config.section_import === 'undefined') {
-			return true;
-		}
-		return !!CFG.config.section_import;
+	function isProItem(item) {
+		return item.is_pro === true || String(item.is_pro) === '1';
 	}
 
+	/**
+	 * Free sections always get an Insert button. Pro sections get a "Pro"
+	 * badge and a link to BricksFly Pro, unless the separate BricksFly Pro
+	 * plugin is active (it sets `pro_library`). Either way the template
+	 * library decides whether it releases a section when Insert is clicked.
+	 */
 	function validateTemplates(list) {
-		var configValid = !!(CFG.config && CFG.config.bricksfly_valid);
-		var canImport   = sectionImportAllowed();
 		return list.map(function (item) {
-			var isPro = item.is_pro === true || String(item.is_pro) === '1';
-			// The plan must include section import regardless of pro/free item.
-			if (canImport && (configValid || !isPro)) {
-				item.valid = 'yes';
-			}
+			item.valid = (!isProItem(item) || CFG.pro_library) ? 'yes' : 'no';
 			return item;
 		});
 	}
@@ -516,29 +521,19 @@ import "../../scss/admin/aab-template-library.scss";
 					'<span class="aab-tl-card__insert-icon" aria-hidden="true">+</span>' +
 					escapeHtml(I18N.insert || 'Insert') +
 				'</button>';
-		} else if (CFG.pro_installed && CFG.pro_active && (CFG.config && CFG.config.bricksfly_valid) && !sectionImportAllowed()) {
-			// Licensed for this site, but the plan doesn't include Section
-			// Import. Offer an upgrade rather than a re-activate prompt.
+		} else {
+			// Get / activate BricksFly Pro, or Pro's own action (see
+			// bricksfly_pro_action()). Opens in a new tab so the editor stays open.
+			var proAction = CFG.pro_action || {};
 			actionBtn =
-				'<a class="aab-tl-card__pro" href="https://bricksfly.com/" target="_blank" rel="noopener">' +
-					escapeHtml(I18N.upgrade_plan || 'Upgrade Plan') +
-				'</a>';
-		} else if (!CFG.pro_installed) {
-			actionBtn =
-				'<a class="aab-tl-card__pro" href="https://animation-addons.com" target="_blank" rel="noopener">' +
-					escapeHtml(I18N.go_premium || 'Go Premium') +
-				'</a>';
-		} else if (CFG.pro_installed && CFG.pro_active && !(CFG.config && CFG.config.bricksfly_valid)) {
-			actionBtn =
-				'<a class="aab-tl-card__pro" href="' + escapeAttr(CFG.dashboard_link) + '" target="_blank" rel="noopener">' +
-					escapeHtml(I18N.activate || 'Activate License') +
-				'</a>';
-		} else if (CFG.pro_installed && !CFG.pro_active) {
-			actionBtn =
-				'<a class="aab-tl-card__pro" href="' + escapeAttr(CFG.dashboard_link) + '" target="_blank" rel="noopener">' +
-					escapeHtml(I18N.install_pro || 'Install Pro') +
+				'<a class="aab-tl-card__pro" href="' + escapeAttr(proAction.url || CFG.pro_url || 'https://bricksfly.com/pricing/') + '" target="_blank" rel="noopener">' +
+					escapeHtml(proAction.label || I18N.get_pro || 'Get BricksFly Pro') +
 				'</a>';
 		}
+
+		var badge = isProItem(item)
+			? '<span class="aab-tl-card__badge aab-tl-card__badge--pro">' + escapeHtml(I18N.pro || 'Pro') + '</span>'
+			: '<span class="aab-tl-card__badge aab-tl-card__badge--free">' + escapeHtml(I18N.free || 'Free') + '</span>';
 
 		// Live preview link â€” only when the section provides a `demo_url`.
 		// Opens the demo in a new tab; overlaid on the thumbnail so it never
@@ -563,6 +558,7 @@ import "../../scss/admin/aab-template-library.scss";
 				'<div class="aab-tl-card__thumb">' +
 					(preview ? '<img loading="lazy" src="' + escapeAttr(preview) + '" alt="' + escapeAttr(title) + '">' : '') +
 					previewLink +
+					badge +
 				'</div>' +
 				'<div class="aab-tl-card__footer">' +
 					'<p class="aab-tl-card__title">' + escapeHtml(title) + '</p>' +
@@ -637,14 +633,6 @@ import "../../scss/admin/aab-template-library.scss";
 			.then(function (r) { return r.json(); })
 			.then(function (resp) {
 				if (!resp || !resp.success || !resp.data) {
-					// Server-authoritative license block â€” show the upsell popup
-					// instead of a generic failure so the user knows to upgrade.
-					if (resp && resp.data && resp.data.limited) {
-						btn.disabled = false;
-						btn.innerHTML = originalLabel;
-						window.alert(resp.data.message || I18N.section_locked || 'Section import is not included in your license plan.');
-						return;
-					}
 					return fail(resp && resp.data && resp.data.message);
 				}
 

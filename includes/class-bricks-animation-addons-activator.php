@@ -64,8 +64,8 @@ class BRICKSFLY_Activator
 	 * dashboard save handler writes and that readers `array_filter` before
 	 * `array_keys` on.
 	 *
-	 * Pro widgets are included in the seed but are still license-gated at
-	 * runtime; flipping them on without a license simply has no effect.
+	 * Pro widgets are included in the seed; their code ships only in
+	 * BricksFly Pro, so the flag has no effect without it.
 	 */
 	private static function maybe_seed_widget_defaults()
 	{
@@ -127,11 +127,9 @@ class BRICKSFLY_Activator
 	/**
 	 * Seed `bricksfly_save_extensions` with every shipped extension enabled.
 	 *
-	 * Called both on plugin activation and when a Pro license is successfully
-	 * activated, so the option exists (all-on) whether or not the site ever
-	 * had a license. Skips seeding if the option already exists, so a user
-	 * who deliberately toggled extensions off isn't reset on license
-	 * renewal/reactivation.
+	 * Called on plugin activation (and by BricksFly Pro), so the option
+	 * exists (all-on). Skips seeding if the option already exists, so a user
+	 * who deliberately toggled extensions off isn't reset later.
 	 */
 	public static function maybe_seed_extension_defaults()
 	{

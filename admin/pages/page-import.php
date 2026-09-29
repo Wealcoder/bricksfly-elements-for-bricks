@@ -160,49 +160,8 @@ class BRICKSFLY_Page_Importer {
 			true
 		);
 
-		// Enrich the config with the CURRENT license state so Pro page templates
-		// unlock the moment a license is activated â€” no manual refresh needed.
-		//
-		// The bug this fixes: the Page Importer used to localize a bare
-		// `addons_config` with no license fields, so the React app's Pro gate
-		// (TemplateShow.jsx: `activated?.product_status?.item_id === 39996 `) never
-		// saw the active license and kept every Pro template locked. The
-		// Dashboard already enriches its config this way; we mirror it here so
-		// BOTH pages read the SAME single source of truth.
-		//
-		// Reading the options here (on every importer page load) means the state
-		// is always freshly fetched â€” never a stale cached value â€” so activation
-		// done elsewhere is reflected on the next load of this page.
 		$addons_config = apply_filters('bricksfly_dashboard_config', $GLOBALS['bricksfly_config'] ?? [] );
-
-		$license_status = (string) get_option( 'bricksfly_license_status', '' );
-		$license_key    = (string) get_option( 'bricksfly_license_key', '' );
-
-		// Valid only when the Pro plugin folder exists AND the stored status is
-		// "valid" â€” the same combined check used by bricksfly_is_license_valid() and
-		// the Dashboard, so deleting the Pro folder relocks Pro instantly.
-		$pro_installed = function_exists( 'bricksfly_is_pro_installed' ) ? bricksfly_is_pro_installed() : false;
-		$license_valid = $pro_installed && ( 'valid' === $license_status );
-
-		$addons_config['sl_lic']    = $license_key;
-		$addons_config['is_pro']    = $pro_installed;
-		$addons_config['bricksfly_valid'] = $license_valid;
-
-		// The compiled React UI unlocks Pro items on `product_status.item_id === 39996 `.
-		// Send 39996 only when the license is valid (mirrors the Dashboard); the real
-		// EDD item id is carried separately for the actual API verification flow.
-		// Per-feature license limitations â€” same single source of truth as the
-		// Dashboard so the Page Importer's Pro gate reads identical state.
-		$limitations = function_exists( 'bricksfly_get_license_limitations' ) ? bricksfly_get_license_limitations() : array();
-
-		$addons_config['product_status'] = [
-			'item_id'      => $license_valid ? 39996 : 0,
-			'status'       => $license_status,
-			'real_item_id' => defined( 'BRICKSFLY_PRO_ITEM_ID' ) ? BRICKSFLY_PRO_ITEM_ID : 0,
-			'limitations'  => $limitations,
-		];
-
-		$addons_config['limitations'] = $limitations;
+		$addons_config['is_pro'] = function_exists( 'bricksfly_is_pro_installed' ) ? bricksfly_is_pro_installed() : false;
 
 		$localize_data = [
 			'plugin_url'         => BRICKSFLY_URL,
@@ -214,6 +173,15 @@ class BRICKSFLY_Page_Importer {
 			'user_role'          => function_exists( 'bricksfly_get_current_user_roles' ) ? bricksfly_get_current_user_roles() : [],
 			'version'            => BRICKSFLY_VERSION,
 			'st_template_domain' => BRICKSFLY_TEMPLATE_STARTER_BASE_URL,
+			// See dashboard.php: Pro items show a badge + link unless the
+			// separate BricksFly Pro plugin sets `pro_library`.
+			'pro_url'            => 'https://bricksfly.com/pricing/',
+			'pro_library'        => (bool) apply_filters( 'bricksfly_pro_library_enabled', false ),
+			// What the button on Pro cards does (get / activate Pro, or Pro's own action).
+			'pro_action'         => function_exists( 'bricksfly_pro_action' ) ? bricksfly_pro_action() : array(),
+			// True when an add-on (BricksFly Pro) installs/activates a template's
+			// required plugins during import. The free plugin never does.
+			'import_plugins'     => (bool) apply_filters( 'bricksfly_import_manages_plugins', false ),
 			'home_url'           => home_url( '/' ),
 		];
 
