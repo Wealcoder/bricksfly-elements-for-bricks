@@ -4,7 +4,6 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const RemoveEmptyScriptsPlugin = require("webpack-remove-empty-scripts");
 const TerserPlugin = require("terser-webpack-plugin");
-const CopyPlugin = require("copy-webpack-plugin");
 
 const isProd =
   process.env.NODE_ENV === "production" ||
@@ -74,7 +73,19 @@ const adminConfig = {
   output: {
     path: path.resolve(__dirname, "public/build"),
     filename: "[name].js",
-    clean: false,
+    // Lazy-loaded chunks are requested without a ?ver= query, so their names
+    // must change with their content. With fixed names (10.js, 693.js …) a
+    // browser or CDN kept serving the previous build's chunk after an update,
+    // and the dashboard failed with "o[e] is not a function".
+    chunkFilename: "admin/chunks/[id].[contenthash:8].js",
+    // Remove chunks from earlier builds (hashed ones in admin/chunks/ and the
+    // old unhashed <id>.js files); every other file in public/build belongs
+    // to the other configs and is kept.
+    clean: {
+      keep: (asset) =>
+        !/^admin[\\/]chunks[\\/]/.test(asset) &&
+        !/^(\d+|src_[\w-]+)\.js$/.test(asset),
+    },
   },
   module: {
     ...defaultConfig.module,
@@ -202,52 +213,6 @@ const bundlesConfig = {
     : { minimize: false },
 };
 
-/* -------------------------------------------------------------------------
-   Config 3 - Copy source files for WordPress.org review.
-   Copies readable source files to public/build/src/ for review.
-------------------------------------------------------------------------- */
-
-const sourceCopyConfig = {
-  name: "source-copy",
-  mode: "development",
-  devtool: false,
-  optimization: {
-    minimize: false,
-  },
-  entry: {},
-  output: {
-    path: path.resolve(__dirname, "public/build"),
-  },
-  plugins: [
-    new CopyPlugin({
-      patterns: [
-        // Copy Elements JS source files
-        {
-          context: "src/js/elements",
-          from: "**/*.js",
-          to: "elements/src/js/[name][ext]",
-        },
-        // Copy Elements SCSS source files as CSS for review
-        {
-          context: "src/scss/elements",
-          from: "**/*.scss",
-          to: "elements/src/css/[name].css",
-        },
-        // Copy Extensions JS source files
-        {
-          context: "src/js/extensions",
-          from: "**/*.js",
-          to: "extensions/src/js/[path][name][ext]",
-        },
-        // Copy Extensions SCSS source files as CSS for review
-        {
-          context: "src/scss/extensions",
-          from: "**/*.scss",
-          to: "extensions/src/css/[name].css",
-        },
-      ],
-    }),
-  ],
-};
-
-module.exports = [adminConfig, bundlesConfig, sourceCopyConfig];
+// The readable source ships in src/ (see the readme), so no copy of it is
+// placed in public/build.
+module.exports = [adminConfig, bundlesConfig];

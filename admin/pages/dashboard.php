@@ -35,7 +35,6 @@ class BRICKSFLY_Admin_Init
 	 * @var null
 	 */
 	private static $_instance = null;
-	private $plugin_file = null;
 
 	/**
 	 * [instance] Initializes a singleton instance
@@ -53,8 +52,6 @@ class BRICKSFLY_Admin_Init
 
 	public function __construct()
 	{
-		$this->plugin_file = WP_PLUGIN_DIR . '/bricksfly-elements-for-bricks-pro/bricksfly-elements-for-bricks-pro.php';
-
 		$this->remove_all_notices();
 		$this->include();
 		$this->init();
@@ -115,7 +112,7 @@ class BRICKSFLY_Admin_Init
 	{
 
 
-		if (file_exists($this->plugin_file)) {
+		if (bricksfly_is_pro_installed()) {
 			return;
 		}
 
@@ -325,7 +322,7 @@ class BRICKSFLY_Admin_Init
 		$addons_config = apply_filters('bricksfly_dashboard_config', $GLOBALS['bricksfly_config']);
 		// Whether the separate BricksFly Pro plugin is installed (drives the
 		// "Get Pro" / "Activate plugin" buttons on Pro items).
-		$addons_config['is_pro'] = function_exists('bricksfly_is_pro_installed') ? bricksfly_is_pro_installed() : file_exists($this->plugin_file);
+		$addons_config['is_pro'] = bricksfly_is_pro_installed();
 
 		$localize_data = array(
 			'ajaxurl'             => admin_url('admin-ajax.php'),
@@ -363,7 +360,7 @@ class BRICKSFLY_Admin_Init
 			'import_plugins'      => (bool) apply_filters( 'bricksfly_import_manages_plugins', false ),
 			'home_url' => home_url('/'),
 			'plugin_url' => BRICKSFLY_URL,
-			'has_pro' => file_exists($this->plugin_file),
+			'has_pro' => bricksfly_is_pro_installed(),
 			'breakpoints' => $bricks_breakpoints,
 			// Pro elements / extensions live in the separate BricksFly Pro
 			// plugin. It sets `pro_features` when its features are available and
@@ -380,63 +377,9 @@ class BRICKSFLY_Admin_Init
 		);
 		wp_localize_script('bricksfly-admin', 'BRICKSFLY_ADDONS_ADMIN', $localize_data);
 
-		wp_add_inline_script('bricksfly-admin', $this->get_pro_dialog_swap_script(), 'after');
 		//}
 	}
 
-	/**
-	 * Inline JS that rewrites "Elementor" to "Bricks Builder" in user-visible
-	 * text (the compiled bundle is shared with the Elementor plugin, so it still
-	 * ships Elementor-branded copy in marketing cards / widget descriptions).
-	 */
-	private function get_pro_dialog_swap_script()
-	{
-		return '(function () {
-	// Replace "Elementor" with "Bricks Builder" in a text node while leaving
-	// URLs and internal slugs (anything containing "/" or ":") alone.
-	function rebrandTextNode(node) {
-		var text = node.textContent;
-		if (text.indexOf("Elementor") === -1) return;
-		if (text.indexOf("://") !== -1) return; // URL â€” leave it
-		node.textContent = text.replace(/Elementor/g, "Bricks Builder");
-	}
-
-	function swap(root) {
-		var scope = root || document;
-
-		// Global Elementor â†’ Bricks Builder rebrand for visible text nodes.
-		var selector = "h1, h2, h3, h4, h5, h6, p, span, li, button, label, strong, em, small";
-		scope.querySelectorAll(selector).forEach(function (el) {
-			// Only process direct text children so we don\'t touch elements that
-			// contain mixed markup (avoids double-walking nested structures).
-			el.childNodes.forEach(function (node) {
-				if (node.nodeType === 3) rebrandTextNode(node);
-			});
-		});
-	}
-
-	// The compiled dashboard renders dialogs / cards lazily, so observe
-	// mutations on the document body and re-run the swap on added subtrees.
-	var observer = new MutationObserver(function (records) {
-		for (var i = 0; i < records.length; i++) {
-			for (var j = 0; j < records[i].addedNodes.length; j++) {
-				var n = records[i].addedNodes[j];
-				if (n.nodeType === 1) swap(n);
-			}
-		}
-	});
-
-	function start() {
-		swap(document);
-		observer.observe(document.body, { childList: true, subtree: true });
-	}
-	if (document.readyState === "loading") {
-		document.addEventListener("DOMContentLoaded", start);
-	} else {
-		start();
-	}
-})();';
-	}	
 
 
 	function bricksfly_dashboard_integrations_config($configs)

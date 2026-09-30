@@ -398,16 +398,6 @@ class BRICKSFLY_Bricks_Toggle_Switch extends \Bricks\Element
     public function render()
     {
 
-        // $gap = $this->get_setting('toggleGap'); 
-
-        if (! empty($gap['value'])) {
-            $unit  = $gap['unit'] ?? 'px';
-            $value = $gap['value'] . $unit;
-            $this->set_attribute('_root', 'style', "gap: {$value}");
-        }
-
-
-
         $settings = $this->settings;
         $items    = !empty($settings['toggleSwitcher']) ? $settings['toggleSwitcher'] : [];
         $style    = !empty($settings['elementList']) ? $settings['elementList'] : '1';

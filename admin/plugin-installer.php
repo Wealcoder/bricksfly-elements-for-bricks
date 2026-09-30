@@ -16,8 +16,6 @@ if (! defined('ABSPATH')) {
 class BRICKSFLY_Plugin_Installer
 {
 
-	const PRO_BASENAME = 'bricksfly-elements-for-bricks-pro/bricksfly-elements-for-bricks-pro.php';
-
 	public function __construct()
 	{
 		add_action('wp_ajax_bricksfly_active_plugin', [$this, 'ajax_activate_plugin']);
@@ -34,14 +32,10 @@ class BRICKSFLY_Plugin_Installer
 		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Callers verify the nonce first.
 		$basename = isset($_POST['action_base']) ? sanitize_text_field(wp_unslash($_POST['action_base'])) : '';
 
-		if (self::PRO_BASENAME !== $basename) {
-			return '';
-		}
+		// Only BricksFly Pro, and only when it is installed.
+		$pro = bricksfly_pro_basename();
 
-		require_once ABSPATH . 'wp-admin/includes/plugin.php';
-		$installed = get_plugins();
-
-		return isset($installed[$basename]) ? $basename : '';
+		return ('' !== $pro && $pro === $basename) ? $basename : '';
 	}
 
 	public function ajax_activate_plugin()

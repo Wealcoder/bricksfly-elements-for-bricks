@@ -10,8 +10,8 @@ const MainLayout = () => {
   const { tabKey, setTabKey } = useTNavigation();
   const { setNotice } = useNotification();
 
-  const fetchNotice = async () => {
-    await fetch(BRICKSFLY_ADDONS_ADMIN.ajaxurl, {
+  const fetchNotice = () =>
+    fetch(BRICKSFLY_ADDONS_ADMIN.ajaxurl, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -28,11 +28,15 @@ const MainLayout = () => {
         return response.json();
       })
       .then((return_content) => {
-        if (return_content?.notice) setNotice(return_content?.notice);
-      });
-  };
+        // Only a list of notices can be rendered.
+        if (Array.isArray(return_content?.notice)) setNotice(return_content.notice);
+      })
+      .catch(() => {});
 
-  useEffect(async () => {
+  // The effect must return nothing or a cleanup function. An async callback
+  // returns a Promise, which React then calls as the cleanup on unmount
+  // ("c is not a function").
+  useEffect(() => {
     fetchNotice();
   }, []);
 

@@ -3,7 +3,8 @@
  * Generates a distributable plugin zip.
  *
  * Includes: all PHP, TXT, and every folder in the plugin root.
- * Excludes: node_modules, src, dist (build output), and the gulpfile itself.
+ * Includes the human-readable source (src/) and build config, as the readme says.
+ * Excludes: node_modules, dist (build output), dev-only configs and the gulpfile itself.
  *
  * Usage:
  *   npx gulp watch:zip    # rebuild on change
@@ -30,6 +31,10 @@ const sources = [
     '!dist/**',
     '!webpack.config.dev',
     '!webpack.config.production',
+    '!swap-config.js',
+    // Old copies of src/ made by an earlier build step (src/ itself ships).
+    '!public/build/elements/src/**',
+    '!public/build/extensions/src/**',
     '!CLAUDE.md',
     '!**/*.map',
     '!**/.DS_Store',

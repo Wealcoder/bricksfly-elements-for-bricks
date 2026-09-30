@@ -162,9 +162,10 @@ class OneClickImport {
 	}
 
 	public function import_demo_data_ajax_callback() {
-		ini_set( 'memory_limit', Helpers::apply_filters('bricksfly/st/import_memory_limit', '1024M' ) );
-
 		Helpers::verify_ajax_call();
+
+		// Same limit WordPress uses for admin tasks (WP_MAX_MEMORY_LIMIT).
+		wp_raise_memory_limit( 'admin' );
 
 		$use_existing_importer_data = $this->use_existing_importer_data();
 

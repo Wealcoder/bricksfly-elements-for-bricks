@@ -414,7 +414,17 @@ class WXRImporter extends \WP_Importer {
 
 	protected function import_end() {
 		wp_suspend_cache_invalidation( false );
-		wp_cache_flush();
+
+		// Clear the caches of what this import created, not the whole object
+		// cache (which would affect every other plugin on the site).
+		if ( ! empty( $this->mapping['post'] ) ) {
+			foreach ( array_unique( array_map( 'intval', $this->mapping['post'] ) ) as $imported_post_id ) {
+				clean_post_cache( $imported_post_id );
+			}
+		}
+		if ( ! empty( $this->mapping['term_id'] ) ) {
+			clean_term_cache( array_unique( array_map( 'intval', $this->mapping['term_id'] ) ) );
+		}
 
 		foreach ( get_taxonomies() as $tax ) {
 			delete_option( "{$tax}_children" );

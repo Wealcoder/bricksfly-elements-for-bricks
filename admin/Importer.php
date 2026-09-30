@@ -32,8 +32,10 @@ class Importer {
 	public function import_content( $import_file_path ) {
 		$this->microtime = microtime( true );
 
-		if ( ! empty( ini_get( 'disable_functions' ) ) && strpos( ini_get( 'disable_functions' ), 'set_time_limit' ) === false ) {
-			set_time_limit( Helpers::apply_filters('bricksfly/set_time_limit_for_demo_data_import', 60 ) );
+		// Give each import batch up to a minute (the importer splits large
+		// imports into several requests). Skipped where the host disabled it.
+		if ( function_exists( 'set_time_limit' ) && false === strpos( (string) ini_get( 'disable_functions' ), 'set_time_limit' ) ) {
+			set_time_limit( (int) Helpers::apply_filters( 'bricksfly/set_time_limit_for_demo_data_import', 60 ) ); // phpcs:ignore Squiz.PHP.DiscouragedFunctions.Discouraged -- Per-request limit for a long import, as the WordPress importer does.
 		}
 
 		add_filter( 'bricksfly_importer.pre_process.user', '__return_false' );

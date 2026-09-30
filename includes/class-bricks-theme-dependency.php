@@ -5,25 +5,21 @@ namespace wealcoder\bricksfly\Includes;
 defined('ABSPATH') || exit;
 
 /**
- * Enforces the Bricks theme as a hard dependency for this plugin.
+ * BricksFly needs the Bricks theme.
  *
- * 1. Shows an admin notice when Bricks is not the active theme, linking to
- *    install or activate it.
- * 2. Blocks the user from switching away from Bricks while this plugin is
- *    active (child themes of Bricks are allowed).
+ * When Bricks (or a Bricks child theme) is not the active theme, this shows
+ * an admin notice linking to activate or get Bricks. It never stops the user
+ * from switching themes.
  */
 class BRICKSFLY_Bricks_Theme_Dependency
 {
 	const THEME_SLUG    = 'bricks';
-	const BLOCK_FLAG    = 'bricksfly_addons_theme_switch_blocked';
-	const PLUGIN_NAME   = 'The BricksFly';
+	const PLUGIN_NAME   = 'BricksFly';
 	const BRICKS_URL    = 'https://bricksbuilder.io/';
 
 	public static function init(): void
 	{
 		add_action('admin_notices', [__CLASS__, 'render_notices']);
-		add_filter('pre_update_option_template',   [__CLASS__, 'block_theme_switch'], 10, 2);
-		add_filter('pre_update_option_stylesheet', [__CLASS__, 'block_theme_switch'], 10, 2);
 	}
 
 	public static function is_bricks_active(): bool
@@ -36,57 +32,13 @@ class BRICKSFLY_Bricks_Theme_Dependency
 		return wp_get_theme(self::THEME_SLUG)->exists();
 	}
 
-	/**
-	 * Cancel any option update that would move away from Bricks (either as
-	 * template or stylesheet) while this plugin is loaded.
-	 */
-	public static function block_theme_switch($new_value, $old_value)
-	{
-		if (get_option('template') !== self::THEME_SLUG) {
-			return $new_value;
-		}
-
-		if (current_filter() === 'pre_update_option_template') {
-			if ($new_value === self::THEME_SLUG) {
-				return $new_value;
-			}
-		} else {
-			$new_theme = wp_get_theme($new_value);
-			if ($new_theme->exists() && $new_theme->get_template() === self::THEME_SLUG) {
-				return $new_value;
-			}
-		}
-
-		set_transient(self::BLOCK_FLAG, 1, 30);
-		return $old_value;
-	}
-
 	public static function render_notices(): void
 	{
-		if (get_transient(self::BLOCK_FLAG)) {
-			delete_transient(self::BLOCK_FLAG);
-			self::render_block_notice();
-		}
-
-		if (self::is_bricks_active()) {
+		if (self::is_bricks_active() || ! current_user_can('switch_themes')) {
 			return;
 		}
 
 		self::render_missing_notice();
-	}
-
-	private static function render_block_notice(): void
-	{
-		$message = sprintf(
-			/* translators: %s: Plugin name */
-			esc_html__('Theme switch was cancelled. %s requires the Bricks theme to remain active. Please deactivate the plugin before switching to another theme.', 'bricksfly-elements-for-bricks'),
-			'<strong>' . esc_html(self::PLUGIN_NAME) . '</strong>'
-		);
-?>
-		<div class="notice notice-warning is-dismissible">
-			<p><?php echo wp_kses_post($message); ?></p>
-		</div>
-<?php
 	}
 
 	private static function render_missing_notice(): void

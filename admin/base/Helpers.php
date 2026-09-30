@@ -167,7 +167,7 @@ class Helpers {
 		$demo_import_page_url = wp_nonce_url( $plugin_page_setup['parent_slug'] . '?page=' . $plugin_page_setup['menu_slug'], $plugin_page_setup['menu_slug'] );
 
 		if ( false === ( $creds = request_filesystem_credentials( $demo_import_page_url, '', false, false, null ) ) ) {
-			return new \WP_error(
+			return new \WP_Error(
 				'filesystem_credentials_could_not_be_retrieved',
 				__( 'An error occurred while retrieving reading/writing permissions to your server (could not retrieve WP filesystem credentials)!', 'bricksfly-elements-for-bricks' )
 			);
@@ -236,13 +236,15 @@ class Helpers {
 			'test_form' => false,
 		);
 
-		add_filter( 'upload_mimes', function ( $defaults ) {
+		// Allow .xml / .json only for this upload; removed again right after.
+		$allow_import_types = function ( $defaults ) {
 			$custom = [
 				'xml'  => 'text/xml',
 				'json' => 'application/json',
 			];
 			return array_merge( $custom, $defaults );
-		} );
+		};
+		add_filter( 'upload_mimes', $allow_import_types );
 
 		$file_not_provided_error = array(
 			'error' => esc_html__( 'No file provided.', 'bricksfly-elements-for-bricks' ),
@@ -251,6 +253,8 @@ class Helpers {
 		$content_file_info = isset( $uploaded_files['content_file'] ) ?
 			wp_handle_upload( $uploaded_files['content_file'], $upload_overrides ) :
 			$file_not_provided_error;
+
+		remove_filter( 'upload_mimes', $allow_import_types );
 
 		if ( $content_file_info && ! isset( $content_file_info['error'] ) ) {
 			$selected_import_files['content'] = $content_file_info['file'];

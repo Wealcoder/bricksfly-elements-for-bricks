@@ -724,7 +724,7 @@ class BRICKSFLY_Bricks_Testimonial extends \Bricks\Element
         // Swiper CSS
         $posts_slider_css = BRICKSFLY_PATH . 'public/build/elements/posts-slider.css';
         wp_enqueue_style(
-            'post-slider',
+            'bricksfly-post-slider',
             BRICKSFLY_URL . 'public/build/elements/posts-slider.css',
             [],
             file_exists($posts_slider_css) ? filemtime($posts_slider_css) : BRICKSFLY_VERSION
@@ -740,7 +740,7 @@ class BRICKSFLY_Bricks_Testimonial extends \Bricks\Element
         wp_enqueue_style(
             'aae-testimonial',
             BRICKSFLY_URL . 'public/build/elements/testimonial.css',
-            ['bricks-swiper', 'post-slider'],
+            ['bricks-swiper', 'bricksfly-post-slider'],
             file_exists($testimonial_css) ? filemtime($testimonial_css) : BRICKSFLY_VERSION
         );
 

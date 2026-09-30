@@ -1,6 +1,6 @@
 {
   "name": "bricksfly-elements-for-bricks",
-  "version": "1.0.0",
+  "version": "1.0.6",
   "description": "",
   "main": "vite.config.js",
   "types": "module",
@@ -42,7 +42,7 @@
     "@radix-ui/react-toggle-group": "^1.1.0",
     "@radix-ui/react-tooltip": "^1.1.3",
     "@tanstack/react-table": "^8.20.6",
-    "@wordpress/i18n": "^5.1.0",
+    "@wordpress/i18n": "^6.29.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",

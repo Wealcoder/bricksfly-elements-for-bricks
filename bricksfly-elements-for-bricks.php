@@ -16,16 +16,15 @@
  * Plugin Name:       BricksFly Elements and Templates for Bricks with GSAP Animations
  * Plugin URI:        https://bricksfly.com/
  * Description:       Bricksfly for Bricks comes with GSAP Animation Builder, Customizable Elements, Header Footer, Single Post, Archive Page Builder, and Many more.
- * Version:           1.0.2
+ * Version:           1.0.6
  * Author:            Wealcoder
  * Author URI:        https://profiles.wordpress.org/wealcoder/
- * License:           GPL-2.0+
+ * License:           GPLv2 or later
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       bricksfly-elements-for-bricks
  * Domain Path:       /languages
  * Requires at least: 6.9
  * Requires PHP:      7.4
- * Tested up to:      7.0
  */
 
 // If this file is called directly, abort.
@@ -68,7 +67,7 @@ if (! defined('BRICKSFLY_VERSION')) {
 	/**
 	 * Plugin Version.
 	 */
-	define('BRICKSFLY_VERSION', '1.0.2');
+	define('BRICKSFLY_VERSION', '1.0.6');
 }
 
 if (! defined('BRICKSFLY_TEMPLATE_STARTER_BASE_URL')) {
@@ -105,6 +104,8 @@ register_deactivation_hook(__FILE__, 'bricksfly_deactivate');
 require_once BRICKSFLY_PATH . 'config.php';
 require_once BRICKSFLY_PATH . 'includes/helper.php';
 require_once BRICKSFLY_PATH . 'includes/hook.php';
+// Keeps older BricksFly Pro builds working and asks to update them.
+require_once BRICKSFLY_PATH . 'includes/compat-pro.php';
 // BRICKSFLY_BRICKS_ELEMENTS is normally required later by
 // load_dependencies() (includes/class-bricks-animation-addons.php), but
 // property default at load time — require it here too (idempotent via

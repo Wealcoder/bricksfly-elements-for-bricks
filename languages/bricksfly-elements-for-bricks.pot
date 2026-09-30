@@ -1,15 +1,15 @@
 # Copyright (C) 2026 Wealcoder
-# This file is distributed under the GPL-2.0+.
+# This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: BricksFly Elements and Templates for Bricks with GSAP Animations 1.0.0\n"
+"Project-Id-Version: BricksFly Elements and Templates for Bricks with GSAP Animations 1.0.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bricksfly-elements-for-bricks\n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-07-15T04:14:21+00:00\n"
+"POT-Creation-Date: 2026-09-30T06:38:02+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: bricksfly-elements-for-bricks\n"
@@ -26,7 +26,7 @@ msgstr ""
 
 #. Description of the plugin
 #: bricksfly-elements-for-bricks.php
-msgid "The Bricksfly for Bricks comes with GSAP Animation Builder, Customizable Elements, Header Footer, Single Post, Archive Page Builder, and Many more."
+msgid "Bricksfly for Bricks comes with GSAP Animation Builder, Customizable Elements, Header Footer, Single Post, Archive Page Builder, and Many more."
 msgstr ""
 
 #. Author of the plugin
@@ -36,7 +36,7 @@ msgstr ""
 
 #. Author URI of the plugin
 #: bricksfly-elements-for-bricks.php
-msgid "https://wealcoder.com/"
+msgid "https://profiles.wordpress.org/wealcoder/"
 msgstr ""
 
 #: admin/base/Downloader.php:19
@@ -100,38 +100,38 @@ msgstr ""
 msgid "Your user role isn't high enough. You don't have permission to import demo data."
 msgstr ""
 
-#: admin/base/Helpers.php:248
+#: admin/base/Helpers.php:250
 msgid "No file provided."
 msgstr ""
 
 #. translators: %s: upload error message returned by wp_handle_upload().
-#: admin/base/Helpers.php:261
+#: admin/base/Helpers.php:265
 #, php-format
 msgid "Content file was not uploaded. Error: %s"
 msgstr ""
 
-#: admin/base/Helpers.php:265
-#: admin/base/Helpers.php:272
+#: admin/base/Helpers.php:269
+#: admin/base/Helpers.php:276
 msgid "Upload files"
 msgstr ""
 
-#: admin/base/Helpers.php:270
+#: admin/base/Helpers.php:274
 msgid "The import files were successfully uploaded!"
 msgstr ""
 
 #. translators: %s: PHP `max_execution_time` value in seconds.
-#: admin/base/Helpers.php:282
+#: admin/base/Helpers.php:286
 #, php-format
 msgid "Initial max execution time = %s"
 msgstr ""
 
 #. translators: 1: line break (PHP_EOL), 2: site URL, 3: full path to the import data file (or a localized "not defined!" placeholder).
-#: admin/base/Helpers.php:287
+#: admin/base/Helpers.php:291
 #, php-format
 msgid "Files info:%1$sSite URL = %2$s%1$sData file = %3$s%1$s"
 msgstr ""
 
-#: admin/base/Helpers.php:290
+#: admin/base/Helpers.php:294
 msgid "not defined!"
 msgstr ""
 
@@ -141,73 +141,93 @@ msgstr ""
 
 #. translators: 1: WXR file version detected in the import file, 2: maximum WXR version this importer supports.
 #: admin/base/WXRImporter.php:194
-#: admin/base/WXRImporter.php:256
+#: admin/base/WXRImporter.php:258
 #, php-format
 msgid "This WXR file (version %1$s) is newer than the importer (version %2$s) and may not be supported. Please consider updating."
 msgstr ""
 
-#: admin/base/WXRImporter.php:393
+#: admin/base/WXRImporter.php:395
 msgid "The file does not exist, please try again."
 msgstr ""
 
-#: admin/base/WXRImporter.php:435
+#: admin/base/WXRImporter.php:445
 msgid "Invalid author mapping"
 msgstr ""
 
-#: admin/base/WXRImporter.php:481
+#: admin/base/WXRImporter.php:491
 msgid "Cannot import auto-draft posts"
 msgstr ""
 
-#: admin/base/WXRImporter.php:585
+#: admin/base/WXRImporter.php:596
 msgid "fetching attachments disabled"
 msgstr ""
 
-#: admin/base/WXRImporter.php:730
+#: admin/base/WXRImporter.php:749
 msgid "Invalid file type"
 msgstr ""
 
 #. translators: 1: HTTP status code, 2: HTTP status text, 3: requested URL.
-#: admin/base/WXRImporter.php:1139
+#: admin/base/WXRImporter.php:1329
 #, php-format
 msgid "Remote server returned %1$d %2$s for %3$s"
 msgstr ""
 
-#: admin/base/WXRImporter.php:1145
+#: admin/base/WXRImporter.php:1335
 msgid "Zero size file downloaded"
 msgstr ""
 
 #. translators: %s: human-readable maximum allowed file size (e.g. "5 MB").
-#: admin/base/WXRImporter.php:1154
+#: admin/base/WXRImporter.php:1344
 #, php-format
 msgid "Remote file is too large, limit is %s"
 msgstr ""
 
-#: admin/base/WXRImporter.php:1165
+#: admin/base/WXRImporter.php:1355
 msgid "Processing Posts"
 msgstr ""
 
-#: admin/base/WXRImporter.php:1169
+#: admin/base/WXRImporter.php:1359
 msgid "Processing Comments"
 msgstr ""
 
-#: admin/base/WXRImporter.php:1173
+#: admin/base/WXRImporter.php:1363
 msgid "Processing Terms"
 msgstr ""
 
-#: admin/base/WXRImporter.php:1300
+#: admin/base/WXRImporter.php:1490
 msgid "Starting remapping of featured images"
 msgstr ""
 
-#: admin/base/WXRImporter.php:1349
+#: admin/base/WXRImporter.php:1538
 msgid "Comment checking"
 msgstr ""
 
-#: admin/Importer.php:75
-#: admin/pages/template-importer.php:214
+#: admin/Importer.php:77
 msgid "Content installing"
 msgstr ""
 
-#: admin/Notices/Notices.php:100
+#: admin/library-client.php:70
+msgid "Template files can only be downloaded from the BricksFly template library."
+msgstr ""
+
+#: admin/library-client.php:82
+msgid "This item is part of BricksFly Pro. Install BricksFly Pro to import it."
+msgstr ""
+
+#: admin/library-client.php:95
+#: admin/library-client.php:124
+msgid "Template not found."
+msgstr ""
+
+#: admin/library-client.php:153
+msgid "The template file is missing. Please contact the template author."
+msgstr ""
+
+#: admin/library-client.php:190
+msgid "The template library could not be reached. Please try again."
+msgstr ""
+
+#: admin/Notices/Notices.php:92
 msgid "Dismiss this notice"
 msgstr ""
 
@@ -227,452 +247,336 @@ msgstr ""
 msgid "Already Reviewed"
 msgstr ""
 
-#: admin/pages/builder-template-library.php:140
-msgid "Animation Addons — Section Library"
+#: admin/pages/builder-template-library.php:135
+msgid "BricksFly Addons — Section Library"
 msgstr ""
 
-#: admin/pages/builder-template-library.php:141
+#: admin/pages/builder-template-library.php:136
 msgid "Import Section"
 msgstr ""
 
-#: admin/pages/builder-template-library.php:142
+#: admin/pages/builder-template-library.php:137
 msgid "Insert"
 msgstr ""
 
-#: admin/pages/builder-template-library.php:143
+#: admin/pages/builder-template-library.php:138
 msgid "Inserting…"
 msgstr ""
 
-#: admin/pages/builder-template-library.php:144
-msgid "Go Premium"
+#: admin/pages/builder-template-library.php:139
+msgid "Preview"
 msgstr ""
 
-#: admin/pages/builder-template-library.php:145
-#: admin/pages/dashboard.php:475
-#: admin/pages/dashboard.php:511
-#: admin/pages/settings-placeholder.php:101
-msgid "Activate License"
+#: admin/pages/builder-template-library.php:140
+msgid "Free"
 msgstr ""
 
+#: admin/pages/builder-template-library.php:141
+msgid "Pro"
+msgstr ""
+
+#: admin/pages/builder-template-library.php:142
+#: admin/pages/dashboard.php:372
+msgid "Get BricksFly Pro"
+msgstr ""
+
+#: admin/pages/builder-template-library.php:143
 #: admin/pages/builder-template-library.php:146
-msgid "Install Pro"
+msgid "All"
 msgstr ""
 
-#: admin/pages/builder-template-library.php:147
+#: admin/pages/builder-template-library.php:144
 msgid "Search"
 msgstr ""
 
-#: admin/pages/builder-template-library.php:148
+#: admin/pages/builder-template-library.php:145
 #: includes/elements/post-meta.php:39
 #: includes/elements/post-meta.php:136
 #: includes/elements/post-meta.php:191
 msgid "Category"
 msgstr ""
 
-#: admin/pages/builder-template-library.php:150
+#: admin/pages/builder-template-library.php:147
 msgid "Light"
 msgstr ""
 
-#: admin/pages/builder-template-library.php:151
+#: admin/pages/builder-template-library.php:148
 msgid "Dark"
 msgstr ""
 
-#: admin/pages/builder-template-library.php:152
+#: admin/pages/builder-template-library.php:149
 #: includes/elements/video-box-slider.php:1534
 #: includes/elements/video-box.php:660
 msgid "Close"
 msgstr ""
 
-#: admin/pages/builder-template-library.php:153
+#: admin/pages/builder-template-library.php:150
 msgid "Loading"
 msgstr ""
 
-#: admin/pages/builder-template-library.php:154
+#: admin/pages/builder-template-library.php:151
 msgid "No templates found."
 msgstr ""
 
-#: admin/pages/builder-template-library.php:155
+#: admin/pages/builder-template-library.php:152
 msgid "Failed to load templates. Check your connection and try again."
 msgstr ""
 
-#: admin/pages/builder-template-library.php:156
+#: admin/pages/builder-template-library.php:153
 msgid "Section imported. Reloading builder…"
 msgstr ""
 
-#: admin/pages/builder-template-library.php:157
+#: admin/pages/builder-template-library.php:154
 msgid "Could not import this section. Please try again."
 msgstr ""
 
-#: admin/pages/builder-template-library.php:158
+#: admin/pages/builder-template-library.php:155
 msgid "Importing will reload the builder. Save your unsaved changes first?"
 msgstr ""
 
-#: admin/pages/builder-template-library.php:174
-msgid "Block"
+#: admin/pages/builder-template-library.php:170
+msgid "Section Block"
 msgstr ""
 
-#: admin/pages/builder-template-library.php:177
-msgid "Page"
-msgstr ""
-
-#: admin/pages/builder-template-library.php:214
+#: admin/pages/builder-template-library.php:210
 msgid "Permission denied for this post."
 msgstr ""
 
-#: admin/pages/builder-template-library.php:220
+#: admin/pages/builder-template-library.php:216
 msgid "No template id provided."
 msgstr ""
 
-#: admin/pages/builder-template-library.php:232
+#: admin/pages/builder-template-library.php:228
 msgid "Template content is empty or in an unsupported format."
 msgstr ""
 
-#: admin/pages/builder-template-library.php:251
+#: admin/pages/builder-template-library.php:247
 msgid "Template resolved."
 msgstr ""
 
-#: admin/pages/builder-template-library.php:292
+#: admin/pages/builder-template-library.php:249
+msgid "Section inserted. Some SVG icons stay on the remote server because SVG uploads are disabled for your role in Bricks > Settings > General."
+msgstr ""
+
+#: admin/pages/builder-template-library.php:290
 msgid "Could not resolve template source."
 msgstr ""
 
-#: admin/pages/builder-template-library.php:310
+#: admin/pages/builder-template-library.php:306
 msgid "Empty template response."
 msgstr ""
 
-#: admin/pages/builder-template-library.php:315
+#: admin/pages/builder-template-library.php:311
 msgid "Invalid template JSON."
 msgstr ""
 
-#: admin/pages/dashboard.php:270
-#: admin/pages/dashboard.php:271
+#: admin/pages/dashboard.php:232
+#: admin/pages/dashboard.php:233
 msgid "Bricksfly"
 msgstr ""
 
-#: admin/pages/dashboard.php:281
-#: admin/pages/dashboard.php:282
-#: admin/row-actions.php:79
+#: admin/pages/dashboard.php:243
+#: admin/pages/dashboard.php:244
+#: admin/row-actions.php:48
 #: includes/elements/image-accordion.php:45
 #: includes/elements/video-story.php:45
 msgid "Settings"
 msgstr ""
 
-#: admin/pages/dashboard.php:299
-msgid "License"
-msgstr ""
-
-#: admin/pages/dashboard.php:314
+#: admin/pages/dashboard.php:260
 msgid "Starter Template"
 msgstr ""
 
-#: admin/pages/dashboard.php:464
-msgid "Pro plugin installed — activate it to continue"
-msgstr ""
-
-#: admin/pages/dashboard.php:465
-msgid "Head to the Plugins screen and click \"Activate\" on Bricksfly Pro to enable premium features."
-msgstr ""
-
-#: admin/pages/dashboard.php:466
-msgid "Activate Plugin"
-msgstr ""
-
-#: admin/pages/dashboard.php:473
-msgid "Activate your license to unlock Pro features"
-msgstr ""
-
-#: admin/pages/dashboard.php:474
-msgid "Enter your purchased license key to enable every premium extension, template, and automatic update."
-msgstr ""
-
-#: admin/pages/dashboard.php:482
-msgid "Your license key is invalid"
-msgstr ""
-
-#: admin/pages/dashboard.php:483
-msgid "The saved license key is not valid for this site. Please re-enter it or purchase a new one."
-msgstr ""
-
-#: admin/pages/dashboard.php:484
-msgid "Re-enter License"
-msgstr ""
-
-#: admin/pages/dashboard.php:491
-msgid "Your license has expired"
-msgstr ""
-
-#: admin/pages/dashboard.php:492
-msgid "Renew your license to keep receiving updates and premium features."
-msgstr ""
-
-#: admin/pages/dashboard.php:493
-msgid "Renew License"
-msgstr ""
-
-#: admin/pages/dashboard.php:500
-msgid "Your license has been disabled"
-msgstr ""
-
-#: admin/pages/dashboard.php:501
-msgid "Please contact support if you believe this is an error."
-msgstr ""
-
-#: admin/pages/dashboard.php:502
-msgid "Contact Support"
-msgstr ""
-
-#: admin/pages/dashboard.php:509
-msgid "This site is not activated on your license"
-msgstr ""
-
-#: admin/pages/dashboard.php:510
-msgid "Activate this site in your license to unlock premium features."
-msgstr ""
-
-#: admin/pages/dashboard.php:756
-#: admin/pages/dashboard.php:807
-#: admin/pages/dashboard.php:829
-#: admin/pages/dashboard.php:864
-#: admin/pages/dashboard.php:879
-#: admin/pages/dashboard.php:950
+#: admin/pages/dashboard.php:488
+#: admin/pages/dashboard.php:525
+#: admin/pages/dashboard.php:547
+#: admin/pages/dashboard.php:562
+#: admin/pages/dashboard.php:611
 msgid "you are not allowed to do this action"
 msgstr ""
 
-#: admin/pages/dashboard.php:791
+#: admin/pages/dashboard.php:509
 msgid "Invalid settings type."
 msgstr ""
 
-#: admin/pages/dashboard.php:818
+#: admin/pages/dashboard.php:536
 msgid "Notice Updated"
 msgstr ""
 
-#: admin/pages/dashboard.php:969
-msgid "Option name not found!"
+#: admin/pages/dashboard.php:616
+msgid "Smooth scroller settings are required."
 msgstr ""
 
-#: admin/pages/page-import.php:74
+#: admin/pages/page-import.php:82
 msgid "AAB Imported"
 msgstr ""
 
-#: admin/pages/page-import.php:118
-#: admin/pages/page-import.php:119
+#: admin/pages/page-import.php:126
+#: admin/pages/page-import.php:127
 msgid "Page Import"
 msgstr ""
 
-#: admin/pages/settings-placeholder.php:76
-#: admin/pages/settings-placeholder.php:77
-#: admin/pages/settings-placeholder.php:105
-#: includes/config-i18n.php:97
-msgid "Site Settings"
+#: admin/pages/template-importer.php:55
+#: admin/pages/template-importer.php:69
+#: admin/pages/template-importer.php:95
+#: admin/st-init.php:94
+msgid "You are not allowed to perform this action."
 msgstr ""
 
-#: admin/pages/settings-placeholder.php:89
-msgid "Activate your license to unlock Site Settings"
-msgstr ""
-
-#: admin/pages/settings-placeholder.php:90
-msgid "Site Settings requires the Pro plugin"
-msgstr ""
-
-#: admin/pages/settings-placeholder.php:93
-msgid "Bricksfly Pro is installed, but its license is not active for this site. Activate the license to enable Site Settings (Preloader, Cursor, Scroll Indicator, Scroll-to-Top)."
-msgstr ""
-
-#: admin/pages/settings-placeholder.php:94
-msgid "Site Settings (Preloader, Cursor, Scroll Indicator, Scroll-to-Top) is a Pro feature. Install and activate Bricksfly Pro, then activate your license, to use it."
-msgstr ""
-
-#: admin/pages/settings-placeholder.php:102
-msgid "Get Pro"
-msgstr ""
-
-#: admin/pages/settings-placeholder.php:126
-msgid "Bricksfly:"
-msgstr ""
-
-#: admin/pages/settings-placeholder.php:127
-msgid "Install and activate the Pro plugin to unlock Site Settings and other premium features."
-msgstr ""
-
-#: admin/pages/template-importer.php:67
+#: admin/pages/template-importer.php:73
 msgid "Provide wishlist data."
 msgstr ""
 
-#: admin/pages/template-importer.php:99
+#: admin/pages/template-importer.php:105
 msgid "No dependencies provided."
 msgstr ""
 
-#: admin/pages/template-importer.php:126
+#: admin/pages/template-importer.php:134
 msgid "Active"
 msgstr ""
 
-#: admin/pages/template-importer.php:127
+#: admin/pages/template-importer.php:135
 msgid "Installed"
 msgstr ""
 
-#: admin/pages/template-importer.php:129
+#: admin/pages/template-importer.php:137
 msgid "Not Installed"
 msgstr ""
 
-#: admin/pages/template-importer.php:141
-#: admin/plugin-installer.php:28
-#: admin/plugin-installer.php:46
+#: admin/pages/template-importer.php:216
+#: admin/plugin-installer.php:47
+#: admin/plugin-installer.php:70
 msgid "You are not allowed to do this action"
 msgstr ""
 
-#. translators: %s: plugin name being installed.
-#: admin/pages/template-importer.php:186
-#, php-format
-msgid "Installing %s"
-msgstr ""
-
-#: admin/pages/template-importer.php:195
-msgid "Plugin Installation Done"
-msgstr ""
-
-#: admin/pages/template-importer.php:203
-msgid "Content file Downloading"
-msgstr ""
-
-#: admin/pages/template-importer.php:207
-msgid "Invalid file"
-msgstr ""
-
-#: admin/pages/template-importer.php:219
-msgid "Missing Content file, contact author"
-msgstr ""
-
-#: admin/pages/template-importer.php:226
-msgid "Verifying Content Import"
-msgstr ""
-
-#: admin/pages/template-importer.php:227
-msgid "Checking Theme"
-msgstr ""
-
-#: admin/pages/template-importer.php:233
-msgid "Installing Theme"
-msgstr ""
-
-#: admin/pages/template-importer.php:252
-msgid "Downloading Template"
-msgstr ""
-
-#: admin/pages/template-importer.php:267
-msgid "Template Demo Import fail"
-msgstr ""
-
-#: admin/pages/template-importer.php:272
+#: admin/pages/template-importer.php:264
 msgid "Checking Setup requirement"
 msgstr ""
 
-#: admin/pages/template-importer.php:529
-msgid "Template Required"
+#: admin/pages/template-importer.php:287
+msgid "Downloading Template"
 msgstr ""
 
-#: admin/pages/template-importer.php:548
-msgid "Failed to validate file from remote URL."
+#: admin/pages/template-importer.php:303
+msgid "Missing Content file, contact author"
 msgstr ""
 
-#: admin/pages/template-importer.php:553
-msgid "Invalid file arguments."
+#: admin/pages/template-importer.php:306
+msgid "Content file Downloading"
 msgstr ""
 
-#: admin/pages/template-importer.php:559
-msgid "The downloadable file is empty."
+#: admin/pages/template-importer.php:314
+msgid "Verifying Content Import"
 msgstr ""
 
-#: admin/pages/template-importer.php:568
-msgid "No theme specified."
+#: admin/pages/template-importer.php:315
+msgid "Checking Theme"
 msgstr ""
 
-#. translators: %s: human-readable theme name.
-#: admin/pages/template-importer.php:578
-#, php-format
-msgid "Theme \"%s\" activated successfully."
+#: admin/pages/template-importer.php:335
+msgid "Template Demo Import fail"
 msgstr ""
 
-#. translators: %s: theme slug that was installed and activated.
-#: admin/pages/template-importer.php:612
-#, php-format
-msgid "Theme \"%s\" installed and activated."
+#: admin/plugin-installer.php:53
+msgid "This plugin cannot be activated from here."
 msgstr ""
 
-#: admin/plugin-installer.php:38
+#: admin/plugin-installer.php:62
 msgid "Plugin activated successfully!"
 msgstr ""
 
-#: admin/plugin-installer.php:56
+#: admin/plugin-installer.php:76
+msgid "This plugin cannot be deactivated from here."
+msgstr ""
+
+#: admin/plugin-installer.php:81
 msgid "Plugin deactivated successfully!"
 msgstr ""
 
-#: admin/row-actions.php:30
-msgid "Missing parameters"
-msgstr ""
-
-#: admin/row-actions.php:37
-msgid "Permission denied"
-msgstr ""
-
-#: admin/row-actions.php:56
-msgid "Feedback submitted successfully"
-msgstr ""
-
-#: admin/row-actions.php:64
+#: admin/row-actions.php:33
 msgid "Documentation"
 msgstr ""
 
-#: admin/row-actions.php:65
+#: admin/row-actions.php:34
 msgid "Support"
 msgstr ""
 
-#: admin/row-actions.php:67
+#: admin/row-actions.php:36
 msgid "Upgrade to Pro"
 msgstr ""
 
-#: admin/row-actions.php:69
-msgid " Rate the plugin"
+#: admin/row-actions.php:38
+msgid "Rate the plugin"
 msgstr ""
 
-#: admin/st-init.php:119
+#: admin/st-init.php:90
 msgid "Invalid or missing nonce"
 msgstr ""
 
-#: admin/st-init.php:232
+#: admin/st-init.php:197
 msgid "Downloaded files"
 msgstr ""
 
-#: admin/st-init.php:238
+#: admin/st-init.php:203
 msgid "No import files specified!"
 msgstr ""
 
-#: admin/st-init.php:283
+#: admin/st-init.php:249
 msgid "Congrats, your demo has been imported."
 msgstr ""
 
-#. translators: %s: Plugin name
-#: includes/class-bricks-theme-dependency.php:82
-#, php-format
-msgid "Theme switch was cancelled. %s requires the Bricks theme to remain active. Please deactivate the plugin before switching to another theme."
+#: bricksfly-elements-for-bricks.php:163
+msgid "Okay"
 msgstr ""
 
-#: includes/class-bricks-theme-dependency.php:99
+#: bricksfly-elements-for-bricks.php:164
+msgid "Cancel"
+msgstr ""
+
+#: bricksfly-elements-for-bricks.php:165
+msgid "Submit"
+msgstr ""
+
+#: bricksfly-elements-for-bricks.php:166
+msgid "Success"
+msgstr ""
+
+#: bricksfly-elements-for-bricks.php:167
+msgid "Warning"
+msgstr ""
+
+#: includes/class-bricks-theme-dependency.php:51
 msgid "Activate Bricks"
 msgstr ""
 
 #. translators: %s: Plugin name
-#: includes/class-bricks-theme-dependency.php:102
+#: includes/class-bricks-theme-dependency.php:54
 #, php-format
 msgid "%s requires the Bricks theme to be active. Please activate it to use this plugin."
 msgstr ""
 
-#: includes/class-bricks-theme-dependency.php:108
+#: includes/class-bricks-theme-dependency.php:60
 msgid "Get Bricks"
 msgstr ""
 
 #. translators: %s: Plugin name
-#: includes/class-bricks-theme-dependency.php:111
+#: includes/class-bricks-theme-dependency.php:63
 #, php-format
 msgid "%s requires the Bricks theme. Please install and activate Bricks to use this plugin."
+msgstr ""
+
+#: includes/compat-pro.php:71
+msgid "Please update BricksFly Pro."
+msgstr ""
+
+#. translators: %s: installed BricksFly Pro version.
+#: includes/compat-pro.php:75
+#, php-format
+msgid "BricksFly Pro %s was made for an older version of BricksFly. Update it to the latest version so all its features keep working."
+msgstr ""
+
+#: includes/compat-pro.php:79
+msgid "Go to Plugins"
 msgstr ""
 
 #: includes/config-i18n.php:22
@@ -711,7 +615,7 @@ msgstr ""
 #: includes/config-i18n.php:30
 #: includes/elements/animated-heading.php:14
 #: includes/elements/animated-heading.php:70
-#: includes/elements/animated-heading.php:272
+#: includes/elements/animated-heading.php:278
 msgid "Animated Heading"
 msgstr ""
 
@@ -722,8 +626,8 @@ msgstr ""
 #: includes/config-i18n.php:32
 #: includes/elements/animated-heading.php:45
 #: includes/elements/counter.php:50
-#: includes/extensions/class-aab-starter-animations.php:171
-#: includes/extensions/class-aab-starter-animations.php:706
+#: includes/extensions/class-aab-starter-animations.php:179
+#: includes/extensions/class-aab-starter-animations.php:714
 msgid "Animation"
 msgstr ""
 
@@ -803,9 +707,9 @@ msgid "Elevate your website’s look by incorporating a video box that blends se
 msgstr ""
 
 #: includes/config-i18n.php:51
-#: includes/extensions/class-aab-starter-animations.php:114
-#: includes/extensions/class-aab-starter-animations.php:133
-#: includes/extensions/class-aab-starter-animations.php:711
+#: includes/extensions/class-aab-starter-animations.php:122
+#: includes/extensions/class-aab-starter-animations.php:141
+#: includes/extensions/class-aab-starter-animations.php:719
 msgid "Flip"
 msgstr ""
 
@@ -996,6 +900,10 @@ msgstr ""
 msgid "Showcase real stories and client praise with a sleek, responsive testimonial carousel."
 msgstr ""
 
+#: includes/config-i18n.php:97
+msgid "Site Settings"
+msgstr ""
+
 #: includes/config-i18n.php:98
 msgid "Slider"
 msgstr ""
@@ -1008,8 +916,6 @@ msgid "Social Icons"
 msgstr ""
 
 #: includes/config-i18n.php:100
-#: includes/elements/post-social-share.php:14
-#: includes/elements/post-social-share.php:147
 msgid "Social Share"
 msgstr ""
 
@@ -1224,7 +1130,6 @@ msgstr ""
 #: includes/elements/icon-box.php:45
 #: includes/elements/image-accordion.php:55
 #: includes/elements/post-meta.php:35
-#: includes/elements/post-social-share.php:43
 #: includes/elements/team.php:35
 #: includes/elements/team.php:50
 #: includes/elements/testimonial-1.php:51
@@ -1287,7 +1192,7 @@ msgstr ""
 #: includes/elements/brand-slider.php:399
 #: includes/elements/button-pro.php:165
 #: includes/elements/counter.php:141
-#: includes/elements/floating-elements.php:282
+#: includes/elements/floating-elements.php:322
 #: includes/elements/icon-box.php:333
 #: includes/elements/image-accordion.php:286
 #: includes/elements/post-meta.php:380
@@ -1296,37 +1201,37 @@ msgstr ""
 #: includes/elements/testimonial-2.php:230
 #: includes/elements/testimonial-3.php:239
 #: includes/elements/timeline.php:510
-#: includes/extensions/class-aab-starter-animations.php:109
-#: includes/extensions/class-aab-starter-animations.php:128
-#: includes/extensions/class-aab-starter-animations.php:709
+#: includes/extensions/class-aab-starter-animations.php:117
+#: includes/extensions/class-aab-starter-animations.php:136
+#: includes/extensions/class-aab-starter-animations.php:717
 msgid "None"
 msgstr ""
 
 #: includes/elements/animated-heading.php:111
-#: includes/extensions/class-aab-starter-animations.php:110
-#: includes/extensions/class-aab-starter-animations.php:129
+#: includes/extensions/class-aab-starter-animations.php:118
+#: includes/extensions/class-aab-starter-animations.php:137
 msgid "Reveal"
 msgstr ""
 
 #: includes/elements/animated-heading.php:112
-#: includes/elements/floating-elements.php:286
-#: includes/extensions/class-aab-starter-animations.php:111
-#: includes/extensions/class-aab-starter-animations.php:130
+#: includes/elements/floating-elements.php:326
+#: includes/extensions/class-aab-starter-animations.php:119
+#: includes/extensions/class-aab-starter-animations.php:138
 msgid "Scale"
 msgstr ""
 
 #: includes/elements/animated-heading.php:113
 #: includes/elements/testimonial-1.php:36
 #: includes/elements/testimonial-2.php:36
-#: includes/extensions/class-aab-starter-animations.php:112
-#: includes/extensions/class-aab-starter-animations.php:131
-#: includes/extensions/class-aab-starter-animations.php:710
+#: includes/extensions/class-aab-starter-animations.php:120
+#: includes/extensions/class-aab-starter-animations.php:139
+#: includes/extensions/class-aab-starter-animations.php:718
 msgid "Slide"
 msgstr ""
 
 #: includes/elements/animated-heading.php:114
-#: includes/extensions/class-aab-starter-animations.php:113
-#: includes/extensions/class-aab-starter-animations.php:132
+#: includes/extensions/class-aab-starter-animations.php:121
+#: includes/extensions/class-aab-starter-animations.php:140
 msgid "Skew Reveal"
 msgstr ""
 
@@ -1390,15 +1295,15 @@ msgstr ""
 msgid "Duration (s)"
 msgstr ""
 
-#: includes/elements/animated-heading.php:162
+#: includes/elements/animated-heading.php:164
 msgid "Delay (s)"
 msgstr ""
 
-#: includes/elements/animated-heading.php:171
+#: includes/elements/animated-heading.php:175
 msgid "Stagger (s)"
 msgstr ""
 
-#: includes/elements/animated-heading.php:184
+#: includes/elements/animated-heading.php:190
 #: includes/elements/brand-slider.php:456
 #: includes/elements/button-pro.php:260
 #: includes/elements/counter.php:235
@@ -1418,7 +1323,6 @@ msgstr ""
 #: includes/elements/post-meta.php:710
 #: includes/elements/post-meta.php:778
 #: includes/elements/post-meta.php:838
-#: includes/elements/post-social-share.php:291
 #: includes/elements/progressbar.php:233
 #: includes/elements/testimonial-1.php:631
 #: includes/elements/testimonial-1.php:669
@@ -1445,7 +1349,7 @@ msgstr ""
 msgid "Typography"
 msgstr ""
 
-#: includes/elements/animated-heading.php:194
+#: includes/elements/animated-heading.php:200
 #: includes/elements/icon-box.php:493
 #: includes/elements/icon-box.php:605
 #: includes/elements/icon-box.php:649
@@ -1462,8 +1366,6 @@ msgstr ""
 #: includes/elements/post-meta.php:703
 #: includes/elements/post-meta.php:771
 #: includes/elements/post-meta.php:831
-#: includes/elements/post-social-share.php:492
-#: includes/elements/post-social-share.php:610
 #: includes/elements/progressbar.php:118
 #: includes/elements/social-icons.php:85
 #: includes/elements/social-icons.php:198
@@ -1484,7 +1386,7 @@ msgstr ""
 msgid "Color"
 msgstr ""
 
-#: includes/elements/animated-heading.php:204
+#: includes/elements/animated-heading.php:210
 #: includes/elements/counter.php:323
 #: includes/elements/icon-box.php:625
 #: includes/elements/icon-box.php:669
@@ -1495,7 +1397,7 @@ msgstr ""
 msgid "Margin"
 msgstr ""
 
-#: includes/elements/animated-heading.php:214
+#: includes/elements/animated-heading.php:220
 #: includes/elements/brand-slider.php:436
 #: includes/elements/button-pro.php:345
 #: includes/elements/counter.php:255
@@ -1506,8 +1408,6 @@ msgstr ""
 #: includes/elements/image-accordion.php:320
 #: includes/elements/image-accordion.php:551
 #: includes/elements/post-meta.php:401
-#: includes/elements/post-social-share.php:330
-#: includes/elements/post-social-share.php:535
 #: includes/elements/social-icons.php:244
 #: includes/elements/team.php:329
 #: includes/elements/team.php:426
@@ -1531,7 +1431,7 @@ msgstr ""
 msgid "Padding"
 msgstr ""
 
-#: includes/elements/animated-heading.php:228
+#: includes/elements/animated-heading.php:234
 #: includes/elements/testimonial-2.php:446
 #: includes/elements/testimonial-2.php:468
 #: includes/elements/testimonial-2.php:490
@@ -1542,15 +1442,15 @@ msgstr ""
 msgid "Text Shadow"
 msgstr ""
 
-#: includes/elements/animated-heading.php:238
+#: includes/elements/animated-heading.php:244
 msgid "Gradient Background"
 msgstr ""
 
-#: includes/elements/animated-heading.php:249
+#: includes/elements/animated-heading.php:255
 msgid "Text Stroke Color"
 msgstr ""
 
-#: includes/elements/animated-heading.php:259
+#: includes/elements/animated-heading.php:265
 msgid "Text Stroke Width"
 msgstr ""
 
@@ -1571,7 +1471,7 @@ msgstr ""
 
 #: includes/elements/brand-slider.php:65
 #: includes/elements/brand-slider.php:104
-#: includes/elements/floating-elements.php:200
+#: includes/elements/floating-elements.php:211
 #: includes/elements/image-accordion.php:92
 #: includes/elements/team.php:30
 #: includes/elements/team.php:45
@@ -1677,7 +1577,7 @@ msgstr ""
 #: includes/elements/testimonial-2.php:173
 #: includes/elements/testimonial-3.php:182
 #: includes/elements/video-box-slider.php:363
-#: includes/elements/video-mask.php:164
+#: includes/elements/video-mask.php:163
 msgid "Autoplay"
 msgstr ""
 
@@ -1698,7 +1598,7 @@ msgstr ""
 #: includes/elements/testimonial-2.php:203
 #: includes/elements/testimonial-3.php:212
 #: includes/elements/video-box-slider.php:397
-#: includes/elements/video-mask.php:187
+#: includes/elements/video-mask.php:186
 msgid "Loop"
 msgstr ""
 
@@ -1725,12 +1625,12 @@ msgstr ""
 #: includes/elements/brand-slider.php:291
 #: includes/elements/brand-slider.php:334
 #: includes/elements/brand-slider.php:629
-#: includes/elements/floating-elements.php:221
+#: includes/elements/floating-elements.php:239
 #: includes/elements/icon-box.php:193
 #: includes/elements/team.php:163
 #: includes/elements/testimonial-1.php:259
 #: includes/elements/video-box-slider.php:480
-#: includes/extensions/class-aab-starter-animations.php:523
+#: includes/extensions/class-aab-starter-animations.php:531
 msgid "Left"
 msgstr ""
 
@@ -1741,19 +1641,19 @@ msgstr ""
 #: includes/elements/post-meta.php:72
 #: includes/elements/team.php:165
 #: includes/elements/video-box-slider.php:1143
-#: includes/extensions/class-aab-starter-animations.php:520
+#: includes/extensions/class-aab-starter-animations.php:528
 msgid "Center"
 msgstr ""
 
 #: includes/elements/brand-slider.php:293
 #: includes/elements/brand-slider.php:335
 #: includes/elements/brand-slider.php:631
-#: includes/elements/floating-elements.php:222
+#: includes/elements/floating-elements.php:240
 #: includes/elements/icon-box.php:195
 #: includes/elements/team.php:164
 #: includes/elements/testimonial-1.php:260
 #: includes/elements/video-box-slider.php:481
-#: includes/extensions/class-aab-starter-animations.php:524
+#: includes/extensions/class-aab-starter-animations.php:532
 msgid "Right"
 msgstr ""
 
@@ -1774,7 +1674,6 @@ msgstr ""
 
 #: includes/elements/brand-slider.php:366
 #: includes/elements/post-meta.php:291
-#: includes/elements/post-social-share.php:343
 #: includes/elements/team.php:211
 #: includes/elements/testimonial-1.php:305
 #: includes/elements/testimonial-1.php:548
@@ -1790,7 +1689,6 @@ msgstr ""
 #: includes/elements/brand-slider.php:379
 #: includes/elements/image-accordion.php:224
 #: includes/elements/post-meta.php:300
-#: includes/elements/post-social-share.php:359
 #: includes/elements/team.php:233
 #: includes/elements/testimonial-1.php:561
 #: includes/elements/timeline.php:263
@@ -1800,7 +1698,7 @@ msgstr ""
 #: includes/elements/video-box-slider.php:817
 #: includes/elements/video-box.php:344
 #: includes/elements/video-box.php:446
-#: includes/elements/video-mask.php:201
+#: includes/elements/video-mask.php:200
 #: includes/elements/video-story.php:311
 msgid "Height"
 msgstr ""
@@ -1854,8 +1752,6 @@ msgstr ""
 #: includes/elements/icon-box.php:713
 #: includes/elements/image-accordion.php:537
 #: includes/elements/post-meta.php:409
-#: includes/elements/post-social-share.php:317
-#: includes/elements/post-social-share.php:522
 #: includes/elements/social-icons.php:276
 #: includes/elements/team.php:274
 #: includes/elements/testimonial-1.php:293
@@ -1873,7 +1769,7 @@ msgstr ""
 #: includes/elements/video-box-slider.php:1017
 #: includes/elements/video-box.php:317
 #: includes/elements/video-box.php:455
-#: includes/elements/video-mask.php:218
+#: includes/elements/video-mask.php:217
 #: includes/elements/video-story.php:472
 msgid "Border"
 msgstr ""
@@ -1894,7 +1790,6 @@ msgstr ""
 #: includes/elements/button-pro.php:476
 #: includes/elements/draggable-items.php:68
 #: includes/elements/post-meta.php:203
-#: includes/elements/post-social-share.php:274
 #: includes/elements/toggle-switch.php:336
 #: includes/elements/video-box-slider.php:902
 #: includes/elements/video-box-slider.php:936
@@ -2000,7 +1895,6 @@ msgid "Button Style"
 msgstr ""
 
 #: includes/elements/button-pro.php:65
-#: includes/elements/post-social-share.php:75
 #: includes/elements/team.php:66
 #: includes/elements/timeline.php:51
 #: includes/elements/toggle-switch.php:58
@@ -2028,7 +1922,7 @@ msgstr ""
 
 #: includes/elements/button-pro.php:73
 #: includes/elements/progressbar.php:84
-#: includes/elements/video-mask.php:236
+#: includes/elements/video-mask.php:235
 msgid "Circle"
 msgstr ""
 
@@ -2130,8 +2024,6 @@ msgstr ""
 #: includes/elements/icon-box.php:65
 #: includes/elements/icon-box.php:105
 #: includes/elements/post-meta.php:150
-#: includes/elements/post-social-share.php:58
-#: includes/elements/post-social-share.php:171
 #: includes/elements/social-icons.php:45
 #: includes/elements/social-icons.php:68
 #: includes/elements/team.php:182
@@ -2170,7 +2062,7 @@ msgstr ""
 #: includes/elements/timeline.php:111
 #: includes/elements/video-box-slider.php:1138
 #: includes/elements/video-box.php:129
-#: includes/elements/video-mask.php:309
+#: includes/elements/video-mask.php:308
 msgid "Alignment"
 msgstr ""
 
@@ -2184,8 +2076,6 @@ msgstr ""
 #: includes/elements/icon-box.php:838
 #: includes/elements/image-accordion.php:509
 #: includes/elements/post-meta.php:442
-#: includes/elements/post-social-share.php:304
-#: includes/elements/post-social-share.php:509
 #: includes/elements/team.php:321
 #: includes/elements/team.php:417
 #: includes/elements/testimonial-1.php:269
@@ -2225,10 +2115,8 @@ msgstr ""
 #: includes/elements/post-meta.php:733
 #: includes/elements/post-meta.php:793
 #: includes/elements/post-meta.php:853
-#: includes/elements/post-social-share.php:476
-#: includes/elements/post-social-share.php:593
 #: includes/elements/team.php:468
-#: includes/elements/video-mask.php:344
+#: includes/elements/video-mask.php:343
 #: includes/elements/video-story.php:348
 msgid "Icon Size"
 msgstr ""
@@ -2248,10 +2136,9 @@ msgstr ""
 #: includes/elements/button-pro.php:454
 #: includes/elements/counter.php:209
 #: includes/elements/post-meta.php:694
-#: includes/elements/post-social-share.php:238
 #: includes/elements/toggle-switch.php:113
 #: includes/elements/video-box-slider.php:1160
-#: includes/elements/video-mask.php:300
+#: includes/elements/video-mask.php:299
 #: includes/elements/video-story.php:506
 msgid "Gap"
 msgstr ""
@@ -2265,13 +2152,11 @@ msgid "Divider Color"
 msgstr ""
 
 #: includes/elements/button-pro.php:512
-#: includes/elements/post-social-share.php:431
 msgid "Hover Text Color"
 msgstr ""
 
 #: includes/elements/button-pro.php:533
-#: includes/elements/post-social-share.php:444
-#: includes/elements/video-mask.php:362
+#: includes/elements/video-mask.php:361
 msgid "Hover Icon Color"
 msgstr ""
 
@@ -2281,7 +2166,6 @@ msgstr ""
 
 #: includes/elements/button-pro.php:577
 #: includes/elements/icon-box.php:446
-#: includes/elements/post-social-share.php:578
 #: includes/elements/video-box-slider.php:1124
 msgid "Hover Border Color"
 msgstr ""
@@ -2290,8 +2174,6 @@ msgstr ""
 #: includes/elements/icon-box.php:436
 #: includes/elements/icon-box.php:570
 #: includes/elements/post-meta.php:450
-#: includes/elements/post-social-share.php:461
-#: includes/elements/post-social-share.php:548
 #: includes/elements/video-box-slider.php:1110
 msgid "Hover Background"
 msgstr ""
@@ -2314,12 +2196,31 @@ msgstr ""
 msgid "Hover Slide Offset"
 msgstr ""
 
+#: includes/elements/class-bricksfly-placeholder-element.php:62
+msgid "Bricksfly widget"
+msgstr ""
+
+#. translators: %s: widget label
+#: includes/elements/class-bricksfly-placeholder-element.php:96
+#, php-format
+msgid "%s is not active on this site."
+msgstr ""
+
+#: includes/elements/class-bricksfly-placeholder-element.php:116
+msgid "Bricksfly → Elements"
+msgstr ""
+
+#. translators: %s: link to the Bricksfly Elements settings tab
+#: includes/elements/class-bricksfly-placeholder-element.php:121
+#, php-format
+msgid "Activate it from %s."
+msgstr ""
+
 #: includes/elements/counter.php:55
 #: includes/elements/icon-box.php:50
 #: includes/elements/icon-box.php:158
 #: includes/elements/image-accordion.php:178
 #: includes/elements/post-meta.php:34
-#: includes/elements/post-social-share.php:48
 #: includes/elements/progressbar.php:79
 #: includes/elements/team.php:25
 #: includes/elements/timeline.php:25
@@ -2344,7 +2245,6 @@ msgstr ""
 #: includes/elements/image-accordion.php:60
 #: includes/elements/image-accordion.php:96
 #: includes/elements/post-meta.php:127
-#: includes/elements/post-social-share.php:152
 #: includes/elements/timeline.php:162
 #: includes/elements/timeline.php:352
 #: includes/elements/toggle-switch.php:42
@@ -2403,8 +2303,8 @@ msgid "Space (1 000)"
 msgstr ""
 
 #: includes/elements/counter.php:155
-#: includes/extensions/class-aab-starter-animations.php:182
-#: includes/extensions/class-aab-starter-animations.php:753
+#: includes/extensions/class-aab-starter-animations.php:190
+#: includes/extensions/class-aab-starter-animations.php:761
 msgid "Duration (ms)"
 msgstr ""
 
@@ -2415,14 +2315,13 @@ msgstr ""
 #: includes/elements/counter.php:179
 #: includes/elements/icon-box.php:177
 #: includes/elements/post-meta.php:679
-#: includes/elements/post-social-share.php:199
 #: includes/elements/social-icons.php:145
 #: includes/elements/testimonial-1.php:256
 #: includes/elements/testimonial-2.php:260
 #: includes/elements/testimonial-3.php:269
 #: includes/elements/video-box-slider.php:477
-#: includes/extensions/class-aab-starter-animations.php:310
-#: includes/extensions/class-aab-starter-animations.php:541
+#: includes/extensions/class-aab-starter-animations.php:318
+#: includes/extensions/class-aab-starter-animations.php:549
 msgid "Direction"
 msgstr ""
 
@@ -2482,90 +2381,94 @@ msgstr ""
 msgid "No draggable items added."
 msgstr ""
 
-#: includes/elements/floating-elements.php:53
-#: includes/elements/floating-elements.php:321
+#: includes/elements/floating-elements.php:52
+#: includes/elements/floating-elements.php:378
 msgid "Elements"
 msgstr ""
 
-#: includes/elements/floating-elements.php:208
+#: includes/elements/floating-elements.php:219
 #: includes/elements/icon-box.php:348
 #: includes/elements/icon-box.php:482
 #: includes/elements/progressbar.php:201
 #: includes/elements/social-icons.php:228
-#: includes/elements/video-mask.php:248
+#: includes/elements/video-mask.php:247
 msgid "Size"
 msgstr ""
 
-#: includes/elements/floating-elements.php:217
+#: includes/elements/floating-elements.php:235
 msgid "Horizontal Orientation"
 msgstr ""
 
-#: includes/elements/floating-elements.php:228
-#: includes/elements/floating-elements.php:236
-#: includes/elements/floating-elements.php:257
-#: includes/elements/floating-elements.php:265
+#: includes/elements/floating-elements.php:252
+#: includes/elements/floating-elements.php:264
+#: includes/elements/floating-elements.php:289
+#: includes/elements/floating-elements.php:301
 msgid "Offset"
 msgstr ""
 
-#: includes/elements/floating-elements.php:246
+#: includes/elements/floating-elements.php:278
 msgid "Vertical Orientation"
 msgstr ""
 
-#: includes/elements/floating-elements.php:250
+#: includes/elements/floating-elements.php:282
 #: includes/elements/icon-box.php:205
 #: includes/elements/timeline.php:101
-#: includes/extensions/class-aab-starter-animations.php:521
+#: includes/extensions/class-aab-starter-animations.php:529
 msgid "Top"
 msgstr ""
 
-#: includes/elements/floating-elements.php:251
+#: includes/elements/floating-elements.php:283
 #: includes/elements/icon-box.php:207
 #: includes/elements/team.php:162
-#: includes/extensions/class-aab-starter-animations.php:522
+#: includes/extensions/class-aab-starter-animations.php:530
 msgid "Bottom"
 msgstr ""
 
-#: includes/elements/floating-elements.php:273
+#: includes/elements/floating-elements.php:313
 msgid "Z-Index"
 msgstr ""
 
-#: includes/elements/floating-elements.php:279
+#: includes/elements/floating-elements.php:319
 msgid "Live Animation"
 msgstr ""
 
-#: includes/elements/floating-elements.php:283
+#: includes/elements/floating-elements.php:323
 msgid "Float Y"
 msgstr ""
 
-#: includes/elements/floating-elements.php:284
+#: includes/elements/floating-elements.php:324
 msgid "Float X"
 msgstr ""
 
-#: includes/elements/floating-elements.php:285
+#: includes/elements/floating-elements.php:325
 msgid "Spin"
 msgstr ""
 
-#: includes/elements/floating-elements.php:287
+#: includes/elements/floating-elements.php:327
 msgid "Wiggle"
 msgstr ""
 
-#: includes/elements/floating-elements.php:295
+#: includes/elements/floating-elements.php:335
 msgid "Enable Scroll Smoother"
 msgstr ""
 
-#: includes/elements/floating-elements.php:296
+#: includes/elements/floating-elements.php:336
 msgid "If you want to use scroll smooth, please enable global settings first"
 msgstr ""
 
-#: includes/elements/floating-elements.php:301
+#: includes/elements/floating-elements.php:341
 msgid "Data Speed"
 msgstr ""
 
-#: includes/elements/floating-elements.php:309
+#: includes/elements/floating-elements.php:349
 msgid "Data Lag"
 msgstr ""
 
-#: includes/elements/floating-elements.php:351
+#: includes/elements/floating-elements.php:368
+msgid "_cssSnapshot"
+msgstr ""
+
+#: includes/elements/floating-elements.php:408
 msgid "No floating elements added."
 msgstr ""
 
@@ -2676,8 +2579,8 @@ msgid "Hover to see this side! Add any content for the card back."
 msgstr ""
 
 #: includes/elements/icon-box.php:235
-#: includes/extensions/class-aab-starter-animations.php:610
-#: includes/extensions/class-aab-starter-animations.php:803
+#: includes/extensions/class-aab-starter-animations.php:618
+#: includes/extensions/class-aab-starter-animations.php:811
 msgid "Flip Direction"
 msgstr ""
 
@@ -2791,7 +2694,6 @@ msgstr ""
 #: includes/elements/icon-box.php:659
 #: includes/elements/post-meta.php:435
 #: includes/elements/post-meta.php:543
-#: includes/elements/post-social-share.php:561
 #: includes/elements/video-box-slider.php:1092
 msgid "Hover Color"
 msgstr ""
@@ -2918,7 +2820,6 @@ msgstr ""
 
 #: includes/elements/post-meta.php:38
 #: includes/elements/post-meta.php:154
-#: includes/elements/post-social-share.php:63
 msgid "Separator"
 msgstr ""
 
@@ -2955,7 +2856,6 @@ msgid "Layout Style"
 msgstr ""
 
 #: includes/elements/post-meta.php:57
-#: includes/elements/post-social-share.php:79
 #: includes/elements/team.php:69
 #: includes/elements/testimonial-1.php:77
 #: includes/elements/testimonial-2.php:81
@@ -2965,7 +2865,6 @@ msgid "One"
 msgstr ""
 
 #: includes/elements/post-meta.php:58
-#: includes/elements/post-social-share.php:80
 #: includes/elements/team.php:70
 #: includes/elements/testimonial-1.php:78
 #: includes/elements/testimonial-2.php:82
@@ -3002,12 +2901,10 @@ msgid "Share Separator"
 msgstr ""
 
 #: includes/elements/post-meta.php:102
-#: includes/elements/post-social-share.php:138
 msgid "Separator Icon"
 msgstr ""
 
 #: includes/elements/post-meta.php:111
-#: includes/elements/post-social-share.php:89
 #: includes/elements/video-story.php:154
 msgid "Show Title"
 msgstr ""
@@ -3132,7 +3029,7 @@ msgstr ""
 #: includes/elements/post-meta.php:806
 #: includes/elements/post-meta.php:866
 #: includes/elements/team.php:434
-#: includes/elements/video-mask.php:333
+#: includes/elements/video-mask.php:332
 msgid "Icon Color"
 msgstr ""
 
@@ -3186,104 +3083,6 @@ msgstr ""
 #: includes/elements/post-meta.php:1265
 #: includes/elements/post-meta.php:1270
 msgid "reviews"
-msgstr ""
-
-#: includes/elements/post-social-share.php:53
-msgid "Item"
-msgstr ""
-
-#: includes/elements/post-social-share.php:81
-#: includes/elements/testimonial-1.php:79
-#: includes/elements/testimonial-2.php:83
-msgid "Three"
-msgstr ""
-
-#: includes/elements/post-social-share.php:97
-msgid "Show Share Icon"
-msgstr ""
-
-#: includes/elements/post-social-share.php:104
-msgid "Share Text"
-msgstr ""
-
-#: includes/elements/post-social-share.php:106
-msgid "Share"
-msgstr ""
-
-#: includes/elements/post-social-share.php:113
-msgid "Share Icon"
-msgstr ""
-
-#: includes/elements/post-social-share.php:124
-msgid "Show Share Count"
-msgstr ""
-
-#: includes/elements/post-social-share.php:131
-msgid "Show Separator"
-msgstr ""
-
-#: includes/elements/post-social-share.php:154
-#: includes/elements/post-social-share.php:160
-msgid "Facebook"
-msgstr ""
-
-#: includes/elements/post-social-share.php:157
-msgid "Vendor"
-msgstr ""
-
-#: includes/elements/post-social-share.php:161
-msgid "Twitter"
-msgstr ""
-
-#: includes/elements/post-social-share.php:162
-msgid "LinkedIn"
-msgstr ""
-
-#: includes/elements/post-social-share.php:163
-msgid "Pinterest"
-msgstr ""
-
-#: includes/elements/post-social-share.php:164
-msgid "Tumblr"
-msgstr ""
-
-#: includes/elements/post-social-share.php:165
-msgid "Blogger"
-msgstr ""
-
-#: includes/elements/post-social-share.php:166
-msgid "Reddit"
-msgstr ""
-
-#: includes/elements/post-social-share.php:212
-#: includes/elements/post-social-share.php:388
-msgid "Justify Content"
-msgstr ""
-
-#: includes/elements/post-social-share.php:225
-#: includes/elements/post-social-share.php:401
-msgid "Align Items"
-msgstr ""
-
-#: includes/elements/post-social-share.php:254
-#: includes/elements/post-social-share.php:259
-msgid "Wrap"
-msgstr ""
-
-#: includes/elements/post-social-share.php:258
-msgid "No Wrap"
-msgstr ""
-
-#: includes/elements/post-social-share.php:375
-msgid "Inner Direction"
-msgstr ""
-
-#: includes/elements/post-social-share.php:414
-msgid "Inner Gap"
-msgstr ""
-
-#: includes/elements/post-social-share.php:677
-msgid "No share items added."
 msgstr ""
 
 #: includes/elements/progressbar.php:63
@@ -3560,6 +3359,11 @@ msgstr ""
 #: includes/elements/testimonial-1.php:73
 #: includes/elements/testimonial-2.php:78
 msgid "Testimonial Style"
+msgstr ""
+
+#: includes/elements/testimonial-1.php:79
+#: includes/elements/testimonial-2.php:83
+msgid "Three"
 msgstr ""
 
 #: includes/elements/testimonial-1.php:80
@@ -4175,7 +3979,7 @@ msgstr ""
 msgid "Active Title Border"
 msgstr ""
 
-#: includes/elements/toggle-switch.php:447
+#: includes/elements/toggle-switch.php:437
 msgid "Toggle Switch needs at least 2 items."
 msgstr ""
 
@@ -4296,13 +4100,13 @@ msgstr ""
 
 #: includes/elements/video-box-slider.php:703
 #: includes/elements/video-box.php:377
-#: includes/elements/video-mask.php:317
+#: includes/elements/video-mask.php:316
 msgid "Title Color"
 msgstr ""
 
 #: includes/elements/video-box-slider.php:716
 #: includes/elements/video-box.php:385
-#: includes/elements/video-mask.php:325
+#: includes/elements/video-mask.php:324
 msgid "Title Typography"
 msgstr ""
 
@@ -4436,12 +4240,12 @@ msgid "Play Icon"
 msgstr ""
 
 #: includes/elements/video-mask.php:118
-#: includes/elements/video-mask.php:264
+#: includes/elements/video-mask.php:263
 msgid "Offset X"
 msgstr ""
 
 #: includes/elements/video-mask.php:135
-#: includes/elements/video-mask.php:281
+#: includes/elements/video-mask.php:280
 msgid "Offset Y"
 msgstr ""
 
@@ -4449,51 +4253,51 @@ msgstr ""
 msgid "Video Link (mp4)"
 msgstr ""
 
-#: includes/elements/video-mask.php:158
+#: includes/elements/video-mask.php:157
 msgid "Upload your mp4 video file URL."
 msgstr ""
 
-#: includes/elements/video-mask.php:172
+#: includes/elements/video-mask.php:171
 msgid "Mute"
 msgstr ""
 
-#: includes/elements/video-mask.php:180
+#: includes/elements/video-mask.php:179
 msgid "Plays Inline"
 msgstr ""
 
-#: includes/elements/video-mask.php:194
+#: includes/elements/video-mask.php:193
 msgid "Poster"
 msgstr ""
 
-#: includes/elements/video-mask.php:233
+#: includes/elements/video-mask.php:232
 msgid "Shape"
 msgstr ""
 
-#: includes/elements/video-mask.php:237
+#: includes/elements/video-mask.php:236
 msgid "Flower"
 msgstr ""
 
-#: includes/elements/video-mask.php:238
+#: includes/elements/video-mask.php:237
 msgid "Sketch"
 msgstr ""
 
-#: includes/elements/video-mask.php:239
+#: includes/elements/video-mask.php:238
 msgid "Triangle"
 msgstr ""
 
-#: includes/elements/video-mask.php:240
+#: includes/elements/video-mask.php:239
 msgid "Blob"
 msgstr ""
 
-#: includes/elements/video-mask.php:354
+#: includes/elements/video-mask.php:353
 msgid "Hover Title Color"
 msgstr ""
 
-#: includes/elements/video-mask.php:374
+#: includes/elements/video-mask.php:373
 msgid "Active Title Color"
 msgstr ""
 
-#: includes/elements/video-mask.php:382
+#: includes/elements/video-mask.php:381
 msgid "Active Icon Color"
 msgstr ""
 
@@ -4588,288 +4392,280 @@ msgstr ""
 msgid "No posts found."
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:87
-#: includes/extensions/class-aab-starter-animations.php:96
+#: includes/extensions/class-aab-starter-animations.php:95
+#: includes/extensions/class-aab-starter-animations.php:104
 msgid "Starter Animations"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:115
+#: includes/extensions/class-aab-starter-animations.php:123
 msgid "Glow Pulse (text)"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:116
+#: includes/extensions/class-aab-starter-animations.php:124
 msgid "Typewriter (text)"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:117
+#: includes/extensions/class-aab-starter-animations.php:125
 msgid "Mask Wipe (text)"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:118
+#: includes/extensions/class-aab-starter-animations.php:126
 msgid "Water Wave (text)"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:119
+#: includes/extensions/class-aab-starter-animations.php:127
 msgid "Background Clip (text)"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:120
+#: includes/extensions/class-aab-starter-animations.php:128
 msgid "Character Animation (text)"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:140
+#: includes/extensions/class-aab-starter-animations.php:148
 msgid "Ease (Default)"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:141
+#: includes/extensions/class-aab-starter-animations.php:149
 msgid "Linear"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:142
+#: includes/extensions/class-aab-starter-animations.php:150
 msgid "Ease In"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:143
+#: includes/extensions/class-aab-starter-animations.php:151
 msgid "Ease Out"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:144
+#: includes/extensions/class-aab-starter-animations.php:152
 msgid "Ease In Out"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:145
+#: includes/extensions/class-aab-starter-animations.php:153
 msgid "Smooth Cubic"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:146
+#: includes/extensions/class-aab-starter-animations.php:154
 msgid "Elastic Feel"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:201
-#: includes/extensions/class-aab-starter-animations.php:769
+#: includes/extensions/class-aab-starter-animations.php:209
+#: includes/extensions/class-aab-starter-animations.php:777
 msgid "Delay (ms)"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:220
-#: includes/extensions/class-aab-starter-animations.php:785
+#: includes/extensions/class-aab-starter-animations.php:228
+#: includes/extensions/class-aab-starter-animations.php:793
 msgid "Easing"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:239
+#: includes/extensions/class-aab-starter-animations.php:247
 msgid "Glow Color"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:254
+#: includes/extensions/class-aab-starter-animations.php:262
 msgid "Glow Size (px)"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:272
+#: includes/extensions/class-aab-starter-animations.php:280
 msgid "Animation Loop"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:275
-#: includes/extensions/class-aab-starter-animations.php:661
-#: includes/extensions/class-aab-starter-animations.php:853
+#: includes/extensions/class-aab-starter-animations.php:283
+#: includes/extensions/class-aab-starter-animations.php:669
+#: includes/extensions/class-aab-starter-animations.php:861
 msgid "Play Once"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:276
+#: includes/extensions/class-aab-starter-animations.php:284
 msgid "Infinite"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:293
+#: includes/extensions/class-aab-starter-animations.php:301
 msgid "Mask Color"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:313
+#: includes/extensions/class-aab-starter-animations.php:321
 msgid "Bottom -> Top"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:314
+#: includes/extensions/class-aab-starter-animations.php:322
 msgid "Top -> Bottom"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:315
+#: includes/extensions/class-aab-starter-animations.php:323
 msgid "Left -> Right"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:316
+#: includes/extensions/class-aab-starter-animations.php:324
 msgid "Right -> Left"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:317
+#: includes/extensions/class-aab-starter-animations.php:325
 msgid "Center Expand"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:327
+#: includes/extensions/class-aab-starter-animations.php:335
 msgid "Enable Fade"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:338
+#: includes/extensions/class-aab-starter-animations.php:346
 msgid "Wave Fill Color"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:358
+#: includes/extensions/class-aab-starter-animations.php:366
 msgid "Background Image"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:366
+#: includes/extensions/class-aab-starter-animations.php:374
 msgid "Animation Speed (s)"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:385
+#: includes/extensions/class-aab-starter-animations.php:393
 msgid "Character Preset"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:388
+#: includes/extensions/class-aab-starter-animations.php:396
 msgid "Revolve Scale"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:389
+#: includes/extensions/class-aab-starter-animations.php:397
 msgid "Ball Drop"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:390
+#: includes/extensions/class-aab-starter-animations.php:398
 msgid "Side Slide"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:391
+#: includes/extensions/class-aab-starter-animations.php:399
 msgid "Revolve Drop"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:392
+#: includes/extensions/class-aab-starter-animations.php:400
 msgid "Drop Vanish"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:393
+#: includes/extensions/class-aab-starter-animations.php:401
 msgid "Twister"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:403
+#: includes/extensions/class-aab-starter-animations.php:411
 msgid "Translate X (px)"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:422
+#: includes/extensions/class-aab-starter-animations.php:430
 msgid "Translate Y (px)"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:441
+#: includes/extensions/class-aab-starter-animations.php:449
 msgid "Drop Distance (px)"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:460
+#: includes/extensions/class-aab-starter-animations.php:468
 msgid "Rotate Degree"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:481
+#: includes/extensions/class-aab-starter-animations.php:489
 msgid "Start Scale"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:499
+#: includes/extensions/class-aab-starter-animations.php:507
 msgid "End Scale"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:517
+#: includes/extensions/class-aab-starter-animations.php:525
 msgid "Scale From"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:544
-#: includes/extensions/class-aab-starter-animations.php:724
+#: includes/extensions/class-aab-starter-animations.php:552
+#: includes/extensions/class-aab-starter-animations.php:732
 msgid "Bottom → Top"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:545
-#: includes/extensions/class-aab-starter-animations.php:725
+#: includes/extensions/class-aab-starter-animations.php:553
+#: includes/extensions/class-aab-starter-animations.php:733
 msgid "Top → Bottom"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:546
-#: includes/extensions/class-aab-starter-animations.php:726
+#: includes/extensions/class-aab-starter-animations.php:554
+#: includes/extensions/class-aab-starter-animations.php:734
 msgid "Left → Right"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:547
-#: includes/extensions/class-aab-starter-animations.php:727
+#: includes/extensions/class-aab-starter-animations.php:555
+#: includes/extensions/class-aab-starter-animations.php:735
 msgid "Right → Left"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:557
-#: includes/extensions/class-aab-starter-animations.php:737
+#: includes/extensions/class-aab-starter-animations.php:565
+#: includes/extensions/class-aab-starter-animations.php:745
 msgid "Distance (px)"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:577
+#: includes/extensions/class-aab-starter-animations.php:585
 msgid "Skew Angle (deg)"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:593
+#: includes/extensions/class-aab-starter-animations.php:601
 msgid "Translate Distance (px)"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:613
-#: includes/extensions/class-aab-starter-animations.php:806
+#: includes/extensions/class-aab-starter-animations.php:621
+#: includes/extensions/class-aab-starter-animations.php:814
 msgid "Flip X"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:614
-#: includes/extensions/class-aab-starter-animations.php:807
+#: includes/extensions/class-aab-starter-animations.php:622
+#: includes/extensions/class-aab-starter-animations.php:815
 msgid "Flip Y"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:624
-#: includes/extensions/class-aab-starter-animations.php:817
+#: includes/extensions/class-aab-starter-animations.php:632
+#: includes/extensions/class-aab-starter-animations.php:825
 msgid "Flip Angle (deg)"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:640
-#: includes/extensions/class-aab-starter-animations.php:833
+#: includes/extensions/class-aab-starter-animations.php:648
+#: includes/extensions/class-aab-starter-animations.php:841
 msgid "Perspective (px)"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:657
-#: includes/extensions/class-aab-starter-animations.php:850
+#: includes/extensions/class-aab-starter-animations.php:665
+#: includes/extensions/class-aab-starter-animations.php:858
 msgid "Repeat Animation?"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:658
+#: includes/extensions/class-aab-starter-animations.php:666
 msgid "Play once, or replay every time the element enters the viewport."
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:662
-#: includes/extensions/class-aab-starter-animations.php:854
+#: includes/extensions/class-aab-starter-animations.php:670
+#: includes/extensions/class-aab-starter-animations.php:862
 msgid "Every Time"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:674
-#: includes/extensions/class-aab-starter-animations.php:864
+#: includes/extensions/class-aab-starter-animations.php:682
+#: includes/extensions/class-aab-starter-animations.php:872
 msgid "Enable On Editor"
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:675
-#: includes/extensions/class-aab-starter-animations.php:865
+#: includes/extensions/class-aab-starter-animations.php:683
+#: includes/extensions/class-aab-starter-animations.php:873
 msgid "For better performance in editor mode, keep this off."
 msgstr ""
 
-#: includes/extensions/class-aab-starter-animations.php:721
+#: includes/extensions/class-aab-starter-animations.php:729
 msgid "Slide Direction"
 msgstr ""
 
-#: bricksfly-elements-for-bricks.php:177
-msgid "Okay"
+#: includes/helper.php:492
+msgid "Open BricksFly Pro"
 msgstr ""
 
-#: bricksfly-elements-for-bricks.php:178
-msgid "Cancel"
+#: includes/helper.php:510
+msgid "Activate Pro"
 msgstr ""
 
-#: bricksfly-elements-for-bricks.php:179
-msgid "Submit"
-msgstr ""
-
-#: bricksfly-elements-for-bricks.php:180
-msgid "Success"
-msgstr ""
-
-#: bricksfly-elements-for-bricks.php:181
-msgid "Warning"
+#: includes/helper.php:519
+msgid "Get Pro"
 msgstr ""

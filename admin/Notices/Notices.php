@@ -27,11 +27,6 @@ class Notices {
 	public function add_admin_notices() {
 		$installed_time = absint( get_option( 'bricksfly_installed' ) );
 		$current_time   = absint( wp_date( 'U' ) );
-		$plugin_file    = WP_PLUGIN_DIR . '/bricksfly-elements-for-bricks-pro/bricksfly-elements-for-bricks-pro.php';
-
-		if ( ! file_exists( $plugin_file ) ) {
-			// Add promotional notices here when needed.
-		}
 	}
 
 	public function ajax_dismiss_notice() {
@@ -49,7 +44,6 @@ class Notices {
 			} else {
 				$this->dismiss( $notice_id );
 			}
-			wp_cache_flush();
 			wp_send_json_success();
 			exit;
 		}

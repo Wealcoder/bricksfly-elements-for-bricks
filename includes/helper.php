@@ -423,19 +423,49 @@ if (! function_exists('bricksfly_is_pro_active')) {
   }
 }
 
+if (! function_exists('bricksfly_pro_basename')) {
+
+  /**
+   * Plugin basename of the separate BricksFly Pro plugin when it is
+   * installed (active or not), found by its text domain in the installed
+   * plugins list rather than by assuming its folder name.
+   *
+   * @return string Basename, or '' when BricksFly Pro is not installed.
+   */
+  function bricksfly_pro_basename()
+  {
+    static $basename = null;
+
+    if (null !== $basename) {
+      return $basename;
+    }
+
+    if (! function_exists('get_plugins')) {
+      require_once ABSPATH . 'wp-admin/includes/plugin.php';
+    }
+
+    $basename = '';
+    foreach (get_plugins() as $file => $data) {
+      if (isset($data['TextDomain']) && 'bricksfly-elements-for-bricks-pro' === $data['TextDomain']) {
+        $basename = (string) $file;
+        break;
+      }
+    }
+
+    return $basename;
+  }
+}
+
 if (! function_exists('bricksfly_is_pro_installed')) {
 
   /**
-   * Whether the Bricksfly Pro plugin folder + main file exist on
-   * disk. Independent of whether the plugin is currently activated — used to
-   * gate features that must not run at all when Pro isn't available, such as
-   * the site-settings extensions and pro extension toggles.
+   * Whether the BricksFly Pro plugin is installed, active or not.
    *
    * @return bool
    */
   function bricksfly_is_pro_installed()
   {
-    return file_exists(WP_PLUGIN_DIR . '/bricksfly-elements-for-bricks-pro/bricksfly-elements-for-bricks-pro.php');
+    return '' !== bricksfly_pro_basename();
   }
 }
 
