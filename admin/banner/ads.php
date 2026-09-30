@@ -2,7 +2,7 @@
 <div class="bricksfly-dashboard-banner" style="text-align:center;">
     <a href="https://bricksfly.com/" target="_blank" style="display:block;">
         <img src="<?php echo esc_url( BRICKSFLY_URL ); ?>assets/images/aab-banner.png"
-                alt="Bricks Animation Addons Banner"
+                alt="BricksFly Banner"
                 style="max-width:100%;">
     </a>
     <div style="margin-top:10px;display:flex;justify-content:center;gap:15px;font-size:14px;">

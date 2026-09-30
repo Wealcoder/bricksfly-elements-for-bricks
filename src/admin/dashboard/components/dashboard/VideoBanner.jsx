@@ -4,7 +4,7 @@ import TutorialDialog from "./dialog/TutorialDialog";
 const VideoBanner = ({
   thumbnail = `${BRICKSFLY_ADDONS_ADMIN.plugin_url}public/images/bricksfly-video-banner.jpg`,
   videoUrl = "https://youtu.be/5wno9t4gR64?si=qgM8L6HyQHIouiyI",
-  title = "Animation Addons",
+  title = "BricksFly",
 }) => {
   const [open, setOpen] = useState(false);
 

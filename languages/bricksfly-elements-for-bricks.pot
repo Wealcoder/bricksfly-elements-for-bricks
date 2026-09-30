@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-30T06:38:02+00:00\n"
+"POT-Creation-Date: 2026-09-30T06:51:04+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: bricksfly-elements-for-bricks\n"
@@ -370,6 +370,10 @@ msgstr ""
 msgid "Invalid template JSON."
 msgstr ""
 
+#: admin/pages/dashboard.php:121
+msgid "BricksFly Overview"
+msgstr ""
+
 #: admin/pages/dashboard.php:232
 #: admin/pages/dashboard.php:233
 msgid "Bricksfly"
@@ -408,7 +412,7 @@ msgid "Smooth scroller settings are required."
 msgstr ""
 
 #: admin/pages/page-import.php:82
-msgid "AAB Imported"
+msgid "BricksFly Imported"
 msgstr ""
 
 #: admin/pages/page-import.php:126

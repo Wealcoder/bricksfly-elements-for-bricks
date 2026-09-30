@@ -118,7 +118,7 @@ class BRICKSFLY_Admin_Init
 
 		wp_add_dashboard_widget(
 			'bricksfly_dashboard_widget',
-			'Animation Addons Overview',
+			esc_html__('BricksFly Overview', 'bricksfly-elements-for-bricks'),
 			[$this, 'bricksfly_render_dashboard_widget']
 		);
 

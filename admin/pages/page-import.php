@@ -76,10 +76,10 @@ class BRICKSFLY_Page_Importer {
 		}
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading URL parameter for view display only, not processing form data.
-		$latest_import             = isset( $_GET['aae-latest-import'] ) ? sanitize_key( wp_unslash( $_GET['aae-latest-import'] ) ) : '';
+		$latest_import             = isset( $_GET['bricksfly-latest-import'] ) ? sanitize_key( wp_unslash( $_GET['bricksfly-latest-import'] ) ) : '';
 		$class                     = 'import' === $latest_import ? 'current' : '';
-		$url                       = add_query_arg( 'aae-latest-import', 'import', admin_url( 'edit.php?post_type=page' ) );
-		$views['latest-import']    = "<a href='" . esc_url( $url ) . "' class='" . esc_attr( $class ) . "' style='color: #fc6848; font-weight: 500'>" . esc_html__( 'AAB Imported', 'bricksfly-elements-for-bricks' ) . " <span class='count'>(" . (int) $count . ")</span></a>";
+		$url                       = add_query_arg( 'bricksfly-latest-import', 'import', admin_url( 'edit.php?post_type=page' ) );
+		$views['latest-import']    = "<a href='" . esc_url( $url ) . "' class='" . esc_attr( $class ) . "' style='color: #fc6848; font-weight: 500'>" . esc_html__( 'BricksFly Imported', 'bricksfly-elements-for-bricks' ) . " <span class='count'>(" . (int) $count . ")</span></a>";
 
 		return $views;
 	}
@@ -89,7 +89,7 @@ class BRICKSFLY_Page_Importer {
 
 		if ( is_admin() && $pagenow === 'edit.php' && $query->get( 'post_type' ) === 'page' ) {
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading URL parameter for query filtering only, not processing form data.
-			$latest_import = isset( $_GET['aae-latest-import'] ) ? sanitize_key( wp_unslash( $_GET['aae-latest-import'] ) ) : '';
+			$latest_import = isset( $_GET['bricksfly-latest-import'] ) ? sanitize_key( wp_unslash( $_GET['bricksfly-latest-import'] ) ) : '';
 			if ( 'import' === $latest_import ) {
 				$query->set( 'meta_key', 'bricksfly_imported' );
 				$query->set( 'meta_value', '1' );

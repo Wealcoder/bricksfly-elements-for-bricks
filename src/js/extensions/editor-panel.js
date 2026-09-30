@@ -171,7 +171,7 @@
           true,
         );
       } catch (e) {
-        console.warn("[AAB] Iframe access error:", e);
+        console.warn("[BricksFly] Iframe access error:", e);
       }
     }
 
@@ -187,14 +187,14 @@
   function playActiveAnimation() {
     var iframe = document.getElementById("bricks-builder-iframe");
     if (!iframe || !iframe.contentWindow) {
-      console.warn("[AAB] Bricks iframe not found.");
+      console.warn("[BricksFly] Bricks iframe not found.");
       return;
     }
 
     var elementId = getActiveElementId();
     if (!elementId) {
       console.warn(
-        "[AAB] Could not determine active element ID. Click the element in the canvas first, then click PLAY ANIMATION.",
+        "[BricksFly] Could not determine active element ID. Click the element in the canvas first, then click PLAY ANIMATION.",
       );
       return;
     }
@@ -203,7 +203,7 @@
     var s = ae && ae.settings ? ae.settings : null;
     var dispatched = [];
 
-    // console.log("[AAB] PLAY clicked — elementId:", elementId, "| settings:", s);
+    // console.log("[BricksFly] PLAY clicked — elementId:", elementId, "| settings:", s);
 
     function clone(obj) {
       try {
@@ -247,36 +247,36 @@
 
   window.bricksflyDebugBricksState = function () {
     var gp = getBricksGlobalProperties();
-    console.log("[AAB debug] globalProperties:", gp);
-    console.log("[AAB debug] $_state:", gp && gp.$_state);
+    console.log("[BricksFly debug] globalProperties:", gp);
+    console.log("[BricksFly debug] $_state:", gp && gp.$_state);
     console.log(
-      "[AAB debug] $_state.activeElement:",
+      "[BricksFly debug] $_state.activeElement:",
       gp && gp.$_state && gp.$_state.activeElement,
     );
-    console.log("[AAB debug] $_data:", gp && gp.$_data);
-    console.log("[AAB debug] $_activeElement:", gp && gp.$_activeElement);
+    console.log("[BricksFly debug] $_data:", gp && gp.$_data);
+    console.log("[BricksFly debug] $_activeElement:", gp && gp.$_activeElement);
     console.log(
-      "[AAB debug] window.bricksData.activeId:",
+      "[BricksFly debug] window.bricksData.activeId:",
       window.bricksData && window.bricksData.activeId,
     );
-    console.log("[AAB debug] lastClickedElementId:", lastClickedElementId);
+    console.log("[BricksFly debug] lastClickedElementId:", lastClickedElementId);
     var iframe = document.getElementById("bricks-builder-iframe");
-    console.log("[AAB debug] iframe:", iframe);
+    console.log("[BricksFly debug] iframe:", iframe);
     try {
       var doc =
         iframe && (iframe.contentDocument || iframe.contentWindow.document);
       console.log(
-        "[AAB debug] iframe .brxe-active:",
+        "[BricksFly debug] iframe .brxe-active:",
         doc && doc.querySelector(".brxe-active"),
       );
       console.log(
-        "[AAB debug] iframe [data-text_animation]:",
+        "[BricksFly debug] iframe [data-text_animation]:",
         doc && doc.querySelectorAll("[data-text_animation]").length,
       );
     } catch (e) {
-      console.log("[AAB debug] iframe access error:", e);
+      console.log("[BricksFly debug] iframe access error:", e);
     }
-    console.log("[AAB debug] resolved active id:", getActiveElementId());
+    console.log("[BricksFly debug] resolved active id:", getActiveElementId());
   };
 
   document.addEventListener("click", function (e) {
