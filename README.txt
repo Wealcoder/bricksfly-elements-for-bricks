@@ -1,10 +1,10 @@
-=== BricksFly Elements and Templates for Bricks with GSAP Animations ===
+=== BricksFly Elements and Templates for Bricks ===
 Contributors: wealcoder
 Tags: bricks builder, bricks templates, bricks builder addons, bricks elements, animation
 Requires at least: 6.9
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.6
+Stable tag: 1.0.7
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -300,6 +300,10 @@ The files in `public/build` are compiled (minified) JavaScript and CSS. **Their 
 
 == Changelog ==
 
+= 1.0.7 =
+- Changed: The plugin is now named "BricksFly Elements and Templates for Bricks". The GSAP animation engine is part of the separate BricksFly Pro plugin, so it is no longer in this plugin's name.
+- Changed: The description on the Plugins screen now lists only what this plugin includes.
+
 = 1.0.6 =
 - Fixed: Switching to another theme is no longer blocked. BricksFly only shows a notice when Bricks is not the active theme.
 - Fixed: The Support and Rate links point to this plugin's WordPress.org pages.
@@ -342,6 +346,9 @@ The files in `public/build` are compiled (minified) JavaScript and CSS. **Their 
 - Initial release.
 
 == Upgrade Notice ==
+
+= 1.0.7 =
+New plugin name and description. No functional changes.
 
 = 1.0.6 =
 Switching themes is no longer blocked, and template import is lighter on your site. Recommended update.

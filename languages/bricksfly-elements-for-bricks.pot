@@ -2,21 +2,21 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: BricksFly Elements and Templates for Bricks with GSAP Animations 1.0.6\n"
+"Project-Id-Version: BricksFly Elements and Templates for Bricks 1.0.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bricksfly-elements-for-bricks\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-30T06:51:04+00:00\n"
+"POT-Creation-Date: 2026-10-06T04:44:16+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: bricksfly-elements-for-bricks\n"
 
 #. Plugin Name of the plugin
 #: bricksfly-elements-for-bricks.php
-msgid "BricksFly Elements and Templates for Bricks with GSAP Animations"
+msgid "BricksFly Elements and Templates for Bricks"
 msgstr ""
 
 #. Plugin URI of the plugin
@@ -26,7 +26,7 @@ msgstr ""
 
 #. Description of the plugin
 #: bricksfly-elements-for-bricks.php
-msgid "Bricksfly for Bricks comes with GSAP Animation Builder, Customizable Elements, Header Footer, Single Post, Archive Page Builder, and Many more."
+msgid "Bricks Elements, preset Starter Animations and a Template Library of starter websites, pages and sections for Bricks Builder."
 msgstr ""
 
 #. Author of the plugin
