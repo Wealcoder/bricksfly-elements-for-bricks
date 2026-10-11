@@ -57,6 +57,7 @@ Design dynamic websites with a growing collection of Bricks Elements, from creat
 #### Animation Elements
 
 - **Animated Heading**: Create animated headings with multiple text effects and triggers.
+- **Stacking Cards** (Pro): Create Apple and Linear style Nestable stacking cards with GSAP ScrollTrigger, 8 hardware-accelerated transition effects (Deck, Scale, Fan Out, Flip, Spatial Zoom, Curtain), and dynamic step counter pills.
 
 #### Header & Footer Elements
 
@@ -106,6 +107,8 @@ The Extensions below are part of BricksFly Pro, a separate plugin. They add GSAP
 - **ScrollTrigger**: Trigger advanced animations based on scroll position using GSAP ScrollTrigger.
 - **Horizontal**: Build horizontal scroll animations using GSAP ScrollTrigger.
 - **ScrollTo**: Create smooth scroll-to navigation for one-page Bricks websites.
+- **Stacking Cards**: Turn native containers into an interactive pinned card deck or cascading sticky stack with scroll-driven scale, opacity, and blur.
+- **Magnetic Effect**: Add physics-based magnetic pull to buttons, icons, or cards as the user cursor approaches.
 
 #### General Extensions
 
