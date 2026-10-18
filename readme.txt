@@ -4,7 +4,7 @@ Tags: bricks builder, bricks templates, bricks builder addons, bricks elements, 
 Requires at least: 6.9
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.7
+Stable tag: 1.0.8
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -57,7 +57,7 @@ Design dynamic websites with a growing collection of Bricks Elements, from creat
 #### Animation Elements
 
 - **Animated Heading**: Create animated headings with multiple text effects and triggers.
-- **Stacking Cards** (Pro): Create Apple and Linear style Nestable stacking cards with GSAP ScrollTrigger, 8 hardware-accelerated transition effects (Deck, Scale, Fan Out, Flip, Spatial Zoom, Curtain), and dynamic step counter pills.
+- **Stacking Cards** (Pro): Build a nestable deck of cards that stack as the visitor scrolls, powered by GSAP ScrollTrigger. Choose a pinned section or sticky cards, pick one of 8 transition effects (stack and scale, fade and slide, card flip, fan out, zoom, diagonal, curtain, horizontal slide), and show a step counter such as 01 / 03.
 
 #### Header & Footer Elements
 
@@ -303,6 +303,10 @@ The files in `public/build` are compiled (minified) JavaScript and CSS. **Their 
 
 == Changelog ==
 
+= 1.0.8 =
+- Added: The Stacking Cards element and the Stacking Cards and Magnetic Effect extensions are listed in the BricksFly dashboard. They are part of BricksFly Pro.
+- Updated: The readme lists Stacking Cards and Magnetic Effect.
+
 = 1.0.7 =
 - Changed: The plugin is now named "BricksFly Elements and Templates for Bricks". The GSAP animation engine is part of the separate BricksFly Pro plugin, so it is no longer in this plugin's name.
 - Changed: The description on the Plugins screen now lists only what this plugin includes.
@@ -349,6 +353,9 @@ The files in `public/build` are compiled (minified) JavaScript and CSS. **Their 
 - Initial release.
 
 == Upgrade Notice ==
+
+= 1.0.8 =
+Lists the new BricksFly Pro Stacking Cards and Magnetic Effect features in the dashboard. No changes to existing Elements.
 
 = 1.0.7 =
 New plugin name and description. No functional changes.

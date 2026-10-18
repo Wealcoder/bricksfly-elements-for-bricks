@@ -36,6 +36,7 @@ const sources = [
     '!public/build/elements/src/**',
     '!public/build/extensions/src/**',
     '!CLAUDE.md',
+    '!AGENT.md',
     '!**/*.map',
     '!**/.DS_Store',
 ];

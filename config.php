@@ -183,34 +183,7 @@ $bricksfly_config = array(
 						'description'  => 'Visualize stats and skills with animated line, circle, or dot-style progress bars.',
 					),
 
-					'stacking-cards'          => array(
-						'label'        => 'Stacking Cards',
-						'location'     => array(
-							'cTab' => 'all',
-						),
-						'is_active'    => true,
-						'setup'        => array('basic'),
-						'is_pro'       => true,
-						'is_extension' => false,
-						'is_upcoming'  => false,
-						'keywords'     => array(
-							'stacking cards',
-							'cards',
-							'stack',
-							'scroll',
-							'nestable',
-							'apple',
-							'linear',
-						),
-						'order'        => 30,
-						'icon'         => 'wcf-icon-Pin-Elements',
-						'demo_url'     => 'https://bricksfly.com/elements/stacking-cards/',
-						'doc_url'      => 'https://bricksfly.com/docs/elements/stacking-cards/',
-						'youtube_url'  => '',
-						'description'  => 'Nestable drag-and-drop stacking cards with scroll-driven scale and dimming effects.',
-					),
-
-					'icon-box'             => array(
+					'icon-box'           => array(
 						'label'        => 'Icon Box',
 						'location'     => array(
 							'cTab' => 'all',
