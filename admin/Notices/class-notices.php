@@ -74,7 +74,7 @@ class Notices {
 				'start' => '2026-10-01',
 				'end'   => '2026-11-05',
 				'image' => 'halloween-2026.png',
-				'url'   => 'https://bricksfly.com/pricing/?utm_source=bricksfly-free&utm_medium=admin-notice&utm_campaign=halloween-2026',
+				'url'   => 'https://bricksfly.com/pricing/?utm_source=plugin_dashboard&utm_medium=free_user_notice&utm_campaign=halloween_2026&utm_content=upgrade_button',
 				'alt'   => __( 'Halloween deal: upgrade to BricksFly Pro at 40 percent off. Offer ends November 5.', 'bricksfly-elements-for-bricks' ),
 			),
 		);
