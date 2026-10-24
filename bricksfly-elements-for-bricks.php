@@ -16,7 +16,7 @@
  * Plugin Name:       BricksFly Elements and Templates for Bricks
  * Plugin URI:        https://bricksfly.com/
  * Description:       Bricks Elements, preset Starter Animations and a Template Library of starter websites, pages and sections for Bricks Builder.
- * Version:           1.0.8
+ * Version:           1.0.9
  * Author:            Wealcoder
  * Author URI:        https://profiles.wordpress.org/wealcoder/
  * License:           GPLv2 or later
@@ -67,7 +67,7 @@ if (! defined('BRICKSFLY_VERSION')) {
 	/**
 	 * Plugin Version.
 	 */
-	define('BRICKSFLY_VERSION', '1.0.8');
+	define('BRICKSFLY_VERSION', '1.0.9');
 }
 
 if (! defined('BRICKSFLY_TEMPLATE_STARTER_BASE_URL')) {

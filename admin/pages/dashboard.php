@@ -208,7 +208,7 @@ class BRICKSFLY_Admin_Init
 		require_once $admin_dir . 'st-init.php';
 
 		// Notices system.
-		require_once $admin_dir . 'Notices/Notices.php';
+		require_once $admin_dir . 'Notices/class-notices.php';
 		require_once $admin_dir . 'Notices/ShowNotices.php';
 
 		// CPT Builder is part of the separate BricksFly Pro plugin; the free

@@ -4,7 +4,7 @@ Tags: bricks builder, bricks templates, bricks builder addons, bricks elements, 
 Requires at least: 6.9
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.8
+Stable tag: 1.0.9
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -303,6 +303,9 @@ The files in `public/build` are compiled (minified) JavaScript and CSS. **Their 
 
 == Changelog ==
 
+= 1.0.9 =
+- Added: Seasonal BricksFly Pro offers can show as a banner on the Dashboard, Plugins and BricksFly screens, to administrators who do not have BricksFly Pro installed. Each offer ends on its own date; Close hides it for 3 days and "Don't show again" hides it for good.
+
 = 1.0.8 =
 - Added: The Stacking Cards element and the Stacking Cards and Magnetic Effect extensions are listed in the BricksFly dashboard. They are part of BricksFly Pro.
 - Updated: The readme lists Stacking Cards and Magnetic Effect.
@@ -326,33 +329,12 @@ The files in `public/build` are compiled (minified) JavaScript and CSS. **Their 
 = 1.0.5 =
 - Fixed: After an update, the BricksFly dashboard could fail with "o[e] is not a function" because the browser or CDN kept older copies of its script files. Those files now get a new name with every release.
 
-= 1.0.4 =
-- Fixed: The BricksFly dashboard could stay blank on some sites with the error "c is not a function".
-- Improved: If a BricksFly admin screen fails to load, it now shows the error and a Reload button instead of a blank page.
-- Improved: Small code cleanups and updated translation template.
-
-= 1.0.3 =
-- Updated: Templates, pages and sections marked Free in the Template Library now import fully with the free plugin, with no license or account. Pro items show a Pro badge and a link to BricksFly Pro.
-- Added: Free / Pro filter on starter templates, pages and sections; free items are listed first.
-- Added: Search and page-type filter on the Page Import screen.
-- Added: Images and SVGs of inserted sections are copied into the Media Library.
-- Removed: All license checks and license screens from the free plugin.
-- Changed: Template import no longer installs or activates plugins. It lists the plugins a template recommends so you can install them yourself.
-- Fixed: Template import only merges Bricks design data (global classes, variables, colors, theme styles, breakpoints) and never other site settings.
-- Fixed: Template files are only downloaded from the BricksFly template library.
-- Fixed: Import progress no longer jumps to 100% before the import finishes.
-- Improved: The importer loads its classes only while an import runs.
-- Improved: The readme documents every external service, the source code and build steps.
-
-= 1.0.2 - 13 August 2026 =
-- Updated: Rewrote the plugin description, feature summary, and FAQ so they describe BricksFly as a collection of Bricks Builder addons, and state more clearly what the Elements, Extensions, GSAP animation engine, and Bricks templates actually do.
-- Updated: Plugin title and tags now match the wording used across the description.
-- Note: Documentation only. No Elements, Extensions, or animation behavior changed in this release.
-
-= 1.0.0 - 29 July 2026 =
-- Initial release.
+[See the full changelog](https://plugins.trac.wordpress.org/browser/bricksfly-elements-for-bricks/trunk/changelog.txt).
 
 == Upgrade Notice ==
+
+= 1.0.9 =
+Adds dismissible seasonal offer banners for BricksFly Pro. No changes to Elements or templates.
 
 = 1.0.8 =
 Lists the new BricksFly Pro Stacking Cards and Magnetic Effect features in the dashboard. No changes to existing Elements.
