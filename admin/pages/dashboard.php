@@ -373,6 +373,8 @@ class BRICKSFLY_Admin_Init
 					'url'   => 'https://bricksfly.com/pricing/',
 				)
 			),
+			// Seasonal BricksFly Pro offer shown below the dashboard menu, or null.
+			'campaign'            => class_exists('\wealcoder\bricksfly\Admin\Notices\Notices') ? \wealcoder\bricksfly\Admin\Notices\Notices::instance()->get_dashboard_campaign() : null,
 
 		);
 		wp_localize_script('bricksfly-admin', 'BRICKSFLY_ADDONS_ADMIN', $localize_data);

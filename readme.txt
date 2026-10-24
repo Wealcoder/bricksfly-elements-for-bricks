@@ -4,7 +4,7 @@ Tags: bricks builder, bricks templates, bricks builder addons, bricks elements, 
 Requires at least: 6.9
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.9
+Stable tag: 1.0.10
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -303,6 +303,10 @@ The files in `public/build` are compiled (minified) JavaScript and CSS. **Their 
 
 == Changelog ==
 
+= 1.0.10 =
+- Added: The seasonal BricksFly Pro offer also shows in the BricksFly dashboard, below its menu (Dashboard, Elements, Extensions and Free vs Pro tabs). Close and "Don't show again" work the same as on the Dashboard and Plugins screens, and hiding it in one place hides it in both.
+- Changed: The offer notice no longer tries to show on BricksFly screens, which hide WordPress notices.
+
 = 1.0.9 =
 - Added: Seasonal BricksFly Pro offers can show as a banner on the Dashboard, Plugins and BricksFly screens, to administrators who do not have BricksFly Pro installed. Each offer ends on its own date; Close hides it for 3 days and "Don't show again" hides it for good.
 
@@ -326,12 +330,12 @@ The files in `public/build` are compiled (minified) JavaScript and CSS. **Their 
 - Improved: Template import uses WordPress's own admin memory limit, and allows .xml/.json uploads only during the import upload.
 - Improved: Removed duplicate copies of the source files from `public/build`; the readable source is in `src`.
 
-= 1.0.5 =
-- Fixed: After an update, the BricksFly dashboard could fail with "o[e] is not a function" because the browser or CDN kept older copies of its script files. Those files now get a new name with every release.
-
 [See the full changelog](https://plugins.trac.wordpress.org/browser/bricksfly-elements-for-bricks/trunk/changelog.txt).
 
 == Upgrade Notice ==
+
+= 1.0.10 =
+Shows the seasonal BricksFly Pro offer in the BricksFly dashboard too. No changes to Elements or templates.
 
 = 1.0.9 =
 Adds dismissible seasonal offer banners for BricksFly Pro. No changes to Elements or templates.

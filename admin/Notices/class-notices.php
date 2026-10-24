@@ -82,8 +82,9 @@ class Notices {
 
 	/**
 	 * Show the running campaign to admins who do not have BricksFly Pro
-	 * installed (active or not), on the Dashboard, Plugins and BricksFly
-	 * screens only.
+	 * installed (active or not): as a notice on the Dashboard and Plugins
+	 * screens, and in the BricksFly dashboard below its menu (that screen
+	 * removes admin notices; see get_dashboard_campaign()).
 	 */
 	protected function add_campaign_notices() {
 		$now     = current_datetime();
@@ -108,11 +109,41 @@ class Notices {
 					'message'     => __DIR__ . '/views/campaign.php',
 					'dismissible' => false,
 					'class'       => 'aab-promo-notice',
-					'screens'     => array( 'dashboard', 'plugins', 'toplevel_page_bricksfly_addons_page', 'bricksfly_page_*' ),
+					'screens'     => array( 'dashboard', 'plugins' ),
 					'campaign'    => $campaign,
 				)
 			);
 		}
+	}
+
+	/**
+	 * The running campaign for the BricksFly dashboard (a React app that
+	 * renders it below its menu), or null when there is none or it is hidden.
+	 * Close and "don't show again" post to the same AJAX action as the notice.
+	 *
+	 * @return array|null
+	 */
+	public function get_dashboard_campaign() {
+		foreach ( $this->notices as $notice ) {
+			if ( empty( $notice['campaign'] ) || $this->is_dismissed( $notice['notice_id'] ) || ! current_user_can( $notice['capability'] ) ) {
+				continue;
+			}
+
+			return array(
+				'notice_id'   => $notice['notice_id'],
+				'image'       => esc_url_raw( BRICKSFLY_URL . 'assets/images/notices/' . $notice['campaign']['image'] ),
+				'url'         => esc_url_raw( $notice['campaign']['url'] ),
+				'alt'         => $notice['campaign']['alt'],
+				'action'      => 'bricksfly_notice_dismiss_notice',
+				'nonce'       => wp_create_nonce( 'bricksfly_notice_dismiss_notice' ),
+				'snooze_time' => 3 * DAY_IN_SECONDS,
+				'labels'      => array(
+					'close'   => __( 'Close', 'bricksfly-elements-for-bricks' ),
+					'dismiss' => __( 'Don\'t show again', 'bricksfly-elements-for-bricks' ),
+				),
+			);
+		}
+		return null;
 	}
 
 	/**
