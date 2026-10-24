@@ -65,7 +65,9 @@ class Notices {
 	 * To add one, drop its 1100x150 @2x PNG in that folder and add an entry.
 	 * Every campaign has its own notice ID, so dismissing one never hides the next.
 	 *
-	 * @return array[] Campaigns: id, start, end (Y-m-d), image, url, alt.
+	 * @return array[] Campaigns: id, start, end (Y-m-d), image, url, alt, and
+	 *                 optionally dashboard_image (the BricksFly dashboard banner,
+	 *                 which has no close button; defaults to image).
 	 */
 	protected function campaigns() {
 		return array(
@@ -123,29 +125,26 @@ class Notices {
 
 	/**
 	 * The running campaign for the BricksFly dashboard (a React app that
-	 * renders it below its menu), or null when there is none or it is hidden.
-	 * Close and "don't show again" post to the same AJAX action as the notice.
+	 * renders it below its menu), or null when there is none. It has no close
+	 * button and ignores the notice's snooze / dismiss: it shows until the
+	 * campaign ends, unless BricksFly Pro is installed (then no campaign is
+	 * registered at all).
 	 *
 	 * @return array|null
 	 */
 	public function get_dashboard_campaign() {
 		foreach ( $this->notices as $notice ) {
-			if ( empty( $notice['campaign'] ) || $this->is_dismissed( $notice['notice_id'] ) || ! current_user_can( $notice['capability'] ) ) {
+			if ( empty( $notice['campaign'] ) || ! current_user_can( $notice['capability'] ) ) {
 				continue;
 			}
 
+			// The notice image has a close (X) drawn in; a campaign can give the dashboard a version without it.
+			$image = ! empty( $notice['campaign']['dashboard_image'] ) ? $notice['campaign']['dashboard_image'] : $notice['campaign']['image'];
+
 			return array(
-				'notice_id'   => $notice['notice_id'],
-				'image'       => esc_url_raw( BRICKSFLY_URL . 'assets/images/notices/' . $notice['campaign']['image'] ),
-				'url'         => esc_url_raw( $notice['campaign']['url'] ),
-				'alt'         => $notice['campaign']['alt'],
-				'action'      => 'bricksfly_notice_dismiss_notice',
-				'nonce'       => wp_create_nonce( 'bricksfly_notice_dismiss_notice' ),
-				'snooze_time' => 3 * DAY_IN_SECONDS,
-				'labels'      => array(
-					'close'   => __( 'Close', 'bricksfly-elements-for-bricks' ),
-					'dismiss' => __( 'Don\'t show again', 'bricksfly-elements-for-bricks' ),
-				),
+				'image' => esc_url_raw( BRICKSFLY_URL . 'assets/images/notices/' . $image ),
+				'url'   => esc_url_raw( $notice['campaign']['url'] ),
+				'alt'   => $notice['campaign']['alt'],
 			);
 		}
 		return null;

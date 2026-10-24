@@ -304,7 +304,7 @@ The files in `public/build` are compiled (minified) JavaScript and CSS. **Their 
 == Changelog ==
 
 = 1.0.10 =
-- Added: The seasonal BricksFly Pro offer also shows in the BricksFly dashboard, below its menu (Dashboard, Elements, Extensions and Free vs Pro tabs). Close and "Don't show again" work the same as on the Dashboard and Plugins screens, and hiding it in one place hides it in both.
+- Added: The seasonal BricksFly Pro offer also shows in the BricksFly dashboard, below its menu (Dashboard, Elements, Extensions and Free vs Pro tabs). It has no close button and shows until the offer ends.
 - Changed: The offer notice no longer tries to show on BricksFly screens, which hide WordPress notices.
 - Changed: Each administrator sees the offer notice once on the Dashboard and twice on the Plugins screen.
 
