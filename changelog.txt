@@ -3,6 +3,7 @@
 = 1.0.10 =
 - Added: The seasonal BricksFly Pro offer also shows in the BricksFly dashboard, below its menu (Dashboard, Elements, Extensions and Free vs Pro tabs). Close and "Don't show again" work the same as on the Dashboard and Plugins screens, and hiding it in one place hides it in both.
 - Changed: The offer notice no longer tries to show on BricksFly screens, which hide WordPress notices.
+- Changed: Each administrator sees the offer notice once on the Dashboard and twice on the Plugins screen.
 
 = 1.0.9 =
 - Added: Seasonal BricksFly Pro offers can show as a banner on the Dashboard, Plugins and BricksFly screens, to administrators who do not have BricksFly Pro installed. Each offer ends on its own date; Close hides it for 3 days and "Don't show again" hides it for good.

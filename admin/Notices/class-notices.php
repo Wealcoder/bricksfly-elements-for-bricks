@@ -82,9 +82,10 @@ class Notices {
 
 	/**
 	 * Show the running campaign to admins who do not have BricksFly Pro
-	 * installed (active or not): as a notice on the Dashboard and Plugins
-	 * screens, and in the BricksFly dashboard below its menu (that screen
-	 * removes admin notices; see get_dashboard_campaign()).
+	 * installed (active or not): as a notice on the Dashboard (once per user)
+	 * and Plugins (twice per user) screens, and in the BricksFly dashboard
+	 * below its menu (that screen removes admin notices; see
+	 * get_dashboard_campaign()).
 	 */
 	protected function add_campaign_notices() {
 		$now     = current_datetime();
@@ -110,6 +111,10 @@ class Notices {
 					'dismissible' => false,
 					'class'       => 'aab-promo-notice',
 					'screens'     => array( 'dashboard', 'plugins' ),
+					'max_views'   => array(
+						'dashboard' => 1,
+						'plugins'   => 2,
+					),
 					'campaign'    => $campaign,
 				)
 			);
@@ -262,6 +267,10 @@ class Notices {
 					wp_kses_post( wptexturize( $message ) ),
 					$notice['dismissible'] ? '<button type="button" class="notice-dismiss"><span class="screen-reader-text">' . esc_html__( 'Dismiss this notice', 'bricksfly-elements-for-bricks' ) . '</span></button>' : ''
 				);
+
+				if ( ! empty( $notice['max_views'] ) ) {
+					$this->count_view( $notice['notice_id'] );
+				}
 			}
 		}
 	}
@@ -280,6 +289,7 @@ class Notices {
 	 *     @type string   $class       Extra CSS classes.
 	 *     @type string   $style       Inline style for the wrapper.
 	 *     @type string[] $screens     Screen IDs to show on; a trailing * matches a prefix. Empty = every screen.
+	 *     @type int[]    $max_views   Times each user sees it, per screen ID (e.g. array( 'plugins' => 2 )). Empty = no limit.
 	 * }
 	 */
 	public function add( $args ) {
@@ -297,6 +307,7 @@ class Notices {
 				'class'       => '',
 				'style'       => '',
 				'screens'     => array(),
+				'max_views'   => array(),
 			)
 		);
 		if ( empty( $args['message'] ) ) {
@@ -347,7 +358,44 @@ class Notices {
 		if ( ! empty( $notice['screens'] ) && ! $this->is_screen( $notice['screens'] ) ) {
 			return false;
 		}
+		$screen = ! empty( $notice['max_views'] ) && function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+		if ( $screen ) {
+			$limit = isset( $notice['max_views'][ $screen->id ] ) ? absint( $notice['max_views'][ $screen->id ] ) : 0;
+			if ( $limit && $this->get_views( $notice['notice_id'], $screen->id ) >= $limit ) {
+				return false;
+			}
+		}
 		return true;
+	}
+
+	/**
+	 * How many times the current user has seen a notice on a screen.
+	 *
+	 * @param string $id        Notice ID.
+	 * @param string $screen_id Screen ID.
+	 * @return int
+	 */
+	protected function get_views( $id, $screen_id ) {
+		$views = get_user_meta( get_current_user_id(), 'bricksfly_notice_views', true );
+		return isset( $views[ $id ][ $screen_id ] ) ? absint( $views[ $id ][ $screen_id ] ) : 0;
+	}
+
+	/**
+	 * Count one view of a notice on the current screen for the current user.
+	 *
+	 * @param string $id Notice ID.
+	 */
+	protected function count_view( $id ) {
+		$screen = get_current_screen();
+		if ( ! $screen ) {
+			return;
+		}
+		$user_id = get_current_user_id();
+		$views   = get_user_meta( $user_id, 'bricksfly_notice_views', true );
+		$views   = is_array( $views ) ? $views : array();
+
+		$views[ $id ][ $screen->id ] = $this->get_views( $id, $screen->id ) + 1;
+		update_user_meta( $user_id, 'bricksfly_notice_views', $views );
 	}
 
 	/**
