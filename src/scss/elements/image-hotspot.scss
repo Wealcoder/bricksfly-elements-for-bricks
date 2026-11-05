@@ -1,0 +1,272 @@
+.aab-image-hotspot {
+	position: relative;
+	box-sizing: border-box;
+
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+	}
+
+	svg {
+		width: 1em;
+		height: 1em;
+	}
+
+	> img {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	// Hotspot items are positioned against this layer, which covers the image.
+	// Bricks addresses each item as `.repeater-item:nth-child(n)`, so nothing
+	// but the items may live in here.
+	.aab-image-hotspot__items {
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+	}
+
+	&.aab-image-hotspot--beat .aab-hotspot__icon {
+		animation: aabHotspotBeat var(--anim-speed, 1s) infinite;
+	}
+
+	&.aab-image-hotspot--pulse .aab-hotspot__icon {
+		&::before,
+		&::after {
+			position: absolute;
+			content: "";
+			width: 100%;
+			height: 100%;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			border-radius: 100px;
+			pointer-events: none;
+		}
+
+		&::before {
+			animation: aabHotspotPulse var(--anim-speed, 3s) infinite cubic-bezier(0.4, 0, 1, 1) both;
+		}
+
+		&::after {
+			animation: aabHotspotPulse var(--anim-speed, 3s) 0.5s infinite cubic-bezier(0.4, 0, 1, 1) both;
+		}
+	}
+}
+
+.aab-hotspot {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	pointer-events: auto;
+	color: inherit;
+	text-decoration: none;
+
+	&.aab-hotspot--hover:hover,
+	&.aab-hotspot--hover:focus-within,
+	&.aab-hotspot--none {
+		.aab-hotspot__tooltip {
+			opacity: 1;
+			visibility: visible;
+		}
+	}
+
+	.aab-hotspot__icon {
+		position: relative;
+		background: #000;
+		border-radius: 100px;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 5px;
+
+		&.aab-hotspot__icon--dot {
+			width: 30px;
+			height: 30px;
+		}
+
+		&.aab-hotspot__icon--icon {
+			padding: 5px;
+			font-size: 18px;
+			color: #fff;
+			fill: #fff;
+		}
+
+		&.aab-hotspot__icon--text,
+		&.aab-hotspot__icon--icon-text {
+			fill: #fff;
+			color: #fff;
+			padding: 3px 15px;
+			font-size: 16px;
+			line-height: 1.5;
+		}
+	}
+
+	.aab-hotspot__tooltip {
+		position: absolute;
+		z-index: 5;
+		width: 260px;
+		background: #e8e8e8;
+		padding: 15px;
+		opacity: 0;
+		visibility: hidden;
+		transition: 0.5s ease;
+
+		&::after {
+			position: absolute;
+			content: "";
+			background-color: #e8e8e8;
+		}
+
+		&.active {
+			opacity: 1;
+			visibility: visible;
+		}
+
+		p {
+			margin: 0;
+		}
+	}
+}
+
+/* ---------------------------
+   Tooltip position
+--------------------------- */
+
+.aab-image-hotspot--tlp-top {
+	.aab-hotspot__tooltip {
+		bottom: calc(100% + 15px);
+		left: 50%;
+		transform: translateX(-50%);
+		margin-bottom: var(--tlp-gap, 20px);
+
+		&::after {
+			width: 20px;
+			height: 15px;
+			clip-path: polygon(100% 0, 0 0, 50% 100%);
+			bottom: -14px;
+			left: 50%;
+			transform: translateX(-50%);
+		}
+
+		&.active {
+			bottom: 100%;
+		}
+	}
+
+	.aab-hotspot--hover:hover .aab-hotspot__tooltip {
+		bottom: 100%;
+	}
+}
+
+.aab-image-hotspot--tlp-bottom {
+	.aab-hotspot__tooltip {
+		top: calc(100% + 15px);
+		left: 50%;
+		transform: translateX(-50%);
+		margin-top: var(--tlp-gap, 20px);
+
+		&::after {
+			width: 20px;
+			height: 15px;
+			clip-path: polygon(50% 0, 0 100%, 100% 100%);
+			top: -14px;
+			left: 50%;
+			transform: translateX(-50%);
+		}
+
+		&.active {
+			top: 100%;
+		}
+	}
+
+	.aab-hotspot--hover:hover .aab-hotspot__tooltip {
+		top: 100%;
+	}
+}
+
+.aab-image-hotspot--tlp-left {
+	.aab-hotspot__tooltip {
+		right: calc(100% + 15px);
+		top: 50%;
+		transform: translateY(-50%);
+		margin-right: var(--tlp-gap, 20px);
+
+		&::after {
+			width: 15px;
+			height: 20px;
+			clip-path: polygon(0 0, 0 100%, 100% 50%);
+			right: -14px;
+			top: 50%;
+			transform: translateY(-50%);
+		}
+
+		&.active {
+			right: 100%;
+		}
+	}
+
+	.aab-hotspot--hover:hover .aab-hotspot__tooltip {
+		right: 100%;
+	}
+}
+
+.aab-image-hotspot--tlp-right {
+	.aab-hotspot__tooltip {
+		left: calc(100% + 15px);
+		top: 50%;
+		transform: translateY(-50%);
+		margin-left: var(--tlp-gap, 20px);
+
+		&::after {
+			width: 15px;
+			height: 20px;
+			clip-path: polygon(100% 0, 0 50%, 100% 100%);
+			left: -14px;
+			top: 50%;
+			transform: translateY(-50%);
+		}
+
+		&.active {
+			left: 100%;
+		}
+	}
+
+	.aab-hotspot--hover:hover .aab-hotspot__tooltip {
+		left: 100%;
+	}
+}
+
+@keyframes aabHotspotBeat {
+	0% {
+		transform: scale(1.2);
+	}
+
+	50% {
+		transform: scale(1);
+	}
+
+	100% {
+		transform: scale(1.2);
+	}
+}
+
+@keyframes aabHotspotPulse {
+	0% {
+		box-shadow: 0 0 0 0 var(--pulse-color, #111);
+	}
+
+	70% {
+		box-shadow: 0 0 0 30px var(--pulse-color, #111);
+		opacity: 0;
+	}
+
+	100% {
+		box-shadow: 0 0 0 0 var(--pulse-color, #111);
+		opacity: 0;
+	}
+}

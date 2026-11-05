@@ -27,6 +27,7 @@ const ELEMENT_ENTRIES = [
   "draggable-items",
   "icon-box",
   "image-accordion",
+  "image-hotspot",
   "progressbar",
   "testimonial",
   "testimonial-2",
