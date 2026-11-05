@@ -208,7 +208,7 @@ class BRICKSFLY_Admin_Init
 		require_once $admin_dir . 'st-init.php';
 
 		// Notices system.
-		require_once $admin_dir . 'Notices/Notices.php';
+		require_once $admin_dir . 'Notices/class-notices.php';
 		require_once $admin_dir . 'Notices/ShowNotices.php';
 
 		// CPT Builder is part of the separate BricksFly Pro plugin; the free
@@ -373,6 +373,8 @@ class BRICKSFLY_Admin_Init
 					'url'   => 'https://bricksfly.com/pricing/',
 				)
 			),
+			// Seasonal BricksFly Pro offer shown below the dashboard menu, or null.
+			'campaign'            => class_exists('\wealcoder\bricksfly\Admin\Notices\Notices') ? \wealcoder\bricksfly\Admin\Notices\Notices::instance()->get_dashboard_campaign() : null,
 
 		);
 		wp_localize_script('bricksfly-admin', 'BRICKSFLY_ADDONS_ADMIN', $localize_data);

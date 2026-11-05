@@ -1,6 +1,7 @@
 import { useEffect, useState, Suspense } from "react";
 import MainHeader from "@/components/header/MainHeader";
 import TemplateHeader from "@/components/header/TemplateHeader";
+import CampaignBanner from "@/components/shared/CampaignBanner";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ShowContent } from "@/config/showFullContent";
 import { useNotification, useTNavigation } from "@/hooks/app.hooks";
@@ -119,7 +120,10 @@ MainLayout.FirstLayout = ({ children }) => {
       ) : (
         <div className="container overflow-x-hidden bg-background rounded-[10px]">
           <MainHeader open={open} setOpen={setOpen} />
-          <div className="px-5 2xl:px-24 py-8">{children}</div>
+          <div className="px-5 2xl:px-24 py-8">
+            <CampaignBanner />
+            {children}
+          </div>
         </div>
       )}
     </>
