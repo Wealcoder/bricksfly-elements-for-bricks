@@ -36,14 +36,14 @@ class WXRImporter extends \WP_Importer {
 	protected $menu_item_orphans    = array();
 	protected $missing_menu_items   = array();
 
-	public    $options            = array();
+	public $options               = array();
 	protected $mapping            = array();
 	protected $requires_remapping = array();
 	protected $exists             = array();
 	protected $user_slug_override = array();
 
-	protected $url_remap       = array();
-	protected $featured_images = array();
+	protected $url_remap              = array();
+	protected $featured_images        = array();
 	protected $background_attachments = array();
 
 	protected $logger;
@@ -56,21 +56,24 @@ class WXRImporter extends \WP_Importer {
 			'user'    => array(),
 		);
 
-		$this->mapping                = $empty_types;
-		$this->mapping['user_slug']   = array();
-		$this->mapping['term_id']     = array();
-		$this->requires_remapping     = $empty_types;
-		$this->exists                 = $empty_types;
+		$this->mapping              = $empty_types;
+		$this->mapping['user_slug'] = array();
+		$this->mapping['term_id']   = array();
+		$this->requires_remapping   = $empty_types;
+		$this->exists               = $empty_types;
 
-		$this->options = wp_parse_args( $options, array(
-			'prefill_existing_posts'    => true,
-			'prefill_existing_comments' => true,
-			'prefill_existing_terms'    => true,
-			'update_attachment_guids'   => false,
-			'fetch_attachments'         => true,
-			'aggressive_url_search'     => false,
-			'default_author'            => null,
-		) );
+		$this->options = wp_parse_args(
+			$options,
+			array(
+				'prefill_existing_posts'    => true,
+				'prefill_existing_comments' => true,
+				'prefill_existing_terms'    => true,
+				'update_attachment_guids'   => false,
+				'fetch_attachments'         => true,
+				'aggressive_url_search'     => false,
+				'default_author'            => null,
+			)
+		);
 	}
 
 	public function set_logger( $logger ) {
@@ -149,9 +152,9 @@ class WXRImporter extends \WP_Importer {
 						break;
 					}
 					if ( $parsed['data']['post_type'] === 'attachment' ) {
-						$data->media_count++;
+						++$data->media_count;
 					} else {
-						$data->post_count++;
+						++$data->post_count;
 					}
 					$data->comment_count += count( $parsed['comments'] );
 					$reader->next();
@@ -160,7 +163,7 @@ class WXRImporter extends \WP_Importer {
 				case 'wp:category':
 				case 'wp:tag':
 				case 'wp:term':
-					$data->term_count++;
+					++$data->term_count;
 					$reader->next();
 					break;
 			}
@@ -189,12 +192,14 @@ class WXRImporter extends \WP_Importer {
 				case 'wp:wxr_version':
 					$this->version = $reader->readString();
 					if ( version_compare( $this->version, self::MAX_WXR_VERSION, '>' ) ) {
-						$this->logger->warning( sprintf(
+						$this->logger->warning(
+							sprintf(
 							/* translators: 1: WXR file version detected in the import file, 2: maximum WXR version this importer supports. */
-							__( 'This WXR file (version %1$s) is newer than the importer (version %2$s) and may not be supported. Please consider updating.', 'bricksfly-elements-for-bricks' ),
-							$this->version,
-							self::MAX_WXR_VERSION
-						) );
+								__( 'This WXR file (version %1$s) is newer than the importer (version %2$s) and may not be supported. Please consider updating.', 'bricksfly-elements-for-bricks' ),
+								$this->version,
+								self::MAX_WXR_VERSION
+							)
+						);
 					}
 					$reader->next();
 					break;
@@ -217,7 +222,7 @@ class WXRImporter extends \WP_Importer {
 	}
 
 	public function import( $file ) {
-		add_filter('bricksfly_import_post_meta_key', array( $this, 'is_valid_meta_key' ) );
+		add_filter( 'bricksfly_import_post_meta_key', array( $this, 'is_valid_meta_key' ) );
 		add_filter( 'http_request_timeout', array( &$this, 'bump_request_timeout' ) );
 
 		$result = $this->import_start( $file );
@@ -253,12 +258,14 @@ class WXRImporter extends \WP_Importer {
 				case 'wp:wxr_version':
 					$this->version = $reader->readString();
 					if ( version_compare( $this->version, self::MAX_WXR_VERSION, '>' ) ) {
-						$this->logger->warning( sprintf(
+						$this->logger->warning(
+							sprintf(
 							/* translators: 1: WXR file version detected in the import file, 2: maximum WXR version this importer supports. */
-							__( 'This WXR file (version %1$s) is newer than the importer (version %2$s) and may not be supported. Please consider updating.', 'bricksfly-elements-for-bricks' ),
-							$this->version,
-							self::MAX_WXR_VERSION
-						) );
+								__( 'This WXR file (version %1$s) is newer than the importer (version %2$s) and may not be supported. Please consider updating.', 'bricksfly-elements-for-bricks' ),
+								$this->version,
+								self::MAX_WXR_VERSION
+							)
+						);
 					}
 					$reader->next();
 					break;
@@ -269,16 +276,19 @@ class WXRImporter extends \WP_Importer {
 					break;
 
 				case 'item':
-					$node   = $reader->expand();
-					$parsed = $this->parse_post_node( $node );
+					$node                        = $reader->expand();
+					$parsed                      = $this->parse_post_node( $node );
 					$bricksfly_counter_progress += 1;
-					update_option( 'bricksfly_template_import_progress', [
-						'type'        => 'single',
-						'total_items' => $total_init,
-						'title'       => $temp_title,
-						'progress'    => $bricksfly_counter_progress,
-						'data'        => [ 'Posts: ' . $bricksfly_counter_progress ],
-					] );
+					update_option(
+						'bricksfly_template_import_progress',
+						array(
+							'type'        => 'single',
+							'total_items' => $total_init,
+							'title'       => $temp_title,
+							'progress'    => $bricksfly_counter_progress,
+							'data'        => array( 'Posts: ' . $bricksfly_counter_progress ),
+						)
+					);
 					if ( is_wp_error( $parsed ) ) {
 						$this->log_error( $parsed );
 						$reader->next();
@@ -289,21 +299,24 @@ class WXRImporter extends \WP_Importer {
 					break;
 
 				case 'wp:author':
-					$node   = $reader->expand();
-					$parsed = $this->parse_author_node( $node );
+					$node                        = $reader->expand();
+					$parsed                      = $this->parse_author_node( $node );
 					$bricksfly_counter_progress += 1;
 					if ( is_wp_error( $parsed ) ) {
 						$this->log_error( $parsed );
 						$reader->next();
 						break;
 					}
-					update_option( 'bricksfly_template_import_progress', [
-						'type'        => 'single',
-						'total_items' => $total_init,
-						'title'       => $temp_title,
-						'progress'    => $bricksfly_counter_progress,
-						'data'        => [ 'Posts: ' . $bricksfly_counter_progress ],
-					] );
+					update_option(
+						'bricksfly_template_import_progress',
+						array(
+							'type'        => 'single',
+							'total_items' => $total_init,
+							'title'       => $temp_title,
+							'progress'    => $bricksfly_counter_progress,
+							'data'        => array( 'Posts: ' . $bricksfly_counter_progress ),
+						)
+					);
 					$status = $this->process_author( $parsed['data'], $parsed['meta'] );
 					if ( is_wp_error( $status ) ) {
 						$this->log_error( $status );
@@ -320,28 +333,34 @@ class WXRImporter extends \WP_Importer {
 						break;
 					}
 					$bricksfly_counter_progress += 1;
-					update_option( 'bricksfly_template_import_progress', [
-						'type'        => 'single',
-						'total_items' => $total_init,
-						'title'       => $temp_title,
-						'progress'    => $bricksfly_counter_progress,
-						'data'        => [ 'Category: ' . $bricksfly_counter_progress ],
-					] );
+					update_option(
+						'bricksfly_template_import_progress',
+						array(
+							'type'        => 'single',
+							'total_items' => $total_init,
+							'title'       => $temp_title,
+							'progress'    => $bricksfly_counter_progress,
+							'data'        => array( 'Category: ' . $bricksfly_counter_progress ),
+						)
+					);
 					$status = $this->process_term( $parsed['data'], $parsed['meta'] );
 					$reader->next();
 					break;
 
 				case 'wp:tag':
-					$node   = $reader->expand();
-					$parsed = $this->parse_term_node( $node, 'tag' );
+					$node                        = $reader->expand();
+					$parsed                      = $this->parse_term_node( $node, 'tag' );
 					$bricksfly_counter_progress += 1;
-					update_option( 'bricksfly_template_import_progress', [
-						'type'        => 'single',
-						'total_items' => $total_init,
-						'title'       => $temp_title,
-						'progress'    => $bricksfly_counter_progress,
-						'data'        => [ 'Terms: ' . $bricksfly_counter_progress ],
-					] );
+					update_option(
+						'bricksfly_template_import_progress',
+						array(
+							'type'        => 'single',
+							'total_items' => $total_init,
+							'title'       => $temp_title,
+							'progress'    => $bricksfly_counter_progress,
+							'data'        => array( 'Terms: ' . $bricksfly_counter_progress ),
+						)
+					);
 					if ( is_wp_error( $parsed ) ) {
 						$this->log_error( $parsed );
 						$reader->next();
@@ -352,21 +371,24 @@ class WXRImporter extends \WP_Importer {
 					break;
 
 				case 'wp:term':
-					$node   = $reader->expand();
-					$parsed = $this->parse_term_node( $node );
+					$node                        = $reader->expand();
+					$parsed                      = $this->parse_term_node( $node );
 					$bricksfly_counter_progress += 1;
 					if ( is_wp_error( $parsed ) ) {
 						$this->log_error( $parsed );
 						$reader->next();
 						break;
 					}
-					update_option( 'bricksfly_template_import_progress', [
-						'type'        => 'single',
-						'progress'    => $bricksfly_counter_progress,
-						'title'       => $temp_title,
-						'total_items' => $total_init,
-						'data'        => [ 'Terms: ' . $bricksfly_counter_progress ],
-					] );
+					update_option(
+						'bricksfly_template_import_progress',
+						array(
+							'type'        => 'single',
+							'progress'    => $bricksfly_counter_progress,
+							'title'       => $temp_title,
+							'total_items' => $total_init,
+							'data'        => array( 'Terms: ' . $bricksfly_counter_progress ),
+						)
+					);
 					$status = $this->process_term( $parsed['data'], $parsed['meta'] );
 					$reader->next();
 					break;
@@ -473,29 +495,63 @@ class WXRImporter extends \WP_Importer {
 			}
 
 			switch ( $child->tagName ) {
-				case 'wp:post_type':      $data['post_type']      = $child->textContent; break;
-				case 'title':             $data['post_title']     = $child->textContent; break;
-				case 'guid':              $data['guid']           = $child->textContent; break;
-				case 'dc:creator':        $data['post_author']    = $child->textContent; break;
-				case 'content:encoded':   $data['post_content']   = $child->textContent; break;
-				case 'excerpt:encoded':   $data['post_excerpt']   = $child->textContent; break;
-				case 'wp:post_id':        $data['post_id']        = $child->textContent; break;
-				case 'wp:post_date':      $data['post_date']      = $child->textContent; break;
-				case 'wp:post_date_gmt':  $data['post_date_gmt']  = $child->textContent; break;
-				case 'wp:comment_status': $data['comment_status'] = $child->textContent; break;
-				case 'wp:ping_status':    $data['ping_status']    = $child->textContent; break;
-				case 'wp:post_name':      $data['post_name']      = $child->textContent; break;
+				case 'wp:post_type':
+					$data['post_type'] = $child->textContent;
+					break;
+				case 'title':
+					$data['post_title'] = $child->textContent;
+					break;
+				case 'guid':
+					$data['guid'] = $child->textContent;
+					break;
+				case 'dc:creator':
+					$data['post_author'] = $child->textContent;
+					break;
+				case 'content:encoded':
+					$data['post_content'] = $child->textContent;
+					break;
+				case 'excerpt:encoded':
+					$data['post_excerpt'] = $child->textContent;
+					break;
+				case 'wp:post_id':
+					$data['post_id'] = $child->textContent;
+					break;
+				case 'wp:post_date':
+					$data['post_date'] = $child->textContent;
+					break;
+				case 'wp:post_date_gmt':
+					$data['post_date_gmt'] = $child->textContent;
+					break;
+				case 'wp:comment_status':
+					$data['comment_status'] = $child->textContent;
+					break;
+				case 'wp:ping_status':
+					$data['ping_status'] = $child->textContent;
+					break;
+				case 'wp:post_name':
+					$data['post_name'] = $child->textContent;
+					break;
 				case 'wp:status':
 					$data['post_status'] = $child->textContent;
 					if ( $data['post_status'] === 'auto-draft' ) {
 						return new WP_Error( 'bricksfly_importer.post.cannot_import_draft', __( 'Cannot import auto-draft posts', 'bricksfly-elements-for-bricks' ), $data );
 					}
 					break;
-				case 'wp:post_parent':    $data['post_parent']    = $child->textContent; break;
-				case 'wp:menu_order':     $data['menu_order']     = $child->textContent; break;
-				case 'wp:post_password':  $data['post_password']  = $child->textContent; break;
-				case 'wp:is_sticky':      $data['is_sticky']      = $child->textContent; break;
-				case 'wp:attachment_url':  $data['attachment_url'] = $child->textContent; break;
+				case 'wp:post_parent':
+					$data['post_parent'] = $child->textContent;
+					break;
+				case 'wp:menu_order':
+					$data['menu_order'] = $child->textContent;
+					break;
+				case 'wp:post_password':
+					$data['post_password'] = $child->textContent;
+					break;
+				case 'wp:is_sticky':
+					$data['is_sticky'] = $child->textContent;
+					break;
+				case 'wp:attachment_url':
+					$data['attachment_url'] = $child->textContent;
+					break;
 				case 'wp:postmeta':
 					$meta_item = $this->parse_meta_node( $child );
 					if ( ! empty( $meta_item ) ) {
@@ -526,7 +582,7 @@ class WXRImporter extends \WP_Importer {
 			return false;
 		}
 
-		$original_id = isset( $data['post_id'] )     ? (int) $data['post_id']     : 0;
+		$original_id = isset( $data['post_id'] ) ? (int) $data['post_id'] : 0;
 		$parent_id   = isset( $data['post_parent'] ) ? (int) $data['post_parent'] : 0;
 
 		if ( isset( $this->mapping['post'][ $original_id ] ) ) {
@@ -541,7 +597,7 @@ class WXRImporter extends \WP_Importer {
 		$post_exists = $this->post_exists( $data );
 		if ( $post_exists ) {
 			$this->process_comments( $comments, $original_id, $data, $post_exists );
-			do_action('bricksfly_import_existing_post', $post_exists, $original_id, $data, $data );
+			do_action( 'bricksfly_import_existing_post', $post_exists, $original_id, $data, $data );
 			return false;
 		}
 
@@ -550,8 +606,11 @@ class WXRImporter extends \WP_Importer {
 			if ( isset( $this->mapping['post'][ $parent_id ] ) ) {
 				$data['post_parent'] = $this->mapping['post'][ $parent_id ];
 			} else {
-				$meta[]             = array( 'key' => '_bricksfly_import_parent', 'value' => $parent_id );
-				$requires_remapping = true;
+				$meta[]              = array(
+					'key'   => '_bricksfly_import_parent',
+					'value' => $parent_id,
+				);
+				$requires_remapping  = true;
 				$data['post_parent'] = 0;
 			}
 		}
@@ -562,26 +621,43 @@ class WXRImporter extends \WP_Importer {
 		} elseif ( isset( $this->mapping['user_slug'][ $author ] ) ) {
 			$data['post_author'] = $this->mapping['user_slug'][ $author ];
 		} else {
-			$meta[]              = array( 'key' => '_bricksfly_import_user_slug', 'value' => $author );
+			$meta[]              = array(
+				'key'   => '_bricksfly_import_user_slug',
+				'value' => $author,
+			);
 			$requires_remapping  = true;
 			$data['post_author'] = (int) get_current_user_id();
 		}
 
 		if ( preg_match( self::REGEX_HAS_ATTACHMENT_REFS, $data['post_content'] ) ) {
-			$meta[]             = array( 'key' => '_bricksfly_import_has_attachment_refs', 'value' => true );
+			$meta[]             = array(
+				'key'   => '_bricksfly_import_has_attachment_refs',
+				'value' => true,
+			);
 			$requires_remapping = true;
 		}
 
 		$postdata = array( 'import_id' => $data['post_id'] );
 		$allowed  = array(
-			'post_author' => true, 'post_date' => true, 'post_date_gmt' => true,
-			'post_content' => true, 'post_excerpt' => true, 'post_title' => true,
-			'post_status' => true, 'post_name' => true, 'comment_status' => true,
-			'ping_status' => true, 'guid' => true, 'post_parent' => true,
-			'menu_order' => true, 'post_type' => true, 'post_password' => true,
+			'post_author'    => true,
+			'post_date'      => true,
+			'post_date_gmt'  => true,
+			'post_content'   => true,
+			'post_excerpt'   => true,
+			'post_title'     => true,
+			'post_status'    => true,
+			'post_name'      => true,
+			'comment_status' => true,
+			'ping_status'    => true,
+			'guid'           => true,
+			'post_parent'    => true,
+			'menu_order'     => true,
+			'post_type'      => true,
+			'post_password'  => true,
 		);
 		foreach ( $data as $key => $value ) {
-			if ( ! isset( $allowed[ $key ] ) ) { continue; }
+			if ( ! isset( $allowed[ $key ] ) ) {
+				continue; }
 			$postdata[ $key ] = $data[ $key ];
 		}
 
@@ -632,26 +708,27 @@ class WXRImporter extends \WP_Importer {
 
 				if ( isset( $this->mapping['term'][ $key ] ) ) {
 					$term_ids[ $taxonomy ][] = (int) $this->mapping['term'][ $key ];
-				} else {
-					if ( 'post_format' === $taxonomy ) {
+				} elseif ( 'post_format' === $taxonomy ) {
 						$term_exists = term_exists( $term['slug'], $taxonomy );
 						$term_id     = is_array( $term_exists ) ? $term_exists['term_id'] : $term_exists;
-						if ( empty( $term_id ) ) {
-							$t = wp_insert_term( $term['name'], $taxonomy, array( 'slug' => $term['slug'] ) );
-							if ( ! is_wp_error( $t ) ) {
-								$term_id                         = $t['term_id'];
-								$this->mapping['term'][ $key ]   = $term_id;
-							} else {
-								continue;
-							}
+					if ( empty( $term_id ) ) {
+						$t = wp_insert_term( $term['name'], $taxonomy, array( 'slug' => $term['slug'] ) );
+						if ( ! is_wp_error( $t ) ) {
+							$term_id                       = $t['term_id'];
+							$this->mapping['term'][ $key ] = $term_id;
+						} else {
+							continue;
 						}
-						if ( ! empty( $term_id ) ) {
-							$term_ids[ $taxonomy ][] = intval( $term_id );
-						}
-					} else {
-						$meta[]             = array( 'key' => '_bricksfly_import_term', 'value' => $term );
-						$requires_remapping = true;
 					}
+					if ( ! empty( $term_id ) ) {
+						$term_ids[ $taxonomy ][] = intval( $term_id );
+					}
+				} else {
+					$meta[]             = array(
+						'key'   => '_bricksfly_import_term',
+						'value' => $term,
+					);
+					$requires_remapping = true;
 				}
 			}
 
@@ -720,7 +797,8 @@ class WXRImporter extends \WP_Importer {
 	protected function process_attachment( $post, $meta, $remote_url ) {
 		$post['upload_date'] = $post['post_date'];
 		foreach ( $meta as $meta_item ) {
-			if ( $meta_item['key'] !== '_wp_attached_file' ) { continue; }
+			if ( $meta_item['key'] !== '_wp_attached_file' ) {
+				continue; }
 			if ( preg_match( '%^[0-9]{4}/[0-9]{2}%', $meta_item['value'], $matches ) ) {
 				$post['upload_date'] = $matches[0];
 			}
@@ -766,8 +844,8 @@ class WXRImporter extends \WP_Importer {
 		$this->url_remap[ $remote_url ] = $upload['url'];
 
 		if ( substr( $remote_url, 0, 8 ) === 'https://' ) {
-			$insecure_url                       = 'http' . substr( $remote_url, 5 );
-			$this->url_remap[ $insecure_url ]   = $upload['url'];
+			$insecure_url                     = 'http' . substr( $remote_url, 5 );
+			$this->url_remap[ $insecure_url ] = $upload['url'];
 		}
 
 		return $post_id;
@@ -775,29 +853,38 @@ class WXRImporter extends \WP_Importer {
 
 	protected function parse_meta_node( $node ) {
 		foreach ( $node->childNodes as $child ) {
-			if ( $child->nodeType !== XML_ELEMENT_NODE ) { continue; }
+			if ( $child->nodeType !== XML_ELEMENT_NODE ) {
+				continue; }
 			switch ( $child->tagName ) {
-				case 'wp:meta_key':   $key   = $child->textContent; break;
-				case 'wp:meta_value': $value = $child->textContent; break;
+				case 'wp:meta_key':
+					$key = $child->textContent;
+					break;
+				case 'wp:meta_value':
+					$value = $child->textContent;
+					break;
 			}
 		}
-		if ( empty( $key ) || ! isset( $value ) ) { return null; }
+		if ( empty( $key ) || ! isset( $value ) ) {
+			return null; }
 		return compact( 'key', 'value' );
 	}
 
 	protected function process_post_meta( $meta, $post_id, $post ) {
-		if ( empty( $meta ) ) { return true; }
+		if ( empty( $meta ) ) {
+			return true; }
 
 		foreach ( $meta as $meta_item ) {
 			$meta_item = apply_filters( 'bricksfly_importer.pre_process.post_meta', $meta_item, $post_id );
-			if ( empty( $meta_item ) ) { return false; }
+			if ( empty( $meta_item ) ) {
+				return false; }
 
-			$key   = apply_filters('bricksfly_import_post_meta_key', $meta_item['key'], $post_id, $post );
+			$key   = apply_filters( 'bricksfly_import_post_meta_key', $meta_item['key'], $post_id, $post );
 			$value = false;
 
 			if ( '_edit_last' === $key ) {
 				$value = intval( $meta_item['value'] );
-				if ( ! isset( $this->mapping['user'][ $value ] ) ) { continue; }
+				if ( ! isset( $this->mapping['user'][ $value ] ) ) {
+					continue; }
 				$value = $this->mapping['user'][ $value ];
 			}
 
@@ -816,7 +903,7 @@ class WXRImporter extends \WP_Importer {
 				}
 
 				add_post_meta( $post_id, wp_slash( $key ), wp_slash( $value ) );
-				do_action('bricksfly_import_post_meta', $post_id, $key, $value );
+				do_action( 'bricksfly_import_post_meta', $post_id, $key, $value );
 				if ( '_thumbnail_id' === $key ) {
 					$this->featured_images[ $post_id ] = (int) $value;
 				}
@@ -915,8 +1002,8 @@ class WXRImporter extends \WP_Importer {
 		}
 
 		$synthetic_post = array(
-			'post_date'    => current_time( 'mysql' ),
-			'upload_date'  => current_time( 'mysql' ),
+			'post_date'   => current_time( 'mysql' ),
+			'upload_date' => current_time( 'mysql' ),
 		);
 
 		$upload = $this->fetch_remote_file( $url, $synthetic_post );
@@ -930,11 +1017,14 @@ class WXRImporter extends \WP_Importer {
 			return null;
 		}
 
-		$attachment_id = wp_insert_attachment( array(
-			'post_title'     => basename( $upload['file'] ),
-			'post_mime_type' => $info['type'],
-			'post_status'    => 'inherit',
-		), $upload['file'] );
+		$attachment_id = wp_insert_attachment(
+			array(
+				'post_title'     => basename( $upload['file'] ),
+				'post_mime_type' => $info['type'],
+				'post_status'    => 'inherit',
+			),
+			$upload['file']
+		);
 
 		if ( is_wp_error( $attachment_id ) ) {
 			return null;
@@ -961,7 +1051,7 @@ class WXRImporter extends \WP_Importer {
 	 * @return array
 	 */
 	protected function build_bricks_image_setting( $original, $new_url, $attachment_id = null ) {
-		$replacement = $original;
+		$replacement        = $original;
 		$replacement['url'] = $new_url;
 
 		if ( null !== $attachment_id ) {
@@ -989,23 +1079,49 @@ class WXRImporter extends \WP_Importer {
 	protected function parse_comment_node( $node ) {
 		$data = array( 'commentmeta' => array() );
 		foreach ( $node->childNodes as $child ) {
-			if ( $child->nodeType !== XML_ELEMENT_NODE ) { continue; }
+			if ( $child->nodeType !== XML_ELEMENT_NODE ) {
+				continue; }
 			switch ( $child->tagName ) {
-				case 'wp:comment_id':           $data['comment_id']           = $child->textContent; break;
-				case 'wp:comment_author':        $data['comment_author']       = $child->textContent; break;
-				case 'wp:comment_author_email':  $data['comment_author_email'] = $child->textContent; break;
-				case 'wp:comment_author_IP':     $data['comment_author_IP']    = $child->textContent; break;
-				case 'wp:comment_author_url':    $data['comment_author_url']   = $child->textContent; break;
-				case 'wp:comment_user_id':       $data['comment_user_id']      = $child->textContent; break;
-				case 'wp:comment_date':          $data['comment_date']         = $child->textContent; break;
-				case 'wp:comment_date_gmt':      $data['comment_date_gmt']     = $child->textContent; break;
-				case 'wp:comment_content':       $data['comment_content']      = $child->textContent; break;
-				case 'wp:comment_approved':       $data['comment_approved']    = $child->textContent; break;
-				case 'wp:comment_type':          $data['comment_type']         = $child->textContent; break;
-				case 'wp:comment_parent':        $data['comment_parent']       = $child->textContent; break;
+				case 'wp:comment_id':
+					$data['comment_id'] = $child->textContent;
+					break;
+				case 'wp:comment_author':
+					$data['comment_author'] = $child->textContent;
+					break;
+				case 'wp:comment_author_email':
+					$data['comment_author_email'] = $child->textContent;
+					break;
+				case 'wp:comment_author_IP':
+					$data['comment_author_IP'] = $child->textContent;
+					break;
+				case 'wp:comment_author_url':
+					$data['comment_author_url'] = $child->textContent;
+					break;
+				case 'wp:comment_user_id':
+					$data['comment_user_id'] = $child->textContent;
+					break;
+				case 'wp:comment_date':
+					$data['comment_date'] = $child->textContent;
+					break;
+				case 'wp:comment_date_gmt':
+					$data['comment_date_gmt'] = $child->textContent;
+					break;
+				case 'wp:comment_content':
+					$data['comment_content'] = $child->textContent;
+					break;
+				case 'wp:comment_approved':
+					$data['comment_approved'] = $child->textContent;
+					break;
+				case 'wp:comment_type':
+					$data['comment_type'] = $child->textContent;
+					break;
+				case 'wp:comment_parent':
+					$data['comment_parent'] = $child->textContent;
+					break;
 				case 'wp:commentmeta':
 					$meta_item = $this->parse_meta_node( $child );
-					if ( ! empty( $meta_item ) ) { $data['commentmeta'][] = $meta_item; }
+					if ( ! empty( $meta_item ) ) {
+						$data['commentmeta'][] = $meta_item; }
 					break;
 			}
 		}
@@ -1017,17 +1133,19 @@ class WXRImporter extends \WP_Importer {
 		// original WordPress Importer project's 'wp_import_post_comments'
 		// filter directly — see includes/helper.php.
 		$comments = bricksfly_import_post_comments( $comments, $post_id, $post );
-		if ( empty( $comments ) ) { return 0; }
+		if ( empty( $comments ) ) {
+			return 0; }
 
 		$num_comments = 0;
 		usort( $comments, array( $this, 'sort_comments_by_id' ) );
 
 		foreach ( $comments as $key => $comment ) {
 			$comment = apply_filters( 'bricksfly_importer.pre_process.comment', $comment, $post_id );
-			if ( empty( $comment ) ) { return false; }
+			if ( empty( $comment ) ) {
+				return false; }
 
-			$original_id = isset( $comment['comment_id'] )      ? (int) $comment['comment_id']      : 0;
-			$parent_id   = isset( $comment['comment_parent'] )  ? (int) $comment['comment_parent']  : 0;
+			$original_id = isset( $comment['comment_id'] ) ? (int) $comment['comment_id'] : 0;
+			$parent_id   = isset( $comment['comment_parent'] ) ? (int) $comment['comment_parent'] : 0;
 			$author_id   = isset( $comment['comment_user_id'] ) ? (int) $comment['comment_user_id'] : 0;
 
 			if ( $post_exists ) {
@@ -1046,8 +1164,11 @@ class WXRImporter extends \WP_Importer {
 				if ( isset( $this->mapping['comment'][ $parent_id ] ) ) {
 					$comment['comment_parent'] = $this->mapping['comment'][ $parent_id ];
 				} else {
-					$meta[]             = array( 'key' => '_bricksfly_import_parent', 'value' => $parent_id );
-					$requires_remapping = true;
+					$meta[]                    = array(
+						'key'   => '_bricksfly_import_parent',
+						'value' => $parent_id,
+					);
+					$requires_remapping        = true;
 					$comment['comment_parent'] = 0;
 				}
 			}
@@ -1056,15 +1177,18 @@ class WXRImporter extends \WP_Importer {
 				if ( isset( $this->mapping['user'][ $author_id ] ) ) {
 					$comment['user_id'] = $this->mapping['user'][ $author_id ];
 				} else {
-					$meta[]             = array( 'key' => '_bricksfly_import_user', 'value' => $author_id );
+					$meta[]             = array(
+						'key'   => '_bricksfly_import_user',
+						'value' => $author_id,
+					);
 					$requires_remapping = true;
 					$comment['user_id'] = 0;
 				}
 			}
 
-			$comment['comment_post_ID'] = $post_id;
-			$comment    = wp_filter_comment( $comment );
-			$comment_id = wp_insert_comment( wp_slash( $comment ) );
+			$comment['comment_post_ID']               = $post_id;
+			$comment                                  = wp_filter_comment( $comment );
+			$comment_id                               = wp_insert_comment( wp_slash( $comment ) );
 			$this->mapping['comment'][ $original_id ] = $comment_id;
 			if ( $requires_remapping ) {
 				$this->requires_remapping['comment'][ $comment_id ] = true;
@@ -1080,7 +1204,7 @@ class WXRImporter extends \WP_Importer {
 			}
 
 			do_action( 'bricksfly_importer.processed.comment', $comment_id, $comment, $meta, $post_id );
-			$num_comments++;
+			++$num_comments;
 		}
 
 		return $num_comments;
@@ -1088,17 +1212,23 @@ class WXRImporter extends \WP_Importer {
 
 	protected function parse_category_node( $node ) {
 		$data = array( 'taxonomy' => 'category' );
-		if ( $node->hasAttribute( 'domain' ) )   { $data['taxonomy'] = $node->getAttribute( 'domain' ); }
-		if ( $node->hasAttribute( 'nicename' ) )  { $data['slug']     = $node->getAttribute( 'nicename' ); }
+		if ( $node->hasAttribute( 'domain' ) ) {
+			$data['taxonomy'] = $node->getAttribute( 'domain' ); }
+		if ( $node->hasAttribute( 'nicename' ) ) {
+			$data['slug'] = $node->getAttribute( 'nicename' ); }
 		$data['name'] = $node->textContent;
-		if ( empty( $data['slug'] ) ) { return null; }
-		if ( $data['taxonomy'] === 'tag' ) { $data['taxonomy'] = 'post_tag'; }
+		if ( empty( $data['slug'] ) ) {
+			return null; }
+		if ( $data['taxonomy'] === 'tag' ) {
+			$data['taxonomy'] = 'post_tag'; }
 		return $data;
 	}
 
 	public static function sort_comments_by_id( $a, $b ) {
-		if ( empty( $a['comment_id'] ) ) { return 1; }
-		if ( empty( $b['comment_id'] ) ) { return -1; }
+		if ( empty( $a['comment_id'] ) ) {
+			return 1; }
+		if ( empty( $b['comment_id'] ) ) {
+			return -1; }
 		return $a['comment_id'] - $b['comment_id'];
 	}
 
@@ -1106,14 +1236,27 @@ class WXRImporter extends \WP_Importer {
 		$data = array();
 		$meta = array();
 		foreach ( $node->childNodes as $child ) {
-			if ( $child->nodeType !== XML_ELEMENT_NODE ) { continue; }
+			if ( $child->nodeType !== XML_ELEMENT_NODE ) {
+				continue; }
 			switch ( $child->tagName ) {
-				case 'wp:author_login':        $data['user_login']   = $child->textContent; break;
-				case 'wp:author_id':           $data['ID']           = $child->textContent; break;
-				case 'wp:author_email':        $data['user_email']   = $child->textContent; break;
-				case 'wp:author_display_name': $data['display_name'] = $child->textContent; break;
-				case 'wp:author_first_name':   $data['first_name']   = $child->textContent; break;
-				case 'wp:author_last_name':    $data['last_name']    = $child->textContent; break;
+				case 'wp:author_login':
+					$data['user_login'] = $child->textContent;
+					break;
+				case 'wp:author_id':
+					$data['ID'] = $child->textContent;
+					break;
+				case 'wp:author_email':
+					$data['user_email'] = $child->textContent;
+					break;
+				case 'wp:author_display_name':
+					$data['display_name'] = $child->textContent;
+					break;
+				case 'wp:author_first_name':
+					$data['first_name'] = $child->textContent;
+					break;
+				case 'wp:author_last_name':
+					$data['last_name'] = $child->textContent;
+					break;
 			}
 		}
 		return compact( 'data', 'meta' );
@@ -1121,7 +1264,8 @@ class WXRImporter extends \WP_Importer {
 
 	protected function process_author( $data, $meta ) {
 		$data = apply_filters( 'bricksfly_importer.pre_process.user', $data, $meta );
-		if ( empty( $data ) ) { return false; }
+		if ( empty( $data ) ) {
+			return false; }
 
 		$original_id   = isset( $data['ID'] ) ? $data['ID'] : 0;
 		$original_slug = $data['user_login'];
@@ -1134,8 +1278,8 @@ class WXRImporter extends \WP_Importer {
 			return false;
 		}
 		if ( isset( $this->mapping['user_slug'][ $original_slug ] ) ) {
-			$existing                                = $this->mapping['user_slug'][ $original_slug ];
-			$this->mapping['user'][ $original_id ]   = $existing;
+			$existing                              = $this->mapping['user_slug'][ $original_slug ];
+			$this->mapping['user'][ $original_id ] = $existing;
 			return false;
 		}
 
@@ -1149,9 +1293,15 @@ class WXRImporter extends \WP_Importer {
 			'user_pass'  => wp_generate_password(),
 		);
 
-		$allowed = array( 'user_email' => true, 'display_name' => true, 'first_name' => true, 'last_name' => true );
+		$allowed = array(
+			'user_email'   => true,
+			'display_name' => true,
+			'first_name'   => true,
+			'last_name'    => true,
+		);
 		foreach ( $data as $key => $value ) {
-			if ( ! isset( $allowed[ $key ] ) ) { continue; }
+			if ( ! isset( $allowed[ $key ] ) ) {
+				continue; }
 			$userdata[ $key ] = $data[ $key ];
 		}
 
@@ -1203,54 +1353,68 @@ class WXRImporter extends \WP_Importer {
 		}
 
 		foreach ( $node->childNodes as $child ) {
-			if ( $child->nodeType !== XML_ELEMENT_NODE ) { continue; }
+			if ( $child->nodeType !== XML_ELEMENT_NODE ) {
+				continue; }
 			$key = array_search( $child->tagName, $tag_name );
 			if ( $key ) {
 				$data[ $key ] = $child->textContent;
-			} else if ( $child->tagName == 'wp:termmeta' ) {
+			} elseif ( $child->tagName == 'wp:termmeta' ) {
 				$meta_item = $this->parse_meta_node( $child );
-				if ( ! empty( $meta_item ) ) { $meta[] = $meta_item; }
+				if ( ! empty( $meta_item ) ) {
+					$meta[] = $meta_item; }
 			}
 		}
-		if ( empty( $data['taxonomy'] ) ) { return null; }
-		if ( $data['taxonomy'] === 'tag' ) { $data['taxonomy'] = 'post_tag'; }
+		if ( empty( $data['taxonomy'] ) ) {
+			return null; }
+		if ( $data['taxonomy'] === 'tag' ) {
+			$data['taxonomy'] = 'post_tag'; }
 		return compact( 'data', 'meta' );
 	}
 
 	protected function process_term( $data, $meta ) {
 		$data = apply_filters( 'bricksfly_importer.pre_process.term', $data, $meta );
-		if ( empty( $data ) ) { return false; }
+		if ( empty( $data ) ) {
+			return false; }
 
 		$original_id = isset( $data['id'] ) ? (int) $data['id'] : 0;
-		$term_slug   = isset( $data['slug'] )   ? $data['slug']   : '';
+		$term_slug   = isset( $data['slug'] ) ? $data['slug'] : '';
 		$parent_slug = isset( $data['parent'] ) ? $data['parent'] : '';
 
 		$mapping_key = sha1( $data['taxonomy'] . ':' . $data['slug'] );
 		$existing    = $this->term_exists( $data );
 		if ( $existing ) {
-			$this->mapping['term'][ $mapping_key ]      = $existing;
-			$this->mapping['term_id'][ $original_id ]   = $existing;
-			$this->mapping['term_slug'][ $term_slug ]   = $existing;
+			$this->mapping['term'][ $mapping_key ]    = $existing;
+			$this->mapping['term_id'][ $original_id ] = $existing;
+			$this->mapping['term_slug'][ $term_slug ] = $existing;
 			return false;
 		}
-		if ( isset( $this->mapping['term'][ $mapping_key ] ) ) { return false; }
+		if ( isset( $this->mapping['term'][ $mapping_key ] ) ) {
+			return false; }
 
 		$termdata = array();
-		$allowed  = array( 'slug' => true, 'description' => true, 'parent' => true );
+		$allowed  = array(
+			'slug'        => true,
+			'description' => true,
+			'parent'      => true,
+		);
 
 		$requires_remapping = false;
 		if ( $parent_slug ) {
 			if ( isset( $this->mapping['term_slug'][ $parent_slug ] ) ) {
 				$data['parent'] = $this->mapping['term_slug'][ $parent_slug ];
 			} else {
-				$meta[]             = array( 'key' => '_bricksfly_import_parent', 'value' => $parent_slug );
+				$meta[]             = array(
+					'key'   => '_bricksfly_import_parent',
+					'value' => $parent_slug,
+				);
 				$requires_remapping = true;
 				$data['parent']     = 0;
 			}
 		}
 
 		foreach ( $data as $key => $value ) {
-			if ( ! isset( $allowed[ $key ] ) ) { continue; }
+			if ( ! isset( $allowed[ $key ] ) ) {
+				continue; }
 			$termdata[ $key ] = $data[ $key ];
 		}
 
@@ -1267,9 +1431,9 @@ class WXRImporter extends \WP_Importer {
 
 		$term_id = $result['term_id'];
 
-		$this->mapping['term'][ $mapping_key ]      = $term_id;
-		$this->mapping['term_id'][ $original_id ]   = $term_id;
-		$this->mapping['term_slug'][ $term_slug ]   = $term_id;
+		$this->mapping['term'][ $mapping_key ]    = $term_id;
+		$this->mapping['term_id'][ $original_id ] = $term_id;
+		$this->mapping['term_slug'][ $term_slug ] = $term_id;
 
 		if ( $requires_remapping ) {
 			$this->requires_remapping['term'][ $term_id ] = $data['taxonomy'];
@@ -1285,16 +1449,19 @@ class WXRImporter extends \WP_Importer {
 	}
 
 	protected function process_term_meta( $meta, $term_id, $term ) {
-		if ( empty( $meta ) ) { return true; }
+		if ( empty( $meta ) ) {
+			return true; }
 
 		foreach ( $meta as $meta_item ) {
 			$meta_item = apply_filters( 'bricksfly_importer.pre_process.term_meta', $meta_item, $term_id );
-			if ( empty( $meta_item ) ) { continue; }
+			if ( empty( $meta_item ) ) {
+				continue; }
 
 			$key   = apply_filters( 'bricksfly_import_term_meta_key', $meta_item['key'], $term_id, $term );
 			$value = false;
 			if ( $key ) {
-				if ( ! $value ) { $value = maybe_unserialize( $meta_item['value'] ); }
+				if ( ! $value ) {
+					$value = maybe_unserialize( $meta_item['value'] ); }
 				$result = add_term_meta( $term_id, $key, $value );
 				if ( is_wp_error( $result ) ) {
 					do_action( 'bricksfly_importer.process_failed.termmeta', $result, $meta_item, $term_id, $term );
@@ -1315,24 +1482,40 @@ class WXRImporter extends \WP_Importer {
 		if ( '' === $file_name ) {
 			$file_name = basename( $url );
 		}
-		$upload    = wp_upload_bits( $file_name, null, '', $post['upload_date'] );
-		if ( $upload['error'] ) { return new WP_Error( 'upload_dir_error', $upload['error'] ); }
+		$upload = wp_upload_bits( $file_name, null, '', $post['upload_date'] );
+		if ( $upload['error'] ) {
+			return new WP_Error( 'upload_dir_error', $upload['error'] ); }
 
-		$response = wp_remote_get( $url, array( 'stream' => true, 'filename' => $upload['file'] ) );
-		if ( is_wp_error( $response ) ) { wp_delete_file( $upload['file'] ); return $response; }
+		$response = wp_remote_get(
+			$url,
+			array(
+				'stream'   => true,
+				'filename' => $upload['file'],
+			)
+		);
+		if ( is_wp_error( $response ) ) {
+			wp_delete_file( $upload['file'] );
+			return $response; }
 
 		$code = (int) wp_remote_retrieve_response_code( $response );
 		if ( $code !== 200 ) {
 			wp_delete_file( $upload['file'] );
-			return new WP_Error( 'import_file_error', sprintf(
+			return new WP_Error(
+				'import_file_error',
+				sprintf(
 				/* translators: 1: HTTP status code, 2: HTTP status text, 3: requested URL. */
-				__( 'Remote server returned %1$d %2$s for %3$s', 'bricksfly-elements-for-bricks' ),
-				$code, get_status_header_desc( $code ), $url
-			) );
+					__( 'Remote server returned %1$d %2$s for %3$s', 'bricksfly-elements-for-bricks' ),
+					$code,
+					get_status_header_desc( $code ),
+					$url
+				)
+			);
 		}
 
 		$filesize = filesize( $upload['file'] );
-		if ( 0 === $filesize ) { wp_delete_file( $upload['file'] ); return new WP_Error( 'import_file_error', __( 'Zero size file downloaded', 'bricksfly-elements-for-bricks' ) ); }
+		if ( 0 === $filesize ) {
+			wp_delete_file( $upload['file'] );
+			return new WP_Error( 'import_file_error', __( 'Zero size file downloaded', 'bricksfly-elements-for-bricks' ) ); }
 
 		$max_size = (int) $this->max_attachment_size();
 		if ( ! empty( $max_size ) && $filesize > $max_size ) {
@@ -1385,14 +1568,18 @@ class WXRImporter extends \WP_Importer {
 				$post        = get_post( $post_id );
 				$content     = $post->post_content;
 				$new_content = str_replace( array_keys( $this->url_remap ), $this->url_remap, $content );
-				if ( $new_content !== $content ) { $data['post_content'] = $new_content; }
+				if ( $new_content !== $content ) {
+					$data['post_content'] = $new_content; }
 			}
-			if ( get_post_type( $post_id ) === 'nav_menu_item' ) { $this->post_process_menu_item( $post_id ); }
-			if ( empty( $data ) ) { continue; }
+			if ( get_post_type( $post_id ) === 'nav_menu_item' ) {
+				$this->post_process_menu_item( $post_id ); }
+			if ( empty( $data ) ) {
+				continue; }
 
 			$data['ID'] = $post_id;
 			$result     = wp_update_post( $data, true );
-			if ( is_wp_error( $result ) ) { continue; }
+			if ( is_wp_error( $result ) ) {
+				continue; }
 
 			delete_post_meta( $post_id, '_bricksfly_import_parent' );
 			delete_post_meta( $post_id, '_bricksfly_import_user_slug' );
@@ -1402,15 +1589,18 @@ class WXRImporter extends \WP_Importer {
 
 	protected function post_process_menu_item( $post_id ) {
 		$menu_object_id = get_post_meta( $post_id, '_bricksfly_import_menu_item', true );
-		if ( empty( $menu_object_id ) ) { return; }
+		if ( empty( $menu_object_id ) ) {
+			return; }
 
 		$menu_item_type = get_post_meta( $post_id, '_menu_item_type', true );
 		switch ( $menu_item_type ) {
 			case 'taxonomy':
-				if ( isset( $this->mapping['term_id'][ $menu_object_id ] ) ) { $menu_object = $this->mapping['term_id'][ $menu_object_id ]; }
+				if ( isset( $this->mapping['term_id'][ $menu_object_id ] ) ) {
+					$menu_object = $this->mapping['term_id'][ $menu_object_id ]; }
 				break;
 			case 'post_type':
-				if ( isset( $this->mapping['post'][ $menu_object_id ] ) ) { $menu_object = $this->mapping['post'][ $menu_object_id ]; }
+				if ( isset( $this->mapping['post'][ $menu_object_id ] ) ) {
+					$menu_object = $this->mapping['post'][ $menu_object_id ]; }
 				break;
 			default:
 				return;
@@ -1434,7 +1624,8 @@ class WXRImporter extends \WP_Importer {
 			if ( ! empty( $author_id ) && isset( $this->mapping['user'][ $author_id ] ) ) {
 				$data['user_id'] = $this->mapping['user'][ $author_id ];
 			}
-			if ( empty( $data ) ) { continue; }
+			if ( empty( $data ) ) {
+				continue; }
 			$data['comment_ID'] = $comment_id;
 			$result             = wp_update_comment( wp_slash( $data ) );
 			if ( ! empty( $result ) ) {
@@ -1447,17 +1638,22 @@ class WXRImporter extends \WP_Importer {
 	protected function post_process_terms( $terms_to_be_remapped ) {
 		$this->mapping['term_slug']['top'] = 0;
 		foreach ( $terms_to_be_remapped as $termid => $term_taxonomy ) {
-			if ( empty( $termid ) || ! is_numeric( $termid ) ) { continue; }
+			if ( empty( $termid ) || ! is_numeric( $termid ) ) {
+				continue; }
 			$term_id = (int) $termid;
-			if ( empty( $term_taxonomy ) ) { continue; }
+			if ( empty( $term_taxonomy ) ) {
+				continue; }
 
 			$parent_slug = get_term_meta( $term_id, '_bricksfly_import_parent', true );
-			if ( empty( $parent_slug ) ) { continue; }
-			if ( ! isset( $this->mapping['term_slug'][ $parent_slug ] ) || ! is_numeric( $this->mapping['term_slug'][ $parent_slug ] ) ) { continue; }
+			if ( empty( $parent_slug ) ) {
+				continue; }
+			if ( ! isset( $this->mapping['term_slug'][ $parent_slug ] ) || ! is_numeric( $this->mapping['term_slug'][ $parent_slug ] ) ) {
+				continue; }
 
 			$mapped_parent  = (int) $this->mapping['term_slug'][ $parent_slug ];
 			$termattributes = get_term_by( 'id', $term_id, $term_taxonomy, ARRAY_A );
-			if ( empty( $termattributes ) ) { continue; }
+			if ( empty( $termattributes ) ) {
+				continue; }
 			if ( isset( $termattributes['parent'] ) && $termattributes['parent'] == $mapped_parent ) {
 				delete_term_meta( $term_id, '_bricksfly_import_parent' );
 				continue;
@@ -1474,30 +1670,44 @@ class WXRImporter extends \WP_Importer {
 		global $wpdb;
 		uksort( $this->url_remap, array( $this, 'cmpr_strlen' ) );
 		foreach ( $this->url_remap as $from_url => $to_url ) {
-			$wpdb->query( $wpdb->prepare(
-				"UPDATE {$wpdb->posts} SET post_content = REPLACE(post_content, %s, %s) WHERE post_content LIKE %s",
-				$from_url, $to_url, '%' . $wpdb->esc_like( $from_url ) . '%'
-			) );
-			$wpdb->query( $wpdb->prepare(
-				"UPDATE {$wpdb->postmeta} SET meta_value = REPLACE(meta_value, %s, %s) WHERE meta_key = %s AND meta_value LIKE %s",
-				$from_url, $to_url, 'enclosure', '%' . $wpdb->esc_like( $from_url ) . '%'
-			) );
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- One-off bulk rewrite of imported URLs; a prepared query, and the results are not cacheable.
+			$wpdb->query(
+				$wpdb->prepare(
+					"UPDATE {$wpdb->posts} SET post_content = REPLACE(post_content, %s, %s) WHERE post_content LIKE %s",
+					$from_url,
+					$to_url,
+					'%' . $wpdb->esc_like( $from_url ) . '%'
+				)
+			);
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- One-off bulk rewrite of imported URLs; a prepared query, and the results are not cacheable.
+			$wpdb->query(
+				$wpdb->prepare(
+					"UPDATE {$wpdb->postmeta} SET meta_value = REPLACE(meta_value, %s, %s) WHERE meta_key = %s AND meta_value LIKE %s",
+					$from_url,
+					$to_url,
+					'enclosure',
+					'%' . $wpdb->esc_like( $from_url ) . '%'
+				)
+			);
 		}
 	}
 
 	function bricksfly_remap_featured_images() {
-		if ( empty( $this->featured_images ) ) { return; }
+		if ( empty( $this->featured_images ) ) {
+			return; }
 		update_option( 'bricksfly_template_import_state', esc_html__( 'Starting remapping of featured images', 'bricksfly-elements-for-bricks' ) );
 		foreach ( $this->featured_images as $post_id => $value ) {
 			if ( isset( $this->mapping['post'][ $value ] ) ) {
 				$new_id = $this->mapping['post'][ $value ];
-				if ( $new_id !== $value ) { update_post_meta( $post_id, '_thumbnail_id', $new_id ); }
+				if ( $new_id !== $value ) {
+					update_post_meta( $post_id, '_thumbnail_id', $new_id ); }
 			}
 		}
 	}
 
 	public function is_valid_meta_key( $key ) {
-		if ( in_array( $key, array( '_wp_attached_file', '_wp_attachment_metadata', '_edit_lock' ) ) ) { return false; }
+		if ( in_array( $key, array( '_wp_attached_file', '_wp_attachment_metadata', '_edit_lock' ) ) ) {
+			return false; }
 		return $key;
 	}
 
@@ -1505,16 +1715,20 @@ class WXRImporter extends \WP_Importer {
 		return apply_filters( 'bricksfly_import_attachment_size_limit', 0 );
 	}
 
-	function bump_request_timeout( $val ) { return 60; }
+	function bump_request_timeout( $val ) {
+		return 60; }
 
-	function cmpr_strlen( $a, $b ) { return strlen( $b ) - strlen( $a ); }
+	function cmpr_strlen( $a, $b ) {
+		return strlen( $b ) - strlen( $a ); }
 
 	protected function prefill_existing_posts() {
 		global $wpdb;
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- One-off bulk rewrite of imported URLs; a prepared query, and the results are not cacheable.
 		$posts = $wpdb->get_results(
 			$wpdb->prepare( "SELECT ID, guid FROM {$wpdb->posts} WHERE post_type != %s", '' )
 		);
-		foreach ( $posts as $item ) { $this->exists['post'][ $item->guid ] = $item->ID; }
+		foreach ( $posts as $item ) {
+			$this->exists['post'][ $item->guid ] = $item->ID; }
 	}
 
 	protected function post_exists( $data ) {
@@ -1523,8 +1737,9 @@ class WXRImporter extends \WP_Importer {
 			$exists_key = htmlentities( $exists_key );
 			return isset( $this->exists['post'][ $exists_key ] ) ? $this->exists['post'][ $exists_key ] : false;
 		}
-		if ( isset( $this->exists['post'][ $exists_key ] ) ) { return $this->exists['post'][ $exists_key ]; }
-		$exists = post_exists( $data['post_title'], $data['post_content'], $data['post_date'] );
+		if ( isset( $this->exists['post'][ $exists_key ] ) ) {
+			return $this->exists['post'][ $exists_key ]; }
+		$exists                              = post_exists( $data['post_title'], $data['post_content'], $data['post_date'] );
 		$this->exists['post'][ $exists_key ] = $exists;
 		return $exists;
 	}
@@ -1537,10 +1752,11 @@ class WXRImporter extends \WP_Importer {
 		global $wpdb;
 		update_option( 'bricksfly_template_import_state', esc_html__( 'Comment checking', 'bricksfly-elements-for-bricks' ) );
 		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- table-name interpolation only, no user input.
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- One-off bulk rewrite of imported URLs; a prepared query, and the results are not cacheable.
 		$posts = $wpdb->get_results( "SELECT comment_ID, comment_author, comment_date FROM {$wpdb->comments}" );
 		foreach ( $posts as $item ) {
-			$exists_key                              = sha1( $item->comment_author . ':' . $item->comment_date );
-			$this->exists['comment'][ $exists_key ]  = $item->comment_ID;
+			$exists_key                             = sha1( $item->comment_author . ':' . $item->comment_date );
+			$this->exists['comment'][ $exists_key ] = $item->comment_ID;
 		}
 	}
 
@@ -1549,8 +1765,9 @@ class WXRImporter extends \WP_Importer {
 		if ( $this->options['prefill_existing_comments'] ) {
 			return isset( $this->exists['comment'][ $exists_key ] ) ? $this->exists['comment'][ $exists_key ] : false;
 		}
-		if ( isset( $this->exists['comment'][ $exists_key ] ) ) { return $this->exists['comment'][ $exists_key ]; }
-		$exists = comment_exists( $data['comment_author'], $data['comment_date'] );
+		if ( isset( $this->exists['comment'][ $exists_key ] ) ) {
+			return $this->exists['comment'][ $exists_key ]; }
+		$exists                                 = comment_exists( $data['comment_author'], $data['comment_date'] );
 		$this->exists['comment'][ $exists_key ] = $exists;
 		return $exists;
 	}
@@ -1562,10 +1779,11 @@ class WXRImporter extends \WP_Importer {
 	protected function prefill_existing_terms() {
 		global $wpdb;
 		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- table-name interpolation only, no user input.
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- One-off bulk rewrite of imported URLs; a prepared query, and the results are not cacheable.
 		$terms = $wpdb->get_results( "SELECT t.term_id, tt.taxonomy, t.slug FROM {$wpdb->terms} AS t JOIN {$wpdb->term_taxonomy} AS tt ON t.term_id = tt.term_id" );
 		foreach ( $terms as $item ) {
-			$exists_key                            = sha1( $item->taxonomy . ':' . $item->slug );
-			$this->exists['term'][ $exists_key ]   = $item->term_id;
+			$exists_key                          = sha1( $item->taxonomy . ':' . $item->slug );
+			$this->exists['term'][ $exists_key ] = $item->term_id;
 		}
 	}
 
@@ -1574,9 +1792,11 @@ class WXRImporter extends \WP_Importer {
 		if ( $this->options['prefill_existing_terms'] ) {
 			return isset( $this->exists['term'][ $exists_key ] ) ? $this->exists['term'][ $exists_key ] : false;
 		}
-		if ( isset( $this->exists['term'][ $exists_key ] ) ) { return $this->exists['term'][ $exists_key ]; }
+		if ( isset( $this->exists['term'][ $exists_key ] ) ) {
+			return $this->exists['term'][ $exists_key ]; }
 		$exists = term_exists( $data['slug'], $data['taxonomy'] );
-		if ( is_array( $exists ) ) { $exists = $exists['term_id']; }
+		if ( is_array( $exists ) ) {
+			$exists = $exists['term_id']; }
 		$this->exists['term'][ $exists_key ] = $exists;
 		return $exists;
 	}

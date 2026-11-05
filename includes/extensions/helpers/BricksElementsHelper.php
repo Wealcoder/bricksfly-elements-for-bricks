@@ -4,27 +4,26 @@ namespace wealcoder\bricksfly\Includes\Extensions\Helpers;
 
 use Bricks\Elements;
 
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
 
-class BricksElementsHelper
-{
-    /**
-     * Get all registered Bricks elements
-     *
-     * @return array Array of element slugs
-     */
-    public static function get_all()
-    {
-        if (!class_exists('\Bricks\Elements')) {
-            return [];
-        }
+class BricksElementsHelper {
 
-        $elements = Elements::$elements ?? [];
+	/**
+	 * Get all registered Bricks elements
+	 *
+	 * @return array Array of element slugs
+	 */
+	public static function get_all() {
+		if ( ! class_exists( '\Bricks\Elements' ) ) {
+			return array();
+		}
 
-        if (empty($elements)) {
-            return [];
-        }
+		$elements = Elements::$elements ?? array();
 
-        return array_keys($elements);
-    }
+		if ( empty( $elements ) ) {
+			return array();
+		}
+
+		return array_keys( $elements );
+	}
 }

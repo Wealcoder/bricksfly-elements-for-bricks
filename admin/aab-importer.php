@@ -51,13 +51,15 @@ class BRICKSFLY_Importer_Bootstrap extends WXRImporter {
 				$existing_names      = wp_list_pluck( $existing_attributes, 'attribute_name' );
 
 				if ( ! in_array( $attribute_name, $existing_names, true ) ) {
-					$attribute_id = wc_create_attribute( array(
-						'name'         => $attribute_name,
-						'slug'         => $attribute_name,
-						'type'         => 'select',
-						'order_by'     => 'menu_order',
-						'has_archives' => false,
-					) );
+					$attribute_id = wc_create_attribute(
+						array(
+							'name'         => $attribute_name,
+							'slug'         => $attribute_name,
+							'type'         => 'select',
+							'order_by'     => 'menu_order',
+							'has_archives' => false,
+						)
+					);
 
 					if ( ! is_wp_error( $attribute_id ) ) {
 						delete_transient( 'wc_attribute_taxonomies' );
@@ -70,12 +72,15 @@ class BRICKSFLY_Importer_Bootstrap extends WXRImporter {
 					// than calling WooCommerce's 'woocommerce_taxonomy_objects_{taxonomy}'
 					// filter directly — see includes/helper.php.
 					bricksfly_woocommerce_taxonomy_objects( array( 'product' ), $data['taxonomy'] ),
-					bricksfly_woocommerce_taxonomy_args( array(
-						'hierarchical' => true,
-						'show_ui'      => false,
-						'query_var'    => true,
-						'rewrite'      => false,
-					), $data['taxonomy'] )
+					bricksfly_woocommerce_taxonomy_args(
+						array(
+							'hierarchical' => true,
+							'show_ui'      => false,
+							'query_var'    => true,
+							'rewrite'      => false,
+						),
+						$data['taxonomy']
+					)
 				);
 			}
 		}

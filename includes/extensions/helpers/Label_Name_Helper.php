@@ -16,18 +16,17 @@
 
 namespace wealcoder\bricksfly\Includes\Extensions\Helpers;
 
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
 
-class Label_Name_Helper
-{
-    public static function title(string $label): string
-    {
-        static $logo_html = null;
+class Label_Name_Helper {
 
-        if ($logo_html === null) {
-            $logo_html = '<img src="' . esc_url(BRICKSFLY_URL . 'public/images/plugin_logo.png') . '" width="20" height="20" style="vertical-align:-6px;margin-right:6px"> ';
-        }
+	public static function title( string $label ): string {
+		static $logo_html = null;
 
-        return $logo_html . esc_html($label);
-    }
+		if ( $logo_html === null ) {
+			$logo_html = '<img src="' . esc_url( BRICKSFLY_URL . 'public/images/plugin_logo.png' ) . '" width="20" height="20" style="vertical-align:-6px;margin-right:6px"> ';
+		}
+
+		return $logo_html . esc_html( $label );
+	}
 }

@@ -16,65 +16,63 @@ namespace wealcoder\bricksfly\Includes\Extensions;
 
 use wealcoder\bricksfly\Includes\Extensions\Helpers\Label_Name_Helper;
 
-if (! defined('ABSPATH')) {
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class BRICKSFLY_Starter_Animations
-{
+class BRICKSFLY_Starter_Animations {
+
 
 	/**
 	 * Bricks core text-style elements. Get the full set of animations
 	 * including text effects (glow, typewriter, mask, wave, char-animate).
 	 */
-	const TEXT_WIDGETS = ['heading', 'text-basic', 'text', 'text-link'];
+	const TEXT_WIDGETS = array( 'heading', 'text-basic', 'text', 'text-link' );
 
 	/**
 	 * Bricks elements that get layout animations only (no text effects).
 	 */
-	const MEDIA_WIDGETS = ['image'];
+	const MEDIA_WIDGETS = array( 'image' );
 
 	/**
 	 * Bricks layout elements. Get a separate, smaller container animation set.
 	 */
-	const CONTAINER_WIDGETS = ['container', 'section', 'block', 'div'];
+	const CONTAINER_WIDGETS = array( 'container', 'section', 'block', 'div' );
 
-	const GROUP_ID            = '_bricksfly_starter_animations';
-	const GROUP_ID_CONTAINER  = '_bricksfly_starter_animations_container';
+	const GROUP_ID           = '_bricksfly_starter_animations';
+	const GROUP_ID_CONTAINER = '_bricksfly_starter_animations_container';
 
 	private static $instance = null;
 
-	public static function instance()
-	{
-		if (is_null(self::$instance)) {
+	public static function instance() {
+		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 		}
 		return self::$instance;
 	}
 
-	public function __construct()
-	{
+	public function __construct() {
 		// Text widgets: full text + layout animation set (includes text effects).
-		foreach (self::TEXT_WIDGETS as $name) {
-			add_filter("bricks/elements/{$name}/controls", [$this, 'inject_text_controls']);
-			add_filter("bricks/elements/{$name}/control_groups", [$this, 'inject_text_group']);
+		foreach ( self::TEXT_WIDGETS as $name ) {
+			add_filter( "bricks/elements/{$name}/controls", array( $this, 'inject_text_controls' ) );
+			add_filter( "bricks/elements/{$name}/control_groups", array( $this, 'inject_text_group' ) );
 		}
 
 		// Media widgets: layout animations only — no text effects.
-		foreach (self::MEDIA_WIDGETS as $name) {
-			add_filter("bricks/elements/{$name}/controls", [$this, 'inject_media_controls']);
-			add_filter("bricks/elements/{$name}/control_groups", [$this, 'inject_text_group']);
+		foreach ( self::MEDIA_WIDGETS as $name ) {
+			add_filter( "bricks/elements/{$name}/controls", array( $this, 'inject_media_controls' ) );
+			add_filter( "bricks/elements/{$name}/control_groups", array( $this, 'inject_text_group' ) );
 		}
 
 		// Containers: smaller container-only animation set.
-		foreach (self::CONTAINER_WIDGETS as $name) {
-			add_filter("bricks/elements/{$name}/controls", [$this, 'inject_container_controls']);
-			add_filter("bricks/elements/{$name}/control_groups", [$this, 'inject_container_group']);
+		foreach ( self::CONTAINER_WIDGETS as $name ) {
+			add_filter( "bricks/elements/{$name}/controls", array( $this, 'inject_container_controls' ) );
+			add_filter( "bricks/elements/{$name}/control_groups", array( $this, 'inject_container_group' ) );
 		}
 
-		add_filter('bricks/element/render_attributes', [$this, 'apply_render_classes'], 10, 3);
+		add_filter( 'bricks/element/render_attributes', array( $this, 'apply_render_classes' ), 10, 3 );
 
-		add_action('wp_footer', [$this, 'enqueue_assets'], 1);
+		add_action( 'wp_footer', array( $this, 'enqueue_assets' ), 1 );
 	}
 
 	/**
@@ -85,274 +83,269 @@ class BRICKSFLY_Starter_Animations
 	 */
 	private static $animation_in_use = false;
 
-	/* =====================================================================
+	/*
+	=====================================================================
 	 * Control group registration
 	 * ================================================================== */
 
-	public function inject_text_group($groups)
-	{
-		$groups[self::GROUP_ID] = [
-			'title' => Label_Name_Helper::title(__('Starter Animations', 'bricksfly-elements-for-bricks')),
+	public function inject_text_group( $groups ) {
+		$groups[ self::GROUP_ID ] = array(
+			'title' => Label_Name_Helper::title( __( 'Starter Animations', 'bricksfly-elements-for-bricks' ) ),
 			'tab'   => 'content',
-		];
+		);
 		return $groups;
 	}
 
-	public function inject_container_group($groups)
-	{
-		$groups[self::GROUP_ID_CONTAINER] = [
-			'title' => Label_Name_Helper::title(__('Starter Animations', 'bricksfly-elements-for-bricks')),
+	public function inject_container_group( $groups ) {
+		$groups[ self::GROUP_ID_CONTAINER ] = array(
+			'title' => Label_Name_Helper::title( __( 'Starter Animations', 'bricksfly-elements-for-bricks' ) ),
 			'tab'   => 'content',
-		];
+		);
 		return $groups;
 	}
 
-	/* =====================================================================
+	/*
+	=====================================================================
 	 * Helper: option lists
 	 * ================================================================== */
 
-	private function get_text_animation_options()
-	{
-		return [
-			'none'             => esc_html__('None', 'bricksfly-elements-for-bricks'),
-			'reveal'           => esc_html__('Reveal', 'bricksfly-elements-for-bricks'),
-			'scale-up'         => esc_html__('Scale', 'bricksfly-elements-for-bricks'),
-			'slide'            => esc_html__('Slide', 'bricksfly-elements-for-bricks'),
-			'skew-reveal'      => esc_html__('Skew Reveal', 'bricksfly-elements-for-bricks'),
-			'flip'             => esc_html__('Flip', 'bricksfly-elements-for-bricks'),
-			'text-glow'        => esc_html__('Glow Pulse (text)', 'bricksfly-elements-for-bricks'),
-			'text-typewriter'  => esc_html__('Typewriter (text)', 'bricksfly-elements-for-bricks'),
-			'text-mask-wipe'   => esc_html__('Mask Wipe (text)', 'bricksfly-elements-for-bricks'),
-			'text-wave'        => esc_html__('Water Wave (text)', 'bricksfly-elements-for-bricks'),
-			'text-bg-clip'     => esc_html__('Background Clip (text)', 'bricksfly-elements-for-bricks'),
-			'text-char-animate' => esc_html__('Character Animation (text)', 'bricksfly-elements-for-bricks'),
-		];
+	private function get_text_animation_options() {
+		return array(
+			'none'              => esc_html__( 'None', 'bricksfly-elements-for-bricks' ),
+			'reveal'            => esc_html__( 'Reveal', 'bricksfly-elements-for-bricks' ),
+			'scale-up'          => esc_html__( 'Scale', 'bricksfly-elements-for-bricks' ),
+			'slide'             => esc_html__( 'Slide', 'bricksfly-elements-for-bricks' ),
+			'skew-reveal'       => esc_html__( 'Skew Reveal', 'bricksfly-elements-for-bricks' ),
+			'flip'              => esc_html__( 'Flip', 'bricksfly-elements-for-bricks' ),
+			'text-glow'         => esc_html__( 'Glow Pulse (text)', 'bricksfly-elements-for-bricks' ),
+			'text-typewriter'   => esc_html__( 'Typewriter (text)', 'bricksfly-elements-for-bricks' ),
+			'text-mask-wipe'    => esc_html__( 'Mask Wipe (text)', 'bricksfly-elements-for-bricks' ),
+			'text-wave'         => esc_html__( 'Water Wave (text)', 'bricksfly-elements-for-bricks' ),
+			'text-bg-clip'      => esc_html__( 'Background Clip (text)', 'bricksfly-elements-for-bricks' ),
+			'text-char-animate' => esc_html__( 'Character Animation (text)', 'bricksfly-elements-for-bricks' ),
+		);
 	}
 
-	private function get_media_animation_options()
-	{
+	private function get_media_animation_options() {
 		// Image / media: layout animations only — strip text effects.
-		return [
-			'none'        => esc_html__('None', 'bricksfly-elements-for-bricks'),
-			'reveal'      => esc_html__('Reveal', 'bricksfly-elements-for-bricks'),
-			'scale-up'    => esc_html__('Scale', 'bricksfly-elements-for-bricks'),
-			'slide'       => esc_html__('Slide', 'bricksfly-elements-for-bricks'),
-			'skew-reveal' => esc_html__('Skew Reveal', 'bricksfly-elements-for-bricks'),
-			'flip'        => esc_html__('Flip', 'bricksfly-elements-for-bricks'),
-		];
+		return array(
+			'none'        => esc_html__( 'None', 'bricksfly-elements-for-bricks' ),
+			'reveal'      => esc_html__( 'Reveal', 'bricksfly-elements-for-bricks' ),
+			'scale-up'    => esc_html__( 'Scale', 'bricksfly-elements-for-bricks' ),
+			'slide'       => esc_html__( 'Slide', 'bricksfly-elements-for-bricks' ),
+			'skew-reveal' => esc_html__( 'Skew Reveal', 'bricksfly-elements-for-bricks' ),
+			'flip'        => esc_html__( 'Flip', 'bricksfly-elements-for-bricks' ),
+		);
 	}
 
-	private function get_easing_options()
-	{
-		return [
-			'ease'                          => esc_html__('Ease (Default)', 'bricksfly-elements-for-bricks'),
-			'linear'                        => esc_html__('Linear', 'bricksfly-elements-for-bricks'),
-			'ease-in'                       => esc_html__('Ease In', 'bricksfly-elements-for-bricks'),
-			'ease-out'                      => esc_html__('Ease Out', 'bricksfly-elements-for-bricks'),
-			'ease-in-out'                   => esc_html__('Ease In Out', 'bricksfly-elements-for-bricks'),
-			'cubic-bezier(.25,.8,.25,1)'    => esc_html__('Smooth Cubic', 'bricksfly-elements-for-bricks'),
-			'cubic-bezier(.17,.67,.83,.67)' => esc_html__('Elastic Feel', 'bricksfly-elements-for-bricks'),
-		];
+	private function get_easing_options() {
+		return array(
+			'ease'                          => esc_html__( 'Ease (Default)', 'bricksfly-elements-for-bricks' ),
+			'linear'                        => esc_html__( 'Linear', 'bricksfly-elements-for-bricks' ),
+			'ease-in'                       => esc_html__( 'Ease In', 'bricksfly-elements-for-bricks' ),
+			'ease-out'                      => esc_html__( 'Ease Out', 'bricksfly-elements-for-bricks' ),
+			'ease-in-out'                   => esc_html__( 'Ease In Out', 'bricksfly-elements-for-bricks' ),
+			'cubic-bezier(.25,.8,.25,1)'    => esc_html__( 'Smooth Cubic', 'bricksfly-elements-for-bricks' ),
+			'cubic-bezier(.17,.67,.83,.67)' => esc_html__( 'Elastic Feel', 'bricksfly-elements-for-bricks' ),
+		);
 	}
 
-	/* =====================================================================
+	/*
+	=====================================================================
 	 * Text/media controls (full set)
 	 * ================================================================== */
 
-	public function inject_text_controls($controls)
-	{
-		return $this->inject_animation_controls($controls, true);
+	public function inject_text_controls( $controls ) {
+		return $this->inject_animation_controls( $controls, true );
 	}
 
-	public function inject_media_controls($controls)
-	{
-		return $this->inject_animation_controls($controls, false);
+	public function inject_media_controls( $controls ) {
+		return $this->inject_animation_controls( $controls, false );
 	}
 
-	private function inject_animation_controls($controls, $is_text)
-	{
+	private function inject_animation_controls( $controls, $is_text ) {
 
 		// Animation picker
-		$controls['_bricksfly_starter_anim'] = [
-			'tab'         => 'content',
-			'group'       => self::GROUP_ID,
-			'label'       => esc_html__('Animation', 'bricksfly-elements-for-bricks'),
-			'type'        => 'select',
-			'options'     => $is_text ? $this->get_text_animation_options() : $this->get_media_animation_options(),
-			'default'     => 'none',
-			'inline'      => true,
-		];
+		$controls['_bricksfly_starter_anim'] = array(
+			'tab'     => 'content',
+			'group'   => self::GROUP_ID,
+			'label'   => esc_html__( 'Animation', 'bricksfly-elements-for-bricks' ),
+			'type'    => 'select',
+			'options' => $is_text ? $this->get_text_animation_options() : $this->get_media_animation_options(),
+			'default' => 'none',
+			'inline'  => true,
+		);
 
 		// Common timing — duration / delay / easing
-		$controls['_bricksfly_anim_duration'] = [
+		$controls['_bricksfly_anim_duration'] = array(
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
-			'label'    => esc_html__('Duration (ms)', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Duration (ms)', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'number',
 			'default'  => 1000,
 			'min'      => 100,
 			'max'      => 10000,
 			'step'     => 50,
-			'required' => ['_bricksfly_starter_anim', '!=', ['', 'none']],
-			'css'      => [
-				[
+			'required' => array( '_bricksfly_starter_anim', '!=', array( '', 'none' ) ),
+			'css'      => array(
+				array(
 					'property' => '--bricksfly-duration',
 					'selector' => '',
 					'value'    => '%sms',
-				],
-			],
-		];
+				),
+			),
+		);
 
-		$controls['_bricksfly_anim_delay'] = [
+		$controls['_bricksfly_anim_delay'] = array(
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
-			'label'    => esc_html__('Delay (ms)', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Delay (ms)', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'number',
 			'default'  => 0,
 			'min'      => 0,
 			'max'      => 10000,
 			'step'     => 50,
-			'required' => ['_bricksfly_starter_anim', '!=', ['', 'none']],
-			'css'      => [
-				[
+			'required' => array( '_bricksfly_starter_anim', '!=', array( '', 'none' ) ),
+			'css'      => array(
+				array(
 					'property' => '--bricksfly-delay',
 					'selector' => '',
 					'value'    => '%sms',
-				],
-			],
-		];
+				),
+			),
+		);
 
-		$controls['_bricksfly_anim_ease'] = [
+		$controls['_bricksfly_anim_ease'] = array(
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
-			'label'    => esc_html__('Easing', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Easing', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'select',
 			'options'  => $this->get_easing_options(),
 			'default'  => 'ease',
 			'inline'   => true,
-			'required' => ['_bricksfly_starter_anim', '!=', ['', 'none']],
-			'css'      => [
-				[
+			'required' => array( '_bricksfly_starter_anim', '!=', array( '', 'none' ) ),
+			'css'      => array(
+				array(
 					'property' => '--bricksfly-ease',
 					'selector' => '',
-				],
-			],
-		];
+				),
+			),
+		);
 
-		if ($is_text) {
+		if ( $is_text ) {
 			// ---- text-glow ----
-			$controls['_bricksfly_glow_color'] = [
+			$controls['_bricksfly_glow_color'] = array(
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
-				'label'    => esc_html__('Glow Color', 'bricksfly-elements-for-bricks'),
+				'label'    => esc_html__( 'Glow Color', 'bricksfly-elements-for-bricks' ),
 				'type'     => 'color',
-				'default'  => ['hex' => '#0000ff'],
-				'required' => ['_bricksfly_starter_anim', '=', 'text-glow'],
-				'css'      => [
-					[
+				'default'  => array( 'hex' => '#0000ff' ),
+				'required' => array( '_bricksfly_starter_anim', '=', 'text-glow' ),
+				'css'      => array(
+					array(
 						'property' => '--bricksfly-glow-color',
 						'selector' => '',
-					],
-				],
-			];
+					),
+				),
+			);
 
-			$controls['_bricksfly_glow_size'] = [
+			$controls['_bricksfly_glow_size'] = array(
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
-				'label'    => esc_html__('Glow Size (px)', 'bricksfly-elements-for-bricks'),
+				'label'    => esc_html__( 'Glow Size (px)', 'bricksfly-elements-for-bricks' ),
 				'type'     => 'number',
 				'default'  => 20,
 				'min'      => 5,
 				'max'      => 100,
-				'required' => ['_bricksfly_starter_anim', '=', 'text-glow'],
-				'css'      => [
-					[
+				'required' => array( '_bricksfly_starter_anim', '=', 'text-glow' ),
+				'css'      => array(
+					array(
 						'property' => '--bricksfly-glow-size',
 						'selector' => '',
 						'value'    => '%spx',
-					],
-				],
-			];
+					),
+				),
+			);
 
-			$controls['_bricksfly_glow_iteration'] = [
+			$controls['_bricksfly_glow_iteration'] = array(
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
-				'label'    => esc_html__('Animation Loop', 'bricksfly-elements-for-bricks'),
+				'label'    => esc_html__( 'Animation Loop', 'bricksfly-elements-for-bricks' ),
 				'type'     => 'select',
-				'options'  => [
-					'1'        => esc_html__('Play Once', 'bricksfly-elements-for-bricks'),
-					'infinite' => esc_html__('Infinite', 'bricksfly-elements-for-bricks'),
-				],
+				'options'  => array(
+					'1'        => esc_html__( 'Play Once', 'bricksfly-elements-for-bricks' ),
+					'infinite' => esc_html__( 'Infinite', 'bricksfly-elements-for-bricks' ),
+				),
 				'default'  => 'infinite',
 				'inline'   => true,
-				'required' => ['_bricksfly_starter_anim', '=', 'text-glow'],
-				'css'      => [
-					[
+				'required' => array( '_bricksfly_starter_anim', '=', 'text-glow' ),
+				'css'      => array(
+					array(
 						'property' => '--bricksfly-iteration',
 						'selector' => '',
-					],
-				],
-			];
+					),
+				),
+			);
 
 			// ---- text-mask-wipe ----
-			$controls['_bricksfly_mask_wipe_bg'] = [
+			$controls['_bricksfly_mask_wipe_bg'] = array(
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
-				'label'    => esc_html__('Mask Color', 'bricksfly-elements-for-bricks'),
+				'label'    => esc_html__( 'Mask Color', 'bricksfly-elements-for-bricks' ),
 				'type'     => 'color',
-				'default'  => ['hex' => '#000000'],
-				'required' => ['_bricksfly_starter_anim', '=', 'text-mask-wipe'],
-				'css'      => [
-					[
+				'default'  => array( 'hex' => '#000000' ),
+				'required' => array( '_bricksfly_starter_anim', '=', 'text-mask-wipe' ),
+				'css'      => array(
+					array(
 						'property' => '--bricksfly-mask-bg',
 						'selector' => '',
-					],
-				],
-			];
+					),
+				),
+			);
 		} // end if ( $is_text ) — text-glow / text-mask-wipe
 
 		// ---- reveal ----
-		$controls['_bricksfly_reveal_direction'] = [
+		$controls['_bricksfly_reveal_direction'] = array(
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
-			'label'    => esc_html__('Direction', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Direction', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'select',
-			'options'  => [
-				'bottom' => esc_html__('Bottom -> Top', 'bricksfly-elements-for-bricks'),
-				'top'    => esc_html__('Top -> Bottom', 'bricksfly-elements-for-bricks'),
-				'left'   => esc_html__('Left -> Right', 'bricksfly-elements-for-bricks'),
-				'right'  => esc_html__('Right -> Left', 'bricksfly-elements-for-bricks'),
-				'center' => esc_html__('Center Expand', 'bricksfly-elements-for-bricks'),
-			],
+			'options'  => array(
+				'bottom' => esc_html__( 'Bottom -> Top', 'bricksfly-elements-for-bricks' ),
+				'top'    => esc_html__( 'Top -> Bottom', 'bricksfly-elements-for-bricks' ),
+				'left'   => esc_html__( 'Left -> Right', 'bricksfly-elements-for-bricks' ),
+				'right'  => esc_html__( 'Right -> Left', 'bricksfly-elements-for-bricks' ),
+				'center' => esc_html__( 'Center Expand', 'bricksfly-elements-for-bricks' ),
+			),
 			'default'  => 'bottom',
 			'inline'   => true,
-			'required' => ['_bricksfly_starter_anim', '=', 'reveal'],
-		];
+			'required' => array( '_bricksfly_starter_anim', '=', 'reveal' ),
+		);
 
-		$controls['_bricksfly_reveal_fade'] = [
+		$controls['_bricksfly_reveal_fade'] = array(
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
-			'label'    => esc_html__('Enable Fade', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Enable Fade', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'checkbox',
 			'default'  => false,
-			'required' => ['_bricksfly_starter_anim', '=', 'reveal'],
-		];
+			'required' => array( '_bricksfly_starter_anim', '=', 'reveal' ),
+		);
 
-		if ($is_text) {
+		if ( $is_text ) {
 			// ---- text-wave ----
-			$controls['_bricksfly_wave_fill_color'] = [
+			$controls['_bricksfly_wave_fill_color'] = array(
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
-				'label'    => esc_html__('Wave Fill Color', 'bricksfly-elements-for-bricks'),
+				'label'    => esc_html__( 'Wave Fill Color', 'bricksfly-elements-for-bricks' ),
 				'type'     => 'color',
-				'required' => ['_bricksfly_starter_anim', '=', 'text-wave'],
-				'css'      => [
-					[
+				'required' => array( '_bricksfly_starter_anim', '=', 'text-wave' ),
+				'css'      => array(
+					array(
 						'property' => '--bricksfly-wave-fill',
 						'selector' => '',
-					],
-				],
-			];
+					),
+				),
+			);
 
 			// ---- text-bg-clip ----
 			// Image source for the background-clip text effect. The control returns
@@ -360,538 +353,538 @@ class BRICKSFLY_Starter_Animations
 			// `--bricksfly-bg-text-image` CSS variable in apply_render_classes() because
 			// Bricks's `css` array doesn't unwrap image arrays into CSS-variable
 			// values cleanly.
-			$controls['_bricksfly_bg_text_image'] = [
+			$controls['_bricksfly_bg_text_image'] = array(
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
-				'label'    => esc_html__('Background Image', 'bricksfly-elements-for-bricks'),
+				'label'    => esc_html__( 'Background Image', 'bricksfly-elements-for-bricks' ),
 				'type'     => 'image',
-				'required' => ['_bricksfly_starter_anim', '=', 'text-bg-clip'],
-			];
+				'required' => array( '_bricksfly_starter_anim', '=', 'text-bg-clip' ),
+			);
 
-			$controls['_bricksfly_bg_text_speed'] = [
+			$controls['_bricksfly_bg_text_speed'] = array(
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
-				'label'    => esc_html__('Animation Speed (s)', 'bricksfly-elements-for-bricks'),
+				'label'    => esc_html__( 'Animation Speed (s)', 'bricksfly-elements-for-bricks' ),
 				'type'     => 'number',
 				'default'  => 15,
 				'min'      => 1,
 				'max'      => 60,
-				'required' => ['_bricksfly_starter_anim', '=', 'text-bg-clip'],
-				'css'      => [
-					[
+				'required' => array( '_bricksfly_starter_anim', '=', 'text-bg-clip' ),
+				'css'      => array(
+					array(
 						'property' => '--bricksfly-bg-speed',
 						'selector' => '',
 						'value'    => '%ss',
-					],
-				],
-			];
+					),
+				),
+			);
 
 			// ---- text-char-animate ----
-			$controls['_bricksfly_char_preset'] = [
+			$controls['_bricksfly_char_preset'] = array(
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
-				'label'    => esc_html__('Character Preset', 'bricksfly-elements-for-bricks'),
+				'label'    => esc_html__( 'Character Preset', 'bricksfly-elements-for-bricks' ),
 				'type'     => 'select',
-				'options'  => [
-					'revolve'      => esc_html__('Revolve Scale', 'bricksfly-elements-for-bricks'),
-					'ball'         => esc_html__('Ball Drop', 'bricksfly-elements-for-bricks'),
-					'slide'        => esc_html__('Side Slide', 'bricksfly-elements-for-bricks'),
-					'revolve_drop' => esc_html__('Revolve Drop', 'bricksfly-elements-for-bricks'),
-					'drop_vanish'  => esc_html__('Drop Vanish', 'bricksfly-elements-for-bricks'),
-					'twister'      => esc_html__('Twister', 'bricksfly-elements-for-bricks'),
-				],
+				'options'  => array(
+					'revolve'      => esc_html__( 'Revolve Scale', 'bricksfly-elements-for-bricks' ),
+					'ball'         => esc_html__( 'Ball Drop', 'bricksfly-elements-for-bricks' ),
+					'slide'        => esc_html__( 'Side Slide', 'bricksfly-elements-for-bricks' ),
+					'revolve_drop' => esc_html__( 'Revolve Drop', 'bricksfly-elements-for-bricks' ),
+					'drop_vanish'  => esc_html__( 'Drop Vanish', 'bricksfly-elements-for-bricks' ),
+					'twister'      => esc_html__( 'Twister', 'bricksfly-elements-for-bricks' ),
+				),
 				'default'  => 'revolve',
 				'inline'   => true,
-				'required' => ['_bricksfly_starter_anim', '=', 'text-char-animate'],
-			];
+				'required' => array( '_bricksfly_starter_anim', '=', 'text-char-animate' ),
+			);
 
-			$controls['_bricksfly_char_revolve_x'] = [
+			$controls['_bricksfly_char_revolve_x'] = array(
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
-				'label'    => esc_html__('Translate X (px)', 'bricksfly-elements-for-bricks'),
+				'label'    => esc_html__( 'Translate X (px)', 'bricksfly-elements-for-bricks' ),
 				'type'     => 'number',
 				'default'  => -150,
-				'required' => [
-					['_bricksfly_starter_anim', '=', 'text-char-animate'],
-					['_bricksfly_char_preset',  '=', 'revolve'],
-				],
-				'css'      => [
-					[
+				'required' => array(
+					array( '_bricksfly_starter_anim', '=', 'text-char-animate' ),
+					array( '_bricksfly_char_preset', '=', 'revolve' ),
+				),
+				'css'      => array(
+					array(
 						'property' => '--bricksfly-char-x',
 						'selector' => '',
 						'value'    => '%spx',
-					],
-				],
-			];
+					),
+				),
+			);
 
-			$controls['_bricksfly_char_revolve_y'] = [
+			$controls['_bricksfly_char_revolve_y'] = array(
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
-				'label'    => esc_html__('Translate Y (px)', 'bricksfly-elements-for-bricks'),
+				'label'    => esc_html__( 'Translate Y (px)', 'bricksfly-elements-for-bricks' ),
 				'type'     => 'number',
 				'default'  => -50,
-				'required' => [
-					['_bricksfly_starter_anim', '=', 'text-char-animate'],
-					['_bricksfly_char_preset',  '=', 'revolve'],
-				],
-				'css'      => [
-					[
+				'required' => array(
+					array( '_bricksfly_starter_anim', '=', 'text-char-animate' ),
+					array( '_bricksfly_char_preset', '=', 'revolve' ),
+				),
+				'css'      => array(
+					array(
 						'property' => '--bricksfly-char-y',
 						'selector' => '',
 						'value'    => '%spx',
-					],
-				],
-			];
+					),
+				),
+			);
 
-			$controls['_bricksfly_char_ball_y'] = [
+			$controls['_bricksfly_char_ball_y'] = array(
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
-				'label'    => esc_html__('Drop Distance (px)', 'bricksfly-elements-for-bricks'),
+				'label'    => esc_html__( 'Drop Distance (px)', 'bricksfly-elements-for-bricks' ),
 				'type'     => 'number',
 				'default'  => 200,
-				'required' => [
-					['_bricksfly_starter_anim', '=', 'text-char-animate'],
-					['_bricksfly_char_preset',  '=', 'ball'],
-				],
-				'css'      => [
-					[
+				'required' => array(
+					array( '_bricksfly_starter_anim', '=', 'text-char-animate' ),
+					array( '_bricksfly_char_preset', '=', 'ball' ),
+				),
+				'css'      => array(
+					array(
 						'property' => '--bricksfly-char-y',
 						'selector' => '',
 						'value'    => '%spx',
-					],
-				],
-			];
+					),
+				),
+			);
 
-			$controls['_bricksfly_char_twister_rotate'] = [
+			$controls['_bricksfly_char_twister_rotate'] = array(
 				'tab'      => 'content',
 				'group'    => self::GROUP_ID,
-				'label'    => esc_html__('Rotate Degree', 'bricksfly-elements-for-bricks'),
+				'label'    => esc_html__( 'Rotate Degree', 'bricksfly-elements-for-bricks' ),
 				'type'     => 'number',
 				'default'  => -180,
-				'required' => [
-					['_bricksfly_starter_anim', '=', 'text-char-animate'],
-					['_bricksfly_char_preset',  '=', 'twister'],
-				],
-				'css'      => [
-					[
+				'required' => array(
+					array( '_bricksfly_starter_anim', '=', 'text-char-animate' ),
+					array( '_bricksfly_char_preset', '=', 'twister' ),
+				),
+				'css'      => array(
+					array(
 						'property' => '--bricksfly-char-rotate',
 						'selector' => '',
 						'value'    => '%sdeg',
-					],
-				],
-			];
+					),
+				),
+			);
 		} // end if ( $is_text ) — text-wave / text-bg-clip / text-char-animate
 
 		// ---- scale-up ----
-		$controls['_bricksfly_scale_start'] = [
+		$controls['_bricksfly_scale_start'] = array(
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
-			'label'    => esc_html__('Start Scale', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Start Scale', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'number',
 			'default'  => 0.6,
 			'step'     => 0.1,
 			'min'      => 0,
 			'max'      => 3,
-			'required' => ['_bricksfly_starter_anim', '=', 'scale-up'],
-			'css'      => [
-				[
+			'required' => array( '_bricksfly_starter_anim', '=', 'scale-up' ),
+			'css'      => array(
+				array(
 					'property' => '--bricksfly-scale-start',
 					'selector' => '',
-				],
-			],
-		];
+				),
+			),
+		);
 
-		$controls['_bricksfly_scale_end'] = [
+		$controls['_bricksfly_scale_end'] = array(
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
-			'label'    => esc_html__('End Scale', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'End Scale', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'number',
 			'default'  => 1,
 			'step'     => 0.1,
 			'min'      => 0,
 			'max'      => 3,
-			'required' => ['_bricksfly_starter_anim', '=', 'scale-up'],
-			'css'      => [
-				[
+			'required' => array( '_bricksfly_starter_anim', '=', 'scale-up' ),
+			'css'      => array(
+				array(
 					'property' => '--bricksfly-scale-end',
 					'selector' => '',
-				],
-			],
-		];
+				),
+			),
+		);
 
-		$controls['_bricksfly_scale_origin'] = [
+		$controls['_bricksfly_scale_origin'] = array(
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
-			'label'    => esc_html__('Scale From', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Scale From', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'select',
-			'options'  => [
-				'center' => esc_html__('Center', 'bricksfly-elements-for-bricks'),
-				'top'    => esc_html__('Top', 'bricksfly-elements-for-bricks'),
-				'bottom' => esc_html__('Bottom', 'bricksfly-elements-for-bricks'),
-				'left'   => esc_html__('Left', 'bricksfly-elements-for-bricks'),
-				'right'  => esc_html__('Right', 'bricksfly-elements-for-bricks'),
-			],
+			'options'  => array(
+				'center' => esc_html__( 'Center', 'bricksfly-elements-for-bricks' ),
+				'top'    => esc_html__( 'Top', 'bricksfly-elements-for-bricks' ),
+				'bottom' => esc_html__( 'Bottom', 'bricksfly-elements-for-bricks' ),
+				'left'   => esc_html__( 'Left', 'bricksfly-elements-for-bricks' ),
+				'right'  => esc_html__( 'Right', 'bricksfly-elements-for-bricks' ),
+			),
 			'default'  => 'center',
 			'inline'   => true,
-			'required' => ['_bricksfly_starter_anim', '=', 'scale-up'],
-			'css'      => [
-				[
+			'required' => array( '_bricksfly_starter_anim', '=', 'scale-up' ),
+			'css'      => array(
+				array(
 					'property' => '--bricksfly-scale-origin',
 					'selector' => '',
-				],
-			],
-		];
+				),
+			),
+		);
 
 		// ---- slide ----
-		$controls['_bricksfly_slide_direction'] = [
+		$controls['_bricksfly_slide_direction'] = array(
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
-			'label'    => esc_html__('Direction', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Direction', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'select',
-			'options'  => [
-				'bottom' => esc_html__('Bottom → Top', 'bricksfly-elements-for-bricks'),
-				'top'    => esc_html__('Top → Bottom', 'bricksfly-elements-for-bricks'),
-				'left'   => esc_html__('Left → Right', 'bricksfly-elements-for-bricks'),
-				'right'  => esc_html__('Right → Left', 'bricksfly-elements-for-bricks'),
-			],
+			'options'  => array(
+				'bottom' => esc_html__( 'Bottom → Top', 'bricksfly-elements-for-bricks' ),
+				'top'    => esc_html__( 'Top → Bottom', 'bricksfly-elements-for-bricks' ),
+				'left'   => esc_html__( 'Left → Right', 'bricksfly-elements-for-bricks' ),
+				'right'  => esc_html__( 'Right → Left', 'bricksfly-elements-for-bricks' ),
+			),
 			'default'  => 'bottom',
 			'inline'   => true,
-			'required' => ['_bricksfly_starter_anim', '=', 'slide'],
-		];
+			'required' => array( '_bricksfly_starter_anim', '=', 'slide' ),
+		);
 
-		$controls['_bricksfly_slide_distance'] = [
+		$controls['_bricksfly_slide_distance'] = array(
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
-			'label'    => esc_html__('Distance (px)', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Distance (px)', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'number',
 			'default'  => 60,
 			'min'      => 0,
 			'max'      => 500,
 			'step'     => 5,
-			'required' => ['_bricksfly_starter_anim', '=', 'slide'],
-			'css'      => [
-				[
+			'required' => array( '_bricksfly_starter_anim', '=', 'slide' ),
+			'css'      => array(
+				array(
 					'property' => '--bricksfly-slide-distance',
 					'selector' => '',
 					'value'    => '%spx',
-				],
-			],
-		];
+				),
+			),
+		);
 
 		// ---- skew-reveal ----
-		$controls['_bricksfly_skew_angle'] = [
+		$controls['_bricksfly_skew_angle'] = array(
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
-			'label'    => esc_html__('Skew Angle (deg)', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Skew Angle (deg)', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'number',
 			'default'  => 18,
-			'required' => ['_bricksfly_starter_anim', '=', 'skew-reveal'],
-			'css'      => [
-				[
+			'required' => array( '_bricksfly_starter_anim', '=', 'skew-reveal' ),
+			'css'      => array(
+				array(
 					'property' => '--bricksfly-skew-angle',
 					'selector' => '',
 					'value'    => '%sdeg',
-				],
-			],
-		];
+				),
+			),
+		);
 
-		$controls['_bricksfly_skew_distance'] = [
+		$controls['_bricksfly_skew_distance'] = array(
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
-			'label'    => esc_html__('Translate Distance (px)', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Translate Distance (px)', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'number',
 			'default'  => 40,
-			'required' => ['_bricksfly_starter_anim', '=', 'skew-reveal'],
-			'css'      => [
-				[
+			'required' => array( '_bricksfly_starter_anim', '=', 'skew-reveal' ),
+			'css'      => array(
+				array(
 					'property' => '--bricksfly-skew-distance',
 					'selector' => '',
 					'value'    => '%spx',
-				],
-			],
-		];
+				),
+			),
+		);
 
 		// ---- flip ----
-		$controls['_bricksfly_flip_axis'] = [
+		$controls['_bricksfly_flip_axis'] = array(
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
-			'label'    => esc_html__('Flip Direction', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Flip Direction', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'select',
-			'options'  => [
-				'x' => esc_html__('Flip X', 'bricksfly-elements-for-bricks'),
-				'y' => esc_html__('Flip Y', 'bricksfly-elements-for-bricks'),
-			],
+			'options'  => array(
+				'x' => esc_html__( 'Flip X', 'bricksfly-elements-for-bricks' ),
+				'y' => esc_html__( 'Flip Y', 'bricksfly-elements-for-bricks' ),
+			),
 			'default'  => 'x',
 			'inline'   => true,
-			'required' => ['_bricksfly_starter_anim', '=', 'flip'],
-		];
+			'required' => array( '_bricksfly_starter_anim', '=', 'flip' ),
+		);
 
-		$controls['_bricksfly_flip_angle'] = [
+		$controls['_bricksfly_flip_angle'] = array(
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
-			'label'    => esc_html__('Flip Angle (deg)', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Flip Angle (deg)', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'number',
 			'default'  => 90,
-			'required' => ['_bricksfly_starter_anim', '=', 'flip'],
-			'css'      => [
-				[
+			'required' => array( '_bricksfly_starter_anim', '=', 'flip' ),
+			'css'      => array(
+				array(
 					'property' => '--bricksfly-flip-angle',
 					'selector' => '',
 					'value'    => '%sdeg',
-				],
-			],
-		];
+				),
+			),
+		);
 
-		$controls['_bricksfly_flip_perspective'] = [
+		$controls['_bricksfly_flip_perspective'] = array(
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
-			'label'    => esc_html__('Perspective (px)', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Perspective (px)', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'number',
 			'default'  => 800,
-			'required' => ['_bricksfly_starter_anim', '=', 'flip'],
-			'css'      => [
-				[
+			'required' => array( '_bricksfly_starter_anim', '=', 'flip' ),
+			'css'      => array(
+				array(
 					'property' => '--bricksfly-flip-perspective',
 					'selector' => '',
 					'value'    => '%spx',
-				],
-			],
-		];
+				),
+			),
+		);
 
 		// ---- repeat-on-enter (footer) ----
-		$controls['_bricksfly_repeat_on_enter'] = [
+		$controls['_bricksfly_repeat_on_enter'] = array(
 			'tab'         => 'content',
 			'group'       => self::GROUP_ID,
-			'label'       => esc_html__('Repeat Animation?', 'bricksfly-elements-for-bricks'),
-			'description' => esc_html__('Play once, or replay every time the element enters the viewport.', 'bricksfly-elements-for-bricks'),
+			'label'       => esc_html__( 'Repeat Animation?', 'bricksfly-elements-for-bricks' ),
+			'description' => esc_html__( 'Play once, or replay every time the element enters the viewport.', 'bricksfly-elements-for-bricks' ),
 			'type'        => 'select',
-			'options'     => [
-				'no'  => esc_html__('Play Once', 'bricksfly-elements-for-bricks'),
-				'yes' => esc_html__('Every Time', 'bricksfly-elements-for-bricks'),
-			],
+			'options'     => array(
+				'no'  => esc_html__( 'Play Once', 'bricksfly-elements-for-bricks' ),
+				'yes' => esc_html__( 'Every Time', 'bricksfly-elements-for-bricks' ),
+			),
 			'default'     => 'no',
 			'inline'      => true,
-			'required'    => ['_bricksfly_starter_anim', '!=', ['', 'none']],
-		];
-
+			'required'    => array( '_bricksfly_starter_anim', '!=', array( '', 'none' ) ),
+		);
 
 		// ---- editor preview ----
-		$controls['_bricksfly_anim_editor_enabled'] = [
+		$controls['_bricksfly_anim_editor_enabled'] = array(
 			'tab'         => 'content',
 			'group'       => self::GROUP_ID,
-			'label'       => esc_html__('Enable On Editor', 'bricksfly-elements-for-bricks'),
-			'description' => esc_html__('For better performance in editor mode, keep this off.', 'bricksfly-elements-for-bricks'),
+			'label'       => esc_html__( 'Enable On Editor', 'bricksfly-elements-for-bricks' ),
+			'description' => esc_html__( 'For better performance in editor mode, keep this off.', 'bricksfly-elements-for-bricks' ),
 			'type'        => 'checkbox',
 			'inline'      => true,
-			'required'    => ['_bricksfly_starter_anim', '!=', ['', 'none']],
+			'required'    => array( '_bricksfly_starter_anim', '!=', array( '', 'none' ) ),
 			'separator'   => 'before',
-		];
+		);
 
-		$controls['_bricksfly_play_starter_animation'] = [
+		$controls['_bricksfly_play_starter_animation'] = array(
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID,
 			'type'     => 'info',
 			'content'  => '<button type="button" class="bricksfly-free-play-animation"><span class="bricksfly-free-play-animation__icon" aria-hidden="true">▶</span><span class="bricksfly-free-play-animation__label">PLAY ANIMATION</span></button>',
-			'required' => [
-				['_bricksfly_starter_anim', '!=', ['', 'none']],
-				['_bricksfly_anim_editor_enabled', '=', true],
-			],
-		];
+			'required' => array(
+				array( '_bricksfly_starter_anim', '!=', array( '', 'none' ) ),
+				array( '_bricksfly_anim_editor_enabled', '=', true ),
+			),
+		);
 
 		return $controls;
 	}
 
-	/* =====================================================================
+	/*
+	=====================================================================
 	 * Container controls (smaller set: none / slide / flip)
 	 * ================================================================== */
 
-	public function inject_container_controls($controls)
-	{
+	public function inject_container_controls( $controls ) {
 
-		$controls['_bricksfly_starter_anim_container'] = [
+		$controls['_bricksfly_starter_anim_container'] = array(
 			'tab'     => 'content',
 			'group'   => self::GROUP_ID_CONTAINER,
-			'label'   => esc_html__('Animation', 'bricksfly-elements-for-bricks'),
+			'label'   => esc_html__( 'Animation', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'select',
-			'options' => [
-				'none'  => esc_html__('None', 'bricksfly-elements-for-bricks'),
-				'slide' => esc_html__('Slide', 'bricksfly-elements-for-bricks'),
-				'flip'  => esc_html__('Flip', 'bricksfly-elements-for-bricks'),
-			],
+			'options' => array(
+				'none'  => esc_html__( 'None', 'bricksfly-elements-for-bricks' ),
+				'slide' => esc_html__( 'Slide', 'bricksfly-elements-for-bricks' ),
+				'flip'  => esc_html__( 'Flip', 'bricksfly-elements-for-bricks' ),
+			),
 			'default' => 'none',
 			'inline'  => true,
-		];
+		);
 
 		// ---- container slide ----
-		$controls['_bricksfly_slide_direction_container'] = [
+		$controls['_bricksfly_slide_direction_container'] = array(
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID_CONTAINER,
-			'label'    => esc_html__('Slide Direction', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Slide Direction', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'select',
-			'options'  => [
-				'bottom' => esc_html__('Bottom → Top', 'bricksfly-elements-for-bricks'),
-				'top'    => esc_html__('Top → Bottom', 'bricksfly-elements-for-bricks'),
-				'left'   => esc_html__('Left → Right', 'bricksfly-elements-for-bricks'),
-				'right'  => esc_html__('Right → Left', 'bricksfly-elements-for-bricks'),
-			],
+			'options'  => array(
+				'bottom' => esc_html__( 'Bottom → Top', 'bricksfly-elements-for-bricks' ),
+				'top'    => esc_html__( 'Top → Bottom', 'bricksfly-elements-for-bricks' ),
+				'left'   => esc_html__( 'Left → Right', 'bricksfly-elements-for-bricks' ),
+				'right'  => esc_html__( 'Right → Left', 'bricksfly-elements-for-bricks' ),
+			),
 			'default'  => 'bottom',
 			'inline'   => true,
-			'required' => ['_bricksfly_starter_anim_container', '=', 'slide'],
-		];
+			'required' => array( '_bricksfly_starter_anim_container', '=', 'slide' ),
+		);
 
-		$controls['_bricksfly_slide_distance_container'] = [
+		$controls['_bricksfly_slide_distance_container'] = array(
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID_CONTAINER,
-			'label'    => esc_html__('Distance (px)', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Distance (px)', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'number',
 			'default'  => 40,
-			'required' => ['_bricksfly_starter_anim_container', '=', 'slide'],
-			'css'      => [
-				[
+			'required' => array( '_bricksfly_starter_anim_container', '=', 'slide' ),
+			'css'      => array(
+				array(
 					'property' => '--bricksfly-slide-distance',
 					'selector' => '',
 					'value'    => '%spx',
-				],
-			],
-		];
+				),
+			),
+		);
 
-		$controls['_bricksfly_slide_duration_container'] = [
+		$controls['_bricksfly_slide_duration_container'] = array(
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID_CONTAINER,
-			'label'    => esc_html__('Duration (ms)', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Duration (ms)', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'number',
 			'default'  => 600,
-			'required' => ['_bricksfly_starter_anim_container', '=', 'slide'],
-			'css'      => [
-				[
+			'required' => array( '_bricksfly_starter_anim_container', '=', 'slide' ),
+			'css'      => array(
+				array(
 					'property' => '--bricksfly-slide-duration',
 					'selector' => '',
 					'value'    => '%sms',
-				],
-			],
-		];
+				),
+			),
+		);
 
-		$controls['_bricksfly_slide_delay_container'] = [
+		$controls['_bricksfly_slide_delay_container'] = array(
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID_CONTAINER,
-			'label'    => esc_html__('Delay (ms)', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Delay (ms)', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'number',
 			'default'  => 0,
-			'required' => ['_bricksfly_starter_anim_container', '=', 'slide'],
-			'css'      => [
-				[
+			'required' => array( '_bricksfly_starter_anim_container', '=', 'slide' ),
+			'css'      => array(
+				array(
 					'property' => '--bricksfly-slide-delay',
 					'selector' => '',
 					'value'    => '%sms',
-				],
-			],
-		];
+				),
+			),
+		);
 
-		$controls['_bricksfly_slide_ease_container'] = [
+		$controls['_bricksfly_slide_ease_container'] = array(
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID_CONTAINER,
-			'label'    => esc_html__('Easing', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Easing', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'select',
 			'options'  => $this->get_easing_options(),
 			'default'  => 'ease',
 			'inline'   => true,
-			'required' => ['_bricksfly_starter_anim_container', '=', 'slide'],
-			'css'      => [
-				[
+			'required' => array( '_bricksfly_starter_anim_container', '=', 'slide' ),
+			'css'      => array(
+				array(
 					'property' => '--bricksfly-slide-ease',
 					'selector' => '',
-				],
-			],
-		];
+				),
+			),
+		);
 
 		// ---- container flip ----
-		$controls['_bricksfly_flip_axis_container'] = [
+		$controls['_bricksfly_flip_axis_container'] = array(
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID_CONTAINER,
-			'label'    => esc_html__('Flip Direction', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Flip Direction', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'select',
-			'options'  => [
-				'x' => esc_html__('Flip X', 'bricksfly-elements-for-bricks'),
-				'y' => esc_html__('Flip Y', 'bricksfly-elements-for-bricks'),
-			],
+			'options'  => array(
+				'x' => esc_html__( 'Flip X', 'bricksfly-elements-for-bricks' ),
+				'y' => esc_html__( 'Flip Y', 'bricksfly-elements-for-bricks' ),
+			),
 			'default'  => 'x',
 			'inline'   => true,
-			'required' => ['_bricksfly_starter_anim_container', '=', 'flip'],
-		];
+			'required' => array( '_bricksfly_starter_anim_container', '=', 'flip' ),
+		);
 
-		$controls['_bricksfly_flip_angle_container'] = [
+		$controls['_bricksfly_flip_angle_container'] = array(
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID_CONTAINER,
-			'label'    => esc_html__('Flip Angle (deg)', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Flip Angle (deg)', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'number',
 			'default'  => 90,
-			'required' => ['_bricksfly_starter_anim_container', '=', 'flip'],
-			'css'      => [
-				[
+			'required' => array( '_bricksfly_starter_anim_container', '=', 'flip' ),
+			'css'      => array(
+				array(
 					'property' => '--bricksfly-flip-angle-container',
 					'selector' => '',
 					'value'    => '%sdeg',
-				],
-			],
-		];
+				),
+			),
+		);
 
-		$controls['_bricksfly_flip_perspective_container'] = [
+		$controls['_bricksfly_flip_perspective_container'] = array(
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID_CONTAINER,
-			'label'    => esc_html__('Perspective (px)', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Perspective (px)', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'number',
 			'default'  => 800,
-			'required' => ['_bricksfly_starter_anim_container', '=', 'flip'],
-			'css'      => [
-				[
+			'required' => array( '_bricksfly_starter_anim_container', '=', 'flip' ),
+			'css'      => array(
+				array(
 					'property' => '--bricksfly-flip-perspective-container',
 					'selector' => '',
 					'value'    => '%spx',
-				],
-			],
-		];
+				),
+			),
+		);
 
 		// Repeat behavior on containers as well.
-		$controls['_bricksfly_repeat_on_enter_container'] = [
+		$controls['_bricksfly_repeat_on_enter_container'] = array(
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID_CONTAINER,
-			'label'    => esc_html__('Repeat Animation?', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Repeat Animation?', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'select',
-			'options'  => [
-				'no'  => esc_html__('Play Once', 'bricksfly-elements-for-bricks'),
-				'yes' => esc_html__('Every Time', 'bricksfly-elements-for-bricks'),
-			],
+			'options'  => array(
+				'no'  => esc_html__( 'Play Once', 'bricksfly-elements-for-bricks' ),
+				'yes' => esc_html__( 'Every Time', 'bricksfly-elements-for-bricks' ),
+			),
 			'default'  => 'no',
 			'inline'   => true,
-			'required' => ['_bricksfly_starter_anim_container', '!=', ['', 'none']],
-		];
+			'required' => array( '_bricksfly_starter_anim_container', '!=', array( '', 'none' ) ),
+		);
 
-		$controls['_bricksfly_anim_editor_enabled_container'] = [
+		$controls['_bricksfly_anim_editor_enabled_container'] = array(
 			'tab'         => 'content',
 			'group'       => self::GROUP_ID_CONTAINER,
-			'label'       => esc_html__('Enable On Editor', 'bricksfly-elements-for-bricks'),
-			'description' => esc_html__('For better performance in editor mode, keep this off.', 'bricksfly-elements-for-bricks'),
+			'label'       => esc_html__( 'Enable On Editor', 'bricksfly-elements-for-bricks' ),
+			'description' => esc_html__( 'For better performance in editor mode, keep this off.', 'bricksfly-elements-for-bricks' ),
 			'type'        => 'checkbox',
 			'inline'      => true,
-			'required'    => ['_bricksfly_starter_anim_container', '!=', ['', 'none']],
+			'required'    => array( '_bricksfly_starter_anim_container', '!=', array( '', 'none' ) ),
 			'separator'   => 'before',
-		];
+		);
 
-		$controls['_bricksfly_play_starter_animation_container'] = [
+		$controls['_bricksfly_play_starter_animation_container'] = array(
 			'tab'      => 'content',
 			'group'    => self::GROUP_ID_CONTAINER,
 			'type'     => 'info',
 			'content'  => '<button type="button" class="bricksfly-free-play-animation"><span class="bricksfly-free-play-animation__icon" aria-hidden="true">▶</span><span class="bricksfly-free-play-animation__label">PLAY ANIMATION</span></button>',
-			'required' => [
-				['_bricksfly_starter_anim_container', '!=', ['', 'none']],
-				['_bricksfly_anim_editor_enabled_container', '=', true],
-			],
-		];
+			'required' => array(
+				array( '_bricksfly_starter_anim_container', '!=', array( '', 'none' ) ),
+				array( '_bricksfly_anim_editor_enabled_container', '=', true ),
+			),
+		);
 
 		return $controls;
 	}
 
-	/* =====================================================================
+	/*
+	=====================================================================
 	 * Render-time class injection (Elementor's `prefix_class` equivalent).
 	 *
 	 * Bricks does not have a per-control `prefix_class` mechanism. We
@@ -899,189 +892,185 @@ class BRICKSFLY_Starter_Animations
 	 * animation classes manually based on the saved settings.
 	 * ================================================================== */
 
-public function apply_render_classes($attributes, $key, $element)
-{
-	if (! is_object($element) || empty($element->name)) {
-		return $attributes;
-	}
-
-	$name         = $element->name;
-	$is_image     = in_array($name, self::MEDIA_WIDGETS, true);
-	$is_text      = in_array($name, self::TEXT_WIDGETS, true) || $is_image;
-	$is_container = in_array($name, self::CONTAINER_WIDGETS, true);
-
-	if (! $is_text && ! $is_container) {
-		return $attributes;
-	}
-
-	// heading / text / container render their outer tag from the `_root`
-	// attribute set, so we only act on that key. The core *image* element does
-	// NOT reliably expose `_root` to this filter — gating strictly on `_root`
-	// means image classes are never injected (the bug). For image we instead
-	// act on the FIRST key Bricks renders (its outer wrapper) and write the
-	// classes onto that same set, once per element.
-	if (! $is_image && $key !== '_root') {
-		return $attributes;
-	}
-
-	if ($is_image) {
-		static $img_done = [];
-		$eid = isset($element->id) ? $element->id : spl_object_id($element);
-		if (isset($img_done[$eid])) {
+	public function apply_render_classes( $attributes, $key, $element ) {
+		if ( ! is_object( $element ) || empty( $element->name ) ) {
 			return $attributes;
 		}
-		$img_done[$eid] = true;
-	}
 
-	// The attribute set we write onto: `_root` for text/container, the current
-	// (outer) key for image.
-	$root_key = $is_image ? $key : '_root';
+		$name         = $element->name;
+		$is_image     = in_array( $name, self::MEDIA_WIDGETS, true );
+		$is_text      = in_array( $name, self::TEXT_WIDGETS, true ) || $is_image;
+		$is_container = in_array( $name, self::CONTAINER_WIDGETS, true );
 
-	$settings = isset($element->settings) && is_array($element->settings) ? $element->settings : [];
-
-	if (! isset($attributes[$root_key]) || ! is_array($attributes[$root_key])) {
-		$attributes[$root_key] = [];
-	}
-	if (! isset($attributes[$root_key]['class'])) {
-		$attributes[$root_key]['class'] = [];
-	} elseif (! is_array($attributes[$root_key]['class'])) {
-		$attributes[$root_key]['class'] = [$attributes[$root_key]['class']];
-	}
-
-	$add = function ($class) use (&$attributes, $root_key) {
-		$class = sanitize_html_class($class);
-		if ($class !== '') {
-			$attributes[$root_key]['class'][] = $class;
+		if ( ! $is_text && ! $is_container ) {
+			return $attributes;
 		}
-	};
 
-	if ($is_text) {
-		$anim = isset($settings['_bricksfly_starter_anim']) ? $settings['_bricksfly_starter_anim'] : '';
-		if ($anim && $anim !== 'none') {
-			self::$animation_in_use = true;
+		// heading / text / container render their outer tag from the `_root`
+		// attribute set, so we only act on that key. The core *image* element does
+		// NOT reliably expose `_root` to this filter — gating strictly on `_root`
+		// means image classes are never injected (the bug). For image we instead
+		// act on the FIRST key Bricks renders (its outer wrapper) and write the
+		// classes onto that same set, once per element.
+		if ( ! $is_image && $key !== '_root' ) {
+			return $attributes;
+		}
 
-			$add('bricksfly-starter-animations-' . $anim);
-			$add('bricksfly-target-self');
+		if ( $is_image ) {
+			static $img_done = array();
+			$eid             = isset( $element->id ) ? $element->id : spl_object_id( $element );
+			if ( isset( $img_done[ $eid ] ) ) {
+				return $attributes;
+			}
+			$img_done[ $eid ] = true;
+		}
 
-			$repeat = ($settings['_bricksfly_repeat_on_enter'] ?? '') === 'yes' ? 'yes' : 'no';
-			$add('bricksfly-repeat-' . $repeat);
+		// The attribute set we write onto: `_root` for text/container, the current
+		// (outer) key for image.
+		$root_key = $is_image ? $key : '_root';
 
+		$settings = isset( $element->settings ) && is_array( $element->settings ) ? $element->settings : array();
 
-			// text-bg-clip needs the image URL piped into a CSS variable. (Image
-			// elements never use this preset, so this only runs for text widgets.)
-			if ($anim === 'text-bg-clip' && ! empty($settings['_bricksfly_bg_text_image'])) {
-				$img    = $settings['_bricksfly_bg_text_image'];
-				$bg_url = '';
-				if (is_array($img)) {
-					if (! empty($img['url'])) {
-						$bg_url = $img['url'];
-					} elseif (! empty($img['id'])) {
-						$src    = wp_get_attachment_image_src((int) $img['id'], 'large');
-						$bg_url = $src && ! empty($src[0]) ? $src[0] : '';
+		if ( ! isset( $attributes[ $root_key ] ) || ! is_array( $attributes[ $root_key ] ) ) {
+			$attributes[ $root_key ] = array();
+		}
+		if ( ! isset( $attributes[ $root_key ]['class'] ) ) {
+			$attributes[ $root_key ]['class'] = array();
+		} elseif ( ! is_array( $attributes[ $root_key ]['class'] ) ) {
+			$attributes[ $root_key ]['class'] = array( $attributes[ $root_key ]['class'] );
+		}
+
+		$add = function ( $class ) use ( &$attributes, $root_key ) {
+			$class = sanitize_html_class( $class );
+			if ( $class !== '' ) {
+				$attributes[ $root_key ]['class'][] = $class;
+			}
+		};
+
+		if ( $is_text ) {
+			$anim = isset( $settings['_bricksfly_starter_anim'] ) ? $settings['_bricksfly_starter_anim'] : '';
+			if ( $anim && $anim !== 'none' ) {
+				self::$animation_in_use = true;
+
+				$add( 'bricksfly-starter-animations-' . $anim );
+				$add( 'bricksfly-target-self' );
+
+				$repeat = ( $settings['_bricksfly_repeat_on_enter'] ?? '' ) === 'yes' ? 'yes' : 'no';
+				$add( 'bricksfly-repeat-' . $repeat );
+
+				// text-bg-clip needs the image URL piped into a CSS variable. (Image
+				// elements never use this preset, so this only runs for text widgets.)
+				if ( $anim === 'text-bg-clip' && ! empty( $settings['_bricksfly_bg_text_image'] ) ) {
+					$img    = $settings['_bricksfly_bg_text_image'];
+					$bg_url = '';
+					if ( is_array( $img ) ) {
+						if ( ! empty( $img['url'] ) ) {
+							$bg_url = $img['url'];
+						} elseif ( ! empty( $img['id'] ) ) {
+							$src    = wp_get_attachment_image_src( (int) $img['id'], 'large' );
+							$bg_url = $src && ! empty( $src[0] ) ? $src[0] : '';
+						}
+					} elseif ( is_string( $img ) ) {
+						$bg_url = $img;
 					}
-				} elseif (is_string($img)) {
-					$bg_url = $img;
-				}
 
-				if ($bg_url !== '') {
-					$style_decl = '--bricksfly-bg-text-image:url(' . esc_url_raw($bg_url) . ');';
-					$existing   = isset($attributes[$root_key]['style']) ? $attributes[$root_key]['style'] : '';
-					if (is_array($existing)) {
-						$existing[]                      = $style_decl;
-						$attributes[$root_key]['style']  = $existing;
-					} else {
-						$attributes[$root_key]['style']  = trim((string) $existing . ' ' . $style_decl);
+					if ( $bg_url !== '' ) {
+						$style_decl = '--bricksfly-bg-text-image:url(' . esc_url_raw( $bg_url ) . ');';
+						$existing   = isset( $attributes[ $root_key ]['style'] ) ? $attributes[ $root_key ]['style'] : '';
+						if ( is_array( $existing ) ) {
+							$existing[]                       = $style_decl;
+							$attributes[ $root_key ]['style'] = $existing;
+						} else {
+							$attributes[ $root_key ]['style'] = trim( (string) $existing . ' ' . $style_decl );
+						}
 					}
 				}
-			}
 
-			if ($anim === 'reveal') {
-				$direction = ! empty($settings['_bricksfly_reveal_direction']) ? $settings['_bricksfly_reveal_direction'] : 'bottom';
-				$add('bricksfly-reveal-' . $direction);
-				if (! empty($settings['_bricksfly_reveal_fade'])) {
-					$add('bricksfly-reveal-yes');
+				if ( $anim === 'reveal' ) {
+					$direction = ! empty( $settings['_bricksfly_reveal_direction'] ) ? $settings['_bricksfly_reveal_direction'] : 'bottom';
+					$add( 'bricksfly-reveal-' . $direction );
+					if ( ! empty( $settings['_bricksfly_reveal_fade'] ) ) {
+						$add( 'bricksfly-reveal-yes' );
+					}
+				}
+
+				if ( $anim === 'text-char-animate' ) {
+					$preset = ! empty( $settings['_bricksfly_char_preset'] ) ? $settings['_bricksfly_char_preset'] : 'revolve';
+					$add( 'bricksfly-char-preset-' . $preset );
+				}
+
+				if ( $anim === 'slide' ) {
+					$direction = ! empty( $settings['_bricksfly_slide_direction'] ) ? $settings['_bricksfly_slide_direction'] : 'bottom';
+					$add( 'bricksfly-slide-' . $direction );
+				}
+
+				if ( $anim === 'flip' ) {
+					$axis = ! empty( $settings['_bricksfly_flip_axis'] ) ? $settings['_bricksfly_flip_axis'] : 'x';
+					$add( 'bricksfly-flip-axis-' . $axis );
 				}
 			}
+		}
 
-			if ($anim === 'text-char-animate') {
-				$preset = ! empty($settings['_bricksfly_char_preset']) ? $settings['_bricksfly_char_preset'] : 'revolve';
-				$add('bricksfly-char-preset-' . $preset);
-			}
+		if ( $is_container ) {
+			$anim = isset( $settings['_bricksfly_starter_anim_container'] ) ? $settings['_bricksfly_starter_anim_container'] : '';
+			if ( $anim && $anim !== 'none' ) {
+				self::$animation_in_use = true;
 
-			if ($anim === 'slide') {
-				$direction = ! empty($settings['_bricksfly_slide_direction']) ? $settings['_bricksfly_slide_direction'] : 'bottom';
-				$add('bricksfly-slide-' . $direction);
-			}
+				$add( 'bricksfly-starter-animations-' . $anim );
 
-			if ($anim === 'flip') {
-				$axis = ! empty($settings['_bricksfly_flip_axis']) ? $settings['_bricksfly_flip_axis'] : 'x';
-				$add('bricksfly-flip-axis-' . $axis);
+				if ( $anim === 'slide' ) {
+					$direction = ! empty( $settings['_bricksfly_slide_direction_container'] ) ? $settings['_bricksfly_slide_direction_container'] : 'bottom';
+					$add( 'bricksfly-slide-' . $direction );
+				}
+
+				if ( $anim === 'flip' ) {
+					$axis = ! empty( $settings['_bricksfly_flip_axis_container'] ) ? $settings['_bricksfly_flip_axis_container'] : 'x';
+					$add( 'bricksfly-flip-axis-container-' . $axis );
+				}
+
+				// reads `bricksfly-repeat-yes` — so never emit the no-op `bricksfly-repeat-no`.
+				$repeat = ( $settings['_bricksfly_repeat_on_enter_container'] ?? '' ) === 'yes' ? 'yes' : 'no';
+				$add( 'bricksfly-repeat-' . $repeat );
 			}
 		}
 
+		return $attributes;
 	}
 
-	if ($is_container) {
-		$anim = isset($settings['_bricksfly_starter_anim_container']) ? $settings['_bricksfly_starter_anim_container'] : '';
-		if ($anim && $anim !== 'none') {
-			self::$animation_in_use = true;
-
-			$add('bricksfly-starter-animations-' . $anim);
-
-			if ($anim === 'slide') {
-				$direction = ! empty($settings['_bricksfly_slide_direction_container']) ? $settings['_bricksfly_slide_direction_container'] : 'bottom';
-				$add('bricksfly-slide-' . $direction);
-			}
-
-			if ($anim === 'flip') {
-				$axis = ! empty($settings['_bricksfly_flip_axis_container']) ? $settings['_bricksfly_flip_axis_container'] : 'x';
-				$add('bricksfly-flip-axis-container-' . $axis);
-			}
-
-			// reads `bricksfly-repeat-yes` — so never emit the no-op `bricksfly-repeat-no`.
-			$repeat = ($settings['_bricksfly_repeat_on_enter_container'] ?? '') === 'yes' ? 'yes' : 'no';
-			$add('bricksfly-repeat-' . $repeat);
-		}
-	
-	}
-
-	return $attributes;
-}
-
-	/* =====================================================================
+	/*
+	=====================================================================
 	 * Frontend assets
 	 * ================================================================== */
 
-	public function enqueue_assets()
-	{
-		$in_builder_iframe = function_exists('bricks_is_builder_iframe') && bricks_is_builder_iframe();
+	public function enqueue_assets() {
+		$in_builder_iframe = function_exists( 'bricks_is_builder_iframe' ) && bricks_is_builder_iframe();
 
 		// Frontend: only load once an element on the page actually uses an
 		// animation (i.e. isn't "none"). Builder iframe always loads so a
 		// newly-picked animation previews immediately without a page reload.
-		if (! $in_builder_iframe && ! self::$animation_in_use) {
+		if ( ! $in_builder_iframe && ! self::$animation_in_use ) {
 			return;
 		}
 
 		$css_path = BRICKSFLY_PATH . 'public/build/extensions/starter-animations-client.css';
-		$css_ver  = file_exists($css_path) ? filemtime($css_path) : BRICKSFLY_VERSION;
+		$css_ver  = file_exists( $css_path ) ? filemtime( $css_path ) : BRICKSFLY_VERSION;
 
 		wp_enqueue_style(
 			'bricksfly-starter-animations-client',
 			BRICKSFLY_URL . 'public/build/extensions/starter-animations-client.css',
-			[],
+			array(),
 			$css_ver
 		);
 
-		if ($in_builder_iframe) {
+		if ( $in_builder_iframe ) {
 			// Builder iframe: lightweight preview bundle — handles Play-button
 			// messages, no IntersectionObserver.
 			$js_path = BRICKSFLY_PATH . 'public/build/extensions/starter-animations-builder.js';
 			wp_enqueue_script(
 				'bricksfly-starter-animations-preview',
 				BRICKSFLY_URL . 'public/build/extensions/starter-animations-builder.js',
-				[],
-				file_exists($js_path) ? filemtime($js_path) : BRICKSFLY_VERSION,
+				array(),
+				file_exists( $js_path ) ? filemtime( $js_path ) : BRICKSFLY_VERSION,
 				true
 			);
 		} else {
@@ -1091,15 +1080,15 @@ public function apply_render_classes($attributes, $key, $element)
 			wp_enqueue_script(
 				'bricksfly-starter-animations-client',
 				BRICKSFLY_URL . 'public/build/extensions/starter-animations-client.js',
-				[],
-				file_exists($js_path) ? filemtime($js_path) : BRICKSFLY_VERSION,
+				array(),
+				file_exists( $js_path ) ? filemtime( $js_path ) : BRICKSFLY_VERSION,
 				true
 			);
 		}
 
 		// Enqueued on wp_footer (after wp_head already printed), so styles
 		// need an explicit print call — WP won't auto-flush late styles.
-		wp_print_styles(['bricksfly-starter-animations-client']);
+		wp_print_styles( array( 'bricksfly-starter-animations-client' ) );
 	}
 }
 

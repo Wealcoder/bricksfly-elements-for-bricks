@@ -1,4 +1,9 @@
 <?php
+/**
+ * Imports a library section's images into the Media Library.
+ *
+ * @package BricksFly
+ */
 
 namespace wealcoder\bricksfly\Admin;
 
@@ -26,6 +31,11 @@ class BRICKSFLY_Section_Media {
 	 * Upper bound of files downloaded for one section insert.
 	 */
 	const MAX_FILES = 40;
+
+	/**
+	 * Largest single file (bytes) imported into the Media Library.
+	 */
+	const MAX_FILE_BYTES = 10485760;
 
 	/**
 	 * Image types downloaded into the Media Library.
@@ -59,6 +69,44 @@ class BRICKSFLY_Section_Media {
 	 * @var int
 	 */
 	public $skipped_svgs = 0;
+
+	/**
+	 * Files that could not be downloaded or saved (still on the remote host).
+	 *
+	 * @var int
+	 */
+	public $failed_files = 0;
+
+	/**
+	 * Files left on the remote host because the per-insert download limit was reached.
+	 *
+	 * @var int
+	 */
+	public $over_limit = 0;
+
+	/**
+	 * Files left on the remote host because this user may not upload files.
+	 *
+	 * @var int
+	 */
+	public $no_upload_cap = 0;
+
+	/**
+	 * Whether files may be downloaded. When false (the user turned image import
+	 * off) settings keep their remote URL and drop the foreign attachment id.
+	 *
+	 * @var bool
+	 */
+	private $download = true;
+
+	/**
+	 * Constructor.
+	 *
+	 * @param bool $download Whether to download images into the Media Library.
+	 */
+	public function __construct( $download = true ) {
+		$this->download = (bool) $download;
+	}
 
 	/**
 	 * Hosts section media may be downloaded from: the template library and
@@ -181,7 +229,10 @@ class BRICKSFLY_Section_Media {
 		$is_svg = 'svg' === self::extension( $image['url'] );
 		$source = ( ! $is_svg && ! empty( $image['full'] ) && is_string( $image['full'] ) ) ? $image['full'] : $image['url'];
 
-		$attachment_id = self::is_allowed_url( $source ) ? $this->import_file( $source, $is_svg ) : 0;
+		// SVGs are always brought in: Bricks' SVG element only draws a file from the
+		// Media Library, so a remote link would show "No SVG selected".
+		$may_import    = $is_svg || $this->download;
+		$attachment_id = ( $may_import && self::is_allowed_url( $source ) ) ? $this->import_file( $source, $is_svg ) : 0;
 
 		if ( ! $attachment_id ) {
 			// Keep the remote URL, but never an id from another site: it would
@@ -201,6 +252,10 @@ class BRICKSFLY_Section_Media {
 		if ( ! $is_svg ) {
 			$image['full'] = wp_get_attachment_image_url( $attachment_id, 'full' );
 			$image['size'] = $size;
+		}
+
+		if ( $is_svg && isset( $image['full'] ) ) {
+			$image['full'] = $full;
 		}
 
 		if ( ! empty( $image['full'] ) && $source !== $image['full'] ) {
@@ -228,7 +283,13 @@ class BRICKSFLY_Section_Media {
 			return $existing;
 		}
 
-		if ( ! current_user_can( 'upload_files' ) || $this->downloads >= self::MAX_FILES ) {
+		if ( ! current_user_can( 'upload_files' ) ) {
+			++$this->no_upload_cap;
+			return 0;
+		}
+
+		if ( $this->downloads >= self::MAX_FILES ) {
+			++$this->over_limit;
 			return 0;
 		}
 
@@ -245,6 +306,14 @@ class BRICKSFLY_Section_Media {
 
 		$tmp = download_url( $url, 30 );
 		if ( is_wp_error( $tmp ) ) {
+			++$this->failed_files;
+			return 0;
+		}
+
+		// Same ceiling Bricks uses for imported template images.
+		if ( (int) filesize( $tmp ) > self::MAX_FILE_BYTES ) {
+			wp_delete_file( $tmp );
+			++$this->failed_files;
 			return 0;
 		}
 
@@ -264,6 +333,7 @@ class BRICKSFLY_Section_Media {
 
 			if ( ! empty( $file['error'] ) ) {
 				wp_delete_file( $tmp );
+				++$this->failed_files;
 				return 0;
 			}
 		}
@@ -272,6 +342,7 @@ class BRICKSFLY_Section_Media {
 
 		if ( is_wp_error( $attachment_id ) ) {
 			wp_delete_file( $tmp );
+			++$this->failed_files;
 			return 0;
 		}
 
@@ -308,11 +379,19 @@ class BRICKSFLY_Section_Media {
 	}
 
 	/**
-	 * Whether this user may upload SVG files (Bricks > Settings > SVG uploads).
+	 * Whether this user may import SVG files: always with BricksFly Pro running,
+	 * otherwise only when Bricks > Settings > SVG uploads allows it.
 	 *
 	 * @return bool
 	 */
 	private function can_upload_svg() {
+		// With BricksFly Pro running (active + valid license) library SVGs are
+		// imported for users who may upload files, whatever the Bricks setting.
+		// Every SVG is still cleaned by Bricks' own sanitizer before it is saved.
+		if ( function_exists( 'bricksfly_is_pro_usable' ) && bricksfly_is_pro_usable() && current_user_can( 'upload_files' ) ) {
+			return true;
+		}
+
 		if ( class_exists( '\Bricks\Capabilities' ) && method_exists( '\Bricks\Capabilities', 'current_user_can_upload_svg' ) ) {
 			return (bool) \Bricks\Capabilities::current_user_can_upload_svg();
 		}

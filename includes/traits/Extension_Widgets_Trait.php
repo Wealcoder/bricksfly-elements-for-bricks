@@ -2,7 +2,7 @@
 
 namespace wealcoder\bricksfly\Includes\Traits;
 
-if (! defined('ABSPATH')) {
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
@@ -13,8 +13,8 @@ if (! defined('ABSPATH')) {
  * which extensions/widgets the user has enabled in the dashboard.
  * Reads from `$GLOBALS['bricksfly_config']` and the saved WP options.
  */
-trait Extension_Widgets_Trait
-{
+trait Extension_Widgets_Trait {
+
 
 	/**
 	 * Get active widgets with their full config data.
@@ -24,18 +24,17 @@ trait Extension_Widgets_Trait
 	 *
 	 * @return array<string, array> Slug-keyed array of active widgets with config data.
 	 */
-	public static function get_widgets()
-	{
-		$widgets       = get_option('bricksfly_save_widgets');
+	public static function get_widgets() {
+		$widgets = get_option( 'bricksfly_save_widgets' );
 		// Option is now a full slug => bool map; filter to active-only before
 		// looking up config so disabled widgets don't get registered.
-		$saved_widgets = is_array($widgets) ? array_keys(array_filter($widgets)) : [];
+		$saved_widgets = is_array( $widgets ) ? array_keys( array_filter( $widgets ) ) : array();
 
-		$foundKeys = [];
-		$active    = [];
-		bricksfly_get_search_active_keys($GLOBALS['bricksfly_config']['widgets'] ?? [], $saved_widgets, $foundKeys, $active);
+		$foundKeys = array();
+		$active    = array();
+		bricksfly_get_search_active_keys( $GLOBALS['bricksfly_config']['widgets'] ?? array(), $saved_widgets, $foundKeys, $active );
 
-		return is_array($active) ? $active : [];
+		return is_array( $active ) ? $active : array();
 	}
 
 	/**
@@ -46,18 +45,17 @@ trait Extension_Widgets_Trait
 	 *
 	 * @return array<string, array> Slug-keyed array of active extensions with config data.
 	 */
-	public static function get_extensions()
-	{
-		$extensions       = get_option('bricksfly_save_extensions');
+	public static function get_extensions() {
+		$extensions = get_option( 'bricksfly_save_extensions' );
 		// Option is now a full slug => bool map; filter to active-only before
 		// looking up config so disabled extensions don't get loaded.
-		$saved_extensions = is_array($extensions) ? array_keys(array_filter($extensions)) : [];
+		$saved_extensions = is_array( $extensions ) ? array_keys( array_filter( $extensions ) ) : array();
 
-		$foundKeys = [];
-		$active    = [];
-		bricksfly_get_search_active_keys($GLOBALS['bricksfly_config']['extensions'] ?? [], $saved_extensions, $foundKeys, $active);
+		$foundKeys = array();
+		$active    = array();
+		bricksfly_get_search_active_keys( $GLOBALS['bricksfly_config']['extensions'] ?? array(), $saved_extensions, $foundKeys, $active );
 
-		return is_array($active) ? $active : [];
+		return is_array( $active ) ? $active : array();
 	}
 
 	/**
@@ -66,9 +64,8 @@ trait Extension_Widgets_Trait
 	 * @param string $slug Extension slug (e.g. 'animation-effects').
 	 * @return bool
 	 */
-	public static function is_extension_active($slug)
-	{
-		return (bool) bricksfly_get_settings('bricksfly_save_extensions', $slug);
+	public static function is_extension_active( $slug ) {
+		return (bool) bricksfly_get_settings( 'bricksfly_save_extensions', $slug );
 	}
 
 	/**
@@ -77,8 +74,7 @@ trait Extension_Widgets_Trait
 	 * @param string $slug Widget slug.
 	 * @return bool
 	 */
-	public static function is_widget_active($slug)
-	{
-		return (bool) bricksfly_get_settings('bricksfly_save_widgets', $slug);
+	public static function is_widget_active( $slug ) {
+		return (bool) bricksfly_get_settings( 'bricksfly_save_widgets', $slug );
 	}
 }

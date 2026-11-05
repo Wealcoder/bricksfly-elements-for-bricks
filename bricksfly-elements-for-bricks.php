@@ -16,7 +16,7 @@
  * Plugin Name:       BricksFly Elements and Templates for Bricks
  * Plugin URI:        https://bricksfly.com/
  * Description:       Bricks Elements, preset Starter Animations and a Template Library of starter websites, pages and sections for Bricks Builder.
- * Version:           1.0.10
+ * Version:           1.0.11
  * Author:            Wealcoder
  * Author URI:        https://profiles.wordpress.org/wealcoder/
  * License:           GPLv2 or later
@@ -28,7 +28,7 @@
  */
 
 // If this file is called directly, abort.
-if (! defined('ABSPATH')) {
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
@@ -37,68 +37,66 @@ if (! defined('ABSPATH')) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-if (! defined('BRICKSFLY_FILE')) {
+if ( ! defined( 'BRICKSFLY_FILE' ) ) {
 	/**
 	 * Plugin File Ref.
 	 */
-	define('BRICKSFLY_FILE', __FILE__);
+	define( 'BRICKSFLY_FILE', __FILE__ );
 }
-if (! defined('BRICKSFLY_BASE')) {
+if ( ! defined( 'BRICKSFLY_BASE' ) ) {
 	/**
 	 * Plugin Base Name.
 	 */
-	define('BRICKSFLY_BASE', plugin_basename(BRICKSFLY_FILE));
+	define( 'BRICKSFLY_BASE', plugin_basename( BRICKSFLY_FILE ) );
 }
-if (! defined('BRICKSFLY_PATH')) {
+if ( ! defined( 'BRICKSFLY_PATH' ) ) {
 	/**
 	 * Plugin Dir Ref.
 	 */
-	define('BRICKSFLY_PATH', plugin_dir_path(BRICKSFLY_FILE));
+	define( 'BRICKSFLY_PATH', plugin_dir_path( BRICKSFLY_FILE ) );
 }
 
-if (! defined('BRICKSFLY_URL')) {
+if ( ! defined( 'BRICKSFLY_URL' ) ) {
 	/**
 	 * Plugin URL.
 	 */
-	define('BRICKSFLY_URL', plugin_dir_url(BRICKSFLY_FILE));
+	define( 'BRICKSFLY_URL', plugin_dir_url( BRICKSFLY_FILE ) );
 }
 
-if (! defined('BRICKSFLY_VERSION')) {
+if ( ! defined( 'BRICKSFLY_VERSION' ) ) {
 	/**
 	 * Plugin Version.
 	 */
-	define('BRICKSFLY_VERSION', '1.0.10');
+	define( 'BRICKSFLY_VERSION', '1.0.11' );
 }
 
-if (! defined('BRICKSFLY_TEMPLATE_STARTER_BASE_URL')) {
+if ( ! defined( 'BRICKSFLY_TEMPLATE_STARTER_BASE_URL' ) ) {
 	/**
 	 * Template Path
 	 */
-	define('BRICKSFLY_TEMPLATE_STARTER_BASE_URL', 'https://www.themecrowdy.com/');
+	define( 'BRICKSFLY_TEMPLATE_STARTER_BASE_URL', 'https://www.themecrowdy.com/' );
 }
 
 /**
  * The code that runs during plugin activation
  * This action is documented in includes/class-bricks-animation-addons-activator.php
  */
-function bricksfly_activate($network_wide = false)
-{
-	require_once plugin_dir_path(__FILE__) . 'includes/class-bricks-animation-addons-activator.php';
-	BRICKSFLY_Activator::activate($network_wide);
+function bricksfly_activate( $network_wide = false ) {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-bricks-animation-addons-activator.php';
+	BRICKSFLY_Activator::activate( $network_wide );
 }
 
 /**
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-bricks-animation-addons-deactivator.php
  */
-function bricksfly_deactivate()
-{
-	require_once plugin_dir_path(__FILE__) . 'includes/class-bricks-animation-addons-deactivator.php';
+function bricksfly_deactivate() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-bricks-animation-addons-deactivator.php';
 	BRICKSFLY_Deactivator::deactivate();
 }
 
-register_activation_hook(__FILE__, 'bricksfly_activate');
-register_deactivation_hook(__FILE__, 'bricksfly_deactivate');
+register_activation_hook( __FILE__, 'bricksfly_activate' );
+register_deactivation_hook( __FILE__, 'bricksfly_deactivate' );
 
 // Bootstrap: config, helpers, trait loaded before the main class.
 require_once BRICKSFLY_PATH . 'config.php';
@@ -143,8 +141,7 @@ require_once BRICKSFLY_PATH . 'includes/class-bricks-animation-addons.php';
  *
  * @since    1.0.0
  */
-function bricksfly_run()
-{
+function bricksfly_run() {
 
 	$plugin = new BRICKSFLY_Plugin();
 	$plugin->run();
@@ -154,43 +151,48 @@ function bricksfly_run()
 	// (smooth scroller, scroll-to, post-social-share). The scroll-to runtime
 	// (scroll-to-el.js) itself lives in Pro and is enqueued by the Pro
 	// scrollto extension.
-	add_action('wp_enqueue_scripts', function () {
-		$data = apply_filters('bricksfly_js_data',
-			array(
-				'ajaxUrl'        => admin_url('admin-ajax.php'),
-				'post_id'        => get_the_ID(),
-				'i18n'           => array(
-					'okay'    => esc_html__('Okay', 'bricksfly-elements-for-bricks'),
-					'cancel'  => esc_html__('Cancel', 'bricksfly-elements-for-bricks'),
-					'submit'  => esc_html__('Submit', 'bricksfly-elements-for-bricks'),
-					'success' => esc_html__('Success', 'bricksfly-elements-for-bricks'),
-					'warning' => esc_html__('Warning', 'bricksfly-elements-for-bricks'),
-				),
-				// Null unless Scroll Smoother can actually run — the same predicate
-				// that decides whether to emit #smooth-wrapper (includes/hook.php).
-				// Without this gate the JS would still read an enabled config and
-				// call ScrollSmoother.create() (which builds its own wrapper when
-				// ours is absent), so a plugin vetoing us through
-				// `bricksfly_smooth_scroller_is_active` — MotionKit does, when it
-				// owns the page smoother — would lose the wrapper but still end up
-				// with two smoothers fighting over one page.
-				'smoothScroller' => (function () {
-					if (function_exists('bricksfly_smooth_scroller_is_active') && ! bricksfly_smooth_scroller_is_active()) {
-						return null;
-					}
+	add_action(
+		'wp_enqueue_scripts',
+		function () {
+			$data = apply_filters(
+				'bricksfly_js_data',
+				array(
+					'ajaxUrl'        => admin_url( 'admin-ajax.php' ),
+					'post_id'        => get_the_ID(),
+					'i18n'           => array(
+						'okay'    => esc_html__( 'Okay', 'bricksfly-elements-for-bricks' ),
+						'cancel'  => esc_html__( 'Cancel', 'bricksfly-elements-for-bricks' ),
+						'submit'  => esc_html__( 'Submit', 'bricksfly-elements-for-bricks' ),
+						'success' => esc_html__( 'Success', 'bricksfly-elements-for-bricks' ),
+						'warning' => esc_html__( 'Warning', 'bricksfly-elements-for-bricks' ),
+					),
+					// Null unless Scroll Smoother can actually run — the same predicate
+					// that decides whether to emit #smooth-wrapper (includes/hook.php).
+					// Without this gate the JS would still read an enabled config and
+					// call ScrollSmoother.create() (which builds its own wrapper when
+					// ours is absent), so a plugin vetoing us through
+					// `bricksfly_smooth_scroller_is_active` — MotionKit does, when it
+					// owns the page smoother — would lose the wrapper but still end up
+					// with two smoothers fighting over one page.
+					'smoothScroller' => ( function () {
+						if ( function_exists( 'bricksfly_smooth_scroller_is_active' ) && ! bricksfly_smooth_scroller_is_active() ) {
+							return null;
+						}
 
-					$raw = get_option('bricksfly_smooth_scroller');
-					return is_string($raw) ? json_decode($raw) : null;
-				})(),
-				// All Bricks breakpoints (defaults + custom). Empty array if
-				// Bricks isn't active so JS can rely on a consistent shape.
-				'breakpoints'    => class_exists('\\Bricks\\Breakpoints')
-					? \Bricks\Breakpoints::get_breakpoints()
-					: array(),
-			)
-		);
+						$raw = get_option( 'bricksfly_smooth_scroller' );
+						return is_string( $raw ) ? json_decode( $raw ) : null;
+					} )(),
+					// All Bricks breakpoints (defaults + custom). Empty array if
+					// Bricks isn't active so JS can rely on a consistent shape.
+					'breakpoints'    => class_exists( '\\Bricks\\Breakpoints' )
+						? \Bricks\Breakpoints::get_breakpoints()
+						: array(),
+				)
+			);
 
-		wp_localize_script('bricksfly-elements-for-bricks', 'BRICKSFLY_ADDONS_JS', $data);
-	}, 20);
+			wp_localize_script( 'bricksfly-elements-for-bricks', 'BRICKSFLY_ADDONS_JS', $data );
+		},
+		20
+	);
 }
 bricksfly_run();

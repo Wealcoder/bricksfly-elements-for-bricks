@@ -22,8 +22,8 @@ class OneClickImport {
 
 	public $frontend_error_messages = array();
 	private $before_import_executed = false;
-	private $plugin_page_setup = array();
-	private $imported_terms = array();
+	private $plugin_page_setup      = array();
+	private $imported_terms         = array();
 
 	/** Stable batch id for the current page-import run (see save_wp_page_import_track). */
 	private $page_import_batch_id = '';
@@ -36,16 +36,16 @@ class OneClickImport {
 	}
 
 	protected function __construct() {
-		add_action( 'wp_ajax_bricksfly_upload_manual_import_file', [ $this, 'import_demo_data_ajax_callback' ] );
-		add_action( 'admin_init', [ $this, 'setup_st_importer' ] );
+		add_action( 'wp_ajax_bricksfly_upload_manual_import_file', array( $this, 'import_demo_data_ajax_callback' ) );
+		add_action( 'admin_init', array( $this, 'setup_st_importer' ) );
 		add_action( 'set_object_terms', array( $this, 'add_imported_terms' ), 10, 6 );
-		add_filter( 'bricksfly_importer.pre_process.post', [ $this, 'skip_failed_attachment_import' ] );
-		add_action( 'bricksfly_importer.process_failed.post', [ $this, 'handle_failed_attachment_import' ], 10, 5 );
-		add_action( 'wp_import_insert_post', [ $this, 'save_wp_navigation_import_mapping' ], 10, 4 );
-		add_action( 'wp_import_insert_post', [ $this, 'save_wp_page_import_track' ], 10, 4 );
-		add_action('bricksfly_import_existing_post', [ $this, 'save_wp_page_import_track' ], 10, 4 );
-		add_action('bricksfly/after_import', [ $this, 'fix_imported_wp_navigation' ] );
-		add_action( 'wp_ajax_bricksfly_get_latest_imported_pages', [ $this, 'bricksfly_get_latest_imported_pages' ] );
+		add_filter( 'bricksfly_importer.pre_process.post', array( $this, 'skip_failed_attachment_import' ) );
+		add_action( 'bricksfly_importer.process_failed.post', array( $this, 'handle_failed_attachment_import' ), 10, 5 );
+		add_action( 'wp_import_insert_post', array( $this, 'save_wp_navigation_import_mapping' ), 10, 4 );
+		add_action( 'wp_import_insert_post', array( $this, 'save_wp_page_import_track' ), 10, 4 );
+		add_action( 'bricksfly_import_existing_post', array( $this, 'save_wp_page_import_track' ), 10, 4 );
+		add_action( 'bricksfly/after_import', array( $this, 'fix_imported_wp_navigation' ) );
+		add_action( 'wp_ajax_bricksfly_get_latest_imported_pages', array( $this, 'bricksfly_get_latest_imported_pages' ) );
 	}
 
 	private function __clone() {}
@@ -87,11 +87,11 @@ class OneClickImport {
 			! isset( $_POST['nonce'] ) ||
 			! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'bricksfly_admin_nonce' )
 		) {
-			wp_send_json_error( [ 'message' => esc_html__( 'Invalid or missing nonce', 'bricksfly-elements-for-bricks' ) ], 403 );
+			wp_send_json_error( array( 'message' => esc_html__( 'Invalid or missing nonce', 'bricksfly-elements-for-bricks' ) ), 403 );
 		}
 
 		if ( ! current_user_can( 'edit_pages' ) ) {
-			wp_send_json_error( [ 'message' => esc_html__( 'You are not allowed to perform this action.', 'bricksfly-elements-for-bricks' ) ], 403 );
+			wp_send_json_error( array( 'message' => esc_html__( 'You are not allowed to perform this action.', 'bricksfly-elements-for-bricks' ) ), 403 );
 		}
 
 		$per_page = isset( $_POST['per_page'] ) ? max( 1, (int) $_POST['per_page'] ) : 1;
@@ -100,7 +100,7 @@ class OneClickImport {
 		// Order by ID (insertion order), NOT date: imported pages keep the
 		// template's original post_date, so "date DESC" surfaces the wrong page.
 		// ID DESC reliably returns the most recently created (= just-imported) one.
-		$base_args = [
+		$base_args = array(
 			'post_type'      => 'page',
 			'post_status'    => 'publish',
 			'posts_per_page' => $per_page,
@@ -108,9 +108,9 @@ class OneClickImport {
 			'order'          => 'DESC',
 			'no_found_rows'  => true,
 			'fields'         => 'ids',
-		];
+		);
 
-		$post_ids = [];
+		$post_ids = array();
 
 		// 1) Preferred: the pages from the most recent import batch.
 		//
@@ -122,43 +122,54 @@ class OneClickImport {
 		// equality lookup like this one is the standard, sniff-clean way to
 		// express it.
 		if ( $batch_id ) {
-			$q = new \WP_Query( $base_args + [
-				'meta_key'   => 'bricksfly_import_batch',
-				'meta_value' => $batch_id,
-			] );
+			$q        = new \WP_Query(
+				$base_args + array(
+					'meta_key'   => 'bricksfly_import_batch',
+					'meta_value' => $batch_id,
+				)
+			);
 			$post_ids = $q->posts;
 		}
 
 		// 2) Fallback: any imported page. Covers a stale/empty batch option so
-		//    "Go to page" and the latest-page view still resolve to a real page.
+		// "Go to page" and the latest-page view still resolve to a real page.
 		if ( empty( $post_ids ) ) {
-			$q = new \WP_Query( $base_args + [
-				'meta_key'   => 'bricksfly_imported',
-				'meta_value' => 1,
-			] );
+			$q        = new \WP_Query(
+				$base_args + array(
+					'meta_key'   => 'bricksfly_imported',
+					'meta_value' => 1,
+				)
+			);
 			$post_ids = $q->posts;
 		}
 
 		if ( empty( $post_ids ) ) {
-			wp_send_json_success( [
-				'batch_id' => $batch_id,
-				'pages'    => [],
-			] );
+			wp_send_json_success(
+				array(
+					'batch_id' => $batch_id,
+					'pages'    => array(),
+				)
+			);
 		}
 
-		$pages = array_map( function ( $id ) {
-			return [
-				'id'        => $id,
-				'title'     => get_the_title( $id ),
-				'permalink' => get_permalink( $id ),
-				'date'      => get_post_time( 'c', true, $id ),
-			];
-		}, $post_ids );
+		$pages = array_map(
+			function ( $id ) {
+				return array(
+					'id'        => $id,
+					'title'     => get_the_title( $id ),
+					'permalink' => get_permalink( $id ),
+					'date'      => get_post_time( 'c', true, $id ),
+				);
+			},
+			$post_ids
+		);
 
-		wp_send_json_success( [
-			'batch_id' => $batch_id,
-			'pages'    => $pages,
-		] );
+		wp_send_json_success(
+			array(
+				'batch_id' => $batch_id,
+				'pages'    => $pages,
+			)
+		);
 	}
 
 	public function import_demo_data_ajax_callback() {
@@ -180,15 +191,15 @@ class OneClickImport {
 			// for this import (stored server-side by the template importer),
 			// never a URL posted from the browser.
 			$posted        = \wealcoder\bricksfly\Admin\Pages\BRICKSFLY_Template_Importer::read_posted_step();
-			$template_data = [
+			$template_data = array(
 				'id'        => $posted['id'],
 				'next_step' => $posted['next_step'],
-			];
+			);
 			$import_file   = \wealcoder\bricksfly\Admin\Pages\BRICKSFLY_Template_Importer::get_import_file( $posted['id'] );
 
 			if ( $import_file && \wealcoder\bricksfly\Admin\BRICKSFLY_Library_Client::is_library_url( $import_file['content_url'] ) ) {
 				$file_path                   = $import_file['content_url'];
-				$this->selected_import_files = Helpers::download_import_files( [ 'import_file_url' => $file_path ] );
+				$this->selected_import_files = Helpers::download_import_files( array( 'import_file_url' => $file_path ) );
 
 				if ( is_wp_error( $this->selected_import_files ) ) {
 					Helpers::log_error_and_send_ajax_response(
@@ -198,7 +209,7 @@ class OneClickImport {
 					);
 				}
 			} else {
-				$response                   = [];
+				$response                   = array();
 				$template_data['next_step'] = 'fail';
 				$response['msg']            = esc_html__( 'No import files specified!', 'bricksfly-elements-for-bricks' );
 				$response['progress']       = 0;
@@ -211,18 +222,18 @@ class OneClickImport {
 
 		if ( ! $this->before_import_executed ) {
 			$this->before_import_executed = true;
-			Helpers::do_action('bricksfly/before_content_import_execution', $this->selected_import_files, $this->import_files, $this->selected_index );
+			Helpers::do_action( 'bricksfly/before_content_import_execution', $this->selected_import_files, $this->import_files, $this->selected_index );
 		}
 
 		if ( ! empty( $this->selected_import_files['content'] ) ) {
 			$this->append_to_frontend_error_messages( $this->importer->import_content( $this->selected_import_files['content'] ) );
 		}
 
-		Helpers::do_action('bricksfly/after_content_import_execution', $this->selected_import_files, $this->import_files, $this->selected_index );
+		Helpers::do_action( 'bricksfly/after_content_import_execution', $this->selected_import_files, $this->import_files, $this->selected_index );
 
 		Helpers::set_st_import_data_transient( $this->get_current_importer_data() );
 
-		if ( false !== Helpers::has_action('bricksfly/after_all_import_execution' ) ) {
+		if ( false !== Helpers::has_action( 'bricksfly/after_all_import_execution' ) ) {
 			wp_send_json( array( 'status' => 'afterAllImportAJAX' ) );
 		}
 
@@ -233,7 +244,7 @@ class OneClickImport {
 	public function after_all_import_data_ajax_callback() {
 		Helpers::verify_ajax_call();
 		if ( $this->use_existing_importer_data() ) {
-			Helpers::do_action('bricksfly/after_all_import_execution', $this->selected_import_files, $this->import_files, $this->selected_index );
+			Helpers::do_action( 'bricksfly/after_all_import_execution', $this->selected_import_files, $this->import_files, $this->selected_index );
 		}
 		$this->update_terms_count();
 		$this->final_response();
@@ -251,10 +262,10 @@ class OneClickImport {
 
 		check_ajax_referer( 'bricksfly_admin_nonce', 'nonce' );
 		$posted               = \wealcoder\bricksfly\Admin\Pages\BRICKSFLY_Template_Importer::read_posted_step();
-		$response['template'] = [
+		$response['template'] = array(
 			'id'        => $posted['id'],
 			'next_step' => 'install-bricks-settings',
-		];
+		);
 
 		wp_send_json( $response );
 	}
@@ -267,7 +278,7 @@ class OneClickImport {
 			$this->selected_import_files   = empty( $data['selected_import_files'] ) ? array() : $data['selected_import_files'];
 			$this->import_files            = empty( $data['import_files'] ) ? array() : $data['import_files'];
 			$this->before_import_executed  = empty( $data['before_import_executed'] ) ? false : $data['before_import_executed'];
-			$this->imported_terms          = empty( $data['imported_terms'] ) ? [] : $data['imported_terms'];
+			$this->imported_terms          = empty( $data['imported_terms'] ) ? array() : $data['imported_terms'];
 			$this->importer->set_importer_data( $data );
 			return true;
 		}
@@ -397,7 +408,7 @@ class OneClickImport {
 		) {
 			$failed_media_imports = Helpers::get_failed_attachment_imports();
 			if ( ! empty( $failed_media_imports ) && in_array( $data['attachment_url'], $failed_media_imports, true ) ) {
-				return [];
+				return array();
 			}
 		}
 		return $data;
@@ -419,7 +430,7 @@ class OneClickImport {
 			if ( ! empty( $postdata['post_content'] ) && strpos( $postdata['post_content'], '<!-- wp:navigation' ) !== false ) {
 				$wcfio_post_nav_block = get_transient( 'bricksfly_import_posts_with_nav_block' );
 				if ( empty( $wcfio_post_nav_block ) ) {
-					$wcfio_post_nav_block = [];
+					$wcfio_post_nav_block = array();
 				}
 				$wcfio_post_nav_block[] = $post_id;
 				set_transient( 'bricksfly_import_posts_with_nav_block', $wcfio_post_nav_block, HOUR_IN_SECONDS );
@@ -427,12 +438,12 @@ class OneClickImport {
 		} else {
 			$wcfio_menu_mapping = get_transient( 'bricksfly_import_menu_mapping' );
 			if ( empty( $wcfio_menu_mapping ) ) {
-				$wcfio_menu_mapping = [];
+				$wcfio_menu_mapping = array();
 			}
-			$wcfio_menu_mapping[] = [
+			$wcfio_menu_mapping[] = array(
 				'original_menu_id' => $original_id,
 				'new_menu_id'      => $post_id,
-			];
+			);
 			set_transient( 'bricksfly_import_menu_mapping', $wcfio_menu_mapping, HOUR_IN_SECONDS );
 		}
 	}
@@ -445,7 +456,7 @@ class OneClickImport {
 			return;
 		}
 
-		$replace_pairs = [];
+		$replace_pairs = array();
 		foreach ( $nav_import_mapping as $mapping ) {
 			$replace_pairs[ '<!-- wp:navigation {"ref":' . $mapping['original_menu_id'] . '} /-->' ] = '<!-- wp:navigation {"ref":' . $mapping['new_menu_id'] . '} /-->';
 		}
@@ -455,10 +466,12 @@ class OneClickImport {
 			if ( empty( $post_nav_block ) || empty( $post_nav_block->post_content ) ) {
 				return;
 			}
-			wp_update_post( [
-				'ID'           => $post_id,
-				'post_content' => strtr( $post_nav_block->post_content, $replace_pairs ),
-			] );
+			wp_update_post(
+				array(
+					'ID'           => $post_id,
+					'post_content' => strtr( $post_nav_block->post_content, $replace_pairs ),
+				)
+			);
 		}
 	}
 

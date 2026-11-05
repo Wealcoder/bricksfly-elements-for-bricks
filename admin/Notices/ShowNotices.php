@@ -66,12 +66,17 @@ class ShowNotices {
 		);
 	}
 
-	public function error( $message )   { $this->message( 'error', $message ); }
-	public function warning( $message ) { $this->message( 'warning', $message ); }
-	public function info( $message )    { $this->message( 'info', $message ); }
-	public function success( $message ) { $this->message( 'success', $message ); }
+	public function error( $message ) {
+		$this->message( 'error', $message ); }
+	public function warning( $message ) {
+		$this->message( 'warning', $message ); }
+	public function info( $message ) {
+		$this->message( 'info', $message ); }
+	public function success( $message ) {
+		$this->message( 'success', $message ); }
 
-	public function get_messages()   { return $this->messages; }
+	public function get_messages() {
+		return $this->messages; }
 
 	public function clear_messages() {
 		$this->messages = array();

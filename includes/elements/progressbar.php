@@ -1,39 +1,38 @@
 <?php
 
-if (! defined('ABSPATH')) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
-class BRICKSFLY_Bricks_Progressbar extends \Bricks\Element
-{
+class BRICKSFLY_Bricks_Progressbar extends \Bricks\Element {
+
 
 	public $category     = 'bricks fly';
 	public $name         = 'aab-progressbar';
 	public $icon         = 'ti-stats-up aab-element-marker';
 	public $css_selector = '.aab-progressbar';
-	public $scripts      = ['bricksflyProgressbar'];
+	public $scripts      = array( 'bricksflyProgressbar' );
 
-	public function get_label()
-	{
-		return esc_html__('Progress Bar', 'bricksfly-elements-for-bricks');
+	public function get_label() {
+		return esc_html__( 'Progress Bar', 'bricksfly-elements-for-bricks' );
 	}
 
-	public function get_keywords()
-	{
-		return ['progress', 'bar', 'progressbar', 'skill', 'percentage', 'circle', 'line', 'dot'];
+	public function get_keywords() {
+		return array( 'progress', 'bar', 'progressbar', 'skill', 'percentage', 'circle', 'line', 'dot' );
 	}
 
-	public function enqueue_scripts()
-	{
+	public function enqueue_scripts() {
 		wp_enqueue_style(
 			'aab-progressbar',
 			BRICKSFLY_URL . 'public/build/elements/progressbar.css',
-			[],
+			array(),
 			BRICKSFLY_VERSION
 		);
 
 		wp_enqueue_script(
 			'aab-progressbar-lib',
 			BRICKSFLY_URL . 'public/js/lib/progressbar.min.js',
-			[],
+			array(),
 			BRICKSFLY_VERSION,
 			true
 		);
@@ -41,269 +40,273 @@ class BRICKSFLY_Bricks_Progressbar extends \Bricks\Element
 		wp_enqueue_script(
 			'aab-progressbar',
 			BRICKSFLY_URL . 'public/build/elements/progressbar.js',
-			['aab-progressbar-lib', 'bricks-scripts'],
+			array( 'aab-progressbar-lib', 'bricks-scripts' ),
 			BRICKSFLY_VERSION,
 			true
 		);
 	}
 
-	public function set_control_groups()
-	{
-		$this->control_groups['progressbar'] = [
-			'title' => esc_html__('Progress Bar', 'bricksfly-elements-for-bricks'),
+	public function set_control_groups() {
+		$this->control_groups['progressbar'] = array(
+			'title' => esc_html__( 'Progress Bar', 'bricksfly-elements-for-bricks' ),
 			'tab'   => 'content',
-		];
+		);
 
-		$this->control_groups['progressbar_style'] = [
-			'title' => esc_html__('Progress Bar', 'bricksfly-elements-for-bricks'),
+		$this->control_groups['progressbar_style'] = array(
+			'title' => esc_html__( 'Progress Bar', 'bricksfly-elements-for-bricks' ),
 			'tab'   => 'style',
-		];
+		);
 
-		$this->control_groups['percentage_style'] = [
-			'title'    => esc_html__('Percentage', 'bricksfly-elements-for-bricks'),
+		$this->control_groups['percentage_style'] = array(
+			'title'    => esc_html__( 'Percentage', 'bricksfly-elements-for-bricks' ),
 			'tab'      => 'style',
-			'required' => ['display_percentage', '=', true],
-		];
+			'required' => array( 'display_percentage', '=', true ),
+		);
 	}
 
-	public function set_controls()
-	{
+	public function set_controls() {
 
-		/* =========================
-		   PROGRESS BAR (CONTENT)
+		/*
+		=========================
+			PROGRESS BAR (CONTENT)
 		========================= */
 
 		// Layout style — line / circle / dots
-		$this->controls['element_list'] = [
+		$this->controls['element_list'] = array(
 			'group'   => 'progressbar',
-			'label'   => esc_html__('Layout', 'bricksfly-elements-for-bricks'),
+			'label'   => esc_html__( 'Layout', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'select',
 			'default' => '1',
-			'options' => [
-				'1' => esc_html__('Line', 'bricksfly-elements-for-bricks'),
-				'2' => esc_html__('Circle', 'bricksfly-elements-for-bricks'),
-				'3' => esc_html__('Dots', 'bricksfly-elements-for-bricks'),
-			],
+			'options' => array(
+				'1' => esc_html__( 'Line', 'bricksfly-elements-for-bricks' ),
+				'2' => esc_html__( 'Circle', 'bricksfly-elements-for-bricks' ),
+				'3' => esc_html__( 'Dots', 'bricksfly-elements-for-bricks' ),
+			),
 			'inline'  => true,
-		];
+		);
 
-		$this->controls['percentage'] = [
+		$this->controls['percentage'] = array(
 			'group'   => 'progressbar',
-			'label'   => esc_html__('Percentage', 'bricksfly-elements-for-bricks'),
+			'label'   => esc_html__( 'Percentage', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'number',
 			'min'     => 0,
 			'max'     => 100,
 			'step'    => 1,
 			'default' => 50,
-		];
+		);
 
-		$this->controls['display_percentage'] = [
+		$this->controls['display_percentage'] = array(
 			'group'    => 'progressbar',
-			'label'    => esc_html__('Display Percentage', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Display Percentage', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'checkbox',
 			'default'  => true,
-			'required' => ['element_list', '!=', '3'],
-		];
+			'required' => array( 'element_list', '!=', '3' ),
+		);
 
-		/* =========================
-		   PROGRESS BAR STYLE
+		/*
+		=========================
+			PROGRESS BAR STYLE
 		========================= */
 
 		// Active/progress color — applies to all 3 layouts.
 		// Line/Circle: paints the SVG progress-path stroke (CSS overrides the
 		// stroke attribute set by ProgressBar.js).
 		// Dots: paints the dot border.
-		$this->controls['color'] = [
+		$this->controls['color'] = array(
 			'group'   => 'progressbar_style',
-			'label'   => esc_html__('Color', 'bricksfly-elements-for-bricks'),
+			'label'   => esc_html__( 'Color', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'color',
-			'default' => ['hex' => '#7DDED8'],
-			'css'     => [
-				[
+			'default' => array( 'hex' => '#7DDED8' ),
+			'css'     => array(
+				array(
 					'property' => 'stroke',
 					'selector' => '&.style-1 .progressbar > svg > path:nth-of-type(2)',
-				],
-				[
+				),
+				array(
 					'property' => 'stroke',
 					'selector' => '&.style-2 .progressbar > svg > path:nth-of-type(2)',
-				],
-				[
+				),
+				array(
 					'property' => 'border-color',
 					'selector' => '&.style-3 .dot',
-				],
-			],
-		];
+				),
+			),
+		);
 
 		// Trail/background color — applies to all 3 layouts.
 		// Line/Circle: paints the SVG trail-path stroke.
 		// Dots: paints the active dot fill.
-		$this->controls['bg_color'] = [
+		$this->controls['bg_color'] = array(
 			'group' => 'progressbar_style',
-			'label' => esc_html__('Background Color', 'bricksfly-elements-for-bricks'),
+			'label' => esc_html__( 'Background Color', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'color',
-			'css'   => [
-				[
+			'css'   => array(
+				array(
 					'property' => 'stroke',
 					'selector' => '&.style-1 .progressbar > svg > path:nth-of-type(1)',
-				],
-				[
+				),
+				array(
 					'property' => 'stroke',
 					'selector' => '&.style-2 .progressbar > svg > path:nth-of-type(1)',
-				],
-				[
+				),
+				array(
 					'property' => 'background-color',
 					'selector' => '&.style-3 .dot.active',
-				],
-			],
-		];
+				),
+			),
+		);
 
-		$this->controls['border_width'] = [
+		$this->controls['border_width'] = array(
 			'group'    => 'progressbar_style',
-			'label'    => esc_html__('Border Width', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Border Width', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'number',
 			'unit'     => 'px',
 			'min'      => 0,
 			'step'     => 1,
 			'default'  => 1,
-			'css'      => [
-				[
+			'css'      => array(
+				array(
 					'property' => 'border-width',
 					'selector' => '&.style-3 .dot',
-				],
-			],
-			'required' => ['element_list', '=', '3'],
-		];
+				),
+			),
+			'required' => array( 'element_list', '=', '3' ),
+		);
 
-		$this->controls['stroke_width'] = [
-			'group'    => 'progressbar_style',
-			'label'    => esc_html__('Stroke Width', 'bricksfly-elements-for-bricks'),
-			'type'     => 'number',
-			'min'      => 0,
-			'step'     => 0.1,
-			'default'  => 2,
-			'description' => esc_html__('Stroke width in em (line/circle).', 'bricksfly-elements-for-bricks'),
-			'required' => ['element_list', '!=', '3'],
-		];
+		$this->controls['stroke_width'] = array(
+			'group'       => 'progressbar_style',
+			'label'       => esc_html__( 'Stroke Width', 'bricksfly-elements-for-bricks' ),
+			'type'        => 'number',
+			'min'         => 0,
+			'step'        => 0.1,
+			'default'     => 2,
+			'description' => esc_html__( 'Stroke width in em (line/circle).', 'bricksfly-elements-for-bricks' ),
+			'required'    => array( 'element_list', '!=', '3' ),
+		);
 
-		$this->controls['trail_width'] = [
-			'group'    => 'progressbar_style',
-			'label'    => esc_html__('Trail Width', 'bricksfly-elements-for-bricks'),
-			'type'     => 'number',
-			'min'      => 0,
-			'step'     => 0.1,
-			'default'  => 1,
-			'description' => esc_html__('Trail width in em (line/circle).', 'bricksfly-elements-for-bricks'),
-			'required' => ['element_list', '!=', '3'],
-		];
+		$this->controls['trail_width'] = array(
+			'group'       => 'progressbar_style',
+			'label'       => esc_html__( 'Trail Width', 'bricksfly-elements-for-bricks' ),
+			'type'        => 'number',
+			'min'         => 0,
+			'step'        => 0.1,
+			'default'     => 1,
+			'description' => esc_html__( 'Trail width in em (line/circle).', 'bricksfly-elements-for-bricks' ),
+			'required'    => array( 'element_list', '!=', '3' ),
+		);
 
-		$this->controls['progress_size'] = [
+		$this->controls['progress_size'] = array(
 			'group'    => 'progressbar_style',
-			'label'    => esc_html__('Size', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Size', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'number',
 			'unit'     => 'px',
 			'min'      => 1,
 			'step'     => 1,
-			'css'      => [
-				[
+			'css'      => array(
+				array(
 					'property' => 'width',
 					'selector' => '&.style-2',
-				],
-				[
+				),
+				array(
 					'property' => 'height',
 					'selector' => '&.style-2',
-				],
-				[
+				),
+				array(
 					'property' => 'width',
 					'selector' => '&.style-3 .dot',
-				],
-				[
+				),
+				array(
 					'property' => 'height',
 					'selector' => '&.style-3 .dot',
-				],
-			],
-			'required' => ['element_list', '!=', '1'],
-		];
+				),
+			),
+			'required' => array( 'element_list', '!=', '1' ),
+		);
 
-		/* =========================
-		   PERCENTAGE STYLE
+		/*
+		=========================
+			PERCENTAGE STYLE
 		========================= */
 
-		$this->controls['percentage_typography'] = [
+		$this->controls['percentage_typography'] = array(
 			'group'    => 'percentage_style',
-			'label'    => esc_html__('Typography', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Typography', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'typography',
-			'css'      => [
-				[
+			'css'      => array(
+				array(
 					'property' => 'typography',
 					'selector' => '.progressbar-text',
-				],
-			],
-			'required' => ['display_percentage', '=', true],
-		];
+				),
+			),
+			'required' => array( 'display_percentage', '=', true ),
+		);
 
-		$this->controls['percentage_position'] = [
+		$this->controls['percentage_position'] = array(
 			'group'    => 'percentage_style',
-			'label'    => esc_html__('Position Y', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Position Y', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'number',
 			'unit'     => 'px',
 			'step'     => 1,
 			'default'  => -30,
-			'css'      => [
-				[
+			'css'      => array(
+				array(
 					'property' => 'top',
 					'selector' => '&.style-1 .progressbar-text',
-				],
-			],
-			'required' => [
-				['display_percentage', '=', true],
-				['element_list', '=', '1'],
-			],
-		];
+				),
+			),
+			'required' => array(
+				array( 'display_percentage', '=', true ),
+				array( 'element_list', '=', '1' ),
+			),
+		);
 	}
 
-	public function render()
-	{
+	public function render() {
 		$s = $this->settings;
 
-		$style = isset($s['element_list']) ? (string) $s['element_list'] : '1';
-		if (! in_array($style, ['1', '2', '3'], true)) {
+		$style = isset( $s['element_list'] ) ? (string) $s['element_list'] : '1';
+		if ( ! in_array( $style, array( '1', '2', '3' ), true ) ) {
 			$style = '1';
 		}
 
-		$percentage = isset($s['percentage']) ? floatval($s['percentage']) : 50;
-		if ($percentage < 0) $percentage = 0;
-		if ($percentage > 100) $percentage = 100;
+		$percentage = isset( $s['percentage'] ) ? floatval( $s['percentage'] ) : 50;
+		if ( $percentage < 0 ) {
+			$percentage = 0;
+		}
+		if ( $percentage > 100 ) {
+			$percentage = 100;
+		}
 
-		$progress_type = '1' === $style ? 'line' : ('2' === $style ? 'circle' : 'dot');
+		$progress_type = '1' === $style ? 'line' : ( '2' === $style ? 'circle' : 'dot' );
 
-		$progressbar_settings = [
+		$progressbar_settings = array(
 			'percentage'    => $percentage,
 			'progress-type' => $progress_type,
-		];
+		);
 
-		if (in_array($style, ['1', '2'], true)) {
+		if ( in_array( $style, array( '1', '2' ), true ) ) {
 			// Read color from the Bricks color control structure: ['hex'|'rgb'|'hsl' => ...]
-			$color = $this->extract_color($s['color'] ?? null, '#7DDED8');
-			$bg    = $this->extract_color($s['bg_color'] ?? null, '');
+			$color = $this->extract_color( $s['color'] ?? null, '#7DDED8' );
+			$bg    = $this->extract_color( $s['bg_color'] ?? null, '' );
 
 			$progressbar_settings['color']        = $color;
 			$progressbar_settings['trail-color']  = $bg;
-			$progressbar_settings['stroke-width'] = isset($s['stroke_width']) ? floatval($s['stroke_width']) : 2;
-			$progressbar_settings['trail-width']  = isset($s['trail_width']) ? floatval($s['trail_width']) : 1;
+			$progressbar_settings['stroke-width'] = isset( $s['stroke_width'] ) ? floatval( $s['stroke_width'] ) : 2;
+			$progressbar_settings['trail-width']  = isset( $s['trail_width'] ) ? floatval( $s['trail_width'] ) : 1;
 		}
 
-		if (! empty($s['display_percentage'])) {
+		if ( ! empty( $s['display_percentage'] ) ) {
 			$progressbar_settings['display-percentage'] = 'show';
 		}
 
-		$this->set_attribute('_root', 'class', ['aab-progressbar', 'style-' . $style]);
-		$this->set_attribute('_root', 'data-aab-progressbar', wp_json_encode($progressbar_settings));
+		$this->set_attribute( '_root', 'class', array( 'aab-progressbar', 'style-' . $style ) );
+		$this->set_attribute( '_root', 'data-aab-progressbar', wp_json_encode( $progressbar_settings ) );
 
-		echo wp_kses_post('<div ' . $this->render_attributes('_root') . '>');
+		echo wp_kses_post( '<div ' . $this->render_attributes( '_root' ) . '>' );
 
-		if ('3' === $style) {
+		if ( '3' === $style ) {
 			echo '<div class="progressbar dots">';
-			for ($i = 0; $i < 5; $i++) {
+			for ( $i = 0; $i < 5; $i++ ) {
 				echo '<span class="dot"></span>';
 			}
 			echo '</div>';
@@ -318,18 +321,23 @@ class BRICKSFLY_Bricks_Progressbar extends \Bricks\Element
 	 * Extract a usable color string from Bricks' color control value.
 	 * Bricks stores colors as ['hex' => '#xxxxxx', 'rgb' => 'rgba(...)', 'hsl' => 'hsl(...)'].
 	 */
-	private function extract_color($value, $fallback = '')
-	{
-		if (empty($value)) {
+	private function extract_color( $value, $fallback = '' ) {
+		if ( empty( $value ) ) {
 			return $fallback;
 		}
-		if (is_string($value)) {
+		if ( is_string( $value ) ) {
 			return $value;
 		}
-		if (is_array($value)) {
-			if (! empty($value['rgb']))  return $value['rgb'];
-			if (! empty($value['hex']))  return $value['hex'];
-			if (! empty($value['hsl']))  return $value['hsl'];
+		if ( is_array( $value ) ) {
+			if ( ! empty( $value['rgb'] ) ) {
+				return $value['rgb'];
+			}
+			if ( ! empty( $value['hex'] ) ) {
+				return $value['hex'];
+			}
+			if ( ! empty( $value['hsl'] ) ) {
+				return $value['hsl'];
+			}
 		}
 		return $fallback;
 	}

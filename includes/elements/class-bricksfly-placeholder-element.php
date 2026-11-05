@@ -1,6 +1,6 @@
 <?php
 
-if (! defined('ABSPATH')) {
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
@@ -16,9 +16,9 @@ if (! defined('ABSPATH')) {
  * behavior — `render()` only ever prints a short admin-facing notice, and
  * only inside the Bricks builder itself, never on the live front-end.
  */
-if (! class_exists('BRICKSFLY_Placeholder_Element')) {
-	class BRICKSFLY_Placeholder_Element extends \Bricks\Element
-	{
+if ( ! class_exists( 'BRICKSFLY_Placeholder_Element' ) ) {
+	class BRICKSFLY_Placeholder_Element extends \Bricks\Element {
+
 		public $category = 'bricks fly';
 		public $icon     = 'ti-info-alt';
 
@@ -36,65 +36,58 @@ if (! class_exists('BRICKSFLY_Placeholder_Element')) {
 		 */
 		protected static $registry = array();
 
-		public static function register($class_name, $bricks_name, $label)
-		{
-			self::$registry[$class_name] = array(
+		public static function register( $class_name, $bricks_name, $label ) {
+			self::$registry[ $class_name ] = array(
 				'name'  => $bricks_name,
 				'label' => (string) $label,
 			);
 		}
 
-		public function __construct($element = null)
-		{
-			$data = self::$registry[static::class] ?? null;
-			if ($data) {
+		public function __construct( $element = null ) {
+			$data = self::$registry[ static::class ] ?? null;
+			if ( $data ) {
 				$this->name              = $data['name'];
 				$this->placeholder_label = $data['label'];
 			}
 
-			parent::__construct($element);
+			parent::__construct( $element );
 		}
 
-		public function get_label()
-		{
+		public function get_label() {
 			return $this->placeholder_label !== ''
 				? $this->placeholder_label
-				: esc_html__('Bricksfly widget', 'bricksfly-elements-for-bricks');
+				: esc_html__( 'Bricksfly widget', 'bricksfly-elements-for-bricks' );
 		}
 
-		public function get_keywords()
-		{
-			return array('bricksfly', 'inactive');
+		public function get_keywords() {
+			return array( 'bricksfly', 'inactive' );
 		}
 
-		public function set_control_groups()
-		{
+		public function set_control_groups() {
 			// No controls: this element is never actually configured.
 		}
 
-		public function set_controls()
-		{
+		public function set_controls() {
 			// No controls: this element is never actually configured.
 		}
 
-		public function render()
-		{
+		public function render() {
 			// Never shown on the live front-end — only inside the builder,
 			// and only to users who could access the builder anyway.
-			if (! function_exists('bricks_is_builder') || ! bricks_is_builder()) {
+			if ( ! function_exists( 'bricks_is_builder' ) || ! bricks_is_builder() ) {
 				return;
 			}
 
-			if (! class_exists('\Bricks\Capabilities') || ! \Bricks\Capabilities::current_user_can_use_builder()) {
+			if ( ! class_exists( '\Bricks\Capabilities' ) || ! \Bricks\Capabilities::current_user_can_use_builder() ) {
 				return;
 			}
 
-			$settings_url = admin_url('admin.php?page=bricksfly_addons_settings&tab=elements');
+			$settings_url = admin_url( 'admin.php?page=bricksfly_addons_settings&tab=elements' );
 
 			$message = sprintf(
 				/* translators: %s: widget label */
-				esc_html__('%s is not active on this site.', 'bricksfly-elements-for-bricks'),
-				esc_html($this->get_label())
+				esc_html__( '%s is not active on this site.', 'bricksfly-elements-for-bricks' ),
+				esc_html( $this->get_label() )
 			);
 
 			// Inline styles, not a class: this can render inside any element's
@@ -112,18 +105,18 @@ if (! class_exists('BRICKSFLY_Placeholder_Element')) {
 
 			$link = sprintf(
 				'<a href="%s" target="_blank" rel="noopener" style="color:#7A5C00;text-decoration:underline;">%s</a>',
-				esc_url($settings_url),
-				esc_html__('Bricksfly → Elements', 'bricksfly-elements-for-bricks')
+				esc_url( $settings_url ),
+				esc_html__( 'Bricksfly → Elements', 'bricksfly-elements-for-bricks' )
 			);
 
 			$instruction = sprintf(
 				/* translators: %s: link to the Bricksfly Elements settings tab */
-				esc_html__('Activate it from %s.', 'bricksfly-elements-for-bricks'),
+				esc_html__( 'Activate it from %s.', 'bricksfly-elements-for-bricks' ),
 				$link
 			);
 
-			echo '<div class="bricks-element-placeholder bricksfly-placeholder" style="' . esc_attr($style) . '">' // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				. esc_html($message) . ' ' . wp_kses_post($instruction)
+			echo '<div class="bricks-element-placeholder bricksfly-placeholder" style="' . esc_attr( $style ) . '">' // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				. esc_html( $message ) . ' ' . wp_kses_post( $instruction )
 				. '</div>';
 		}
 	}

@@ -10,8 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class BRICKSFLY_Template_Importer {
 
-	public $file_path = 'bricksfly_tpl_file.xml';
-	public $full_path = null;
+	public $file_path    = 'bricksfly_tpl_file.xml';
+	public $full_path    = null;
 	public $wishlist_key = 'bricksfly_user_wishlists';
 
 	private static $_instance = null;
@@ -24,26 +24,26 @@ class BRICKSFLY_Template_Importer {
 	}
 
 	public function __construct() {
-		add_action( 'wp_ajax_bricksfly_template_installer', [ $this, 'template_installer' ] );
-		add_action( 'wp_ajax_bricksfly_heartbeat_data', [ $this, 'heartbeat_data' ] );
-		add_action( 'wp_ajax_bricksfly_wishlist_option', [ $this, 'wishlist' ] );
-		add_action( 'wp_ajax_bricksfly_template_dependency_status', [ $this, 'template_dependency_status' ] );
+		add_action( 'wp_ajax_bricksfly_template_installer', array( $this, 'template_installer' ) );
+		add_action( 'wp_ajax_bricksfly_heartbeat_data', array( $this, 'heartbeat_data' ) );
+		add_action( 'wp_ajax_bricksfly_wishlist_option', array( $this, 'wishlist' ) );
+		add_action( 'wp_ajax_bricksfly_template_dependency_status', array( $this, 'template_dependency_status' ) );
 		// NOTE: the 'bricksfly_get_latest_imported_pages' AJAX action is handled by
-	
+
 		// That handler is batch-aware — it returns the page(s) from the most
 		// recent import via the 'bricksfly_last_import_batch' option, which is what the
 		// "Go to page" button on the Complete Import step needs. A second callback
 		// here on the same action raced the correct one (whichever fired first
 		// won and called wp_die) and queried by date DESC — which returns the
 		// wrong page because WXR preserves each page's original post_date. Removed.
-		add_filter('bricksfly_dashboard_config', [ $this, 'include_user_wishlist' ] );
+		add_filter( 'bricksfly_dashboard_config', array( $this, 'include_user_wishlist' ) );
 	}
 
 	public function include_user_wishlist( $config ) {
-		$user_id           = get_current_user_id();
+		$user_id            = get_current_user_id();
 		$config['wishlist'] = get_user_meta( $user_id, $this->wishlist_key, true );
 		if ( ! is_array( $config['wishlist'] ) ) {
-			$config['wishlist'] = [];
+			$config['wishlist'] = array();
 		}
 		return $config;
 	}
@@ -55,10 +55,13 @@ class BRICKSFLY_Template_Importer {
 			wp_send_json_error( __( 'You are not allowed to perform this action.', 'bricksfly-elements-for-bricks' ) );
 		}
 
-		$return_data = apply_filters('bricksfly_heartbeat_data', [
-			'import_state'   => get_option( 'bricksfly_template_import_state' ),
-			'import_porgress' => get_option( 'bricksfly_template_import_progress' ),
-		] );
+		$return_data = apply_filters(
+			'bricksfly_heartbeat_data',
+			array(
+				'import_state'    => get_option( 'bricksfly_template_import_state' ),
+				'import_porgress' => get_option( 'bricksfly_template_import_progress' ),
+			)
+		);
 		wp_send_json( $return_data );
 	}
 
@@ -76,7 +79,7 @@ class BRICKSFLY_Template_Importer {
 		$wishlist    = sanitize_text_field( wp_unslash( $_POST['wishlist'] ) );
 		$user_id     = get_current_user_id();
 		$wishlist_db = get_user_meta( $user_id, $this->wishlist_key, true );
-		$wishlist_db = is_array( $wishlist_db ) ? $wishlist_db : [];
+		$wishlist_db = is_array( $wishlist_db ) ? $wishlist_db : array();
 
 		if ( in_array( $wishlist, $wishlist_db, true ) ) {
 			$wishlist_db = array_values( array_filter( $wishlist_db, fn( $v ) => $v !== $wishlist ) );
@@ -95,7 +98,7 @@ class BRICKSFLY_Template_Importer {
 			wp_send_json_error( __( 'You are not allowed to perform this action.', 'bricksfly-elements-for-bricks' ) );
 		}
 
-		$dependencies = [];
+		$dependencies = array();
 		if ( isset( $_POST['dependencies'] ) ) {
 			$json_data    = sanitize_text_field( wp_unslash( $_POST['dependencies'] ) );
 			$dependencies = json_decode( $json_data, true );
@@ -139,7 +142,7 @@ class BRICKSFLY_Template_Importer {
 			}
 		}
 
-		wp_send_json_success( [ 'dependencies' => $dependencies ] );
+		wp_send_json_success( array( 'dependencies' => $dependencies ) );
 	}
 
 	/**
@@ -202,11 +205,13 @@ class BRICKSFLY_Template_Importer {
 
 		$template_data['next_step'] = 'fail';
 
-		wp_send_json( array(
-			'template' => $template_data,
-			'msg'      => $message,
-			'progress' => 0,
-		) );
+		wp_send_json(
+			array(
+				'template' => $template_data,
+				'msg'      => $message,
+				'progress' => 0,
+			)
+		);
 	}
 
 	public function template_installer() {
@@ -335,21 +340,25 @@ class BRICKSFLY_Template_Importer {
 			$this->send_failure( $template_data, __( 'Template Demo Import fail', 'bricksfly-elements-for-bricks' ) );
 		}
 
-		wp_send_json( array(
-			'template' => $template_data,
-			'msg'      => $msg,
-			'progress' => $progress,
-		) );
+		wp_send_json(
+			array(
+				'template' => $template_data,
+				'msg'      => $msg,
+				'progress' => $progress,
+			)
+		);
 	}
 
 	private function update_blog_and_homepage_options( $template_data ) {
 		if ( ! empty( $template_data['home_page'] ) ) {
-			$front_page = get_posts( [
-				'post_type'   => 'page',
-				'title'       => $template_data['home_page'],
-				'post_status' => 'all',
-				'numberposts' => 1,
-			] );
+			$front_page = get_posts(
+				array(
+					'post_type'   => 'page',
+					'title'       => $template_data['home_page'],
+					'post_status' => 'all',
+					'numberposts' => 1,
+				)
+			);
 
 			if ( ! empty( $front_page ) ) {
 				update_option( 'page_on_front', $front_page[0]->ID );
@@ -357,12 +366,14 @@ class BRICKSFLY_Template_Importer {
 		}
 
 		if ( ! empty( $template_data['blog_page'] ) ) {
-			$blog_page = get_posts( [
-				'post_type'   => 'page',
-				'title'       => $template_data['blog_page'],
-				'post_status' => 'all',
-				'numberposts' => 1,
-			] );
+			$blog_page = get_posts(
+				array(
+					'post_type'   => 'page',
+					'title'       => $template_data['blog_page'],
+					'post_status' => 'all',
+					'numberposts' => 1,
+				)
+			);
 
 			if ( ! empty( $blog_page ) ) {
 				update_option( 'page_for_posts', $blog_page[0]->ID );
@@ -431,7 +442,7 @@ class BRICKSFLY_Template_Importer {
 			}
 
 			// Support both <options><option>…</option></options> and a single <option>…</option>.
-			$nodes = isset( $xml->option ) ? $xml->option : [ $xml ];
+			$nodes = isset( $xml->option ) ? $xml->option : array( $xml );
 
 			foreach ( $nodes as $opt ) {
 				$option_name = sanitize_key( (string) $opt->name );
@@ -532,7 +543,7 @@ class BRICKSFLY_Template_Importer {
 			return $raw;
 		}
 
-		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_unserialize -- allowed_classes=false: arrays and scalars only, no objects.
+		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_unserialize, WordPress.PHP.NoSilencedErrors.Discouraged -- allowed_classes=false: arrays and scalars only, no objects; invalid data is handled by the check below.
 		$value = @unserialize( trim( $raw ), array( 'allowed_classes' => false ) );
 
 		if ( false === $value && 'b:0;' !== trim( $raw ) ) {
@@ -780,7 +791,6 @@ class BRICKSFLY_Template_Importer {
 
 		return array_values( $by_id );
 	}
-
 }
 
 BRICKSFLY_Template_Importer::instance();

@@ -11,13 +11,13 @@ class BRICKSFLY_Page_Importer {
 	const HANDLE = 'bricksfly-page-import';
 
 	public function __construct() {
-		add_action( 'admin_menu', [ $this, 'add_menu' ], 25 );
-		add_action( 'admin_enqueue_scripts', [ $this, 'importer_assets' ] );
-		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_page_list_button' ] );
-		add_action( 'admin_print_scripts', [ $this, 'clear_notices_for_importer' ] );
-		add_filter( 'admin_body_class', [ $this, 'admin_classes' ], 100 );
-		add_filter( 'views_edit-page', [ $this, 'custom_page_tab' ] );
-		add_action( 'pre_get_posts', [ $this, 'custom_page_filter' ] );
+		add_action( 'admin_menu', array( $this, 'add_menu' ), 25 );
+		add_action( 'admin_enqueue_scripts', array( $this, 'importer_assets' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_page_list_button' ) );
+		add_action( 'admin_print_scripts', array( $this, 'clear_notices_for_importer' ) );
+		add_filter( 'admin_body_class', array( $this, 'admin_classes' ), 100 );
+		add_filter( 'views_edit-page', array( $this, 'custom_page_tab' ) );
+		add_action( 'pre_get_posts', array( $this, 'custom_page_filter' ) );
 	}
 
 	/**
@@ -39,7 +39,7 @@ class BRICKSFLY_Page_Importer {
 		wp_enqueue_script(
 			'aab-admin-actions',
 			BRICKSFLY_URL . 'public/js/aab-admin-actions.js',
-			[],
+			array(),
 			BRICKSFLY_VERSION,
 			true
 		);
@@ -47,10 +47,10 @@ class BRICKSFLY_Page_Importer {
 		wp_localize_script(
 			'aab-admin-actions',
 			'BRICKSFLY_PAGE_IMPORT',
-			[
+			array(
 				'page_url' => esc_url( admin_url( 'admin.php?page=bricksfly-page-importer' ) ),
 				'logo'     => esc_url( BRICKSFLY_URL . 'public/images/plugin_logo.png' ),
-			]
+			)
 		);
 	}
 
@@ -62,24 +62,26 @@ class BRICKSFLY_Page_Importer {
 		$count = get_transient( 'bricksfly_imported_page_count' );
 
 		if ( false === $count ) {
-			$query = new \WP_Query( [
-				'post_type'      => 'page',
-				'post_status'    => 'publish',
-				'meta_key'       => 'bricksfly_imported',
-				'meta_value'     => 1,
-				'posts_per_page' => -1,
-				'no_found_rows'  => true,
-				'fields'         => 'ids',
-			] );
+			$query = new \WP_Query(
+				array(
+					'post_type'      => 'page',
+					'post_status'    => 'publish',
+					'meta_key'       => 'bricksfly_imported',
+					'meta_value'     => 1,
+					'posts_per_page' => -1,
+					'no_found_rows'  => true,
+					'fields'         => 'ids',
+				)
+			);
 			$count = count( $query->posts );
 			set_transient( 'bricksfly_imported_page_count', $count, 5 * MINUTE_IN_SECONDS );
 		}
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading URL parameter for view display only, not processing form data.
-		$latest_import             = isset( $_GET['bricksfly-latest-import'] ) ? sanitize_key( wp_unslash( $_GET['bricksfly-latest-import'] ) ) : '';
-		$class                     = 'import' === $latest_import ? 'current' : '';
-		$url                       = add_query_arg( 'bricksfly-latest-import', 'import', admin_url( 'edit.php?post_type=page' ) );
-		$views['latest-import']    = "<a href='" . esc_url( $url ) . "' class='" . esc_attr( $class ) . "' style='color: #fc6848; font-weight: 500'>" . esc_html__( 'BricksFly Imported', 'bricksfly-elements-for-bricks' ) . " <span class='count'>(" . (int) $count . ")</span></a>";
+		$latest_import          = isset( $_GET['bricksfly-latest-import'] ) ? sanitize_key( wp_unslash( $_GET['bricksfly-latest-import'] ) ) : '';
+		$class                  = 'import' === $latest_import ? 'current' : '';
+		$url                    = add_query_arg( 'bricksfly-latest-import', 'import', admin_url( 'edit.php?post_type=page' ) );
+		$views['latest-import'] = "<a href='" . esc_url( $url ) . "' class='" . esc_attr( $class ) . "' style='color: #fc6848; font-weight: 500'>" . esc_html__( 'BricksFly Imported', 'bricksfly-elements-for-bricks' ) . " <span class='count'>(" . (int) $count . ')</span></a>';
 
 		return $views;
 	}
@@ -127,7 +129,7 @@ class BRICKSFLY_Page_Importer {
 			__( 'Page Import', 'bricksfly-elements-for-bricks' ),
 			'manage_options',
 			'bricksfly-page-importer',
-			[ $this, 'page_html' ]
+			array( $this, 'page_html' )
 		);
 	}
 
@@ -148,29 +150,29 @@ class BRICKSFLY_Page_Importer {
 		wp_enqueue_style(
 			'bricksfly-page-importer-admin',
 			BRICKSFLY_URL . 'public/build/admin/page-import.css',
-			[],
+			array(),
 			time()
 		);
 
 		wp_enqueue_script(
 			'bricksfly-page-importer-admin',
 			BRICKSFLY_URL . 'public/build/admin/page-import.js',
-			[ 'wp-element' ],
+			array( 'wp-element' ),
 			time(),
 			true
 		);
 
-		$addons_config = apply_filters('bricksfly_dashboard_config', $GLOBALS['bricksfly_config'] ?? [] );
+		$addons_config           = apply_filters( 'bricksfly_dashboard_config', $GLOBALS['bricksfly_config'] ?? array() );
 		$addons_config['is_pro'] = function_exists( 'bricksfly_is_pro_installed' ) ? bricksfly_is_pro_installed() : false;
 
-		$localize_data = [
+		$localize_data = array(
 			'plugin_url'         => BRICKSFLY_URL,
 			'ajaxurl'            => admin_url( 'admin-ajax.php' ),
 			'nonce'              => wp_create_nonce( 'bricksfly_admin_nonce' ),
 			'addons_config'      => $addons_config,
 			'adminURL'           => admin_url(),
 			'page_url'           => esc_url( admin_url( 'edit.php?post_type=page' ) ),
-			'user_role'          => function_exists( 'bricksfly_get_current_user_roles' ) ? bricksfly_get_current_user_roles() : [],
+			'user_role'          => function_exists( 'bricksfly_get_current_user_roles' ) ? bricksfly_get_current_user_roles() : array(),
 			'version'            => BRICKSFLY_VERSION,
 			'st_template_domain' => BRICKSFLY_TEMPLATE_STARTER_BASE_URL,
 			// See dashboard.php: Pro items show a badge + link unless the
@@ -183,7 +185,7 @@ class BRICKSFLY_Page_Importer {
 			// required plugins during import. The free plugin never does.
 			'import_plugins'     => (bool) apply_filters( 'bricksfly_import_manages_plugins', false ),
 			'home_url'           => home_url( '/' ),
-		];
+		);
 
 		wp_localize_script( 'bricksfly-page-importer-admin', 'BRICKSFLY_ADDONS_ADMIN', $localize_data );
 	}

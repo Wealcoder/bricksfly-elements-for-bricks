@@ -1,5 +1,17 @@
 === BricksFly Elements and Templates for Bricks - Changelog ===
 
+= 1.0.11 =
+- Added: The Image Hotspot element, to place clickable markers with tooltips on an image.
+- Added: When you insert a section from the library, an Import settings window lets you choose "Keep original design" or "Use this site's style", and "Keep demo image links" (default) or "Copy images to my site". SVG icons are always copied so they display.
+- Added: While a section is importing, the screen is locked and "Importing section..." is shown in the middle.
+- Added: Variables a section uses are added to your site's Variables. A variable you already have is never replaced. If the section only exports a color palette, the variables are built from it.
+- Added: Clear error and warning messages that say what went wrong and what to do.
+- Improved: A section never overrides a global class your site already has. A class with the same name and the same styling is reused; one with different styling is added as "name-2".
+- Improved: "Use this site's style" does not add the template's classes or variables, and removes the fonts and color variables set on the section, so your theme styles apply.
+- Improved: References to the library's custom fonts, which are not part of the export, are removed so the section uses your site's fonts.
+- Fixed: Section names with a dash or quote showed raw HTML codes in the library.
+- Fixed: Filtering or searching quickly could show duplicate or wrong cards in the library.
+
 = 1.0.10 =
 - Added: The seasonal BricksFly Pro offer also shows in the BricksFly dashboard, below its menu (Dashboard, Elements, Extensions and Free vs Pro tabs). It has no close button and shows until the offer ends.
 - Changed: The offer notice no longer tries to show on BricksFly screens, which hide WordPress notices.

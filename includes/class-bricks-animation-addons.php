@@ -1,6 +1,11 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName -- Loaded by path; the file name is kept for backwards compatibility.
+/**
+ * Core plugin class.
+ *
+ * @package Bricks_Animation_Addons
+ */
 
-if (! defined('ABSPATH')) {
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
@@ -16,10 +21,8 @@ if (! defined('ABSPATH')) {
  * @package    Bricks_Animation_Addons
  * @subpackage Bricks_Animation_Addons/includes
  */
+class BRICKSFLY_Plugin {
 
-
-class BRICKSFLY_Plugin
-{
 	use \wealcoder\bricksfly\Includes\Traits\Extension_Widgets_Trait;
 
 	/**
@@ -59,9 +62,8 @@ class BRICKSFLY_Plugin
 	 *
 	 * @since    1.0.0
 	 */
-	public function __construct()
-	{
-		if (defined('BRICKSFLY_VERSION')) {
+	public function __construct() {
+		if ( defined( 'BRICKSFLY_VERSION' ) ) {
 			$this->version = BRICKSFLY_VERSION;
 		} else {
 			$this->version = '1.0.0';
@@ -88,8 +90,7 @@ class BRICKSFLY_Plugin
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function load_dependencies()
-	{
+	private function load_dependencies() {
 		// Core classes.
 		require_once BRICKSFLY_PATH . 'includes/class-bricks-animation-addons-loader.php';
 		require_once BRICKSFLY_PATH . 'admin/class-bricks-animation-addons-admin.php';
@@ -107,9 +108,9 @@ class BRICKSFLY_Plugin
 		// Template library client, shared by the importer (admin) and the
 		// builder section library (front end + admin-ajax).
 		require_once BRICKSFLY_PATH . 'admin/library-client.php';
-		require_once BRICKSFLY_PATH . 'admin/section-media.php';
+		require_once BRICKSFLY_PATH . 'admin/class-bricksfly-section-media.php';
 
-		if (is_admin()) {
+		if ( is_admin() ) {
 			require_once BRICKSFLY_PATH . 'admin/pages/dashboard.php';
 			require_once BRICKSFLY_PATH . 'admin/pages/template-importer.php';
 			require_once BRICKSFLY_PATH . 'admin/pages/page-import.php';
@@ -121,7 +122,7 @@ class BRICKSFLY_Plugin
 		// load on every request (not just is_admin()) because the Bricks
 		// builder runs on the frontend with `wp_enqueue_scripts`, and the
 		// admin-ajax endpoints need to be hooked before the AJAX call hits.
-		require_once BRICKSFLY_PATH . 'admin/pages/builder-template-library.php';
+		require_once BRICKSFLY_PATH . 'admin/pages/class-bricksfly-builder-template-library.php';
 
 		// Extensions.
 		$this->register_elements();
@@ -130,11 +131,16 @@ class BRICKSFLY_Plugin
 		// Dispatch the Pro plugin bootstrap action once every plugin file has
 		// been parsed (so the pro plugin has had a chance to register its
 		// add_action('bricksfly/pro/register', …) handler).
-		add_action('plugins_loaded', function () {
-			if (function_exists('bricksfly_is_pro_active') && bricksfly_is_pro_active()) {
-				do_action('bricksfly/pro/register');
-			}
-		}, 20);
+		add_action(
+			'plugins_loaded',
+			function () {
+				if ( function_exists( 'bricksfly_is_pro_active' ) && bricksfly_is_pro_active() ) {
+					// phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- Public hook used by BricksFly Pro; renaming it would break Pro.
+					do_action( 'bricksfly/pro/register' );
+				}
+			},
+			20
+		);
 
 		$this->loader = new BRICKSFLY_Loader();
 	}
@@ -150,14 +156,13 @@ class BRICKSFLY_Plugin
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function register_extensions()
-	{
+	private function register_extensions() {
 		$extention_list = self::get_extensions();
 		$ext_dir        = BRICKSFLY_PATH . 'includes/extensions/';
 
-		foreach ($extention_list as $slug => $data) {
+		foreach ( $extention_list as $slug => $data ) {
 			// Skip upcoming extensions.
-			if (! empty($data['is_upcoming'])) {
+			if ( ! empty( $data['is_upcoming'] ) ) {
 				continue;
 			}
 
@@ -166,13 +171,13 @@ class BRICKSFLY_Plugin
 			// them so Pro features stay disabled without the Pro plugin
 			// folder installed. Pro, when active, loads its own copies via
 			// `bricksfly_pro_register()`.
-			if (! empty($data['is_pro'])) {
+			if ( ! empty( $data['is_pro'] ) ) {
 				continue;
 			}
 
 			// Extensions.
 			$path = $ext_dir . $slug . '.php';
-			if (file_exists($path)) {
+			if ( file_exists( $path ) ) {
 				require_once $path;
 			}
 		}
@@ -191,42 +196,44 @@ class BRICKSFLY_Plugin
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function register_elements()
-	{
+	private function register_elements() {
 
-		add_action('init', function () {
+		add_action(
+			'init',
+			function () {
 
-
-			if (! class_exists('\Bricks\Elements')) {
-				return;
-			}
-
-			$widget_list  = self::get_widgets();
-
-			$elements_dir = BRICKSFLY_PATH . 'includes/elements/';
-
-			foreach ($widget_list as $slug => $data) {
-
-				// Skip upcoming widgets.
-				if (! empty($data['is_upcoming'])) {
-					continue;
+				if ( ! class_exists( '\Bricks\Elements' ) ) {
+					return;
 				}
 
-				// `is_pro=true` widgets are owned exclusively by the Pro plugin
-				// (animated offcanvas, video popup, youtube videos, …). Free
-				// never loads them — their code ships only in BricksFly Pro,
-				// which registers them itself.
-				if (! empty($data['is_pro'])) {
-					continue;
-				}
-				$path = $elements_dir . $slug . '.php';
+				$widget_list = self::get_widgets();
 
-				if (file_exists($path)) {
-					require_once $path;
-					\Bricks\Elements::register_element($path);
+				$elements_dir = BRICKSFLY_PATH . 'includes/elements/';
+
+				foreach ( $widget_list as $slug => $data ) {
+
+					// Skip upcoming widgets.
+					if ( ! empty( $data['is_upcoming'] ) ) {
+						continue;
+					}
+
+					// `is_pro=true` widgets are owned exclusively by the Pro plugin
+					// (animated offcanvas, video popup, youtube videos, …). Free
+					// never loads them — their code ships only in BricksFly Pro,
+					// which registers them itself.
+					if ( ! empty( $data['is_pro'] ) ) {
+						continue;
+					}
+					$path = $elements_dir . $slug . '.php';
+
+					if ( file_exists( $path ) ) {
+						require_once $path;
+						\Bricks\Elements::register_element( $path );
+					}
 				}
-			}
-		}, 11);
+			},
+			11
+		);
 
 		// Placeholder pass: any configured FREE widget slug that didn't get a
 		// real class above (toggled off in Bricksfly settings) still gets a
@@ -236,38 +243,42 @@ class BRICKSFLY_Plugin
 		// plugin itself (it owns the element files needed to resolve their
 		// real Bricks `$name`). Priority 12 so the real registrations above
 		// have already run.
-		add_action('init', function () {
+		add_action(
+			'init',
+			function () {
 
-			if (! class_exists('\Bricks\Elements') || ! function_exists('bricksfly_register_widget_placeholder')) {
-				return;
-			}
-
-			$active_widgets = self::get_widgets();
-			$elements_dir   = BRICKSFLY_PATH . 'includes/elements/';
-			$leaves         = array();
-
-			self::collect_config_leaves($GLOBALS['bricksfly_config']['widgets']['elements'] ?? array(), $leaves);
-
-			foreach ($leaves as $slug => $data) {
-
-				// Already registered as a real element above.
-				if (isset($active_widgets[$slug])) {
-					continue;
+				if ( ! class_exists( '\Bricks\Elements' ) || ! function_exists( 'bricksfly_register_widget_placeholder' ) ) {
+					return;
 				}
 
-				if (! empty($data['is_upcoming']) || ! empty($data['is_pro'])) {
-					continue;
+				$active_widgets = self::get_widgets();
+				$elements_dir   = BRICKSFLY_PATH . 'includes/elements/';
+				$leaves         = array();
+
+				self::collect_config_leaves( $GLOBALS['bricksfly_config']['widgets']['elements'] ?? array(), $leaves );
+
+				foreach ( $leaves as $slug => $data ) {
+
+					// Already registered as a real element above.
+					if ( isset( $active_widgets[ $slug ] ) ) {
+						continue;
+					}
+
+					if ( ! empty( $data['is_upcoming'] ) || ! empty( $data['is_pro'] ) ) {
+						continue;
+					}
+
+					if ( ! file_exists( $elements_dir . $slug . '.php' ) ) {
+						continue;
+					}
+
+					$bricks_name = bricksfly_get_element_bricks_name( $slug );
+
+					bricksfly_register_widget_placeholder( $bricks_name, $data['label'] ?? $slug );
 				}
-
-				if (! file_exists($elements_dir . $slug . '.php')) {
-					continue;
-				}
-
-				$bricks_name = bricksfly_get_element_bricks_name($slug);
-
-				bricksfly_register_widget_placeholder($bricks_name, $data['label'] ?? $slug);
-			}
-		}, 12);
+			},
+			12
+		);
 	}
 
 	/**
@@ -276,23 +287,22 @@ class BRICKSFLY_Plugin
 	 * `is_active`, `is_extension` and `is_pro` — the same convention
 	 * bricksfly_get_total_config_elements_by_key() uses.
 	 *
-	 * @param array $nodes
+	 * @param array $nodes  Config tree nodes.
 	 * @param array $leaves Slug => node data, populated by reference.
 	 */
-	private static function collect_config_leaves($nodes, &$leaves)
-	{
-		foreach ((array) $nodes as $slug => $node) {
-			if (! is_array($node)) {
+	private static function collect_config_leaves( $nodes, &$leaves ) {
+		foreach ( (array) $nodes as $slug => $node ) {
+			if ( ! is_array( $node ) ) {
 				continue;
 			}
 
-			if (isset($node['is_active'], $node['is_extension'], $node['is_pro'])) {
-				$leaves[$slug] = $node;
+			if ( isset( $node['is_active'], $node['is_extension'], $node['is_pro'] ) ) {
+				$leaves[ $slug ] = $node;
 				continue;
 			}
 
-			if (isset($node['elements']) && is_array($node['elements'])) {
-				self::collect_config_leaves($node['elements'], $leaves);
+			if ( isset( $node['elements'] ) && is_array( $node['elements'] ) ) {
+				self::collect_config_leaves( $node['elements'], $leaves );
 			}
 		}
 	}
@@ -304,13 +314,12 @@ class BRICKSFLY_Plugin
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function define_admin_hooks()
-	{
+	private function define_admin_hooks() {
 
-		$plugin_admin = new BRICKSFLY_Admin($this->get_plugin_name(), $this->get_version());
+		$plugin_admin = new BRICKSFLY_Admin( $this->get_plugin_name(), $this->get_version() );
 
-		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
-		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
+		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 	}
 
 	/**
@@ -320,14 +329,13 @@ class BRICKSFLY_Plugin
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function define_public_hooks()
-	{
+	private function define_public_hooks() {
 
-		$plugin_public = new BRICKSFLY_Public($this->get_plugin_name(), $this->get_version());
+		$plugin_public = new BRICKSFLY_Public( $this->get_plugin_name(), $this->get_version() );
 
-		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_styles');
-		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');
-		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_editor_panel', 100);
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_editor_panel', 100 );
 	}
 
 	/**
@@ -335,8 +343,7 @@ class BRICKSFLY_Plugin
 	 *
 	 * @since    1.0.0
 	 */
-	public function run()
-	{
+	public function run() {
 		$this->loader->run();
 	}
 
@@ -347,8 +354,7 @@ class BRICKSFLY_Plugin
 	 * @since     1.0.0
 	 * @return    string    The name of the plugin.
 	 */
-	public function get_plugin_name()
-	{
+	public function get_plugin_name() {
 		return $this->plugin_name;
 	}
 
@@ -358,8 +364,7 @@ class BRICKSFLY_Plugin
 	 * @since     1.0.0
 	 * @return    BRICKSFLY_Loader    Orchestrates the hooks of the plugin.
 	 */
-	public function get_loader()
-	{
+	public function get_loader() {
 		return $this->loader;
 	}
 
@@ -369,8 +374,7 @@ class BRICKSFLY_Plugin
 	 * @since     1.0.0
 	 * @return    string    The version number of the plugin.
 	 */
-	public function get_version()
-	{
+	public function get_version() {
 		return $this->version;
 	}
 }

@@ -1,11 +1,11 @@
 <?php
 
-if (! defined('ABSPATH')) {
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;  // Exit if accessed directly.
 }
 
 $bricksfly_config = array(
-	'widgets'            => array(
+	'widgets'      => array(
 		'is_active' => false,
 		'elements'  => array(
 			'general-elements'   => array(
@@ -13,13 +13,13 @@ $bricksfly_config = array(
 				'is_active' => false,
 				'elements'  => array(
 
-					'button-pro'         => array(
+					'button-pro'        => array(
 						'label'        => 'Advanced Button Pro',
 						'location'     => array(
 							'cTab' => 'all',
 						),
 						'is_active'    => false,
-						'setup'        => array('basic'),
+						'setup'        => array( 'basic' ),
 						'is_pro'       => false,
 						'is_extension' => false,
 						'is_upcoming'  => false,
@@ -36,13 +36,13 @@ $bricksfly_config = array(
 						'description'  => 'Advanced Button Pro widget with enhanced styling and animation options to create eye-catching call-to-action buttons that drive engagement and conversions on your website.',
 					),
 
-					'social-icons'         => array(
+					'social-icons'      => array(
 						'label'        => 'Social Icons',
 						'location'     => array(
 							'cTab' => 'all',
 						),
 						'is_active'    => false,
-						'setup'        => array('basic'),
+						'setup'        => array( 'basic' ),
 						'is_pro'       => false,
 						'is_extension' => false,
 						'is_upcoming'  => false,
@@ -65,13 +65,13 @@ $bricksfly_config = array(
 						'youtube_url'  => '',
 						'description'  => 'Link your social accounts and customize the look to perfectly match your branding.',
 					),
-					'brand-slider'         => array(
+					'brand-slider'      => array(
 						'label'        => 'Brand Slider',
 						'location'     => array(
 							'cTab' => 'all',
 						),
 						'is_active'    => false,
-						'setup'        => array('basic'),
+						'setup'        => array( 'basic' ),
 						'is_pro'       => false,
 						'is_extension' => false,
 						'is_upcoming'  => false,
@@ -94,13 +94,13 @@ $bricksfly_config = array(
 						'youtube_url'  => '',
 						'description'  => 'Boost credibility and visibility by highlighting trusted logos with a smooth, auto-scrolling slider.',
 					),
-					'counter'              => array(
+					'counter'           => array(
 						'label'        => 'Counter',
 						'location'     => array(
 							'cTab' => 'all',
 						),
 						'is_active'    => false,
-						'setup'        => array('basic'),
+						'setup'        => array( 'basic' ),
 						'is_pro'       => false,
 						'is_extension' => false,
 						'is_upcoming'  => false,
@@ -123,13 +123,13 @@ $bricksfly_config = array(
 						'youtube_url'  => '',
 						'description'  => 'Impress visitors with live stats and milestones using fully animated number counters.',
 					),
-					'progressbar'          => array(
+					'progressbar'       => array(
 						'label'        => 'Progress Bar',
 						'location'     => array(
 							'cTab' => 'all',
 						),
 						'is_active'    => false,
-						'setup'        => array('basic'),
+						'setup'        => array( 'basic' ),
 						'is_pro'       => false,
 						'is_extension' => false,
 						'is_upcoming'  => false,
@@ -153,13 +153,13 @@ $bricksfly_config = array(
 						'description'  => 'Visualize stats and skills with animated line, circle, or dot-style progress bars.',
 					),
 
-					'gallery-progress'          => array(
+					'gallery-progress'  => array(
 						'label'        => 'Gallery Progress',
 						'location'     => array(
 							'cTab' => 'all',
 						),
 						'is_active'    => false,
-						'setup'        => array('basic'),
+						'setup'        => array( 'basic' ),
 						'is_pro'       => true,
 						'is_extension' => false,
 						'is_upcoming'  => false,
@@ -183,13 +183,13 @@ $bricksfly_config = array(
 						'description'  => 'Visualize stats and skills with animated line, circle, or dot-style progress bars.',
 					),
 
-					'flip-box'             => array(
+					'flip-box'          => array(
 						'label'        => 'Flip Box',
 						'location'     => array(
 							'cTab' => 'all',
 						),
 						'is_active'    => false,
-						'setup'        => array('basic'),
+						'setup'        => array( 'basic' ),
 						'is_pro'       => true,
 						'is_extension' => false,
 						'is_upcoming'  => false,
@@ -213,13 +213,13 @@ $bricksfly_config = array(
 						'description'  => 'Flip, zoom or fade between a front and back side with 3D depth, saved templates and a built-in button.',
 					),
 
-					'stacking-cards'          => array(
+					'stacking-cards'    => array(
 						'label'        => 'Stacking Cards',
 						'location'     => array(
 							'cTab' => 'all',
 						),
 						'is_active'    => true,
-						'setup'        => array('basic'),
+						'setup'        => array( 'basic' ),
 						'is_pro'       => true,
 						'is_extension' => false,
 						'is_upcoming'  => false,
@@ -240,13 +240,13 @@ $bricksfly_config = array(
 						'description'  => 'Nestable drag-and-drop stacking cards with scroll-driven scale and dimming effects.',
 					),
 
-					'icon-box'             => array(
+					'icon-box'          => array(
 						'label'        => 'Icon Box',
 						'location'     => array(
 							'cTab' => 'all',
 						),
 						'is_active'    => false,
-						'setup'        => array('basic'),
+						'setup'        => array( 'basic' ),
 						'is_pro'       => false,
 						'is_extension' => false,
 						'is_upcoming'  => false,
@@ -269,13 +269,13 @@ $bricksfly_config = array(
 						'youtube_url'  => '',
 						'description'  => 'Refine your content presentation with flexible icon styling, typography, and layout options.',
 					),
-					'testimonial-1'        => array(
+					'testimonial-1'     => array(
 						'label'        => 'Testimonial',
 						'location'     => array(
 							'cTab' => 'all',
 						),
 						'is_active'    => false,
-						'setup'        => array('basic'),
+						'setup'        => array( 'basic' ),
 						'is_pro'       => false,
 						'is_extension' => false,
 						'is_upcoming'  => false,
@@ -298,7 +298,7 @@ $bricksfly_config = array(
 						'youtube_url'  => '',
 						'description'  => 'Share real stories and success quotes using animated testimonial sliders and flexible content settings.',
 					),
-					'testimonial-2'        => array(
+					'testimonial-2'     => array(
 						'label'        => 'Classic Testimonial',
 						'location'     => array(
 							'cTab' => 'all',
@@ -326,7 +326,7 @@ $bricksfly_config = array(
 						'youtube_url'  => '',
 						'description'  => 'Showcase real stories and client praise with a sleek, responsive testimonial carousel.',
 					),
-					'testimonial-3'        => array(
+					'testimonial-3'     => array(
 						'label'        => 'Modern Testimonial',
 						'location'     => array(
 							'cTab' => 'all',
@@ -355,7 +355,7 @@ $bricksfly_config = array(
 						'description'  => 'Highlight customer feedback with modern layouts, smooth sliders, and customizable design elements.',
 					),
 
-					'team'                 => array(
+					'team'              => array(
 						'label'        => 'Team',
 						'location'     => array(
 							'cTab' => 'all',
@@ -377,14 +377,14 @@ $bricksfly_config = array(
 							'team showcase slider',
 						),
 						'order'        => 48,
-						'setup'        => array('basic'),
+						'setup'        => array( 'basic' ),
 						'icon'         => 'wcf-icon-Team',
 						'demo_url'     => 'https://bricksfly.com/elements/aab-team',
 						'doc_url'      => 'https://bricksfly.com/docs/general-widgets/team/',
 						'youtube_url'  => '',
 						'description'  => 'Help visitors meet your team with photos, job titles, and clickable social media icons.',
 					),
-					'timeline'             => array(
+					'timeline'          => array(
 						'label'        => 'Timeline',
 						'location'     => array(
 							'cTab' => 'all',
@@ -412,7 +412,7 @@ $bricksfly_config = array(
 						'youtube_url'  => '',
 						'description'  => 'Use animated timelines to present events or project stages in a clear, organized progression.',
 					),
-					'floating-elements'    => array(
+					'floating-elements' => array(
 						'label'        => 'Floating',
 						'location'     => array(
 							'cTab' => 'all',
@@ -434,7 +434,7 @@ $bricksfly_config = array(
 							'floating graphic animation',
 						),
 						'order'        => 15,
-						'setup'        => array('basic'),
+						'setup'        => array( 'basic' ),
 						'icon'         => 'wcf-icon-Floating-Elements',
 						'demo_url'     => 'https://bricksfly.com/elements/aab-floating-elements',
 						'doc_url'      => 'https://bricksfly.com/docs/general-widgets/floating-elements/',
@@ -475,7 +475,7 @@ $bricksfly_config = array(
 						'youtube_url'  => '',
 						'description'  => 'Add stunning movement to your headlines and capture attention in just a second.',
 					),
-					'lottie' => array(
+					'lottie'           => array(
 						'label'        => 'Lottie',
 						'location'     => array(
 							'cTab' => 'all',
@@ -503,7 +503,7 @@ $bricksfly_config = array(
 						'youtube_url'  => '',
 						'description'  => 'Play Lottie animations on load, scroll, hover, click, in the viewport or following the mouse cursor.',
 					),
-					'stacking-cards' => array(
+					'stacking-cards'   => array(
 						'label'        => 'Stacking Cards',
 						'location'     => array(
 							'cTab' => 'all',
@@ -566,15 +566,15 @@ $bricksfly_config = array(
 				),
 			),
 			// 'slider'             => array(
-			// 	'title'     => 'Slider',
-			// 	'is_active' => false,
-			// 	'elements'  => array(),
+			// 'title'     => 'Slider',
+			// 'is_active' => false,
+			// 'elements'  => array(),
 			// ),
 			'dynamic-elements'   => array(
 				'title'     => 'Dynamic',
 				'is_active' => false,
 				'elements'  => array(
-					'post-social-share'  => array(
+					'post-social-share' => array(
 						'label'        => 'Social Share',
 						'location'     => array(
 							'cTab' => 'all',
@@ -602,7 +602,7 @@ $bricksfly_config = array(
 						'youtube_url'  => '',
 						'description'  => 'Customize social share icons to match your design and encourage content sharing with ease.',
 					),
-					'post-meta'          => array(
+					'post-meta'         => array(
 						'label'        => 'Post Meta',
 						'location'     => array(
 							'cTab' => 'all',
@@ -630,7 +630,7 @@ $bricksfly_config = array(
 						'youtube_url'  => '',
 						'description'  => 'Display rich post meta — author, date, categories, comments, reading time, view count, and more.',
 					),
-					'video-story'        => array(
+					'video-story'       => array(
 						'label'        => 'Video Story',
 						'location'     => array(
 							'cTab' => 'all',
@@ -661,9 +661,9 @@ $bricksfly_config = array(
 				),
 			),
 			// 'form-elements'      => array(
-			// 	'title'     => 'Form Widgets',
-			// 	'is_active' => false,
-			// 	'elements'  => array(),
+			// 'title'     => 'Form Widgets',
+			// 'is_active' => false,
+			// 'elements'  => array(),
 			// ),
 			'video-elements'     => array(
 				'title'     => 'Video',
@@ -691,7 +691,7 @@ $bricksfly_config = array(
 							'embedded popup video',
 						),
 						'order'        => 50,
-						'setup'        => array('basic'),
+						'setup'        => array( 'basic' ),
 						'icon'         => 'wcf-icon-Video-Popup',
 						'demo_url'     => 'https://bricksfly.com/elements/aab-video-popup',
 						'doc_url'      => 'https://bricksfly.com/docs/video-widgets/video-popup/',
@@ -783,7 +783,7 @@ $bricksfly_config = array(
 						'description'  => 'Use the Youtube Video Widget to bring artistic, interactive flair to your sites videos.',
 					),
 
-					'video-story' => array(
+					'video-story'      => array(
 						'label'        => 'Video Story',
 						'location'     => array(
 							'cTab' => 'all',
@@ -806,32 +806,32 @@ $bricksfly_config = array(
 					),
 
 					// 'scrollable-video' => array(
-					// 	'label'        => 'Scrollable Video',
-					// 	'location'     => array(
-					// 		'cTab' => 'all',
-					// 	),
-					// 	'is_active'    => false,
-					// 	'is_pro'       => true,
-					// 	'is_extension' => true,
-					// 	'is_upcoming'  => false,
-					// 	'keywords'     => array(
-					// 		'scrollable video',
-					// 		'scroll video',
-					// 		'gsap scroll video',
-					// 		'scrolltrigger video',
-					// 		'video on scroll',
-					// 		'pin video',
-					// 		'frame by frame video',
-					// 		'scroll triggered video',
-					// 		'video scrub',
-					// 		'scroll animation video',
-					// 	),
-					// 	'order'        => 78,
-					// 	'icon'         => 'wcf-icon-Video-Mask',
-					// 	'demo_url'     => 'https://bricksfly.com/elements/aab-scrollable-video',
-					// 	'doc_url'      => 'https://bricksfly.com/docs/video-widgets/scrollable-video/',
-					// 	'youtube_url'  => '',
-					// 	'description'  => 'Use the Scrollable Video Widget to play a video frame-by-frame as the user scrolls.',
+					// 'label'        => 'Scrollable Video',
+					// 'location'     => array(
+					// 'cTab' => 'all',
+					// ),
+					// 'is_active'    => false,
+					// 'is_pro'       => true,
+					// 'is_extension' => true,
+					// 'is_upcoming'  => false,
+					// 'keywords'     => array(
+					// 'scrollable video',
+					// 'scroll video',
+					// 'gsap scroll video',
+					// 'scrolltrigger video',
+					// 'video on scroll',
+					// 'pin video',
+					// 'frame by frame video',
+					// 'scroll triggered video',
+					// 'video scrub',
+					// 'scroll animation video',
+					// ),
+					// 'order'        => 78,
+					// 'icon'         => 'wcf-icon-Video-Mask',
+					// 'demo_url'     => 'https://bricksfly.com/elements/aab-scrollable-video',
+					// 'doc_url'      => 'https://bricksfly.com/docs/video-widgets/scrollable-video/',
+					// 'youtube_url'  => '',
+					// 'description'  => 'Use the Scrollable Video Widget to play a video frame-by-frame as the user scrolls.',
 					// ),
 
 					'video-box-slider' => array(
@@ -868,7 +868,7 @@ $bricksfly_config = array(
 				'title'     => 'Advanced',
 				'is_active' => false,
 				'elements'  => array(
-					'image-accordion'       => array(
+					'image-accordion' => array(
 						'label'        => 'Image Accordion',
 						'is_active'    => false,
 						'location'     => array(
@@ -896,7 +896,7 @@ $bricksfly_config = array(
 						'youtube_url'  => '',
 						'description'  => 'Present images creatively with collapsible sections, enhancing user experience and saving screen space.',
 					),
-					'image-hotspot'         => array(
+					'image-hotspot'   => array(
 						'label'        => 'Image Hotspot',
 						'is_active'    => false,
 						'location'     => array(
@@ -924,7 +924,7 @@ $bricksfly_config = array(
 						'youtube_url'  => '',
 						'description'  => 'Pin interactive hotspots on an image with dot, icon or text markers and hover, click or always-on tooltips.',
 					),
-					'toggle-switch'         => array(
+					'toggle-switch'   => array(
 						'label'        => 'Toggle Switch',
 						'is_active'    => false,
 						'location'     => array(
@@ -949,7 +949,7 @@ $bricksfly_config = array(
 						'youtube_url'  => '',
 						'description'  => 'Switch between two content panes (or saved Bricks templates) with a stylish toggle.',
 					),
-					'draggable-items'       => array(
+					'draggable-items' => array(
 						'label'        => 'Draggable Items',
 						'is_active'    => false,
 						'location'     => array(
@@ -981,13 +981,13 @@ $bricksfly_config = array(
 			),
 		),
 	),
-	'extensions'         => array(
+	'extensions'   => array(
 		'is_active' => false,
 		'elements'  => array(
 			'general-extensions' => array(
 				'title'     => 'General Extensions',
 				'is_active' => false,
-				'elements' => array(
+				'elements'  => array(
 
 					'general-settings' => array(
 						'title'     => 'General Settings',
@@ -995,7 +995,7 @@ $bricksfly_config = array(
 						'is_pro'    => true,
 						'is_active' => false,
 						'elements'  => array(
-							'tilt-effect'         => array(
+							'tilt-effect'      => array(
 								'label'        => 'Tilt Effect',
 								'location'     => array(
 									'cTab'     => 'general',
@@ -1005,13 +1005,13 @@ $bricksfly_config = array(
 								'is_active'    => false,
 								'is_extension' => false,
 								'is_upcoming'  => false,
-								'setup'        => array('basic'),
+								'setup'        => array( 'basic' ),
 								'icon'         => 'wcf-icon-Tilt-Effect',
 								'demo_url'     => 'https://bricksfly.com/extensions/tilt-effect/',
 								'doc_url'      => 'https://bricksfly.com/docs/general-extensions/tilt-effect/',
 								'youtube_url'  => '',
 							),
-							'advanced-tooltip'    => array(
+							'advanced-tooltip' => array(
 								'label'        => 'Advanced Tooltip',
 								'location'     => array(
 									'cTab'     => 'general',
@@ -1021,13 +1021,13 @@ $bricksfly_config = array(
 								'is_active'    => false,
 								'is_extension' => false,
 								'is_upcoming'  => false,
-								'setup'        => array('basic'),
+								'setup'        => array( 'basic' ),
 								'icon'         => 'wcf-icon-Advanced-Tooltip',
 								'demo_url'     => 'https://bricksfly.com/extensions/advanced-tooltip/',
 								'doc_url'      => 'https://bricksfly.com/docs/general-extensions/advanced-tooltip/',
 								'youtube_url'  => '',
 							),
-							'wrapper-link'        => array(
+							'wrapper-link'     => array(
 								'label'        => 'Wrapper Link',
 								'location'     => array(
 									'cTab'     => 'general',
@@ -1037,97 +1037,97 @@ $bricksfly_config = array(
 								'is_active'    => false,
 								'is_extension' => false,
 								'is_upcoming'  => false,
-								'setup'        => array('basic'),
+								'setup'        => array( 'basic' ),
 								'icon'         => 'wcf-icon-Wrapper-Link',
 								'demo_url'     => 'https://bricksfly.com/extensions/wrapper-link/',
 								'doc_url'      => 'https://bricksfly.com/docs/general-extensions/wrapper-link/',
 								'youtube_url'  => '',
 							),
-							
+
 							// 'popup'        => array(
-							// 	'label'        => 'Popup',
-							// 	'location'     => array(
-							// 		'cTab'     => 'general',
-							// 		'pluginId' => 'general-extensions',
-							// 	),
-							// 	'is_pro'       => true,
-							// 	'is_active'    => false,
-							// 	'is_extension' => false,
-							// 	'is_upcoming'  => false,
-							// 	'setup'        => array('basic'),
-							// 	'icon'         => 'wcf-icon-Wrapper-Link',
-							// 	'demo_url'     => 'https://bricksfly.com/extensions/popup/',
-							// 	'doc_url'      => 'https://bricksfly.com/docs/general-extensions/popup/',
-							// 	'youtube_url'  => '',
+							// 'label'        => 'Popup',
+							// 'location'     => array(
+							// 'cTab'     => 'general',
+							// 'pluginId' => 'general-extensions',
+							// ),
+							// 'is_pro'       => true,
+							// 'is_active'    => false,
+							// 'is_extension' => false,
+							// 'is_upcoming'  => false,
+							// 'setup'        => array('basic'),
+							// 'icon'         => 'wcf-icon-Wrapper-Link',
+							// 'demo_url'     => 'https://bricksfly.com/extensions/popup/',
+							// 'doc_url'      => 'https://bricksfly.com/docs/general-extensions/popup/',
+							// 'youtube_url'  => '',
 							// ),
 						),
 					),
 
-					'site-settings' => array(
+					'site-settings'    => array(
 						'title'     => 'Site Settings',
 						'doc_url'   => '',
 						'is_pro'    => true,
 						'is_active' => false,
 						'elements'  => array(
-							'settings-preloader'       => array(
-								'label'        => 'Preloader',
-								'location'     => array(
+							'settings-preloader'        => array(
+								'label'           => 'Preloader',
+								'location'        => array(
 									'cTab' => 'general',
 								),
-								'is_pro'       => true,
-								'is_active'    => false,
-								'is_extension' => false,
+								'is_pro'          => true,
+								'is_active'       => false,
+								'is_extension'    => false,
 								'is_sitesettings' => true,
-								'is_upcoming'  => false,
-								'icon'         => 'wcf-icon-settings-preloader',
-								'demo_url'     => 'https://bricksfly.com/extensions/preloader/',
-								'doc_url'      => 'https://bricksfly.com/docs/general-extensions/preloader/',
-								'youtube_url'  => '',
+								'is_upcoming'     => false,
+								'icon'            => 'wcf-icon-settings-preloader',
+								'demo_url'        => 'https://bricksfly.com/extensions/preloader/',
+								'doc_url'         => 'https://bricksfly.com/docs/general-extensions/preloader/',
+								'youtube_url'     => '',
 							),
-							'settings-cursor'       => array(
-								'label'        => 'Cursor',
-								'location'     => array(
+							'settings-cursor'           => array(
+								'label'           => 'Cursor',
+								'location'        => array(
 									'cTab' => 'general',
 								),
-								'is_pro'       => true,
-								'is_active'    => false,
-								'is_extension' => false,
+								'is_pro'          => true,
+								'is_active'       => false,
+								'is_extension'    => false,
 								'is_sitesettings' => true,
-								'is_upcoming'  => false,
-								'icon'         => 'wcf-icon-settings-cursor',
-								'demo_url'     => 'https://bricksfly.com/extensions/cursor/',
-								'doc_url'      => 'https://bricksfly.com/docs/general-extensions/cursor/',
-								'youtube_url'  => '',
+								'is_upcoming'     => false,
+								'icon'            => 'wcf-icon-settings-cursor',
+								'demo_url'        => 'https://bricksfly.com/extensions/cursor/',
+								'doc_url'         => 'https://bricksfly.com/docs/general-extensions/cursor/',
+								'youtube_url'     => '',
 							),
-							'settings-scroll-indicator'       => array(
-								'label'        => 'Scroll Indicator',
-								'location'     => array(
+							'settings-scroll-indicator' => array(
+								'label'           => 'Scroll Indicator',
+								'location'        => array(
 									'cTab' => 'general',
 								),
-								'is_pro'       => true,
-								'is_active'    => false,
-								'is_extension' => false,
+								'is_pro'          => true,
+								'is_active'       => false,
+								'is_extension'    => false,
 								'is_sitesettings' => true,
-								'is_upcoming'  => false,
-								'icon'         => 'wcf-icon-settings-scroll-indicator',
-								'demo_url'     => 'https://bricksfly.com/extensions/scroll-indicator/',
-								'doc_url'      => 'https://bricksfly.com/docs/general-extensions/scroll-indicator/',
-								'youtube_url'  => '',
+								'is_upcoming'     => false,
+								'icon'            => 'wcf-icon-settings-scroll-indicator',
+								'demo_url'        => 'https://bricksfly.com/extensions/scroll-indicator/',
+								'doc_url'         => 'https://bricksfly.com/docs/general-extensions/scroll-indicator/',
+								'youtube_url'     => '',
 							),
-							'settings-scroll-to-top'       => array(
-								'label'        => 'Scroll To Top',
-								'location'     => array(
+							'settings-scroll-to-top'    => array(
+								'label'           => 'Scroll To Top',
+								'location'        => array(
 									'cTab' => 'general',
 								),
-								'is_pro'       => true,
-								'is_active'    => false,
-								'is_extension' => false,
+								'is_pro'          => true,
+								'is_active'       => false,
+								'is_extension'    => false,
 								'is_sitesettings' => true,
-								'is_upcoming'  => false,
-								'icon'         => 'wcf-icon-settings-scroll-to-top',
-								'demo_url'     => 'https://bricksfly.com/extensions/scroll-to-top/',
-								'doc_url'      => 'https://bricksfly.com/docs/general-extensions/scroll-to-top/',
-								'youtube_url'  => '',
+								'is_upcoming'     => false,
+								'icon'            => 'wcf-icon-settings-scroll-to-top',
+								'demo_url'        => 'https://bricksfly.com/extensions/scroll-to-top/',
+								'doc_url'         => 'https://bricksfly.com/docs/general-extensions/scroll-to-top/',
+								'youtube_url'     => '',
 							),
 						),
 					),
@@ -1154,7 +1154,7 @@ $bricksfly_config = array(
 								'is_active'    => false,
 								'is_extension' => false,
 								'is_upcoming'  => false,
-								'setup'        => array('basic', 'advance'),
+								'setup'        => array( 'basic', 'advance' ),
 								'icon'         => 'wcf-icon-Animation',
 								'demo_url'     => 'https://bricksfly.com/extensions/animation/',
 								'doc_url'      => 'https://bricksfly.com/docs/gsap-extensions/animation/',
@@ -1170,7 +1170,7 @@ $bricksfly_config = array(
 								'is_active'    => false,
 								'is_extension' => false,
 								'is_upcoming'  => false,
-								'setup'        => array('basic', 'advance'),
+								'setup'        => array( 'basic', 'advance' ),
 								'icon'         => 'wcf-icon-Pin-Elements',
 								'demo_url'     => 'https://bricksfly.com/extensions/sticky-pin-element/',
 								'doc_url'      => 'https://bricksfly.com/docs/gsap-extensions/sticky-pin-element/',
@@ -1216,7 +1216,7 @@ $bricksfly_config = array(
 								'is_active'    => false,
 								'is_extension' => false,
 								'is_upcoming'  => false,
-								'setup'        => array('basic'),
+								'setup'        => array( 'basic' ),
 								'icon'         => 'wcf-icon-Animation',
 								'demo_url'     => 'https://bricksfly.com/extensions/parallax-effect/',
 								'doc_url'      => 'https://bricksfly.com/docs/gsap-extensions/parallax-effect/',
@@ -1224,7 +1224,7 @@ $bricksfly_config = array(
 							),
 						),
 					),
-					'effect' => array(
+					'effect'              => array(
 						'title'     => 'Effects',
 						'doc_url'   => '#',
 						'is_pro'    => true,
@@ -1240,7 +1240,7 @@ $bricksfly_config = array(
 								'is_active'    => false,
 								'is_extension' => false,
 								'is_upcoming'  => false,
-								'setup'        => array('basic'),
+								'setup'        => array( 'basic' ),
 								'icon'         => 'wcf-icon-Cursor-Hover-Effect',
 								'demo_url'     => 'https://bricksfly.com/extensions/cursor-hover-effect/',
 								'doc_url'      => 'https://bricksfly.com/docs/gsap-extensions/cursor-hover-effect/',
@@ -1256,7 +1256,7 @@ $bricksfly_config = array(
 								'is_active'    => false,
 								'is_extension' => false,
 								'is_upcoming'  => false,
-								'setup'        => array('basic'),
+								'setup'        => array( 'basic' ),
 								'icon'         => 'wcf-icon-Image-Hover-Effect',
 								'demo_url'     => 'https://bricksfly.com/extensions/image-reveal-on-hover/',
 								'doc_url'      => 'https://bricksfly.com/docs/gsap-extensions/image-reveal-on-hover/',
@@ -1272,7 +1272,7 @@ $bricksfly_config = array(
 								'is_active'    => false,
 								'is_extension' => false,
 								'is_upcoming'  => false,
-								'setup'        => array('basic'),
+								'setup'        => array( 'basic' ),
 								'icon'         => 'wcf-icon-Cursor-Move-Effect',
 								'demo_url'     => 'https://bricksfly.com/extensions/cursor-move-effect/',
 								'doc_url'      => 'https://bricksfly.com/docs/gsap-extensions/cursor-move-effect/',
@@ -1288,7 +1288,7 @@ $bricksfly_config = array(
 								'is_active'    => false,
 								'is_extension' => false,
 								'is_upcoming'  => false,
-								'setup'        => array('basic'),
+								'setup'        => array( 'basic' ),
 								'icon'         => 'wcf-icon-Cursor-Move-Effect',
 								'demo_url'     => 'https://bricksfly.com/extensions/magnetic-effect/',
 								'doc_url'      => 'https://bricksfly.com/docs/gsap-extensions/magnetic-effect/',
@@ -1297,7 +1297,7 @@ $bricksfly_config = array(
 							),
 						),
 					),
-					'scroll-trigger' => array(
+					'scroll-trigger'      => array(
 						'title'     => 'ScrollTrigger',
 						'doc_url'   => '#',
 						'is_pro'    => true,
@@ -1313,7 +1313,7 @@ $bricksfly_config = array(
 								'is_active'    => false,
 								'is_extension' => false,
 								'is_upcoming'  => false,
-								'setup'        => array('basic'),
+								'setup'        => array( 'basic' ),
 								'icon'         => 'wcf-icon-Horizontal',
 								'demo_url'     => 'https://bricksfly.com/extensions/horizontal/',
 								'doc_url'      => 'https://bricksfly.com/docs/gsap-extensions/horizontal/',
@@ -1329,7 +1329,7 @@ $bricksfly_config = array(
 								'is_active'    => false,
 								'is_extension' => false,
 								'is_upcoming'  => false,
-								'setup'        => array('basic'),
+								'setup'        => array( 'basic' ),
 								'icon'         => 'wcf-icon-Horizontal',
 								'demo_url'     => 'https://bricksfly.com/extensions/scroll-to/',
 								'doc_url'      => 'https://bricksfly.com/docs/gsap-extensions/scroll-to/',
@@ -1345,7 +1345,7 @@ $bricksfly_config = array(
 								'is_active'    => false,
 								'is_extension' => false,
 								'is_upcoming'  => false,
-								'setup'        => array('basic'),
+								'setup'        => array( 'basic' ),
 								'icon'         => 'wcf-icon-Pin-Elements',
 								'demo_url'     => 'https://bricksfly.com/extensions/stacking-cards/',
 								'doc_url'      => 'https://bricksfly.com/docs/gsap-extensions/stacking-cards/',
@@ -1353,14 +1353,14 @@ $bricksfly_config = array(
 								'description'  => 'Apple and Linear style scroll-driven overlapping stacked cards with smooth scale and dimming.',
 							),
 						),
-					),	
+					),
 
 
 				),
 			),
 		),
 	),
-	'integrations'       => array(
+	'integrations' => array(
 		'plugins' => array(
 			'title'    => 'Plugins',
 			'elements' => array(
@@ -1533,21 +1533,21 @@ $bricksfly_dashboard_pro_widget_slugs = array(
 	'testimonial-1',
 	'button-pro',
 );
-$bricksfly_widget_index = array();
-if (! empty($bricksfly_config['widgets']['elements']) && is_array($bricksfly_config['widgets']['elements'])) {
-	foreach ($bricksfly_config['widgets']['elements'] as $bricksfly_group) {
-		if (empty($bricksfly_group['elements']) || ! is_array($bricksfly_group['elements'])) {
+$bricksfly_widget_index               = array();
+if ( ! empty( $bricksfly_config['widgets']['elements'] ) && is_array( $bricksfly_config['widgets']['elements'] ) ) {
+	foreach ( $bricksfly_config['widgets']['elements'] as $bricksfly_group ) {
+		if ( empty( $bricksfly_group['elements'] ) || ! is_array( $bricksfly_group['elements'] ) ) {
 			continue;
 		}
-		foreach ($bricksfly_group['elements'] as $bricksfly_slug => $bricksfly_widget) {
-			$bricksfly_widget_index[$bricksfly_slug] = $bricksfly_widget;
+		foreach ( $bricksfly_group['elements'] as $bricksfly_slug => $bricksfly_widget ) {
+			$bricksfly_widget_index[ $bricksfly_slug ] = $bricksfly_widget;
 		}
 	}
 }
 $bricksfly_dashboard_pro_widgets = array();
-foreach ($bricksfly_dashboard_pro_widget_slugs as $bricksfly_slug) {
-	if (isset($bricksfly_widget_index[$bricksfly_slug])) {
-		$bricksfly_dashboard_pro_widgets[$bricksfly_slug] = $bricksfly_widget_index[$bricksfly_slug];
+foreach ( $bricksfly_dashboard_pro_widget_slugs as $bricksfly_slug ) {
+	if ( isset( $bricksfly_widget_index[ $bricksfly_slug ] ) ) {
+		$bricksfly_dashboard_pro_widgets[ $bricksfly_slug ] = $bricksfly_widget_index[ $bricksfly_slug ];
 	}
 }
 $bricksfly_config['dashboardProWidget'] = $bricksfly_dashboard_pro_widgets;

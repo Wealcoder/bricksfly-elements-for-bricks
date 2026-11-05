@@ -4,7 +4,7 @@ Tags: bricks builder, bricks templates, bricks builder addons, bricks elements, 
 Requires at least: 6.9
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.10
+Stable tag: 1.0.11
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,7 @@ Design dynamic websites with a growing collection of Bricks Elements, from creat
 #### Advanced Elements
 
 - **Image Accordion**: Highlight images with smooth accordion-style interactions.
+- **Image Hotspot**: Place clickable markers with tooltips on an image.
 - **Toggle Switch**: Add interactive on and off toggle elements for content control.
 - **Draggable Items**: Add drag-and-drop interactive items to a page.
 
@@ -303,6 +304,18 @@ The files in `public/build` are compiled (minified) JavaScript and CSS. **Their 
 
 == Changelog ==
 
+= 1.0.11 =
+- Added: The Image Hotspot element, to place clickable markers with tooltips on an image.
+- Added: When you insert a section from the library, an Import settings window lets you choose "Keep original design" or "Use this site's style", and "Keep demo image links" (default) or "Copy images to my site". SVG icons are always copied so they display.
+- Added: While a section is importing, the screen is locked and "Importing section..." is shown in the middle.
+- Added: Variables a section uses are added to your site's Variables. A variable you already have is never replaced. If the section only exports a color palette, the variables are built from it.
+- Added: Clear error and warning messages that say what went wrong and what to do.
+- Improved: A section never overrides a global class your site already has. A class with the same name and the same styling is reused; one with different styling is added as "name-2".
+- Improved: "Use this site's style" does not add the template's classes or variables, and removes the fonts and color variables set on the section, so your theme styles apply.
+- Improved: References to the library's custom fonts, which are not part of the export, are removed so the section uses your site's fonts.
+- Fixed: Section names with a dash or quote showed raw HTML codes in the library.
+- Fixed: Filtering or searching quickly could show duplicate or wrong cards in the library.
+
 = 1.0.10 =
 - Added: The seasonal BricksFly Pro offer also shows in the BricksFly dashboard, below its menu (Dashboard, Elements, Extensions and Free vs Pro tabs). It has no close button and shows until the offer ends.
 - Changed: The offer notice no longer tries to show on BricksFly screens, which hide WordPress notices.
@@ -319,21 +332,12 @@ The files in `public/build` are compiled (minified) JavaScript and CSS. **Their 
 - Changed: The plugin is now named "BricksFly Elements and Templates for Bricks". The GSAP animation engine is part of the separate BricksFly Pro plugin, so it is no longer in this plugin's name.
 - Changed: The description on the Plugins screen now lists only what this plugin includes.
 
-= 1.0.6 =
-- Fixed: Switching to another theme is no longer blocked. BricksFly only shows a notice when Bricks is not the active theme.
-- Fixed: The Support and Rate links point to this plugin's WordPress.org pages.
-- Removed: The "Request a feature" form on the dashboard, which did not send anything.
-- Removed: An unused deactivation-feedback handler.
-- Improved: BricksFly Pro is detected from the installed plugins list instead of an assumed folder path.
-- Removed: An unused script that rewrote dashboard text.
-- Updated: The readme now marks every feature that is part of BricksFly Pro, including the GSAP Extensions.
-- Improved: Template import no longer clears the whole object cache, and only clears the cache of the items it imported.
-- Improved: Template import uses WordPress's own admin memory limit, and allows .xml/.json uploads only during the import upload.
-- Improved: Removed duplicate copies of the source files from `public/build`; the readable source is in `src`.
-
 [See the full changelog](https://plugins.trac.wordpress.org/browser/bricksfly-elements-for-bricks/trunk/changelog.txt).
 
 == Upgrade Notice ==
+
+= 1.0.11 =
+Better section import: choose to keep the original design or use your site's style, keep or copy images, and your existing global classes and variables are never overwritten.
 
 = 1.0.10 =
 Shows the seasonal BricksFly Pro offer in the BricksFly dashboard too. No changes to Elements or templates.
