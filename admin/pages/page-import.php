@@ -157,7 +157,7 @@ class BRICKSFLY_Page_Importer {
 		wp_enqueue_script(
 			'bricksfly-page-importer-admin',
 			BRICKSFLY_URL . 'public/build/admin/page-import.js',
-			array( 'wp-element' ),
+			array( 'wp-element', 'react-jsx-runtime' ),
 			time(),
 			true
 		);

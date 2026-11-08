@@ -64,6 +64,7 @@ import "../../scss/admin/aab-template-library.scss";
 			if (injectToolbarButton()) {
 				clearInterval(iv);
 				observeBuilderForReinjection();
+				watchCanvasActions();
 				return;
 			}
 
@@ -72,6 +73,7 @@ import "../../scss/admin/aab-template-library.scss";
 				// in case the toolbar appears later (e.g. on tab switch).
 				clearInterval(iv);
 				observeBuilderForReinjection();
+				watchCanvasActions();
 			}
 		}, 250);
 	}
@@ -94,7 +96,7 @@ import "../../scss/admin/aab-template-library.scss";
 		// tooltip on the wrapping anchor/li). We resolve to the closest
 		// `li` so the inserted node lives at the same level in the menu.
 		var undoEl = document.querySelector(
-			'#bricks-toolbar .ion-ios-undo, #bricks-toolbar [class*="undo"], #bricks-toolbar [data-balloon="Undo"], #bricks-toolbar [title="Undo"]'
+			'#bricks-toolbar-top ul.group-wrapper.end > li.undo, #bricks-toolbar .ion-ios-undo, #bricks-toolbar [class*="undo"], #bricks-toolbar [data-balloon="Undo"], #bricks-toolbar [title="Undo"]'
 		);
 		var undoItem = undoEl ? (undoEl.closest('li') || undoEl.closest('.action') || undoEl) : null;
 
@@ -102,7 +104,10 @@ import "../../scss/admin/aab-template-library.scss";
 		// the DOM yet (Bricks renders the toolbar asynchronously).
 		var host = null;
 		if (!undoItem) {
+			// The right-hand group of the toolbar ends with Save; never append
+			// after it, or the button would sit to the right of Save.
 			var hosts = [
+				'#bricks-toolbar-top ul.group-wrapper.end',
 				'#bricks-toolbar ul.menu',
 				'#bricks-toolbar',
 				'.bricks-toolbar',
@@ -160,10 +165,252 @@ import "../../scss/admin/aab-template-library.scss";
 
 		btn.addEventListener('click', function (e) {
 			e.preventDefault();
-			openLibraryModal();
+			startImport(btn);
 		});
 
 		return true;
+	}
+
+	/**
+	 * Entry point of the Import Section buttons (toolbar and canvas).
+	 *
+	 * With BricksFly Pro, a section copied on the BricksFly site (Live Copy) may be
+	 * waiting. Then there are two sources, so the user picks one: A. Cloud (the
+	 * library) or B. Live Paste. Without Pro, or with nothing copied, the library
+	 * opens straight away, as before. Pro answers from a background check, so the
+	 * click does not wait for the network.
+	 */
+	var importChecking = false;
+
+	function startImport(trigger) {
+		var api = window.BRICKSFLY_LIVE_PASTE_API;
+		if (!api || typeof api.enabled !== 'function' || typeof api.peek !== 'function' || !api.enabled()) {
+			openLibraryModal();
+			return;
+		}
+
+		if (importChecking) {
+			return;
+		}
+		importChecking = true;
+		// Visible feedback while we ask the bridge (usually well under two seconds).
+		if (trigger && trigger.style) { trigger.style.cursor = 'progress'; trigger.style.opacity = '0.6'; }
+
+		api.peek(function (res) {
+			importChecking = false;
+			if (trigger && trigger.style) { trigger.style.cursor = ''; trigger.style.opacity = ''; }
+
+			if (res && res.found && res.payload) {
+				showSourceChooser(api, res);
+			} else {
+				openLibraryModal();
+			}
+		}, 2500);
+	}
+
+	function showSourceChooser(api, res) {
+		var old = document.getElementById('aab-tl-source');
+		if (old) { old.parentNode.removeChild(old); }
+
+		var count = parseInt(res.count, 10) || 0;
+		var liveDesc = (count === 1 ? (I18N.source_live_desc_one || 'Paste the section you copied with Live Copy (1 element).') : (I18N.source_live_desc || 'Paste the section you copied with Live Copy (%d elements).')).replace('%d', String(count));
+		var shortcut = api.shortcut ? '<kbd class="aab-tl-source__kbd">' + escapeHtml(api.shortcut) + '</kbd>' : '';
+		var previous = document.activeElement;
+
+		var box = document.createElement('div');
+		box.id = 'aab-tl-source';
+		box.className = 'aab-tl-source';
+		box.setAttribute('role', 'dialog');
+		box.setAttribute('aria-modal', 'true');
+		box.setAttribute('aria-labelledby', 'aab-tl-source-title');
+		box.innerHTML =
+			'<div class="aab-tl-source__backdrop"></div>' +
+			'<div class="aab-tl-source__dialog">' +
+				'<h2 id="aab-tl-source-title" class="aab-tl-source__title">' + escapeHtml(I18N.source_title || 'Import Section') + '</h2>' +
+				'<p class="aab-tl-source__sub">' + escapeHtml(I18N.source_sub || 'Where do you want to import from?') + '</p>' +
+				'<button type="button" class="aab-tl-source__card" data-source="cloud">' +
+					'<span class="aab-tl-source__key" aria-hidden="true">A</span>' +
+					'<span class="aab-tl-source__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 18a4 4 0 0 1-.6-7.96A5.5 5.5 0 0 1 17 9.5 4 4 0 0 1 17 18H7z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>' +
+					'<span class="aab-tl-source__text"><strong>' + escapeHtml(I18N.source_cloud || 'Cloud') + '</strong><small>' + escapeHtml(I18N.source_cloud_desc || 'Browse ready-made sections from the BricksFly library.') + '</small></span>' +
+				'</button>' +
+				'<button type="button" class="aab-tl-source__card" data-source="live">' +
+					'<span class="aab-tl-source__key" aria-hidden="true">B</span>' +
+					'<span class="aab-tl-source__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M13 3 5 13.5h6L10 21l8-10.5h-6L13 3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>' +
+					'<span class="aab-tl-source__text"><strong>' + escapeHtml(I18N.source_live || 'Live Paste') + '</strong><small>' + escapeHtml(liveDesc) + '</small></span>' +
+					shortcut +
+				'</button>' +
+				'<button type="button" class="aab-tl-source__cancel">' + escapeHtml(I18N.cancel || 'Cancel') + '</button>' +
+			'</div>';
+		document.body.appendChild(box);
+
+		function close() {
+			document.removeEventListener('keydown', onKey, true);
+			if (box.parentNode) { box.parentNode.removeChild(box); }
+			if (previous && previous.focus) { try { previous.focus(); } catch (e) { } }
+		}
+
+		function choose(source) {
+			close();
+			if (source === 'live') {
+				api.paste(res.payload);
+			} else {
+				// Cloud picked: this copy is not offered again until something new is copied.
+				if (typeof api.dismiss === 'function') { api.dismiss(res.payload); }
+				openLibraryModal();
+			}
+		}
+
+		function onKey(e) {
+			var key = String(e.key || '').toLowerCase();
+			if (key === 'escape') {
+				e.preventDefault();
+				e.stopPropagation();
+				close();
+			} else if (key === 'a' || key === '1') {
+				e.preventDefault();
+				e.stopPropagation();
+				choose('cloud');
+			} else if (key === 'b' || key === '2') {
+				e.preventDefault();
+				e.stopPropagation();
+				choose('live');
+			} else if (key === 'tab') {
+				var items = box.querySelectorAll('button');
+				var first = items[0];
+				var last = items[items.length - 1];
+				if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+				else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+			}
+		}
+
+		document.addEventListener('keydown', onKey, true);
+		box.querySelector('.aab-tl-source__backdrop').addEventListener('click', close);
+		box.querySelector('.aab-tl-source__cancel').addEventListener('click', close);
+		Array.prototype.forEach.call(box.querySelectorAll('.aab-tl-source__card'), function (card) {
+			card.addEventListener('click', function () { choose(card.getAttribute('data-source')); });
+		});
+
+		var firstCard = box.querySelector('.aab-tl-source__card');
+		if (firstCard) { firstCard.focus(); }
+	}
+
+	/**
+	 * Canvas "Import" button. Bricks shows a small action bar (+ Insert, layout,
+	 * width, height ...) for the selected container / block / section, inside the
+	 * preview iframe. We add the BricksFly logo as another action there, before
+	 * "+ Insert". The paste then goes relative to that selected element.
+	 *
+	 * Bricks renders the bar with Vue and rebuilds it whenever the selection
+	 * changes, so the button is added again by a MutationObserver. The iframe
+	 * document has none of our CSS, hence the small inline stylesheet.
+	 */
+	var canvasDoc = null;
+	var canvasObserver = null;
+
+	function getCanvasDoc() {
+		var frame = document.getElementById('bricks-builder-iframe');
+		try {
+			return frame && frame.contentDocument && frame.contentDocument.body ? frame.contentDocument : null;
+		} catch (e) {
+			return null;
+		}
+	}
+
+	// One action item for either canvas bar. `kind` is "bar" (the selected
+	// element's actions, labelled with title) or "blank" (the empty-page actions,
+	// labelled with data-balloon like Bricks' own tiles there).
+	function buildCanvasItem(doc, kind) {
+		var label = I18N.button_label || 'Import Section';
+		var logoUrl = I18N.logo_url || (window.BRICKSFLY_TEMPLATE_LIBRARY && window.BRICKSFLY_TEMPLATE_LIBRARY.logo_url) || '';
+		var item = doc.createElement(kind === 'blank' ? 'span' : 'li');
+		item.className = 'action aab-canvas-import';
+		if (kind === 'blank') {
+			item.setAttribute('data-balloon', label);
+		} else {
+			item.setAttribute('title', label);
+		}
+		item.setAttribute('aria-label', label);
+		item.setAttribute('role', 'button');
+		item.setAttribute('tabindex', '0');
+		item.innerHTML = logoUrl
+			? '<img src="' + escapeAttr(logoUrl) + '" alt="" aria-hidden="true" draggable="false" />'
+			: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18a4 4 0 0 1-.6-7.96A5.5 5.5 0 0 1 17 9.5 4 4 0 0 1 17 18H7z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>';
+
+		function open(e) {
+			e.preventDefault();
+			e.stopPropagation();
+			startImport(item);
+		}
+		item.addEventListener('click', open);
+		item.addEventListener('keydown', function (e) {
+			if (e.key === 'Enter' || e.key === ' ') { open(e); }
+		});
+
+		return item;
+	}
+
+	function addCanvasButton(doc) {
+		// 1) Actions of the selected element: before "+ Insert". Only on elements
+		// that can hold a section (the ones that have "+ Insert").
+		var bar = doc.getElementById('bricks-preview-element-actions');
+		if (bar && !bar.querySelector('.aab-canvas-import')) {
+			var insertItem = bar.querySelector('li.action.add');
+			if (insertItem) {
+				bar.insertBefore(buildCanvasItem(doc, 'bar'), insertItem);
+			}
+		}
+
+		// 2) Empty page: the row of tiles (Section, Layout, Templates, Help).
+		var blank = doc.querySelector('#bricks-blank-canvas .actions');
+		if (blank && !blank.querySelector('.aab-canvas-import')) {
+			blank.insertBefore(buildCanvasItem(doc, 'blank'), blank.firstChild);
+		}
+	}
+
+	function prepareCanvas(doc) {
+		if (!doc.getElementById('aab-canvas-style')) {
+			var style = doc.createElement('style');
+			style.id = 'aab-canvas-style';
+			style.textContent =
+				'#bricks-preview-element-actions li.aab-canvas-import{align-items:center;justify-content:center;cursor:pointer}' +
+				'#bricks-preview-element-actions li.aab-canvas-import img{display:block;width:62%;height:62%;object-fit:contain;pointer-events:none}' +
+				'#bricks-preview-element-actions li.aab-canvas-import svg{display:block;width:62%;height:62%;pointer-events:none}' +
+				'#bricks-blank-canvas .actions .aab-canvas-import{display:inline-flex;align-items:center;justify-content:center;cursor:pointer}' +
+				'#bricks-blank-canvas .actions .aab-canvas-import img{display:block;width:24px;height:24px;object-fit:contain;pointer-events:none}' +
+				'#bricks-blank-canvas .actions .aab-canvas-import svg{display:block;width:22px;height:22px;pointer-events:none}';
+			doc.head.appendChild(style);
+		}
+		addCanvasButton(doc);
+	}
+
+	function watchCanvasActions() {
+		var tick = function () {
+			var doc = getCanvasDoc();
+			if (!doc) {
+				return;
+			}
+
+			if (doc !== canvasDoc) {
+				// New iframe document (first load or a canvas reload).
+				if (canvasObserver) { canvasObserver.disconnect(); }
+				canvasDoc = doc;
+				prepareCanvas(doc);
+				var pending = false;
+				canvasObserver = new MutationObserver(function () {
+					if (pending) { return; }
+					pending = true;
+					window.requestAnimationFrame(function () {
+						pending = false;
+						if (canvasDoc) { prepareCanvas(canvasDoc); }
+					});
+				});
+				canvasObserver.observe(doc.body, { childList: true, subtree: true });
+			}
+		};
+
+		tick();
+		// The iframe document is replaced when Bricks reloads the canvas.
+		setInterval(tick, 1000);
 	}
 
 	/**
@@ -215,7 +462,69 @@ import "../../scss/admin/aab-template-library.scss";
 		});
 	}
 
+	/**
+	 * Full-size preview of a section's demo page inside the library. The header
+	 * has "Back to library", "Open in new tab" and the same Insert / Pro action
+	 * as the card, so a section can be inserted straight from its preview.
+	 */
+	function closePreview() {
+		var box = document.getElementById('aab-tl-preview');
+		if (box && box.parentNode) { box.parentNode.removeChild(box); }
+		document.removeEventListener('keydown', previewEsc, true);
+	}
+
+	function previewEsc(ev) {
+		if (ev.key === 'Escape' && document.getElementById('aab-tl-preview') && !document.getElementById('aab-tl-options')) {
+			ev.stopPropagation();
+			ev.preventDefault();
+			closePreview();
+		}
+	}
+
+	function openPreview(card) {
+		var url = card && card.getAttribute('data-demo');
+		if (!url) { return; }
+		closePreview();
+		var titleEl = card.querySelector('.aab-tl-card__title');
+		var title = titleEl ? titleEl.textContent : '';
+		var insertBtn = card.querySelector('.aab-tl-card__insert');
+		var proLink = card.querySelector('.aab-tl-card__pro');
+		var action = insertBtn
+			? '<button type="button" class="aab-tl-card__insert aab-tl-preview__insert"><span class="aab-tl-card__insert-icon" aria-hidden="true">+</span>' + escapeHtml(I18N.insert || 'Insert') + '</button>'
+			: (proLink ? '<a class="aab-tl-card__pro aab-tl-preview__pro" href="' + escapeAttr(proLink.getAttribute('href') || '') + '" target="_blank" rel="noopener">' + escapeHtml(proLink.textContent) + '</a>' : '');
+
+		var box = document.createElement('div');
+		box.id = 'aab-tl-preview';
+		box.className = 'aab-tl-preview';
+		box.innerHTML =
+			'<div class="aab-tl-preview__bar">' +
+				'<button type="button" class="aab-tl-preview__back"><span aria-hidden="true">&larr;</span> ' + escapeHtml(I18N.back_to_library || 'Back to library') + '</button>' +
+				'<span class="aab-tl-preview__title">' + escapeHtml(title) + '</span>' +
+				'<span class="aab-tl-preview__actions">' +
+					'<a class="aab-tl-preview__external" href="' + escapeAttr(url) + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(I18N.open_new_tab || 'Open in new tab') + ' &#8599;</a>' +
+					action +
+				'</span>' +
+			'</div>' +
+			'<div class="aab-tl-preview__frame">' +
+				'<span class="aab-tl-spinner"></span>' +
+				'<iframe src="' + escapeAttr(url) + '" title="' + escapeAttr(title) + '" loading="eager" referrerpolicy="no-referrer"></iframe>' +
+			'</div>';
+		document.body.appendChild(box);
+
+		box.querySelector('.aab-tl-preview__back').addEventListener('click', closePreview);
+		var ins = box.querySelector('.aab-tl-preview__insert');
+		if (ins) {
+			ins.addEventListener('click', function (e) {
+				e.preventDefault();
+				openInsertOptions(card, card.querySelector('.aab-tl-card__insert') || ins);
+			});
+		}
+		document.addEventListener('keydown', previewEsc, true);
+		box.querySelector('.aab-tl-preview__back').focus();
+	}
+
 	function closeLibraryModal() {
+		closePreview();
 		var modal = document.getElementById('aab-tl-modal');
 		if (modal) {
 			modal.classList.remove('aab-tl-modal--visible');
@@ -342,6 +651,14 @@ import "../../scss/admin/aab-template-library.scss";
 
 		// Grid click delegation â€” handle Insert.
 		modal.querySelector('#aab-tl-grid').addEventListener('click', function (e) {
+			// Preview opens the demo inside the library (plain clicks only, so
+			// "open in new tab" shortcuts keep working).
+			var previewEl = e.target.closest('.aab-tl-card__preview');
+			if (previewEl && !(e.ctrlKey || e.metaKey || e.shiftKey || e.button)) {
+				e.preventDefault();
+				openPreview(previewEl.closest('.aab-tl-card'));
+				return;
+			}
 			var insertEl = e.target.closest('.aab-tl-card__insert');
 			if (!insertEl) {
 				return;
@@ -444,10 +761,9 @@ import "../../scss/admin/aab-template-library.scss";
 		}
 		if (state.premium) {
 			url.searchParams.set('premium', state.premium);
-		} else {
-			// All: the library lists free sections before Pro ones.
-			url.searchParams.set('free_first', '1');
 		}
+		// No free_first: the library then returns the newest sections first
+		// (Free and Pro mixed), so new additions show on top.
 		if (state.colorType) {
 			url.searchParams.set('color_type', state.colorType);
 		}

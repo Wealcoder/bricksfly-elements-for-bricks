@@ -284,7 +284,7 @@ class BRICKSFLY_Admin_Init {
 			$dashboard_css_ver
 		);
 
-		wp_enqueue_script( 'bricksfly-admin', BRICKSFLY_URL . 'public/build/admin/dashboard.js', array( 'wp-element' ), $dashboard_js_ver, true );
+		wp_enqueue_script( 'bricksfly-admin', BRICKSFLY_URL . 'public/build/admin/dashboard.js', array( 'wp-element', 'react-jsx-runtime' ), $dashboard_js_ver, true );
 		bricksfly_get_total_config_elements_by_key( $GLOBALS['bricksfly_config']['extensions'], $total_extensions );
 		bricksfly_get_total_config_elements_by_key( $GLOBALS['bricksfly_config']['widgets'], $total_widgets );
 

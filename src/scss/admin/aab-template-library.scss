@@ -88,6 +88,21 @@
 	text-overflow: ellipsis;
 }
 
+/* Narrow screens: keep only the logo so the toolbar's Save button stays visible. */
+@media (max-width: 1500px) {
+	.aab-import-section-button {
+		width: 44px !important;
+	}
+
+	.aab-import-section-button .aab-import-section-button__inner {
+		padding: 0;
+	}
+
+	.aab-import-section-button__label {
+		display: none;
+	}
+}
+
 /* === Modal ======================================================= */
 
 .aab-tl-modal {
@@ -826,4 +841,237 @@
 	.aab-tl-busy__spinner {
 		animation-duration: 2.4s;
 	}
+}
+
+/* Import source chooser: A. Cloud / B. Live Paste */
+.aab-tl-source {
+	position: fixed;
+	inset: 0;
+	z-index: 100065;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+	color: #111;
+}
+
+.aab-tl-source__backdrop {
+	position: absolute;
+	inset: 0;
+	background: rgba(15, 15, 20, 0.55);
+}
+
+.aab-tl-source__dialog {
+	position: relative;
+	width: min(440px, calc(100vw - 32px));
+	padding: 22px;
+	border-radius: 14px;
+	background: #fff;
+	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+.aab-tl-source__title {
+	margin: 0;
+	font-size: 17px;
+	font-weight: 700;
+	color: #111;
+}
+
+.aab-tl-source__sub {
+	margin: 4px 0 16px;
+	font-size: 13px;
+	color: #555;
+}
+
+.aab-tl-source__card {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	width: 100%;
+	margin: 0 0 10px;
+	padding: 12px 14px;
+	border: 1px solid #e3e3e8;
+	border-radius: 10px;
+	background: #fff;
+	color: #111;
+	text-align: left;
+	cursor: pointer;
+	transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+
+	&:hover,
+	&:focus-visible {
+		border-color: #f5b800;
+		background: #fffaf0;
+		outline: none;
+		box-shadow: 0 0 0 3px rgba(245, 184, 0, 0.25);
+	}
+}
+
+.aab-tl-source__key {
+	flex: 0 0 auto;
+	width: 22px;
+	height: 22px;
+	border-radius: 6px;
+	background: #1e1e22;
+	color: #fff;
+	font-size: 12px;
+	font-weight: 700;
+	line-height: 22px;
+	text-align: center;
+}
+
+.aab-tl-source__icon {
+	flex: 0 0 auto;
+	display: inline-flex;
+	width: 34px;
+	height: 34px;
+	align-items: center;
+	justify-content: center;
+	border-radius: 8px;
+	background: #fff3cf;
+	color: #8a5a00;
+
+	svg {
+		width: 20px;
+		height: 20px;
+	}
+}
+
+.aab-tl-source__text {
+	display: flex;
+	flex: 1 1 auto;
+	flex-direction: column;
+	min-width: 0;
+
+	strong {
+		font-size: 14px;
+		font-weight: 700;
+		color: #111;
+	}
+
+	small {
+		margin-top: 2px;
+		font-size: 12.5px;
+		line-height: 1.35;
+		color: #555;
+	}
+}
+
+.aab-tl-source__kbd {
+	flex: 0 0 auto;
+	padding: 2px 6px;
+	border: 1px solid #d5d5db;
+	border-radius: 5px;
+	background: #f4f4f7;
+	color: #444;
+	font-family: inherit;
+	font-size: 11px;
+	white-space: nowrap;
+}
+
+.aab-tl-source__cancel {
+	display: block;
+	margin: 6px 0 0 auto;
+	padding: 7px 14px;
+	border: 1px solid #d5d5db;
+	border-radius: 8px;
+	background: #fff;
+	color: #333;
+	font-size: 13px;
+	cursor: pointer;
+
+	&:hover {
+		background: #f4f4f7;
+	}
+}
+
+/* In-library preview of a section's demo page (opens from the card's Preview). */
+.aab-tl-preview {
+	position: fixed;
+	inset: 0;
+	z-index: 100055;
+	display: flex;
+	flex-direction: column;
+	background: #f4f5f7;
+}
+
+.aab-tl-preview__bar {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	flex: 0 0 auto;
+	padding: 10px 16px;
+	background: #1c1c21;
+	color: #fff;
+}
+
+.aab-tl-preview__back {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 8px 14px;
+	border: 1px solid rgba(255, 255, 255, 0.25);
+	border-radius: 6px;
+	background: transparent;
+	color: #fff;
+	font-size: 13px;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.aab-tl-preview__back:hover,
+.aab-tl-preview__back:focus-visible {
+	border-color: #ffd53e;
+	color: #ffd53e;
+	outline: none;
+}
+
+.aab-tl-preview__title {
+	flex: 1 1 auto;
+	min-width: 0;
+	overflow: hidden;
+	font-size: 14px;
+	font-weight: 600;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.aab-tl-preview__actions {
+	display: inline-flex;
+	align-items: center;
+	gap: 14px;
+}
+
+.aab-tl-preview__external {
+	color: #cfd0d6;
+	font-size: 13px;
+	text-decoration: none;
+}
+
+.aab-tl-preview__external:hover {
+	color: #fff;
+	text-decoration: underline;
+}
+
+.aab-tl-preview__frame {
+	position: relative;
+	flex: 1 1 auto;
+	min-height: 0;
+}
+
+.aab-tl-preview__frame iframe {
+	position: relative;
+	z-index: 1;
+	display: block;
+	width: 100%;
+	height: 100%;
+	border: 0;
+	background: #fff;
+}
+
+.aab-tl-preview__frame .aab-tl-spinner {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -14px 0 0 -14px;
 }
