@@ -463,55 +463,84 @@ import "../../scss/admin/aab-template-library.scss";
 	}
 
 	/**
-	 * Full-size preview of a section's demo page inside the library. The header
-	 * has "Back to library", "Open in new tab" and the same Insert / Pro action
-	 * as the card, so a section can be inserted straight from its preview.
+	 * Full-screen preview of a section's demo page inside the library.
+	 * Header: Back to library, section name, previous / next section, device
+	 * switcher (desktop / tablet / mobile), open in a new tab and the same
+	 * Insert / Pro action as the card. Arrow keys move between sections.
 	 */
+	var PREVIEW_DEVICES = { desktop: '100%', tablet: '820px', mobile: '390px' };
+	var previewState = { index: -1, device: 'desktop', timer: 0 };
+
+	function previewCards() {
+		return Array.prototype.slice.call(document.querySelectorAll('#aab-tl-grid .aab-tl-card')).filter(function (c) {
+			return c.getAttribute('data-demo');
+		});
+	}
+
 	function closePreview() {
 		var box = document.getElementById('aab-tl-preview');
 		if (box && box.parentNode) { box.parentNode.removeChild(box); }
-		document.removeEventListener('keydown', previewEsc, true);
+		clearTimeout(previewState.timer);
+		document.removeEventListener('keydown', previewKeys, true);
 	}
 
-	function previewEsc(ev) {
-		if (ev.key === 'Escape' && document.getElementById('aab-tl-preview') && !document.getElementById('aab-tl-options')) {
+	function previewKeys(ev) {
+		if (!document.getElementById('aab-tl-preview') || document.getElementById('aab-tl-options') || document.querySelector('.aab-tl-busy')) { return; }
+		if (ev.key === 'Escape') {
 			ev.stopPropagation();
 			ev.preventDefault();
 			closePreview();
+		} else if (ev.key === 'ArrowLeft' || ev.key === 'ArrowRight') {
+			ev.preventDefault();
+			stepPreview(ev.key === 'ArrowRight' ? 1 : -1);
 		}
 	}
 
-	function openPreview(card) {
+	function stepPreview(dir) {
+		var cards = previewCards();
+		var next = previewState.index + dir;
+		if (next < 0 || next >= cards.length) { return; }
+		showPreview(cards[next]);
+	}
+
+	function setPreviewDevice(box, device) {
+		previewState.device = PREVIEW_DEVICES[device] ? device : 'desktop';
+		var holder = box.querySelector('.aab-tl-preview__device');
+		holder.style.width = PREVIEW_DEVICES[previewState.device];
+		holder.classList.toggle('is-framed', previewState.device !== 'desktop');
+		box.querySelectorAll('.aab-tl-preview__dev').forEach(function (btn) {
+			var on = btn.getAttribute('data-device') === previewState.device;
+			btn.classList.toggle('is-active', on);
+			btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+		});
+	}
+
+	function showPreview(card) {
+		var box = document.getElementById('aab-tl-preview');
 		var url = card && card.getAttribute('data-demo');
-		if (!url) { return; }
-		closePreview();
+		if (!box || !url) { return; }
+		var cards = previewCards();
+		previewState.index = cards.indexOf(card);
+
+		// More sections load as the user nears the end of the list.
+		if (previewState.index >= cards.length - 3 && !state.exhausted && !state.loading) {
+			fetchTemplates({ reset: false });
+		}
+
 		var titleEl = card.querySelector('.aab-tl-card__title');
 		var title = titleEl ? titleEl.textContent : '';
+		box.querySelector('.aab-tl-preview__title').textContent = title;
+		box.querySelector('.aab-tl-preview__count').textContent = (previewState.index + 1) + ' / ' + cards.length + (state.exhausted ? '' : '+');
+		box.querySelector('.aab-tl-preview__prev').disabled = previewState.index <= 0;
+		box.querySelector('.aab-tl-preview__next').disabled = previewState.index >= cards.length - 1;
+		box.querySelector('.aab-tl-preview__external').setAttribute('href', url);
+		box.querySelector('.aab-tl-preview__slow-link').setAttribute('href', url);
+
 		var insertBtn = card.querySelector('.aab-tl-card__insert');
 		var proLink = card.querySelector('.aab-tl-card__pro');
-		var action = insertBtn
+		box.querySelector('.aab-tl-preview__action').innerHTML = insertBtn
 			? '<button type="button" class="aab-tl-card__insert aab-tl-preview__insert"><span class="aab-tl-card__insert-icon" aria-hidden="true">+</span>' + escapeHtml(I18N.insert || 'Insert') + '</button>'
 			: (proLink ? '<a class="aab-tl-card__pro aab-tl-preview__pro" href="' + escapeAttr(proLink.getAttribute('href') || '') + '" target="_blank" rel="noopener">' + escapeHtml(proLink.textContent) + '</a>' : '');
-
-		var box = document.createElement('div');
-		box.id = 'aab-tl-preview';
-		box.className = 'aab-tl-preview';
-		box.innerHTML =
-			'<div class="aab-tl-preview__bar">' +
-				'<button type="button" class="aab-tl-preview__back"><span aria-hidden="true">&larr;</span> ' + escapeHtml(I18N.back_to_library || 'Back to library') + '</button>' +
-				'<span class="aab-tl-preview__title">' + escapeHtml(title) + '</span>' +
-				'<span class="aab-tl-preview__actions">' +
-					'<a class="aab-tl-preview__external" href="' + escapeAttr(url) + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(I18N.open_new_tab || 'Open in new tab') + ' &#8599;</a>' +
-					action +
-				'</span>' +
-			'</div>' +
-			'<div class="aab-tl-preview__frame">' +
-				'<span class="aab-tl-spinner"></span>' +
-				'<iframe src="' + escapeAttr(url) + '" title="' + escapeAttr(title) + '" loading="eager" referrerpolicy="no-referrer"></iframe>' +
-			'</div>';
-		document.body.appendChild(box);
-
-		box.querySelector('.aab-tl-preview__back').addEventListener('click', closePreview);
 		var ins = box.querySelector('.aab-tl-preview__insert');
 		if (ins) {
 			ins.addEventListener('click', function (e) {
@@ -519,7 +548,72 @@ import "../../scss/admin/aab-template-library.scss";
 				openInsertOptions(card, card.querySelector('.aab-tl-card__insert') || ins);
 			});
 		}
-		document.addEventListener('keydown', previewEsc, true);
+
+		// Load the demo; show a spinner, and a hint if it is slow or blocked.
+		var frameWrap = box.querySelector('.aab-tl-preview__frame');
+		frameWrap.classList.add('is-loading');
+		frameWrap.classList.remove('is-slow');
+		clearTimeout(previewState.timer);
+		var old = box.querySelector('.aab-tl-preview__device iframe');
+		if (old && old.parentNode) { old.parentNode.removeChild(old); }
+		var frame = document.createElement('iframe');
+		frame.setAttribute('title', title);
+		frame.setAttribute('referrerpolicy', 'no-referrer');
+		frame.addEventListener('load', function () {
+			clearTimeout(previewState.timer);
+			frameWrap.classList.remove('is-loading', 'is-slow');
+		});
+		frame.src = url;
+		box.querySelector('.aab-tl-preview__device').appendChild(frame);
+		previewState.timer = setTimeout(function () { frameWrap.classList.add('is-slow'); }, 10000);
+	}
+
+	function openPreview(card) {
+		if (!card || !card.getAttribute('data-demo')) { return; }
+		closePreview();
+		var box = document.createElement('div');
+		box.id = 'aab-tl-preview';
+		box.className = 'aab-tl-preview';
+		var devIcons = {
+			desktop: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v11H3zM8 20h8M12 16v4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+			tablet: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M11 18h2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
+			mobile: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="3" width="10" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M11 18h2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>'
+		};
+		var devLabels = { desktop: I18N.dev_desktop || 'Desktop', tablet: I18N.dev_tablet || 'Tablet', mobile: I18N.dev_mobile || 'Mobile' };
+		var devButtons = Object.keys(PREVIEW_DEVICES).map(function (d) {
+			return '<button type="button" class="aab-tl-preview__dev" data-device="' + d + '" title="' + escapeAttr(devLabels[d]) + '" aria-label="' + escapeAttr(devLabels[d]) + '">' + devIcons[d] + '</button>';
+		}).join('');
+		box.innerHTML =
+			'<div class="aab-tl-preview__bar">' +
+				'<button type="button" class="aab-tl-preview__back"><span aria-hidden="true">&larr;</span> ' + escapeHtml(I18N.back_to_library || 'Back to library') + '</button>' +
+				'<span class="aab-tl-preview__title"></span>' +
+				'<span class="aab-tl-preview__nav">' +
+					'<button type="button" class="aab-tl-preview__step aab-tl-preview__prev" aria-label="' + escapeAttr(I18N.prev_section || 'Previous section') + '" title="' + escapeAttr(I18N.prev_section || 'Previous section') + '"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>' +
+					'<span class="aab-tl-preview__count"></span>' +
+					'<button type="button" class="aab-tl-preview__step aab-tl-preview__next" aria-label="' + escapeAttr(I18N.next_section || 'Next section') + '" title="' + escapeAttr(I18N.next_section || 'Next section') + '"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>' +
+				'</span>' +
+				'<span class="aab-tl-preview__devices" role="group">' + devButtons + '</span>' +
+				'<span class="aab-tl-preview__actions">' +
+					'<a class="aab-tl-preview__external" href="#" target="_blank" rel="noopener noreferrer">' + escapeHtml(I18N.open_new_tab || 'Open in new tab') + ' &#8599;</a>' +
+					'<span class="aab-tl-preview__action"></span>' +
+				'</span>' +
+			'</div>' +
+			'<div class="aab-tl-preview__frame">' +
+				'<span class="aab-tl-spinner"></span>' +
+				'<div class="aab-tl-preview__slow">' + escapeHtml(I18N.preview_slow || 'Taking long? Some sites block previews.') + ' <a class="aab-tl-preview__slow-link" href="#" target="_blank" rel="noopener noreferrer">' + escapeHtml(I18N.open_new_tab || 'Open in new tab') + '</a></div>' +
+				'<div class="aab-tl-preview__device"></div>' +
+			'</div>';
+		document.body.appendChild(box);
+
+		box.querySelector('.aab-tl-preview__back').addEventListener('click', closePreview);
+		box.querySelector('.aab-tl-preview__prev').addEventListener('click', function () { stepPreview(-1); });
+		box.querySelector('.aab-tl-preview__next').addEventListener('click', function () { stepPreview(1); });
+		box.querySelectorAll('.aab-tl-preview__dev').forEach(function (btn) {
+			btn.addEventListener('click', function () { setPreviewDevice(box, btn.getAttribute('data-device')); });
+		});
+		document.addEventListener('keydown', previewKeys, true);
+		setPreviewDevice(box, previewState.device);
+		showPreview(card);
 		box.querySelector('.aab-tl-preview__back').focus();
 	}
 
