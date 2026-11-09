@@ -1411,6 +1411,28 @@ class WXRImporter extends \WP_Importer {
 
 		$mapping_key = sha1( $data['taxonomy'] . ':' . $data['slug'] );
 		$existing    = $this->term_exists( $data );
+
+		/**
+		 * A menu with this slug already exists (an earlier demo, or the site's
+		 * own). By default the items of the imported menu would be added to it,
+		 * mixing two menus. When asked to keep menus apart, the imported menu is
+		 * created next to the existing one instead; its items still find it
+		 * through the original slug (the mapping keys below keep that slug).
+		 *
+		 * @param bool  $separate Default false.
+		 * @param array $data     Term data from the export.
+		 */
+		if ( $existing && 'nav_menu' === $data['taxonomy'] && apply_filters( 'bricksfly_importer.separate_menus', false, $data ) ) {
+			$base = $data['slug'];
+			$n    = 2;
+			while ( term_exists( $base . '-' . $n, 'nav_menu' ) ) {
+				++$n;
+			}
+			$data['slug'] = $base . '-' . $n;
+			$data['name'] = trim( (string) $data['name'] ) . ' ' . $n;
+			$existing     = false;
+		}
+
 		if ( $existing ) {
 			$this->mapping['term'][ $mapping_key ]    = $existing;
 			$this->mapping['term_id'][ $original_id ] = $existing;

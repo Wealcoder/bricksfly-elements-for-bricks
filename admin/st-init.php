@@ -46,7 +46,61 @@ class OneClickImport {
 		add_action( 'bricksfly_import_existing_post', array( $this, 'save_wp_page_import_track' ), 10, 4 );
 		add_action( 'bricksfly/after_import', array( $this, 'fix_imported_wp_navigation' ) );
 		add_filter( 'bricksfly_import_page_as_copy', array( $this, 'import_page_as_copy' ) );
+		add_filter( 'bricksfly_importer.separate_menus', array( $this, 'separate_demo_menus' ) );
+		add_action( 'bricksfly_importer.processed.term', array( $this, 'track_imported_menu' ), 10, 2 );
 		add_action( 'wp_ajax_bricksfly_get_latest_imported_pages', array( $this, 'bricksfly_get_latest_imported_pages' ) );
+	}
+
+	/**
+	 * Remember the menus this import created, so a menu that ended up empty
+	 * (its items already existed from an earlier import of the same demo) can
+	 * be removed again at the end.
+	 *
+	 * @param int   $term_id New term id.
+	 * @param array $data    Term data from the export.
+	 * @return void
+	 */
+	public function track_imported_menu( $term_id, $data ) {
+		if ( empty( $data['taxonomy'] ) || 'nav_menu' !== $data['taxonomy'] ) {
+			return;
+		}
+
+		$menus   = get_transient( 'bricksfly_import_created_menus' );
+		$menus   = is_array( $menus ) ? $menus : array();
+		$menus[] = (int) $term_id;
+		set_transient( 'bricksfly_import_created_menus', array_values( array_unique( $menus ) ), HOUR_IN_SECONDS );
+	}
+
+	/**
+	 * Delete menus this import created that have no items.
+	 *
+	 * @return void
+	 */
+	private function remove_empty_imported_menus() {
+		$menus = get_transient( 'bricksfly_import_created_menus' );
+		delete_transient( 'bricksfly_import_created_menus' );
+
+		foreach ( is_array( $menus ) ? $menus : array() as $menu_id ) {
+			$menu = wp_get_nav_menu_object( (int) $menu_id );
+			if ( $menu && empty( wp_get_nav_menu_items( $menu->term_id ) ) ) {
+				wp_delete_nav_menu( $menu->term_id );
+			}
+		}
+	}
+
+	/**
+	 * Full-demo imports keep their menus apart from menus the site already has
+	 * (a second demo must not add its items to the first demo's menu). Page
+	 * imports keep the default behaviour.
+	 *
+	 * @param bool $separate Current value.
+	 * @return bool
+	 */
+	public function separate_demo_menus( $separate ) {
+		// The importer nonce is verified in setup_st_importer() and in the AJAX callback.
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$type = isset( $_POST['import_type'] ) ? sanitize_key( wp_unslash( $_POST['import_type'] ) ) : '';
+		return 'page' === $type ? $separate : true;
 	}
 
 	private function __clone() {}
@@ -76,18 +130,29 @@ class OneClickImport {
 			return;
 		}
 
-		if ( isset( $postdata['post_type'] ) && $postdata['post_type'] === 'page' ) {
-			// One batch id for the whole import run, computed once per request so
-			// every page imported together shares it (gmdate() alone would split
-			// a multi-second import across batches). The option is updated only
-			// for valid pages, so it always references a real, imported page.
-			if ( empty( $this->page_import_batch_id ) ) {
-				$this->page_import_batch_id = 'bricksfly_' . gmdate( 'Ymd_His' ) . '_' . wp_generate_password( 6, false );
-			}
-			$batch_id = $this->page_import_batch_id;
+		$post_type = isset( $postdata['post_type'] ) ? (string) $postdata['post_type'] : '';
+		if ( '' === $post_type || 'revision' === $post_type ) {
+			return;
+		}
 
+		// One batch id for the whole import run, computed once per request so
+		// everything imported together shares it (gmdate() alone would split a
+		// multi-second import across batches). Every imported post carries it
+		// (pages, Bricks templates, menu items, posts, media): the last import
+		// step uses it to tell this demo's templates and pages from an earlier
+		// demo's, and to pick the front page from this import.
+		if ( empty( $this->page_import_batch_id ) ) {
+			$this->page_import_batch_id = 'bricksfly_' . gmdate( 'Ymd_His' ) . '_' . wp_generate_password( 6, false );
+		}
+		$batch_id = $this->page_import_batch_id;
+
+		// A post the import matched to an existing one (the same demo imported
+		// again) now belongs to this import: the batch is replaced, not kept.
+		update_post_meta( $post_id, 'bricksfly_import_batch', $batch_id );
+
+		if ( 'page' === $post_type ) {
+			// The option always references a batch with a real, imported page.
 			update_option( 'bricksfly_last_import_batch', $batch_id );
-			add_post_meta( $post_id, 'bricksfly_import_batch', $batch_id, true );
 			add_post_meta( $post_id, 'bricksfly_imported', 1, true );
 
 			// Invalidate the Pages-list "AAB Imported" badge count cache (see
@@ -266,6 +331,7 @@ class OneClickImport {
 	}
 
 	private function final_response() {
+		$this->remove_empty_imported_menus();
 		delete_transient( 'bricksfly_st_importer_data' );
 		delete_option( 'bricksfly_template_import_progress' );
 		delete_transient( 'bricksfly_st_mporter_data_failed_attachment_imports' );
@@ -294,6 +360,8 @@ class OneClickImport {
 			$this->import_files            = empty( $data['import_files'] ) ? array() : $data['import_files'];
 			$this->before_import_executed  = empty( $data['before_import_executed'] ) ? false : $data['before_import_executed'];
 			$this->imported_terms          = empty( $data['imported_terms'] ) ? array() : $data['imported_terms'];
+			// One batch id for the whole import, across the requests a long import is split into.
+			$this->page_import_batch_id = empty( $data['page_import_batch_id'] ) ? '' : (string) $data['page_import_batch_id'];
 			$this->importer->set_importer_data( $data );
 			return true;
 		}
@@ -307,6 +375,7 @@ class OneClickImport {
 			'selected_index'          => $this->selected_index,
 			'selected_import_files'   => $this->selected_import_files,
 			'import_files'            => $this->import_files,
+			'page_import_batch_id'    => $this->page_import_batch_id,
 			'before_import_executed'  => $this->before_import_executed,
 			'imported_terms'          => $this->imported_terms,
 		);

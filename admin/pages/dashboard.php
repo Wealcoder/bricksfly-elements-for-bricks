@@ -348,6 +348,11 @@ class BRICKSFLY_Admin_Init {
 			'import_plugins'      => (bool) apply_filters( 'bricksfly_import_manages_plugins', false ),
 			'home_url'            => home_url( '/' ),
 			'plugin_url'          => BRICKSFLY_URL,
+			// Full demos imported on this site before, and the Bricks header /
+			// footer templates it has: the import screen says what a second
+			// demo does to them.
+			'imported_templates'  => \wealcoder\bricksfly\Admin\Pages\BRICKSFLY_Template_Importer::imported_templates_for_ui(),
+			'site_templates'      => \wealcoder\bricksfly\Admin\Pages\BRICKSFLY_Template_Importer::site_templates_summary(),
 			'has_pro'             => bricksfly_is_pro_installed(),
 			'breakpoints'         => $bricks_breakpoints,
 			// Pro elements / extensions live in the separate BricksFly Pro
