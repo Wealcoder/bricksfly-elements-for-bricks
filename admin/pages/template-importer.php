@@ -1392,15 +1392,121 @@ class BRICKSFLY_Template_Importer {
 			return $raw;
 		}
 
-		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_unserialize, WordPress.PHP.NoSilencedErrors.Discouraged -- allowed_classes=false: arrays and scalars only, no objects; invalid data is handled by the check below.
-		$value = @unserialize( trim( $raw ), array( 'allowed_classes' => false ) );
+		$raw = trim( $raw );
 
-		if ( false === $value && 'b:0;' !== trim( $raw ) ) {
-			return null;
+		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_unserialize, WordPress.PHP.NoSilencedErrors.Discouraged -- allowed_classes=false: arrays and scalars only, no objects; invalid data is handled by the check below.
+		$value = @unserialize( $raw, array( 'allowed_classes' => false ) );
+
+		if ( false === $value && 'b:0;' !== $raw ) {
+			// An XML parser turns CR LF into LF, which shortens the strings of a
+			// serialized value (custom CSS, a script) below their declared byte
+			// length and makes the whole value unreadable. Recount and try again.
+			$fixed = self::recount_serialized_strings( $raw );
+			// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_unserialize, WordPress.PHP.NoSilencedErrors.Discouraged -- same rules as above.
+			$value = null !== $fixed ? @unserialize( $fixed, array( 'allowed_classes' => false ) ) : false;
+
+			if ( false === $value ) {
+				return null;
+			}
 		}
 
 		// Objects (even incomplete ones) are never accepted.
 		return self::contains_object( $value ) ? null : $value;
+	}
+
+	/**
+	 * The same serialized value with the byte length of every string recounted.
+	 * Only arrays and scalars are walked; anything else gives null.
+	 *
+	 * @param string $raw Serialized value.
+	 * @return string|null
+	 */
+	private static function recount_serialized_strings( $raw ) {
+		$pos = 0;
+		$out = '';
+
+		if ( ! self::recount_walk( $raw, $pos, $out ) || strlen( $raw ) !== $pos ) {
+			return null;
+		}
+
+		return $out;
+	}
+
+	/**
+	 * One serialized token (recursively for arrays), appended to $out with
+	 * corrected string lengths.
+	 *
+	 * @param string $raw Serialized value.
+	 * @param int    $pos Read position, moved past the token.
+	 * @param string $out Output so far.
+	 * @return bool False on anything unexpected.
+	 */
+	private static function recount_walk( $raw, &$pos, &$out ) {
+		$type = substr( $raw, $pos, 1 );
+
+		switch ( $type ) {
+			case 'N':
+				$out .= 'N;';
+				$pos += 2;
+				return true;
+
+			case 'b':
+			case 'i':
+			case 'd':
+				$end = strpos( $raw, ';', $pos );
+				if ( false === $end ) {
+					return false;
+				}
+				$out .= substr( $raw, $pos, $end - $pos + 1 );
+				$pos  = $end + 1;
+				return true;
+
+			case 's':
+				if ( ! preg_match( '/^s:(\d+):"/', substr( $raw, $pos, 24 ), $m ) ) {
+					return false;
+				}
+				$start = $pos + strlen( $m[0] );
+				$end   = min( $start + (int) $m[1], strlen( $raw ) - 2 ); // Declared position of the closing quote, or earlier.
+				// The content can only have become shorter: the closing quote is at or before
+				// the declared position, followed by ; and the next token (or the end).
+				while ( $end >= $start ) {
+					if ( '";' === substr( $raw, $end, 2 ) ) {
+						$next = substr( $raw, $end + 2, 1 );
+						if ( '' === $next || false !== strpos( 'sibdNa}', $next ) ) {
+							break;
+						}
+					}
+					--$end;
+				}
+				if ( $end < $start ) {
+					return false;
+				}
+				$string = substr( $raw, $start, $end - $start );
+				$out   .= 's:' . strlen( $string ) . ':"' . $string . '";';
+				$pos    = $end + 2;
+				return true;
+
+			case 'a':
+				if ( ! preg_match( '/^a:(\d+):\{/', substr( $raw, $pos, 24 ), $m ) ) {
+					return false;
+				}
+				$count = (int) $m[1];
+				$out  .= $m[0];
+				$pos  += strlen( $m[0] );
+				for ( $i = 0; $i < $count; $i++ ) {
+					if ( ! self::recount_walk( $raw, $pos, $out ) || ! self::recount_walk( $raw, $pos, $out ) ) {
+						return false;
+					}
+				}
+				if ( '}' !== substr( $raw, $pos, 1 ) ) {
+					return false;
+				}
+				$out .= '}';
+				++$pos;
+				return true;
+		}
+
+		return false; // Objects and anything unknown.
 	}
 
 	/**
