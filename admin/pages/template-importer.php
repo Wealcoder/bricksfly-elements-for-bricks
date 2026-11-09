@@ -917,7 +917,12 @@ class BRICKSFLY_Template_Importer {
 				}
 
 				$existing = get_option( $option_name );
-				$merged   = $this->merge_bricks_option( $option_name, $existing, $value );
+
+				// Palettes merge color by color (two sites can share a palette id,
+				// and a variable the site already defines stays the site's).
+				$merged = 'bricks_color_palette' === $option_name
+					? $this->merge_color_palettes( is_array( $existing ) ? $existing : array(), $value )
+					: $this->merge_bricks_option( $option_name, $existing, $value );
 
 				if ( $merged !== $existing ) {
 					update_option( $option_name, $merged );
@@ -1117,8 +1122,9 @@ class BRICKSFLY_Template_Importer {
 
 	/**
 	 * Bricks design data the free importer merges into the site: global
-	 * classes, variables, colours, theme styles, style manager and
-	 * breakpoints (the imported pages' CSS depends on all of them).
+	 * classes (and their categories, custom pseudo classes), variables,
+	 * colours, theme styles, style manager, breakpoints, components and global
+	 * queries (the imported pages' CSS and output depend on all of them).
 	 *
 	 * A fixed list. Besides these, only the custom font CSS (when the site has
 	 * none) and the `customBreakpoints` flag are written by the free plugin.
@@ -1131,6 +1137,7 @@ class BRICKSFLY_Template_Importer {
 			$option_name,
 			array(
 				'bricks_global_classes',
+				'bricks_global_classes_categories',
 				'bricks_global_pseudo_classes',
 				'bricks_global_variables',
 				'bricks_global_variables_categories',
@@ -1138,6 +1145,9 @@ class BRICKSFLY_Template_Importer {
 				'bricks_theme_styles',
 				'bricks_style_manager',
 				'bricks_breakpoints',
+				'bricks_components',
+				'bricks_global_queries',
+				'bricks_global_queries_categories',
 			),
 			true
 		);
@@ -1263,6 +1273,11 @@ class BRICKSFLY_Template_Importer {
 		// from the import.
 		if ( in_array( $option_name, array( 'bricks_theme_styles', 'bricks_style_manager' ), true ) ) {
 			return array_replace_recursive( $incoming, $existing );
+		}
+
+		// Custom pseudo classes are a plain list of strings (":hover", "::before"): union.
+		if ( 'bricks_global_pseudo_classes' === $option_name ) {
+			return array_values( array_unique( array_merge( array_filter( $existing, 'is_string' ), array_filter( $incoming, 'is_string' ) ) ) );
 		}
 
 		// Lists keyed by `id` (breakpoints by `key`) — union, keep existing on conflict.
