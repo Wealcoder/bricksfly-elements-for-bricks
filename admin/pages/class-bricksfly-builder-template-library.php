@@ -782,7 +782,7 @@ class BRICKSFLY_Builder_Template_Library {
 	 * @param bool  $all   True to drop every font family, not only custom fonts.
 	 * @return mixed
 	 */
-	private function strip_custom_fonts( $value, $all = false ) {
+	public function strip_custom_fonts( $value, $all = false ) {
 		if ( ! is_array( $value ) ) {
 			return $value;
 		}
@@ -809,7 +809,7 @@ class BRICKSFLY_Builder_Template_Library {
 	 * @param array $names Variable names (without "--").
 	 * @return mixed
 	 */
-	private function strip_variable_references( $value, array $names ) {
+	public function strip_variable_references( $value, array $names ) {
 		if ( ! is_array( $value ) ) {
 			return $value;
 		}
@@ -838,7 +838,7 @@ class BRICKSFLY_Builder_Template_Library {
 	 * @param array $elements Section elements.
 	 * @return array
 	 */
-	private function strip_class_references( array $elements ) {
+	public function strip_class_references( array $elements ) {
 		foreach ( $elements as $key => $element ) {
 			if ( is_array( $element ) && isset( $element['settings'] ) && is_array( $element['settings'] ) ) {
 				unset( $elements[ $key ]['settings']['_cssGlobalClasses'] );

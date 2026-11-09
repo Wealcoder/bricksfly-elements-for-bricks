@@ -45,11 +45,26 @@ class OneClickImport {
 		add_action( 'wp_import_insert_post', array( $this, 'save_wp_page_import_track' ), 10, 4 );
 		add_action( 'bricksfly_import_existing_post', array( $this, 'save_wp_page_import_track' ), 10, 4 );
 		add_action( 'bricksfly/after_import', array( $this, 'fix_imported_wp_navigation' ) );
+		add_filter( 'bricksfly_import_page_as_copy', array( $this, 'import_page_as_copy' ) );
 		add_action( 'wp_ajax_bricksfly_get_latest_imported_pages', array( $this, 'bricksfly_get_latest_imported_pages' ) );
 	}
 
 	private function __clone() {}
 	public function __wakeup() {}
+
+	/**
+	 * Page imports (not full-demo imports) bring an already imported page in
+	 * again as a new copy instead of skipping it silently.
+	 *
+	 * @param bool $as_copy Current value.
+	 * @return bool
+	 */
+	public function import_page_as_copy( $as_copy ) {
+		// The importer nonce is verified in setup_st_importer() and in the AJAX callback.
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$type = isset( $_POST['import_type'] ) ? sanitize_key( wp_unslash( $_POST['import_type'] ) ) : '';
+		return 'page' === $type ? true : $as_copy;
+	}
 
 	public function save_wp_page_import_track( $post_id, $original_id, $postdata, $data ) {
 		// wp_insert_post() can return a WP_Error (and the WXR importer fires this

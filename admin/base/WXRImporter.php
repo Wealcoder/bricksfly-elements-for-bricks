@@ -595,6 +595,15 @@ class WXRImporter extends \WP_Importer {
 		}
 
 		$post_exists = $this->post_exists( $data );
+
+		// A page that was imported before has the same guid, so it used to be
+		// skipped silently ("imported" but nothing new). When the caller asks for
+		// it, import the page again as a new copy; WordPress gives the copy a
+		// unique slug (home-2-2) and the earlier page is left untouched.
+		if ( $post_exists && 'page' === $data['post_type'] && apply_filters( 'bricksfly_import_page_as_copy', false, $data, $post_exists ) ) {
+			$post_exists = false;
+		}
+
 		if ( $post_exists ) {
 			$this->process_comments( $comments, $original_id, $data, $post_exists );
 			do_action( 'bricksfly_import_existing_post', $post_exists, $original_id, $data, $data );
@@ -794,7 +803,27 @@ class WXRImporter extends \WP_Importer {
 		update_post_meta( $post_id, '_menu_item_object_id', wp_slash( $object_id ) );
 	}
 
+	/**
+	 * Import one attachment.
+	 *
+	 * WordPress does not list .json (Lottie animations) as an uploadable type, so
+	 * wp_upload_bits() and wp_check_filetype() would reject those files and the
+	 * imported page would lose its Lottie. Allow it for the duration of this one
+	 * import step only; nothing outside the import is affected.
+	 */
 	protected function process_attachment( $post, $meta, $remote_url ) {
+		$allow_json = static function ( $mimes ) {
+			$mimes['json'] = 'application/json';
+			return $mimes;
+		};
+		add_filter( 'upload_mimes', $allow_json );
+		$result = $this->import_attachment( $post, $meta, $remote_url );
+		remove_filter( 'upload_mimes', $allow_json );
+
+		return $result;
+	}
+
+	protected function import_attachment( $post, $meta, $remote_url ) {
 		$post['upload_date'] = $post['post_date'];
 		foreach ( $meta as $meta_item ) {
 			if ( $meta_item['key'] !== '_wp_attached_file' ) {

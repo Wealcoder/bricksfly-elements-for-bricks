@@ -54,12 +54,11 @@ const StaterTemplate = () => {
           url.searchParams.append("page", meta.pageNum);
           url.searchParams.append("per_page", 40);
         }
-        if (meta.filterKey) {
-          if (meta.filterKey === "popular") {
-            url.searchParams.append("popular", 1);
-          } else {
-            url.searchParams.append("orderby", "date");
-          }
+        // Newest pages first by default; "popular" is the only other order.
+        if (meta.filterKey === "popular") {
+          url.searchParams.append("popular", 1);
+        } else {
+          url.searchParams.append("orderbydate", 1);
         }
         if (meta.selectedCategory && meta.selectedCategory.length) {
           // Page Types (brk-starter-page-type) term ids; the library reads `brk-cat`.
@@ -74,8 +73,6 @@ const StaterTemplate = () => {
           url.searchParams.append("premium", "yes");
         } else if (meta.tier === "free") {
           url.searchParams.append("premium", "no");
-        } else {
-          url.searchParams.append("free_first", 1);
         }
 
         await fetch(url.toString())
