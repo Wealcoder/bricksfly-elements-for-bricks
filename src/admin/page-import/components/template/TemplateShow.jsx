@@ -1,5 +1,7 @@
-﻿import { formatNumber } from "@//lib/utils";
+﻿import { useCallback, useState } from "react";
+import { formatNumber } from "@//lib/utils";
 import { Badge } from "@/components/ui/badge";
+import PagePreview from "./PagePreview";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Toggle } from "@/components/ui/toggle";
 import { useTNavigation } from "../../hooks/app.hooks";
@@ -22,6 +24,29 @@ const isProItem = (item) =>
 const TemplateShow = ({ allTemplate, metaData, setMetaData }) => {
   const { setTabKey } = useTNavigation();
   const proLibrary = !!BRICKSFLY_ADDONS_ADMIN?.pro_library;
+
+  // Preview opens the demo in a full-screen frame (like the section library);
+  // previous / next move through the pages of the list that have a demo.
+  const previewable = (allTemplate?.templates || []).filter((t) => t?.demo_link);
+  const [previewId, setPreviewId] = useState(null);
+  const previewIndex = previewId === null ? -1 : previewable.findIndex((t) => t.id === previewId);
+  const closePreview = useCallback(() => setPreviewId(null), []);
+  const stepPreview = useCallback(
+    (dir) => {
+      setPreviewId((current) => {
+        const i = previewable.findIndex((t) => t.id === current);
+        const next = i + dir;
+        return next < 0 || next >= previewable.length ? current : previewable[next].id;
+      });
+    },
+    [previewable]
+  );
+  const openPreview = (e, template) => {
+    // Ctrl / middle click keeps the plain link (new tab).
+    if (!template?.demo_link || e.ctrlKey || e.metaKey || e.shiftKey || e.button === 1) return;
+    e.preventDefault();
+    setPreviewId(template.id);
+  };
 
   const changeRoute = (value, slug, id, is_pro) => {
     const url = new URL(window.location.href);
@@ -102,11 +127,13 @@ const TemplateShow = ({ allTemplate, metaData, setMetaData }) => {
                   <div className="w-full h-full hidden group-hover:flex flex-col justify-center items-center gap-4">
                     <a
                       href={template?.demo_link}
+                      onClick={(e) => openPreview(e, template)}
                       className={cn(
                         buttonVariants(),
                         "h-7 w-[120px] bg-transparent hover:bg-[#FFD53E] border-2 border-white hover:border-[#FFD53E] text-white hover:text-[#525866] rounded-full text-xs font-medium capitalize gap-1 transition-all duration-300 ease-out hover:scale-105 [&_svg_path]:transition-colors [&:hover_svg_path]:stroke-[#525866]"
                       )}
                       target="_blank"
+                      rel="noopener noreferrer"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -270,6 +297,19 @@ const TemplateShow = ({ allTemplate, metaData, setMetaData }) => {
         <div className="flex justify-center items-center h-[10vh]">
           <p className="text-lg font-semibold">No Item Found</p>
         </div>
+      )}
+      {previewIndex >= 0 && (
+        <PagePreview
+          templates={previewable}
+          index={previewIndex}
+          onClose={closePreview}
+          onStep={stepPreview}
+          canImport={!isProItem(previewable[previewIndex]) || proLibrary}
+          onImport={(t) => {
+            closePreview();
+            changeRoute("required-features", t?.slug, t?.id, t?.is_pro);
+          }}
+        />
       )}
     </>
   );
