@@ -28,6 +28,8 @@ Enable only the Elements you need on each site. Animation controls can also resp
 
 **Useful links:** [Live demo](https://test.bricksfly.com/) | [Documentation](https://bricksfly.com/docs/) | [All Elements](https://bricksfly.com/elements/) | [Starter templates](https://bricksfly.com/starter-templates/) | [Sections](https://bricksfly.com/sections-templates/) | [FAQ](https://bricksfly.com/faq/) | [Support](https://crowdyflow.ticksy.com/) | [Community](https://www.facebook.com/groups/bricksfly/)
 
+**Black Friday offer: up to 70% off BricksFly Pro.** Get the GSAP animation engine, Extensions, 30+ full templates and 500+ sections for less. [Get BricksFly Pro at up to 70% off](https://bricksfly.com/pricing/?utm_source=wordpress_org&utm_medium=readme&utm_campaign=blackfriday_2026&utm_content=description_cta)
+
 Watch a quick overview:
 
 https://youtu.be/5wno9t4gR64
