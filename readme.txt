@@ -86,6 +86,7 @@ Design dynamic websites with a growing collection of Bricks Elements, from creat
 - **Image Hotspot**: Place clickable markers with tooltips on an image.
 - **Toggle Switch**: Add interactive on and off toggle elements for content control.
 - **Draggable Items**: Add drag-and-drop interactive items to a page.
+- **Lottie** (Pro): Play Lottie JSON animations on scroll, hover, click, cursor move or when visible, with loop, speed and frame controls.
 
 ### Starter Animations
 
@@ -336,49 +337,9 @@ The files in `public/build` are compiled (minified) JavaScript and CSS. **Their 
 - Changed: The offer notice no longer tries to show on BricksFly screens, which hide WordPress notices.
 - Changed: Each administrator sees the offer notice once on the Dashboard and twice on the Plugins screen.
 
-= 1.0.9 =
-- Added: Seasonal BricksFly Pro offers can show as a banner on the Dashboard, Plugins and BricksFly screens, to administrators who do not have BricksFly Pro installed. Each offer ends on its own date; Close hides it for 3 days and "Don't show again" hides it for good.
-
-= 1.0.8 =
-- Added: The Stacking Cards element and the Stacking Cards and Magnetic Effect extensions are listed in the BricksFly dashboard. They are part of BricksFly Pro.
-- Updated: The readme lists Stacking Cards and Magnetic Effect.
-
 [See the full changelog](https://plugins.trac.wordpress.org/browser/bricksfly-elements-for-bricks/trunk/changelog.txt).
 
 == Upgrade Notice ==
 
 = 1.0.12 =
 Import Section button and in-library previews in the Bricks editor and page library, style options for page import, and a second starter template no longer changes the look of the first one. Recommended update.
-
-= 1.0.11 =
-Better section import: choose to keep the original design or use your site's style, keep or copy images, and your existing global classes and variables are never overwritten.
-
-= 1.0.10 =
-Shows the seasonal BricksFly Pro offer in the BricksFly dashboard too. No changes to Elements or templates.
-
-= 1.0.9 =
-Adds dismissible seasonal offer banners for BricksFly Pro. No changes to Elements or templates.
-
-= 1.0.8 =
-Lists the new BricksFly Pro Stacking Cards and Magnetic Effect features in the dashboard. No changes to existing Elements.
-
-= 1.0.7 =
-New plugin name and description. No functional changes.
-
-= 1.0.6 =
-Switching themes is no longer blocked, and template import is lighter on your site. Recommended update.
-
-= 1.0.5 =
-Fixes the BricksFly dashboard not loading after an update on sites with long browser or CDN caching. Recommended update.
-
-= 1.0.4 =
-Fixes a blank BricksFly dashboard on some sites. Recommended update.
-
-= 1.0.3 =
-Free templates, pages and sections now import without a license, and template import is safer. If you use BricksFly Pro, update it to the latest version as well.
-
-= 1.0.2 =
-Documentation update only. The plugin description and FAQ have been rewritten for clarity. No functional changes.
-
-= 1.0.0 =
-Initial release.
