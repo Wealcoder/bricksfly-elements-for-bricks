@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: BricksFly Elements and Templates for Bricks 1.0.11\n"
+"Project-Id-Version: BricksFly Elements and Templates for Bricks 1.0.12\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bricksfly-elements-for-bricks\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-05T11:53:39+00:00\n"
+"POT-Creation-Date: 2026-11-10T04:19:17+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: bricksfly-elements-for-bricks\n"
@@ -158,47 +158,47 @@ msgstr ""
 msgid "Cannot import auto-draft posts"
 msgstr ""
 
-#: admin/base/WXRImporter.php:672
+#: admin/base/WXRImporter.php:681
 msgid "fetching attachments disabled"
 msgstr ""
 
-#: admin/base/WXRImporter.php:827
+#: admin/base/WXRImporter.php:856
 msgid "Invalid file type"
 msgstr ""
 
 #. translators: 1: HTTP status code, 2: HTTP status text, 3: requested URL.
-#: admin/base/WXRImporter.php:1507
+#: admin/base/WXRImporter.php:1558
 #, php-format
 msgid "Remote server returned %1$d %2$s for %3$s"
 msgstr ""
 
-#: admin/base/WXRImporter.php:1518
+#: admin/base/WXRImporter.php:1569
 msgid "Zero size file downloaded"
 msgstr ""
 
 #. translators: %s: human-readable maximum allowed file size (e.g. "5 MB").
-#: admin/base/WXRImporter.php:1527
+#: admin/base/WXRImporter.php:1578
 #, php-format
 msgid "Remote file is too large, limit is %s"
 msgstr ""
 
-#: admin/base/WXRImporter.php:1538
+#: admin/base/WXRImporter.php:1589
 msgid "Processing Posts"
 msgstr ""
 
-#: admin/base/WXRImporter.php:1542
+#: admin/base/WXRImporter.php:1593
 msgid "Processing Comments"
 msgstr ""
 
-#: admin/base/WXRImporter.php:1546
+#: admin/base/WXRImporter.php:1597
 msgid "Processing Terms"
 msgstr ""
 
-#: admin/base/WXRImporter.php:1698
+#: admin/base/WXRImporter.php:1749
 msgid "Starting remapping of featured images"
 msgstr ""
 
-#: admin/base/WXRImporter.php:1753
+#: admin/base/WXRImporter.php:1804
 msgid "Comment checking"
 msgstr ""
 
@@ -236,7 +236,7 @@ msgid "Dismiss this notice"
 msgstr ""
 
 #: admin/Notices/views/campaign.php:20
-#: admin/pages/class-bricksfly-builder-template-library.php:188
+#: admin/pages/class-bricksfly-builder-template-library.php:198
 #: includes/elements/video-box-slider.php:1629
 #: includes/elements/video-box.php:852
 msgid "Close"
@@ -267,6 +267,7 @@ msgid "BricksFly Addons — Section Library"
 msgstr ""
 
 #: admin/pages/class-bricksfly-builder-template-library.php:156
+#: admin/pages/class-bricksfly-builder-template-library.php:178
 msgid "Import Section"
 msgstr ""
 
@@ -355,256 +356,290 @@ msgstr ""
 msgid "Please wait. Do not close this window."
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:178
-msgid "Preview"
-msgstr ""
-
 #: admin/pages/class-bricksfly-builder-template-library.php:179
-msgid "Free"
+msgid "Where do you want to import from?"
 msgstr ""
 
 #: admin/pages/class-bricksfly-builder-template-library.php:180
-msgid "Pro"
+msgid "Cloud"
 msgstr ""
 
 #: admin/pages/class-bricksfly-builder-template-library.php:181
-#: admin/pages/dashboard.php:360
-msgid "Get BricksFly Pro"
+msgid "Browse ready-made sections from the BricksFly library."
 msgstr ""
 
 #: admin/pages/class-bricksfly-builder-template-library.php:182
+msgid "Live Paste"
+msgstr ""
+
+#. translators: %d: number of copied elements.
+#: admin/pages/class-bricksfly-builder-template-library.php:184
+#, php-format
+msgid "Paste the section you copied with Live Copy (%d elements)."
+msgstr ""
+
 #: admin/pages/class-bricksfly-builder-template-library.php:185
+msgid "Paste the section you copied with Live Copy (1 element)."
+msgstr ""
+
+#: admin/pages/class-bricksfly-builder-template-library.php:186
+msgid "Preview"
+msgstr ""
+
+#: admin/pages/class-bricksfly-builder-template-library.php:187
+msgid "Back to library"
+msgstr ""
+
+#: admin/pages/class-bricksfly-builder-template-library.php:188
+msgid "Open in new tab"
+msgstr ""
+
+#: admin/pages/class-bricksfly-builder-template-library.php:189
+msgid "Free"
+msgstr ""
+
+#: admin/pages/class-bricksfly-builder-template-library.php:190
+msgid "Pro"
+msgstr ""
+
+#: admin/pages/class-bricksfly-builder-template-library.php:191
+#: admin/pages/dashboard.php:365
+msgid "Get BricksFly Pro"
+msgstr ""
+
+#: admin/pages/class-bricksfly-builder-template-library.php:192
+#: admin/pages/class-bricksfly-builder-template-library.php:195
 msgid "All"
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:183
+#: admin/pages/class-bricksfly-builder-template-library.php:193
 msgid "Search"
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:184
+#: admin/pages/class-bricksfly-builder-template-library.php:194
 #: includes/elements/post-meta.php:53
 #: includes/elements/post-meta.php:170
 #: includes/elements/post-meta.php:225
 msgid "Category"
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:186
+#: admin/pages/class-bricksfly-builder-template-library.php:196
 msgid "Light"
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:187
+#: admin/pages/class-bricksfly-builder-template-library.php:197
 msgid "Dark"
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:189
+#: admin/pages/class-bricksfly-builder-template-library.php:199
 msgid "Loading"
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:190
+#: admin/pages/class-bricksfly-builder-template-library.php:200
 msgid "No templates found."
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:191
+#: admin/pages/class-bricksfly-builder-template-library.php:201
 msgid "Failed to load templates. Check your connection and try again."
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:192
+#: admin/pages/class-bricksfly-builder-template-library.php:202
 msgid "Section imported. Reloading builder…"
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:193
+#: admin/pages/class-bricksfly-builder-template-library.php:203
 msgid "Could not import this section. Please try again."
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:194
+#: admin/pages/class-bricksfly-builder-template-library.php:204
 msgid "This section could not be imported"
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:195
+#: admin/pages/class-bricksfly-builder-template-library.php:205
 msgid "What you can do"
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:196
+#: admin/pages/class-bricksfly-builder-template-library.php:206
 msgid "Try again"
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:197
+#: admin/pages/class-bricksfly-builder-template-library.php:207
 msgid "The request did not reach your site."
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:198
+#: admin/pages/class-bricksfly-builder-template-library.php:208
 msgid "Check your internet connection, then try again."
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:199
+#: admin/pages/class-bricksfly-builder-template-library.php:209
 msgid "Your builder session has expired."
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:200
+#: admin/pages/class-bricksfly-builder-template-library.php:210
 msgid "Save your work, reload the builder and insert the section again."
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:201
+#: admin/pages/class-bricksfly-builder-template-library.php:211
 msgid "Your server returned an unexpected response."
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:202
+#: admin/pages/class-bricksfly-builder-template-library.php:212
 msgid "This is usually a PHP timeout or memory limit while downloading images. Try again with \"Import images\" turned off, or ask your host to raise max_execution_time and memory_limit."
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:203
+#: admin/pages/class-bricksfly-builder-template-library.php:213
 msgid "The builder did not accept the section."
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:204
+#: admin/pages/class-bricksfly-builder-template-library.php:214
 msgid "Reload the builder and try again. If it keeps happening, update Bricks and BricksFly to the latest versions."
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:205
+#: admin/pages/class-bricksfly-builder-template-library.php:215
 msgid "Error code"
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:206
+#: admin/pages/class-bricksfly-builder-template-library.php:216
 msgid "Section inserted, with notes"
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:207
-#: admin/pages/class-bricksfly-builder-template-library.php:495
+#: admin/pages/class-bricksfly-builder-template-library.php:217
+#: admin/pages/class-bricksfly-builder-template-library.php:505
 msgid "Your site already has classes with the same name."
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:208
-#: admin/pages/class-bricksfly-builder-template-library.php:497
+#: admin/pages/class-bricksfly-builder-template-library.php:218
+#: admin/pages/class-bricksfly-builder-template-library.php:507
 msgid "Your existing classes were left untouched. The section uses its own copy, added under a new name (for example heading-2). You can tidy them up in Bricks > Global classes."
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:209
+#: admin/pages/class-bricksfly-builder-template-library.php:219
 msgid "The section's colour and spacing variables could not be added automatically, so some colours may look different. Add them under Variables in the builder."
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:210
+#: admin/pages/class-bricksfly-builder-template-library.php:220
 msgid "Got it"
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:211
+#: admin/pages/class-bricksfly-builder-template-library.php:221
 msgid "Importing will reload the builder. Save your unsaved changes first?"
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:227
+#: admin/pages/class-bricksfly-builder-template-library.php:237
 msgid "Section Block"
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:264
+#: admin/pages/class-bricksfly-builder-template-library.php:274
 msgid "Permission denied for this post."
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:270
+#: admin/pages/class-bricksfly-builder-template-library.php:280
 msgid "No template id provided."
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:282
+#: admin/pages/class-bricksfly-builder-template-library.php:292
 msgid "Template content is empty or in an unsupported format."
 msgstr ""
 
 #. translators: %s: list of element names
-#: admin/pages/class-bricksfly-builder-template-library.php:294
+#: admin/pages/class-bricksfly-builder-template-library.php:304
 #, php-format
 msgid "This section uses BricksFly Pro elements: %s."
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:366
+#: admin/pages/class-bricksfly-builder-template-library.php:376
 msgid "Template resolved."
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:368
+#: admin/pages/class-bricksfly-builder-template-library.php:378
 msgid "Section inserted. Some SVG icons stay on the remote server because SVG uploads are disabled for your role in Bricks > Settings > General."
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:433
+#: admin/pages/class-bricksfly-builder-template-library.php:443
 msgid "Your user cannot edit this page. Ask an administrator for access, or open a page you are allowed to edit."
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:435
+#: admin/pages/class-bricksfly-builder-template-library.php:445
 msgid "This section is part of BricksFly Pro. Install and activate BricksFly Pro with a valid license, then insert it again."
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:437
+#: admin/pages/class-bricksfly-builder-template-library.php:447
 msgid "Your site could not reach the BricksFly library. Check that this server can make outgoing connections to themecrowdy.com (a firewall or security plugin may block it), then try again."
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:439
+#: admin/pages/class-bricksfly-builder-template-library.php:449
 msgid "The library returned a section file we cannot read. This is on our side: try another section and tell us which one failed."
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:442
+#: admin/pages/class-bricksfly-builder-template-library.php:452
 msgid "Install and activate BricksFly Pro, then insert the section again."
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:445
+#: admin/pages/class-bricksfly-builder-template-library.php:455
 msgid "BricksFly Pro is installed but not active. Activate it, then insert the section again."
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:447
+#: admin/pages/class-bricksfly-builder-template-library.php:457
 msgid "BricksFly Pro is active but your license is not valid. Activate your license in BricksFly Pro, then insert the section again."
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:449
+#: admin/pages/class-bricksfly-builder-template-library.php:459
 msgid "Close the library, open it again and pick the section again."
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:451
+#: admin/pages/class-bricksfly-builder-template-library.php:461
 msgid "Reload the builder and try again. If it keeps failing, turn off \"Import images\" in the Import settings and retry."
 msgstr ""
 
 #. translators: %d: number of images
-#: admin/pages/class-bricksfly-builder-template-library.php:470
+#: admin/pages/class-bricksfly-builder-template-library.php:480
 #, php-format
 msgid "%d image could not be downloaded."
 msgid_plural "%d images could not be downloaded."
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:471
+#: admin/pages/class-bricksfly-builder-template-library.php:481
 msgid "They still load from the library site, so the section looks right for now. Insert the section again later, or replace those images from your Media Library."
 msgstr ""
 
 #. translators: %d: number of images
-#: admin/pages/class-bricksfly-builder-template-library.php:479
+#: admin/pages/class-bricksfly-builder-template-library.php:489
 #, php-format
 msgid "%d image was not downloaded because the section has a lot of images."
 msgid_plural "%d images were not downloaded because the section has a lot of images."
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:480
+#: admin/pages/class-bricksfly-builder-template-library.php:490
 msgid "Insert the section a second time to download the rest."
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:487
+#: admin/pages/class-bricksfly-builder-template-library.php:497
 msgid "Images were not downloaded because your user cannot upload files."
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:488
+#: admin/pages/class-bricksfly-builder-template-library.php:498
 msgid "They still load from the library site. Ask an administrator to insert the section, or to give your role the upload files permission."
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:504
+#: admin/pages/class-bricksfly-builder-template-library.php:514
 msgid "SVG icons were not imported."
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:505
+#: admin/pages/class-bricksfly-builder-template-library.php:515
 msgid "Turn on SVG uploads for your role in Bricks > Settings > General, then insert the section again."
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:870
+#: admin/pages/class-bricksfly-builder-template-library.php:880
 msgid "Could not resolve template source."
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:886
+#: admin/pages/class-bricksfly-builder-template-library.php:896
 msgid "Empty template response."
 msgstr ""
 
-#: admin/pages/class-bricksfly-builder-template-library.php:891
+#: admin/pages/class-bricksfly-builder-template-library.php:901
 msgid "Invalid template JSON."
 msgstr ""
 
@@ -629,23 +664,23 @@ msgstr ""
 msgid "Starter Template"
 msgstr ""
 
-#: admin/pages/dashboard.php:471
-#: admin/pages/dashboard.php:506
-#: admin/pages/dashboard.php:527
-#: admin/pages/dashboard.php:541
-#: admin/pages/dashboard.php:589
+#: admin/pages/dashboard.php:476
+#: admin/pages/dashboard.php:511
+#: admin/pages/dashboard.php:532
+#: admin/pages/dashboard.php:546
+#: admin/pages/dashboard.php:594
 msgid "you are not allowed to do this action"
 msgstr ""
 
-#: admin/pages/dashboard.php:491
+#: admin/pages/dashboard.php:496
 msgid "Invalid settings type."
 msgstr ""
 
-#: admin/pages/dashboard.php:517
+#: admin/pages/dashboard.php:522
 msgid "Notice Updated"
 msgstr ""
 
-#: admin/pages/dashboard.php:594
+#: admin/pages/dashboard.php:599
 msgid "Smooth scroller settings are required."
 msgstr ""
 
@@ -661,7 +696,7 @@ msgstr ""
 #: admin/pages/template-importer.php:55
 #: admin/pages/template-importer.php:72
 #: admin/pages/template-importer.php:98
-#: admin/st-init.php:94
+#: admin/st-init.php:174
 msgid "You are not allowed to perform this action."
 msgstr ""
 
@@ -685,38 +720,42 @@ msgstr ""
 msgid "Not Installed"
 msgstr ""
 
-#: admin/pages/template-importer.php:221
+#: admin/pages/template-importer.php:223
 #: admin/plugin-installer.php:44
 #: admin/plugin-installer.php:66
 msgid "You are not allowed to do this action"
 msgstr ""
 
-#: admin/pages/template-importer.php:269
+#: admin/pages/template-importer.php:275
 msgid "Checking Setup requirement"
 msgstr ""
 
-#: admin/pages/template-importer.php:292
+#: admin/pages/template-importer.php:298
 msgid "Downloading Template"
 msgstr ""
 
-#: admin/pages/template-importer.php:308
+#: admin/pages/template-importer.php:314
 msgid "Missing Content file, contact author"
 msgstr ""
 
-#: admin/pages/template-importer.php:311
+#: admin/pages/template-importer.php:317
 msgid "Content file Downloading"
 msgstr ""
 
-#: admin/pages/template-importer.php:319
+#: admin/pages/template-importer.php:325
 msgid "Verifying Content Import"
 msgstr ""
 
-#: admin/pages/template-importer.php:320
+#: admin/pages/template-importer.php:326
 msgid "Checking Theme"
 msgstr ""
 
-#: admin/pages/template-importer.php:340
+#: admin/pages/template-importer.php:358
 msgid "Template Demo Import fail"
+msgstr ""
+
+#: admin/pages/template-importer.php:1016
+msgid "earlier demo"
 msgstr ""
 
 #: admin/plugin-installer.php:50
@@ -751,19 +790,19 @@ msgstr ""
 msgid "Rate the plugin"
 msgstr ""
 
-#: admin/st-init.php:90
+#: admin/st-init.php:170
 msgid "Invalid or missing nonce"
 msgstr ""
 
-#: admin/st-init.php:208
+#: admin/st-init.php:288
 msgid "Downloaded files"
 msgstr ""
 
-#: admin/st-init.php:214
+#: admin/st-init.php:294
 msgid "No import files specified!"
 msgstr ""
 
-#: admin/st-init.php:260
+#: admin/st-init.php:341
 msgid "Congrats, your demo has been imported."
 msgstr ""
 

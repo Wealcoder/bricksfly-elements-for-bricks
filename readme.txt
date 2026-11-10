@@ -4,7 +4,7 @@ Tags: bricks builder, bricks templates, bricks builder addons, bricks elements, 
 Requires at least: 6.9
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.11
+Stable tag: 1.0.12
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -304,6 +304,18 @@ The files in `public/build` are compiled (minified) JavaScript and CSS. **Their 
 
 == Changelog ==
 
+= 1.0.12 =
+- Added: An Import Section button in the Bricks editor toolbar, in the canvas actions and on a blank page opens the section library. When BricksFly Pro holds a Live Copy, a chooser lets you pick Cloud or Live Paste.
+- Added: Preview in the section library opens the demo inside the library, with Back to library, previous and next section (arrow keys), Desktop, Tablet and Mobile widths, Open in new tab and Insert. A hint shows while a slow demo loads.
+- Added: Page import has an Import settings window for every page: "Original style" or "This site's style", and "Import images". Original style adds the page's theme style so that it applies to the imported page only, puts the page's custom code in the page settings, and merges the colors and variables the page uses without replacing yours; the template's breakpoints are taken only while your site still uses the Bricks defaults. This site's style leaves the template's classes, variables, colors, theme style and fonts out.
+- Added: Preview in the page library opens the demo inside the dashboard, with Back, previous and next page (arrow keys), Desktop, Tablet and Mobile widths, Open in new tab and Import.
+- Added: A second starter template can be imported on a site that already has one. The new template's header, footer, theme style and front page take over; the earlier template keeps its own look on its own pages, and its menus stay separate. The Required Features step tells you about this before the import starts.
+- Improved: A starter template's components, global queries and class and query categories are merged with yours (yours win), custom pseudo classes are united, and the color palette is merged color by color, so a template's colors are no longer skipped when a palette id already exists.
+- Improved: A starter template's site-wide custom CSS and scripts (for example a Lottie loader) are added to the Bricks custom code settings on a full import.
+- Changed: The section and page libraries list the newest items first. A page imported before comes in again as a new copy instead of being skipped.
+- Fixed: A starter template whose Bricks settings held a script with Windows line endings lost those settings during the import.
+- Fixed: Lottie .json files of a page are imported with the page.
+
 = 1.0.11 =
 - Added: The Image Hotspot element, to place clickable markers with tooltips on an image.
 - Added: When you insert a section from the library, an Import settings window lets you choose "Keep original design" or "Use this site's style", and "Keep demo image links" (default) or "Copy images to my site". SVG icons are always copied so they display.
@@ -328,13 +340,12 @@ The files in `public/build` are compiled (minified) JavaScript and CSS. **Their 
 - Added: The Stacking Cards element and the Stacking Cards and Magnetic Effect extensions are listed in the BricksFly dashboard. They are part of BricksFly Pro.
 - Updated: The readme lists Stacking Cards and Magnetic Effect.
 
-= 1.0.7 =
-- Changed: The plugin is now named "BricksFly Elements and Templates for Bricks". The GSAP animation engine is part of the separate BricksFly Pro plugin, so it is no longer in this plugin's name.
-- Changed: The description on the Plugins screen now lists only what this plugin includes.
-
 [See the full changelog](https://plugins.trac.wordpress.org/browser/bricksfly-elements-for-bricks/trunk/changelog.txt).
 
 == Upgrade Notice ==
+
+= 1.0.12 =
+Import Section button and in-library previews in the Bricks editor and page library, style options for page import, and a second starter template no longer changes the look of the first one. Recommended update.
 
 = 1.0.11 =
 Better section import: choose to keep the original design or use your site's style, keep or copy images, and your existing global classes and variables are never overwritten.
