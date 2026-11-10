@@ -11,6 +11,7 @@
 - Changed: The section and page libraries list the newest items first. A page imported before comes in again as a new copy instead of being skipped.
 - Fixed: A starter template whose Bricks settings held a script with Windows line endings lost those settings during the import.
 - Fixed: Lottie .json files of a page are imported with the page.
+- Fixed: Section library thumbnails were cut off at the left and right. The card now shows the whole width of the screenshot.
 
 = 1.0.11 =
 - Added: The Image Hotspot element, to place clickable markers with tooltips on an image.

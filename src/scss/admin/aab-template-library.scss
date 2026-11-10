@@ -273,11 +273,14 @@
 	border-color: #ffd53e;
 }
 
+/* Section screenshots in the library are landscape (most are 345x200,
+   ratio 1.725). The box uses that ratio so a wide screenshot shows in full;
+   a taller one is cut at the bottom, never at the sides. */
 .aab-tl-card__thumb {
 	position: relative;
 	width: 100%;
 	background: #f0f0f4;
-	aspect-ratio: 4 / 3;
+	aspect-ratio: 345 / 200;
 	overflow: hidden;
 }
 
