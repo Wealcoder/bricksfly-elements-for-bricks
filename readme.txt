@@ -312,6 +312,7 @@ The files in `public/build` are compiled (minified) JavaScript and CSS. **Their 
 - Changed: The offer notice shows at most twice per administrator on the Dashboard screen, at least 10 minutes apart, and on every visit to the Plugins screen until it is dismissed. Its close button hides it for 10 minutes; "Don't show again" hides it for good.
 - Changed: The offer in the BricksFly dashboard shows on every visit while it runs. Its X hides it until the page is opened again.
 - Removed: The Halloween offer banner.
+- Fixed: Uninstalling BricksFly removes the admin notices' own records (dismissed and snoozed notices, view counts). Settings, templates and content are kept.
 
 = 1.0.12 =
 - Added: An Import Section button in the Bricks editor toolbar, in the canvas actions and on a blank page opens the section library. When BricksFly Pro holds a Live Copy, a chooser lets you pick Cloud or Live Paste.
