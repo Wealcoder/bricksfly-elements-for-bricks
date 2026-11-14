@@ -88,7 +88,7 @@ class Notices {
 				'start'    => '2026-11-14',
 				'end'      => '2026-12-10',
 				'image'    => 'bfcm-2026-pro.png',
-				'url'      => 'https://animation-addons.com/agency-bundle/?utm_source=bricksfly_plugin_dashboard&utm_medium=pro_user_notice&utm_campaign=bfcm_2026&utm_content=get_bundle_button',
+				'url'      => 'https://animation-addons.com/agency-bundle/?utm_source=Bricksfly_plugin_dashboard&utm_medium=pro_user_notice&utm_campaign=bfcm_2026&utm_content=get_bundle_button',
 				'alt'      => __( 'Agency Bundle lifetime at 70 percent off: Animation Addons Pro, MotionKit, BricksFly, Arolax and Axtra themes for $449.', 'bricksfly-elements-for-bricks' ),
 			),
 		);
