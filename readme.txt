@@ -4,7 +4,7 @@ Tags: bricks builder, bricks templates, bricks builder addons, bricks elements, 
 Requires at least: 6.9
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.12
+Stable tag: 1.0.13
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -307,6 +307,12 @@ The files in `public/build` are compiled (minified) JavaScript and CSS. **Their 
 
 == Changelog ==
 
+= 1.0.13 =
+- Added: Black Friday offers, running until December 10. Sites without BricksFly Pro see the lifetime plan offer; sites with BricksFly Pro see the Agency Bundle offer.
+- Changed: The offer notice shows at most twice per administrator on the Dashboard and Plugins screens, at least 10 minutes apart. Its close button hides it for 10 minutes; "Don't show again" hides it for good.
+- Changed: The offer in the BricksFly dashboard can be closed with the X in its top right corner. It stays closed, and the notice of the same offer is hidden too.
+- Removed: The Halloween offer banner.
+
 = 1.0.12 =
 - Added: An Import Section button in the Bricks editor toolbar, in the canvas actions and on a blank page opens the section library. When BricksFly Pro holds a Live Copy, a chooser lets you pick Cloud or Live Paste.
 - Added: Preview in the section library opens the demo inside the library, with Back to library, previous and next section (arrow keys), Desktop, Tablet and Mobile widths, Open in new tab and Insert. A hint shows while a slow demo loads.
@@ -332,14 +338,9 @@ The files in `public/build` are compiled (minified) JavaScript and CSS. **Their 
 - Fixed: Section names with a dash or quote showed raw HTML codes in the library.
 - Fixed: Filtering or searching quickly could show duplicate or wrong cards in the library.
 
-= 1.0.10 =
-- Added: The seasonal BricksFly Pro offer also shows in the BricksFly dashboard, below its menu (Dashboard, Elements, Extensions and Free vs Pro tabs). It has no close button and shows until the offer ends.
-- Changed: The offer notice no longer tries to show on BricksFly screens, which hide WordPress notices.
-- Changed: Each administrator sees the offer notice once on the Dashboard and twice on the Plugins screen.
-
 [See the full changelog](https://plugins.trac.wordpress.org/browser/bricksfly-elements-for-bricks/trunk/changelog.txt).
 
 == Upgrade Notice ==
 
-= 1.0.12 =
-Import Section button and in-library previews in the Bricks editor and page library, style options for page import, and a second starter template no longer changes the look of the first one. Recommended update.
+= 1.0.13 =
+Black Friday offers until December 10, and the offer banner can now be closed in the BricksFly dashboard.

@@ -16,7 +16,7 @@ $bricksfly_campaign = $notice['campaign'];
 	<a class="aab-promo__link" href="<?php echo esc_url( $bricksfly_campaign['url'] ); ?>" target="_blank" rel="noopener">
 		<img src="<?php echo esc_url( BRICKSFLY_URL . 'assets/images/notices/' . $bricksfly_campaign['image'] ); ?>" width="1100" height="150" alt="<?php echo esc_attr( $bricksfly_campaign['alt'] ); ?>">
 	</a>
-	<button type="button" class="aab-promo__close aab-snooze-btn" data-snooze="true" data-snooze-time="<?php echo esc_attr( 3 * DAY_IN_SECONDS ); ?>">
+	<button type="button" class="aab-promo__close aab-snooze-btn" data-snooze="true" data-snooze-time="<?php echo esc_attr( 10 * MINUTE_IN_SECONDS ); ?>">
 		<span class="screen-reader-text"><?php esc_html_e( 'Close', 'bricksfly-elements-for-bricks' ); ?></span>
 	</button>
 </div>

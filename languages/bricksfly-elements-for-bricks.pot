@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: BricksFly Elements and Templates for Bricks 1.0.12\n"
+"Project-Id-Version: BricksFly Elements and Templates for Bricks 1.0.13\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bricksfly-elements-for-bricks\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-10T04:19:17+00:00\n"
+"POT-Creation-Date: 2026-11-14T09:46:12+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: bricksfly-elements-for-bricks\n"
@@ -227,11 +227,15 @@ msgstr ""
 msgid "The template library could not be reached. Please try again."
 msgstr ""
 
-#: admin/Notices/class-notices.php:80
-msgid "Halloween deal: upgrade to BricksFly Pro at 40 percent off. Offer ends November 5."
+#: admin/Notices/class-notices.php:83
+msgid "Black Friday: BricksFly Pro lifetime plans from $47.40. Pay once, no renewals."
 msgstr ""
 
-#: admin/Notices/class-notices.php:267
+#: admin/Notices/class-notices.php:92
+msgid "Agency Bundle lifetime at 70 percent off: Animation Addons Pro, MotionKit, BricksFly, Arolax and Axtra themes for $449."
+msgstr ""
+
+#: admin/Notices/class-notices.php:283
 msgid "Dismiss this notice"
 msgstr ""
 
