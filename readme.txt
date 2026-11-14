@@ -309,7 +309,7 @@ The files in `public/build` are compiled (minified) JavaScript and CSS. **Their 
 
 = 1.0.13 =
 - Added: Black Friday offers, running until December 10. Sites without BricksFly Pro see the lifetime plan offer; sites with BricksFly Pro see the Agency Bundle offer.
-- Changed: The offer notice shows at most twice per administrator on the Dashboard and Plugins screens, at least 10 minutes apart. Its close button hides it for 10 minutes; "Don't show again" hides it for good.
+- Changed: The offer notice shows at most twice per administrator on the Dashboard screen, at least 10 minutes apart, and on every visit to the Plugins screen until it is dismissed. Its close button hides it for 10 minutes; "Don't show again" hides it for good.
 - Changed: The offer in the BricksFly dashboard shows on every visit while it runs. Its X hides it until the page is opened again.
 - Removed: The Halloween offer banner.
 

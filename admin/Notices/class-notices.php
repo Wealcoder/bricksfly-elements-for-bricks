@@ -97,9 +97,9 @@ class Notices {
 	/**
 	 * Show the running campaign for this site's audience (with or without
 	 * BricksFly Pro):
-	 * - as a notice on the Dashboard and Plugins screens, twice per user in
-	 *   all, at least 10 minutes apart. Its X hides it for 10 minutes, "Don't
-	 *   show again" for good;
+	 * - as a notice on the Dashboard screen twice per user, at least 10
+	 *   minutes apart, and on the Plugins screen on every visit. Its X hides
+	 *   it for 10 minutes, "Don't show again" for good (both screens);
 	 * - in the BricksFly dashboard below its menu (that screen removes admin
 	 *   notices; see get_dashboard_campaign()) for as long as it runs.
 	 */
@@ -133,6 +133,7 @@ class Notices {
 					'screens'         => array( 'dashboard', 'plugins' ),
 					'max_views_total' => 2,
 					'view_gap'        => 10 * MINUTE_IN_SECONDS,
+					'limit_screens'   => array( 'dashboard' ),
 					'campaign'        => $campaign,
 				)
 			);
@@ -303,6 +304,8 @@ class Notices {
 	 *     @type int[]    $max_views   Times each user sees it, per screen ID (e.g. array( 'plugins' => 2 )). Empty = no limit.
 	 *     @type int      $max_views_total Times each user sees it on all its screens together. 0 = no limit.
 	 *     @type int      $view_gap    Seconds that must pass between two views by the same user. 0 = none.
+	 *     @type string[] $limit_screens Screen IDs where max_views_total and view_gap apply and views are
+	 *                                 counted for them. Empty = all its screens.
 	 * }
 	 */
 	public function add( $args ) {
@@ -323,6 +326,7 @@ class Notices {
 				'max_views'       => array(),
 				'max_views_total' => 0,
 				'view_gap'        => 0,
+				'limit_screens'   => array(),
 			)
 		);
 		if ( empty( $args['message'] ) ) {
@@ -380,7 +384,7 @@ class Notices {
 				return false;
 			}
 		}
-		if ( ! empty( $notice['max_views_total'] ) || ! empty( $notice['view_gap'] ) ) {
+		if ( ( ! empty( $notice['max_views_total'] ) || ! empty( $notice['view_gap'] ) ) && $this->in_limit_screens( $notice ) ) {
 			$views = get_user_meta( get_current_user_id(), 'bricksfly_notice_views', true );
 			$views = isset( $views[ $notice['notice_id'] ] ) ? (array) $views[ $notice['notice_id'] ] : array();
 			$total = isset( $views['_total'] ) ? absint( $views['_total'] ) : 0;
@@ -422,9 +426,21 @@ class Notices {
 		$views   = is_array( $views ) ? $views : array();
 
 		$views[ $id ][ $screen->id ] = $this->get_views( $id, $screen->id ) + 1;
-		$views[ $id ]['_total']      = ( isset( $views[ $id ]['_total'] ) ? absint( $views[ $id ]['_total'] ) : 0 ) + 1;
-		$views[ $id ]['_last']       = time();
+		if ( isset( $this->notices[ $id ] ) && $this->in_limit_screens( $this->notices[ $id ] ) ) {
+			$views[ $id ]['_total'] = ( isset( $views[ $id ]['_total'] ) ? absint( $views[ $id ]['_total'] ) : 0 ) + 1;
+			$views[ $id ]['_last']  = time();
+		}
 		update_user_meta( $user_id, 'bricksfly_notice_views', $views );
+	}
+
+	/**
+	 * Whether the notice's total view limit and view gap apply on the current screen.
+	 *
+	 * @param array $notice Notice arguments.
+	 * @return bool
+	 */
+	protected function in_limit_screens( $notice ) {
+		return empty( $notice['limit_screens'] ) || $this->is_screen( $notice['limit_screens'] );
 	}
 
 	/**
