@@ -1,10 +1,9 @@
 import { useState } from "react";
 
 // Seasonal offer, below the dashboard menu. The data comes from
-// Notices::get_dashboard_campaign(): null when nothing runs or the user
-// dismissed it. It stays until the campaign ends or the user clicks the X
-// drawn in the banner's top right corner, which dismisses it for good (the
-// admin notice of the same campaign goes too).
+// Notices::get_dashboard_campaign(): null when nothing runs. It shows on every
+// visit until the campaign ends; the X drawn in the banner's top right corner
+// only hides it until the next page load (nothing is saved).
 const campaign = BRICKSFLY_ADDONS_ADMIN.campaign;
 
 const CampaignBanner = () => {
@@ -14,14 +13,7 @@ const CampaignBanner = () => {
     return null;
   }
 
-  const dismiss = () => {
-    setHidden(true);
-    const body = new FormData();
-    body.append("action", "bricksfly_notice_dismiss_notice");
-    body.append("nonce", campaign.nonce);
-    body.append("notice_id", campaign.notice_id);
-    fetch(campaign.ajax_url, { method: "POST", credentials: "same-origin", body }).catch(() => {});
-  };
+  const dismiss = () => setHidden(true);
 
   return (
     <div className="mb-6 relative">

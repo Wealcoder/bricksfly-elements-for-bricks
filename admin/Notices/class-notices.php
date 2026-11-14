@@ -101,7 +101,7 @@ class Notices {
 	 *   all, at least 10 minutes apart. Its X hides it for 10 minutes, "Don't
 	 *   show again" for good;
 	 * - in the BricksFly dashboard below its menu (that screen removes admin
-	 *   notices; see get_dashboard_campaign()) until the user dismisses it.
+	 *   notices; see get_dashboard_campaign()) for as long as it runs.
 	 */
 	protected function add_campaign_notices() {
 		$now     = current_datetime();
@@ -141,26 +141,22 @@ class Notices {
 
 	/**
 	 * The running campaign for the BricksFly dashboard (a React app that
-	 * renders it below its menu), or null when there is none or the user
-	 * dismissed it ("Don't show again" in the notice, or the X in the
-	 * dashboard). The notice's view limit and 10 minute snooze do not apply
-	 * here: it shows until the campaign ends or the user dismisses it.
+	 * renders it below its menu), or null when there is none. It ignores the
+	 * notice's view limit, snooze and "Don't show again": it shows on every
+	 * visit until the campaign ends. Its X only hides it until the next page load.
 	 *
 	 * @return array|null
 	 */
 	public function get_dashboard_campaign() {
 		foreach ( $this->notices as $notice ) {
-			if ( empty( $notice['campaign'] ) || ! current_user_can( $notice['capability'] ) || 'yes' === get_option( $notice['notice_id'] ) ) {
+			if ( empty( $notice['campaign'] ) || ! current_user_can( $notice['capability'] ) ) {
 				continue;
 			}
 
 			return array(
-				'image'     => esc_url_raw( BRICKSFLY_URL . 'assets/images/notices/' . $notice['campaign']['image'] ),
-				'url'       => esc_url_raw( $notice['campaign']['url'] ),
-				'alt'       => $notice['campaign']['alt'],
-				'notice_id' => $notice['notice_id'],
-				'nonce'     => wp_create_nonce( 'bricksfly_notice_dismiss_notice' ),
-				'ajax_url'  => admin_url( 'admin-ajax.php' ),
+				'image' => esc_url_raw( BRICKSFLY_URL . 'assets/images/notices/' . $notice['campaign']['image'] ),
+				'url'   => esc_url_raw( $notice['campaign']['url'] ),
+				'alt'   => $notice['campaign']['alt'],
 			);
 		}
 		return null;
