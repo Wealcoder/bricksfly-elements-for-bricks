@@ -65,6 +65,9 @@ const adminConfig = {
   devtool: isProd ? false : "source-map",
   externals: {
     react: "React",
+    // Use WordPress's own JSX runtime (script handle "react-jsx-runtime") instead of
+    // bundling a copy, which breaks on React 19.
+    "react/jsx-runtime": "ReactJSXRuntime",
     "react-dom": "ReactDOM",
   },
   entry: {

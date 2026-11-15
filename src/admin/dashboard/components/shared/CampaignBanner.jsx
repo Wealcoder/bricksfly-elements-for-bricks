@@ -1,15 +1,22 @@
-// Seasonal BricksFly Pro offer, below the dashboard menu. The data comes from
-// Notices::get_dashboard_campaign(): null when nothing runs or BricksFly Pro is
-// installed. It has no close button and stays until the campaign ends.
+import { useState } from "react";
+
+// Seasonal offer, below the dashboard menu. The data comes from
+// Notices::get_dashboard_campaign(): null when nothing runs. It shows on every
+// visit until the campaign ends; the X drawn in the banner's top right corner
+// only hides it until the next page load (nothing is saved).
 const campaign = BRICKSFLY_ADDONS_ADMIN.campaign;
 
 const CampaignBanner = () => {
-  if (!campaign) {
+  const [hidden, setHidden] = useState(false);
+
+  if (!campaign || hidden) {
     return null;
   }
 
+  const dismiss = () => setHidden(true);
+
   return (
-    <div className="mb-6">
+    <div className="mb-6 relative">
       <a
         href={campaign.url}
         target="_blank"
@@ -24,6 +31,26 @@ const CampaignBanner = () => {
           className="block w-full h-auto"
         />
       </a>
+      <button
+        type="button"
+        onClick={dismiss}
+        aria-label="Dismiss this offer"
+        title="Dismiss"
+        style={{
+          position: "absolute",
+          left: "97.4%",
+          top: "17.2%",
+          width: "3.4%",
+          minWidth: "24px",
+          aspectRatio: "1",
+          transform: "translate(-50%, -50%)",
+          padding: 0,
+          border: 0,
+          borderRadius: "50%",
+          background: "transparent",
+          cursor: "pointer",
+        }}
+      />
     </div>
   );
 };

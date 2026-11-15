@@ -65,29 +65,43 @@ class Notices {
 	 * To add one, drop its 1100x150 @2x PNG in that folder and add an entry.
 	 * Every campaign has its own notice ID, so dismissing one never hides the next.
 	 *
+	 * The banner's top right corner has a close (X) drawn in; a button is laid over it.
+	 *
 	 * @return array[] Campaigns: id, start, end (Y-m-d), image, url, alt, and
-	 *                 optionally dashboard_image (the BricksFly dashboard banner,
-	 *                 which has no close button; defaults to image).
+	 *                 audience: 'free' (sites without BricksFly Pro, the default)
+	 *                 or 'pro' (sites with BricksFly Pro installed, active or not).
 	 */
 	protected function campaigns() {
 		return array(
 			array(
-				'id'    => 'halloween_2026',
-				'start' => '2026-10-01',
-				'end'   => '2026-11-05',
-				'image' => 'halloween-2026.png',
-				'url'   => 'https://bricksfly.com/pricing/?utm_source=plugin_dashboard&utm_medium=free_user_notice&utm_campaign=halloween_2026&utm_content=upgrade_button',
-				'alt'   => __( 'Halloween deal: upgrade to BricksFly Pro at 40 percent off. Offer ends November 5.', 'bricksfly-elements-for-bricks' ),
+				'id'       => 'bfcm_2026_free',
+				'audience' => 'free',
+				'start'    => '2026-11-14',
+				'end'      => '2026-12-10',
+				'image'    => 'bfcm-2026-free.png',
+				'url'      => 'https://bricksfly.com/pricing/?utm_source=plugin_dashboard&utm_medium=free_user_notice&utm_campaign=bfcm_2026&utm_content=get_lifetime_button',
+				'alt'      => __( 'Black Friday: BricksFly Pro lifetime plans from $47.40. Pay once, no renewals.', 'bricksfly-elements-for-bricks' ),
+			),
+			array(
+				'id'       => 'bfcm_2026_pro',
+				'audience' => 'pro',
+				'start'    => '2026-11-14',
+				'end'      => '2026-12-10',
+				'image'    => 'bfcm-2026-pro.png',
+				'url'      => 'https://animation-addons.com/agency-bundle/?utm_source=Bricksfly_plugin_dashboard&utm_medium=pro_user_notice&utm_campaign=bfcm_2026&utm_content=get_bundle_button',
+				'alt'      => __( 'Agency Bundle lifetime at 70 percent off: Animation Addons Pro, MotionKit, BricksFly, Arolax and Axtra themes for $449.', 'bricksfly-elements-for-bricks' ),
 			),
 		);
 	}
 
 	/**
-	 * Show the running campaign to admins who do not have BricksFly Pro
-	 * installed (active or not): as a notice on the Dashboard (once per user)
-	 * and Plugins (twice per user) screens, and in the BricksFly dashboard
-	 * below its menu (that screen removes admin notices; see
-	 * get_dashboard_campaign()).
+	 * Show the running campaign for this site's audience (with or without
+	 * BricksFly Pro):
+	 * - as a notice on the Dashboard screen twice per user, at least 10
+	 *   minutes apart, and on the Plugins screen on every visit. Its X hides
+	 *   it for 10 minutes, "Don't show again" for good (both screens);
+	 * - in the BricksFly dashboard below its menu (that screen removes admin
+	 *   notices; see get_dashboard_campaign()) for as long as it runs.
 	 */
 	protected function add_campaign_notices() {
 		$now     = current_datetime();
@@ -99,25 +113,28 @@ class Notices {
 				$running[] = $campaign;
 			}
 		}
-
-		// Checked after the dates: finding Pro reads the installed plugins list.
-		if ( empty( $running ) || bricksfly_is_pro_active() || bricksfly_is_pro_installed() ) {
+		if ( empty( $running ) ) {
 			return;
 		}
 
+		// Checked after the dates: finding Pro reads the installed plugins list.
+		$audience = bricksfly_is_pro_active() || bricksfly_is_pro_installed() ? 'pro' : 'free';
+
 		foreach ( $running as $campaign ) {
+			if ( ( isset( $campaign['audience'] ) ? $campaign['audience'] : 'free' ) !== $audience ) {
+				continue;
+			}
 			$this->add(
 				array(
-					'notice_id'   => 'bricksfly_notice_' . $campaign['id'],
-					'message'     => __DIR__ . '/views/campaign.php',
-					'dismissible' => false,
-					'class'       => 'aab-promo-notice',
-					'screens'     => array( 'dashboard', 'plugins' ),
-					'max_views'   => array(
-						'dashboard' => 1,
-						'plugins'   => 2,
-					),
-					'campaign'    => $campaign,
+					'notice_id'       => 'bricksfly_notice_' . $campaign['id'],
+					'message'         => __DIR__ . '/views/campaign.php',
+					'dismissible'     => false,
+					'class'           => 'aab-promo-notice',
+					'screens'         => array( 'dashboard', 'plugins' ),
+					'max_views_total' => 2,
+					'view_gap'        => 10 * MINUTE_IN_SECONDS,
+					'limit_screens'   => array( 'dashboard' ),
+					'campaign'        => $campaign,
 				)
 			);
 		}
@@ -125,10 +142,9 @@ class Notices {
 
 	/**
 	 * The running campaign for the BricksFly dashboard (a React app that
-	 * renders it below its menu), or null when there is none. It has no close
-	 * button and ignores the notice's snooze / dismiss: it shows until the
-	 * campaign ends, unless BricksFly Pro is installed (then no campaign is
-	 * registered at all).
+	 * renders it below its menu), or null when there is none. It ignores the
+	 * notice's view limit, snooze and "Don't show again": it shows on every
+	 * visit until the campaign ends. Its X only hides it until the next page load.
 	 *
 	 * @return array|null
 	 */
@@ -138,11 +154,8 @@ class Notices {
 				continue;
 			}
 
-			// The notice image has a close (X) drawn in; a campaign can give the dashboard a version without it.
-			$image = ! empty( $notice['campaign']['dashboard_image'] ) ? $notice['campaign']['dashboard_image'] : $notice['campaign']['image'];
-
 			return array(
-				'image' => esc_url_raw( BRICKSFLY_URL . 'assets/images/notices/' . $image ),
+				'image' => esc_url_raw( BRICKSFLY_URL . 'assets/images/notices/' . $notice['campaign']['image'] ),
 				'url'   => esc_url_raw( $notice['campaign']['url'] ),
 				'alt'   => $notice['campaign']['alt'],
 			);
@@ -267,7 +280,7 @@ class Notices {
 					$notice['dismissible'] ? '<button type="button" class="notice-dismiss"><span class="screen-reader-text">' . esc_html__( 'Dismiss this notice', 'bricksfly-elements-for-bricks' ) . '</span></button>' : ''
 				);
 
-				if ( ! empty( $notice['max_views'] ) ) {
+				if ( ! empty( $notice['max_views'] ) || ! empty( $notice['max_views_total'] ) ) {
 					$this->count_view( $notice['notice_id'] );
 				}
 			}
@@ -289,6 +302,10 @@ class Notices {
 	 *     @type string   $style       Inline style for the wrapper.
 	 *     @type string[] $screens     Screen IDs to show on; a trailing * matches a prefix. Empty = every screen.
 	 *     @type int[]    $max_views   Times each user sees it, per screen ID (e.g. array( 'plugins' => 2 )). Empty = no limit.
+	 *     @type int      $max_views_total Times each user sees it on all its screens together. 0 = no limit.
+	 *     @type int      $view_gap    Seconds that must pass between two views by the same user. 0 = none.
+	 *     @type string[] $limit_screens Screen IDs where max_views_total and view_gap apply and views are
+	 *                                 counted for them. Empty = all its screens.
 	 * }
 	 */
 	public function add( $args ) {
@@ -298,15 +315,18 @@ class Notices {
 		$args = wp_parse_args(
 			$args,
 			array(
-				'message'     => '',
-				'type'        => 'info',
-				'dismissible' => true,
-				'capability'  => 'manage_options',
-				'notice_id'   => '',
-				'class'       => '',
-				'style'       => '',
-				'screens'     => array(),
-				'max_views'   => array(),
+				'message'         => '',
+				'type'            => 'info',
+				'dismissible'     => true,
+				'capability'      => 'manage_options',
+				'notice_id'       => '',
+				'class'           => '',
+				'style'           => '',
+				'screens'         => array(),
+				'max_views'       => array(),
+				'max_views_total' => 0,
+				'view_gap'        => 0,
+				'limit_screens'   => array(),
 			)
 		);
 		if ( empty( $args['message'] ) ) {
@@ -364,6 +384,18 @@ class Notices {
 				return false;
 			}
 		}
+		if ( ( ! empty( $notice['max_views_total'] ) || ! empty( $notice['view_gap'] ) ) && $this->in_limit_screens( $notice ) ) {
+			$views = get_user_meta( get_current_user_id(), 'bricksfly_notice_views', true );
+			$views = isset( $views[ $notice['notice_id'] ] ) ? (array) $views[ $notice['notice_id'] ] : array();
+			$total = isset( $views['_total'] ) ? absint( $views['_total'] ) : 0;
+			$last  = isset( $views['_last'] ) ? absint( $views['_last'] ) : 0;
+			if ( ! empty( $notice['max_views_total'] ) && $total >= absint( $notice['max_views_total'] ) ) {
+				return false;
+			}
+			if ( ! empty( $notice['view_gap'] ) && $last && time() - $last < absint( $notice['view_gap'] ) ) {
+				return false;
+			}
+		}
 		return true;
 	}
 
@@ -394,7 +426,21 @@ class Notices {
 		$views   = is_array( $views ) ? $views : array();
 
 		$views[ $id ][ $screen->id ] = $this->get_views( $id, $screen->id ) + 1;
+		if ( isset( $this->notices[ $id ] ) && $this->in_limit_screens( $this->notices[ $id ] ) ) {
+			$views[ $id ]['_total'] = ( isset( $views[ $id ]['_total'] ) ? absint( $views[ $id ]['_total'] ) : 0 ) + 1;
+			$views[ $id ]['_last']  = time();
+		}
 		update_user_meta( $user_id, 'bricksfly_notice_views', $views );
+	}
+
+	/**
+	 * Whether the notice's total view limit and view gap apply on the current screen.
+	 *
+	 * @param array $notice Notice arguments.
+	 * @return bool
+	 */
+	protected function in_limit_screens( $notice ) {
+		return empty( $notice['limit_screens'] ) || $this->is_screen( $notice['limit_screens'] );
 	}
 
 	/**

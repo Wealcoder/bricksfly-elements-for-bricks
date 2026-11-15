@@ -10,8 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class BRICKSFLY_Template_Importer {
 
-	public $file_path = 'bricksfly_tpl_file.xml';
-	public $full_path = null;
+	public $file_path    = 'bricksfly_tpl_file.xml';
+	public $full_path    = null;
 	public $wishlist_key = 'bricksfly_user_wishlists';
 
 	private static $_instance = null;
@@ -24,26 +24,26 @@ class BRICKSFLY_Template_Importer {
 	}
 
 	public function __construct() {
-		add_action( 'wp_ajax_bricksfly_template_installer', [ $this, 'template_installer' ] );
-		add_action( 'wp_ajax_bricksfly_heartbeat_data', [ $this, 'heartbeat_data' ] );
-		add_action( 'wp_ajax_bricksfly_wishlist_option', [ $this, 'wishlist' ] );
-		add_action( 'wp_ajax_bricksfly_template_dependency_status', [ $this, 'template_dependency_status' ] );
+		add_action( 'wp_ajax_bricksfly_template_installer', array( $this, 'template_installer' ) );
+		add_action( 'wp_ajax_bricksfly_heartbeat_data', array( $this, 'heartbeat_data' ) );
+		add_action( 'wp_ajax_bricksfly_wishlist_option', array( $this, 'wishlist' ) );
+		add_action( 'wp_ajax_bricksfly_template_dependency_status', array( $this, 'template_dependency_status' ) );
 		// NOTE: the 'bricksfly_get_latest_imported_pages' AJAX action is handled by
-	
+
 		// That handler is batch-aware — it returns the page(s) from the most
 		// recent import via the 'bricksfly_last_import_batch' option, which is what the
 		// "Go to page" button on the Complete Import step needs. A second callback
 		// here on the same action raced the correct one (whichever fired first
 		// won and called wp_die) and queried by date DESC — which returns the
 		// wrong page because WXR preserves each page's original post_date. Removed.
-		add_filter('bricksfly_dashboard_config', [ $this, 'include_user_wishlist' ] );
+		add_filter( 'bricksfly_dashboard_config', array( $this, 'include_user_wishlist' ) );
 	}
 
 	public function include_user_wishlist( $config ) {
-		$user_id           = get_current_user_id();
+		$user_id            = get_current_user_id();
 		$config['wishlist'] = get_user_meta( $user_id, $this->wishlist_key, true );
 		if ( ! is_array( $config['wishlist'] ) ) {
-			$config['wishlist'] = [];
+			$config['wishlist'] = array();
 		}
 		return $config;
 	}
@@ -55,10 +55,13 @@ class BRICKSFLY_Template_Importer {
 			wp_send_json_error( __( 'You are not allowed to perform this action.', 'bricksfly-elements-for-bricks' ) );
 		}
 
-		$return_data = apply_filters('bricksfly_heartbeat_data', [
-			'import_state'   => get_option( 'bricksfly_template_import_state' ),
-			'import_porgress' => get_option( 'bricksfly_template_import_progress' ),
-		] );
+		$return_data = apply_filters(
+			'bricksfly_heartbeat_data',
+			array(
+				'import_state'    => get_option( 'bricksfly_template_import_state' ),
+				'import_porgress' => get_option( 'bricksfly_template_import_progress' ),
+			)
+		);
 		wp_send_json( $return_data );
 	}
 
@@ -76,7 +79,7 @@ class BRICKSFLY_Template_Importer {
 		$wishlist    = sanitize_text_field( wp_unslash( $_POST['wishlist'] ) );
 		$user_id     = get_current_user_id();
 		$wishlist_db = get_user_meta( $user_id, $this->wishlist_key, true );
-		$wishlist_db = is_array( $wishlist_db ) ? $wishlist_db : [];
+		$wishlist_db = is_array( $wishlist_db ) ? $wishlist_db : array();
 
 		if ( in_array( $wishlist, $wishlist_db, true ) ) {
 			$wishlist_db = array_values( array_filter( $wishlist_db, fn( $v ) => $v !== $wishlist ) );
@@ -95,7 +98,7 @@ class BRICKSFLY_Template_Importer {
 			wp_send_json_error( __( 'You are not allowed to perform this action.', 'bricksfly-elements-for-bricks' ) );
 		}
 
-		$dependencies = [];
+		$dependencies = array();
 		if ( isset( $_POST['dependencies'] ) ) {
 			$json_data    = sanitize_text_field( wp_unslash( $_POST['dependencies'] ) );
 			$dependencies = json_decode( $json_data, true );
@@ -139,7 +142,7 @@ class BRICKSFLY_Template_Importer {
 			}
 		}
 
-		wp_send_json_success( [ 'dependencies' => $dependencies ] );
+		wp_send_json_success( array( 'dependencies' => $dependencies ) );
 	}
 
 	/**
@@ -197,16 +200,20 @@ class BRICKSFLY_Template_Importer {
 	 */
 	private function send_failure( $template_data, $message ) {
 		delete_transient( self::state_key() );
+		delete_transient( self::bundle_key() );
+		delete_transient( self::site_vars_key() );
 		delete_option( 'bricksfly_template_import_progress' );
 		update_option( 'bricksfly_template_import_state', $message );
 
 		$template_data['next_step'] = 'fail';
 
-		wp_send_json( array(
-			'template' => $template_data,
-			'msg'      => $message,
-			'progress' => 0,
-		) );
+		wp_send_json(
+			array(
+				'template' => $template_data,
+				'msg'      => $message,
+				'progress' => 0,
+			)
+		);
 	}
 
 	public function template_installer() {
@@ -216,8 +223,10 @@ class BRICKSFLY_Template_Importer {
 			wp_send_json_error( __( 'You are not allowed to do this action', 'bricksfly-elements-for-bricks' ) );
 		}
 
-		$import_type  = isset( $_POST['import_type'] ) ? sanitize_key( wp_unslash( $_POST['import_type'] ) ) : 'full-demo';
-		$item_type    = ( 'page' === $import_type ) ? 'page' : 'template';
+		$import_type = isset( $_POST['import_type'] ) ? sanitize_key( wp_unslash( $_POST['import_type'] ) ) : 'full-demo';
+		$item_type   = ( 'page' === $import_type ) ? 'page' : 'template';
+		// "This site's style" is a page-import choice; everything else keeps the original design.
+		$site_style   = 'page' === $item_type && isset( $_POST['design'] ) && 'site' === sanitize_key( wp_unslash( $_POST['design'] ) );
 		$posted       = self::read_posted_step();
 		$next_step    = $posted['next_step'];
 		$progress     = '25';
@@ -248,6 +257,8 @@ class BRICKSFLY_Template_Importer {
 
 			// Content progress of an earlier import must not show for this one.
 			delete_option( 'bricksfly_template_import_progress' );
+			delete_transient( self::bundle_key() );
+			delete_transient( self::site_vars_key() );
 
 			set_transient(
 				self::state_key(),
@@ -287,7 +298,7 @@ class BRICKSFLY_Template_Importer {
 			$msg                        = __( 'Downloading Template', 'bricksfly-elements-for-bricks' );
 
 			if ( isset( $template_data['wp_options'] ) && is_array( $template_data['wp_options'] ) ) {
-				$this->install_options( $template_data['wp_options'], $template_data, $item_type );
+				$this->install_options( $template_data['wp_options'], $template_data, $item_type, $site_style );
 			}
 
 			if ( 'page' !== $import_type ) {
@@ -324,54 +335,833 @@ class BRICKSFLY_Template_Importer {
 
 			$this->update_blog_and_homepage_options( $template_data );
 
-			if ( 'page' !== $item_type ) {
+			if ( $site_style ) {
+				$this->apply_site_style_to_imported_pages();
+			}
+
+			if ( 'page' === $item_type ) {
+				$this->apply_page_bundle( $template_data );
+			} else {
+				// A full demo takes over the site: a demo imported earlier keeps
+				// its header, footer and theme style on its own pages only.
+				$this->settle_previous_demos();
+				$this->record_full_import( $template_data );
 				$this->enable_free_features();
 			}
 
 			do_action( 'bricksfly/starter-template/import/step/metasettings' );
 			delete_transient( self::state_key() );
+			// The last progress message must not show up as the state of a later import.
+			delete_option( 'bricksfly_template_import_state' );
 
 		} else {
 			$this->send_failure( $template_data, __( 'Template Demo Import fail', 'bricksfly-elements-for-bricks' ) );
 		}
 
-		wp_send_json( array(
-			'template' => $template_data,
-			'msg'      => $msg,
-			'progress' => $progress,
-		) );
+		wp_send_json(
+			array(
+				'template' => $template_data,
+				'msg'      => $msg,
+				'progress' => $progress,
+			)
+		);
 	}
 
+	/**
+	 * Transient that carries the template's variable names from the options step
+	 * to the last step of a "this site's style" page import.
+	 *
+	 * @return string
+	 */
+	private static function site_vars_key() {
+		return 'bricksfly_site_style_vars_' . get_current_user_id();
+	}
+
+	/**
+	 * "Use this site's style" for the pages that were just imported: drop the
+	 * references to the template's global classes, custom fonts and variables, so
+	 * the site's own styles apply. The same rules as the section "Use this site's
+	 * style" option; the page's content is not touched otherwise.
+	 *
+	 * @return void
+	 */
+	private function apply_site_style_to_imported_pages() {
+		$batch_id = get_option( 'bricksfly_last_import_batch' );
+		$names    = get_transient( self::site_vars_key() );
+		delete_transient( self::site_vars_key() );
+
+		if ( ! $batch_id ) {
+			return;
+		}
+
+		$site_vars = array_column( (array) get_option( 'bricks_global_variables', array() ), 'name' );
+		$drop_vars = array_diff( is_array( $names ) ? $names : array(), $site_vars );
+		$library   = BRICKSFLY_Builder_Template_Library::instance();
+
+		$page_ids = get_posts(
+			array(
+				'post_type'      => 'page',
+				'post_status'    => 'any',
+				'posts_per_page' => 50,
+				'fields'         => 'ids',
+				'no_found_rows'  => true,
+				'meta_key'       => 'bricksfly_import_batch', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+				'meta_value'     => $batch_id, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+			)
+		);
+
+		foreach ( $page_ids as $page_id ) {
+			$elements = get_post_meta( $page_id, '_bricks_page_content_2', true );
+
+			if ( ! is_array( $elements ) || empty( $elements ) ) {
+				continue;
+			}
+
+			$elements = $library->strip_class_references( $elements );
+			$elements = $library->strip_custom_fonts( $elements, true );
+
+			if ( $drop_vars ) {
+				$elements = $library->strip_variable_references( $elements, $drop_vars );
+			}
+
+			update_post_meta( $page_id, '_bricks_page_content_2', $elements );
+		}
+	}
+
+	/**
+	 * Transient that carries a page export's theme style and custom code from the
+	 * options step to the last step of a page import (the page ids exist by then).
+	 *
+	 * @return string
+	 */
+	private static function bundle_key() {
+		return 'bricksfly_page_bundle_' . get_current_user_id();
+	}
+
+	/**
+	 * Remember part of a page export for the last import step.
+	 *
+	 * @param array $part Keys: themeStyles, pageCode, styleIds (theme style ids a full demo brings).
+	 * @return void
+	 */
+	private function stash_page_bundle( $part ) {
+		$bundle = get_transient( self::bundle_key() );
+		$bundle = is_array( $bundle ) ? $bundle : array();
+
+		if ( ! empty( $part['themeStyles'] ) ) {
+			$bundle['themeStyles'] = $part['themeStyles'];
+		}
+		if ( ! empty( $part['pageCode'] ) && is_array( $part['pageCode'] ) ) {
+			$bundle['pageCode'] = array_merge( isset( $bundle['pageCode'] ) ? (array) $bundle['pageCode'] : array(), $part['pageCode'] );
+		}
+		if ( ! empty( $part['styleIds'] ) && is_array( $part['styleIds'] ) ) {
+			$bundle['styleIds'] = array_values( array_unique( array_merge( isset( $bundle['styleIds'] ) ? (array) $bundle['styleIds'] : array(), array_map( 'strval', $part['styleIds'] ) ) ) );
+		}
+
+		set_transient( self::bundle_key(), $bundle, HOUR_IN_SECONDS );
+	}
+
+	/**
+	 * Add palette colors a page uses. A color id the site already has (in any
+	 * palette) is never changed; a palette with the same id gets the new colors,
+	 * otherwise the template's palette is added with the missing colors only.
+	 *
+	 * @param array $existing Site palettes.
+	 * @param array $incoming Template palettes (already reduced to the colors the page uses).
+	 * @return array
+	 */
+	private function merge_color_palettes( array $existing, array $incoming ) {
+		$have = array();
+		// A variable color (raw var(--name) + light/dark value) renders as --name
+		// (Bricks 2.2+), so a name the site already defines, as a palette color or
+		// a global variable, stays the site's.
+		$have_names = array();
+		foreach ( $existing as $palette ) {
+			foreach ( (array) ( $palette['colors'] ?? array() ) as $color ) {
+				if ( is_array( $color ) && isset( $color['id'] ) ) {
+					$have[ (string) $color['id'] ] = true;
+				}
+				$var_name = self::palette_color_var_name( $color );
+				if ( '' !== $var_name ) {
+					$have_names[ $var_name ] = true;
+				}
+			}
+		}
+		foreach ( (array) get_option( 'bricks_global_variables', array() ) as $variable ) {
+			if ( is_array( $variable ) && ! empty( $variable['name'] ) && is_string( $variable['name'] ) ) {
+				$have_names[ $variable['name'] ] = true;
+			}
+		}
+
+		foreach ( $incoming as $palette ) {
+			if ( ! is_array( $palette ) || empty( $palette['id'] ) || empty( $palette['colors'] ) || ! is_array( $palette['colors'] ) ) {
+				continue;
+			}
+
+			$new_colors = array();
+			foreach ( $palette['colors'] as $color ) {
+				if ( ! is_array( $color ) || ! isset( $color['id'] ) || isset( $have[ (string) $color['id'] ] ) ) {
+					continue;
+				}
+				$var_name = self::palette_color_var_name( $color );
+				if ( '' !== $var_name && isset( $have_names[ $var_name ] ) ) {
+					continue;
+				}
+				$new_colors[]                  = $color;
+				$have[ (string) $color['id'] ] = true;
+				if ( '' !== $var_name ) {
+					$have_names[ $var_name ] = true;
+				}
+			}
+			if ( ! $new_colors ) {
+				continue;
+			}
+
+			$found = false;
+			foreach ( $existing as &$site_palette ) {
+				if ( is_array( $site_palette ) && isset( $site_palette['id'] ) && $site_palette['id'] === $palette['id'] ) {
+					$site_palette['colors'] = array_merge( array_values( (array) ( $site_palette['colors'] ?? array() ) ), $new_colors );
+					$found                  = true;
+					break;
+				}
+			}
+			unset( $site_palette );
+
+			if ( ! $found ) {
+				$palette['colors'] = $new_colors;
+				$existing[]        = $palette;
+			}
+		}
+
+		return array_values( $existing );
+	}
+
+	/**
+	 * The CSS variable a palette color defines, without the leading "--".
+	 *
+	 * Bricks prints a palette color as a variable only when its "raw" value is
+	 * var(--name) and it has a light/dark (or hex/rgb) value: --name: #color in
+	 * :root (assets.php, generate_inline_css_color_vars). A "name" key on a
+	 * color is only a label.
+	 *
+	 * @param mixed $color Palette color.
+	 * @return string Variable name, or '' when the color is not a variable.
+	 */
+	private static function palette_color_var_name( $color ) {
+		if ( ! is_array( $color ) || empty( $color['raw'] ) || ! is_string( $color['raw'] ) ) {
+			return '';
+		}
+		if ( ! isset( $color['light'] ) && ! isset( $color['dark'] ) && ! isset( $color['hex'] ) && ! isset( $color['rgb'] ) ) {
+			return '';
+		}
+		return preg_match( '/^\s*var\(\s*--([A-Za-z0-9_-]+)\s*\)\s*$/', $color['raw'], $m ) ? $m[1] : '';
+	}
+
+	/**
+	 * Custom breakpoints of the template. The page's responsive CSS is keyed by
+	 * them (a rule for "laptop" is dropped on a site without that breakpoint).
+	 * Applied only when the site still uses the Bricks default breakpoints:
+	 * then nothing existing changes. A site with its own breakpoints keeps them.
+	 *
+	 * @param array $data Page export (format 2).
+	 * @return void
+	 */
+	private function apply_page_breakpoints( array $data ) {
+		if ( empty( $data['breakpoints']['custom'] ) || empty( $data['breakpoints']['items'] ) || ! is_array( $data['breakpoints']['items'] ) ) {
+			return;
+		}
+
+		$global   = get_option( 'bricks_global_settings', array() );
+		$global   = is_array( $global ) ? $global : array();
+		$existing = get_option( 'bricks_breakpoints', array() );
+
+		if ( ! empty( $global['customBreakpoints'] ) || ( is_array( $existing ) && $existing ) ) {
+			return; // The site has its own breakpoints.
+		}
+
+		update_option( 'bricks_breakpoints', array_values( $data['breakpoints']['items'] ) );
+
+		$global['customBreakpoints'] = true;
+		update_option( 'bricks_global_settings', $global );
+
+		// Bricks regenerates its breakpoint CSS when this no longer matches its version.
+		delete_option( 'bricks_breakpoints_last_generated' );
+	}
+
+	/**
+	 * Style manager of the template (Bricks 2.2+: html font size, fluid screen
+	 * widths, default color mode light/dark/auto). A page designed for dark mode
+	 * only looks like the preview under the same default. Applied only when the
+	 * site has not set a style manager of its own.
+	 *
+	 * @param array $data Page export (format 2).
+	 * @return void
+	 */
+	private function apply_page_style_manager( array $data ) {
+		if ( empty( $data['styleManager'] ) || ! is_array( $data['styleManager'] ) ) {
+			return;
+		}
+
+		$existing = get_option( 'bricks_style_manager', array() );
+		if ( is_array( $existing ) && $existing ) {
+			return; // The site decided already.
+		}
+
+		update_option( 'bricks_style_manager', $data['styleManager'] );
+	}
+
+	/**
+	 * Last step of a page import: give the imported pages the template's theme
+	 * style (as a style that applies to those pages only, so the rest of the site
+	 * is untouched) and the template's site-wide custom code (added to each
+	 * page's own custom code).
+	 *
+	 * @param array $template_data Template read from the library.
+	 * @return void
+	 */
+	private function apply_page_bundle( $template_data ) {
+		$bundle = get_transient( self::bundle_key() );
+		delete_transient( self::bundle_key() );
+
+		if ( ! is_array( $bundle ) || ! $bundle ) {
+			return;
+		}
+
+		$batch_id = get_option( 'bricksfly_last_import_batch' );
+		if ( ! $batch_id ) {
+			return;
+		}
+
+		$page_ids = get_posts(
+			array(
+				'post_type'      => 'page',
+				'post_status'    => 'any',
+				'posts_per_page' => 50,
+				'fields'         => 'ids',
+				'no_found_rows'  => true,
+				'meta_key'       => 'bricksfly_import_batch', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+				'meta_value'     => $batch_id, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+			)
+		);
+		$page_ids = array_map( 'intval', $page_ids );
+
+		if ( ! $page_ids ) {
+			return;
+		}
+
+		// Theme style, for the imported pages only (Bricks: condition "ids" wins
+		// over a style set for the entire website).
+		if ( ! empty( $bundle['themeStyles'] ) && is_array( $bundle['themeStyles'] ) ) {
+			$styles   = get_option( 'bricks_theme_styles', array() );
+			$styles   = is_array( $styles ) ? $styles : array();
+			$style_id = 'bf' . absint( isset( $template_data['id'] ) ? $template_data['id'] : 0 );
+
+			if ( isset( $styles[ $style_id ] ) && is_array( $styles[ $style_id ] ) ) {
+				// Imported before (or imported again as a copy): add the new pages to it.
+				$conditions = isset( $styles[ $style_id ]['settings']['conditions']['conditions'] ) ? (array) $styles[ $style_id ]['settings']['conditions']['conditions'] : array();
+				$added      = false;
+				foreach ( $conditions as &$condition ) {
+					if ( is_array( $condition ) && isset( $condition['main'] ) && 'ids' === $condition['main'] ) {
+						$condition['ids'] = array_values( array_unique( array_merge( array_map( 'intval', (array) ( $condition['ids'] ?? array() ) ), $page_ids ) ) );
+						$added            = true;
+						break;
+					}
+				}
+				unset( $condition );
+				if ( ! $added ) {
+					$conditions[] = array(
+						'id'   => strtolower( wp_generate_password( 6, false, false ) ),
+						'main' => 'ids',
+						'ids'  => $page_ids,
+					);
+				}
+				$styles[ $style_id ]['settings']['conditions']['conditions'] = $conditions;
+			} else {
+				// Least specific first, so a more specific style's settings win.
+				$settings = array();
+				foreach ( $bundle['themeStyles'] as $style ) {
+					if ( is_array( $style ) && ! empty( $style['settings'] ) && is_array( $style['settings'] ) ) {
+						$settings = array_replace_recursive( $settings, $style['settings'] );
+					}
+				}
+				unset( $settings['conditions'] );
+				if ( $settings ) {
+					$settings['conditions'] = array(
+						'conditions' => array(
+							array(
+								'id'   => strtolower( wp_generate_password( 6, false, false ) ),
+								'main' => 'ids',
+								'ids'  => $page_ids,
+							),
+						),
+					);
+					$styles[ $style_id ]    = array(
+						'label'    => 'BricksFly: ' . ( isset( $template_data['title'] ) ? sanitize_text_field( $template_data['title'] ) : $style_id ),
+						'settings' => $settings,
+					);
+				}
+			}
+
+			update_option( 'bricks_theme_styles', $styles );
+		}
+
+		// Site-wide custom code of the template -> the page's own custom code.
+		if ( ! empty( $bundle['pageCode'] ) && is_array( $bundle['pageCode'] ) ) {
+			$allowed = array( 'customCss', 'customScriptsHeader', 'customScriptsBodyHeader', 'customScriptsBodyFooter' );
+
+			foreach ( $page_ids as $page_id ) {
+				$settings = get_post_meta( $page_id, '_bricks_page_settings', true );
+				$settings = is_array( $settings ) ? $settings : array();
+				$changed  = false;
+
+				foreach ( $bundle['pageCode'] as $key => $code ) {
+					if ( ! in_array( $key, $allowed, true ) || ! is_string( $code ) || '' === trim( $code ) ) {
+						continue;
+					}
+					$own = isset( $settings[ $key ] ) && is_string( $settings[ $key ] ) ? $settings[ $key ] : '';
+					if ( false !== strpos( $own, trim( $code ) ) ) {
+						continue; // Already there.
+					}
+					$settings[ $key ] = '' === trim( $own ) ? $code : rtrim( $own ) . "\n" . $code;
+					$changed          = true;
+				}
+
+				if ( $changed ) {
+					// Stored as written (update_post_meta() removes one level of slashes).
+					update_post_meta( $page_id, '_bricks_page_settings', wp_slash( $settings ) );
+				}
+			}
+		}
+	}
+
+	/**
+	 * Front page and posts page of the imported demo, by the page titles the
+	 * library gives. The pages of this import are looked at first, so the
+	 * "Home" of a demo imported earlier does not stay the front page.
+	 *
+	 * @param array $template_data Template read from the library.
+	 * @return void
+	 */
 	private function update_blog_and_homepage_options( $template_data ) {
-		if ( ! empty( $template_data['home_page'] ) ) {
-			$front_page = get_posts( [
-				'post_type'   => 'page',
-				'title'       => $template_data['home_page'],
-				'post_status' => 'all',
-				'numberposts' => 1,
-			] );
+		$front_id = ! empty( $template_data['home_page'] ) ? $this->find_imported_page_by_title( (string) $template_data['home_page'] ) : 0;
+		$blog_id  = ! empty( $template_data['blog_page'] ) ? $this->find_imported_page_by_title( (string) $template_data['blog_page'] ) : 0;
 
-			if ( ! empty( $front_page ) ) {
-				update_option( 'page_on_front', $front_page[0]->ID );
+		if ( $front_id ) {
+			update_option( 'page_on_front', $front_id );
+		}
+
+		if ( $blog_id ) {
+			update_option( 'page_for_posts', $blog_id );
+		}
+
+		if ( $front_id || $blog_id ) {
+			update_option( 'show_on_front', 'page' );
+		}
+	}
+
+	/**
+	 * Id of a page with this title: one from the current import batch when
+	 * there is one, otherwise any page with that title (newest first).
+	 *
+	 * @param string $title Page title.
+	 * @return int 0 when no such page exists.
+	 */
+	private function find_imported_page_by_title( $title ) {
+		$args = array(
+			'post_type'     => 'page',
+			'title'         => $title,
+			'post_status'   => 'all',
+			'numberposts'   => 1,
+			'orderby'       => 'ID',
+			'order'         => 'DESC',
+			'no_found_rows' => true,
+		);
+
+		$batch_id = get_option( 'bricksfly_last_import_batch' );
+
+		if ( $batch_id ) {
+			$pages = get_posts(
+				$args + array(
+					'meta_key'   => 'bricksfly_import_batch', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+					'meta_value' => (string) $batch_id, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+				)
+			);
+
+			if ( ! empty( $pages ) ) {
+				return (int) $pages[0]->ID;
 			}
 		}
 
-		if ( ! empty( $template_data['blog_page'] ) ) {
-			$blog_page = get_posts( [
-				'post_type'   => 'page',
-				'title'       => $template_data['blog_page'],
-				'post_status' => 'all',
-				'numberposts' => 1,
-			] );
+		$pages = get_posts( $args );
 
-			if ( ! empty( $blog_page ) ) {
-				update_option( 'page_for_posts', $blog_page[0]->ID );
-			}
+		return ! empty( $pages ) ? (int) $pages[0]->ID : 0;
+	}
 
-			if ( ! empty( $blog_page ) || ! empty( $front_page ) ) {
-				update_option( 'show_on_front', 'page' );
+	/**
+	 * Full-demo imports made on this site, oldest first: batch id, library id,
+	 * title, time and the theme style ids the demo brought.
+	 *
+	 * @return array<int,array>
+	 */
+	public static function imported_templates() {
+		$records = get_option( 'bricksfly_imported_templates', array() );
+
+		return is_array( $records ) ? array_values( array_filter( $records, 'is_array' ) ) : array();
+	}
+
+	/**
+	 * The same list for the import screen: title and date only.
+	 *
+	 * @return array<int,array{id:int,title:string,date:string}>
+	 */
+	public static function imported_templates_for_ui() {
+		$out = array();
+
+		foreach ( self::imported_templates() as $record ) {
+			$out[] = array(
+				'id'    => isset( $record['id'] ) ? (int) $record['id'] : 0,
+				'title' => isset( $record['title'] ) ? (string) $record['title'] : '',
+				'date'  => isset( $record['time'] ) ? wp_date( (string) get_option( 'date_format' ), (int) $record['time'] ) : '',
+			);
+		}
+
+		return $out;
+	}
+
+	/**
+	 * Published Bricks header and footer templates on the site, by type. The
+	 * import screen warns when a demo's header / footer will be added next to
+	 * existing ones.
+	 *
+	 * @return array<string,int>
+	 */
+	public static function site_templates_summary() {
+		$out = array(
+			'header' => 0,
+			'footer' => 0,
+		);
+
+		if ( ! post_type_exists( 'bricks_template' ) ) {
+			return $out;
+		}
+
+		foreach ( array_keys( $out ) as $type ) {
+			$ids = get_posts(
+				array(
+					'post_type'      => 'bricks_template',
+					'post_status'    => 'publish',
+					'posts_per_page' => 50,
+					'fields'         => 'ids',
+					'no_found_rows'  => true,
+					'meta_key'       => '_bricks_template_type', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+					'meta_value'     => $type, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+				)
+			);
+
+			$out[ $type ] = count( $ids );
+		}
+
+		return $out;
+	}
+
+	/**
+	 * Remember this full-demo import, so a demo imported later can give it its
+	 * place (see settle_previous_demos()).
+	 *
+	 * @param array $template_data Template read from the library.
+	 * @return void
+	 */
+	private function record_full_import( $template_data ) {
+		$batch_id = get_option( 'bricksfly_last_import_batch' );
+		$bundle   = get_transient( self::bundle_key() );
+		delete_transient( self::bundle_key() );
+
+		if ( ! $batch_id ) {
+			return;
+		}
+
+		$records   = self::imported_templates();
+		$records[] = array(
+			'batch'     => (string) $batch_id,
+			'id'        => isset( $template_data['id'] ) ? (int) $template_data['id'] : 0,
+			'title'     => isset( $template_data['title'] ) ? sanitize_text_field( (string) $template_data['title'] ) : '',
+			'time'      => time(),
+			'style_ids' => is_array( $bundle ) && ! empty( $bundle['styleIds'] ) ? array_values( array_map( 'strval', (array) $bundle['styleIds'] ) ) : array(),
+		);
+
+		update_option( 'bricksfly_imported_templates', array_slice( $records, -20 ), false );
+	}
+
+	/**
+	 * Demos imported earlier step aside for the one just imported: their theme
+	 * styles, headers and footers set for the entire website are limited to
+	 * their own pages, and the new demo's site-wide styles are moved last
+	 * (when several styles match a page the same way, Bricks applies the last
+	 * one). The site's own styles and templates are never touched.
+	 *
+	 * @return void
+	 */
+	private function settle_previous_demos() {
+		$batch_id = get_option( 'bricksfly_last_import_batch' );
+
+		if ( ! $batch_id ) {
+			return;
+		}
+
+		$bundle        = get_transient( self::bundle_key() );
+		$new_style_ids = is_array( $bundle ) && ! empty( $bundle['styleIds'] ) ? array_map( 'strval', (array) $bundle['styleIds'] ) : array();
+
+		// Template types (header, footer…) the new demo sets for the entire
+		// website, or brings as a default (a header / footer without conditions
+		// is Bricks' fallback for every page).
+		$new_types = array();
+		foreach ( $this->batch_posts( $batch_id, 'bricks_template' ) as $template_id ) {
+			$type = (string) get_post_meta( $template_id, '_bricks_template_type', true );
+			if ( $this->template_covers_site( $template_id, $type ) ) {
+				$new_types[ $type ] = true;
 			}
 		}
+
+		$styles  = get_option( 'bricks_theme_styles', array() );
+		$styles  = is_array( $styles ) ? $styles : array();
+		$changed = false;
+
+		foreach ( self::imported_templates() as $record ) {
+			if ( empty( $record['batch'] ) || (string) $record['batch'] === (string) $batch_id ) {
+				continue;
+			}
+
+			$page_ids = $this->batch_posts( $record['batch'], 'page' );
+			if ( ! $page_ids ) {
+				continue; // Nothing of that demo is left that needs its look.
+			}
+
+			foreach ( isset( $record['style_ids'] ) ? (array) $record['style_ids'] : array() as $style_id ) {
+				$style_id = (string) $style_id;
+				if ( ! isset( $styles[ $style_id ] ) || in_array( $style_id, $new_style_ids, true ) ) {
+					continue;
+				}
+				$conditions = isset( $styles[ $style_id ]['settings']['conditions']['conditions'] ) ? $styles[ $style_id ]['settings']['conditions']['conditions'] : null;
+				if ( $this->has_site_wide_condition( $conditions ) ) {
+					$styles[ $style_id ]['settings']['conditions']['conditions'] = $this->conditions_for_pages( $conditions, $page_ids );
+					$changed = true;
+				}
+			}
+
+			foreach ( $this->batch_posts( $record['batch'], 'bricks_template' ) as $template_id ) {
+				$type = (string) get_post_meta( $template_id, '_bricks_template_type', true );
+				if ( empty( $new_types[ $type ] ) || ! $this->template_covers_site( $template_id, $type ) ) {
+					continue;
+				}
+				$settings   = get_post_meta( $template_id, '_bricks_template_settings', true );
+				$settings   = is_array( $settings ) ? $settings : array();
+				$conditions = isset( $settings['templateConditions'] ) && is_array( $settings['templateConditions'] ) ? $settings['templateConditions'] : array();
+
+				$settings['templateConditions'] = $this->conditions_for_pages( $conditions, $page_ids );
+				update_post_meta( $template_id, '_bricks_template_settings', wp_slash( $settings ) );
+				// Bricks caches its template list under this key.
+				wp_cache_set( 'last_changed', microtime(), 'bricks_bricks_template' );
+			}
+		}
+
+		// The new demo's site-wide styles last.
+		$tail = array();
+		foreach ( $new_style_ids as $style_id ) {
+			if ( isset( $styles[ $style_id ] ) ) {
+				$tail[ $style_id ] = $styles[ $style_id ];
+				unset( $styles[ $style_id ] );
+			}
+		}
+		if ( $tail ) {
+			$styles  = $styles + $tail;
+			$changed = true;
+		}
+
+		if ( $changed ) {
+			update_option( 'bricks_theme_styles', $styles );
+		}
+	}
+
+	/**
+	 * A theme style id the new demo brings that a demo imported earlier already
+	 * created (the light and dark variants of one demo share their ids): the
+	 * earlier style moves to a new id, with its conditions, so the new demo's
+	 * style is added as exported. Styles the site made itself are never moved.
+	 *
+	 * @param array $existing     Site theme styles.
+	 * @param array $incoming_ids Theme style ids in the demo's options file.
+	 * @return array Site theme styles, possibly with renamed keys.
+	 */
+	private function free_colliding_style_ids( array $existing, array $incoming_ids ) {
+		$records = self::imported_templates();
+		if ( ! $records ) {
+			return $existing;
+		}
+
+		$incoming_ids = array_map( 'strval', $incoming_ids );
+		$changed      = false;
+
+		foreach ( $records as &$record ) {
+			$ids = isset( $record['style_ids'] ) ? (array) $record['style_ids'] : array();
+
+			foreach ( $ids as $i => $style_id ) {
+				$style_id = (string) $style_id;
+				if ( ! in_array( $style_id, $incoming_ids, true ) || ! isset( $existing[ $style_id ] ) ) {
+					continue;
+				}
+
+				$new_id = $style_id . '-bf' . substr( md5( isset( $record['batch'] ) ? (string) $record['batch'] : '' ), 0, 4 );
+				$style  = $existing[ $style_id ];
+				if ( isset( $style['label'] ) && is_string( $style['label'] ) ) {
+					$style['label'] .= ' (' . ( ! empty( $record['title'] ) ? $record['title'] : __( 'earlier demo', 'bricksfly-elements-for-bricks' ) ) . ')';
+				}
+				unset( $existing[ $style_id ] );
+				$existing[ $new_id ] = $style;
+				$ids[ $i ]           = $new_id;
+				$changed             = true;
+			}
+
+			$record['style_ids'] = array_values( $ids );
+		}
+		unset( $record );
+
+		if ( $changed ) {
+			update_option( 'bricksfly_imported_templates', $records, false );
+		}
+
+		return $existing;
+	}
+
+	/**
+	 * The demo's site-wide custom CSS and scripts (a Lottie loader its pages
+	 * need, for example), added once each to the site's Bricks global settings.
+	 * The site's own code stays first.
+	 *
+	 * @param array $global The demo's `bricks_global_settings`.
+	 * @return void
+	 */
+	private function append_site_code( array $global ) {
+		$keys    = array( 'customCss', 'customScriptsHeader', 'customScriptsBodyHeader', 'customScriptsBodyFooter' );
+		$site    = get_option( 'bricks_global_settings', array() );
+		$site    = is_array( $site ) ? $site : array();
+		$changed = false;
+
+		foreach ( $keys as $key ) {
+			$code = isset( $global[ $key ] ) && is_string( $global[ $key ] ) ? trim( $global[ $key ] ) : '';
+			if ( '' === $code ) {
+				continue;
+			}
+			$own = isset( $site[ $key ] ) && is_string( $site[ $key ] ) ? $site[ $key ] : '';
+			if ( false !== strpos( $own, $code ) ) {
+				continue; // Already there.
+			}
+			$site[ $key ] = '' === trim( $own ) ? $code : rtrim( $own ) . "\n" . $code;
+			$changed      = true;
+		}
+
+		if ( $changed ) {
+			update_option( 'bricks_global_settings', $site );
+		}
+	}
+
+	/**
+	 * Ids of the posts of one type an import batch created.
+	 *
+	 * @param string $batch_id  Import batch id.
+	 * @param string $post_type Post type.
+	 * @return int[]
+	 */
+	private function batch_posts( $batch_id, $post_type ) {
+		$ids = get_posts(
+			array(
+				'post_type'      => $post_type,
+				'post_status'    => 'any',
+				'posts_per_page' => 100,
+				'fields'         => 'ids',
+				'no_found_rows'  => true,
+				'meta_key'       => 'bricksfly_import_batch', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+				'meta_value'     => (string) $batch_id, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+			)
+		);
+
+		return array_map( 'intval', (array) $ids );
+	}
+
+	/**
+	 * Whether a Bricks template applies to the whole site: set for "Entire
+	 * website", or a header / footer without conditions (Bricks' default for
+	 * every page that no other template claims).
+	 *
+	 * @param int    $template_id Template id.
+	 * @param string $type        Template type.
+	 * @return bool
+	 */
+	private function template_covers_site( $template_id, $type ) {
+		$settings   = get_post_meta( $template_id, '_bricks_template_settings', true );
+		$conditions = is_array( $settings ) && isset( $settings['templateConditions'] ) && is_array( $settings['templateConditions'] ) ? $settings['templateConditions'] : array();
+
+		if ( ! $conditions ) {
+			return in_array( $type, array( 'header', 'footer' ), true );
+		}
+
+		return $this->has_site_wide_condition( $conditions );
+	}
+
+	/**
+	 * Whether a Bricks condition list (template or theme style) includes
+	 * "Entire website".
+	 *
+	 * @param mixed $conditions Condition list.
+	 * @return bool
+	 */
+	private function has_site_wide_condition( $conditions ) {
+		if ( ! is_array( $conditions ) ) {
+			return false;
+		}
+
+		foreach ( $conditions as $condition ) {
+			if ( is_array( $condition ) && isset( $condition['main'] ) && 'any' === $condition['main'] && empty( $condition['exclude'] ) ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * The same condition list with "Entire website" replaced by these pages;
+	 * an empty list (a default template) becomes a condition for these pages.
+	 *
+	 * @param mixed $conditions Condition list.
+	 * @param int[] $page_ids   Page ids.
+	 * @return array
+	 */
+	private function conditions_for_pages( $conditions, array $page_ids ) {
+		$out      = array();
+		$replaced = false;
+
+		foreach ( (array) $conditions as $condition ) {
+			if ( is_array( $condition ) && isset( $condition['main'] ) && 'any' === $condition['main'] && empty( $condition['exclude'] ) ) {
+				$out[]    = array(
+					'id'   => isset( $condition['id'] ) ? $condition['id'] : strtolower( wp_generate_password( 6, false, false ) ),
+					'main' => 'ids',
+					'ids'  => array_values( $page_ids ),
+				);
+				$replaced = true;
+				continue;
+			}
+			$out[] = $condition;
+		}
+
+		if ( ! $replaced && ! $out ) {
+			$out[] = array(
+				'id'   => strtolower( wp_generate_password( 6, false, false ) ),
+				'main' => 'ids',
+				'ids'  => array_values( $page_ids ),
+			);
+		}
+
+		return $out;
 	}
 
 	/**
@@ -389,9 +1179,11 @@ class BRICKSFLY_Template_Importer {
 	 * @param array  $settings      `wp_options` entries of the template (library data).
 	 * @param array  $template_data Template read from the library.
 	 * @param string $item_type     'template' or 'page'.
+	 * @param bool   $site_style    Page import with "This site's style": no design data is added.
 	 * @return void
 	 */
-	private function install_options( $settings, $template_data, $item_type ) {
+	private function install_options( $settings, $template_data, $item_type, $site_style = false ) {
+		$template_vars      = array();
 		$addon_options      = array();
 		$custom_breakpoints = false;
 		$breakpoints_added  = false;
@@ -417,6 +1209,39 @@ class BRICKSFLY_Template_Importer {
 			// options XML (flagged `page_global_class`, or JSON-shaped). Their
 			// global_classes are merged into `bricks_global_classes`.
 			$declared_option = isset( $item['option_name'] ) ? sanitize_key( (string) $item['option_name'] ) : '';
+
+			// "Use this site's style": the template's global classes are not added.
+			if ( $site_style ) {
+				$first = substr( ltrim( $body ), 0, 1 );
+				if ( 'page_global_class' === $declared_option || '{' === $first || '[' === $first ) {
+					// Keep only the variable names, so references to them can be dropped from the page.
+					$json = json_decode( $body, true );
+					if ( is_array( $json ) && ! empty( $json['globalVariables'] ) && is_array( $json['globalVariables'] ) ) {
+						$template_vars = array_merge( $template_vars, array_column( $json['globalVariables'], 'name' ) );
+					}
+					// Variable palette colors (raw var(--name)) render as --name too (Bricks 2.2+).
+					if ( is_array( $json ) && ! empty( $json['colorPalette'] ) && is_array( $json['colorPalette'] ) ) {
+						foreach ( $json['colorPalette'] as $palette ) {
+							foreach ( (array) ( $palette['colors'] ?? array() ) as $color ) {
+								$var_name = self::palette_color_var_name( $color );
+								if ( '' !== $var_name ) {
+									$template_vars[] = $var_name;
+								}
+							}
+						}
+					}
+					// The page's scripts (a Lottie loader, for example) are function, not
+					// style: they still go with the page. Its CSS and theme style do not.
+					if ( is_array( $json ) && ! empty( $json['pageCode'] ) && is_array( $json['pageCode'] ) ) {
+						$scripts = array_intersect_key( $json['pageCode'], array_flip( array( 'customScriptsHeader', 'customScriptsBodyHeader', 'customScriptsBodyFooter' ) ) );
+						if ( $scripts ) {
+							$this->stash_page_bundle( array( 'pageCode' => $scripts ) );
+						}
+					}
+					continue;
+				}
+			}
+
 			if ( $this->maybe_install_global_class_settings_json( $declared_option, $body ) ) {
 				continue;
 			}
@@ -431,7 +1256,7 @@ class BRICKSFLY_Template_Importer {
 			}
 
 			// Support both <options><option>…</option></options> and a single <option>…</option>.
-			$nodes = isset( $xml->option ) ? $xml->option : [ $xml ];
+			$nodes = isset( $xml->option ) ? $xml->option : array( $xml );
 
 			foreach ( $nodes as $opt ) {
 				$option_name = sanitize_key( (string) $opt->name );
@@ -453,6 +1278,25 @@ class BRICKSFLY_Template_Importer {
 					if ( is_array( $global ) && ! empty( $global['customBreakpoints'] ) ) {
 						$custom_breakpoints = true;
 					}
+					// A full demo's site-wide custom CSS and scripts (a Lottie
+					// loader, for example) are part of how its pages work: added
+					// to the site's own, once. A page import gets them per page.
+					if ( 'template' === $item_type && ! $site_style && is_array( $global ) ) {
+						$this->append_site_code( $global );
+					}
+				}
+
+				// "Use this site's style": none of the template's design data is added
+				// (classes, variables, colours, theme styles, fonts). Only the names of
+				// its variables are kept, so references to them can be dropped from the page.
+				if ( $site_style && ( $this->is_design_option( $option_name ) || 'bricks_font_face_rules' === $option_name ) ) {
+					if ( 'bricks_global_variables' === $option_name ) {
+						$vars = self::decode_option_value( $raw_value );
+						if ( is_array( $vars ) ) {
+							$template_vars = array_merge( $template_vars, array_column( $vars, 'name' ) );
+						}
+					}
+					continue;
 				}
 
 				if ( 'bricks_font_face_rules' === $option_name ) {
@@ -480,7 +1324,19 @@ class BRICKSFLY_Template_Importer {
 				}
 
 				$existing = get_option( $option_name );
-				$merged   = $this->merge_bricks_option( $option_name, $existing, $value );
+
+				if ( 'bricks_theme_styles' === $option_name && 'template' === $item_type ) {
+					// The demo's style ids, for the last step; a style an earlier
+					// demo created under the same id moves out of the way.
+					$this->stash_page_bundle( array( 'styleIds' => array_keys( $value ) ) );
+					$existing = $this->free_colliding_style_ids( is_array( $existing ) ? $existing : array(), array_keys( $value ) );
+				}
+
+				// Palettes merge color by color (two sites can share a palette id,
+				// and a variable the site already defines stays the site's).
+				$merged = 'bricks_color_palette' === $option_name
+					? $this->merge_color_palettes( is_array( $existing ) ? $existing : array(), $value )
+					: $this->merge_bricks_option( $option_name, $existing, $value );
 
 				if ( $merged !== $existing ) {
 					update_option( $option_name, $merged );
@@ -490,6 +1346,10 @@ class BRICKSFLY_Template_Importer {
 					}
 				}
 			}
+		}
+
+		if ( $site_style ) {
+			set_transient( self::site_vars_key(), array_values( array_unique( array_filter( $template_vars, 'is_string' ) ) ), HOUR_IN_SECONDS );
 		}
 
 		if ( $breakpoints_added && $custom_breakpoints ) {
@@ -532,15 +1392,121 @@ class BRICKSFLY_Template_Importer {
 			return $raw;
 		}
 
-		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_unserialize -- allowed_classes=false: arrays and scalars only, no objects.
-		$value = @unserialize( trim( $raw ), array( 'allowed_classes' => false ) );
+		$raw = trim( $raw );
 
-		if ( false === $value && 'b:0;' !== trim( $raw ) ) {
-			return null;
+		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_unserialize, WordPress.PHP.NoSilencedErrors.Discouraged -- allowed_classes=false: arrays and scalars only, no objects; invalid data is handled by the check below.
+		$value = @unserialize( $raw, array( 'allowed_classes' => false ) );
+
+		if ( false === $value && 'b:0;' !== $raw ) {
+			// An XML parser turns CR LF into LF, which shortens the strings of a
+			// serialized value (custom CSS, a script) below their declared byte
+			// length and makes the whole value unreadable. Recount and try again.
+			$fixed = self::recount_serialized_strings( $raw );
+			// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_unserialize, WordPress.PHP.NoSilencedErrors.Discouraged -- same rules as above.
+			$value = null !== $fixed ? @unserialize( $fixed, array( 'allowed_classes' => false ) ) : false;
+
+			if ( false === $value ) {
+				return null;
+			}
 		}
 
 		// Objects (even incomplete ones) are never accepted.
 		return self::contains_object( $value ) ? null : $value;
+	}
+
+	/**
+	 * The same serialized value with the byte length of every string recounted.
+	 * Only arrays and scalars are walked; anything else gives null.
+	 *
+	 * @param string $raw Serialized value.
+	 * @return string|null
+	 */
+	private static function recount_serialized_strings( $raw ) {
+		$pos = 0;
+		$out = '';
+
+		if ( ! self::recount_walk( $raw, $pos, $out ) || strlen( $raw ) !== $pos ) {
+			return null;
+		}
+
+		return $out;
+	}
+
+	/**
+	 * One serialized token (recursively for arrays), appended to $out with
+	 * corrected string lengths.
+	 *
+	 * @param string $raw Serialized value.
+	 * @param int    $pos Read position, moved past the token.
+	 * @param string $out Output so far.
+	 * @return bool False on anything unexpected.
+	 */
+	private static function recount_walk( $raw, &$pos, &$out ) {
+		$type = substr( $raw, $pos, 1 );
+
+		switch ( $type ) {
+			case 'N':
+				$out .= 'N;';
+				$pos += 2;
+				return true;
+
+			case 'b':
+			case 'i':
+			case 'd':
+				$end = strpos( $raw, ';', $pos );
+				if ( false === $end ) {
+					return false;
+				}
+				$out .= substr( $raw, $pos, $end - $pos + 1 );
+				$pos  = $end + 1;
+				return true;
+
+			case 's':
+				if ( ! preg_match( '/^s:(\d+):"/', substr( $raw, $pos, 24 ), $m ) ) {
+					return false;
+				}
+				$start = $pos + strlen( $m[0] );
+				$end   = min( $start + (int) $m[1], strlen( $raw ) - 2 ); // Declared position of the closing quote, or earlier.
+				// The content can only have become shorter: the closing quote is at or before
+				// the declared position, followed by ; and the next token (or the end).
+				while ( $end >= $start ) {
+					if ( '";' === substr( $raw, $end, 2 ) ) {
+						$next = substr( $raw, $end + 2, 1 );
+						if ( '' === $next || false !== strpos( 'sibdNa}', $next ) ) {
+							break;
+						}
+					}
+					--$end;
+				}
+				if ( $end < $start ) {
+					return false;
+				}
+				$string = substr( $raw, $start, $end - $start );
+				$out   .= 's:' . strlen( $string ) . ':"' . $string . '";';
+				$pos    = $end + 2;
+				return true;
+
+			case 'a':
+				if ( ! preg_match( '/^a:(\d+):\{/', substr( $raw, $pos, 24 ), $m ) ) {
+					return false;
+				}
+				$count = (int) $m[1];
+				$out  .= $m[0];
+				$pos  += strlen( $m[0] );
+				for ( $i = 0; $i < $count; $i++ ) {
+					if ( ! self::recount_walk( $raw, $pos, $out ) || ! self::recount_walk( $raw, $pos, $out ) ) {
+						return false;
+					}
+				}
+				if ( '}' !== substr( $raw, $pos, 1 ) ) {
+					return false;
+				}
+				$out .= '}';
+				++$pos;
+				return true;
+		}
+
+		return false; // Objects and anything unknown.
 	}
 
 	/**
@@ -602,7 +1568,67 @@ class BRICKSFLY_Template_Importer {
 			$incoming_classes = $data['globalClasses'];
 		}
 
-		// JSON without global classes: nothing to merge, but not XML either.
+		// The global variables the page uses (and their categories), when the
+		// export carries them.
+		$incoming_vars = isset( $data['globalVariables'] ) && is_array( $data['globalVariables'] ) ? $data['globalVariables'] : array();
+		$incoming_cats = isset( $data['globalVariablesCategories'] ) && is_array( $data['globalVariablesCategories'] ) ? $data['globalVariablesCategories'] : array();
+
+		if ( $incoming_vars ) {
+			$existing_vars = get_option( 'bricks_global_variables', array() );
+			$existing_vars = is_array( $existing_vars ) ? $existing_vars : array();
+
+			// A variable name the site already has stays as the site defined it.
+			$taken         = array_column( $existing_vars, 'name' );
+			$incoming_vars = array_values(
+				array_filter(
+					$incoming_vars,
+					function ( $variable ) use ( $taken ) {
+						return is_array( $variable ) && isset( $variable['name'] ) && ! in_array( $variable['name'], $taken, true );
+					}
+				)
+			);
+
+			if ( $incoming_vars ) {
+				update_option( 'bricks_global_variables', $this->merge_bricks_option( 'bricks_global_variables', $existing_vars, $incoming_vars ) );
+
+				if ( $incoming_cats ) {
+					update_option( 'bricks_global_variables_categories', $this->merge_bricks_option( 'bricks_global_variables_categories', get_option( 'bricks_global_variables_categories' ), $incoming_cats ) );
+				}
+			}
+		}
+
+		// Palette colors the page uses: by id (var(--bricks-color-ID)) or by name
+		// (a color named "ca-bg" renders as --ca-bg, Bricks 2.2+).
+		if ( ! empty( $data['colorPalette'] ) && is_array( $data['colorPalette'] ) ) {
+			$existing_palettes = get_option( 'bricks_color_palette', array() );
+			$merged_palettes   = $this->merge_color_palettes( is_array( $existing_palettes ) ? $existing_palettes : array(), $data['colorPalette'] );
+			if ( $merged_palettes !== $existing_palettes ) {
+				update_option( 'bricks_color_palette', $merged_palettes );
+			}
+		}
+
+		// Page exports (format 2) also carry the template's breakpoints and style
+		// manager settings; both are taken only while the site still runs on the
+		// Bricks defaults, so nothing of the site changes.
+		if ( isset( $data['bricksfly']['format'] ) && (int) $data['bricksfly']['format'] >= 2 ) {
+			$this->apply_page_breakpoints( $data );
+			$this->apply_page_style_manager( $data );
+		}
+
+		// Theme style and site-wide custom code need the imported page ids, which
+		// exist only after the content import: keep them for the last step.
+		$bundle = array();
+		if ( ! empty( $data['themeStyles'] ) && is_array( $data['themeStyles'] ) ) {
+			$bundle['themeStyles'] = $data['themeStyles'];
+		}
+		if ( ! empty( $data['pageCode'] ) && is_array( $data['pageCode'] ) ) {
+			$bundle['pageCode'] = $data['pageCode'];
+		}
+		if ( $bundle ) {
+			$this->stash_page_bundle( $bundle );
+		}
+
+		// JSON without global classes: nothing more to merge, but not XML either.
 		if ( empty( $incoming_classes ) ) {
 			return true;
 		}
@@ -616,8 +1642,9 @@ class BRICKSFLY_Template_Importer {
 
 	/**
 	 * Bricks design data the free importer merges into the site: global
-	 * classes, variables, colours, theme styles, style manager and
-	 * breakpoints (the imported pages' CSS depends on all of them).
+	 * classes (and their categories, custom pseudo classes), variables,
+	 * colours, theme styles, style manager, breakpoints, components and global
+	 * queries (the imported pages' CSS and output depend on all of them).
 	 *
 	 * A fixed list. Besides these, only the custom font CSS (when the site has
 	 * none) and the `customBreakpoints` flag are written by the free plugin.
@@ -630,6 +1657,7 @@ class BRICKSFLY_Template_Importer {
 			$option_name,
 			array(
 				'bricks_global_classes',
+				'bricks_global_classes_categories',
 				'bricks_global_pseudo_classes',
 				'bricks_global_variables',
 				'bricks_global_variables_categories',
@@ -637,6 +1665,9 @@ class BRICKSFLY_Template_Importer {
 				'bricks_theme_styles',
 				'bricks_style_manager',
 				'bricks_breakpoints',
+				'bricks_components',
+				'bricks_global_queries',
+				'bricks_global_queries_categories',
 			),
 			true
 		);
@@ -764,6 +1795,11 @@ class BRICKSFLY_Template_Importer {
 			return array_replace_recursive( $incoming, $existing );
 		}
 
+		// Custom pseudo classes are a plain list of strings (":hover", "::before"): union.
+		if ( 'bricks_global_pseudo_classes' === $option_name ) {
+			return array_values( array_unique( array_merge( array_filter( $existing, 'is_string' ), array_filter( $incoming, 'is_string' ) ) ) );
+		}
+
 		// Lists keyed by `id` (breakpoints by `key`) — union, keep existing on conflict.
 		$id_key = 'bricks_breakpoints' === $option_name ? 'key' : 'id';
 		$by_id  = array();
@@ -780,7 +1816,6 @@ class BRICKSFLY_Template_Importer {
 
 		return array_values( $by_id );
 	}
-
 }
 
 BRICKSFLY_Template_Importer::instance();

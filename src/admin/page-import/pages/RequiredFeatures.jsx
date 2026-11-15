@@ -16,6 +16,8 @@ const RequiredFeatures = () => {
   const [currenTemplate, setCurrenTemplate] = useState({});
   const [selectedPlugins, setSelectedPlugins] = useState([]);
   const [allowAttachment, setAllowAttachment] = useState(true);
+  // "original" keeps the template's own design, "site" follows this site's styles.
+  const [design, setDesign] = useState("original");
   const [loading, setIsLoading] = useState(true);
 
   const url = new URL(window.location.href);
@@ -38,6 +40,7 @@ const RequiredFeatures = () => {
       url.searchParams.set("plugins", selectedPlugins.toString());
     }
     url.searchParams.set("attachment", allowAttachment);
+    url.searchParams.set("design", design);
     window.history.replaceState({}, "", url);
     setTabKey(value);
   };
@@ -60,13 +63,11 @@ const RequiredFeatures = () => {
             const result = Object.entries(data.templates).find(
               ([key, value]) => value.id == id
             )?.[1];
-            if (
-              !(
-                result?.dependencies?.plugins?.length &&
-                result?.dependencies?.plugins?.length
-              )
-            ) {
-              changeRoute("demo-importing");
+            // A page with no plugin requirement still shows this screen, for
+            // the design and image choices.
+            if (!result?.dependencies?.plugins?.length) {
+              setCurrenTemplate(result || {});
+              setIsLoading(false);
               return;
             }
             validateData(result);
@@ -122,9 +123,9 @@ const RequiredFeatures = () => {
         <div className="border border-border-secondary rounded-xl">
           <div className="border-b border-border-secondary p-8 pb-6">
             <div className="mb-7">
-              <h3 className="text-2xl font-medium">Required Features</h3>
+              <h3 className="text-2xl font-medium">Import settings</h3>
               <p className="mt-1.5 text-text-secondary">
-                Review what this template needs before importing.
+                Choose how this page is added to your site.
               </p>
             </div>
             <div>
@@ -162,6 +163,51 @@ const RequiredFeatures = () => {
                 )}
               </Accordion>
             </div>
+            <div className="mt-6">
+              <h3 className="text-lg font-medium mb-3">Design</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {[
+                  {
+                    value: "original",
+                    title: "Original style",
+                    desc: "Looks like the preview.",
+                  },
+                  {
+                    value: "site",
+                    title: "This site's style",
+                    desc: "Uses your site's fonts and styles.",
+                  },
+                ].map((opt) => (
+                  <label
+                    key={opt.value}
+                    htmlFor={`bf-design-${opt.value}`}
+                    className={`flex items-start gap-2.5 border rounded-xl p-3.5 cursor-pointer ${
+                      design === opt.value
+                        ? "border-primary bg-primary/5"
+                        : "border-border-secondary"
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      id={`bf-design-${opt.value}`}
+                      name="bf-design"
+                      value={opt.value}
+                      checked={design === opt.value}
+                      onChange={() => setDesign(opt.value)}
+                      className="mt-1"
+                    />
+                    <span>
+                      <span className="block text-base font-medium">
+                        {opt.title}
+                      </span>
+                      <span className="block text-sm text-text-secondary mt-0.5">
+                        {opt.desc}
+                      </span>
+                    </span>
+                  </label>
+                ))}
+              </div>
+            </div>
             <div className="flex items-center space-x-2.5 mt-6">
               <Checkbox
                 id="demo-import-attachment"
@@ -172,7 +218,7 @@ const RequiredFeatures = () => {
                 htmlFor="demo-import-attachment"
                 className="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               >
-                Import demo with attachments (recommended)
+                Import images (recommended)
               </label>
             </div>
           </div>
@@ -184,7 +230,7 @@ const RequiredFeatures = () => {
               Go Back
             </Button>
             <Button onClick={() => changeRoute("demo-importing")}>
-              Continue to next
+              Import page
             </Button>
           </div>
         </div>

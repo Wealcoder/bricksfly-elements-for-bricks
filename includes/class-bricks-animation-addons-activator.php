@@ -1,6 +1,6 @@
 <?php
 
-if (! defined('ABSPATH')) {
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
@@ -15,8 +15,8 @@ if (! defined('ABSPATH')) {
  */
 
 
-class BRICKSFLY_Activator
-{
+class BRICKSFLY_Activator {
+
 
 	/**
 	 * Plugin activation handler.
@@ -36,13 +36,17 @@ class BRICKSFLY_Activator
 	 *
 	 * @param bool $network_wide True when the plugin was network-activated.
 	 */
-	public static function activate($network_wide = false)
-	{
-		if (is_multisite() && $network_wide) {
-			$site_ids = get_sites(array('fields' => 'ids', 'number' => 0));
-			foreach ($site_ids as $blog_id) {
-				switch_to_blog($blog_id);
-				update_option('bricksfly_needs_rewrite_flush', 1, false);
+	public static function activate( $network_wide = false ) {
+		if ( is_multisite() && $network_wide ) {
+			$site_ids = get_sites(
+				array(
+					'fields' => 'ids',
+					'number' => 0,
+				)
+			);
+			foreach ( $site_ids as $blog_id ) {
+				switch_to_blog( $blog_id );
+				update_option( 'bricksfly_needs_rewrite_flush', 1, false );
 				self::maybe_seed_widget_defaults();
 				self::maybe_seed_extension_defaults();
 				restore_current_blog();
@@ -50,7 +54,7 @@ class BRICKSFLY_Activator
 			return;
 		}
 
-		update_option('bricksfly_needs_rewrite_flush', 1, false);
+		update_option( 'bricksfly_needs_rewrite_flush', 1, false );
 		self::maybe_seed_widget_defaults();
 		self::maybe_seed_extension_defaults();
 	}
@@ -67,28 +71,27 @@ class BRICKSFLY_Activator
 	 * Pro widgets are included in the seed; their code ships only in
 	 * BricksFly Pro, so the flag has no effect without it.
 	 */
-	private static function maybe_seed_widget_defaults()
-	{
+	private static function maybe_seed_widget_defaults() {
 		// Sentinel default — distinguishes "no row in wp_options" from "row
 		// containing an empty array" so a user who deactivated every widget
 		// isn't reseeded back to all-on.
-		if (false !== get_option('bricksfly_save_widgets', false)) {
+		if ( false !== get_option( 'bricksfly_save_widgets', false ) ) {
 			return;
 		}
 
-		if (! isset($GLOBALS['bricksfly_config']) && defined('BRICKSFLY_PATH')) {
+		if ( ! isset( $GLOBALS['bricksfly_config'] ) && defined( 'BRICKSFLY_PATH' ) ) {
 			require_once BRICKSFLY_PATH . 'config.php';
 		}
 
-		$widgets_config = isset($GLOBALS['bricksfly_config']['widgets'])
+		$widgets_config = isset( $GLOBALS['bricksfly_config']['widgets'] )
 			? $GLOBALS['bricksfly_config']['widgets']
 			: array();
 
 		$map = array();
-		self::collect_widget_slugs($widgets_config, $map);
+		self::collect_widget_slugs( $widgets_config, $map );
 
-		if (! empty($map)) {
-			update_option('bricksfly_save_widgets', $map, false);
+		if ( ! empty( $map ) ) {
+			update_option( 'bricksfly_save_widgets', $map, false );
 		}
 	}
 
@@ -100,25 +103,24 @@ class BRICKSFLY_Activator
 	 * a widget). Nodes flagged `is_upcoming` are skipped — they are
 	 * placeholders for not-yet-released widgets.
 	 *
-	 * @param mixed                 $node Config sub-tree to walk.
-	 * @param array<string, bool>   $map  Out-param accumulator.
+	 * @param mixed               $node Config sub-tree to walk.
+	 * @param array<string, bool> $map  Out-param accumulator.
 	 */
-	private static function collect_widget_slugs($node, &$map)
-	{
-		if (! is_array($node)) {
+	private static function collect_widget_slugs( $node, &$map ) {
+		if ( ! is_array( $node ) ) {
 			return;
 		}
-		foreach ($node as $key => $value) {
-			if (! is_array($value)) {
+		foreach ( $node as $key => $value ) {
+			if ( ! is_array( $value ) ) {
 				continue;
 			}
-			if (array_key_exists('is_extension', $value) && false === $value['is_extension']) {
-				if (empty($value['is_upcoming'])) {
-					$map[$key] = true;
+			if ( array_key_exists( 'is_extension', $value ) && false === $value['is_extension'] ) {
+				if ( empty( $value['is_upcoming'] ) ) {
+					$map[ $key ] = true;
 				}
 				continue;
 			}
-			self::collect_widget_slugs($value, $map);
+			self::collect_widget_slugs( $value, $map );
 		}
 	}
 
@@ -131,26 +133,25 @@ class BRICKSFLY_Activator
 	 * exists (all-on). Skips seeding if the option already exists, so a user
 	 * who deliberately toggled extensions off isn't reset later.
 	 */
-	public static function maybe_seed_extension_defaults()
-	{
+	public static function maybe_seed_extension_defaults() {
 
-		if (false !== get_option('bricksfly_save_extensions', false)) {
+		if ( false !== get_option( 'bricksfly_save_extensions', false ) ) {
 			return;
 		}
 
-		if (! isset($GLOBALS['bricksfly_config']) && defined('BRICKSFLY_PATH')) {
+		if ( ! isset( $GLOBALS['bricksfly_config'] ) && defined( 'BRICKSFLY_PATH' ) ) {
 			require_once BRICKSFLY_PATH . 'config.php';
 		}
 
-		$extensions_config = isset($GLOBALS['bricksfly_config']['extensions'])
+		$extensions_config = isset( $GLOBALS['bricksfly_config']['extensions'] )
 			? $GLOBALS['bricksfly_config']['extensions']
 			: array();
 
 		$map = array();
-		self::collect_extension_slugs($extensions_config, $map);
+		self::collect_extension_slugs( $extensions_config, $map );
 
-		if (! empty($map)) {
-			update_option('bricksfly_save_extensions', $map, false);
+		if ( ! empty( $map ) ) {
+			update_option( 'bricksfly_save_extensions', $map, false );
 		}
 	}
 
@@ -160,31 +161,30 @@ class BRICKSFLY_Activator
 	 * A leaf extension is identified by having a `location` key — group/subgroup
 	 * containers don't have it. Nodes flagged `is_upcoming` are skipped.
 	 *
-	 * @param mixed                $node Config sub-tree to walk.
-	 * @param array<string, bool>  $map  Out-param accumulator.
+	 * @param mixed               $node Config sub-tree to walk.
+	 * @param array<string, bool> $map  Out-param accumulator.
 	 */
-	private static function collect_extension_slugs($node, &$map)
-	{
-		if (! is_array($node)) {
+	private static function collect_extension_slugs( $node, &$map ) {
+		if ( ! is_array( $node ) ) {
 			return;
 		}
 
-		foreach ($node as $key => $value) {
-			if (! is_array($value)) {
+		foreach ( $node as $key => $value ) {
+			if ( ! is_array( $value ) ) {
 				continue;
 			}
 
 			// Leaf node: has a `location` key.
-			if (array_key_exists('location', $value)) {
-				if (empty($value['is_upcoming'])) {
-					$map[$key] = true;
+			if ( array_key_exists( 'location', $value ) ) {
+				if ( empty( $value['is_upcoming'] ) ) {
+					$map[ $key ] = true;
 				}
 				continue;
 			}
 
 			// Container node (group or subgroup): emit its key then recurse.
-			$map[$key] = true;
-			self::collect_extension_slugs($value, $map);
+			$map[ $key ] = true;
+			self::collect_extension_slugs( $value, $map );
 		}
 	}
 }

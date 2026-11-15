@@ -17,6 +17,7 @@ const DemoImporting = () => {
   const templateid = url.searchParams.get("templateid");
   const plugins = url.searchParams.get("plugins");
   const attachment = url.searchParams.get("attachment");
+  const design = url.searchParams.get("design") === "site" ? "site" : "original";
 
   const changeRoute = (value, meta) => {
     const pageQuery = url.searchParams.get("page");
@@ -28,6 +29,7 @@ const DemoImporting = () => {
     url.searchParams.set("tab", value);
     if (meta.plugins) url.searchParams.set("plugins", meta.plugins);
     url.searchParams.set("attachment", meta.attachment);
+    url.searchParams.set("design", design);
     if (meta.msg) url.searchParams.set("msg", meta.msg);
     window.history.replaceState({}, "", url);
     setTabKey(value);
@@ -151,6 +153,7 @@ const DemoImporting = () => {
         formData.append("nonce", BRICKSFLY_ADDONS_ADMIN.nonce);
         if (plugins) formData.append("user_plugins", plugins);
         formData.append("attachment", attachment);
+        formData.append("design", design);
 
         const response = await fetch(BRICKSFLY_ADDONS_ADMIN.ajaxurl, {
           method: "POST",

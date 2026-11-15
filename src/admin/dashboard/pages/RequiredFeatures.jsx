@@ -24,6 +24,15 @@ const RequiredFeatures = () => {
   const widgetCounts = countSlugs(BRICKSFLY_ADDONS_ADMIN?.addons_config?.widgets);
   const extensionCounts = countSlugs(BRICKSFLY_ADDONS_ADMIN?.addons_config?.extensions);
 
+  // Full demos imported on this site before (newest last) and its Bricks
+  // header / footer templates: a second full demo is told what happens.
+  const importedTemplates = Array.isArray(BRICKSFLY_ADDONS_ADMIN?.imported_templates)
+    ? BRICKSFLY_ADDONS_ADMIN.imported_templates.filter((t) => t && t.title)
+    : [];
+  const lastImported = importedTemplates.length ? importedTemplates[importedTemplates.length - 1] : null;
+  const siteTemplates = BRICKSFLY_ADDONS_ADMIN?.site_templates || {};
+  const siteHasTemplates = (Number(siteTemplates.header) || 0) + (Number(siteTemplates.footer) || 0) > 0;
+
   const url = new URL(window.location.href);
   const templateid = url.searchParams.get("templateid");
   const changeRoute = (value) => {
@@ -177,6 +186,30 @@ const RequiredFeatures = () => {
                 )}
               </Accordion>
             </div>
+            {(importedTemplates.length > 0 || siteHasTemplates) && (
+              <div className="mt-6 rounded-xl border border-[#F2D27A] bg-[#FFF8E1] px-4 py-3.5 text-sm">
+                <p className="font-medium text-text">
+                  {lastImported
+                    ? `This site already has the starter template “${lastImported.title}”${lastImported.date ? ` (imported ${lastImported.date})` : ""}.`
+                    : "This site already has a Bricks header or footer."}
+                </p>
+                <ul className="mt-2 list-disc space-y-1 pl-5 text-text-secondary">
+                  <li>
+                    This template's header, footer, theme style and front page
+                    take over the whole site.
+                  </li>
+                  <li>
+                    {lastImported
+                      ? `“${lastImported.title}” keeps its look on its own pages only; its menus stay separate.`
+                      : "Your current header and footer stay as they are; check Bricks → Templates after the import."}
+                  </li>
+                  <li>
+                    For a clean result, import on a fresh site, or delete the
+                    earlier template's pages first.
+                  </li>
+                </ul>
+              </div>
+            )}
             <div className="flex items-center space-x-2.5 mt-6">
               <Checkbox
                 id={`demo-import-attachment`}

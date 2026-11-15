@@ -6,7 +6,7 @@ defined( 'ABSPATH' ) || die();
 
 class WPImporterLogger {
 
-	public $messages = [];
+	public $messages = array();
 
 	public function emergency( $message, array $context = array() ) {
 		return $this->log( 'emergency', $message, $context );

@@ -4,7 +4,7 @@ Tags: bricks builder, bricks templates, bricks builder addons, bricks elements, 
 Requires at least: 6.9
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.10
+Stable tag: 1.0.13
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,6 +27,8 @@ Main features:
 Enable only the Elements you need on each site. Animation controls can also respect reduced-motion preferences.
 
 **Useful links:** [Live demo](https://test.bricksfly.com/) | [Documentation](https://bricksfly.com/docs/) | [All Elements](https://bricksfly.com/elements/) | [Starter templates](https://bricksfly.com/starter-templates/) | [Sections](https://bricksfly.com/sections-templates/) | [FAQ](https://bricksfly.com/faq/) | [Support](https://crowdyflow.ticksy.com/) | [Community](https://www.facebook.com/groups/bricksfly/)
+
+**Black Friday offer: up to 70% off BricksFly Pro.** Get the GSAP animation engine, Extensions, 30+ full templates and 500+ sections for less. [Get BricksFly Pro at up to 70% off](https://bricksfly.com/pricing/?utm_source=wordpress_org&utm_medium=readme&utm_campaign=blackfriday_2026&utm_content=description_cta)
 
 Watch a quick overview:
 
@@ -81,8 +83,10 @@ Design dynamic websites with a growing collection of Bricks Elements, from creat
 #### Advanced Elements
 
 - **Image Accordion**: Highlight images with smooth accordion-style interactions.
+- **Image Hotspot**: Place clickable markers with tooltips on an image.
 - **Toggle Switch**: Add interactive on and off toggle elements for content control.
 - **Draggable Items**: Add drag-and-drop interactive items to a page.
+- **Lottie** (Pro): Play Lottie JSON animations on scroll, hover, click, cursor move or when visible, with loop, speed and frame controls.
 
 ### Starter Animations
 
@@ -303,64 +307,41 @@ The files in `public/build` are compiled (minified) JavaScript and CSS. **Their 
 
 == Changelog ==
 
-= 1.0.10 =
-- Added: The seasonal BricksFly Pro offer also shows in the BricksFly dashboard, below its menu (Dashboard, Elements, Extensions and Free vs Pro tabs). It has no close button and shows until the offer ends.
-- Changed: The offer notice no longer tries to show on BricksFly screens, which hide WordPress notices.
-- Changed: Each administrator sees the offer notice once on the Dashboard and twice on the Plugins screen.
+= 1.0.13 =
+- Added: Black Friday offers, running until December 10. Sites without BricksFly Pro see the lifetime plan offer; sites with BricksFly Pro see the Agency Bundle offer.
+- Changed: The offer notice shows at most twice per administrator on the Dashboard screen, at least 10 minutes apart, and on every visit to the Plugins screen until it is dismissed. Its close button hides it for 10 minutes; "Don't show again" hides it for good.
+- Changed: The offer in the BricksFly dashboard shows on every visit while it runs. Its X hides it until the page is opened again.
+- Removed: The Halloween offer banner.
+- Fixed: Uninstalling BricksFly removes the admin notices' own records (dismissed and snoozed notices, view counts). Settings, templates and content are kept.
 
-= 1.0.9 =
-- Added: Seasonal BricksFly Pro offers can show as a banner on the Dashboard, Plugins and BricksFly screens, to administrators who do not have BricksFly Pro installed. Each offer ends on its own date; Close hides it for 3 days and "Don't show again" hides it for good.
+= 1.0.12 =
+- Added: An Import Section button in the Bricks editor toolbar, in the canvas actions and on a blank page opens the section library. When BricksFly Pro holds a Live Copy, a chooser lets you pick Cloud or Live Paste.
+- Added: Preview in the section library opens the demo inside the library, with Back to library, previous and next section (arrow keys), Desktop, Tablet and Mobile widths, Open in new tab and Insert. A hint shows while a slow demo loads.
+- Added: Page import has an Import settings window for every page: "Original style" or "This site's style", and "Import images". Original style adds the page's theme style so that it applies to the imported page only, puts the page's custom code in the page settings, and merges the colors and variables the page uses without replacing yours; the template's breakpoints are taken only while your site still uses the Bricks defaults. This site's style leaves the template's classes, variables, colors, theme style and fonts out.
+- Added: Preview in the page library opens the demo inside the dashboard, with Back, previous and next page (arrow keys), Desktop, Tablet and Mobile widths, Open in new tab and Import.
+- Added: A second starter template can be imported on a site that already has one. The new template's header, footer, theme style and front page take over; the earlier template keeps its own look on its own pages, and its menus stay separate. The Required Features step tells you about this before the import starts.
+- Improved: A starter template's components, global queries and class and query categories are merged with yours (yours win), custom pseudo classes are united, and the color palette is merged color by color, so a template's colors are no longer skipped when a palette id already exists.
+- Improved: A starter template's site-wide custom CSS and scripts (for example a Lottie loader) are added to the Bricks custom code settings on a full import.
+- Changed: The section and page libraries list the newest items first. A page imported before comes in again as a new copy instead of being skipped.
+- Fixed: A starter template whose Bricks settings held a script with Windows line endings lost those settings during the import.
+- Fixed: Lottie .json files of a page are imported with the page.
+- Fixed: Section library thumbnails were cut off at the left and right. The card now shows the whole width of the screenshot.
 
-= 1.0.8 =
-- Added: The Stacking Cards element and the Stacking Cards and Magnetic Effect extensions are listed in the BricksFly dashboard. They are part of BricksFly Pro.
-- Updated: The readme lists Stacking Cards and Magnetic Effect.
-
-= 1.0.7 =
-- Changed: The plugin is now named "BricksFly Elements and Templates for Bricks". The GSAP animation engine is part of the separate BricksFly Pro plugin, so it is no longer in this plugin's name.
-- Changed: The description on the Plugins screen now lists only what this plugin includes.
-
-= 1.0.6 =
-- Fixed: Switching to another theme is no longer blocked. BricksFly only shows a notice when Bricks is not the active theme.
-- Fixed: The Support and Rate links point to this plugin's WordPress.org pages.
-- Removed: The "Request a feature" form on the dashboard, which did not send anything.
-- Removed: An unused deactivation-feedback handler.
-- Improved: BricksFly Pro is detected from the installed plugins list instead of an assumed folder path.
-- Removed: An unused script that rewrote dashboard text.
-- Updated: The readme now marks every feature that is part of BricksFly Pro, including the GSAP Extensions.
-- Improved: Template import no longer clears the whole object cache, and only clears the cache of the items it imported.
-- Improved: Template import uses WordPress's own admin memory limit, and allows .xml/.json uploads only during the import upload.
-- Improved: Removed duplicate copies of the source files from `public/build`; the readable source is in `src`.
+= 1.0.11 =
+- Added: The Image Hotspot element, to place clickable markers with tooltips on an image.
+- Added: When you insert a section from the library, an Import settings window lets you choose "Keep original design" or "Use this site's style", and "Keep demo image links" (default) or "Copy images to my site". SVG icons are always copied so they display.
+- Added: While a section is importing, the screen is locked and "Importing section..." is shown in the middle.
+- Added: Variables a section uses are added to your site's Variables. A variable you already have is never replaced. If the section only exports a color palette, the variables are built from it.
+- Added: Clear error and warning messages that say what went wrong and what to do.
+- Improved: A section never overrides a global class your site already has. A class with the same name and the same styling is reused; one with different styling is added as "name-2".
+- Improved: "Use this site's style" does not add the template's classes or variables, and removes the fonts and color variables set on the section, so your theme styles apply.
+- Improved: References to the library's custom fonts, which are not part of the export, are removed so the section uses your site's fonts.
+- Fixed: Section names with a dash or quote showed raw HTML codes in the library.
+- Fixed: Filtering or searching quickly could show duplicate or wrong cards in the library.
 
 [See the full changelog](https://plugins.trac.wordpress.org/browser/bricksfly-elements-for-bricks/trunk/changelog.txt).
 
 == Upgrade Notice ==
 
-= 1.0.10 =
-Shows the seasonal BricksFly Pro offer in the BricksFly dashboard too. No changes to Elements or templates.
-
-= 1.0.9 =
-Adds dismissible seasonal offer banners for BricksFly Pro. No changes to Elements or templates.
-
-= 1.0.8 =
-Lists the new BricksFly Pro Stacking Cards and Magnetic Effect features in the dashboard. No changes to existing Elements.
-
-= 1.0.7 =
-New plugin name and description. No functional changes.
-
-= 1.0.6 =
-Switching themes is no longer blocked, and template import is lighter on your site. Recommended update.
-
-= 1.0.5 =
-Fixes the BricksFly dashboard not loading after an update on sites with long browser or CDN caching. Recommended update.
-
-= 1.0.4 =
-Fixes a blank BricksFly dashboard on some sites. Recommended update.
-
-= 1.0.3 =
-Free templates, pages and sections now import without a license, and template import is safer. If you use BricksFly Pro, update it to the latest version as well.
-
-= 1.0.2 =
-Documentation update only. The plugin description and FAQ have been rewritten for clarity. No functional changes.
-
-= 1.0.0 =
-Initial release.
+= 1.0.13 =
+Black Friday offers until December 10 for sites with and without BricksFly Pro.

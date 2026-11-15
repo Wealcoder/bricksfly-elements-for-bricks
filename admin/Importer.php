@@ -41,7 +41,7 @@ class Importer {
 		add_filter( 'bricksfly_importer.pre_process.user', '__return_false' );
 		add_filter( 'bricksfly_importer.pre_process.post', array( $this, 'new_ajax_request_maybe' ) );
 
-		if ( ! Helpers::apply_filters('bricksfly/regenerate_thumbnails_in_content_import', true ) ) {
+		if ( ! Helpers::apply_filters( 'bricksfly/regenerate_thumbnails_in_content_import', true ) ) {
 			add_filter( 'intermediate_image_sizes_advanced', '__return_null' );
 		}
 
@@ -61,7 +61,7 @@ class Importer {
 
 		$time = microtime( true ) - $this->microtime;
 
-		if ( $time > Helpers::apply_filters('bricksfly/time_for_one_ajax_call', 25 ) ) {
+		if ( $time > Helpers::apply_filters( 'bricksfly/time_for_one_ajax_call', 25 ) ) {
 			$response = array(
 				'status'  => 'newAJAX',
 				'message' => 'Time for new AJAX request!: ' . $time,

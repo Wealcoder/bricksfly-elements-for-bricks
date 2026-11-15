@@ -1,6 +1,8 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 class BRICKSFLY_Bricks_Video_Box_Slider extends \Bricks\Element {
 
@@ -8,14 +10,14 @@ class BRICKSFLY_Bricks_Video_Box_Slider extends \Bricks\Element {
 	public $name         = 'aab-video-box-slider';
 	public $icon         = 'ti-video-clapper aab-element-marker';
 	public $css_selector = '.aab-video-box-slider';
-	public $scripts      = [ 'bricksflyVideoBoxSlider' ];
+	public $scripts      = array( 'bricksflyVideoBoxSlider' );
 
 	public function get_label() {
-		return esc_html__('Video Box Slider', 'bricksfly-elements-for-bricks');
+		return esc_html__( 'Video Box Slider', 'bricksfly-elements-for-bricks' );
 	}
 
 	public function get_keywords() {
-		return [ 'video', 'slider', 'carousel', 'swiper', 'popup', 'youtube', 'vimeo' ];
+		return array( 'video', 'slider', 'carousel', 'swiper', 'popup', 'youtube', 'vimeo' );
 	}
 
 	public function enqueue_scripts() {
@@ -25,13 +27,12 @@ class BRICKSFLY_Bricks_Video_Box_Slider extends \Bricks\Element {
 		// Use Bricks built-in Swiper
 		wp_enqueue_script( 'bricks-swiper' );
 		wp_enqueue_style( 'bricks-swiper' );
-		
 
 		// Shared popup CSS (button styles, overlay) reused from video-popup element.
 		wp_enqueue_style(
 			'aab-video-popup',
 			BRICKSFLY_URL . 'public/build/elements/video-popup.css',
-			[],
+			array(),
 			'1.0.0'
 		);
 
@@ -39,7 +40,7 @@ class BRICKSFLY_Bricks_Video_Box_Slider extends \Bricks\Element {
 		wp_enqueue_style(
 			'aab-video-box-slider',
 			BRICKSFLY_URL . 'public/build/elements/video-box-slider.css',
-			[ 'bricks-swiper', 'aab-video-popup' ],
+			array( 'bricks-swiper', 'aab-video-popup' ),
 			'1.0.0'
 		);
 
@@ -47,64 +48,64 @@ class BRICKSFLY_Bricks_Video_Box_Slider extends \Bricks\Element {
 		wp_enqueue_script(
 			'aab-video-box-slider',
 			BRICKSFLY_URL . 'public/build/elements/video-box-slider.js',
-			[ 'bricks-swiper' ],
+			array( 'bricks-swiper' ),
 			'1.0.0',
 			true
 		);
 	}
 
 	public function set_control_groups() {
-		$this->control_groups['slider'] = [
-			'title' => esc_html__('Video Box Slider', 'bricksfly-elements-for-bricks'),
+		$this->control_groups['slider'] = array(
+			'title' => esc_html__( 'Video Box Slider', 'bricksfly-elements-for-bricks' ),
 			'tab'   => 'content',
-		];
+		);
 
-		$this->control_groups['button'] = [
-			'title' => esc_html__('Button', 'bricksfly-elements-for-bricks'),
+		$this->control_groups['button'] = array(
+			'title' => esc_html__( 'Button', 'bricksfly-elements-for-bricks' ),
 			'tab'   => 'content',
-		];
+		);
 
-		$this->control_groups['slider_options'] = [
-			'title' => esc_html__('Slider Options', 'bricksfly-elements-for-bricks'),
+		$this->control_groups['slider_options'] = array(
+			'title' => esc_html__( 'Slider Options', 'bricksfly-elements-for-bricks' ),
 			'tab'   => 'content',
-		];
+		);
 
-		$this->control_groups['thumb_style'] = [
-			'title' => esc_html__('Thumbnail', 'bricksfly-elements-for-bricks'),
+		$this->control_groups['thumb_style'] = array(
+			'title' => esc_html__( 'Thumbnail', 'bricksfly-elements-for-bricks' ),
 			'tab'   => 'style',
-		];
+		);
 
-		$this->control_groups['thumb_after_style'] = [
-			'title' => esc_html__('Thumbnail After', 'bricksfly-elements-for-bricks'),
+		$this->control_groups['thumb_after_style'] = array(
+			'title' => esc_html__( 'Thumbnail After', 'bricksfly-elements-for-bricks' ),
 			'tab'   => 'style',
-		];
+		);
 
-		$this->control_groups['content_style'] = [
-			'title' => esc_html__('Content', 'bricksfly-elements-for-bricks'),
+		$this->control_groups['content_style'] = array(
+			'title' => esc_html__( 'Content', 'bricksfly-elements-for-bricks' ),
 			'tab'   => 'style',
-		];
+		);
 
-		$this->control_groups['button_style'] = [
-			'title' => esc_html__('Button', 'bricksfly-elements-for-bricks'),
+		$this->control_groups['button_style'] = array(
+			'title' => esc_html__( 'Button', 'bricksfly-elements-for-bricks' ),
 			'tab'   => 'style',
-		];
+		);
 
-		$this->control_groups['button_hover_style'] = [
-			'title' => esc_html__('Button Hover', 'bricksfly-elements-for-bricks'),
+		$this->control_groups['button_hover_style'] = array(
+			'title' => esc_html__( 'Button Hover', 'bricksfly-elements-for-bricks' ),
 			'tab'   => 'style',
-		];
+		);
 
-		$this->control_groups['nav_style'] = [
-			'title' => esc_html__('Slider Navigation', 'bricksfly-elements-for-bricks'),
-			'tab'   => 'style',
-			'required' => [ 'navigation', '=', true ],
-		];
+		$this->control_groups['nav_style'] = array(
+			'title'    => esc_html__( 'Slider Navigation', 'bricksfly-elements-for-bricks' ),
+			'tab'      => 'style',
+			'required' => array( 'navigation', '=', true ),
+		);
 
-		$this->control_groups['pagination_style'] = [
-			'title' => esc_html__('Slider Pagination', 'bricksfly-elements-for-bricks'),
-			'tab'   => 'style',
-			'required' => [ 'pagination', '=', true ],
-		];
+		$this->control_groups['pagination_style'] = array(
+			'title'    => esc_html__( 'Slider Pagination', 'bricksfly-elements-for-bricks' ),
+			'tab'      => 'style',
+			'required' => array( 'pagination', '=', true ),
+		);
 	}
 
 	public function set_controls() {
@@ -113,70 +114,70 @@ class BRICKSFLY_Bricks_Video_Box_Slider extends \Bricks\Element {
 		// CONTENT TAB → Video Box Slider
 		// =====================================================
 
-		$this->controls['videoSlides'] = [
-			'tab'     => 'content',
-			'group'   => 'slider',
-			'label'   => esc_html__( 'Video Slides', 'bricksfly-elements-for-bricks' ),
-			'type'    => 'repeater',
+		$this->controls['videoSlides'] = array(
+			'tab'           => 'content',
+			'group'         => 'slider',
+			'label'         => esc_html__( 'Video Slides', 'bricksfly-elements-for-bricks' ),
+			'type'          => 'repeater',
 			'titleProperty' => 'title',
-			'fields'  => [
-				'videoThumb' => [
+			'fields'        => array(
+				'videoThumb' => array(
 					'label' => esc_html__( 'Choose Image', 'bricksfly-elements-for-bricks' ),
 					'type'  => 'image',
-				],
-				'title' => [
+				),
+				'title'      => array(
 					'label'   => esc_html__( 'Title', 'bricksfly-elements-for-bricks' ),
 					'type'    => 'text',
 					'default' => esc_html__( 'Adam Smith', 'bricksfly-elements-for-bricks' ),
-				],
-				'subtitle' => [
+				),
+				'subtitle'   => array(
 					'label'   => esc_html__( 'Sub Title', 'bricksfly-elements-for-bricks' ),
 					'type'    => 'text',
 					'default' => esc_html__( 'Developer', 'bricksfly-elements-for-bricks' ),
-				],
-				'videoLink' => [
+				),
+				'videoLink'  => array(
 					'label'       => esc_html__( 'Video Link', 'bricksfly-elements-for-bricks' ),
 					'type'        => 'text',
 					'default'     => 'https://www.youtube.com/watch?v=XHOmBV4js_E',
 					'placeholder' => 'https://www.youtube.com/watch?v=XHOmBV4js_E',
 					'description' => esc_html__( 'YouTube/Vimeo link, or direct video file URL (mp4 recommended).', 'bricksfly-elements-for-bricks' ),
-				],
-			],
-			'default' => [
-				[
+				),
+			),
+			'default'       => array(
+				array(
 					'title'     => 'Adam Smith',
 					'subtitle'  => 'Developer',
 					'videoLink' => 'https://www.youtube.com/watch?v=XHOmBV4js_E',
-				],
-				[
+				),
+				array(
 					'title'     => 'Jane Doe',
 					'subtitle'  => 'Designer',
 					'videoLink' => 'https://www.youtube.com/watch?v=XHOmBV4js_E',
-				],
-				[
+				),
+				array(
 					'title'     => 'Mark Lee',
 					'subtitle'  => 'Marketer',
 					'videoLink' => 'https://www.youtube.com/watch?v=XHOmBV4js_E',
-				],
-				[
+				),
+				array(
 					'title'     => 'Sara Hill',
 					'subtitle'  => 'Founder',
 					'videoLink' => 'https://www.youtube.com/watch?v=XHOmBV4js_E',
-				],
-				[
+				),
+				array(
 					'title'     => 'John Roe',
 					'subtitle'  => 'Engineer',
 					'videoLink' => 'https://www.youtube.com/watch?v=XHOmBV4js_E',
-				],
-			],
-		];
+				),
+			),
+		);
 
-		$this->controls['titleTag'] = [
+		$this->controls['titleTag'] = array(
 			'tab'     => 'content',
 			'group'   => 'slider',
 			'label'   => esc_html__( 'Title HTML Tag', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'select',
-			'options' => [
+			'options' => array(
 				'h1'   => 'H1',
 				'h2'   => 'H2',
 				'h3'   => 'H3',
@@ -186,1124 +187,1212 @@ class BRICKSFLY_Bricks_Video_Box_Slider extends \Bricks\Element {
 				'div'  => 'div',
 				'span' => 'span',
 				'p'    => 'p',
-			],
+			),
 			'default' => 'h4',
 			'inline'  => true,
-		];
+		);
 
-		$this->controls['imageSize'] = [
+		$this->controls['imageSize'] = array(
 			'tab'     => 'content',
 			'group'   => 'slider',
 			'label'   => esc_html__( 'Image Size', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'select',
-			'options' => [
+			'options' => array(
 				'thumbnail' => esc_html__( 'Thumbnail', 'bricksfly-elements-for-bricks' ),
 				'medium'    => esc_html__( 'Medium', 'bricksfly-elements-for-bricks' ),
 				'large'     => esc_html__( 'Large', 'bricksfly-elements-for-bricks' ),
 				'full'      => esc_html__( 'Full', 'bricksfly-elements-for-bricks' ),
-			],
+			),
 			'default' => 'full',
 			'inline'  => true,
-		];
+		);
 
-		$this->controls['showThumbAfter'] = [
+		$this->controls['showThumbAfter'] = array(
 			'tab'         => 'content',
 			'group'       => 'slider',
 			'label'       => esc_html__( 'Thumbnail After', 'bricksfly-elements-for-bricks' ),
 			'description' => esc_html__( 'Enable a shape behind the thumbnail. Use the Thumbnail After style section to design it.', 'bricksfly-elements-for-bricks' ),
 			'type'        => 'checkbox',
 			'default'     => false,
-		];
+		);
 
-		$this->controls['thumbAfterDisplay'] = [
+		$this->controls['thumbAfterDisplay'] = array(
 			'tab'      => 'content',
 			'group'    => 'slider',
 			'label'    => esc_html__( 'Display', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'select',
-			'options'  => [
+			'options'  => array(
 				''             => esc_html__( 'Default', 'bricksfly-elements-for-bricks' ),
 				'hover-slide'  => esc_html__( 'On Hover Slide', 'bricksfly-elements-for-bricks' ),
 				'active-slide' => esc_html__( 'On Active Slide', 'bricksfly-elements-for-bricks' ),
-			],
+			),
 			'default'  => '',
 			'inline'   => true,
-			'required' => [ 'showThumbAfter', '=', true ],
-		];
+			'required' => array( 'showThumbAfter', '=', true ),
+		);
 
-		$this->controls['sliderWidth'] = [
+		$this->controls['sliderWidth'] = array(
 			'tab'   => 'content',
 			'group' => 'slider',
 			'label' => esc_html__( 'Slider Max Width', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'slider',
-			'units' => [
-				'px' => [ 'min' => 100, 'max' => 1500 ],
-				'%'  => [ 'min' => 0, 'max' => 100 ],
-				'em' => [ 'min' => 0, 'max' => 100 ],
-				'rem' => [ 'min' => 0, 'max' => 100 ],
-			],
-			'css'   => [
-				[
+			'units' => array(
+				'px'  => array(
+					'min' => 100,
+					'max' => 1500,
+				),
+				'%'   => array(
+					'min' => 0,
+					'max' => 100,
+				),
+				'em'  => array(
+					'min' => 0,
+					'max' => 100,
+				),
+				'rem' => array(
+					'min' => 0,
+					'max' => 100,
+				),
+			),
+			'css'   => array(
+				array(
 					'property' => 'max-width',
 					'selector' => '.wcf__slider',
-				],
-			],
-		];
+				),
+			),
+		);
 
 		// =====================================================
 		// CONTENT TAB → Button (popup play button)
 		// =====================================================
 
-		$this->controls['btnText'] = [
+		$this->controls['btnText'] = array(
 			'tab'     => 'content',
 			'group'   => 'button',
 			'label'   => esc_html__( 'Text', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'text',
 			'default' => esc_html__( 'Play', 'bricksfly-elements-for-bricks' ),
-		];
+		);
 
-		$this->controls['btnIcon'] = [
+		$this->controls['btnIcon'] = array(
 			'tab'   => 'content',
 			'group' => 'button',
 			'label' => esc_html__( 'Icon', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'icon',
-		];
+		);
 
-		$this->controls['iconSpacing'] = [
+		$this->controls['iconSpacing'] = array(
 			'tab'   => 'content',
 			'group' => 'button',
 			'label' => esc_html__( 'Icon Spacing', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'number',
-			'units' => [
-				'px' => [ 'min' => 0, 'max' => 50 ],
-			],
-			'css'   => [
-				[
+			'units' => array(
+				'px' => array(
+					'min' => 0,
+					'max' => 50,
+				),
+			),
+			'css'   => array(
+				array(
 					'property' => 'gap',
 					'selector' => '.aab-popup-btn',
-				],
-			],
-		];
+				),
+			),
+		);
 
-		$this->controls['activeRipple'] = [
+		$this->controls['activeRipple'] = array(
 			'tab'     => 'content',
 			'group'   => 'button',
 			'label'   => esc_html__( 'Active Ripple', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'checkbox',
 			'default' => true,
-		];
+		);
 
-		$this->controls['rippleColor'] = [
+		$this->controls['rippleColor'] = array(
 			'tab'      => 'content',
 			'group'    => 'button',
 			'label'    => esc_html__( 'Ripple Color', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'color',
-			'css'      => [
-				[
+			'css'      => array(
+				array(
 					'property' => 'color',
 					'selector' => '.aab-popup-btn.ripple::before',
-				],
-				[
+				),
+				array(
 					'property' => 'color',
 					'selector' => '.aab-popup-btn.ripple::after',
-				],
-			],
-			'required' => [ 'activeRipple', '!=', '' ],
-		];
+				),
+			),
+			'required' => array( 'activeRipple', '!=', '' ),
+		);
 
-		$this->controls['activeSpinner'] = [
+		$this->controls['activeSpinner'] = array(
 			'tab'     => 'content',
 			'group'   => 'button',
 			'label'   => esc_html__( 'Active Spinner', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'checkbox',
 			'default' => false,
-		];
+		);
 
-		$this->controls['spinnerImage'] = [
+		$this->controls['spinnerImage'] = array(
 			'tab'      => 'content',
 			'group'    => 'button',
 			'label'    => esc_html__( 'Spinner Image', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'image',
-			'required' => [ 'activeSpinner', '!=', '' ],
-		];
+			'required' => array( 'activeSpinner', '!=', '' ),
+		);
 
-		$this->controls['buttonDisplay'] = [
+		$this->controls['buttonDisplay'] = array(
 			'tab'     => 'content',
 			'group'   => 'button',
 			'label'   => esc_html__( 'Display', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'select',
-			'options' => [
+			'options' => array(
 				''             => esc_html__( 'Default', 'bricksfly-elements-for-bricks' ),
 				'hover-slide'  => esc_html__( 'On Hover Slide', 'bricksfly-elements-for-bricks' ),
 				'active-slide' => esc_html__( 'On Active Slide', 'bricksfly-elements-for-bricks' ),
-			],
+			),
 			'default' => '',
 			'inline'  => true,
-		];
+		);
 
 		// =====================================================
 		// CONTENT TAB → Slider Options
 		// =====================================================
 
-		$this->controls['slidesToShow'] = [
+		$this->controls['slidesToShow'] = array(
 			'tab'     => 'content',
 			'group'   => 'slider_options',
 			'label'   => esc_html__( 'Slides to Show', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'select',
-			'options' => [
-				'1'  => '1', '2'  => '2', '3'  => '3', '4'  => '4', '5'  => '5',
-				'6'  => '6', '7'  => '7', '8'  => '8', '9'  => '9', '10' => '10',
-			],
+			'options' => array(
+				'1'  => '1',
+				'2'  => '2',
+				'3'  => '3',
+				'4'  => '4',
+				'5'  => '5',
+				'6'  => '6',
+				'7'  => '7',
+				'8'  => '8',
+				'9'  => '9',
+				'10' => '10',
+			),
 			'default' => '3',
 			'inline'  => true,
-		];
+		);
 
-		$this->controls['autoplay'] = [
+		$this->controls['autoplay'] = array(
 			'tab'     => 'content',
 			'group'   => 'slider_options',
 			'label'   => esc_html__( 'Autoplay', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'checkbox',
 			'default' => false,
-		];
+		);
 
-		$this->controls['autoplayDelay'] = [
+		$this->controls['autoplayDelay'] = array(
 			'tab'      => 'content',
 			'group'    => 'slider_options',
 			'label'    => esc_html__( 'Autoplay Delay (ms)', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'number',
 			'default'  => 3000,
-			'required' => [ 'autoplay', '=', true ],
-		];
+			'required' => array( 'autoplay', '=', true ),
+		);
 
-		$this->controls['autoplayInteraction'] = [
+		$this->controls['autoplayInteraction'] = array(
 			'tab'      => 'content',
 			'group'    => 'slider_options',
 			'label'    => esc_html__( 'Pause on Interaction', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'checkbox',
 			'default'  => true,
-			'required' => [ 'autoplay', '=', true ],
-		];
+			'required' => array( 'autoplay', '=', true ),
+		);
 
-		$this->controls['allowTouchMove'] = [
+		$this->controls['allowTouchMove'] = array(
 			'tab'     => 'content',
 			'group'   => 'slider_options',
 			'label'   => esc_html__( 'Allow Touch Move', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'checkbox',
 			'default' => false,
-		];
+		);
 
-		$this->controls['loop'] = [
+		$this->controls['loop'] = array(
 			'tab'     => 'content',
 			'group'   => 'slider_options',
 			'label'   => esc_html__( 'Loop', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'checkbox',
 			'default' => true,
-		];
+		);
 
-		$this->controls['mousewheel'] = [
+		$this->controls['mousewheel'] = array(
 			'tab'         => 'content',
 			'group'       => 'slider_options',
 			'label'       => esc_html__( 'Mousewheel', 'bricksfly-elements-for-bricks' ),
 			'description' => esc_html__( 'If enabled, please disable Loop for proper behavior.', 'bricksfly-elements-for-bricks' ),
 			'type'        => 'checkbox',
 			'default'     => false,
-		];
+		);
 
-		$this->controls['speed'] = [
+		$this->controls['speed'] = array(
 			'tab'     => 'content',
 			'group'   => 'slider_options',
 			'label'   => esc_html__( 'Animation Speed (ms)', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'number',
 			'default' => 500,
-		];
+		);
 
-		$this->controls['spaceBetween'] = [
+		$this->controls['spaceBetween'] = array(
 			'tab'     => 'content',
 			'group'   => 'slider_options',
 			'label'   => esc_html__( 'Space Between (px)', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'number',
 			'default' => 20,
-		];
+		);
 
-		$this->controls['navigation'] = [
+		$this->controls['navigation'] = array(
 			'tab'     => 'content',
 			'group'   => 'slider_options',
 			'label'   => esc_html__( 'Navigation', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'checkbox',
 			'default' => true,
-		];
+		);
 
-		$this->controls['navigationPreviousIcon'] = [
+		$this->controls['navigationPreviousIcon'] = array(
 			'tab'      => 'content',
 			'group'    => 'slider_options',
 			'label'    => esc_html__( 'Previous Arrow Icon', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'icon',
-			'required' => [ 'navigation', '=', true ],
-		];
+			'required' => array( 'navigation', '=', true ),
+		);
 
-		$this->controls['navigationNextIcon'] = [
+		$this->controls['navigationNextIcon'] = array(
 			'tab'      => 'content',
 			'group'    => 'slider_options',
 			'label'    => esc_html__( 'Next Arrow Icon', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'icon',
-			'required' => [ 'navigation', '=', true ],
-		];
+			'required' => array( 'navigation', '=', true ),
+		);
 
-		$this->controls['pagination'] = [
+		$this->controls['pagination'] = array(
 			'tab'     => 'content',
 			'group'   => 'slider_options',
 			'label'   => esc_html__( 'Pagination', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'checkbox',
 			'default' => true,
-		];
+		);
 
-		$this->controls['paginationType'] = [
+		$this->controls['paginationType'] = array(
 			'tab'      => 'content',
 			'group'    => 'slider_options',
 			'label'    => esc_html__( 'Pagination Type', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'select',
-			'options'  => [
+			'options'  => array(
 				'bullets'     => esc_html__( 'Bullets', 'bricksfly-elements-for-bricks' ),
 				'fraction'    => esc_html__( 'Fraction', 'bricksfly-elements-for-bricks' ),
 				'progressbar' => esc_html__( 'Progressbar', 'bricksfly-elements-for-bricks' ),
-			],
+			),
 			'default'  => 'bullets',
 			'inline'   => true,
-			'required' => [ 'pagination', '=', true ],
-		];
+			'required' => array( 'pagination', '=', true ),
+		);
 
-		$this->controls['direction'] = [
+		$this->controls['direction'] = array(
 			'tab'     => 'content',
 			'group'   => 'slider_options',
 			'label'   => esc_html__( 'Direction', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'select',
-			'options' => [
+			'options' => array(
 				'ltr' => esc_html__( 'Left', 'bricksfly-elements-for-bricks' ),
 				'rtl' => esc_html__( 'Right', 'bricksfly-elements-for-bricks' ),
-			],
+			),
 			'default' => 'ltr',
 			'inline'  => true,
-		];
+		);
 
-		$this->controls['centerSlide'] = [
+		$this->controls['centerSlide'] = array(
 			'tab'     => 'content',
 			'group'   => 'slider_options',
 			'label'   => esc_html__( 'Center Slide', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'checkbox',
 			'default' => false,
-		];
+		);
 
-		$this->controls['slideScaleX'] = [
+		$this->controls['slideScaleX'] = array(
 			'tab'      => 'content',
 			'group'    => 'slider_options',
 			'label'    => esc_html__( 'Slide Scale X', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'number',
 			'min'      => 0,
 			'step'     => 0.1,
-			'css'      => [
-				[
+			'css'      => array(
+				array(
 					'property' => '--scale-x',
 					'selector' => '.swiper-slide',
-				],
-			],
-			'required' => [ 'centerSlide', '=', true ],
-		];
+				),
+			),
+			'required' => array( 'centerSlide', '=', true ),
+		);
 
-		$this->controls['slideScaleY'] = [
+		$this->controls['slideScaleY'] = array(
 			'tab'      => 'content',
 			'group'    => 'slider_options',
 			'label'    => esc_html__( 'Slide Scale Y', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'number',
 			'min'      => 0,
 			'step'     => 0.1,
-			'css'      => [
-				[
+			'css'      => array(
+				array(
 					'property' => '--scale-y',
 					'selector' => '.swiper-slide',
-				],
-			],
-			'required' => [ 'centerSlide', '=', true ],
-		];
+				),
+			),
+			'required' => array( 'centerSlide', '=', true ),
+		);
 
 		// =====================================================
 		// STYLE TAB → Thumbnail
 		// =====================================================
 
-		$this->controls['imageHeight'] = [
+		$this->controls['imageHeight'] = array(
 			'tab'   => 'style',
 			'group' => 'thumb_style',
 			'label' => esc_html__( 'Height', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'number',
-			'units' => [
-				'px' => [ 'min' => 0, 'max' => 1000, 'step' => 1 ],
-				'%'  => [ 'min' => 0, 'max' => 100 ],
-			],
-			'css'   => [
-				[
+			'units' => array(
+				'px' => array(
+					'min'  => 0,
+					'max'  => 1000,
+					'step' => 1,
+				),
+				'%'  => array(
+					'min' => 0,
+					'max' => 100,
+				),
+			),
+			'css'   => array(
+				array(
 					'property' => 'height',
 					'selector' => '.thumb img',
-				],
-			],
-		];
+				),
+			),
+		);
 
-		$this->controls['imagePadding'] = [
+		$this->controls['imagePadding'] = array(
 			'tab'   => 'style',
 			'group' => 'thumb_style',
 			'label' => esc_html__( 'Padding', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'dimensions',
-			'css'   => [
-				[
+			'css'   => array(
+				array(
 					'property' => 'padding',
 					'selector' => '.thumb',
-				],
-			],
-		];
+				),
+			),
+		);
 
-		$this->controls['imageBorderRadius'] = [
+		$this->controls['imageBorderRadius'] = array(
 			'tab'   => 'style',
 			'group' => 'thumb_style',
 			'label' => esc_html__( 'Border Radius', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'dimensions',
-			'css'   => [
-				[
+			'css'   => array(
+				array(
 					'property' => 'border-radius',
 					'selector' => '.thumb img',
-				],
-			],
-		];
+				),
+			),
+		);
 
 		// =====================================================
 		// STYLE TAB → Thumbnail After (conditional)
 		// =====================================================
 
-		$this->controls['thumbAfterWidth'] = [
+		$this->controls['thumbAfterWidth'] = array(
 			'tab'      => 'style',
 			'group'    => 'thumb_after_style',
 			'label'    => esc_html__( 'Width', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'slider',
-			'units'    => [
-				'px' => [ 'min' => 0, 'max' => 1000, 'step' => 1 ],
-				'%'  => [ 'min' => 0, 'max' => 100 ],
-			],
-			'css'      => [
-				[
+			'units'    => array(
+				'px' => array(
+					'min'  => 0,
+					'max'  => 1000,
+					'step' => 1,
+				),
+				'%'  => array(
+					'min' => 0,
+					'max' => 100,
+				),
+			),
+			'css'      => array(
+				array(
 					'property' => 'width',
 					'selector' => '.thumb:after',
-				],
-			],
-			'required' => [ 'showThumbAfter', '=', true ],
-		];
+				),
+			),
+			'required' => array( 'showThumbAfter', '=', true ),
+		);
 
-		$this->controls['thumbAfterHeight'] = [
+		$this->controls['thumbAfterHeight'] = array(
 			'tab'      => 'style',
 			'group'    => 'thumb_after_style',
 			'label'    => esc_html__( 'Height', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'slider',
-			'units'    => [
-				'px' => [ 'min' => 0, 'max' => 1000, 'step' => 1 ],
-				'%'  => [ 'min' => 0, 'max' => 100 ],
-			],
-			'css'      => [
-				[
+			'units'    => array(
+				'px' => array(
+					'min'  => 0,
+					'max'  => 1000,
+					'step' => 1,
+				),
+				'%'  => array(
+					'min' => 0,
+					'max' => 100,
+				),
+			),
+			'css'      => array(
+				array(
 					'property' => 'height',
 					'selector' => '.thumb:after',
-				],
-			],
-			'required' => [ 'showThumbAfter', '=', true ],
-		];
+				),
+			),
+			'required' => array( 'showThumbAfter', '=', true ),
+		);
 
-		$this->controls['thumbAfterBackground'] = [
+		$this->controls['thumbAfterBackground'] = array(
 			'tab'      => 'style',
 			'group'    => 'thumb_after_style',
 			'label'    => esc_html__( 'Background', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'background',
-			'css'      => [
-				[
+			'css'      => array(
+				array(
 					'property' => 'background',
 					'selector' => '.thumb:after',
-				],
-			],
-			'required' => [ 'showThumbAfter', '=', true ],
-		];
+				),
+			),
+			'required' => array( 'showThumbAfter', '=', true ),
+		);
 
-		$this->controls['thumbAfterBorder'] = [
+		$this->controls['thumbAfterBorder'] = array(
 			'tab'      => 'style',
 			'group'    => 'thumb_after_style',
 			'label'    => esc_html__( 'Border', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'border',
-			'css'      => [
-				[
+			'css'      => array(
+				array(
 					'property' => 'border',
 					'selector' => '.thumb:after',
-				],
-			],
-			'required' => [ 'showThumbAfter', '=', true ],
-		];
+				),
+			),
+			'required' => array( 'showThumbAfter', '=', true ),
+		);
 
-		$this->controls['thumbAfterBorderRadius'] = [
+		$this->controls['thumbAfterBorderRadius'] = array(
 			'tab'      => 'style',
 			'group'    => 'thumb_after_style',
 			'label'    => esc_html__( 'Border Radius', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'dimensions',
-			'css'      => [
-				[
+			'css'      => array(
+				array(
 					'property' => 'border-radius',
 					'selector' => '.thumb:after',
-				],
-			],
-			'required' => [ 'showThumbAfter', '=', true ],
-		];
+				),
+			),
+			'required' => array( 'showThumbAfter', '=', true ),
+		);
 
-		$this->controls['thumbAfterBoxShadow'] = [
+		$this->controls['thumbAfterBoxShadow'] = array(
 			'tab'      => 'style',
 			'group'    => 'thumb_after_style',
 			'label'    => esc_html__( 'Box Shadow', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'box-shadow',
-			'css'      => [
-				[
+			'css'      => array(
+				array(
 					'property' => 'box-shadow',
 					'selector' => '.thumb:after',
-				],
-			],
-			'required' => [ 'showThumbAfter', '=', true ],
-		];
+				),
+			),
+			'required' => array( 'showThumbAfter', '=', true ),
+		);
 
 		// =====================================================
 		// STYLE TAB → Content
 		// =====================================================
 
-		$this->controls['contentPadding'] = [
+		$this->controls['contentPadding'] = array(
 			'tab'   => 'style',
 			'group' => 'content_style',
 			'label' => esc_html__( 'Padding', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'dimensions',
-			'css'   => [
-				[
+			'css'   => array(
+				array(
 					'property' => 'padding',
 					'selector' => '.content',
-				],
-			],
-		];
+				),
+			),
+		);
 
-		$this->controls['contentBackground'] = [
+		$this->controls['contentBackground'] = array(
 			'tab'   => 'style',
 			'group' => 'content_style',
 			'label' => esc_html__( 'Background', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'background',
-			'css'   => [
-				[
+			'css'   => array(
+				array(
 					'property' => 'background',
 					'selector' => '.content',
-				],
-			],
-		];
+				),
+			),
+		);
 
-		$this->controls['titleColor'] = [
+		$this->controls['titleColor'] = array(
 			'tab'   => 'style',
 			'group' => 'content_style',
 			'label' => esc_html__( 'Title Color', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'color',
-			'css'   => [
-				[
+			'css'   => array(
+				array(
 					'property' => 'color',
 					'selector' => '.title',
-				],
-			],
-		];
+				),
+			),
+		);
 
-		$this->controls['titleTypography'] = [
+		$this->controls['titleTypography'] = array(
 			'tab'   => 'style',
 			'group' => 'content_style',
 			'label' => esc_html__( 'Title Typography', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'typography',
-			'css'   => [
-				[
+			'css'   => array(
+				array(
 					'property' => 'font',
 					'selector' => '.title',
-				],
-			],
-		];
+				),
+			),
+		);
 
-		$this->controls['titleMargin'] = [
+		$this->controls['titleMargin'] = array(
 			'tab'   => 'style',
 			'group' => 'content_style',
 			'label' => esc_html__( 'Title Margin', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'dimensions',
-			'css'   => [
-				[
+			'css'   => array(
+				array(
 					'property' => 'margin',
 					'selector' => '.title',
-				],
-			],
-		];
+				),
+			),
+		);
 
-		$this->controls['subtitleColor'] = [
+		$this->controls['subtitleColor'] = array(
 			'tab'   => 'style',
 			'group' => 'content_style',
 			'label' => esc_html__( 'Sub Title Color', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'color',
-			'css'   => [
-				[
+			'css'   => array(
+				array(
 					'property' => 'color',
 					'selector' => '.sub-title',
-				],
-			],
-		];
+				),
+			),
+		);
 
-		$this->controls['subtitleTypography'] = [
+		$this->controls['subtitleTypography'] = array(
 			'tab'   => 'style',
 			'group' => 'content_style',
 			'label' => esc_html__( 'Sub Title Typography', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'typography',
-			'css'   => [
-				[
+			'css'   => array(
+				array(
 					'property' => 'font',
 					'selector' => '.sub-title',
-				],
-			],
-		];
+				),
+			),
+		);
 
-		$this->controls['subtitleMargin'] = [
+		$this->controls['subtitleMargin'] = array(
 			'tab'   => 'style',
 			'group' => 'content_style',
 			'label' => esc_html__( 'Sub Title Margin', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'dimensions',
-			'css'   => [
-				[
+			'css'   => array(
+				array(
 					'property' => 'margin',
 					'selector' => '.sub-title',
-				],
-			],
-		];
+				),
+			),
+		);
 
 		// =====================================================
 		// STYLE TAB → Button (Normal)
 		// =====================================================
 
-		$this->controls['btnTypography'] = [
+		$this->controls['btnTypography'] = array(
 			'tab'   => 'style',
 			'group' => 'button_style',
 			'label' => esc_html__( 'Typography', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'typography',
-			'css'   => [
-				[
+			'css'   => array(
+				array(
 					'property' => 'font',
 					'selector' => '.aab-popup-btn',
-				],
-			],
-		];
+				),
+			),
+		);
 
-		$this->controls['btnWidth'] = [
-			'tab'   => 'style',
-			'group' => 'button_style',
-			'label' => esc_html__( 'Width', 'bricksfly-elements-for-bricks' ),
-			'default' => '60',
+		$this->controls['btnWidth'] = array(
+			'tab'         => 'style',
+			'group'       => 'button_style',
+			'label'       => esc_html__( 'Width', 'bricksfly-elements-for-bricks' ),
+			'default'     => '60',
 			'placeholder' => '60',
-			'type'  => 'number',
-			'units' => [
-				'px' => [ 'min' => 0, 'max' => 500, 'step' => 5 ],
-				'%'  => [ 'min' => 0, 'max' => 100 ],
-			],
-			'css'   => [
-				[
+			'type'        => 'number',
+			'units'       => array(
+				'px' => array(
+					'min'  => 0,
+					'max'  => 500,
+					'step' => 5,
+				),
+				'%'  => array(
+					'min' => 0,
+					'max' => 100,
+				),
+			),
+			'css'         => array(
+				array(
 					'property' => 'width',
 					'selector' => '.aab-popup-btn',
-				],
-			],
-		];
+				),
+			),
+		);
 
-		$this->controls['btnHeight'] = [
-			'tab'   => 'style',
-			'group' => 'button_style',
-			'label' => esc_html__( 'Height', 'bricksfly-elements-for-bricks' ),
-			'type'  => 'number',
-			'default' => '60',
+		$this->controls['btnHeight'] = array(
+			'tab'         => 'style',
+			'group'       => 'button_style',
+			'label'       => esc_html__( 'Height', 'bricksfly-elements-for-bricks' ),
+			'type'        => 'number',
+			'default'     => '60',
 			'placeholder' => '60',
-			'units' => [
-				'px' => [ 'min' => 0, 'max' => 500, 'step' => 5 ],
-				'%'  => [ 'min' => 0, 'max' => 100 ],
-			],
-			'css'   => [
-				[
+			'units'       => array(
+				'px' => array(
+					'min'  => 0,
+					'max'  => 500,
+					'step' => 5,
+				),
+				'%'  => array(
+					'min' => 0,
+					'max' => 100,
+				),
+			),
+			'css'         => array(
+				array(
 					'property' => 'height',
 					'selector' => '.aab-popup-btn',
-				],
-			],
-		];
+				),
+			),
+		);
 
-		$this->controls['btnBorder'] = [
+		$this->controls['btnBorder'] = array(
 			'tab'   => 'style',
 			'group' => 'button_style',
 			'label' => esc_html__( 'Border', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'border',
-			'css'   => [
-				[
+			'css'   => array(
+				array(
 					'property' => 'border',
 					'selector' => '.aab-popup-btn',
-				],
-			],
-		];
+				),
+			),
+		);
 
 		// $this->controls['btnBorderRadius'] = [
-		// 	'tab'   => 'style',
-		// 	'group' => 'button_style',
-		// 	'label' => esc_html__( 'Border Radius', 'bricksfly-elements-for-bricks' ),
-		// 	'type'  => 'dimensions',
-		// 	'css'   => [
-		// 		[
-		// 			'property' => 'border-radius',
-		// 			'selector' => '.aab-popup-btn',
-		// 		],
-		// 		[
-		// 			'property' => 'border-radius',
-		// 			'selector' => '.aab-popup-btn::before',
-		// 		],
-		// 		[
-		// 			'property' => 'border-radius',
-		// 			'selector' => '.aab-popup-btn::after',
-		// 		],
-		// 		[
-		// 			'property' => 'border-radius',
-		// 			'selector' => '.aab-popup-btn .spinner-image',
-		// 		],
-		// 	],
+		// 'tab'   => 'style',
+		// 'group' => 'button_style',
+		// 'label' => esc_html__( 'Border Radius', 'bricksfly-elements-for-bricks' ),
+		// 'type'  => 'dimensions',
+		// 'css'   => [
+		// [
+		// 'property' => 'border-radius',
+		// 'selector' => '.aab-popup-btn',
+		// ],
+		// [
+		// 'property' => 'border-radius',
+		// 'selector' => '.aab-popup-btn::before',
+		// ],
+		// [
+		// 'property' => 'border-radius',
+		// 'selector' => '.aab-popup-btn::after',
+		// ],
+		// [
+		// 'property' => 'border-radius',
+		// 'selector' => '.aab-popup-btn .spinner-image',
+		// ],
+		// ],
 		// ];
 
-		$this->controls['btnBoxShadow'] = [
+		$this->controls['btnBoxShadow'] = array(
 			'tab'   => 'style',
 			'group' => 'button_style',
 			'label' => esc_html__( 'Box Shadow', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'box-shadow',
-			'css'   => [
-				[
+			'css'   => array(
+				array(
 					'property' => 'box-shadow',
 					'selector' => '.aab-popup-btn',
-				],
-			],
-		];
+				),
+			),
+		);
 
-		$this->controls['btnPadding'] = [
-			'tab'   => 'style',
-			'group' => 'button_style',
-			'label' => esc_html__( 'Spacing', 'bricksfly-elements-for-bricks' ),
-			'type'  => 'dimensions',
-			'default' => '10',
+		$this->controls['btnPadding'] = array(
+			'tab'         => 'style',
+			'group'       => 'button_style',
+			'label'       => esc_html__( 'Spacing', 'bricksfly-elements-for-bricks' ),
+			'type'        => 'dimensions',
+			'default'     => '10',
 			'placeholder' => '10',
-			'css'   => [
-				[
+			'css'         => array(
+				array(
 					'property' => 'padding',
 					'selector' => '.aab-popup-btn',
-				],
-			],
-		];
+				),
+			),
+		);
 
-		$this->controls['btnTextColor'] = [
+		$this->controls['btnTextColor'] = array(
 			'tab'   => 'style',
 			'group' => 'button_style',
 			'label' => esc_html__( 'Text Color', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'color',
-			'css'   => [
-				[
+			'css'   => array(
+				array(
 					'property' => 'color',
 					'selector' => '.aab-popup-btn',
-				],
-				[
+				),
+				array(
 					'property' => 'fill',
 					'selector' => '.aab-popup-btn',
-				],
-			],
-		];
+				),
+			),
+		);
 
-		$this->controls['btnBackground'] = [
+		$this->controls['btnBackground'] = array(
 			'tab'   => 'style',
 			'group' => 'button_style',
 			'label' => esc_html__( 'Background', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'background',
-			'css'   => [
-				[
+			'css'   => array(
+				array(
 					'property' => 'background',
 					'selector' => '.aab-popup-btn',
-				],
-			],
-		];
+				),
+			),
+		);
 
 		// =====================================================
 		// STYLE TAB → Button Hover
 		// =====================================================
 
-		$this->controls['btnHoverColor'] = [
+		$this->controls['btnHoverColor'] = array(
 			'tab'   => 'style',
 			'group' => 'button_hover_style',
 			'label' => esc_html__( 'Text Color', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'color',
-			'css'   => [
-				[
+			'css'   => array(
+				array(
 					'property' => 'color',
 					'selector' => '.aab-popup-btn:hover',
-				],
-				[
+				),
+				array(
 					'property' => 'fill',
 					'selector' => '.aab-popup-btn:hover svg',
-				],
-			],
-		];
+				),
+			),
+		);
 
-		$this->controls['btnHoverBackground'] = [
+		$this->controls['btnHoverBackground'] = array(
 			'tab'   => 'style',
 			'group' => 'button_hover_style',
 			'label' => esc_html__( 'Background', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'background',
-			'css'   => [
-				[
+			'css'   => array(
+				array(
 					'property' => 'background',
 					'selector' => '.aab-popup-btn:hover',
-				],
-			],
-		];
+				),
+			),
+		);
 
-		$this->controls['btnHoverBorderColor'] = [
+		$this->controls['btnHoverBorderColor'] = array(
 			'tab'   => 'style',
 			'group' => 'button_hover_style',
 			'label' => esc_html__( 'Border Color', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'color',
-			'css'   => [
-				[
+			'css'   => array(
+				array(
 					'property' => 'border-color',
 					'selector' => '.aab-popup-btn:hover',
-				],
-			],
-		];
+				),
+			),
+		);
 
 		// =====================================================
 		// STYLE TAB → Slider Navigation (conditional)
 		// =====================================================
 
-		$this->controls['arrowSize'] = [
+		$this->controls['arrowSize'] = array(
 			'tab'      => 'style',
 			'group'    => 'nav_style',
 			'label'    => esc_html__( 'Arrow Size', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'slider',
-			'units'    => [ 'px' => [ 'min' => 5, 'max' => 100 ] ],
-			'css'      => [
-				[
+			'units'    => array(
+				'px' => array(
+					'min' => 5,
+					'max' => 100,
+				),
+			),
+			'css'      => array(
+				array(
 					'property' => 'font-size',
 					'selector' => '.wcf-arrow',
-				],
-			],
-			'required' => [ 'navigation', '=', true ],
-		];
+				),
+			),
+			'required' => array( 'navigation', '=', true ),
+		);
 
-		$this->controls['arrowCircleSize'] = [
+		$this->controls['arrowCircleSize'] = array(
 			'tab'      => 'style',
 			'group'    => 'nav_style',
 			'label'    => esc_html__( 'Circle Size', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'slider',
-			'units'    => [ 'px' => [ 'min' => 0, 'max' => 200 ] ],
-			'css'      => [
-				[
+			'units'    => array(
+				'px' => array(
+					'min' => 0,
+					'max' => 200,
+				),
+			),
+			'css'      => array(
+				array(
 					'property' => 'width',
 					'selector' => '.wcf-arrow',
-				],
-				[
+				),
+				array(
 					'property' => 'height',
 					'selector' => '.wcf-arrow',
-				],
-			],
-			'required' => [ 'navigation', '=', true ],
-		];
+				),
+			),
+			'required' => array( 'navigation', '=', true ),
+		);
 
-		$this->controls['arrowBorder'] = [
+		$this->controls['arrowBorder'] = array(
 			'tab'      => 'style',
 			'group'    => 'nav_style',
 			'label'    => esc_html__( 'Border', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'border',
-			'css'      => [
-				[
+			'css'      => array(
+				array(
 					'property' => 'border',
 					'selector' => '.wcf-arrow',
-				],
-			],
-			'required' => [ 'navigation', '=', true ],
-		];
+				),
+			),
+			'required' => array( 'navigation', '=', true ),
+		);
 
-		$this->controls['arrowBorderRadius'] = [
+		$this->controls['arrowBorderRadius'] = array(
 			'tab'      => 'style',
 			'group'    => 'nav_style',
 			'label'    => esc_html__( 'Border Radius', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'dimensions',
-			'css'      => [
-				[
+			'css'      => array(
+				array(
 					'property' => 'border-radius',
 					'selector' => '.wcf-arrow',
-				],
-			],
-			'required' => [ 'navigation', '=', true ],
-		];
+				),
+			),
+			'required' => array( 'navigation', '=', true ),
+		);
 
-		$this->controls['arrowPadding'] = [
+		$this->controls['arrowPadding'] = array(
 			'tab'      => 'style',
 			'group'    => 'nav_style',
 			'label'    => esc_html__( 'Padding', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'slider',
-			'units'    => [ 'px' => [ 'min' => 0, 'max' => 200 ] ],
-			'css'      => [
-				[
+			'units'    => array(
+				'px' => array(
+					'min' => 0,
+					'max' => 200,
+				),
+			),
+			'css'      => array(
+				array(
 					'property' => 'padding',
 					'selector' => '.wcf-arrow',
-				],
-			],
-			'required' => [ 'navigation', '=', true ],
-		];
+				),
+			),
+			'required' => array( 'navigation', '=', true ),
+		);
 
-		$this->controls['arrowColor'] = [
+		$this->controls['arrowColor'] = array(
 			'tab'      => 'style',
 			'group'    => 'nav_style',
 			'label'    => esc_html__( 'Color', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'color',
-			'css'      => [
-				[
+			'css'      => array(
+				array(
 					'property' => 'color',
 					'selector' => '.wcf-arrow',
-				],
-				[
+				),
+				array(
 					'property' => 'fill',
 					'selector' => '.wcf-arrow svg',
-				],
-			],
-			'required' => [ 'navigation', '=', true ],
-		];
+				),
+			),
+			'required' => array( 'navigation', '=', true ),
+		);
 
-		$this->controls['arrowBackground'] = [
+		$this->controls['arrowBackground'] = array(
 			'tab'      => 'style',
 			'group'    => 'nav_style',
 			'label'    => esc_html__( 'Background', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'background',
-			'css'      => [
-				[
+			'css'      => array(
+				array(
 					'property' => 'background',
 					'selector' => '.wcf-arrow',
-				],
-			],
-			'required' => [ 'navigation', '=', true ],
-		];
+				),
+			),
+			'required' => array( 'navigation', '=', true ),
+		);
 
-		$this->controls['arrowHoverColor'] = [
+		$this->controls['arrowHoverColor'] = array(
 			'tab'      => 'style',
 			'group'    => 'nav_style',
 			'label'    => esc_html__( 'Hover Color', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'color',
-			'css'      => [
-				[
+			'css'      => array(
+				array(
 					'property' => 'color',
 					'selector' => '.wcf-arrow:hover',
-				],
-				[
+				),
+				array(
 					'property' => 'fill',
 					'selector' => '.wcf-arrow:hover svg',
-				],
-			],
-			'required' => [ 'navigation', '=', true ],
-		];
+				),
+			),
+			'required' => array( 'navigation', '=', true ),
+		);
 
-		$this->controls['arrowHoverBackground'] = [
+		$this->controls['arrowHoverBackground'] = array(
 			'tab'      => 'style',
 			'group'    => 'nav_style',
 			'label'    => esc_html__( 'Hover Background', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'background',
-			'css'      => [
-				[
+			'css'      => array(
+				array(
 					'property' => 'background',
 					'selector' => '.wcf-arrow:hover',
-				],
-			],
-			'required' => [ 'navigation', '=', true ],
-		];
+				),
+			),
+			'required' => array( 'navigation', '=', true ),
+		);
 
-		$this->controls['arrowHoverBorderColor'] = [
+		$this->controls['arrowHoverBorderColor'] = array(
 			'tab'      => 'style',
 			'group'    => 'nav_style',
 			'label'    => esc_html__( 'Hover Border Color', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'color',
-			'css'      => [
-				[
+			'css'      => array(
+				array(
 					'property' => 'border-color',
 					'selector' => '.wcf-arrow:hover',
-				],
-			],
-			'required' => [ 'navigation', '=', true ],
-		];
+				),
+			),
+			'required' => array( 'navigation', '=', true ),
+		);
 
-		$this->controls['navigationAlign'] = [
+		$this->controls['navigationAlign'] = array(
 			'tab'      => 'style',
 			'group'    => 'nav_style',
 			'label'    => esc_html__( 'Alignment', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'select',
-			'options'  => [
+			'options'  => array(
 				''              => esc_html__( 'Default', 'bricksfly-elements-for-bricks' ),
 				'flex-start'    => esc_html__( 'Start', 'bricksfly-elements-for-bricks' ),
 				'center'        => esc_html__( 'Center', 'bricksfly-elements-for-bricks' ),
 				'flex-end'      => esc_html__( 'End', 'bricksfly-elements-for-bricks' ),
 				'space-between' => esc_html__( 'Space Between', 'bricksfly-elements-for-bricks' ),
-			],
+			),
 			'inline'   => true,
-			'css'      => [
-				[
+			'css'      => array(
+				array(
 					'property' => 'justify-content',
 					'selector' => '.ts-navigation',
-				],
-			],
-			'required' => [ 'navigation', '=', true ],
-		];
+				),
+			),
+			'required' => array( 'navigation', '=', true ),
+		);
 
-		$this->controls['navigationGap'] = [
+		$this->controls['navigationGap'] = array(
 			'tab'      => 'style',
 			'group'    => 'nav_style',
 			'label'    => esc_html__( 'Gap', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'slider',
-			'units'    => [ 'px' => [ 'min' => 0, 'max' => 100 ] ],
-			'css'      => [
-				[
+			'units'    => array(
+				'px' => array(
+					'min' => 0,
+					'max' => 100,
+				),
+			),
+			'css'      => array(
+				array(
 					'property' => 'gap',
 					'selector' => '.ts-navigation',
-				],
-			],
-			'required' => [ 'navigation', '=', true ],
-		];
+				),
+			),
+			'required' => array( 'navigation', '=', true ),
+		);
 
 		// =====================================================
 		// STYLE TAB → Slider Pagination (conditional)
 		// =====================================================
 
-		$this->controls['bulletsInactiveColor'] = [
+		$this->controls['bulletsInactiveColor'] = array(
 			'tab'      => 'style',
 			'group'    => 'pagination_style',
 			'label'    => esc_html__( 'Bullets Color', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'color',
-			'css'      => [
-				[
+			'css'      => array(
+				array(
 					'property' => 'background',
 					'selector' => '.swiper-pagination-bullet:not(.swiper-pagination-bullet-active)',
-				],
-			],
-			'required' => [ 'pagination', '=', true ],
-		];
+				),
+			),
+			'required' => array( 'pagination', '=', true ),
+		);
 
-		$this->controls['bulletsActiveColor'] = [
+		$this->controls['bulletsActiveColor'] = array(
 			'tab'      => 'style',
 			'group'    => 'pagination_style',
 			'label'    => esc_html__( 'Bullets Active Color', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'color',
-			'css'      => [
-				[
+			'css'      => array(
+				array(
 					'property' => 'background',
 					'selector' => '.swiper-pagination-bullet',
-				],
-			],
-			'required' => [ 'pagination', '=', true ],
-		];
+				),
+			),
+			'required' => array( 'pagination', '=', true ),
+		);
 
-		$this->controls['bulletsSize'] = [
+		$this->controls['bulletsSize'] = array(
 			'tab'      => 'style',
 			'group'    => 'pagination_style',
 			'label'    => esc_html__( 'Bullets Size', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'slider',
-			'units'    => [ 'px' => [ 'min' => 2, 'max' => 100 ] ],
-			'css'      => [
-				[
+			'units'    => array(
+				'px' => array(
+					'min' => 2,
+					'max' => 100,
+				),
+			),
+			'css'      => array(
+				array(
 					'property' => 'width',
 					'selector' => '.swiper-pagination-bullet',
-				],
-				[
+				),
+				array(
 					'property' => 'height',
 					'selector' => '.swiper-pagination-bullet',
-				],
-			],
-			'required' => [ 'pagination', '=', true ],
-		];
+				),
+			),
+			'required' => array( 'pagination', '=', true ),
+		);
 
-		$this->controls['bulletsGap'] = [
+		$this->controls['bulletsGap'] = array(
 			'tab'      => 'style',
 			'group'    => 'pagination_style',
 			'label'    => esc_html__( 'Bullets Gap', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'slider',
-			'units'    => [ 'px' => [ 'min' => 0, 'max' => 100 ] ],
-			'css'      => [
-				[
+			'units'    => array(
+				'px' => array(
+					'min' => 0,
+					'max' => 100,
+				),
+			),
+			'css'      => array(
+				array(
 					'property' => 'gap',
 					'selector' => '.swiper-pagination-bullets',
-				],
-			],
-			'required' => [ 'pagination', '=', true ],
-		];
+				),
+			),
+			'required' => array( 'pagination', '=', true ),
+		);
 
-		$this->controls['fractionCurrentColor'] = [
+		$this->controls['fractionCurrentColor'] = array(
 			'tab'      => 'style',
 			'group'    => 'pagination_style',
 			'label'    => esc_html__( 'Fraction Current Color', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'color',
-			'css'      => [
-				[
+			'css'      => array(
+				array(
 					'property' => 'color',
 					'selector' => '.swiper-pagination-current',
-				],
-			],
-			'required' => [ 'pagination', '=', true ],
-		];
+				),
+			),
+			'required' => array( 'pagination', '=', true ),
+		);
 
-		$this->controls['fractionTotalColor'] = [
+		$this->controls['fractionTotalColor'] = array(
 			'tab'      => 'style',
 			'group'    => 'pagination_style',
 			'label'    => esc_html__( 'Fraction Total Color', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'color',
-			'css'      => [
-				[
+			'css'      => array(
+				array(
 					'property' => 'color',
 					'selector' => '.swiper-pagination-total',
-				],
-			],
-			'required' => [ 'pagination', '=', true ],
-		];
+				),
+			),
+			'required' => array( 'pagination', '=', true ),
+		);
 
-		$this->controls['fractionMidLineColor'] = [
+		$this->controls['fractionMidLineColor'] = array(
 			'tab'      => 'style',
 			'group'    => 'pagination_style',
 			'label'    => esc_html__( 'Fraction Mid Line Color', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'color',
-			'css'      => [
-				[
+			'css'      => array(
+				array(
 					'property' => 'background-color',
 					'selector' => '.mid-line',
-				],
-			],
-			'required' => [ 'pagination', '=', true ],
-		];
+				),
+			),
+			'required' => array( 'pagination', '=', true ),
+		);
 
-		$this->controls['progressColor'] = [
+		$this->controls['progressColor'] = array(
 			'tab'      => 'style',
 			'group'    => 'pagination_style',
 			'label'    => esc_html__( 'Progressbar Color', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'color',
-			'css'      => [
-				[
+			'css'      => array(
+				array(
 					'property' => 'background-color',
 					'selector' => '.swiper-pagination-progressbar',
-				],
-			],
-			'required' => [ 'pagination', '=', true ],
-		];
+				),
+			),
+			'required' => array( 'pagination', '=', true ),
+		);
 
-		$this->controls['progressFillColor'] = [
+		$this->controls['progressFillColor'] = array(
 			'tab'      => 'style',
 			'group'    => 'pagination_style',
 			'label'    => esc_html__( 'Progressbar Fill Color', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'color',
-			'css'      => [
-				[
+			'css'      => array(
+				array(
 					'property' => 'background-color',
 					'selector' => '.swiper-pagination-progressbar-fill',
-				],
-			],
-			'required' => [ 'pagination', '=', true ],
-		];
+				),
+			),
+			'required' => array( 'pagination', '=', true ),
+		);
 	}
 
 	private function parse_video_url( $url ) {
@@ -1321,13 +1410,16 @@ class BRICKSFLY_Bricks_Video_Box_Slider extends \Bricks\Element {
 			}
 
 			if ( $video_id ) {
-				return add_query_arg( [
-					'autoplay'       => '1',
-					'rel'            => '0',
-					'modestbranding' => '1',
-					'enablejsapi'    => '1',
-					'origin'         => home_url(),
-				], 'https://www.youtube.com/embed/' . $video_id );
+				return add_query_arg(
+					array(
+						'autoplay'       => '1',
+						'rel'            => '0',
+						'modestbranding' => '1',
+						'enablejsapi'    => '1',
+						'origin'         => home_url(),
+					),
+					'https://www.youtube.com/embed/' . $video_id
+				);
 			}
 		}
 
@@ -1341,13 +1433,16 @@ class BRICKSFLY_Bricks_Video_Box_Slider extends \Bricks\Element {
 			}
 
 			if ( $video_id ) {
-				return add_query_arg( [
-					'autoplay' => '1',
-					'title'    => '0',
-					'byline'   => '0',
-					'portrait' => '0',
-					'dnt'      => '1',
-				], 'https://player.vimeo.com/video/' . $video_id );
+				return add_query_arg(
+					array(
+						'autoplay' => '1',
+						'title'    => '0',
+						'byline'   => '0',
+						'portrait' => '0',
+						'dnt'      => '1',
+					),
+					'https://player.vimeo.com/video/' . $video_id
+				);
 			}
 		}
 
@@ -1378,7 +1473,7 @@ class BRICKSFLY_Bricks_Video_Box_Slider extends \Bricks\Element {
 		$direction = $type === 'next' ? 'right' : 'left';
 
 		if ( ! empty( $this->settings[ $icon_key ] ) ) {
-			echo wp_kses_post( self::render_icon( $this->settings[ $icon_key ], [ 'aria-hidden' => 'true' ] ) );
+			echo wp_kses_post( self::render_icon( $this->settings[ $icon_key ], array( 'aria-hidden' => 'true' ) ) );
 		} else {
 			echo '<i class="fas fa-chevron-' . esc_attr( $direction ) . '" aria-hidden="true"></i>';
 		}
@@ -1388,19 +1483,19 @@ class BRICKSFLY_Bricks_Video_Box_Slider extends \Bricks\Element {
 		$settings = $this->settings;
 
 		if ( empty( $settings['videoSlides'] ) || ! is_array( $settings['videoSlides'] ) ) {
-			return $this->render_element_placeholder( [ 'title' => esc_html__( 'No video slides added.', 'bricksfly-elements-for-bricks' ) ] );
+			return $this->render_element_placeholder( array( 'title' => esc_html__( 'No video slides added.', 'bricksfly-elements-for-bricks' ) ) );
 		}
 
-		$image_size  = $settings['imageSize'] ?? 'full';
-		$title_tag   = $settings['titleTag'] ?? 'h4';
-		$title_tag   = in_array( $title_tag, [ 'h1','h2','h3','h4','h5','h6','div','span','p' ], true ) ? $title_tag : 'h4';
-		$direction   = $settings['direction'] ?? 'ltr';
-		$show_nav    = ! empty( $settings['navigation'] );
-		$show_pag    = ! empty( $settings['pagination'] );
-		$pag_type    = $settings['paginationType'] ?? 'bullets';
+		$image_size = $settings['imageSize'] ?? 'full';
+		$title_tag  = $settings['titleTag'] ?? 'h4';
+		$title_tag  = in_array( $title_tag, array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span', 'p' ), true ) ? $title_tag : 'h4';
+		$direction  = $settings['direction'] ?? 'ltr';
+		$show_nav   = ! empty( $settings['navigation'] );
+		$show_pag   = ! empty( $settings['pagination'] );
+		$pag_type   = $settings['paginationType'] ?? 'bullets';
 
 		// Root classes (Elementor prefix_class equivalents)
-		$root_classes = [ 'aab-video-box-slider', 'wcf__slider-wrapper', 'wcf__video_slider' ];
+		$root_classes = array( 'aab-video-box-slider', 'wcf__slider-wrapper', 'wcf__video_slider' );
 
 		if ( ! empty( $settings['showThumbAfter'] ) ) {
 			$root_classes[] = 'wcf-thumb-yes';
@@ -1417,54 +1512,54 @@ class BRICKSFLY_Bricks_Video_Box_Slider extends \Bricks\Element {
 		$this->set_attribute( '_root', 'data-element-id', $this->id );
 
 		// Swiper settings
-		$slider_settings = [
+		$slider_settings = array(
 			'loop'           => ! empty( $settings['loop'] ),
 			'speed'          => (int) ( $settings['speed'] ?? 500 ),
 			'allowTouchMove' => ! empty( $settings['allowTouchMove'] ),
 			'slidesPerView'  => (int) ( $settings['slidesToShow'] ?? 3 ),
 			'spaceBetween'   => (int) ( $settings['spaceBetween'] ?? 20 ),
 			'centeredSlides' => ! empty( $settings['centerSlide'] ),
-		];
+		);
 
 		if ( ! empty( $settings['autoplay'] ) ) {
-			$slider_settings['autoplay'] = [
+			$slider_settings['autoplay'] = array(
 				'delay'                => (int) ( $settings['autoplayDelay'] ?? 3000 ),
 				'disableOnInteraction' => ! empty( $settings['autoplayInteraction'] ),
-			];
+			);
 		}
 
 		if ( ! empty( $settings['mousewheel'] ) ) {
-			$slider_settings['mousewheel'] = [ 'releaseOnEdges' => true ];
+			$slider_settings['mousewheel'] = array( 'releaseOnEdges' => true );
 		}
 
 		if ( $show_nav ) {
-			$slider_settings['navigation'] = [
+			$slider_settings['navigation'] = array(
 				'nextEl' => '.wcf-arrow-next',
 				'prevEl' => '.wcf-arrow-prev',
-			];
+			);
 		}
 
 		if ( $show_pag ) {
-			$slider_settings['pagination'] = [
+			$slider_settings['pagination'] = array(
 				'el'        => '.swiper-pagination',
 				'clickable' => true,
 				'type'      => $pag_type,
-			];
+			);
 		}
 
-		echo wp_kses_post('<div ' . $this->render_attributes( '_root' ) . '>');
+		echo wp_kses_post( '<div ' . $this->render_attributes( '_root' ) . '>' );
 
 		echo '<div class="wcf__slider swiper" dir="' . esc_attr( $direction ) . '" style="position: static">';
 		echo '<div class="swiper-wrapper" data-settings="' . esc_attr( wp_json_encode( $slider_settings ) ) . '">';
 
 		foreach ( $settings['videoSlides'] as $index => $item ) {
-			$image_url   = $this->get_image_url( $item['videoThumb'] ?? '', $image_size );
+			$image_url = $this->get_image_url( $item['videoThumb'] ?? '', $image_size );
 			if ( ! $image_url ) {
 				$image_url = BRICKS_URL_ASSETS . 'images/placeholder-image-800x600.jpg';
 			}
 			$alt_text    = esc_attr( $item['title'] ?? '' );
 			$video_link  = ! empty( $item['videoLink'] ) ? $this->parse_video_url( $item['videoLink'] ) : '';
-			$btn_classes = [ 'aab-popup-btn', 'wcf-popup-btn' ];
+			$btn_classes = array( 'aab-popup-btn', 'wcf-popup-btn' );
 			if ( ! empty( $settings['activeRipple'] ) ) {
 				$btn_classes[] = 'ripple';
 			}
@@ -1497,7 +1592,7 @@ class BRICKSFLY_Bricks_Video_Box_Slider extends \Bricks\Element {
 			}
 
 			if ( ! empty( $settings['btnIcon'] ) ) {
-				echo wp_kses_post( self::render_icon( $settings['btnIcon'], [ 'aria-hidden' => 'true' ] ) );
+				echo wp_kses_post( self::render_icon( $settings['btnIcon'], array( 'aria-hidden' => 'true' ) ) );
 			}
 
 			echo '</button>';

@@ -1,665 +1,818 @@
 <?php
 
-if (! defined('ABSPATH')) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
-class BRICKSFLY_Bricks_Brand_Slider extends \Bricks\Element
-{
+class BRICKSFLY_Bricks_Brand_Slider extends \Bricks\Element {
+
 
 	public $category     = 'bricks fly';
 	public $name         = 'aab-brand-slider';
 	public $icon         = 'ti-layout-slider aab-element-marker';
 	public $css_selector = '.aab-brand-slider-wrapper';
-	public $scripts      = ['bricksflyBrandSlider'];
+	public $scripts      = array( 'bricksflyBrandSlider' );
 
-	public function get_label()
-	{
-		return esc_html__('Brand Slider', 'bricksfly-elements-for-bricks');
+	public function get_label() {
+		return esc_html__( 'Brand Slider', 'bricksfly-elements-for-bricks' );
 	}
 
-	public function get_keywords()
-	{
-		return ['brand', 'slider', 'logo', 'carousel', 'marquee'];
+	public function get_keywords() {
+		return array( 'brand', 'slider', 'logo', 'carousel', 'marquee' );
 	}
 
-	public function enqueue_scripts()
-	{
-		wp_enqueue_style("bricks-font-awesome-6");
-		wp_enqueue_style("bricks-font-awesome-6-brands");
-		wp_enqueue_style('bricks-swiper');
-		wp_enqueue_script('bricks-swiper');
+	public function enqueue_scripts() {
+		wp_enqueue_style( 'bricks-font-awesome-6' );
+		wp_enqueue_style( 'bricks-font-awesome-6-brands' );
+		wp_enqueue_style( 'bricks-swiper' );
+		wp_enqueue_script( 'bricks-swiper' );
 
 		wp_enqueue_style(
 			'aab-brand-slider',
 			BRICKSFLY_URL . 'public/build/elements/brand-slider.css',
-			['bricks-swiper'],
+			array( 'bricks-swiper' ),
 			'1.0.0'
 		);
 
 		wp_enqueue_script(
 			'aab-brand-slider',
 			BRICKSFLY_URL . 'public/build/elements/brand-slider.js',
-			['bricks-swiper'],
+			array( 'bricks-swiper' ),
 			'1.0.0',
 			true
 		);
 	}
 
-	public function set_control_groups()
-	{
-		$this->control_groups['content'] = [
-			'title' => esc_html__('Content', 'bricksfly-elements-for-bricks'),
+	public function set_control_groups() {
+		$this->control_groups['content'] = array(
+			'title' => esc_html__( 'Content', 'bricksfly-elements-for-bricks' ),
 			'tab'   => 'content',
-		];
+		);
 
-		$this->control_groups['slider_options'] = [
-			'title' => esc_html__('Slider Options', 'bricksfly-elements-for-bricks'),
+		$this->control_groups['slider_options'] = array(
+			'title' => esc_html__( 'Slider Options', 'bricksfly-elements-for-bricks' ),
 			'tab'   => 'content',
-		];
+		);
 
-		$this->control_groups['items_style'] = [
-			'title'    => esc_html__('Items', 'bricksfly-elements-for-bricks'),
-			'tab'      => 'content',
-		];
+		$this->control_groups['items_style'] = array(
+			'title' => esc_html__( 'Items', 'bricksfly-elements-for-bricks' ),
+			'tab'   => 'content',
+		);
 
-		$this->control_groups['image_style'] = [
-			'title'    => esc_html__('Image', 'bricksfly-elements-for-bricks'),
+		$this->control_groups['image_style'] = array(
+			'title'    => esc_html__( 'Image', 'bricksfly-elements-for-bricks' ),
 			'tab'      => 'content',
-			'required' => ['slideContent', '=', 'image'],
-		];
+			'required' => array( 'slideContent', '=', 'image' ),
+		);
 
-		$this->control_groups['text_style'] = [
-			'title'    => esc_html__('Text', 'bricksfly-elements-for-bricks'),
+		$this->control_groups['text_style'] = array(
+			'title'    => esc_html__( 'Text', 'bricksfly-elements-for-bricks' ),
 			'tab'      => 'content',
-			'required' => ['slideContent', '=', 'text'],
-		];
+			'required' => array( 'slideContent', '=', 'text' ),
+		);
 
 		// Bricks' `required` evaluator supports only single-key conditions (AND
 		// across multiple, no `relation => or`), so navigation and pagination get
 		// their own groups, each gated on a single toggle.
-		$this->control_groups['nav_style'] = [
-			'title'    => esc_html__('Navigation', 'bricksfly-elements-for-bricks'),
+		$this->control_groups['nav_style'] = array(
+			'title'    => esc_html__( 'Navigation', 'bricksfly-elements-for-bricks' ),
 			'tab'      => 'content',
-			'required' => ['showNavigation', '=', 'on'],
-		];
+			'required' => array( 'showNavigation', '=', 'on' ),
+		);
 
-		$this->control_groups['pagination_style'] = [
-			'title'    => esc_html__('Pagination', 'bricksfly-elements-for-bricks'),
+		$this->control_groups['pagination_style'] = array(
+			'title'    => esc_html__( 'Pagination', 'bricksfly-elements-for-bricks' ),
 			'tab'      => 'content',
-			'required' => ['showPagination', '=', 'on'],
-		];
+			'required' => array( 'showPagination', '=', 'on' ),
+		);
 	}
 
-	public function set_controls()
-	{
+	public function set_controls() {
 		// --- Content ---
 
-		$this->controls['slideContent'] = [
+		$this->controls['slideContent'] = array(
 			'tab'     => 'content',
 			'group'   => 'content',
-			'label'   => esc_html__('Slide Content', 'bricksfly-elements-for-bricks'),
+			'label'   => esc_html__( 'Slide Content', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'select',
 			'inline'  => true,
-			'options' => [
-				'text'  => esc_html__('Text', 'bricksfly-elements-for-bricks'),
-				'image' => esc_html__('Image', 'bricksfly-elements-for-bricks'),
-			],
+			'options' => array(
+				'text'  => esc_html__( 'Text', 'bricksfly-elements-for-bricks' ),
+				'image' => esc_html__( 'Image', 'bricksfly-elements-for-bricks' ),
+			),
 			'default' => 'text',
-		];
+		);
 
 		// Image Repeater (Updated from image-gallery to match text list layout structure)
-		$this->controls['brandImages'] = [
+		$this->controls['brandImages'] = array(
 			'tab'           => 'content',
 			'group'         => 'content',
-			'label'         => esc_html__('Image List', 'bricksfly-elements-for-bricks'),
+			'label'         => esc_html__( 'Image List', 'bricksfly-elements-for-bricks' ),
 			'type'          => 'repeater',
 			'titleProperty' => 'imageTitle',
-			'fields'        => [
-				'imageTitle' => [
-					'label' => esc_html__('Image Title', 'bricksfly-elements-for-bricks'),
+			'fields'        => array(
+				'imageTitle' => array(
+					'label' => esc_html__( 'Image Title', 'bricksfly-elements-for-bricks' ),
 					'type'  => 'text',
-				],
+				),
 
-				'image' => [
-					'label' => esc_html__('Choose Image', 'bricksfly-elements-for-bricks'),
+				'image'      => array(
+					'label' => esc_html__( 'Choose Image', 'bricksfly-elements-for-bricks' ),
 					'type'  => 'image',
-				],
-			],
-			'default'  => [],
-			'required' => ['slideContent', '=', 'image'],
-		];
+				),
+			),
+			'default'       => array(),
+			'required'      => array( 'slideContent', '=', 'image' ),
+		);
 
-		$this->controls['imageSize'] = [
+		$this->controls['imageSize'] = array(
 			'tab'      => 'content',
 			'group'    => 'content',
-			'label'    => esc_html__('Image Size', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Image Size', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'select',
 			'options'  => $this->get_image_sizes(),
 			'default'  => 'medium',
-			'required' => ['slideContent', '=', 'image'],
-		];
+			'required' => array( 'slideContent', '=', 'image' ),
+		);
 
 		// Text repeater
-		$this->controls['textSlides'] = [
+		$this->controls['textSlides'] = array(
 			'tab'           => 'content',
 			'group'         => 'content',
-			'label'         => esc_html__('Text List', 'bricksfly-elements-for-bricks'),
+			'label'         => esc_html__( 'Text List', 'bricksfly-elements-for-bricks' ),
 			'type'          => 'repeater',
 			'titleProperty' => 'text',
-			'fields'        => [
-				'text' => [
-					'label'   => esc_html__('Text', 'bricksfly-elements-for-bricks'),
+			'fields'        => array(
+				'text' => array(
+					'label'   => esc_html__( 'Text', 'bricksfly-elements-for-bricks' ),
 					'type'    => 'text',
 					'default' => 'Designer',
-				],
-			],
-			'default' => [
-				['text' => 'Content'],
-				['text' => '(Health Advisor & Coach)'],
-				['text' => 'News'],
-				['text' => 'Creative Director'],
-			],
-			'required' => ['slideContent', '=', 'text'],
-		];
+				),
+			),
+			'default'       => array(
+				array( 'text' => 'Content' ),
+				array( 'text' => '(Health Advisor & Coach)' ),
+				array( 'text' => 'News' ),
+				array( 'text' => 'Creative Director' ),
+			),
+			'required'      => array( 'slideContent', '=', 'text' ),
+		);
 
-		$this->controls['separatorIcon'] = [
+		$this->controls['separatorIcon'] = array(
 			'tab'      => 'content',
 			'group'    => 'content',
-			'label'    => esc_html__('Text Separator Icon', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Text Separator Icon', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'icon',
-			'default'  => [
+			'default'  => array(
 				'library' => 'fontawesome',
 				'icon'    => 'far fa-star',
-			],
-			'required' => ['slideContent', '=', 'text'],
-		];
+			),
+			'required' => array( 'slideContent', '=', 'text' ),
+		);
 
 		// --- Slider Options ---
 
-		$this->controls['slidesPerView'] = [
+		$this->controls['slidesPerView'] = array(
 			'tab'         => 'content',
 			'group'       => 'slider_options',
-			'label'       => esc_html__('Slides Per View', 'bricksfly-elements-for-bricks'),
+			'label'       => esc_html__( 'Slides Per View', 'bricksfly-elements-for-bricks' ),
 			'type'        => 'text',
 			'default'     => 'auto',
-			'description' => esc_html__('Number or "auto". Click the device icon to set per breakpoint.', 'bricksfly-elements-for-bricks'),
+			'description' => esc_html__( 'Number or "auto". Click the device icon to set per breakpoint.', 'bricksfly-elements-for-bricks' ),
 			'breakpoints' => true,
-		];
+		);
 
-		$this->controls['speed'] = [
-			'tab'     => 'content',
-			'group'   => 'slider_options',
-			'label'   => esc_html__('Speed (ms)', 'bricksfly-elements-for-bricks'),
-			'type'    => 'number',
-			'default' => 5000,
+		$this->controls['speed'] = array(
+			'tab'         => 'content',
+			'group'       => 'slider_options',
+			'label'       => esc_html__( 'Speed (ms)', 'bricksfly-elements-for-bricks' ),
+			'type'        => 'number',
+			'default'     => 5000,
 			'breakpoints' => true,
-		];
+		);
 
 		// Tri-state options for responsive on/off toggles. Bricks cannot distinguish an
 		// unchecked checkbox from "not set", so a checkbox can't be forced OFF at a smaller
 		// breakpoint while ON at desktop. A select with an explicit Default/On/Off solves it:
 		// '' (Default) = inherit, 'on' = force on, 'off' = force off.
-		$toggle_options = [
-			''    => esc_html__('Default', 'bricksfly-elements-for-bricks'),
-			'on'  => esc_html__('On', 'bricksfly-elements-for-bricks'),
-			'off' => esc_html__('Off', 'bricksfly-elements-for-bricks'),
-		];
+		$toggle_options = array(
+			''    => esc_html__( 'Default', 'bricksfly-elements-for-bricks' ),
+			'on'  => esc_html__( 'On', 'bricksfly-elements-for-bricks' ),
+			'off' => esc_html__( 'Off', 'bricksfly-elements-for-bricks' ),
+		);
 
-		$this->controls['autoplay'] = [
-			'tab'     => 'content',
-			'group'   => 'slider_options',
-			'label'   => esc_html__('Autoplay', 'bricksfly-elements-for-bricks'),
-			'type'    => 'select',
-			'inline'  => true,
-			'options' => $toggle_options,
-			'default' => 'off',
+		$this->controls['autoplay'] = array(
+			'tab'         => 'content',
+			'group'       => 'slider_options',
+			'label'       => esc_html__( 'Autoplay', 'bricksfly-elements-for-bricks' ),
+			'type'        => 'select',
+			'inline'      => true,
+			'options'     => $toggle_options,
+			'default'     => 'off',
 			'breakpoints' => true,
-		];
+		);
 
-		$this->controls['autoplayDelay'] = [
-			'tab'      => 'content',
-			'group'    => 'slider_options',
-			'label'    => esc_html__('Autoplay Delay (ms)', 'bricksfly-elements-for-bricks'),
-			'type'     => 'number',
-			'default'  => 0, // 0 is best for true continuous linear sliders
-			'description' => esc_html__('Set to 0 or 1 for a continuous marquee effect.', 'bricksfly-elements-for-bricks'),
-			'required' => ['autoplay', '!=', 'off'],
+		$this->controls['autoplayDelay'] = array(
+			'tab'         => 'content',
+			'group'       => 'slider_options',
+			'label'       => esc_html__( 'Autoplay Delay (ms)', 'bricksfly-elements-for-bricks' ),
+			'type'        => 'number',
+			'default'     => 0, // 0 is best for true continuous linear sliders
+			'description' => esc_html__( 'Set to 0 or 1 for a continuous marquee effect.', 'bricksfly-elements-for-bricks' ),
+			'required'    => array( 'autoplay', '!=', 'off' ),
 			'breakpoints' => true,
-		];
+		);
 
-		$this->controls['loop'] = [
-			'tab'     => 'content',
-			'group'   => 'slider_options',
-			'label'   => esc_html__('Loop', 'bricksfly-elements-for-bricks'),
-			'type'    => 'select',
-			'inline'  => true,
-			'options' => $toggle_options,
-			'default' => 'off',
+		$this->controls['loop'] = array(
+			'tab'         => 'content',
+			'group'       => 'slider_options',
+			'label'       => esc_html__( 'Loop', 'bricksfly-elements-for-bricks' ),
+			'type'        => 'select',
+			'inline'      => true,
+			'options'     => $toggle_options,
+			'default'     => 'off',
 			'breakpoints' => true,
-		];
+		);
 
-		$this->controls['pauseOnHover'] = [
-			'tab'      => 'content',
-			'group'    => 'slider_options',
-			'label'    => esc_html__('Pause on Hover', 'bricksfly-elements-for-bricks'),
-			'type'     => 'select',
-			'inline'   => true,
-			'options'  => $toggle_options,
-			'default'  => '',
+		$this->controls['pauseOnHover'] = array(
+			'tab'         => 'content',
+			'group'       => 'slider_options',
+			'label'       => esc_html__( 'Pause on Hover', 'bricksfly-elements-for-bricks' ),
+			'type'        => 'select',
+			'inline'      => true,
+			'options'     => $toggle_options,
+			'default'     => '',
 			'breakpoints' => true,
-			'required' => ['autoplay', '!=', 'off'],
-		];
+			'required'    => array( 'autoplay', '!=', 'off' ),
+		);
 
-		$this->controls['showNavigation'] = [
-			'tab'   => 'content',
-			'group' => 'slider_options',
-			'label' => esc_html__('Show Navigation', 'bricksfly-elements-for-bricks'),
-			'type'  => 'select',
-			'inline'  => true,
-			'options' => $toggle_options,
-			'default' => '',
+		$this->controls['showNavigation'] = array(
+			'tab'         => 'content',
+			'group'       => 'slider_options',
+			'label'       => esc_html__( 'Show Navigation', 'bricksfly-elements-for-bricks' ),
+			'type'        => 'select',
+			'inline'      => true,
+			'options'     => $toggle_options,
+			'default'     => '',
 			'breakpoints' => true,
-		];
+		);
 
-		$this->controls['showPagination'] = [
-			'tab'   => 'content',
-			'group' => 'slider_options',
-			'label' => esc_html__('Show Pagination', 'bricksfly-elements-for-bricks'),
-			'type'  => 'select',
-			'inline'  => true,
-			'options' => $toggle_options,
-			'default' => '',
+		$this->controls['showPagination'] = array(
+			'tab'         => 'content',
+			'group'       => 'slider_options',
+			'label'       => esc_html__( 'Show Pagination', 'bricksfly-elements-for-bricks' ),
+			'type'        => 'select',
+			'inline'      => true,
+			'options'     => $toggle_options,
+			'default'     => '',
 			'breakpoints' => true,
-		];
+		);
 
-		$this->controls['reverseDirection'] = [
-			'tab'   => 'content',
-			'group' => 'slider_options',
-			'label' => esc_html__('Reverse Direction', 'bricksfly-elements-for-bricks'),
-			'type'  => 'checkbox',
+		$this->controls['reverseDirection'] = array(
+			'tab'         => 'content',
+			'group'       => 'slider_options',
+			'label'       => esc_html__( 'Reverse Direction', 'bricksfly-elements-for-bricks' ),
+			'type'        => 'checkbox',
 			'breakpoints' => true,
-		];
+		);
 
 		// Items Style
 
-		$this->controls['items_alignment'] = [
-			'tab'      => 'style',
-			'group'    => 'items_style',
-			'label'    => esc_html__('Items Alignment', 'bricksfly-elements-for-bricks'),
-			'type'     => 'select',
-			'inline'   => true,
-			'options'  => [
-				'left'   => esc_html__('Left', 'bricksfly-elements-for-bricks'),
-				'center' => esc_html__('Center', 'bricksfly-elements-for-bricks'),
-				'right'  => esc_html__('Right', 'bricksfly-elements-for-bricks'),
-			],
-			'default'  => 'left',
-			'breakpoints' => true,
-			'css'      => [
-				['property' => 'justify-content', 'selector' => '.swiper-slide'],
-			],
-			
-		];
-
-		// $this->controls['spaceBetween'] = [
-		// 	'tab'         => 'style',
-		// 	'group'       => 'items_style',
-		// 	'label'       => esc_html__('Space Between Item(px)', 'bricksfly-elements-for-bricks'),
-		// 	'type'        => 'number',
-		// 	'default'     => 0,
-		// 	'breakpoints' => true,
-		// ];
-
-		$this->controls['spaceBetweenItems'] = [
+		$this->controls['items_alignment'] = array(
 			'tab'         => 'style',
 			'group'       => 'items_style',
-			'label'       => esc_html__('Space Between Item(px)', 'bricksfly-elements-for-bricks'),
+			'label'       => esc_html__( 'Items Alignment', 'bricksfly-elements-for-bricks' ),
+			'type'        => 'select',
+			'inline'      => true,
+			'options'     => array(
+				'left'   => esc_html__( 'Left', 'bricksfly-elements-for-bricks' ),
+				'center' => esc_html__( 'Center', 'bricksfly-elements-for-bricks' ),
+				'right'  => esc_html__( 'Right', 'bricksfly-elements-for-bricks' ),
+			),
+			'default'     => 'left',
+			'breakpoints' => true,
+			'css'         => array(
+				array(
+					'property' => 'justify-content',
+					'selector' => '.swiper-slide',
+				),
+			),
+
+		);
+
+		// $this->controls['spaceBetween'] = [
+		// 'tab'         => 'style',
+		// 'group'       => 'items_style',
+		// 'label'       => esc_html__('Space Between Item(px)', 'bricksfly-elements-for-bricks'),
+		// 'type'        => 'number',
+		// 'default'     => 0,
+		// 'breakpoints' => true,
+		// ];
+
+		$this->controls['spaceBetweenItems'] = array(
+			'tab'         => 'style',
+			'group'       => 'items_style',
+			'label'       => esc_html__( 'Space Between Item(px)', 'bricksfly-elements-for-bricks' ),
 			'type'        => 'number',
 			'units'       => true,        // outputs the unit with the value
 			'unit'        => 'px',        // default unit
 			'default'     => '0px',
 			'breakpoints' => true,
-			
-			'css'      => [
-				['property' => 'gap', 'selector' => '.swiper-wrapper'],
-			],
-		];
 
-		$this->controls['icon_position'] = [
-			'tab'      => 'style',
-			'group'    => 'items_style',
-			'label'    => esc_html__('Icon Position', 'bricksfly-elements-for-bricks'),
-			'type'     => 'select',
-			'inline'   => true,
-			'options'  => [
-				'row-reverse'   => esc_html__('Left', 'bricksfly-elements-for-bricks'),
-				'row' => esc_html__('Right', 'bricksfly-elements-for-bricks'),
-			],
-			'default'  => 'row',
-			'breakpoints' => true,
-			'css'      => [
-				['property' => 'flex-direction', 'selector' => '.text-slide-content'],
-			],
-			
-		];
-       
-		$this->controls['spaceBetweenIconText'] = [
+			'css'         => array(
+				array(
+					'property' => 'gap',
+					'selector' => '.swiper-wrapper',
+				),
+			),
+		);
+
+		$this->controls['icon_position'] = array(
 			'tab'         => 'style',
 			'group'       => 'items_style',
-			'label'       => esc_html__('Space Between Icon and Text (px)', 'bricksfly-elements-for-bricks'),
+			'label'       => esc_html__( 'Icon Position', 'bricksfly-elements-for-bricks' ),
+			'type'        => 'select',
+			'inline'      => true,
+			'options'     => array(
+				'row-reverse' => esc_html__( 'Left', 'bricksfly-elements-for-bricks' ),
+				'row'         => esc_html__( 'Right', 'bricksfly-elements-for-bricks' ),
+			),
+			'default'     => 'row',
+			'breakpoints' => true,
+			'css'         => array(
+				array(
+					'property' => 'flex-direction',
+					'selector' => '.text-slide-content',
+				),
+			),
+
+		);
+
+		$this->controls['spaceBetweenIconText'] = array(
+			'tab'         => 'style',
+			'group'       => 'items_style',
+			'label'       => esc_html__( 'Space Between Icon and Text (px)', 'bricksfly-elements-for-bricks' ),
 			'type'        => 'number',
 			'units'       => true,        // outputs the unit with the value
 			'unit'        => 'px',        // default unit
 			'default'     => '30px',
 			'breakpoints' => true,
-			
-			'css'      => [
-				['property' => 'gap', 'selector' => '.text-slide-content'],
-			],
-		];
 
-		
+			'css'         => array(
+				array(
+					'property' => 'gap',
+					'selector' => '.text-slide-content',
+				),
+			),
+		);
+
 		// --- Style: Image ---
 
-		$this->controls['imgWidth'] = [
+		$this->controls['imgWidth'] = array(
 			'tab'      => 'style',
 			'group'    => 'image_style',
-			'label'    => esc_html__('Width', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Width', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'number',
-			'units'    => [
-				'px' => ['min' => 0, 'max' => 1000],
-				'%'  => ['min' => 0, 'max' => 100],
-			],
-			'css'      => [['property' => 'width', 'selector' => '.swiper-slide img']],
-			'required' => ['slideContent', '=', 'image'],
-		];
+			'units'    => array(
+				'px' => array(
+					'min' => 0,
+					'max' => 1000,
+				),
+				'%'  => array(
+					'min' => 0,
+					'max' => 100,
+				),
+			),
+			'css'      => array(
+				array(
+					'property' => 'width',
+					'selector' => '.swiper-slide img',
+				),
+			),
+			'required' => array( 'slideContent', '=', 'image' ),
+		);
 
-		$this->controls['imgHeight'] = [
+		$this->controls['imgHeight'] = array(
 			'tab'      => 'style',
 			'group'    => 'image_style',
-			'label'    => esc_html__('Height', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Height', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'number',
-			'units'    => [
-				'px' => ['min' => 0, 'max' => 1000],
-				'%'  => ['min' => 0, 'max' => 100],
-			],
-			'css'      => [['property' => 'height', 'selector' => '.swiper-slide img']],
-			'required' => ['slideContent', '=', 'image'],
-		];
+			'units'    => array(
+				'px' => array(
+					'min' => 0,
+					'max' => 1000,
+				),
+				'%'  => array(
+					'min' => 0,
+					'max' => 100,
+				),
+			),
+			'css'      => array(
+				array(
+					'property' => 'height',
+					'selector' => '.swiper-slide img',
+				),
+			),
+			'required' => array( 'slideContent', '=', 'image' ),
+		);
 
-		$this->controls['imgObjectFit'] = [
+		$this->controls['imgObjectFit'] = array(
 			'tab'      => 'style',
 			'group'    => 'image_style',
-			'label'    => esc_html__('Object Fit', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Object Fit', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'select',
-			'options'  => [
-				''           => esc_html__('Default', 'bricksfly-elements-for-bricks'),
-				'fill'       => esc_html__('Fill', 'bricksfly-elements-for-bricks'),
-				'contain'    => esc_html__('Contain', 'bricksfly-elements-for-bricks'),
-				'cover'      => esc_html__('Cover', 'bricksfly-elements-for-bricks'),
-				'none'       => esc_html__('None', 'bricksfly-elements-for-bricks'),
-				'scale-down' => esc_html__('Scale Down', 'bricksfly-elements-for-bricks'),
-			],
-			'css'      => [['property' => 'object-fit', 'selector' => '.swiper-slide img']],
-			'required' => ['slideContent', '=', 'image'],
-		];
+			'options'  => array(
+				''           => esc_html__( 'Default', 'bricksfly-elements-for-bricks' ),
+				'fill'       => esc_html__( 'Fill', 'bricksfly-elements-for-bricks' ),
+				'contain'    => esc_html__( 'Contain', 'bricksfly-elements-for-bricks' ),
+				'cover'      => esc_html__( 'Cover', 'bricksfly-elements-for-bricks' ),
+				'none'       => esc_html__( 'None', 'bricksfly-elements-for-bricks' ),
+				'scale-down' => esc_html__( 'Scale Down', 'bricksfly-elements-for-bricks' ),
+			),
+			'css'      => array(
+				array(
+					'property' => 'object-fit',
+					'selector' => '.swiper-slide img',
+				),
+			),
+			'required' => array( 'slideContent', '=', 'image' ),
+		);
 
-		$this->controls['itemBgColor'] = [
+		$this->controls['itemBgColor'] = array(
 			'tab'      => 'style',
 			'group'    => 'image_style',
-			'label'    => esc_html__('Background Color', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Background Color', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'color',
-			'css'      => [['property' => 'background-color', 'selector' => '.swiper-slide']],
-			'required' => ['slideContent', '=', 'image'],
-		];
+			'css'      => array(
+				array(
+					'property' => 'background-color',
+					'selector' => '.swiper-slide',
+				),
+			),
+			'required' => array( 'slideContent', '=', 'image' ),
+		);
 
-		$this->controls['itemBorder'] = [
+		$this->controls['itemBorder'] = array(
 			'tab'      => 'style',
 			'group'    => 'image_style',
-			'label'    => esc_html__('Border', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Border', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'border',
-			'css'      => [['property' => 'border', 'selector' => '.swiper-slide']],
-			'required' => ['slideContent', '=', 'image'],
-		];
+			'css'      => array(
+				array(
+					'property' => 'border',
+					'selector' => '.swiper-slide',
+				),
+			),
+			'required' => array( 'slideContent', '=', 'image' ),
+		);
 
-		$this->controls['itemBorderRadius'] = [
+		$this->controls['itemBorderRadius'] = array(
 			'tab'      => 'style',
 			'group'    => 'image_style',
-			'label'    => esc_html__('Border Radius', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Border Radius', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'dimensions',
-			'css'      => [['property' => 'border-radius', 'selector' => '.swiper-slide']],
-			'required' => ['slideContent', '=', 'image'],
-		];
+			'css'      => array(
+				array(
+					'property' => 'border-radius',
+					'selector' => '.swiper-slide',
+				),
+			),
+			'required' => array( 'slideContent', '=', 'image' ),
+		);
 
-		$this->controls['itemPadding'] = [
+		$this->controls['itemPadding'] = array(
 			'tab'      => 'style',
 			'group'    => 'image_style',
-			'label'    => esc_html__('Padding', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Padding', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'dimensions',
-			'css'      => [['property' => 'padding', 'selector' => '.swiper-slide']],
-			'required' => ['slideContent', '=', 'image'],
-		];
+			'css'      => array(
+				array(
+					'property' => 'padding',
+					'selector' => '.swiper-slide',
+				),
+			),
+			'required' => array( 'slideContent', '=', 'image' ),
+		);
 
 		// --- Style: Text ---
 
-		$this->controls['textColor'] = [
+		$this->controls['textColor'] = array(
 			'tab'      => 'style',
 			'group'    => 'text_style',
-			'label'    => esc_html__('Text Color', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Text Color', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'color',
-			'css'      => [['property' => 'color', 'selector' => '.title']],
-			'required' => ['slideContent', '=', 'text'],
-		];
+			'css'      => array(
+				array(
+					'property' => 'color',
+					'selector' => '.title',
+				),
+			),
+			'required' => array( 'slideContent', '=', 'text' ),
+		);
 
-		$this->controls['textTypography'] = [
+		$this->controls['textTypography'] = array(
 			'tab'      => 'style',
 			'group'    => 'text_style',
-			'label'    => esc_html__('Typography', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Typography', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'typography',
-			'css'      => [['property' => 'font', 'selector' => '.title']],
-			'required' => ['slideContent', '=', 'text'],
-		];
+			'css'      => array(
+				array(
+					'property' => 'font',
+					'selector' => '.title',
+				),
+			),
+			'required' => array( 'slideContent', '=', 'text' ),
+		);
 
-		$this->controls['separatorColor'] = [
+		$this->controls['separatorColor'] = array(
 			'tab'      => 'style',
 			'group'    => 'text_style',
-			'label'    => esc_html__('Separator Color', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Separator Color', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'color',
-			'css'      => [
-				['property' => 'color', 'selector' => '.aab-separator-icon i'],
-				['property' => 'fill', 'selector' => '.aab-separator-icon svg'],
-			],
-			'required' => ['slideContent', '=', 'text'],
-		];
+			'css'      => array(
+				array(
+					'property' => 'color',
+					'selector' => '.aab-separator-icon i',
+				),
+				array(
+					'property' => 'fill',
+					'selector' => '.aab-separator-icon svg',
+				),
+			),
+			'required' => array( 'slideContent', '=', 'text' ),
+		);
 
-		$this->controls['separatorSize'] = [
+		$this->controls['separatorSize'] = array(
 			'tab'      => 'style',
 			'group'    => 'text_style',
-			'label'    => esc_html__('Separator Size', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Separator Size', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'number',
-			'units'    => ['px' => ['min' => 6, 'max' => 300]],
-			'css'      => [['property' => 'font-size', 'selector' => '.aab-separator-icon']],
-			'required' => ['slideContent', '=', 'text'],
-		];
+			'units'    => array(
+				'px' => array(
+					'min' => 6,
+					'max' => 300,
+				),
+			),
+			'css'      => array(
+				array(
+					'property' => 'font-size',
+					'selector' => '.aab-separator-icon',
+				),
+			),
+			'required' => array( 'slideContent', '=', 'text' ),
+		);
 
 		// --- Style: Navigation ---
 
-		$this->controls['navColor'] = [
+		$this->controls['navColor'] = array(
 			'tab'      => 'style',
 			'group'    => 'nav_style',
-			'label'    => esc_html__('Arrow Color', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Arrow Color', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'color',
-			'css'      => [
-				['property' => 'color', 'selector' => '.aab-arrow-prev, .aab-arrow-next'],
-			],
-			'required' => ['showNavigation', '=', 'on'],
-		];
+			'css'      => array(
+				array(
+					'property' => 'color',
+					'selector' => '.aab-arrow-prev, .aab-arrow-next',
+				),
+			),
+			'required' => array( 'showNavigation', '=', 'on' ),
+		);
 
-		$this->controls['navBg'] = [
+		$this->controls['navBg'] = array(
 			'tab'      => 'style',
 			'group'    => 'nav_style',
-			'label'    => esc_html__('Arrow Background', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Arrow Background', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'color',
-			'css'      => [
-				['property' => 'background-color', 'selector' => '.aab-arrow-prev, .aab-arrow-next'],
-			],
-			'required' => ['showNavigation', '=', 'on'],
-		];
+			'css'      => array(
+				array(
+					'property' => 'background-color',
+					'selector' => '.aab-arrow-prev, .aab-arrow-next',
+				),
+			),
+			'required' => array( 'showNavigation', '=', 'on' ),
+		);
 
-		$this->controls['navSize'] = [
+		$this->controls['navSize'] = array(
 			'tab'      => 'style',
 			'group'    => 'nav_style',
-			'label'    => esc_html__('Arrow Size', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Arrow Size', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'number',
-			'units'    => ['px' => ['min' => 10, 'max' => 100]],
-			'css'      => [
-				['property' => 'width', 'selector' => '.aab-arrow-prev, .aab-arrow-next'],
-				['property' => 'height', 'selector' => '.aab-arrow-prev, .aab-arrow-next'],
-			],
-			'required' => ['showNavigation', '=', 'on'],
-		];
+			'units'    => array(
+				'px' => array(
+					'min' => 10,
+					'max' => 100,
+				),
+			),
+			'css'      => array(
+				array(
+					'property' => 'width',
+					'selector' => '.aab-arrow-prev, .aab-arrow-next',
+				),
+				array(
+					'property' => 'height',
+					'selector' => '.aab-arrow-prev, .aab-arrow-next',
+				),
+			),
+			'required' => array( 'showNavigation', '=', 'on' ),
+		);
 
-		$this->controls['navBorder'] = [
+		$this->controls['navBorder'] = array(
 			'tab'      => 'style',
 			'group'    => 'nav_style',
-			'label'    => esc_html__('Arrow Border', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Arrow Border', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'border',
-			'css'      => [
-				['property' => 'border', 'selector' => '.aab-arrow-prev, .aab-arrow-next'],
-			],
-			'required' => ['showNavigation', '=', 'on'],
-		];
+			'css'      => array(
+				array(
+					'property' => 'border',
+					'selector' => '.aab-arrow-prev, .aab-arrow-next',
+				),
+			),
+			'required' => array( 'showNavigation', '=', 'on' ),
+		);
 
 		// --- Arrow Position ---
 
-		$this->controls['arrowPositionSeparator'] = [
+		$this->controls['arrowPositionSeparator'] = array(
 			'tab'      => 'style',
 			'group'    => 'nav_style',
-			'label'    => esc_html__('Arrow Position', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Arrow Position', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'separator',
-			'required' => ['showNavigation', '=', 'on'],
-		];
+			'required' => array( 'showNavigation', '=', 'on' ),
+		);
 
-		$this->controls['arrowHOffset'] = [
+		$this->controls['arrowHOffset'] = array(
 			'tab'         => 'style',
 			'group'       => 'nav_style',
-			'label'       => esc_html__('Horizontal Offset', 'bricksfly-elements-for-bricks'),
+			'label'       => esc_html__( 'Horizontal Offset', 'bricksfly-elements-for-bricks' ),
 			'type'        => 'number',
-			'units'       => [
-				'px' => ['min' => -200, 'max' => 200],
-				'%'  => ['min' => -50, 'max' => 50],
-			],
-			'description' => esc_html__('Positive: inside the slider. Negative: outside.', 'bricksfly-elements-for-bricks'),
-			'css'         => [
-				['property' => 'left',  'selector' => '.aab-arrow-prev'],
-				['property' => 'right', 'selector' => '.aab-arrow-next'],
-			],
-			'required'    => ['showNavigation', '=', 'on'],
-		];
+			'units'       => array(
+				'px' => array(
+					'min' => -200,
+					'max' => 200,
+				),
+				'%'  => array(
+					'min' => -50,
+					'max' => 50,
+				),
+			),
+			'description' => esc_html__( 'Positive: inside the slider. Negative: outside.', 'bricksfly-elements-for-bricks' ),
+			'css'         => array(
+				array(
+					'property' => 'left',
+					'selector' => '.aab-arrow-prev',
+				),
+				array(
+					'property' => 'right',
+					'selector' => '.aab-arrow-next',
+				),
+			),
+			'required'    => array( 'showNavigation', '=', 'on' ),
+		);
 
-		$this->controls['arrowVOffset'] = [
+		$this->controls['arrowVOffset'] = array(
 			'tab'      => 'style',
 			'group'    => 'nav_style',
-			'label'    => esc_html__('Vertical Position', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Vertical Position', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'number',
-			'units'    => [
-				'%'  => ['min' => 0,    'max' => 100],
-				'px' => ['min' => -200, 'max' => 1000],
-			],
-			'css'      => [
-				['property' => 'top', 'selector' => '.aab-arrow-prev, .aab-arrow-next'],
-			],
-			'required' => ['showNavigation', '=', 'on'],
-		];
+			'units'    => array(
+				'%'  => array(
+					'min' => 0,
+					'max' => 100,
+				),
+				'px' => array(
+					'min' => -200,
+					'max' => 1000,
+				),
+			),
+			'css'      => array(
+				array(
+					'property' => 'top',
+					'selector' => '.aab-arrow-prev, .aab-arrow-next',
+				),
+			),
+			'required' => array( 'showNavigation', '=', 'on' ),
+		);
 
-		$this->controls['paginationColor'] = [
+		$this->controls['paginationColor'] = array(
 			'tab'      => 'style',
 			'group'    => 'pagination_style',
-			'label'    => esc_html__('Pagination Color', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Pagination Color', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'color',
-			'css'      => [
-				['property' => 'background-color', 'selector' => '.swiper-pagination-bullet'],
-			],
-			'required' => ['showPagination', '=', 'on'],
-		];
+			'css'      => array(
+				array(
+					'property' => 'background-color',
+					'selector' => '.swiper-pagination-bullet',
+				),
+			),
+			'required' => array( 'showPagination', '=', 'on' ),
+		);
 
-		$this->controls['paginationActiveColor'] = [
+		$this->controls['paginationActiveColor'] = array(
 			'tab'      => 'style',
 			'group'    => 'pagination_style',
-			'label'    => esc_html__('Pagination Active Color', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Pagination Active Color', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'color',
-			'css'      => [
-				['property' => 'background-color', 'selector' => '.swiper-pagination-bullet-active'],
-			],
-			'required' => ['showPagination', '=', 'on'],
-		];
+			'css'      => array(
+				array(
+					'property' => 'background-color',
+					'selector' => '.swiper-pagination-bullet-active',
+				),
+			),
+			'required' => array( 'showPagination', '=', 'on' ),
+		);
 
-		$this->controls['paginationSize'] = [
+		$this->controls['paginationSize'] = array(
 			'tab'      => 'style',
 			'group'    => 'pagination_style',
-			'label'    => esc_html__('Pagination Dot Size', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Pagination Dot Size', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'number',
-			'units'    => ['px' => ['min' => 2, 'max' => 60]],
-			'css'      => [
-				['property' => 'width',  'selector' => '.swiper-pagination-bullet'],
-				['property' => 'height', 'selector' => '.swiper-pagination-bullet'],
-			],
-			'required' => ['showPagination', '=', 'on'],
-		];
+			'units'    => array(
+				'px' => array(
+					'min' => 2,
+					'max' => 60,
+				),
+			),
+			'css'      => array(
+				array(
+					'property' => 'width',
+					'selector' => '.swiper-pagination-bullet',
+				),
+				array(
+					'property' => 'height',
+					'selector' => '.swiper-pagination-bullet',
+				),
+			),
+			'required' => array( 'showPagination', '=', 'on' ),
+		);
 
-		$this->controls['paginationActiveSize'] = [
+		$this->controls['paginationActiveSize'] = array(
 			'tab'      => 'style',
 			'group'    => 'pagination_style',
-			'label'    => esc_html__('Active Dot Size', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Active Dot Size', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'number',
-			'units'    => ['px' => ['min' => 2, 'max' => 80]],
-			'css'      => [
-				['property' => 'width',  'selector' => '.swiper-pagination-bullet-active'],
-				['property' => 'height', 'selector' => '.swiper-pagination-bullet-active'],
-			],
-			'required' => ['showPagination', '=', 'on'],
-		];
+			'units'    => array(
+				'px' => array(
+					'min' => 2,
+					'max' => 80,
+				),
+			),
+			'css'      => array(
+				array(
+					'property' => 'width',
+					'selector' => '.swiper-pagination-bullet-active',
+				),
+				array(
+					'property' => 'height',
+					'selector' => '.swiper-pagination-bullet-active',
+				),
+			),
+			'required' => array( 'showPagination', '=', 'on' ),
+		);
 
-		$this->controls['paginationAlign'] = [
+		$this->controls['paginationAlign'] = array(
 			'tab'      => 'style',
 			'group'    => 'pagination_style',
-			'label'    => esc_html__('Pagination Alignment', 'bricksfly-elements-for-bricks'),
+			'label'    => esc_html__( 'Pagination Alignment', 'bricksfly-elements-for-bricks' ),
 			'type'     => 'select',
 			'inline'   => true,
-			'options'  => [
-				'left'   => esc_html__('Left', 'bricksfly-elements-for-bricks'),
-				'center' => esc_html__('Center', 'bricksfly-elements-for-bricks'),
-				'right'  => esc_html__('Right', 'bricksfly-elements-for-bricks'),
-			],
+			'options'  => array(
+				'left'   => esc_html__( 'Left', 'bricksfly-elements-for-bricks' ),
+				'center' => esc_html__( 'Center', 'bricksfly-elements-for-bricks' ),
+				'right'  => esc_html__( 'Right', 'bricksfly-elements-for-bricks' ),
+			),
 			'default'  => 'center',
-			'css'      => [
-				['property' => 'justify-content', 'selector' => '.swiper-pagination-bullets'],
-			],
-			'required' => ['showPagination', '=', 'on'],
-		];
+			'css'      => array(
+				array(
+					'property' => 'justify-content',
+					'selector' => '.swiper-pagination-bullets',
+				),
+			),
+			'required' => array( 'showPagination', '=', 'on' ),
+		);
 	}
 
-	private function get_image_sizes()
-	{
+	private function get_image_sizes() {
 		$sizes   = get_intermediate_image_sizes();
-		$options = [];
-		foreach ($sizes as $size) {
-			$options[$size] = ucwords(str_replace(['-', '_'], ' ', $size));
+		$options = array();
+		foreach ( $sizes as $size ) {
+			$options[ $size ] = ucwords( str_replace( array( '-', '_' ), ' ', $size ) );
 		}
-		$options['full'] = esc_html__('Full', 'bricksfly-elements-for-bricks');
+		$options['full'] = esc_html__( 'Full', 'bricksfly-elements-for-bricks' );
 		return $options;
 	}
 
-	public function render()
-	{
+	public function render() {
 		$settings      = $this->settings;
-		$slide_content = ! empty($settings['slideContent']) ? $settings['slideContent'] : 'text';
+		$slide_content = ! empty( $settings['slideContent'] ) ? $settings['slideContent'] : 'text';
 
-		$cast_per_view = function ($v) {
-			if ($v === '' || $v === null) return null;
-			return is_numeric($v) ? (fmod((float) $v, 1) === 0.0 ? (int) $v : (float) $v) : $v;
+		$cast_per_view = function ( $v ) {
+			if ( $v === '' || $v === null ) {
+				return null;
+			}
+			return is_numeric( $v ) ? ( fmod( (float) $v, 1 ) === 0.0 ? (int) $v : (float) $v ) : $v;
 		};
 
-		$reverse = ! empty($settings['reverseDirection']);
+		$reverse = ! empty( $settings['reverseDirection'] );
 
 		/**
 		 * Resolve a responsive control across every Bricks breakpoint into a per-range
@@ -678,175 +831,205 @@ class BRICKSFLY_Bricks_Brand_Slider extends \Bricks\Element
 		 * A dense map means consumers never have to guess a gap's value by looking at a
 		 * neighbouring range (which would wrongly leak a value across breakpoints).
 		 */
-		$resolve_responsive = function ($base_key, $cast, $default) use ($settings) {
-			$out = [];
+		$resolve_responsive = function ( $base_key, $cast, $default ) use ( $settings ) {
+			$out = array();
 
-			if (! (class_exists('\Bricks\Breakpoints') && is_array(\Bricks\Breakpoints::$breakpoints) && ! empty(\Bricks\Breakpoints::$breakpoints))) {
+			if ( ! ( class_exists( '\Bricks\Breakpoints' ) && is_array( \Bricks\Breakpoints::$breakpoints ) && ! empty( \Bricks\Breakpoints::$breakpoints ) ) ) {
 				return $out;
 			}
 
-			$is_mobile_first = ! empty(\Bricks\Breakpoints::$is_mobile_first);
+			$is_mobile_first = ! empty( \Bricks\Breakpoints::$is_mobile_first );
 
 			// Collect raw value per breakpoint (desktop/base reads the unsuffixed key).
-			$points = [];
-			foreach (\Bricks\Breakpoints::$breakpoints as $bp) {
-				$key = isset($bp['key']) ? $bp['key'] : '';
-				if (! $key) continue;
+			$points = array();
+			foreach ( \Bricks\Breakpoints::$breakpoints as $bp ) {
+				$key = isset( $bp['key'] ) ? $bp['key'] : '';
+				if ( ! $key ) {
+					continue;
+				}
 
-				$is_base = ! empty($bp['base']) || $key === 'desktop';
+				$is_base = ! empty( $bp['base'] ) || $key === 'desktop';
 				$raw     = $is_base
-					? ($settings[$base_key] ?? null)
-					: (isset($settings["{$base_key}:{$key}"]) ? $settings["{$base_key}:{$key}"] : null);
+					? ( $settings[ $base_key ] ?? null )
+					: ( isset( $settings[ "{$base_key}:{$key}" ] ) ? $settings[ "{$base_key}:{$key}" ] : null );
 
-				$points[] = [
-					'width' => isset($bp['width']) ? intval($bp['width']) : 0,
+				$points[] = array(
+					'width' => isset( $bp['width'] ) ? intval( $bp['width'] ) : 0,
 					'raw'   => $raw,
-				];
+				);
 			}
 
-			usort($points, function ($a, $b) {
-				return $a['width'] <=> $b['width'];
-			});
+			usort(
+				$points,
+				function ( $a, $b ) {
+					return $a['width'] <=> $b['width'];
+				}
+			);
 
-			$count = count($points);
-			$resolved = [];
+			$count    = count( $points );
+			$resolved = array();
 
 			// Replay the cascade in the direction Bricks fills empty breakpoints.
 			$carry = null;
-			if ($is_mobile_first) {
-				for ($i = 0; $i < $count; $i++) {
-					if ($points[$i]['raw'] !== null && $points[$i]['raw'] !== '') $carry = $points[$i]['raw'];
-					$resolved[$i] = $carry;
+			if ( $is_mobile_first ) {
+				for ( $i = 0; $i < $count; $i++ ) {
+					if ( $points[ $i ]['raw'] !== null && $points[ $i ]['raw'] !== '' ) {
+						$carry = $points[ $i ]['raw'];
+					}
+					$resolved[ $i ] = $carry;
 				}
 			} else {
-				for ($i = $count - 1; $i >= 0; $i--) {
-					if ($points[$i]['raw'] !== null && $points[$i]['raw'] !== '') $carry = $points[$i]['raw'];
-					$resolved[$i] = $carry;
+				for ( $i = $count - 1; $i >= 0; $i-- ) {
+					if ( $points[ $i ]['raw'] !== null && $points[ $i ]['raw'] !== '' ) {
+						$carry = $points[ $i ]['raw'];
+					}
+					$resolved[ $i ] = $carry;
 				}
 			}
 
 			// Map each resolved point to a min-width key, filling unset ranges with $default.
-			for ($i = 0; $i < $count; $i++) {
-				if ($is_mobile_first) {
-					$min_width = $points[$i]['width'];
+			for ( $i = 0; $i < $count; $i++ ) {
+				if ( $is_mobile_first ) {
+					$min_width = $points[ $i ]['width'];
 				} else {
-					$prev      = ($i > 0) ? $points[$i - 1]['width'] : 0;
+					$prev      = ( $i > 0 ) ? $points[ $i - 1 ]['width'] : 0;
 					$min_width = $prev > 0 ? $prev + 1 : 0;
 				}
 
-				$val = ($resolved[$i] === null || $resolved[$i] === '') ? null : $cast($resolved[$i]);
-				if ($val === null) $val = $default;
+				$val = ( $resolved[ $i ] === null || $resolved[ $i ] === '' ) ? null : $cast( $resolved[ $i ] );
+				if ( $val === null ) {
+					$val = $default;
+				}
 
-				$out[$min_width] = $val; // later (larger-index) write wins on key collision
+				$out[ $min_width ] = $val; // later (larger-index) write wins on key collision
 			}
 
-			ksort($out);
+			ksort( $out );
 			return $out;
 		};
 
 		// Coercion helpers for each control type.
-		$cast_pv   = $cast_per_view;
-		$cast_int  = function ($v) { return ($v === '' || $v === null) ? null : (int) $v; };
+		$cast_pv  = $cast_per_view;
+		$cast_int = function ( $v ) {
+			return ( $v === '' || $v === null ) ? null : (int) $v;
+		};
 		// Tri-state toggle: 'on' => true, 'off' => false, '' / null => null (inherit).
 		// Legacy boolean values (from before the select migration) are honoured too.
-		$cast_bool = function ($v) {
-			if ($v === '' || $v === null) return null;
-			if ($v === 'on'  || $v === true  || $v === 1 || $v === '1') return true;
-			if ($v === 'off' || $v === false || $v === 0 || $v === '0') return false;
+		$cast_bool = function ( $v ) {
+			if ( $v === '' || $v === null ) {
+				return null;
+			}
+			if ( $v === 'on' || $v === true || $v === 1 || $v === '1' ) {
+				return true;
+			}
+			if ( $v === 'off' || $v === false || $v === 0 || $v === '0' ) {
+				return false;
+			}
 			return (bool) $v;
 		};
 
 		// Desktop (top-level) fallbacks — used as each control's cascade default and as the
 		// pre-JS / no-breakpoint-data state. Toggles resolve through $cast_bool, applying the
 		// control default when the setting is absent / left on "Default".
-		$desktop_toggle = function ($key, $default) use ($settings, $cast_bool) {
-			$v = $cast_bool($settings[$key] ?? null);
+		$desktop_toggle = function ( $key, $default ) use ( $settings, $cast_bool ) {
+			$v = $cast_bool( $settings[ $key ] ?? null );
 			return $v === null ? $default : $v;
 		};
 
-		$desktop_pv  = $cast_per_view($settings['slidesPerView'] ?? 'auto');
-		if ($desktop_pv === null) $desktop_pv = 'auto';
-		$desktop_sb  = isset($settings['spaceBetween']) && $settings['spaceBetween'] !== '' ? (int) $settings['spaceBetween'] : 30;
-		$speed       = isset($settings['speed']) ? (int) $settings['speed'] : 5000;
-		$loop        = $desktop_toggle('loop', true);          // control default 'on'
-		$autoplay    = $desktop_toggle('autoplay', true);      // control default 'on'
-		$delay       = isset($settings['autoplayDelay']) ? (int) $settings['autoplayDelay'] : 0;
-		$pause_hover = $desktop_toggle('pauseOnHover', false);
-		$show_nav    = $desktop_toggle('showNavigation', false);
-		$show_pag    = $desktop_toggle('showPagination', false);
+		$desktop_pv = $cast_per_view( $settings['slidesPerView'] ?? 'auto' );
+		if ( $desktop_pv === null ) {
+			$desktop_pv = 'auto';
+		}
+		$desktop_sb  = isset( $settings['spaceBetween'] ) && $settings['spaceBetween'] !== '' ? (int) $settings['spaceBetween'] : 30;
+		$speed       = isset( $settings['speed'] ) ? (int) $settings['speed'] : 5000;
+		$loop        = $desktop_toggle( 'loop', true );          // control default 'on'
+		$autoplay    = $desktop_toggle( 'autoplay', true );      // control default 'on'
+		$delay       = isset( $settings['autoplayDelay'] ) ? (int) $settings['autoplayDelay'] : 0;
+		$pause_hover = $desktop_toggle( 'pauseOnHover', false );
+		$show_nav    = $desktop_toggle( 'showNavigation', false );
+		$show_pag    = $desktop_toggle( 'showPagination', false );
 
 		// Resolve every responsive control into a DENSE per-range map (one entry per breakpoint
 		// range), each control's gaps filled with its desktop default so ranges never leak.
-		$pv_map    = $resolve_responsive('slidesPerView', $cast_pv,   $desktop_pv);
-		$sb_map    = $resolve_responsive('spaceBetween',  $cast_int,  $desktop_sb);
-		$speed_map = $resolve_responsive('speed',         $cast_int,  $speed);
-		$delay_map = $resolve_responsive('autoplayDelay', $cast_int,  $delay);
-		$ap_map    = $resolve_responsive('autoplay',      $cast_bool, $autoplay);
-		$loop_map  = $resolve_responsive('loop',          $cast_bool, $loop);
-		$hover_map = $resolve_responsive('pauseOnHover',  $cast_bool, $pause_hover);
-		$nav_map   = $resolve_responsive('showNavigation', $cast_bool, $show_nav);
-		$pag_map   = $resolve_responsive('showPagination', $cast_bool, $show_pag);
+		$pv_map    = $resolve_responsive( 'slidesPerView', $cast_pv, $desktop_pv );
+		$sb_map    = $resolve_responsive( 'spaceBetween', $cast_int, $desktop_sb );
+		$speed_map = $resolve_responsive( 'speed', $cast_int, $speed );
+		$delay_map = $resolve_responsive( 'autoplayDelay', $cast_int, $delay );
+		$ap_map    = $resolve_responsive( 'autoplay', $cast_bool, $autoplay );
+		$loop_map  = $resolve_responsive( 'loop', $cast_bool, $loop );
+		$hover_map = $resolve_responsive( 'pauseOnHover', $cast_bool, $pause_hover );
+		$nav_map   = $resolve_responsive( 'showNavigation', $cast_bool, $show_nav );
+		$pag_map   = $resolve_responsive( 'showPagination', $cast_bool, $show_pag );
 
 		// `slide-width-auto` CSS hook: true if desktop OR any breakpoint uses "auto".
-		$has_auto = ($desktop_pv === 'auto') || in_array('auto', $pv_map, true);
+		$has_auto = ( $desktop_pv === 'auto' ) || in_array( 'auto', $pv_map, true );
 
 		/**
 		 * Build a complete Swiper option object for a given set of resolved values. Used
 		 * both for the base (top-level) options and for each responsive range the JS
 		 * re-inits with. Selectors for nav/pagination are resolved to elements in JS.
 		 */
-		$build_options = function ($pv, $sb, $sp, $lp, $ap, $dl, $hov, $nav, $pag) use ($reverse) {
-			$opts = [
+		$build_options = function ( $pv, $sb, $sp, $lp, $ap, $dl, $hov, $nav, $pag ) use ( $reverse ) {
+			$opts = array(
 				'slidesPerView' => $pv,
 				'spaceBetween'  => $sb,
 				'speed'         => $sp,
 				'loop'          => $lp,
-			];
+			);
 
-			if ($ap) {
-				$opts['autoplay'] = [
+			if ( $ap ) {
+				$opts['autoplay'] = array(
 					'delay'                => $dl,
 					'disableOnInteraction' => false,
 					'reverseDirection'     => $reverse,
 					'pauseOnMouseEnter'    => $hov,
-				];
+				);
 
 				// Marquee mode (delay 0/1) needs freeMode for continuous linear motion.
-				if ($dl <= 1) {
-					$opts['freeMode'] = ['enabled' => true, 'momentum' => false];
+				if ( $dl <= 1 ) {
+					$opts['freeMode'] = array(
+						'enabled'  => true,
+						'momentum' => false,
+					);
 				}
 			} else {
 				$opts['autoplay'] = false;
 			}
 
 			$opts['navigation'] = $nav
-				? ['nextEl' => '.aab-arrow-next', 'prevEl' => '.aab-arrow-prev']
+				? array(
+					'nextEl' => '.aab-arrow-next',
+					'prevEl' => '.aab-arrow-prev',
+				)
 				: false;
 
 			$opts['pagination'] = $pag
-				? ['el' => '.swiper-pagination', 'clickable' => true]
+				? array(
+					'el'        => '.swiper-pagination',
+					'clickable' => true,
+				)
 				: false;
 
 			return $opts;
 		};
 
 		// Resolve a per-range value, falling back to the desktop default.
-		$pick = function ($map, $default) {
+		$pick = function ( $map, $default ) {
 			// Base range (key 0) value if present, else desktop default.
-			return array_key_exists(0, $map) ? $map[0] : $default;
+			return array_key_exists( 0, $map ) ? $map[0] : $default;
 		};
 
 		// Base (top-level) options use the smallest-range value (Swiper's floor / pre-JS state).
 		$swiper_options = $build_options(
-			$pick($pv_map, $desktop_pv),
-			$pick($sb_map, $desktop_sb),
-			$pick($speed_map, $speed),
-			$pick($loop_map, $loop),
-			$pick($ap_map, $autoplay),
-			$pick($delay_map, $delay),
-			$pick($hover_map, $pause_hover),
-			$pick($nav_map, $show_nav),
-			$pick($pag_map, $show_pag)
+			$pick( $pv_map, $desktop_pv ),
+			$pick( $sb_map, $desktop_sb ),
+			$pick( $speed_map, $speed ),
+			$pick( $loop_map, $loop ),
+			$pick( $ap_map, $autoplay ),
+			$pick( $delay_map, $delay ),
+			$pick( $hover_map, $pause_hover ),
+			$pick( $nav_map, $show_nav ),
+			$pick( $pag_map, $show_pag )
 		);
 
 		/**
@@ -855,47 +1038,55 @@ class BRICKSFLY_Bricks_Brand_Slider extends \Bricks\Element
 		 * for a control is the largest min-width entry <= the range's min-width (mobile-first
 		 * resolution), falling back to the desktop default.
 		 */
-		$range_keys = [];
-		foreach ([$pv_map, $sb_map, $speed_map, $delay_map, $ap_map, $loop_map, $hover_map, $nav_map, $pag_map] as $m) {
-			foreach (array_keys($m) as $k) $range_keys[$k] = true;
+		$range_keys = array();
+		foreach ( array( $pv_map, $sb_map, $speed_map, $delay_map, $ap_map, $loop_map, $hover_map, $nav_map, $pag_map ) as $m ) {
+			foreach ( array_keys( $m ) as $k ) {
+				$range_keys[ $k ] = true;
+			}
 		}
-		$range_keys = array_keys($range_keys);
-		sort($range_keys);
+		$range_keys = array_keys( $range_keys );
+		sort( $range_keys );
 
-		$at = function ($map, $min_width, $default) {
+		$at = function ( $map, $min_width, $default ) {
 			$value = $default;
-			foreach ($map as $k => $v) {
-				if ($k <= $min_width) $value = $v; else break;
+			foreach ( $map as $k => $v ) {
+				if ( $k <= $min_width ) {
+					$value = $v;
+				} else {
+					break;
+				}
 			}
 			return $value;
 		};
 
-		$responsive = [];
-		foreach ($range_keys as $mw) {
-			if ($mw === 0) continue; // base range already lives in $swiper_options
-			$responsive[$mw] = $build_options(
-				$at($pv_map,    $mw, $desktop_pv),
-				$at($sb_map,    $mw, $desktop_sb),
-				$at($speed_map, $mw, $speed),
-				$at($loop_map,  $mw, $loop),
-				$at($ap_map,    $mw, $autoplay),
-				$at($delay_map, $mw, $delay),
-				$at($hover_map, $mw, $pause_hover),
-				$at($nav_map,   $mw, $show_nav),
-				$at($pag_map,   $mw, $show_pag)
+		$responsive = array();
+		foreach ( $range_keys as $mw ) {
+			if ( $mw === 0 ) {
+				continue; // base range already lives in $swiper_options
+			}
+			$responsive[ $mw ] = $build_options(
+				$at( $pv_map, $mw, $desktop_pv ),
+				$at( $sb_map, $mw, $desktop_sb ),
+				$at( $speed_map, $mw, $speed ),
+				$at( $loop_map, $mw, $loop ),
+				$at( $ap_map, $mw, $autoplay ),
+				$at( $delay_map, $mw, $delay ),
+				$at( $hover_map, $mw, $pause_hover ),
+				$at( $nav_map, $mw, $show_nav ),
+				$at( $pag_map, $mw, $show_pag )
 			);
 		}
 
 		// Native Swiper breakpoints (layout only) so slidesPerView/spaceBetween still
 		// respond instantly without a re-init; the JS layers the behavioral options on top.
-		$layout_breakpoints = [];
-		foreach ($responsive as $mw => $opts) {
-			$layout_breakpoints[$mw] = [
+		$layout_breakpoints = array();
+		foreach ( $responsive as $mw => $opts ) {
+			$layout_breakpoints[ $mw ] = array(
 				'slidesPerView' => $opts['slidesPerView'],
 				'spaceBetween'  => $opts['spaceBetween'],
-			];
+			);
 		}
-		if (! empty($layout_breakpoints)) {
+		if ( ! empty( $layout_breakpoints ) ) {
 			$swiper_options['breakpoints'] = $layout_breakpoints;
 		}
 
@@ -903,80 +1094,82 @@ class BRICKSFLY_Bricks_Brand_Slider extends \Bricks\Element
 
 		// Nav / pagination markup must exist if ANY range enables it (a smaller range may
 		// turn it on even when desktop has it off). Swiper toggles the actual modules per range.
-		$nav_anywhere = $show_nav || in_array(true, $nav_map, true);
-		$pag_anywhere = $show_pag || in_array(true, $pag_map, true);
+		$nav_anywhere = $show_nav || in_array( true, $nav_map, true );
+		$pag_anywhere = $show_pag || in_array( true, $pag_map, true );
 
-		$this->set_attribute('_root', 'class', ['aab-brand-slider-wrapper' . $auto_class]);
-		$this->set_attribute('_root', 'data-swiper', wp_json_encode($swiper_options));
-		if (! empty($responsive)) {
-			$this->set_attribute('_root', 'data-swiper-responsive', wp_json_encode($responsive));
+		$this->set_attribute( '_root', 'class', array( 'aab-brand-slider-wrapper' . $auto_class ) );
+		$this->set_attribute( '_root', 'data-swiper', wp_json_encode( $swiper_options ) );
+		if ( ! empty( $responsive ) ) {
+			$this->set_attribute( '_root', 'data-swiper-responsive', wp_json_encode( $responsive ) );
 		}
 
-		$slides = [];
+		$slides = array();
 
-		if ('image' === $slide_content) {
+		if ( 'image' === $slide_content ) {
 			// Loop rewritten to read image parameters out of the updated control structure array
-			$image_items = ! empty($settings['brandImages']) ? $settings['brandImages'] : [];
-			$image_size  = ! empty($settings['imageSize']) ? $settings['imageSize'] : 'medium';
+			$image_items = ! empty( $settings['brandImages'] ) ? $settings['brandImages'] : array();
+			$image_size  = ! empty( $settings['imageSize'] ) ? $settings['imageSize'] : 'medium';
 
-			foreach ($image_items as $item) {
-				if (empty($item['image'])) {
+			foreach ( $image_items as $item ) {
+				if ( empty( $item['image'] ) ) {
 					continue;
 				}
 
-				$img      = $item['image'];
-				$img_id   = is_array($img) ? ($img['id'] ?? 0) : (int) $img;
-				$img_url  = '';
+				$img     = $item['image'];
+				$img_id  = is_array( $img ) ? ( $img['id'] ?? 0 ) : (int) $img;
+				$img_url = '';
 
-				if ($img_id) {
-					$src     = wp_get_attachment_image_src($img_id, $image_size);
+				if ( $img_id ) {
+					$src     = wp_get_attachment_image_src( $img_id, $image_size );
 					$img_url = $src ? $src[0] : '';
 				}
-				if (! $img_url && is_array($img) && ! empty($img['url'])) {
+				if ( ! $img_url && is_array( $img ) && ! empty( $img['url'] ) ) {
 					$img_url = $img['url'];
 				}
-				if (! $img_url) {
+				if ( ! $img_url ) {
 					continue;
 				}
 
-				$alt      = $img_id ? get_post_meta($img_id, '_wp_attachment_image_alt', true) : '';
-				$slides[] = '<div class="swiper-slide"><img src="' . esc_url($img_url) . '" alt="' . esc_attr($alt) . '"></div>';
+				$alt      = $img_id ? get_post_meta( $img_id, '_wp_attachment_image_alt', true ) : '';
+				$slides[] = '<div class="swiper-slide"><img src="' . esc_url( $img_url ) . '" alt="' . esc_attr( $alt ) . '"></div>';
 			}
 		} else {
-			$text_items = ! empty($settings['textSlides']) ? $settings['textSlides'] : [];
+			$text_items = ! empty( $settings['textSlides'] ) ? $settings['textSlides'] : array();
 			$separator  = '';
 
-			if (! empty($settings['separatorIcon'])) {
-				$separator = '<span class="aab-separator-icon">' . self::render_icon($settings['separatorIcon'], ['aria-hidden' => 'true']) . '</span>';
+			if ( ! empty( $settings['separatorIcon'] ) ) {
+				$separator = '<span class="aab-separator-icon">' . self::render_icon( $settings['separatorIcon'], array( 'aria-hidden' => 'true' ) ) . '</span>';
 			}
 
-			foreach ($text_items as $item) {
-				if (empty($item['text'])) {
+			foreach ( $text_items as $item ) {
+				if ( empty( $item['text'] ) ) {
 					continue;
 				}
-				$slides[] = '<div class="swiper-slide"><div class="text-slide-content"><div class="title">' . wp_kses_post($item['text']) . '</div>' . $separator . '</div></div>';
+				$slides[] = '<div class="swiper-slide"><div class="text-slide-content"><div class="title">' . wp_kses_post( $item['text'] ) . '</div>' . $separator . '</div></div>';
 			}
 		}
 
-		if (empty($slides)) {
-			return $this->render_element_placeholder([
-				'icon-class' => 'ti-layout-slider',
-				'text'       => esc_html__('No slides added.', 'bricksfly-elements-for-bricks'),
-			]);
+		if ( empty( $slides ) ) {
+			return $this->render_element_placeholder(
+				array(
+					'icon-class' => 'ti-layout-slider',
+					'text'       => esc_html__( 'No slides added.', 'bricksfly-elements-for-bricks' ),
+				)
+			);
 		}
 
-		echo wp_kses_post('<div ' . $this->render_attributes('_root') . '>');
+		echo wp_kses_post( '<div ' . $this->render_attributes( '_root' ) . '>' );
 		echo '<div class="swiper">';
 		echo '<div class="swiper-wrapper">';
-		echo wp_kses(implode('', $slides), bricksfly_kses_allowed_html());
+		echo wp_kses( implode( '', $slides ), bricksfly_kses_allowed_html() );
 		echo '</div>';
 
-		if ($nav_anywhere && count($slides) > 1) {
+		if ( $nav_anywhere && count( $slides ) > 1 ) {
 			echo '<div class="aab-arrow-prev"><i class="fas fa-chevron-left" aria-hidden="true"></i></div>';
 			echo '<div class="aab-arrow-next"><i class="fas fa-chevron-right" aria-hidden="true"></i></div>';
 		}
 
-		if ($pag_anywhere && count($slides) > 1) {
+		if ( $pag_anywhere && count( $slides ) > 1 ) {
 			echo '<div class="swiper-pagination"></div>';
 		}
 

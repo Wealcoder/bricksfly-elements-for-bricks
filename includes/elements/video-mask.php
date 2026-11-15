@@ -1,6 +1,8 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 class BRICKSFLY_Bricks_Video_Mask extends \Bricks\Element {
 
@@ -8,14 +10,14 @@ class BRICKSFLY_Bricks_Video_Mask extends \Bricks\Element {
 	public $name         = 'aab-video-mask';
 	public $icon         = 'ti-video-camera aab-element-marker';
 	public $css_selector = '.aab-video-mask';
-	public $scripts      = [ 'bricksflyVideoMask' ];
+	public $scripts      = array( 'bricksflyVideoMask' );
 
 	public function get_label() {
-		return esc_html__('Video Mask', 'bricksfly-elements-for-bricks');
+		return esc_html__( 'Video Mask', 'bricksfly-elements-for-bricks' );
 	}
 
 	public function get_keywords() {
-		return [ 'video', 'mask', 'shape', 'play', 'reveal' ];
+		return array( 'video', 'mask', 'shape', 'play', 'reveal' );
 	}
 
 	public function enqueue_scripts() {
@@ -25,366 +27,462 @@ class BRICKSFLY_Bricks_Video_Mask extends \Bricks\Element {
 		wp_enqueue_style(
 			'aab-video-mask',
 			BRICKSFLY_URL . 'public/build/elements/video-mask.css',
-			[],
+			array(),
 			'1.0.0'
 		);
 
 		wp_enqueue_script(
 			'aab-video-mask',
 			BRICKSFLY_URL . 'public/build/elements/video-mask.js',
-			[],
+			array(),
 			'1.0.0',
 			true
 		);
 	}
 
 	public function set_control_groups() {
-		$this->control_groups['button'] = [
-			'title' => esc_html__('Button', 'bricksfly-elements-for-bricks'),
+		$this->control_groups['button'] = array(
+			'title' => esc_html__( 'Button', 'bricksfly-elements-for-bricks' ),
 			'tab'   => 'content',
-		];
+		);
 
-		$this->control_groups['video'] = [
-			'title' => esc_html__('Video', 'bricksfly-elements-for-bricks'),
+		$this->control_groups['video'] = array(
+			'title' => esc_html__( 'Video', 'bricksfly-elements-for-bricks' ),
 			'tab'   => 'content',
-		];
+		);
 
-		$this->control_groups['mask'] = [
-			'title' => esc_html__('Mask', 'bricksfly-elements-for-bricks'),
+		$this->control_groups['mask'] = array(
+			'title' => esc_html__( 'Mask', 'bricksfly-elements-for-bricks' ),
 			'tab'   => 'content',
-		];
+		);
 
-		$this->control_groups['btn_style'] = [
-			'title' => esc_html__('Button', 'bricksfly-elements-for-bricks'),
+		$this->control_groups['btn_style'] = array(
+			'title' => esc_html__( 'Button', 'bricksfly-elements-for-bricks' ),
 			'tab'   => 'style',
-		];
+		);
 	}
 
 	public function set_controls() {
 
 		// --- Button ---
 
-		$this->controls['maskContentColor'] = [
+		$this->controls['maskContentColor'] = array(
 			'tab'         => 'content',
 			'group'       => 'button',
 			'label'       => esc_html__( 'Other Section Text Color (on open)', 'bricksfly-elements-for-bricks' ),
 			'type'        => 'color',
 			'description' => esc_html__( 'Applied to parent ".aab-video-mask-content" section when video is open.', 'bricksfly-elements-for-bricks' ),
-		];
+		);
 
-		$this->controls['openTitle'] = [
+		$this->controls['openTitle'] = array(
 			'tab'     => 'content',
 			'group'   => 'button',
 			'label'   => esc_html__( 'Title', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'text',
 			'default' => esc_html__( 'Watch Video', 'bricksfly-elements-for-bricks' ),
-		];
+		);
 
-		$this->controls['closeTitle'] = [
+		$this->controls['closeTitle'] = array(
 			'tab'     => 'content',
 			'group'   => 'button',
 			'label'   => esc_html__( 'Close Title', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'text',
 			'default' => esc_html__( 'Close Video', 'bricksfly-elements-for-bricks' ),
-		];
+		);
 
-		$this->controls['playIcon'] = [
+		$this->controls['playIcon'] = array(
 			'tab'     => 'content',
 			'group'   => 'button',
 			'label'   => esc_html__( 'Play Icon', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'icon',
-			'default' => [
+			'default' => array(
 				'library' => 'fontawesome',
 				'icon'    => 'fas fa-play',
-			],
-		];
+			),
+		);
 
-		$this->controls['iconPosition'] = [
-			'tab'     => 'content',
-			'group'   => 'button',
-			'label'   => esc_html__( 'Icon Position', 'bricksfly-elements-for-bricks' ),
-			'type'    => 'direction',
-			'css'     => [
-				[
+		$this->controls['iconPosition'] = array(
+			'tab'   => 'content',
+			'group' => 'button',
+			'label' => esc_html__( 'Icon Position', 'bricksfly-elements-for-bricks' ),
+			'type'  => 'direction',
+			'css'   => array(
+				array(
 					'property' => 'flex-direction',
 					'selector' => '.video--btn',
-				],
-			],
-		];
+				),
+			),
+		);
 
-		$this->controls['btnOffsetX'] = [
+		$this->controls['btnOffsetX'] = array(
 			'tab'   => 'content',
 			'group' => 'button',
 			'label' => esc_html__( 'Offset X', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'number',
-			'units' => [
-				'px' => [ 'min' => 0, 'max' => 2000 ],
-				'%'  => [ 'min' => 0, 'max' => 100 ],
-			],
-			'css' => [
-				[
+			'units' => array(
+				'px' => array(
+					'min' => 0,
+					'max' => 2000,
+				),
+				'%'  => array(
+					'min' => 0,
+					'max' => 100,
+				),
+			),
+			'css'   => array(
+				array(
 					'property' => 'left',
 					'selector' => '.video--btn',
-				],
-			],
-		];
+				),
+			),
+		);
 
-		$this->controls['btnOffsetY'] = [
+		$this->controls['btnOffsetY'] = array(
 			'tab'   => 'content',
 			'group' => 'button',
 			'label' => esc_html__( 'Offset Y', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'number',
-			'units' => [
-				'px' => [ 'min' => 0, 'max' => 2000 ],
-				'%'  => [ 'min' => 0, 'max' => 100 ],
-			],
-			'css' => [
-				[
+			'units' => array(
+				'px' => array(
+					'min' => 0,
+					'max' => 2000,
+				),
+				'%'  => array(
+					'min' => 0,
+					'max' => 100,
+				),
+			),
+			'css'   => array(
+				array(
 					'property' => 'top',
 					'selector' => '.video--btn',
-				],
-			],
-		];
+				),
+			),
+		);
 
 		// --- Video ---
 
-		$this->controls['videoLink'] = [
+		$this->controls['videoLink'] = array(
 			'tab'         => 'content',
 			'group'       => 'video',
 			'label'       => esc_html__( 'Video Link (mp4)', 'bricksfly-elements-for-bricks' ),
 			'type'        => 'text',
 			'placeholder' => 'https://example.com/video.mp4',
 			'description' => esc_html__( 'Upload your mp4 video file URL.', 'bricksfly-elements-for-bricks' ),
-		];
+		);
 
-		$this->controls['videoAutoplay'] = [
+		$this->controls['videoAutoplay'] = array(
 			'tab'     => 'content',
 			'group'   => 'video',
 			'label'   => esc_html__( 'Autoplay', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'checkbox',
 			'default' => true,
-		];
+		);
 
-		$this->controls['videoMute'] = [
+		$this->controls['videoMute'] = array(
 			'tab'     => 'content',
 			'group'   => 'video',
 			'label'   => esc_html__( 'Mute', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'checkbox',
 			'default' => true,
-		];
+		);
 
-		$this->controls['videoPlaysinline'] = [
+		$this->controls['videoPlaysinline'] = array(
 			'tab'   => 'content',
 			'group' => 'video',
 			'label' => esc_html__( 'Plays Inline', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'checkbox',
-		];
+		);
 
-		$this->controls['videoLoop'] = [
+		$this->controls['videoLoop'] = array(
 			'tab'   => 'content',
 			'group' => 'video',
 			'label' => esc_html__( 'Loop', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'checkbox',
-		];
+		);
 
-		$this->controls['videoPoster'] = [
+		$this->controls['videoPoster'] = array(
 			'tab'   => 'content',
 			'group' => 'video',
 			'label' => esc_html__( 'Poster', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'image',
-		];
+		);
 
-		$this->controls['videoHeight'] = [
+		$this->controls['videoHeight'] = array(
 			'tab'   => 'content',
 			'group' => 'video',
 			'label' => esc_html__( 'Height', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'number',
-			'units' => [
-				'px' => [ 'min' => 0, 'max' => 1500 ],
-				'%'  => [ 'min' => 0, 'max' => 100 ],
-			],
-			'css' => [
-				[
+			'units' => array(
+				'px' => array(
+					'min' => 0,
+					'max' => 1500,
+				),
+				'%'  => array(
+					'min' => 0,
+					'max' => 100,
+				),
+			),
+			'css'   => array(
+				array(
 					'property' => 'height',
 					'selector' => 'video',
-				],
-			],
-		];
+				),
+			),
+		);
 
-		$this->controls['wrapperBorder'] = [
+		$this->controls['wrapperBorder'] = array(
 			'tab'   => 'content',
 			'group' => 'video',
 			'label' => esc_html__( 'Border', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'border',
-			'css'   => [
-				[
+			'css'   => array(
+				array(
 					'property' => 'border',
 					'selector' => '.aab-video-mask',
-				],
-			],
-		];
+				),
+			),
+		);
 
 		// --- Mask ---
 
-		$this->controls['maskShape'] = [
+		$this->controls['maskShape'] = array(
 			'tab'     => 'content',
 			'group'   => 'mask',
 			'label'   => esc_html__( 'Shape', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'select',
-			'options' => [
+			'options' => array(
 				'circle'   => esc_html__( 'Circle', 'bricksfly-elements-for-bricks' ),
 				'flower'   => esc_html__( 'Flower', 'bricksfly-elements-for-bricks' ),
 				'sketch'   => esc_html__( 'Sketch', 'bricksfly-elements-for-bricks' ),
 				'triangle' => esc_html__( 'Triangle', 'bricksfly-elements-for-bricks' ),
 				'blob'     => esc_html__( 'Blob', 'bricksfly-elements-for-bricks' ),
-			],
+			),
 			'default' => 'circle',
-		];
+		);
 
-		$this->controls['maskSize'] = [
+		$this->controls['maskSize'] = array(
 			'tab'   => 'content',
 			'group' => 'mask',
 			'label' => esc_html__( 'Size', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'number',
-			'units' => [
-				'px' => [ 'min' => 50, 'max' => 1000 ],
-			],
-			'css' => [
-				[
+			'units' => array(
+				'px' => array(
+					'min' => 50,
+					'max' => 1000,
+				),
+			),
+			'css'   => array(
+				array(
 					'property' => '-webkit-mask-size',
 					'selector' => '.video-wrapper',
-				],
-			],
-		];
+				),
+			),
+		);
 
-		$this->controls['maskOffsetX'] = [
+		$this->controls['maskOffsetX'] = array(
 			'tab'   => 'content',
 			'group' => 'mask',
 			'label' => esc_html__( 'Offset X', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'number',
-			'units' => [
-				'px' => [ 'min' => 0, 'max' => 2000 ],
-				'%'  => [ 'min' => 0, 'max' => 100 ],
-			],
-			'css' => [
-				[
+			'units' => array(
+				'px' => array(
+					'min' => 0,
+					'max' => 2000,
+				),
+				'%'  => array(
+					'min' => 0,
+					'max' => 100,
+				),
+			),
+			'css'   => array(
+				array(
 					'property' => '-webkit-mask-position-x',
 					'selector' => '.video-wrapper',
-				],
-			],
-		];
+				),
+			),
+		);
 
-		$this->controls['maskOffsetY'] = [
+		$this->controls['maskOffsetY'] = array(
 			'tab'   => 'content',
 			'group' => 'mask',
 			'label' => esc_html__( 'Offset Y', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'number',
-			'units' => [
-				'px' => [ 'min' => 0, 'max' => 2000 ],
-				'%'  => [ 'min' => 0, 'max' => 100 ],
-			],
-			'css' => [
-				[
+			'units' => array(
+				'px' => array(
+					'min' => 0,
+					'max' => 2000,
+				),
+				'%'  => array(
+					'min' => 0,
+					'max' => 100,
+				),
+			),
+			'css'   => array(
+				array(
 					'property' => '-webkit-mask-position-y',
 					'selector' => '.video-wrapper',
-				],
-			],
-		];
+				),
+			),
+		);
 
 		// --- Style: Button ---
 
-		$this->controls['btnGap'] = [
+		$this->controls['btnGap'] = array(
 			'tab'   => 'style',
 			'group' => 'btn_style',
 			'label' => esc_html__( 'Gap', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'number',
-			'units' => [ 'px' => [ 'min' => 0, 'max' => 200 ] ],
-			'css'   => [ [ 'property' => 'gap', 'selector' => '.video--btn' ] ],
-		];
+			'units' => array(
+				'px' => array(
+					'min' => 0,
+					'max' => 200,
+				),
+			),
+			'css'   => array(
+				array(
+					'property' => 'gap',
+					'selector' => '.video--btn',
+				),
+			),
+		);
 
-		$this->controls['btnTextAlign'] = [
+		$this->controls['btnTextAlign'] = array(
 			'tab'   => 'style',
 			'group' => 'btn_style',
 			'label' => esc_html__( 'Alignment', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'text-align',
-			'css'   => [ [ 'property' => 'text-align', 'selector' => '.video--btn' ] ],
-		];
+			'css'   => array(
+				array(
+					'property' => 'text-align',
+					'selector' => '.video--btn',
+				),
+			),
+		);
 
-		$this->controls['titleColor'] = [
+		$this->controls['titleColor'] = array(
 			'tab'   => 'style',
 			'group' => 'btn_style',
 			'label' => esc_html__( 'Title Color', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'color',
-			'css'   => [ [ 'property' => 'color', 'selector' => '.title' ] ],
-		];
+			'css'   => array(
+				array(
+					'property' => 'color',
+					'selector' => '.title',
+				),
+			),
+		);
 
-		$this->controls['titleTypography'] = [
+		$this->controls['titleTypography'] = array(
 			'tab'   => 'style',
 			'group' => 'btn_style',
 			'label' => esc_html__( 'Title Typography', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'typography',
-			'css'   => [ [ 'property' => 'font', 'selector' => '.title' ] ],
-		];
+			'css'   => array(
+				array(
+					'property' => 'font',
+					'selector' => '.title',
+				),
+			),
+		);
 
-		$this->controls['iconColor'] = [
+		$this->controls['iconColor'] = array(
 			'tab'   => 'style',
 			'group' => 'btn_style',
 			'label' => esc_html__( 'Icon Color', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'color',
-			'css'   => [
-				[ 'property' => 'color', 'selector' => '.icon' ],
-				[ 'property' => 'fill', 'selector' => '.icon' ],
-			],
-		];
+			'css'   => array(
+				array(
+					'property' => 'color',
+					'selector' => '.icon',
+				),
+				array(
+					'property' => 'fill',
+					'selector' => '.icon',
+				),
+			),
+		);
 
-		$this->controls['iconSize'] = [
+		$this->controls['iconSize'] = array(
 			'tab'   => 'style',
 			'group' => 'btn_style',
 			'label' => esc_html__( 'Icon Size', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'number',
-			'units' => [ 'px' => [ 'min' => 0, 'max' => 200 ] ],
-			'css'   => [ [ 'property' => 'font-size', 'selector' => '.icon' ] ],
-		];
+			'units' => array(
+				'px' => array(
+					'min' => 0,
+					'max' => 200,
+				),
+			),
+			'css'   => array(
+				array(
+					'property' => 'font-size',
+					'selector' => '.icon',
+				),
+			),
+		);
 
 		// Hover
-		$this->controls['titleHoverColor'] = [
+		$this->controls['titleHoverColor'] = array(
 			'tab'   => 'style',
 			'group' => 'btn_style',
 			'label' => esc_html__( 'Hover Title Color', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'color',
-			'css'   => [ [ 'property' => 'color', 'selector' => '.video--btn:hover .title' ] ],
-		];
+			'css'   => array(
+				array(
+					'property' => 'color',
+					'selector' => '.video--btn:hover .title',
+				),
+			),
+		);
 
-		$this->controls['iconHoverColor'] = [
+		$this->controls['iconHoverColor'] = array(
 			'tab'   => 'style',
 			'group' => 'btn_style',
 			'label' => esc_html__( 'Hover Icon Color', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'color',
-			'css'   => [
-				[ 'property' => 'color', 'selector' => '.video--btn:hover .icon' ],
-				[ 'property' => 'fill', 'selector' => '.video--btn:hover .icon' ],
-			],
-		];
+			'css'   => array(
+				array(
+					'property' => 'color',
+					'selector' => '.video--btn:hover .icon',
+				),
+				array(
+					'property' => 'fill',
+					'selector' => '.video--btn:hover .icon',
+				),
+			),
+		);
 
 		// Active (mask open)
-		$this->controls['titleActiveColor'] = [
+		$this->controls['titleActiveColor'] = array(
 			'tab'   => 'style',
 			'group' => 'btn_style',
 			'label' => esc_html__( 'Active Title Color', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'color',
-			'css'   => [ [ 'property' => 'color', 'selector' => '&.mask-open .title' ] ],
-		];
+			'css'   => array(
+				array(
+					'property' => 'color',
+					'selector' => '&.mask-open .title',
+				),
+			),
+		);
 
-		$this->controls['iconActiveColor'] = [
+		$this->controls['iconActiveColor'] = array(
 			'tab'   => 'style',
 			'group' => 'btn_style',
 			'label' => esc_html__( 'Active Icon Color', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'color',
-			'css'   => [
-				[ 'property' => 'color', 'selector' => '&.mask-open .icon' ],
-				[ 'property' => 'fill', 'selector' => '&.mask-open .icon' ],
-			],
-		];
+			'css'   => array(
+				array(
+					'property' => 'color',
+					'selector' => '&.mask-open .icon',
+				),
+				array(
+					'property' => 'fill',
+					'selector' => '&.mask-open .icon',
+				),
+			),
+		);
 	}
 
 	public function render() {
@@ -401,19 +499,19 @@ class BRICKSFLY_Bricks_Video_Mask extends \Bricks\Element {
 			}
 		}
 
-		$this->set_attribute( '_root', 'class', [ 'aab-video-mask' ] );
+		$this->set_attribute( '_root', 'class', array( 'aab-video-mask' ) );
 
 		if ( $content_color ) {
 			$this->set_attribute( '_root', 'data-content-color', $content_color );
 		}
 
-		echo wp_kses_post('<div ' . $this->render_attributes( '_root' ) . '>');
+		echo wp_kses_post( '<div ' . $this->render_attributes( '_root' ) . '>' );
 
 		// Button
 		echo '<button class="video--btn">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo '<span class="icon">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		if ( ! empty( $settings['playIcon'] ) ) {
-			echo wp_kses_post(self::render_icon( $settings['playIcon'], [ 'aria-hidden' => 'true' ] ));
+			echo wp_kses_post( self::render_icon( $settings['playIcon'], array( 'aria-hidden' => 'true' ) ) );
 		}
 		echo '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo '<span class="title open-title">' . esc_html( ! empty( $settings['openTitle'] ) ? $settings['openTitle'] : 'Watch Video' ) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped

@@ -21,8 +21,8 @@ class BRICKSFLY_Row_Actions {
 	}
 
 	public function __construct() {
-		add_filter( 'plugin_action_links', [ $this, 'bricksfly_add_plugin_link' ], 10, 2 );
-		add_filter( 'plugin_row_meta', [ $this, '_plugin_row_meta' ], 10, 2 );
+		add_filter( 'plugin_action_links', array( $this, 'bricksfly_add_plugin_link' ), 10, 2 );
+		add_filter( 'plugin_row_meta', array( $this, '_plugin_row_meta' ), 10, 2 );
 	}
 
 	function _plugin_row_meta( $meta, $plugin_file ) {

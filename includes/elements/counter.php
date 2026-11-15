@@ -1,405 +1,428 @@
 <?php
 
-if (! defined('ABSPATH')) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
-class BRICKSFLY_Bricks_Counter extends \Bricks\Element
-{
+class BRICKSFLY_Bricks_Counter extends \Bricks\Element {
+
 
 	public $category     = 'bricks fly';
 	public $name         = 'aab-counter';
 	public $icon         = 'ti-timer aab-element-marker';
 	public $css_selector = '.aab-counter';
-	public $scripts      = ['bricksflyCounter'];
+	public $scripts      = array( 'bricksflyCounter' );
 
-	public function get_label()
-	{
-		return esc_html__('Counter', 'bricksfly-elements-for-bricks');
+	public function get_label() {
+		return esc_html__( 'Counter', 'bricksfly-elements-for-bricks' );
 	}
 
-	public function get_keywords()
-	{
-		return ['counter', 'number', 'count', 'stats', 'animation'];
+	public function get_keywords() {
+		return array( 'counter', 'number', 'count', 'stats', 'animation' );
 	}
 
-	public function enqueue_scripts()
-	{
+	public function enqueue_scripts() {
 		wp_enqueue_style(
 			'aab-counter',
 			BRICKSFLY_URL . 'public/build/elements/counter.css',
-			[],
+			array(),
 			'1.0.0'
 		);
 
 		wp_enqueue_script(
 			'aab-counter',
 			BRICKSFLY_URL . 'public/build/elements/counter.js',
-			['bricks-scripts'],
+			array( 'bricks-scripts' ),
 			'1.0.0',
 			true
 		);
 	}
 
-	public function set_control_groups()
-	{
-		$this->control_groups['content'] = [
-			'title' => esc_html__('Content', 'bricksfly-elements-for-bricks'),
+	public function set_control_groups() {
+		$this->control_groups['content'] = array(
+			'title' => esc_html__( 'Content', 'bricksfly-elements-for-bricks' ),
 			'tab'   => 'content',
-		];
+		);
 
-		$this->control_groups['animation'] = [
-			'title' => esc_html__('Animation', 'bricksfly-elements-for-bricks'),
+		$this->control_groups['animation'] = array(
+			'title' => esc_html__( 'Animation', 'bricksfly-elements-for-bricks' ),
 			'tab'   => 'content',
-		];
+		);
 
-		$this->control_groups['layout'] = [
-			'title' => esc_html__('Layout', 'bricksfly-elements-for-bricks'),
+		$this->control_groups['layout'] = array(
+			'title' => esc_html__( 'Layout', 'bricksfly-elements-for-bricks' ),
 			'tab'   => 'content',
-		];
+		);
 
-		$this->control_groups['number_style'] = [
-			'title' => esc_html__('Number', 'bricksfly-elements-for-bricks'),
+		$this->control_groups['number_style'] = array(
+			'title' => esc_html__( 'Number', 'bricksfly-elements-for-bricks' ),
 			'tab'   => 'style',
-		];
+		);
 
-		$this->control_groups['prefix_suffix_style'] = [
-			'title' => esc_html__('Prefix / Suffix', 'bricksfly-elements-for-bricks'),
+		$this->control_groups['prefix_suffix_style'] = array(
+			'title' => esc_html__( 'Prefix / Suffix', 'bricksfly-elements-for-bricks' ),
 			'tab'   => 'style',
-		];
+		);
 
-		$this->control_groups['title_style'] = [
-			'title' => esc_html__('Title', 'bricksfly-elements-for-bricks'),
+		$this->control_groups['title_style'] = array(
+			'title' => esc_html__( 'Title', 'bricksfly-elements-for-bricks' ),
 			'tab'   => 'style',
-		];
+		);
 	}
 
-	public function set_controls()
-	{
+	public function set_controls() {
 
-		/* =========================
-		   CONTENT
+		/*
+		=========================
+			CONTENT
 		========================= */
 
-		$this->controls['starting_number'] = [
+		$this->controls['starting_number'] = array(
 			'group'   => 'content',
-			'label'   => esc_html__('Starting Number', 'bricksfly-elements-for-bricks'),
+			'label'   => esc_html__( 'Starting Number', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'number',
 			'default' => 0,
-		];
+		);
 
-		$this->controls['ending_number'] = [
+		$this->controls['ending_number'] = array(
 			'group'   => 'content',
-			'label'   => esc_html__('Ending Number', 'bricksfly-elements-for-bricks'),
+			'label'   => esc_html__( 'Ending Number', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'number',
 			'default' => 100,
-		];
+		);
 
-		$this->controls['number_prefix'] = [
+		$this->controls['number_prefix'] = array(
 			'group'       => 'content',
-			'label'       => esc_html__('Number Prefix', 'bricksfly-elements-for-bricks'),
+			'label'       => esc_html__( 'Number Prefix', 'bricksfly-elements-for-bricks' ),
 			'type'        => 'text',
 			'placeholder' => '$',
-		];
+		);
 
-		$this->controls['number_suffix'] = [
+		$this->controls['number_suffix'] = array(
 			'group'       => 'content',
-			'label'       => esc_html__('Number Suffix', 'bricksfly-elements-for-bricks'),
+			'label'       => esc_html__( 'Number Suffix', 'bricksfly-elements-for-bricks' ),
 			'type'        => 'text',
 			'placeholder' => '+',
-		];
+		);
 
-		$this->controls['counter_title'] = [
+		$this->controls['counter_title'] = array(
 			'group'   => 'content',
-			'label'   => esc_html__('Title', 'bricksfly-elements-for-bricks'),
+			'label'   => esc_html__( 'Title', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'text',
-			'default' => esc_html__('Happy Clients', 'bricksfly-elements-for-bricks'),
-		];
+			'default' => esc_html__( 'Happy Clients', 'bricksfly-elements-for-bricks' ),
+		);
 
-		$this->controls['title_tag'] = [
+		$this->controls['title_tag'] = array(
 			'group'   => 'content',
-			'label'   => esc_html__('Title HTML Tag', 'bricksfly-elements-for-bricks'),
+			'label'   => esc_html__( 'Title HTML Tag', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'select',
-			'options' => [
-				'h1' => 'H1',
-				'h2' => 'H2',
-				'h3' => 'H3',
-				'h4' => 'H4',
-				'h5' => 'H5',
-				'h6' => 'H6',
-				'p'  => 'P',
+			'options' => array(
+				'h1'   => 'H1',
+				'h2'   => 'H2',
+				'h3'   => 'H3',
+				'h4'   => 'H4',
+				'h5'   => 'H5',
+				'h6'   => 'H6',
+				'p'    => 'P',
 				'span' => 'SPAN',
-				'div' => 'DIV',
-			],
+				'div'  => 'DIV',
+			),
 			'default' => 'p',
 			'inline'  => true,
-		];
+		);
 
-		$this->controls['thousand_separator'] = [
+		$this->controls['thousand_separator'] = array(
 			'group'   => 'content',
-			'label'   => esc_html__('Thousand Separator', 'bricksfly-elements-for-bricks'),
+			'label'   => esc_html__( 'Thousand Separator', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'select',
-			'options' => [
-				'none'  => esc_html__('None', 'bricksfly-elements-for-bricks'),
-				'comma' => esc_html__('Comma (1,000)', 'bricksfly-elements-for-bricks'),
-				'dot'   => esc_html__('Dot (1.000)', 'bricksfly-elements-for-bricks'),
-				'space' => esc_html__('Space (1 000)', 'bricksfly-elements-for-bricks'),
-			],
+			'options' => array(
+				'none'  => esc_html__( 'None', 'bricksfly-elements-for-bricks' ),
+				'comma' => esc_html__( 'Comma (1,000)', 'bricksfly-elements-for-bricks' ),
+				'dot'   => esc_html__( 'Dot (1.000)', 'bricksfly-elements-for-bricks' ),
+				'space' => esc_html__( 'Space (1 000)', 'bricksfly-elements-for-bricks' ),
+			),
 			'default' => 'comma',
-		];
+		);
 
-		/* =========================
-		   ANIMATION
+		/*
+		=========================
+			ANIMATION
 		========================= */
 
-		$this->controls['animation_duration'] = [
+		$this->controls['animation_duration'] = array(
 			'group'   => 'animation',
-			'label'   => esc_html__('Duration (ms)', 'bricksfly-elements-for-bricks'),
+			'label'   => esc_html__( 'Duration (ms)', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'number',
 			'default' => 2000,
 			'step'    => 100,
 			'min'     => 200,
-		];
+		);
 
-		$this->controls['animation_trigger'] = [
+		$this->controls['animation_trigger'] = array(
 			'group'   => 'animation',
-			'label'   => esc_html__('Trigger', 'bricksfly-elements-for-bricks'),
+			'label'   => esc_html__( 'Trigger', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'select',
-			'options' => [
-				'on_scroll'    => esc_html__('On Scroll (In View)', 'bricksfly-elements-for-bricks'),
-				'on_page_load' => esc_html__('On Page Load', 'bricksfly-elements-for-bricks'),
-			],
+			'options' => array(
+				'on_scroll'    => esc_html__( 'On Scroll (In View)', 'bricksfly-elements-for-bricks' ),
+				'on_page_load' => esc_html__( 'On Page Load', 'bricksfly-elements-for-bricks' ),
+			),
 			'default' => 'on_scroll',
-		];
+		);
 
-		/* =========================
-		   LAYOUT
+		/*
+		=========================
+			LAYOUT
 		========================= */
 
-		$this->controls['direction'] = [
+		$this->controls['direction'] = array(
 			'group'   => 'layout',
-			'label'   => esc_html__('Direction', 'bricksfly-elements-for-bricks'),
+			'label'   => esc_html__( 'Direction', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'select',
-			'options' => [
-				'column'         => esc_html__('Vertical (Number Top)', 'bricksfly-elements-for-bricks'),
-				'column-reverse' => esc_html__('Vertical (Title Top)', 'bricksfly-elements-for-bricks'),
-				'row'            => esc_html__('Horizontal (Number Left)', 'bricksfly-elements-for-bricks'),
-				'row-reverse'    => esc_html__('Horizontal (Title Left)', 'bricksfly-elements-for-bricks'),
-			],
+			'options' => array(
+				'column'         => esc_html__( 'Vertical (Number Top)', 'bricksfly-elements-for-bricks' ),
+				'column-reverse' => esc_html__( 'Vertical (Title Top)', 'bricksfly-elements-for-bricks' ),
+				'row'            => esc_html__( 'Horizontal (Number Left)', 'bricksfly-elements-for-bricks' ),
+				'row-reverse'    => esc_html__( 'Horizontal (Title Left)', 'bricksfly-elements-for-bricks' ),
+			),
 			'default' => 'column',
-			'css'     => [[
-				'property' => 'flex-direction',
-				'selector' => '.aab-counter__inner',
-			]],
-		];
+			'css'     => array(
+				array(
+					'property' => 'flex-direction',
+					'selector' => '.aab-counter__inner',
+				),
+			),
+		);
 
-		$this->controls['alignment'] = [
+		$this->controls['alignment'] = array(
 			'group'   => 'layout',
-			'label'   => esc_html__('Alignment', 'bricksfly-elements-for-bricks'),
+			'label'   => esc_html__( 'Alignment', 'bricksfly-elements-for-bricks' ),
 			'type'    => 'justify-content',
-			'css'     => [
-				[
+			'css'     => array(
+				array(
 					'property' => 'align-items',
 					'selector' => '.aab-counter__inner',
-				],
-			],
-			'exclude' => ['space-between', 'space-around', 'space-evenly'], // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude -- Bricks control option, not a WP_Query arg
-		];
+				),
+			),
+			'exclude' => array( 'space-between', 'space-around', 'space-evenly' ), // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude -- Bricks control option, not a WP_Query arg
+		);
 
-		$this->controls['gap'] = [
+		$this->controls['gap'] = array(
 			'group' => 'layout',
-			'label' => esc_html__('Gap', 'bricksfly-elements-for-bricks'),
+			'label' => esc_html__( 'Gap', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'number',
 			'units' => true,
-			'css'   => [[
-				'property' => 'gap',
-				'selector' => '.aab-counter__inner',
-			]],
-		];
+			'css'   => array(
+				array(
+					'property' => 'gap',
+					'selector' => '.aab-counter__inner',
+				),
+			),
+		);
 
-		$this->controls['number_gap'] = [
+		$this->controls['number_gap'] = array(
 			'group' => 'layout',
-			'label' => esc_html__('Number Row Gap', 'bricksfly-elements-for-bricks'),
+			'label' => esc_html__( 'Number Row Gap', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'number',
 			'units' => true,
-			'css'   => [[
-				'property' => 'gap',
-				'selector' => '.aab-counter__number-wrap',
-			]],
-		];
+			'css'   => array(
+				array(
+					'property' => 'gap',
+					'selector' => '.aab-counter__number-wrap',
+				),
+			),
+		);
 
-		/* =========================
-		   NUMBER STYLE
+		/*
+		=========================
+			NUMBER STYLE
 		========================= */
 
-		$this->controls['number_typo'] = [
+		$this->controls['number_typo'] = array(
 			'group' => 'number_style',
-			'label' => esc_html__('Typography', 'bricksfly-elements-for-bricks'),
+			'label' => esc_html__( 'Typography', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'typography',
-			'css'   => [[
-				'property' => 'typography',
-				'selector' => '.aab-counter__number',
-			]],
-		];
+			'css'   => array(
+				array(
+					'property' => 'typography',
+					'selector' => '.aab-counter__number',
+				),
+			),
+		);
 
-		$this->controls['number_bg'] = [
+		$this->controls['number_bg'] = array(
 			'group' => 'number_style',
-			'label' => esc_html__('Background', 'bricksfly-elements-for-bricks'),
+			'label' => esc_html__( 'Background', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'color',
-			'css'   => [[
-				'property' => 'background-color',
-				'selector' => '.aab-counter__number',
-			]],
-		];
+			'css'   => array(
+				array(
+					'property' => 'background-color',
+					'selector' => '.aab-counter__number',
+				),
+			),
+		);
 
-		$this->controls['number_padding'] = [
+		$this->controls['number_padding'] = array(
 			'group' => 'number_style',
-			'label' => esc_html__('Padding', 'bricksfly-elements-for-bricks'),
+			'label' => esc_html__( 'Padding', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'dimensions',
-			'css'   => [[
-				'property' => 'padding',
-				'selector' => '.aab-counter__number',
-			]],
-		];
+			'css'   => array(
+				array(
+					'property' => 'padding',
+					'selector' => '.aab-counter__number',
+				),
+			),
+		);
 
-		$this->controls['number_border'] = [
+		$this->controls['number_border'] = array(
 			'group' => 'number_style',
-			'label' => esc_html__('Border', 'bricksfly-elements-for-bricks'),
+			'label' => esc_html__( 'Border', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'border',
-			'css'   => [[
-				'property' => 'border',
-				'selector' => '.aab-counter__number',
-			]],
-		];
+			'css'   => array(
+				array(
+					'property' => 'border',
+					'selector' => '.aab-counter__number',
+				),
+			),
+		);
 
 		// $this->controls['number_radius'] = [
-		// 	'group' => 'number_style',
-		// 	'label' => esc_html__( 'Border Radius', 'bricksfly-elements-for-bricks' ),
-		// 	'type'  => 'dimensions',
-		// 	'css'   => [[
-		// 		'property' => 'border-radius',
-		// 		'selector' => '.aab-counter__number',
-		// 	]],
+		// 'group' => 'number_style',
+		// 'label' => esc_html__( 'Border Radius', 'bricksfly-elements-for-bricks' ),
+		// 'type'  => 'dimensions',
+		// 'css'   => [[
+		// 'property' => 'border-radius',
+		// 'selector' => '.aab-counter__number',
+		// ]],
 		// ];
 
-		/* =========================
-		   PREFIX / SUFFIX STYLE
+		/*
+		=========================
+			PREFIX / SUFFIX STYLE
 		========================= */
 
-		$this->controls['prefix_typo'] = [
+		$this->controls['prefix_typo'] = array(
 			'group' => 'prefix_suffix_style',
-			'label' => esc_html__('Prefix Typography', 'bricksfly-elements-for-bricks'),
+			'label' => esc_html__( 'Prefix Typography', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'typography',
-			'css'   => [[
-				'property' => 'typography',
-				'selector' => '.aab-counter__prefix',
-			]],
-		];
+			'css'   => array(
+				array(
+					'property' => 'typography',
+					'selector' => '.aab-counter__prefix',
+				),
+			),
+		);
 
-		$this->controls['suffix_typo'] = [
+		$this->controls['suffix_typo'] = array(
 			'group' => 'prefix_suffix_style',
-			'label' => esc_html__('Suffix Typography', 'bricksfly-elements-for-bricks'),
+			'label' => esc_html__( 'Suffix Typography', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'typography',
-			'css'   => [[
-				'property' => 'typography',
-				'selector' => '.aab-counter__suffix',
-			]],
-		];
+			'css'   => array(
+				array(
+					'property' => 'typography',
+					'selector' => '.aab-counter__suffix',
+				),
+			),
+		);
 
-		/* =========================
-		   TITLE STYLE
+		/*
+		=========================
+			TITLE STYLE
 		========================= */
 
-		$this->controls['title_typo'] = [
+		$this->controls['title_typo'] = array(
 			'group' => 'title_style',
-			'label' => esc_html__('Typography', 'bricksfly-elements-for-bricks'),
+			'label' => esc_html__( 'Typography', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'typography',
-			'css'   => [[
-				'property' => 'typography',
-				'selector' => '.aab-counter__title',
-			]],
-		];
+			'css'   => array(
+				array(
+					'property' => 'typography',
+					'selector' => '.aab-counter__title',
+				),
+			),
+		);
 
-		$this->controls['title_margin'] = [
+		$this->controls['title_margin'] = array(
 			'group' => 'title_style',
-			'label' => esc_html__('Margin', 'bricksfly-elements-for-bricks'),
+			'label' => esc_html__( 'Margin', 'bricksfly-elements-for-bricks' ),
 			'type'  => 'dimensions',
-			'css'   => [[
-				'property' => 'margin',
-				'selector' => '.aab-counter__title',
-			]],
-		];
+			'css'   => array(
+				array(
+					'property' => 'margin',
+					'selector' => '.aab-counter__title',
+				),
+			),
+		);
 	}
 
-	public function render()
-	{
+	public function render() {
 		$s = $this->settings;
 
-		$start     = isset($s['starting_number']) ? floatval($s['starting_number']) : 0;
-		$end       = isset($s['ending_number']) ? floatval($s['ending_number']) : 100;
+		$start     = isset( $s['starting_number'] ) ? floatval( $s['starting_number'] ) : 0;
+		$end       = isset( $s['ending_number'] ) ? floatval( $s['ending_number'] ) : 100;
 		$prefix    = $s['number_prefix'] ?? '';
 		$suffix    = $s['number_suffix'] ?? '';
 		$title     = $s['counter_title'] ?? '';
 		$tag       = $s['title_tag'] ?? 'p';
 		$separator = $s['thousand_separator'] ?? 'comma';
-		$duration  = isset($s['animation_duration']) ? intval($s['animation_duration']) : 2000;
+		$duration  = isset( $s['animation_duration'] ) ? intval( $s['animation_duration'] ) : 2000;
 		$trigger   = $s['animation_trigger'] ?? 'on_scroll';
 
-		$allowed_tags = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'span', 'div'];
-		$tag = in_array($tag, $allowed_tags, true) ? $tag : 'p';
+		$allowed_tags = array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'span', 'div' );
+		$tag          = in_array( $tag, $allowed_tags, true ) ? $tag : 'p';
 
 		// Check if number has decimals
 		$decimals = 0;
-		if (floor($end) != $end) {
-			$decimals = strlen(substr(strrchr((string) $end, '.'), 1));
+		if ( floor( $end ) != $end ) {
+			$decimals = strlen( substr( strrchr( (string) $end, '.' ), 1 ) );
 		}
-		if (floor($start) != $start) {
-			$start_dec = strlen(substr(strrchr((string) $start, '.'), 1));
-			$decimals = max($decimals, $start_dec);
+		if ( floor( $start ) != $start ) {
+			$start_dec = strlen( substr( strrchr( (string) $start, '.' ), 1 ) );
+			$decimals  = max( $decimals, $start_dec );
 		}
 
-		$counter_data = [
+		$counter_data = array(
 			'start'     => $start,
 			'end'       => $end,
 			'duration'  => $duration,
 			'separator' => $separator,
 			'decimals'  => $decimals,
 			'trigger'   => $trigger,
-		];
+		);
 
-		$this->set_attribute('_root', 'data-aab-counter', wp_json_encode($counter_data));
+		$this->set_attribute( '_root', 'data-aab-counter', wp_json_encode( $counter_data ) );
 
-		echo wp_kses_post('<div ' . $this->render_attributes('_root') . '>');
+		echo wp_kses_post( '<div ' . $this->render_attributes( '_root' ) . '>' );
 		echo '<div class="aab-counter__inner">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		// Number row: prefix + number + suffix
 		echo '<div class="aab-counter__number-wrap">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
-		if (! empty($prefix)) {
-			echo '<span class="aab-counter__prefix">' . esc_html($prefix) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		if ( ! empty( $prefix ) ) {
+			echo '<span class="aab-counter__prefix">' . esc_html( $prefix ) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 
 		// Display the starting number formatted
-		$display = $this->format_number($start, $decimals, $separator);
-		echo '<span class="aab-counter__number">' . esc_html($display) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		$display = $this->format_number( $start, $decimals, $separator );
+		echo '<span class="aab-counter__number">' . esc_html( $display ) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
-		if (! empty($suffix)) {
-			echo '<span class="aab-counter__suffix">' . esc_html($suffix) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		if ( ! empty( $suffix ) ) {
+			echo '<span class="aab-counter__suffix">' . esc_html( $suffix ) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 
 		echo '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		// Title
-		if (! empty($title)) {
-			echo '<' . tag_escape($tag) . ' class="aab-counter__title">' . esc_html($title) . '</' . tag_escape($tag) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		if ( ! empty( $title ) ) {
+			echo '<' . tag_escape( $tag ) . ' class="aab-counter__title">' . esc_html( $title ) . '</' . tag_escape( $tag ) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 
 		echo '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
-	private function format_number($number, $decimals, $separator)
-	{
+	private function format_number( $number, $decimals, $separator ) {
 		$sep_char = '';
-		switch ($separator) {
+		switch ( $separator ) {
 			case 'comma':
 				$sep_char = ',';
 				break;
@@ -411,8 +434,8 @@ class BRICKSFLY_Bricks_Counter extends \Bricks\Element
 				break;
 		}
 
-		$dec_point = ($separator === 'dot') ? ',' : '.';
+		$dec_point = ( $separator === 'dot' ) ? ',' : '.';
 
-		return number_format($number, $decimals, $dec_point, $sep_char);
+		return number_format( $number, $decimals, $dec_point, $sep_char );
 	}
 }
