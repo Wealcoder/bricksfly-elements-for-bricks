@@ -1222,6 +1222,23 @@ $bricksfly_config = array(
 								'doc_url'      => 'https://bricksfly.com/docs/gsap-extensions/parallax-effect/',
 								'youtube_url'  => '',
 							),
+							'motion-builder'          => array(
+								'label'        => 'Motion Builder',
+								'location'     => array(
+									'cTab'     => 'gsap',
+									'pluginId' => 'aab-smooth-scroller',
+								),
+								'is_pro'       => true,
+								'is_active'    => false,
+								'is_extension' => false,
+								'is_upcoming'  => false,
+								'setup'        => array('basic', 'advance'),
+								'icon'         => 'wcf-icon-Animation',
+								'demo_url'     => 'https://bricksfly.com/extensions/motion-builder/',
+								'doc_url'      => 'https://bricksfly.com/docs/gsap-extensions/motion-builder/',
+								'youtube_url'  => '',
+								'description'  => 'Stack multiple scroll, load, hover and click animations on one element, each with its own timing, easing and separate From/To properties.',
+							),
 						),
 					),
 					'effect' => array(
