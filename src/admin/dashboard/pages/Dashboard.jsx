@@ -1,4 +1,5 @@
 import AffiliateProgram from "@/components/dashboard/AffiliateProgram";
+import AiConnect from "@/components/dashboard/AiConnect";
 import Documentation from "@/components/dashboard/Documentation";
 import HeroBanner from "@/components/dashboard/HeroBanner";
 import LatestBlog from "@/components/dashboard/LatestBlog";
@@ -20,6 +21,8 @@ const Dashboard = () => {
         <Tutorial />
         <Documentation />
       </SplitRow>
+      {/* In the middle while the feature is new; moves to the top when it is final. */}
+      <AiConnect />
       <SplitRow columns={[50, 50]}>
         <AffiliateProgram />
         <WhatsNew />

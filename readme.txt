@@ -4,7 +4,7 @@ Tags: bricks builder, bricks templates, bricks builder addons, bricks elements, 
 Requires at least: 6.9
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.13
+Stable tag: 1.0.14
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -307,6 +307,9 @@ The files in `public/build` are compiled (minified) JavaScript and CSS. **Their 
 
 == Changelog ==
 
+= 1.0.14 =
+- Added: A "Build with AI" strip on the BricksFly dashboard. With BricksFly Pro 1.0.13 or newer it opens Connect your AI, where one link connects Claude or ChatGPT to your site, and it shows whether a connection exists and when it was last used.
+
 = 1.0.13 =
 - Added: Black Friday offers, running until December 10. Sites without BricksFly Pro see the lifetime plan offer; sites with BricksFly Pro see the Agency Bundle offer.
 - Changed: The offer notice shows at most twice per administrator on the Dashboard screen, at least 10 minutes apart, and on every visit to the Plugins screen until it is dismissed. Its close button hides it for 10 minutes; "Don't show again" hides it for good.
@@ -327,21 +330,9 @@ The files in `public/build` are compiled (minified) JavaScript and CSS. **Their 
 - Fixed: Lottie .json files of a page are imported with the page.
 - Fixed: Section library thumbnails were cut off at the left and right. The card now shows the whole width of the screenshot.
 
-= 1.0.11 =
-- Added: The Image Hotspot element, to place clickable markers with tooltips on an image.
-- Added: When you insert a section from the library, an Import settings window lets you choose "Keep original design" or "Use this site's style", and "Keep demo image links" (default) or "Copy images to my site". SVG icons are always copied so they display.
-- Added: While a section is importing, the screen is locked and "Importing section..." is shown in the middle.
-- Added: Variables a section uses are added to your site's Variables. A variable you already have is never replaced. If the section only exports a color palette, the variables are built from it.
-- Added: Clear error and warning messages that say what went wrong and what to do.
-- Improved: A section never overrides a global class your site already has. A class with the same name and the same styling is reused; one with different styling is added as "name-2".
-- Improved: "Use this site's style" does not add the template's classes or variables, and removes the fonts and color variables set on the section, so your theme styles apply.
-- Improved: References to the library's custom fonts, which are not part of the export, are removed so the section uses your site's fonts.
-- Fixed: Section names with a dash or quote showed raw HTML codes in the library.
-- Fixed: Filtering or searching quickly could show duplicate or wrong cards in the library.
-
 [See the full changelog](https://plugins.trac.wordpress.org/browser/bricksfly-elements-for-bricks/trunk/changelog.txt).
 
 == Upgrade Notice ==
 
-= 1.0.13 =
-Black Friday offers until December 10 for sites with and without BricksFly Pro.
+= 1.0.14 =
+Adds the "Build with AI" strip to the BricksFly dashboard (for BricksFly Pro 1.0.13 or newer).
