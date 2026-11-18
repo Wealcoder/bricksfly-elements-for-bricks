@@ -57,6 +57,13 @@ class BRICKSFLY_Public
 	 */
 	public function enqueue_styles()
 	{
+		// Without the Bricks theme there are no BricksFly elements on the page
+		// and no `bricks-frontend` handle to depend on (WP 6.9.1+ prints a
+		// "dependencies that are not registered" notice for it).
+		if (! defined('BRICKS_VERSION')) {
+			return;
+		}
+
 		wp_enqueue_style($this->plugin_name, BRICKSFLY_URL . 'public/build/frontend.css', array('bricks-frontend'), $this->version, 'all');
 	}
 
@@ -72,7 +79,11 @@ class BRICKSFLY_Public
 		// `scroll-to-plugin`, `split-text`, `scroll-trigger`, and
 		// `scroll-smoother` handles via includes/core/lib-scripts.php.
 
-		// Base plugin script.
+		// Base plugin script (only useful where Bricks renders the page).
+		if (! defined('BRICKS_VERSION')) {
+			return;
+		}
+
 		wp_enqueue_script($this->plugin_name, BRICKSFLY_URL . 'public/build/frontend.js', array(), $this->version, false);
 	}
 
