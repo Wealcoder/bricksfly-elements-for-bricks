@@ -605,6 +605,15 @@ class WXRImporter extends \WP_Importer {
 		}
 
 		if ( $post_exists ) {
+			// A font and its files from an earlier import of the same demo are
+			// reused: the font's faces and the content's font references must
+			// point at the posts that are on this site.
+			if ( in_array( $data['post_type'], array( 'attachment', 'bricks_fonts' ), true ) ) {
+				$this->mapping['post'][ $original_id ] = (int) $post_exists;
+				if ( 'bricks_fonts' === $data['post_type'] ) {
+					$this->record_font_id( $original_id, (int) $post_exists );
+				}
+			}
 			$this->process_comments( $comments, $original_id, $data, $post_exists );
 			do_action( 'bricksfly_import_existing_post', $post_exists, $original_id, $data, $data );
 			return false;
@@ -703,6 +712,9 @@ class WXRImporter extends \WP_Importer {
 			$this->requires_remapping['post'][ $post_id ] = true;
 		}
 		$this->mark_post_exists( $data, $post_id );
+		if ( 'bricks_fonts' === $data['post_type'] ) {
+			$this->record_font_id( $original_id, (int) $post_id );
+		}
 
 		// Bridged via bricksfly_import_post_terms() rather than calling the
 		// original WordPress Importer project's 'wp_import_post_terms' filter
@@ -929,6 +941,14 @@ class WXRImporter extends \WP_Importer {
 				// source site unless we walk the tree here.
 				if ( is_array( $value ) && in_array( $key, array( '_bricks_page_content_2', '_bricks_page_header_2', '_bricks_page_footer_2' ), true ) ) {
 					$value = $this->import_bricks_element_images( $value );
+				}
+
+				// A Bricks custom font lists its files by attachment id. The files
+				// get new ids here, so the faces are rewritten once every
+				// attachment of the file is in (post_process_posts()).
+				if ( 'bricks_font_faces' === $key && is_array( $value ) ) {
+					add_post_meta( $post_id, '_bricksfly_import_font_faces', wp_slash( $value ) );
+					$this->requires_remapping['post'][ $post_id ] = true;
 				}
 
 				add_post_meta( $post_id, wp_slash( $key ), wp_slash( $value ) );
@@ -1624,6 +1644,8 @@ class WXRImporter extends \WP_Importer {
 			}
 			if ( get_post_type( $post_id ) === 'nav_menu_item' ) {
 				$this->post_process_menu_item( $post_id ); }
+			if ( get_post_type( $post_id ) === 'bricks_fonts' ) {
+				$this->post_process_font_faces( $post_id ); }
 			if ( empty( $data ) ) {
 				continue; }
 
@@ -1636,6 +1658,60 @@ class WXRImporter extends \WP_Importer {
 			delete_post_meta( $post_id, '_bricksfly_import_user_slug' );
 			delete_post_meta( $post_id, '_bricksfly_import_has_attachment_refs' );
 		}
+	}
+
+	/**
+	 * Point a custom font's faces at the font files imported with it.
+	 *
+	 * The faces are kept as they came in the file until every file id is
+	 * mapped, so a later part of a split import can finish the job.
+	 *
+	 * @param int $post_id Font post id.
+	 */
+	protected function post_process_font_faces( $post_id ) {
+		$faces = get_post_meta( $post_id, '_bricksfly_import_font_faces', true );
+		if ( ! is_array( $faces ) ) {
+			return;
+		}
+
+		$complete = true;
+		$map      = function ( $value ) use ( &$map, &$complete ) {
+			foreach ( $value as $key => $item ) {
+				if ( is_array( $item ) ) {
+					$value[ $key ] = $map( $item );
+				} elseif ( ! in_array( $key, array( 'unicode-range', 'font-weight-range' ), true ) && is_numeric( $item ) ) {
+					if ( isset( $this->mapping['post'][ (int) $item ] ) ) {
+						$value[ $key ] = (int) $this->mapping['post'][ (int) $item ];
+					} else {
+						$complete = false;
+					}
+				}
+			}
+			return $value;
+		};
+
+		update_post_meta( $post_id, 'bricks_font_faces', wp_slash( $map( $faces ) ) );
+		if ( $complete ) {
+			delete_post_meta( $post_id, '_bricksfly_import_font_faces' );
+		}
+	}
+
+	/**
+	 * Remember which font id of the demo became which font on this site, for
+	 * the "custom_font_<id>" references in pages, classes and styles (rewritten
+	 * in the last import step).
+	 *
+	 * @param int $original_id Font id in the demo.
+	 * @param int $post_id     Font id on this site.
+	 */
+	protected function record_font_id( $original_id, $post_id ) {
+		if ( $original_id <= 0 || $post_id <= 0 ) {
+			return;
+		}
+		$ids                 = get_option( 'bricksfly_import_font_ids', array() );
+		$ids                 = is_array( $ids ) ? $ids : array();
+		$ids[ $original_id ] = $post_id;
+		update_option( 'bricksfly_import_font_ids', $ids, false );
 	}
 
 	protected function post_process_menu_item( $post_id ) {

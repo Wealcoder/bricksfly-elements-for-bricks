@@ -1,6 +1,6 @@
 {
   "name": "bricksfly-elements-for-bricks",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "",
   "main": "vite.config.js",
   "types": "module",

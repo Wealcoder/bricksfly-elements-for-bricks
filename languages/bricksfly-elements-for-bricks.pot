@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: BricksFly Elements and Templates for Bricks 1.0.15\n"
+"Project-Id-Version: BricksFly Elements and Templates for Bricks 1.0.16\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bricksfly-elements-for-bricks\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-18T05:27:45+00:00\n"
+"POT-Creation-Date: 2026-11-18T11:14:44+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: bricksfly-elements-for-bricks\n"
@@ -158,47 +158,47 @@ msgstr ""
 msgid "Cannot import auto-draft posts"
 msgstr ""
 
-#: admin/base/WXRImporter.php:681
+#: admin/base/WXRImporter.php:690
 msgid "fetching attachments disabled"
 msgstr ""
 
-#: admin/base/WXRImporter.php:856
+#: admin/base/WXRImporter.php:868
 msgid "Invalid file type"
 msgstr ""
 
 #. translators: 1: HTTP status code, 2: HTTP status text, 3: requested URL.
-#: admin/base/WXRImporter.php:1558
+#: admin/base/WXRImporter.php:1578
 #, php-format
 msgid "Remote server returned %1$d %2$s for %3$s"
 msgstr ""
 
-#: admin/base/WXRImporter.php:1569
+#: admin/base/WXRImporter.php:1589
 msgid "Zero size file downloaded"
 msgstr ""
 
 #. translators: %s: human-readable maximum allowed file size (e.g. "5 MB").
-#: admin/base/WXRImporter.php:1578
+#: admin/base/WXRImporter.php:1598
 #, php-format
 msgid "Remote file is too large, limit is %s"
 msgstr ""
 
-#: admin/base/WXRImporter.php:1589
+#: admin/base/WXRImporter.php:1609
 msgid "Processing Posts"
 msgstr ""
 
-#: admin/base/WXRImporter.php:1593
+#: admin/base/WXRImporter.php:1613
 msgid "Processing Comments"
 msgstr ""
 
-#: admin/base/WXRImporter.php:1597
+#: admin/base/WXRImporter.php:1617
 msgid "Processing Terms"
 msgstr ""
 
-#: admin/base/WXRImporter.php:1749
+#: admin/base/WXRImporter.php:1825
 msgid "Starting remapping of featured images"
 msgstr ""
 
-#: admin/base/WXRImporter.php:1804
+#: admin/base/WXRImporter.php:1880
 msgid "Comment checking"
 msgstr ""
 
@@ -730,35 +730,35 @@ msgstr ""
 msgid "You are not allowed to do this action"
 msgstr ""
 
-#: admin/pages/template-importer.php:275
+#: admin/pages/template-importer.php:276
 msgid "Checking Setup requirement"
 msgstr ""
 
-#: admin/pages/template-importer.php:298
+#: admin/pages/template-importer.php:299
 msgid "Downloading Template"
 msgstr ""
 
-#: admin/pages/template-importer.php:314
+#: admin/pages/template-importer.php:315
 msgid "Missing Content file, contact author"
 msgstr ""
 
-#: admin/pages/template-importer.php:317
+#: admin/pages/template-importer.php:318
 msgid "Content file Downloading"
 msgstr ""
 
-#: admin/pages/template-importer.php:325
+#: admin/pages/template-importer.php:326
 msgid "Verifying Content Import"
 msgstr ""
 
-#: admin/pages/template-importer.php:326
+#: admin/pages/template-importer.php:327
 msgid "Checking Theme"
 msgstr ""
 
-#: admin/pages/template-importer.php:358
+#: admin/pages/template-importer.php:360
 msgid "Template Demo Import fail"
 msgstr ""
 
-#: admin/pages/template-importer.php:1016
+#: admin/pages/template-importer.php:1126
 msgid "earlier demo"
 msgstr ""
 

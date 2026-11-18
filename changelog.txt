@@ -1,5 +1,8 @@
 === BricksFly Elements and Templates for Bricks - Changelog ===
 
+= 1.0.16 =
+- Fixed: Custom fonts of a starter template now come along when you import it. Each font points to its own imported font files, the template's classes, theme styles and pages use the fonts on your site, and the font CSS loads from your site instead of the demo site.
+
 = 1.0.15 =
 - Fixed: The Import Section button on an empty Bricks page no longer turns yellow on hover, which hid the BricksFly logo.
 - Fixed: Without the Bricks theme, the front end no longer shows a "dependencies that are not registered" notice for the BricksFly stylesheet.

@@ -4,7 +4,7 @@ Tags: bricks builder, bricks templates, bricks builder addons, bricks elements, 
 Requires at least: 6.9
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.15
+Stable tag: 1.0.16
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -307,6 +307,9 @@ The files in `public/build` are compiled (minified) JavaScript and CSS. **Their 
 
 == Changelog ==
 
+= 1.0.16 =
+- Fixed: Custom fonts of a starter template now come along when you import it. Each font points to its own imported font files, the template's classes, theme styles and pages use the fonts on your site, and the font CSS loads from your site instead of the demo site.
+
 = 1.0.15 =
 - Fixed: The Import Section button on an empty Bricks page no longer turns yellow on hover, which hid the BricksFly logo.
 - Fixed: Without the Bricks theme, the front end no longer shows a "dependencies that are not registered" notice for the BricksFly stylesheet.
@@ -314,16 +317,9 @@ The files in `public/build` are compiled (minified) JavaScript and CSS. **Their 
 = 1.0.14 =
 - Added: A "Build with AI" strip on the BricksFly dashboard. With BricksFly Pro 1.0.13 or newer it opens Connect your AI, where one link connects Claude or ChatGPT to your site, and it shows whether a connection exists and when it was last used.
 
-= 1.0.13 =
-- Added: Black Friday offers, running until December 10. Sites without BricksFly Pro see the lifetime plan offer; sites with BricksFly Pro see the Agency Bundle offer.
-- Changed: The offer notice shows at most twice per administrator on the Dashboard screen, at least 10 minutes apart, and on every visit to the Plugins screen until it is dismissed. Its close button hides it for 10 minutes; "Don't show again" hides it for good.
-- Changed: The offer in the BricksFly dashboard shows on every visit while it runs. Its X hides it until the page is opened again.
-- Removed: The Halloween offer banner.
-- Fixed: Uninstalling BricksFly removes the admin notices' own records (dismissed and snoozed notices, view counts). Settings, templates and content are kept.
-
 [See the full changelog](https://plugins.trac.wordpress.org/browser/bricksfly-elements-for-bricks/trunk/changelog.txt).
 
 == Upgrade Notice ==
 
-= 1.0.15 =
-Fixes the Import Section button hover on an empty Bricks page and a front-end notice on sites without the Bricks theme.
+= 1.0.16 =
+Starter template imports now bring the template's custom fonts along, so headings and text keep their original look.

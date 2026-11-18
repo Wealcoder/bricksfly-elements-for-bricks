@@ -257,6 +257,7 @@ class BRICKSFLY_Template_Importer {
 
 			// Content progress of an earlier import must not show for this one.
 			delete_option( 'bricksfly_template_import_progress' );
+			delete_option( 'bricksfly_import_font_ids' );
 			delete_transient( self::bundle_key() );
 			delete_transient( self::site_vars_key() );
 
@@ -334,6 +335,7 @@ class BRICKSFLY_Template_Importer {
 			$progress                   = '100';
 
 			$this->update_blog_and_homepage_options( $template_data );
+			$this->remap_imported_fonts();
 
 			if ( $site_style ) {
 				$this->apply_site_style_to_imported_pages();
@@ -364,6 +366,114 @@ class BRICKSFLY_Template_Importer {
 				'msg'      => $msg,
 				'progress' => $progress,
 			)
+		);
+	}
+
+	/**
+	 * Custom fonts of the demo get new ids on this site ("custom_font_14" may
+	 * now be font 3342). Rewrite the references in the imported pages and
+	 * templates and in the classes, theme styles and components, then let
+	 * Bricks rebuild its @font-face CSS from the fonts on this site, so it
+	 * loads the imported files instead of the demo site's.
+	 */
+	private function remap_imported_fonts() {
+		$ids = get_option( 'bricksfly_import_font_ids', array() );
+		delete_option( 'bricksfly_import_font_ids' );
+
+		if ( ! is_array( $ids ) || ! $ids ) {
+			return;
+		}
+
+		$map = array();
+		foreach ( $ids as $old => $new ) {
+			if ( (int) $old > 0 && (int) $new > 0 && (int) $old !== (int) $new ) {
+				$map[ (int) $old ] = (int) $new;
+			}
+		}
+
+		if ( $map ) {
+			$batch_id = (string) get_option( 'bricksfly_last_import_batch' );
+			if ( '' !== $batch_id ) {
+				global $wpdb;
+				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+				$post_ids = $wpdb->get_col( $wpdb->prepare( "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = 'bricksfly_import_batch' AND meta_value = %s", $batch_id ) );
+				foreach ( array_map( 'intval', (array) $post_ids ) as $post_id ) {
+					foreach ( array( '_bricks_page_content_2', '_bricks_page_header_2', '_bricks_page_footer_2' ) as $key ) {
+						$elements = get_post_meta( $post_id, $key, true );
+						if ( ! is_array( $elements ) ) {
+							continue;
+						}
+						$changed = self::replace_font_ids( $elements, $map );
+						if ( $changed !== $elements ) {
+							update_post_meta( $post_id, $key, wp_slash( $changed ) );
+						}
+					}
+				}
+			}
+
+			// A font of this site that has the demo's id keeps its own
+			// references in the site-wide design data.
+			$site_map = array();
+			foreach ( $map as $old => $new ) {
+				if ( 'bricks_fonts' !== get_post_type( $old ) || in_array( $old, $map, true ) ) {
+					$site_map[ $old ] = $new;
+				}
+			}
+			if ( $site_map ) {
+				foreach ( array( 'bricks_global_classes', 'bricks_theme_styles', 'bricks_components' ) as $option_name ) {
+					$value = get_option( $option_name );
+					if ( ! is_array( $value ) ) {
+						continue;
+					}
+					$changed = self::replace_font_ids( $value, $site_map );
+					if ( $changed !== $value ) {
+						update_option( $option_name, $changed );
+					}
+				}
+			}
+		}
+
+		if ( ! class_exists( '\Bricks\Custom_Fonts' ) ) {
+			return;
+		}
+		if ( method_exists( '\Bricks\Custom_Fonts', 'refresh_font_face_rules' ) ) {
+			\Bricks\Custom_Fonts::refresh_font_face_rules();
+		} elseif ( method_exists( '\Bricks\Custom_Fonts', 'get_custom_fonts' ) ) {
+			\Bricks\Custom_Fonts::$fonts           = false;
+			\Bricks\Custom_Fonts::$font_face_rules = '';
+			\Bricks\Custom_Fonts::get_custom_fonts();
+			if ( '' !== \Bricks\Custom_Fonts::$font_face_rules ) {
+				update_option( 'bricks_font_face_rules', \Bricks\Custom_Fonts::$font_face_rules );
+			}
+		}
+	}
+
+	/**
+	 * Replace "custom_font_<old id>" with "custom_font_<new id>" in every
+	 * string value, in one pass (so 13 → 14 and 14 → 20 do not chain).
+	 *
+	 * @param mixed $value Value.
+	 * @param int[] $map   Old font id => new font id.
+	 * @return mixed
+	 */
+	private static function replace_font_ids( $value, array $map ) {
+		if ( is_array( $value ) ) {
+			foreach ( $value as $key => $item ) {
+				$value[ $key ] = self::replace_font_ids( $item, $map );
+			}
+			return $value;
+		}
+
+		if ( ! is_string( $value ) || false === strpos( $value, 'custom_font_' ) ) {
+			return $value;
+		}
+
+		return preg_replace_callback(
+			'/\bcustom_font_(\d+)\b/',
+			static function ( $m ) use ( $map ) {
+				return isset( $map[ (int) $m[1] ] ) ? 'custom_font_' . $map[ (int) $m[1] ] : $m[0];
+			},
+			$value
 		);
 	}
 
