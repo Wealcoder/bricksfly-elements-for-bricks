@@ -309,6 +309,8 @@ The files in `public/build` are compiled (minified) JavaScript and CSS. **Their 
 
 = 1.0.14 =
 - Added: A "Build with AI" strip on the BricksFly dashboard. With BricksFly Pro 1.0.13 or newer it opens Connect your AI, where one link connects Claude or ChatGPT to your site, and it shows whether a connection exists and when it was last used.
+- Fixed: The Import Section button on an empty Bricks page no longer turns yellow on hover, which hid the BricksFly logo.
+- Fixed: Without the Bricks theme, the front end no longer shows a "dependencies that are not registered" notice for the BricksFly stylesheet.
 
 = 1.0.13 =
 - Added: Black Friday offers, running until December 10. Sites without BricksFly Pro see the lifetime plan offer; sites with BricksFly Pro see the Agency Bundle offer.

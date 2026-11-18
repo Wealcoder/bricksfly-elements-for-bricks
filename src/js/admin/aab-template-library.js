@@ -376,6 +376,9 @@ import "../../scss/admin/aab-template-library.scss";
 				'#bricks-preview-element-actions li.aab-canvas-import img{display:block;width:62%;height:62%;object-fit:contain;pointer-events:none}' +
 				'#bricks-preview-element-actions li.aab-canvas-import svg{display:block;width:62%;height:62%;pointer-events:none}' +
 				'#bricks-blank-canvas .actions .aab-canvas-import{display:inline-flex;align-items:center;justify-content:center;cursor:pointer}' +
+				// Bricks fills hovered tiles with its accent colour (yellow by default),
+				// which hides the yellow BricksFly logo: use a dark tile instead.
+				'#bricks-blank-canvas .actions .aab-canvas-import:hover,#bricks-blank-canvas .actions .aab-canvas-import:focus-visible{background-color:#1e1e22;color:#fff;outline:none}' +
 				'#bricks-blank-canvas .actions .aab-canvas-import img{display:block;width:24px;height:24px;object-fit:contain;pointer-events:none}' +
 				'#bricks-blank-canvas .actions .aab-canvas-import svg{display:block;width:22px;height:22px;pointer-events:none}';
 			doc.head.appendChild(style);
