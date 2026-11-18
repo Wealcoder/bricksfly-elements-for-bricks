@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: BricksFly Elements and Templates for Bricks 1.0.13\n"
+"Project-Id-Version: BricksFly Elements and Templates for Bricks 1.0.15\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bricksfly-elements-for-bricks\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-14T09:46:12+00:00\n"
+"POT-Creation-Date: 2026-11-18T05:27:45+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: bricksfly-elements-for-bricks\n"
@@ -235,7 +235,7 @@ msgstr ""
 msgid "Agency Bundle lifetime at 70 percent off: Animation Addons Pro, MotionKit, BricksFly, Arolax and Axtra themes for $449."
 msgstr ""
 
-#: admin/Notices/class-notices.php:283
+#: admin/Notices/class-notices.php:280
 msgid "Dismiss this notice"
 msgstr ""
 
@@ -668,23 +668,23 @@ msgstr ""
 msgid "Starter Template"
 msgstr ""
 
-#: admin/pages/dashboard.php:476
-#: admin/pages/dashboard.php:511
-#: admin/pages/dashboard.php:532
-#: admin/pages/dashboard.php:546
-#: admin/pages/dashboard.php:594
+#: admin/pages/dashboard.php:480
+#: admin/pages/dashboard.php:515
+#: admin/pages/dashboard.php:536
+#: admin/pages/dashboard.php:550
+#: admin/pages/dashboard.php:598
 msgid "you are not allowed to do this action"
 msgstr ""
 
-#: admin/pages/dashboard.php:496
+#: admin/pages/dashboard.php:500
 msgid "Invalid settings type."
 msgstr ""
 
-#: admin/pages/dashboard.php:522
+#: admin/pages/dashboard.php:526
 msgid "Notice Updated"
 msgstr ""
 
-#: admin/pages/dashboard.php:599
+#: admin/pages/dashboard.php:603
 msgid "Smooth scroller settings are required."
 msgstr ""
 

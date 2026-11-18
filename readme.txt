@@ -4,7 +4,7 @@ Tags: bricks builder, bricks templates, bricks builder addons, bricks elements, 
 Requires at least: 6.9
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.14
+Stable tag: 1.0.15
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -307,10 +307,12 @@ The files in `public/build` are compiled (minified) JavaScript and CSS. **Their 
 
 == Changelog ==
 
-= 1.0.14 =
-- Added: A "Build with AI" strip on the BricksFly dashboard. With BricksFly Pro 1.0.13 or newer it opens Connect your AI, where one link connects Claude or ChatGPT to your site, and it shows whether a connection exists and when it was last used.
+= 1.0.15 =
 - Fixed: The Import Section button on an empty Bricks page no longer turns yellow on hover, which hid the BricksFly logo.
 - Fixed: Without the Bricks theme, the front end no longer shows a "dependencies that are not registered" notice for the BricksFly stylesheet.
+
+= 1.0.14 =
+- Added: A "Build with AI" strip on the BricksFly dashboard. With BricksFly Pro 1.0.13 or newer it opens Connect your AI, where one link connects Claude or ChatGPT to your site, and it shows whether a connection exists and when it was last used.
 
 = 1.0.13 =
 - Added: Black Friday offers, running until December 10. Sites without BricksFly Pro see the lifetime plan offer; sites with BricksFly Pro see the Agency Bundle offer.
@@ -319,22 +321,9 @@ The files in `public/build` are compiled (minified) JavaScript and CSS. **Their 
 - Removed: The Halloween offer banner.
 - Fixed: Uninstalling BricksFly removes the admin notices' own records (dismissed and snoozed notices, view counts). Settings, templates and content are kept.
 
-= 1.0.12 =
-- Added: An Import Section button in the Bricks editor toolbar, in the canvas actions and on a blank page opens the section library. When BricksFly Pro holds a Live Copy, a chooser lets you pick Cloud or Live Paste.
-- Added: Preview in the section library opens the demo inside the library, with Back to library, previous and next section (arrow keys), Desktop, Tablet and Mobile widths, Open in new tab and Insert. A hint shows while a slow demo loads.
-- Added: Page import has an Import settings window for every page: "Original style" or "This site's style", and "Import images". Original style adds the page's theme style so that it applies to the imported page only, puts the page's custom code in the page settings, and merges the colors and variables the page uses without replacing yours; the template's breakpoints are taken only while your site still uses the Bricks defaults. This site's style leaves the template's classes, variables, colors, theme style and fonts out.
-- Added: Preview in the page library opens the demo inside the dashboard, with Back, previous and next page (arrow keys), Desktop, Tablet and Mobile widths, Open in new tab and Import.
-- Added: A second starter template can be imported on a site that already has one. The new template's header, footer, theme style and front page take over; the earlier template keeps its own look on its own pages, and its menus stay separate. The Required Features step tells you about this before the import starts.
-- Improved: A starter template's components, global queries and class and query categories are merged with yours (yours win), custom pseudo classes are united, and the color palette is merged color by color, so a template's colors are no longer skipped when a palette id already exists.
-- Improved: A starter template's site-wide custom CSS and scripts (for example a Lottie loader) are added to the Bricks custom code settings on a full import.
-- Changed: The section and page libraries list the newest items first. A page imported before comes in again as a new copy instead of being skipped.
-- Fixed: A starter template whose Bricks settings held a script with Windows line endings lost those settings during the import.
-- Fixed: Lottie .json files of a page are imported with the page.
-- Fixed: Section library thumbnails were cut off at the left and right. The card now shows the whole width of the screenshot.
-
 [See the full changelog](https://plugins.trac.wordpress.org/browser/bricksfly-elements-for-bricks/trunk/changelog.txt).
 
 == Upgrade Notice ==
 
-= 1.0.14 =
-Adds the "Build with AI" strip to the BricksFly dashboard (for BricksFly Pro 1.0.13 or newer).
+= 1.0.15 =
+Fixes the Import Section button hover on an empty Bricks page and a front-end notice on sites without the Bricks theme.
