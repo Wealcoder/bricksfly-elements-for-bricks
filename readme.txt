@@ -4,7 +4,7 @@ Tags: bricks builder, bricks templates, bricks builder addons, bricks elements, 
 Requires at least: 6.9
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.17
+Stable tag: 1.0.18
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -307,19 +307,19 @@ The files in `public/build` are compiled (minified) JavaScript and CSS. **Their 
 
 == Changelog ==
 
+= 1.0.18 =
+- Improved: WPML and Polylang. Technical settings of BricksFly elements (a CSS selector of the animated heading, the slides setting of the brand slider, style data of floating elements) are no longer sent to the translation; the translated page uses the original value.
+- Removed: The Black Friday offer banners on the Dashboard screen, the Plugins screen and in the BricksFly dashboard.
+
 = 1.0.17 =
 - Fixed: The Documentation and Preview links for every element and extension now open the correct page instead of a "not found" page.
 
 = 1.0.16 =
 - Fixed: Custom fonts of a starter template now come along when you import it. Each font points to its own imported font files, the template's classes, theme styles and pages use the fonts on your site, and the font CSS loads from your site instead of the demo site.
 
-= 1.0.15 =
-- Fixed: The Import Section button on an empty Bricks page no longer turns yellow on hover, which hid the BricksFly logo.
-- Fixed: Without the Bricks theme, the front end no longer shows a "dependencies that are not registered" notice for the BricksFly stylesheet.
-
 [See the full changelog](https://plugins.trac.wordpress.org/browser/bricksfly-elements-for-bricks/trunk/changelog.txt).
 
 == Upgrade Notice ==
 
-= 1.0.17 =
-The Documentation and Preview links for each element and extension now open the correct page.
+= 1.0.18 =
+Offer banners removed. Technical settings of BricksFly elements stay out of WPML and Polylang translations.

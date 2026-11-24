@@ -1,5 +1,9 @@
 === BricksFly Elements and Templates for Bricks - Changelog ===
 
+= 1.0.18 =
+- Improved: WPML and Polylang. Technical settings of BricksFly elements (a CSS selector of the animated heading, the slides setting of the brand slider, style data of floating elements) are no longer sent to the translation; the translated page uses the original value.
+- Removed: The Black Friday offer banners on the Dashboard screen, the Plugins screen and in the BricksFly dashboard.
+
 = 1.0.17 =
 - Fixed: The Documentation and Preview links for every element and extension now open the correct page instead of a "not found" page.
 
