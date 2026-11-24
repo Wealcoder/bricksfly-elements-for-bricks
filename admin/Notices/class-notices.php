@@ -72,26 +72,7 @@ class Notices {
 	 *                 or 'pro' (sites with BricksFly Pro installed, active or not).
 	 */
 	protected function campaigns() {
-		return array(
-			array(
-				'id'       => 'bfcm_2026_free',
-				'audience' => 'free',
-				'start'    => '2026-11-14',
-				'end'      => '2026-12-10',
-				'image'    => 'bfcm-2026-free.png',
-				'url'      => 'https://bricksfly.com/pricing/?utm_source=plugin_dashboard&utm_medium=free_user_notice&utm_campaign=bfcm_2026&utm_content=get_lifetime_button',
-				'alt'      => __( 'Black Friday: BricksFly Pro lifetime plans from $47.40. Pay once, no renewals.', 'bricksfly-elements-for-bricks' ),
-			),
-			array(
-				'id'       => 'bfcm_2026_pro',
-				'audience' => 'pro',
-				'start'    => '2026-11-14',
-				'end'      => '2026-12-10',
-				'image'    => 'bfcm-2026-pro.png',
-				'url'      => 'https://animation-addons.com/agency-bundle/?utm_source=Bricksfly_plugin_dashboard&utm_medium=pro_user_notice&utm_campaign=bfcm_2026&utm_content=get_bundle_button',
-				'alt'      => __( 'Agency Bundle lifetime at 70 percent off: Animation Addons Pro, MotionKit, BricksFly, Arolax and Axtra themes for $449.', 'bricksfly-elements-for-bricks' ),
-			),
-		);
+		return array(); // No offer is running.
 	}
 
 	/**
