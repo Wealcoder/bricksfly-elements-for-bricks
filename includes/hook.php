@@ -250,3 +250,25 @@ function bricksfly_maybe_upgrade() {
 	update_option( 'bricksfly_db_version', BRICKSFLY_VERSION );
 }
 add_action( 'plugins_loaded', 'bricksfly_maybe_upgrade', 1 );
+
+/**
+ * WPML and Polylang: Bricks sends every text control of an element to the
+ * translation. These hold a CSS selector, a number of slides and a style
+ * snapshot: the translated page uses the original value.
+ *
+ * @param string[] $keys    Control keys Bricks does not translate.
+ * @param array    $element Bricks element.
+ * @return string[]
+ */
+function bricksfly_untranslated_controls( $keys, $element = array() ) {
+	$elements = array(
+		'aab-animated-heading'  => array( 'trigger_selector' ),
+		'aab-brand-slider'      => array( 'slidesPerView' ),
+		'aab-floating-elements' => array( '_cssSnapshot', 'floating_items' ),
+	);
+	$name     = is_array( $element ) && isset( $element['name'] ) ? (string) $element['name'] : '';
+
+	return isset( $elements[ $name ] ) ? array_merge( (array) $keys, $elements[ $name ] ) : $keys;
+}
+add_filter( 'bricks/wpml/exclude_controls_from_translation', 'bricksfly_untranslated_controls', 10, 2 );
+add_filter( 'bricks/polylang/exclude_controls_from_translation', 'bricksfly_untranslated_controls', 10, 2 );
