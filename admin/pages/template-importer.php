@@ -339,9 +339,10 @@ class BRICKSFLY_Template_Importer {
 			set_transient(
 				self::state_key(),
 				array(
-					'id'   => (int) $template_data['id'],
-					'type' => $item_type,
-					'file' => $file,
+					'id'         => (int) $template_data['id'],
+					'type'       => $item_type,
+					'file'       => $file,
+					'site_style' => $site_style,
 				),
 				DAY_IN_SECONDS
 			);
@@ -414,7 +415,11 @@ class BRICKSFLY_Template_Importer {
 				$this->free_page_addresses();
 				$this->remap_imported_ids();
 			}
-			$this->remap_imported_fonts();
+			if ( 'page' === $item_type && ! $site_style ) {
+				$this->settle_page_fonts();
+			} else {
+				$this->remap_imported_fonts();
+			}
 
 			if ( $site_style ) {
 				$this->apply_site_style_to_imported_pages();
@@ -616,6 +621,117 @@ class BRICKSFLY_Template_Importer {
 			}
 		}
 
+		self::refresh_font_faces();
+	}
+
+	/**
+	 * Add the custom fonts of the demo to the content file of a page.
+	 *
+	 * @param int    $item_id Library id of the import that runs.
+	 * @param string $file    Downloaded content file.
+	 * @return void
+	 */
+	public static function add_page_fonts( $item_id, $file ) {
+		$state = get_transient( self::state_key() );
+		if ( ! is_array( $state ) || ! isset( $state['type'] ) || 'page' !== $state['type'] || ! empty( $state['site_style'] ) ) {
+			return;
+		}
+
+		$item   = BRICKSFLY_Library_Client::get_template_item( 'page', $item_id );
+		$bundle = get_transient( self::bundle_key() );
+		$came   = \wealcoder\bricksfly\Admin\BRICKSFLY_Page_Fonts::add_to_file(
+			$file,
+			is_array( $item ) && isset( $item['demo_link'] ) ? (string) $item['demo_link'] : '',
+			isset( $bundle['fontRefs'] ) ? (array) $bundle['fontRefs'] : array()
+		);
+		if ( $came ) {
+			delete_transient( self::fonts_failed_key() );
+		} else {
+			set_transient( self::fonts_failed_key(), (int) $item_id, HOUR_IN_SECONDS );
+		}
+	}
+
+	/**
+	 * Transient with the page whose custom fonts could not be fetched.
+	 *
+	 * @return string
+	 */
+	public static function fonts_failed_key() {
+		return 'bricksfly_page_fonts_failed_' . get_current_user_id();
+	}
+
+	/**
+	 * Last step of a page import in its own design: the page, the classes that
+	 * came with it and its theme style use the fonts of this site. A font that
+	 * could not be found is left out: its id may be anything on this site.
+	 *
+	 * @return void
+	 */
+	private function settle_page_fonts() {
+		$ids = get_option( 'bricksfly_import_font_ids', array() );
+		$ids = is_array( $ids ) ? array_map( 'intval', $ids ) : array();
+		delete_option( 'bricksfly_import_font_ids' );
+
+		foreach ( $this->batch_posts( (string) get_option( 'bricksfly_last_import_batch' ), 'page' ) as $page_id ) {
+			$elements = get_post_meta( $page_id, '_bricks_page_content_2', true );
+			$changed  = is_array( $elements ) ? self::page_fonts( $elements, $ids ) : $elements;
+			if ( $changed !== $elements ) {
+				update_post_meta( $page_id, '_bricks_page_content_2', wp_slash( $changed ) );
+			}
+		}
+
+		$bundle = get_transient( self::bundle_key() );
+		if ( is_array( $bundle ) && ! empty( $bundle['newClasses'] ) ) {
+			$classes = get_option( 'bricks_global_classes', array() );
+			$before  = $classes;
+			foreach ( is_array( $classes ) ? $classes : array() as $i => $class ) {
+				if ( isset( $class['id'] ) && in_array( (string) $class['id'], $bundle['newClasses'], true ) ) {
+					$classes[ $i ] = self::page_fonts( $class, $ids );
+				}
+			}
+			if ( $classes !== $before ) {
+				update_option( 'bricks_global_classes', $classes );
+			}
+		}
+		if ( is_array( $bundle ) && ! empty( $bundle['themeStyles'] ) ) {
+			$bundle['themeStyles'] = self::page_fonts( $bundle['themeStyles'], $ids );
+			set_transient( self::bundle_key(), $bundle, DAY_IN_SECONDS );
+		}
+
+		if ( $ids ) {
+			self::refresh_font_faces();
+		}
+	}
+
+	/**
+	 * Font references of an imported page with the ids of this site.
+	 *
+	 * @param mixed $value Elements, classes or styles.
+	 * @param int[] $ids   Font id of the demo => font id of this site.
+	 * @return mixed
+	 */
+	private static function page_fonts( $value, array $ids ) {
+		if ( ! is_array( $value ) ) {
+			return self::replace_font_ids( $value, $ids );
+		}
+
+		foreach ( $value as $key => $item ) {
+			if ( 'font-family' === $key && is_string( $item ) && preg_match( '/^custom_font_(\d+)$/', $item, $m ) && ! isset( $ids[ (int) $m[1] ] ) ) {
+				unset( $value[ $key ] );
+				continue;
+			}
+			$value[ $key ] = self::page_fonts( $item, $ids );
+		}
+
+		return $value;
+	}
+
+	/**
+	 * Let Bricks rebuild its @font-face CSS from the fonts on this site.
+	 *
+	 * @return void
+	 */
+	private static function refresh_font_faces() {
 		if ( ! class_exists( '\Bricks\Custom_Fonts' ) ) {
 			return;
 		}
@@ -734,7 +850,7 @@ class BRICKSFLY_Template_Importer {
 	/**
 	 * Remember part of a page export for the last import step.
 	 *
-	 * @param array $part Keys: themeStyles, pageCode, styleIds (theme style ids a full demo brings), classIds (its renamed class ids).
+	 * @param array $part Keys: themeStyles, pageCode, fontRefs (font ids its classes and styles use), newClasses (ids of the classes it adds), styleIds (theme style ids a full demo brings), classIds (its renamed class ids).
 	 * @return void
 	 */
 	private function stash_page_bundle( $part ) {
@@ -746,6 +862,11 @@ class BRICKSFLY_Template_Importer {
 		}
 		if ( ! empty( $part['pageCode'] ) && is_array( $part['pageCode'] ) ) {
 			$bundle['pageCode'] = array_merge( isset( $bundle['pageCode'] ) ? (array) $bundle['pageCode'] : array(), $part['pageCode'] );
+		}
+		foreach ( array( 'fontRefs', 'newClasses' ) as $list ) {
+			if ( ! empty( $part[ $list ] ) && is_array( $part[ $list ] ) ) {
+				$bundle[ $list ] = array_values( array_unique( array_merge( isset( $bundle[ $list ] ) ? (array) $bundle[ $list ] : array(), $part[ $list ] ) ) );
+			}
 		}
 		if ( ! empty( $part['styleIds'] ) && is_array( $part['styleIds'] ) ) {
 			$bundle['styleIds'] = array_values( array_unique( array_merge( isset( $bundle['styleIds'] ) ? (array) $bundle['styleIds'] : array(), array_map( 'strval', $part['styleIds'] ) ) ) );
@@ -2239,9 +2360,18 @@ class BRICKSFLY_Template_Importer {
 		if ( ! empty( $data['pageCode'] ) && is_array( $data['pageCode'] ) ) {
 			$bundle['pageCode'] = $data['pageCode'];
 		}
-		if ( $bundle ) {
-			$this->stash_page_bundle( $bundle );
+
+		// Classes the site does not have yet come with the fonts of the demo.
+		$have   = array_map( 'strval', array_column( (array) get_option( 'bricks_global_classes', array() ), 'id' ) );
+		$wanted = array();
+		foreach ( $incoming_classes as $class ) {
+			if ( is_array( $class ) && isset( $class['id'] ) && ! in_array( (string) $class['id'], $have, true ) ) {
+				$wanted[] = $class;
+			}
 		}
+		$bundle['newClasses'] = array_map( 'strval', array_column( $wanted, 'id' ) );
+		$bundle['fontRefs']   = \wealcoder\bricksfly\Admin\BRICKSFLY_Page_Fonts::refs( wp_json_encode( array( $wanted, isset( $bundle['themeStyles'] ) ? $bundle['themeStyles'] : array() ) ) );
+		$this->stash_page_bundle( $bundle );
 
 		// JSON without global classes: nothing more to merge, but not XML either.
 		if ( empty( $incoming_classes ) ) {

@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-25T06:44:00+00:00\n"
+"POT-Creation-Date: 2026-11-25T07:18:59+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: bricksfly-elements-for-bricks\n"
@@ -216,11 +216,11 @@ msgstr ""
 msgid "Template not found."
 msgstr ""
 
-#: admin/library-client.php:153
+#: admin/library-client.php:222
 msgid "The template file is missing. Please contact the template author."
 msgstr ""
 
-#: admin/library-client.php:190
+#: admin/library-client.php:259
 msgid "The template library could not be reached. Please try again."
 msgstr ""
 
@@ -720,35 +720,35 @@ msgstr ""
 msgid "You are not allowed to do this action"
 msgstr ""
 
-#: admin/pages/template-importer.php:351
+#: admin/pages/template-importer.php:352
 msgid "Checking Setup requirement"
 msgstr ""
 
-#: admin/pages/template-importer.php:374
+#: admin/pages/template-importer.php:375
 msgid "Downloading Template"
 msgstr ""
 
-#: admin/pages/template-importer.php:390
+#: admin/pages/template-importer.php:391
 msgid "Missing Content file, contact author"
 msgstr ""
 
-#: admin/pages/template-importer.php:393
+#: admin/pages/template-importer.php:394
 msgid "Content file Downloading"
 msgstr ""
 
-#: admin/pages/template-importer.php:401
+#: admin/pages/template-importer.php:402
 msgid "Verifying Content Import"
 msgstr ""
 
-#: admin/pages/template-importer.php:402
+#: admin/pages/template-importer.php:403
 msgid "Checking Theme"
 msgstr ""
 
-#: admin/pages/template-importer.php:440
+#: admin/pages/template-importer.php:445
 msgid "Template Demo Import fail"
 msgstr ""
 
-#: admin/pages/template-importer.php:1505
+#: admin/pages/template-importer.php:1626
 msgid "earlier demo"
 msgstr ""
 
@@ -792,11 +792,11 @@ msgstr ""
 msgid "No import files specified!"
 msgstr ""
 
-#: admin/st-init.php:464
+#: admin/st-init.php:470
 msgid "Downloaded files"
 msgstr ""
 
-#: admin/st-init.php:519
+#: admin/st-init.php:525
 msgid "Congrats, your demo has been imported."
 msgstr ""
 

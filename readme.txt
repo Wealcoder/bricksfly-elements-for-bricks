@@ -317,6 +317,7 @@ The files in `public/build` are compiled (minified) JavaScript and CSS. **Their 
 - Fixed: Menu items and templates that share an address in the demo file were left out.
 - Fixed: Posts in the trash of a demo were imported.
 - Fixed: A starter template took over a page that was imported on its own before. It brings its own page now.
+- Fixed: The custom fonts of a page that is imported on its own were missing. They come from its starter template now.
 - Fixed: Every import left a log file in the Media Library, and importing a page again copied its icons again.
 - Fixed: Uninstalling BricksFly removes the records of template imports too. Imported content is kept.
 

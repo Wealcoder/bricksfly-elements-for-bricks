@@ -130,6 +130,75 @@ class BRICKSFLY_Library_Client {
 	}
 
 	/**
+	 * The starter template a demo page belongs to: the one whose demo has the
+	 * same first path segment.
+	 *
+	 * @param string $demo_link Demo address of a page.
+	 * @return int Library id, 0 when there is none.
+	 */
+	public static function find_template_by_demo( $demo_link ) {
+		$segment = self::demo_segment( $demo_link );
+		if ( '' === $segment ) {
+			return 0;
+		}
+
+		// A new template is not in the stored list yet: read it again, at most every 10 minutes.
+		$stored = get_transient( 'bricksfly_lib_demos' );
+		$known  = is_array( $stored ) && isset( $stored['list'], $stored['time'] ) && is_array( $stored['list'] );
+		$demos  = $known ? $stored['list'] : array();
+		if ( ! isset( $demos[ $segment ] ) && ( ! $known || time() - (int) $stored['time'] > self::CACHE_TTL ) ) {
+			$demos = array();
+			$pages = 1;
+			for ( $page = 1; $page <= $pages && $page <= 5; $page++ ) {
+				$data = self::decode(
+					self::get(
+						add_query_arg(
+							array(
+								'per_page' => 100,
+								'page'     => $page,
+							),
+							self::api_url( 'wp/v2/brk-templates' )
+						),
+						array( 'timeout' => 30 )
+					)
+				);
+				if ( is_wp_error( $data ) || empty( $data['templates'] ) || ! is_array( $data['templates'] ) ) {
+					return 0;
+				}
+				$pages = isset( $data['totalpages'] ) ? (int) $data['totalpages'] : 1;
+				foreach ( $data['templates'] as $item ) {
+					$name = is_array( $item ) && isset( $item['id'], $item['demo_link'] ) ? self::demo_segment( $item['demo_link'] ) : '';
+					if ( '' !== $name && ! isset( $demos[ $name ] ) ) {
+						$demos[ $name ] = absint( $item['id'] );
+					}
+				}
+			}
+			set_transient(
+				'bricksfly_lib_demos',
+				array(
+					'list' => $demos,
+					'time' => time(),
+				),
+				WEEK_IN_SECONDS
+			);
+		}
+
+		return isset( $demos[ $segment ] ) ? (int) $demos[ $segment ] : 0;
+	}
+
+	/**
+	 * First path segment of a demo address.
+	 *
+	 * @param string $url Demo address.
+	 * @return string
+	 */
+	private static function demo_segment( $url ) {
+		$path = explode( '/', trim( (string) wp_parse_url( html_entity_decode( (string) $url ), PHP_URL_PATH ), '/' ) );
+
+		return sanitize_title( $path[0] );
+	}
+
+	/**
 	 * Ask the library for the content file of a starter template / page.
 	 *
 	 * @param int $id Library item id.

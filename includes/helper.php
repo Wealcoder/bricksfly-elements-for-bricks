@@ -856,6 +856,7 @@ if ( ! function_exists( 'bricksfly_load_importer' ) ) {
 		$admin = BRICKSFLY_PATH . 'admin/';
 		require_once $admin . 'library-client.php';
 		require_once $admin . 'class-bricksfly-import-refs.php';
+		require_once $admin . 'class-bricksfly-page-fonts.php';
 		require_once $admin . 'pages/template-importer.php';
 		foreach ( array( 'base/Helpers', 'base/Downloader', 'base/WPImporterLogger', 'base/WPImporterLoggerCLI', 'base/WXRImportInfo', 'Logger', 'st-init' ) as $file ) {
 			require_once $admin . $file . '.php';

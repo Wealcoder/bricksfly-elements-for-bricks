@@ -406,7 +406,13 @@ class OneClickImport {
 
 		$this->selected_import_files = Helpers::download_import_files( array( 'import_file_url' => $import_file['content_url'] ) );
 
-		return is_wp_error( $this->selected_import_files ) ? $this->selected_import_files : true;
+		if ( is_wp_error( $this->selected_import_files ) ) {
+			return $this->selected_import_files;
+		}
+
+		\wealcoder\bricksfly\Admin\Pages\BRICKSFLY_Template_Importer::add_page_fonts( $template_id, $this->selected_import_files['content'] );
+
+		return true;
 	}
 
 	/**
