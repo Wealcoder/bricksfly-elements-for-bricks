@@ -58,6 +58,12 @@ function bricksfly_uninstall_notice_data() {
 			delete_option( $name );
 		}
 	}
+
+	// Bookkeeping of starter template imports.
+	foreach ( array( 'bricksfly_import_report', 'bricksfly_import_id_map', 'bricksfly_import_font_ids', 'bricksfly_import_replaced_design' ) as $name ) {
+		delete_option( $name );
+	}
+	delete_post_meta_by_key( '_bricksfly_import_refs' );
 }
 
 if ( is_multisite() ) {

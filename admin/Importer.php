@@ -6,10 +6,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit();
 }
 
+/**
+ * The content import stops here and goes on in the next request.
+ */
+class Import_Pause extends \Exception {}
+
 class Importer {
 
 	private $importer;
 	private $microtime;
+	/**
+	 * When the state was stored last.
+	 *
+	 * @var int
+	 */
+	private $saved_at = 0;
+
 	public $logger;
 	private $wcfio;
 
@@ -40,6 +52,7 @@ class Importer {
 
 		add_filter( 'bricksfly_importer.pre_process.user', '__return_false' );
 		add_filter( 'bricksfly_importer.pre_process.post', array( $this, 'new_ajax_request_maybe' ) );
+		add_action( 'bricksfly_importer.before_image', array( $this, 'pause_if_due' ) );
 
 		if ( ! Helpers::apply_filters( 'bricksfly/regenerate_thumbnails_in_content_import', true ) ) {
 			add_filter( 'intermediate_image_sizes_advanced', '__return_null' );
@@ -59,6 +72,27 @@ class Importer {
 			return $data;
 		}
 
+		$this->pause_if_due();
+
+		// A request cut off by the server goes on from here, not from the start.
+		if ( microtime( true ) - $this->saved_at > 5 ) {
+			$this->saved_at = microtime( true );
+			$this->set_current_importer_data();
+		}
+
+		$current_user_obj    = wp_get_current_user();
+		$data['post_author'] = $current_user_obj->user_login;
+
+		return $data;
+	}
+
+	/**
+	 * Stop here when this request has run long enough; the next one goes on.
+	 *
+	 * @return void
+	 * @throws Import_Pause Import called from PHP (see OneClickImport::run()).
+	 */
+	public function pause_if_due() {
 		$time = microtime( true ) - $this->microtime;
 
 		if ( $time > Helpers::apply_filters( 'bricksfly/time_for_one_ajax_call', 25 ) ) {
@@ -80,14 +114,14 @@ class Importer {
 			);
 
 			$this->set_current_importer_data();
+
+			if ( OneClickImport::is_running_in_php() ) {
+				throw new Import_Pause( 'next request' );
+			}
+
 			$response['state'] = get_option( 'bricksfly_template_import_state' );
 			wp_send_json( $response );
 		}
-
-		$current_user_obj    = wp_get_current_user();
-		$data['post_author'] = $current_user_obj->user_login;
-
-		return $data;
 	}
 
 	private function set_current_importer_data() {

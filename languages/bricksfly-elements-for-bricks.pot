@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: BricksFly Elements and Templates for Bricks 1.0.18\n"
+"Project-Id-Version: BricksFly Elements and Templates for Bricks 1.0.19\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bricksfly-elements-for-bricks\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-24T09:33:33+00:00\n"
+"POT-Creation-Date: 2026-11-25T06:16:42+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: bricksfly-elements-for-bricks\n"
@@ -97,6 +97,7 @@ msgid "Starter Template Import - "
 msgstr ""
 
 #: admin/base/Helpers.php:227
+#: admin/st-init.php:320
 msgid "Your user role isn't high enough. You don't have permission to import demo data."
 msgstr ""
 
@@ -135,74 +136,74 @@ msgstr ""
 msgid "not defined!"
 msgstr ""
 
-#: admin/base/WXRImporter.php:88
+#: admin/base/WXRImporter.php:112
 msgid "Could not open the file for parsing"
 msgstr ""
 
 #. translators: 1: WXR file version detected in the import file, 2: maximum WXR version this importer supports.
-#: admin/base/WXRImporter.php:198
-#: admin/base/WXRImporter.php:264
+#: admin/base/WXRImporter.php:222
+#: admin/base/WXRImporter.php:290
 #, php-format
 msgid "This WXR file (version %1$s) is newer than the importer (version %2$s) and may not be supported. Please consider updating."
 msgstr ""
 
-#: admin/base/WXRImporter.php:417
+#: admin/base/WXRImporter.php:554
 msgid "The file does not exist, please try again."
 msgstr ""
 
-#: admin/base/WXRImporter.php:467
+#: admin/base/WXRImporter.php:604
 msgid "Invalid author mapping"
 msgstr ""
 
-#: admin/base/WXRImporter.php:537
+#: admin/base/WXRImporter.php:677
 msgid "Cannot import auto-draft posts"
 msgstr ""
 
-#: admin/base/WXRImporter.php:690
+#: admin/base/WXRImporter.php:855
 msgid "fetching attachments disabled"
 msgstr ""
 
-#: admin/base/WXRImporter.php:868
+#: admin/base/WXRImporter.php:1038
 msgid "Invalid file type"
 msgstr ""
 
 #. translators: 1: HTTP status code, 2: HTTP status text, 3: requested URL.
-#: admin/base/WXRImporter.php:1578
+#: admin/base/WXRImporter.php:1777
 #, php-format
 msgid "Remote server returned %1$d %2$s for %3$s"
 msgstr ""
 
-#: admin/base/WXRImporter.php:1589
+#: admin/base/WXRImporter.php:1788
 msgid "Zero size file downloaded"
 msgstr ""
 
 #. translators: %s: human-readable maximum allowed file size (e.g. "5 MB").
-#: admin/base/WXRImporter.php:1598
+#: admin/base/WXRImporter.php:1797
 #, php-format
 msgid "Remote file is too large, limit is %s"
 msgstr ""
 
-#: admin/base/WXRImporter.php:1609
+#: admin/base/WXRImporter.php:1808
 msgid "Processing Posts"
 msgstr ""
 
-#: admin/base/WXRImporter.php:1613
+#: admin/base/WXRImporter.php:1812
 msgid "Processing Comments"
 msgstr ""
 
-#: admin/base/WXRImporter.php:1617
+#: admin/base/WXRImporter.php:1816
 msgid "Processing Terms"
 msgstr ""
 
-#: admin/base/WXRImporter.php:1825
+#: admin/base/WXRImporter.php:2024
 msgid "Starting remapping of featured images"
 msgstr ""
 
-#: admin/base/WXRImporter.php:1880
+#: admin/base/WXRImporter.php:2104
 msgid "Comment checking"
 msgstr ""
 
-#: admin/Importer.php:77
+#: admin/Importer.php:111
 msgid "Content installing"
 msgstr ""
 
@@ -692,7 +693,7 @@ msgstr ""
 #: admin/pages/template-importer.php:55
 #: admin/pages/template-importer.php:72
 #: admin/pages/template-importer.php:98
-#: admin/st-init.php:174
+#: admin/st-init.php:219
 msgid "You are not allowed to perform this action."
 msgstr ""
 
@@ -716,41 +717,42 @@ msgstr ""
 msgid "Not Installed"
 msgstr ""
 
-#: admin/pages/template-importer.php:223
+#: admin/pages/template-importer.php:232
+#: admin/pages/template-importer.php:289
 #: admin/plugin-installer.php:44
 #: admin/plugin-installer.php:66
 msgid "You are not allowed to do this action"
 msgstr ""
 
-#: admin/pages/template-importer.php:276
+#: admin/pages/template-importer.php:331
 msgid "Checking Setup requirement"
 msgstr ""
 
-#: admin/pages/template-importer.php:299
+#: admin/pages/template-importer.php:354
 msgid "Downloading Template"
 msgstr ""
 
-#: admin/pages/template-importer.php:315
+#: admin/pages/template-importer.php:370
 msgid "Missing Content file, contact author"
 msgstr ""
 
-#: admin/pages/template-importer.php:318
+#: admin/pages/template-importer.php:373
 msgid "Content file Downloading"
 msgstr ""
 
-#: admin/pages/template-importer.php:326
+#: admin/pages/template-importer.php:381
 msgid "Verifying Content Import"
 msgstr ""
 
-#: admin/pages/template-importer.php:327
+#: admin/pages/template-importer.php:382
 msgid "Checking Theme"
 msgstr ""
 
-#: admin/pages/template-importer.php:360
+#: admin/pages/template-importer.php:419
 msgid "Template Demo Import fail"
 msgstr ""
 
-#: admin/pages/template-importer.php:1126
+#: admin/pages/template-importer.php:1484
 msgid "earlier demo"
 msgstr ""
 
@@ -786,19 +788,19 @@ msgstr ""
 msgid "Rate the plugin"
 msgstr ""
 
-#: admin/st-init.php:170
+#: admin/st-init.php:215
 msgid "Invalid or missing nonce"
 msgstr ""
 
-#: admin/st-init.php:288
-msgid "Downloaded files"
-msgstr ""
-
-#: admin/st-init.php:294
+#: admin/st-init.php:393
 msgid "No import files specified!"
 msgstr ""
 
-#: admin/st-init.php:341
+#: admin/st-init.php:453
+msgid "Downloaded files"
+msgstr ""
+
+#: admin/st-init.php:508
 msgid "Congrats, your demo has been imported."
 msgstr ""
 

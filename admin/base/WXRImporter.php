@@ -11,6 +11,9 @@ class WXRImporter extends \WP_Importer {
 
 	const MAX_WXR_VERSION = 1.2;
 
+	/** Bricks data whose images are copied to this site. */
+	const IMAGE_META = array( '_bricks_page_content_2', '_bricks_page_header_2', '_bricks_page_footer_2', '_bricks_page_settings' );
+
 	const REGEX_HAS_ATTACHMENT_REFS = '!
 		(
 			# Match anything with an image or attachment class
@@ -29,6 +32,27 @@ class WXRImporter extends \WP_Importer {
 	protected $categories = array();
 	protected $tags       = array();
 	protected $base_url   = '';
+
+	/**
+	 * Address of the demo (wp:base_blog_url), for links to its own pages.
+	 *
+	 * @var string
+	 */
+	protected $blog_url = '';
+
+	/**
+	 * Posts of the site by guid: { guid: { post id: post type } }.
+	 *
+	 * @var array
+	 */
+	protected $site_posts = array();
+
+	/**
+	 * Files that could not be downloaded in this request (not tried again).
+	 *
+	 * @var array
+	 */
+	protected $failed_urls = array();
 
 	protected $processed_terms      = array();
 	protected $processed_posts      = array();
@@ -249,6 +273,8 @@ class WXRImporter extends \WP_Importer {
 
 		$bricksfly_counter_progress = 0;
 
+		$this->import_definitions( $file );
+
 		while ( $reader->read() ) {
 			if ( $reader->nodeType !== XMLReader::ELEMENT ) {
 				continue;
@@ -272,6 +298,11 @@ class WXRImporter extends \WP_Importer {
 
 				case 'wp:base_site_url':
 					$this->base_url = $reader->readString();
+					$reader->next();
+					break;
+
+				case 'wp:base_blog_url':
+					$this->blog_url = $reader->readString();
 					$reader->next();
 					break;
 
@@ -405,7 +436,113 @@ class WXRImporter extends \WP_Importer {
 			$bricksfly_counter_progress += 1;
 		}
 		$this->bricksfly_remap_featured_images();
+		$this->record_id_map();
 		$this->import_end();
+	}
+
+	/**
+	 * Post type and taxonomy definitions of the demo (posts of the Pro post type
+	 * builder) first: the demo's terms and posts of those types are skipped
+	 * while their type is not registered, and they can come earlier in the file.
+	 *
+	 * @param string $file Import file.
+	 * @return void
+	 */
+	protected function import_definitions( $file ) {
+		$types = array_filter( (array) apply_filters( 'bricksfly_importer.definition_post_types', array() ), 'is_string' );
+		if ( ! $types || ! empty( $this->mapping['definitions_done'] ) ) {
+			return;
+		}
+
+		$reader = $this->get_reader( $file );
+		if ( is_wp_error( $reader ) ) {
+			return;
+		}
+
+		$found = false;
+		$used  = array(
+			'types'      => array(),
+			'taxonomies' => array(),
+		);
+		while ( $reader->read() ) {
+			if ( XMLReader::ELEMENT !== $reader->nodeType || 'item' !== $reader->name ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- XMLReader property.
+				continue;
+			}
+			$node   = $reader->expand();
+			$type   = '';
+			$status = '';
+			$taxes  = array();
+			// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- DOM properties.
+			foreach ( $node->childNodes as $child ) {
+				if ( 'wp:post_type' === $child->nodeName ) {
+					$type = $child->textContent;
+				} elseif ( 'wp:status' === $child->nodeName ) {
+					$status = $child->textContent;
+				} elseif ( 'category' === $child->nodeName && $child->hasAttribute( 'domain' ) ) {
+					$taxes[ $child->getAttribute( 'domain' ) ] = true;
+				}
+			}
+			// phpcs:enable
+			if ( 'trash' !== $status && '' !== $type ) {
+				$used['types'][ $type ] = isset( $used['types'][ $type ] ) ? $used['types'][ $type ] + 1 : 1;
+				foreach ( array_keys( $taxes ) as $tax ) {
+					$used['taxonomies'][ $tax ][ $type ] = true;
+				}
+			}
+			if ( in_array( $type, $types, true ) ) {
+				$parsed = $this->parse_post_node( $node );
+				if ( ! is_wp_error( $parsed ) ) {
+					$found = true;
+					$this->process_post( $parsed['data'], $parsed['meta'], $parsed['comments'], $parsed['terms'] );
+				}
+			}
+			$reader->next();
+		}
+		$reader->close();
+
+		$this->mapping['definitions_done'] = true;
+
+		/**
+		 * The demo's post type and taxonomy definitions are on this site: an
+		 * add-on registers them now, so their terms and posts can be imported.
+		 *
+		 * @param bool  $found Whether the file had definitions.
+		 * @param array $used  { types: { post type: count }, taxonomies: { taxonomy: { post type: true } } } of the file's posts.
+		 */
+		do_action( 'bricksfly_importer.definitions_imported', $found, $used );
+	}
+
+	/**
+	 * Keep what became of the demo's posts, terms and page links for the last
+	 * import step, which points the imported Bricks data at them.
+	 *
+	 * @return void
+	 */
+	protected function record_id_map() {
+		update_option(
+			'bricksfly_import_id_map',
+			array(
+				'posts' => isset( $this->mapping['post'] ) ? array_map( 'intval', $this->mapping['post'] ) : array(),
+				'terms' => isset( $this->mapping['term_id'] ) ? array_map( 'intval', $this->mapping['term_id'] ) : array(),
+				'menus' => isset( $this->mapping['menus'] ) ? array_map( 'intval', $this->mapping['menus'] ) : array(),
+				'links' => isset( $this->mapping['links'] ) ? $this->mapping['links'] : array(),
+				'url'   => untrailingslashit( '' !== $this->blog_url ? $this->blog_url : $this->base_url ),
+			),
+			false
+		);
+
+		// What the file has and what is on this site now, per post type.
+		$report = array( 'gone' => isset( $this->mapping['gone'] ) ? count( $this->mapping['gone'] ) : 0 );
+		foreach ( isset( $this->mapping['seen'] ) ? $this->mapping['seen'] : array() as $original_id => $type ) {
+			if ( ! isset( $report[ $type ] ) ) {
+				$report[ $type ] = array( 0, 0 );
+			}
+			++$report[ $type ][0];
+			if ( isset( $this->mapping['post'][ $original_id ] ) ) {
+				++$report[ $type ][1];
+			}
+		}
+		update_option( 'bricksfly_import_report', $report, false );
 	}
 
 	protected function log_error( WP_Error $error ) {
@@ -504,6 +641,9 @@ class WXRImporter extends \WP_Importer {
 				case 'guid':
 					$data['guid'] = $child->textContent;
 					break;
+				case 'link':
+					$data['link'] = $child->textContent;
+					break;
 				case 'dc:creator':
 					$data['post_author'] = $child->textContent;
 					break;
@@ -589,9 +729,25 @@ class WXRImporter extends \WP_Importer {
 			return false;
 		}
 
+		// Deleted on the demo: not part of it.
+		if ( isset( $data['post_status'] ) && 'trash' === $data['post_status'] ) {
+			return false;
+		}
+
+		if ( $original_id > 0 ) {
+			$this->mapping['seen'][ $original_id ] = (string) $data['post_type'];
+		}
+
 		$post_type_object = get_post_type_object( $data['post_type'] );
 		if ( ! $post_type_object ) {
 			return false;
+		}
+
+		if ( $original_id > 0 && ! empty( $data['link'] ) && ! in_array( $data['post_type'], array( 'attachment', 'nav_menu_item', 'bricks_template', 'bricks_fonts' ), true ) ) {
+			$path = trim( (string) wp_parse_url( $data['link'], PHP_URL_PATH ), '/' );
+			if ( '' !== $path && ! wp_parse_url( $data['link'], PHP_URL_QUERY ) ) {
+				$this->mapping['links'][ $path ] = $original_id;
+			}
 		}
 
 		$post_exists = $this->post_exists( $data );
@@ -605,18 +761,27 @@ class WXRImporter extends \WP_Importer {
 		}
 
 		if ( $post_exists ) {
-			// A font and its files from an earlier import of the same demo are
-			// reused: the font's faces and the content's font references must
-			// point at the posts that are on this site.
-			if ( in_array( $data['post_type'], array( 'attachment', 'bricks_fonts' ), true ) ) {
-				$this->mapping['post'][ $original_id ] = (int) $post_exists;
-				if ( 'bricks_fonts' === $data['post_type'] ) {
-					$this->record_font_id( $original_id, (int) $post_exists );
-				}
+			// Posts from an earlier import of the same demo are reused: links, menu
+			// items, templates and fonts of this import must point at the posts
+			// that are on this site.
+			$this->mapping['post'][ $original_id ] = (int) $post_exists;
+			if ( 'bricks_fonts' === $data['post_type'] ) {
+				$this->record_font_id( $original_id, (int) $post_exists );
 			}
 			$this->process_comments( $comments, $original_id, $data, $post_exists );
 			do_action( 'bricksfly_import_existing_post', $post_exists, $original_id, $data, $data );
 			return false;
+		}
+
+		// The images of a Bricks page before the page itself: a long import can
+		// stop between two of them and go on in the next request.
+		foreach ( (array) $meta as $meta_item ) {
+			if ( isset( $meta_item['key'], $meta_item['value'] ) && in_array( $meta_item['key'], self::IMAGE_META, true ) ) {
+				$tree = maybe_unserialize( $meta_item['value'] );
+				if ( is_array( $tree ) ) {
+					$this->walk_bricks_settings_for_images( $tree, true );
+				}
+			}
 		}
 
 		$requires_remapping = false;
@@ -714,6 +879,11 @@ class WXRImporter extends \WP_Importer {
 		$this->mark_post_exists( $data, $post_id );
 		if ( 'bricks_fonts' === $data['post_type'] ) {
 			$this->record_font_id( $original_id, (int) $post_id );
+		}
+		// Its Bricks data still names the demo's posts, templates and menus: the
+		// last import step points it at the ones on this site, once.
+		if ( 'attachment' !== $data['post_type'] ) {
+			add_post_meta( $post_id, '_bricksfly_import_refs', 1, true );
 		}
 
 		// Bridged via bricksfly_import_post_terms() rather than calling the
@@ -939,7 +1109,7 @@ class WXRImporter extends \WP_Importer {
 				// nodes — the normal attachment pipeline never sees these image
 				// URLs at all, so they're left pointing at the original template
 				// source site unless we walk the tree here.
-				if ( is_array( $value ) && in_array( $key, array( '_bricks_page_content_2', '_bricks_page_header_2', '_bricks_page_footer_2' ), true ) ) {
+				if ( is_array( $value ) && in_array( $key, self::IMAGE_META, true ) ) {
 					$value = $this->import_bricks_element_images( $value );
 				}
 
@@ -979,6 +1149,10 @@ class WXRImporter extends \WP_Importer {
 		if ( isset( $setting['id'] ) && isset( $setting['size'] ) && isset( $setting['full'] ) ) {
 			return true;
 		}
+		// Images of a gallery and some fields have no "size" or "full".
+		if ( isset( $setting['id'] ) && is_numeric( $setting['id'] ) && preg_match( '#/wp-content/uploads/.+\.(?:jpe?g|png|gif|webp|avif|svg)$#i', (string) wp_parse_url( $setting['url'], PHP_URL_PATH ) ) ) {
+			return true;
+		}
 		return false !== strpos( $setting['url'], '.svg' );
 	}
 
@@ -998,23 +1172,31 @@ class WXRImporter extends \WP_Importer {
 	}
 
 	/**
-	 * @param mixed $node Reference into the element tree being walked.
+	 * @param mixed $node  Reference into the element tree being walked.
+	 * @param bool  $pause Whether the import may stop between two images here.
 	 */
-	protected function walk_bricks_settings_for_images( &$node ) {
+	protected function walk_bricks_settings_for_images( &$node, $pause = false ) {
 		if ( ! is_array( $node ) ) {
 			return;
 		}
 
 		if ( $this->is_bricks_image_setting( $node ) ) {
+			if ( $pause ) {
+				do_action( 'bricksfly_importer.before_image' );
+			}
 			$resolved = $this->resolve_bricks_remote_image( $node );
 			if ( null !== $resolved ) {
 				$node = $resolved;
+			} elseif ( isset( $this->failed_urls[ $node['url'] ] ) && isset( $node['id'] ) ) {
+				// Stays on the demo server: its id is another file on this site.
+				unset( $node['id'] );
+				$node['external'] = true;
 			}
 			return;
 		}
 
 		foreach ( $node as &$child ) {
-			$this->walk_bricks_settings_for_images( $child );
+			$this->walk_bricks_settings_for_images( $child, $pause );
 		}
 	}
 
@@ -1050,6 +1232,10 @@ class WXRImporter extends \WP_Importer {
 			return $this->build_bricks_image_setting( $image, $this->url_remap[ $url ] );
 		}
 
+		if ( isset( $this->failed_urls[ $url ] ) ) {
+			return null;
+		}
+
 		$synthetic_post = array(
 			'post_date'   => current_time( 'mysql' ),
 			'upload_date' => current_time( 'mysql' ),
@@ -1057,6 +1243,7 @@ class WXRImporter extends \WP_Importer {
 
 		$upload = $this->fetch_remote_file( $url, $synthetic_post );
 		if ( is_wp_error( $upload ) ) {
+			$this->failed_urls[ $url ] = true;
 			return null;
 		}
 
@@ -1502,6 +1689,10 @@ class WXRImporter extends \WP_Importer {
 
 		$term_id = $result['term_id'];
 
+		if ( 'nav_menu' === $data['taxonomy'] ) {
+			$this->mapping['menus'][] = (int) $term_id;
+		}
+
 		$this->mapping['term'][ $mapping_key ]    = $term_id;
 		$this->mapping['term_id'][ $original_id ] = $term_id;
 		$this->mapping['term_slug'][ $term_slug ] = $term_id;
@@ -1544,6 +1735,11 @@ class WXRImporter extends \WP_Importer {
 	}
 
 	protected function fetch_remote_file( $url, $post ) {
+		// Each file gets its own time: one slow download must not end the import.
+		if ( function_exists( 'set_time_limit' ) && false === strpos( (string) ini_get( 'disable_functions' ), 'set_time_limit' ) ) {
+			set_time_limit( (int) Helpers::apply_filters( 'bricksfly/set_time_limit_for_demo_data_import', 60 ) ); // phpcs:ignore Squiz.PHP.DiscouragedFunctions.Discouraged -- Per-file limit for a long import, as the WordPress importer does.
+		}
+
 		// basename( $url ) on a query-string URL (e.g. "logo.svg?ver=6.3") keeps
 		// the query string, so the extension-anchored regex in wp_check_filetype()
 		// (\.(svg)$) never matches "logo.svg?ver=6.3" and the file gets treated as
@@ -1569,6 +1765,9 @@ class WXRImporter extends \WP_Importer {
 			return $response; }
 
 		$code = (int) wp_remote_retrieve_response_code( $response );
+		if ( 404 === $code || 410 === $code ) {
+			$this->mapping['gone'][ $url ] = true; // Not on the demo server any more.
+		}
 		if ( $code !== 200 ) {
 			wp_delete_file( $upload['file'] );
 			return new WP_Error(
@@ -1843,7 +2042,8 @@ class WXRImporter extends \WP_Importer {
 	}
 
 	function bump_request_timeout( $val ) {
-		return 60; }
+		// Below the per-file time limit: a file that does not answer is skipped.
+		return max( 5, (int) apply_filters( 'bricksfly_import_file_timeout', 20 ) ); }
 
 	function cmpr_strlen( $a, $b ) {
 		return strlen( $b ) - strlen( $a ); }
@@ -1852,17 +2052,41 @@ class WXRImporter extends \WP_Importer {
 		global $wpdb;
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- One-off bulk rewrite of imported URLs; a prepared query, and the results are not cacheable.
 		$posts = $wpdb->get_results(
-			$wpdb->prepare( "SELECT ID, guid FROM {$wpdb->posts} WHERE post_type != %s", '' )
+			$wpdb->prepare( "SELECT ID, guid, post_type FROM {$wpdb->posts} WHERE post_type != %s", '' )
 		);
 		foreach ( $posts as $item ) {
-			$this->exists['post'][ $item->guid ] = $item->ID; }
+			$this->exists['post'][ $item->guid ]                = $item->ID;
+			$this->site_posts[ $item->guid ][ (int) $item->ID ] = $item->post_type;
+		}
 	}
 
 	protected function post_exists( $data ) {
 		$exists_key = $data['guid'];
 		if ( $this->options['prefill_existing_posts'] ) {
+			// Several items of one export can share a guid (menu items added in bulk):
+			// each one is its own post, so a post that already stands for another
+			// item of this file is not taken again. Media files are.
 			$exists_key = htmlentities( $exists_key );
-			return isset( $this->exists['post'][ $exists_key ] ) ? $this->exists['post'][ $exists_key ] : false;
+			$used       = false;
+			foreach ( isset( $this->site_posts[ $exists_key ] ) ? $this->site_posts[ $exists_key ] : array() as $post_id => $post_type ) {
+				if ( isset( $data['post_type'] ) && $post_type !== $data['post_type'] ) {
+					continue;
+				}
+				/**
+				 * Whether a post of the site stands for an item of the file with the
+				 * same guid. Demos that were copied from each other (light and dark)
+				 * share their guids.
+				 *
+				 * @param bool   $reuse     Default true.
+				 * @param int    $post_id   Post of the site.
+				 * @param string $post_type Its post type.
+				 */
+				if ( ! in_array( (int) $post_id, $this->mapping['post'], true ) && apply_filters( 'bricksfly_importer.reuse_post', true, (int) $post_id, $post_type ) ) {
+					return $post_id;
+				}
+				$used = $post_id;
+			}
+			return $used && 'attachment' === $data['post_type'] ? $used : false;
 		}
 		if ( isset( $this->exists['post'][ $exists_key ] ) ) {
 			return $this->exists['post'][ $exists_key ]; }

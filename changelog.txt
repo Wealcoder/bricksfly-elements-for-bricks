@@ -1,5 +1,16 @@
 === BricksFly Elements and Templates for Bricks - Changelog ===
 
+= 1.0.19 =
+- Improved: A starter template now comes to your site as its demo is. With BricksFly Pro, the custom post types of the demo come along too, with their fields, taxonomies and items.
+- Improved: Links, menus, popups, template conditions, query loops and forms inside an imported template point to the imported pages, templates, menus and posts of your site instead of the demo's ids.
+- Improved: A second starter template keeps its own posts, header, footer, popups, 404 and search pages, global classes, colors and theme style, also when it is a copy of the first one (light and dark).
+- Improved: A large import saves its place every few seconds and goes on from there. A picture that cannot be downloaded no longer stops the import.
+- Added: Starter templates can be imported from an AI chat with a progress bar (needs BricksFly Pro 1.0.15).
+- Fixed: On sites without BricksFly Pro an import was not recorded, so the custom fonts, links and front page of a template, and a second template next to the first one, were not set up.
+- Fixed: Menu items and templates that share an address in the demo file were left out.
+- Fixed: Posts in the trash of a demo were imported.
+- Fixed: Uninstalling BricksFly removes the records of template imports too. Imported content is kept.
+
 = 1.0.18 =
 - Improved: WPML and Polylang. Technical settings of BricksFly elements (a CSS selector of the animated heading, the slides setting of the brand slider, style data of floating elements) are no longer sent to the translation; the translated page uses the original value.
 - Removed: The Black Friday offer banners on the Dashboard screen, the Plugins screen and in the BricksFly dashboard.

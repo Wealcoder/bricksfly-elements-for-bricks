@@ -4,7 +4,7 @@ Tags: bricks builder, bricks templates, bricks builder addons, bricks elements, 
 Requires at least: 6.9
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.18
+Stable tag: 1.0.19
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -307,6 +307,17 @@ The files in `public/build` are compiled (minified) JavaScript and CSS. **Their 
 
 == Changelog ==
 
+= 1.0.19 =
+- Improved: A starter template now comes to your site as its demo is. With BricksFly Pro, the custom post types of the demo come along too, with their fields, taxonomies and items.
+- Improved: Links, menus, popups, template conditions, query loops and forms inside an imported template point to the imported pages, templates, menus and posts of your site instead of the demo's ids.
+- Improved: A second starter template keeps its own posts, header, footer, popups, 404 and search pages, global classes, colors and theme style, also when it is a copy of the first one (light and dark).
+- Improved: A large import saves its place every few seconds and goes on from there. A picture that cannot be downloaded no longer stops the import.
+- Added: Starter templates can be imported from an AI chat with a progress bar (needs BricksFly Pro 1.0.15).
+- Fixed: On sites without BricksFly Pro an import was not recorded, so the custom fonts, links and front page of a template, and a second template next to the first one, were not set up.
+- Fixed: Menu items and templates that share an address in the demo file were left out.
+- Fixed: Posts in the trash of a demo were imported.
+- Fixed: Uninstalling BricksFly removes the records of template imports too. Imported content is kept.
+
 = 1.0.18 =
 - Improved: WPML and Polylang. Technical settings of BricksFly elements (a CSS selector of the animated heading, the slides setting of the brand slider, style data of floating elements) are no longer sent to the translation; the translated page uses the original value.
 - Removed: The Black Friday offer banners on the Dashboard screen, the Plugins screen and in the BricksFly dashboard.
@@ -314,12 +325,9 @@ The files in `public/build` are compiled (minified) JavaScript and CSS. **Their 
 = 1.0.17 =
 - Fixed: The Documentation and Preview links for every element and extension now open the correct page instead of a "not found" page.
 
-= 1.0.16 =
-- Fixed: Custom fonts of a starter template now come along when you import it. Each font points to its own imported font files, the template's classes, theme styles and pages use the fonts on your site, and the font CSS loads from your site instead of the demo site.
-
 [See the full changelog](https://plugins.trac.wordpress.org/browser/bricksfly-elements-for-bricks/trunk/changelog.txt).
 
 == Upgrade Notice ==
 
-= 1.0.18 =
-Offer banners removed. Technical settings of BricksFly elements stay out of WPML and Polylang translations.
+= 1.0.19 =
+Starter templates come in as their demos are, with working links, menus and popups, and a second template next to the first one.

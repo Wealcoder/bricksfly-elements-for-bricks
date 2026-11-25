@@ -112,6 +112,7 @@ class BRICKSFLY_Plugin {
 
 		if ( is_admin() ) {
 			require_once BRICKSFLY_PATH . 'admin/pages/dashboard.php';
+			require_once BRICKSFLY_PATH . 'admin/class-bricksfly-import-refs.php';
 			require_once BRICKSFLY_PATH . 'admin/pages/template-importer.php';
 			require_once BRICKSFLY_PATH . 'admin/pages/page-import.php';
 

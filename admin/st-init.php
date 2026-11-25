@@ -28,6 +28,13 @@ class OneClickImport {
 	/** Stable batch id for the current page-import run (see save_wp_page_import_track). */
 	private $page_import_batch_id = '';
 
+	/**
+	 * The import runs from PHP (run()), not from the import screen.
+	 *
+	 * @var bool
+	 */
+	private static $in_php = false;
+
 	public static function get_instance() {
 		if ( null === static::$instance ) {
 			static::$instance = new static();
@@ -41,11 +48,12 @@ class OneClickImport {
 		add_action( 'set_object_terms', array( $this, 'add_imported_terms' ), 10, 6 );
 		add_filter( 'bricksfly_importer.pre_process.post', array( $this, 'skip_failed_attachment_import' ) );
 		add_action( 'bricksfly_importer.process_failed.post', array( $this, 'handle_failed_attachment_import' ), 10, 5 );
-		add_action( 'wp_import_insert_post', array( $this, 'save_wp_navigation_import_mapping' ), 10, 4 );
-		add_action( 'wp_import_insert_post', array( $this, 'save_wp_page_import_track' ), 10, 4 );
+		add_action( 'bricksfly_import_insert_post', array( $this, 'save_wp_navigation_import_mapping' ), 10, 4 );
+		add_action( 'bricksfly_import_insert_post', array( $this, 'save_wp_page_import_track' ), 10, 4 );
 		add_action( 'bricksfly_import_existing_post', array( $this, 'save_wp_page_import_track' ), 10, 4 );
 		add_action( 'bricksfly/after_import', array( $this, 'fix_imported_wp_navigation' ) );
 		add_filter( 'bricksfly_import_page_as_copy', array( $this, 'import_page_as_copy' ) );
+		add_filter( 'bricksfly_importer.reuse_post', array( $this, 'reuse_post' ), 10, 3 );
 		add_filter( 'bricksfly_importer.separate_menus', array( $this, 'separate_demo_menus' ) );
 		add_action( 'bricksfly_importer.processed.term', array( $this, 'track_imported_menu' ), 10, 2 );
 		add_action( 'wp_ajax_bricksfly_get_latest_imported_pages', array( $this, 'bricksfly_get_latest_imported_pages' ) );
@@ -120,6 +128,38 @@ class OneClickImport {
 		return 'page' === $type ? true : $as_copy;
 	}
 
+	/**
+	 * A post of another demo is not an item of this one, even when the guid is
+	 * the same (a dark demo is often a copy of the light one). Media, fonts and
+	 * post type definitions are shared.
+	 *
+	 * @param bool   $reuse     Current value.
+	 * @param int    $post_id   Post of the site.
+	 * @param string $post_type Its post type.
+	 * @return bool
+	 */
+	public function reuse_post( $reuse, $post_id, $post_type ) {
+		$template = \wealcoder\bricksfly\Admin\Pages\BRICKSFLY_Template_Importer::running_template();
+		$shared   = array_merge( array( 'attachment', 'bricks_fonts' ), (array) apply_filters( 'bricksfly_importer.definition_post_types', array() ) );
+
+		if ( ! $reuse || ! $template || in_array( $post_type, $shared, true ) ) {
+			return $reuse;
+		}
+
+		$from = (int) get_post_meta( $post_id, 'bricksfly_import_template', true );
+		if ( ! $from ) {
+			// Imported before that was stored: by the list of imports.
+			$batch = (string) get_post_meta( $post_id, 'bricksfly_import_batch', true );
+			foreach ( '' !== $batch ? \wealcoder\bricksfly\Admin\Pages\BRICKSFLY_Template_Importer::imported_templates() : array() as $record ) {
+				if ( isset( $record['batch'], $record['id'] ) && $batch === (string) $record['batch'] ) {
+					$from = (int) $record['id'];
+				}
+			}
+		}
+
+		return ! $from || $from === $template;
+	}
+
 	public function save_wp_page_import_track( $post_id, $original_id, $postdata, $data ) {
 		// wp_insert_post() can return a WP_Error (and the WXR importer fires this
 		// hook before its own is_wp_error() check). Bail on any non-positive /
@@ -149,6 +189,11 @@ class OneClickImport {
 		// A post the import matched to an existing one (the same demo imported
 		// again) now belongs to this import: the batch is replaced, not kept.
 		update_post_meta( $post_id, 'bricksfly_import_batch', $batch_id );
+
+		$template = \wealcoder\bricksfly\Admin\Pages\BRICKSFLY_Template_Importer::running_template();
+		if ( $template ) {
+			update_post_meta( $post_id, 'bricksfly_import_template', $template );
+		}
 
 		if ( 'page' === $post_type ) {
 			// The option always references a batch with a real, imported page.
@@ -252,53 +297,114 @@ class OneClickImport {
 		);
 	}
 
-	public function import_demo_data_ajax_callback() {
-		Helpers::verify_ajax_call();
+	/**
+	 * Whether the content import was started with run().
+	 *
+	 * @return bool
+	 */
+	public static function is_running_in_php() {
+		return self::$in_php;
+	}
 
-		// Same limit WordPress uses for admin tasks (WP_MAX_MEMORY_LIMIT).
-		wp_raise_memory_limit( 'admin' );
-
-		$use_existing_importer_data = $this->use_existing_importer_data();
-
-		if ( ! $use_existing_importer_data ) {
-			Helpers::set_demo_import_start_time();
-			$this->log_file_path  = Helpers::get_log_path();
-			$this->selected_index = 0;
-
-			check_ajax_referer( 'bricksfly_admin_nonce', 'nonce' );
-
-			// The content file URL is the one the template library released
-			// for this import (stored server-side by the template importer),
-			// never a URL posted from the browser.
-			$posted        = \wealcoder\bricksfly\Admin\Pages\BRICKSFLY_Template_Importer::read_posted_step();
-			$template_data = array(
-				'id'        => $posted['id'],
-				'next_step' => $posted['next_step'],
-			);
-			$import_file   = \wealcoder\bricksfly\Admin\Pages\BRICKSFLY_Template_Importer::get_import_file( $posted['id'] );
-
-			if ( $import_file && \wealcoder\bricksfly\Admin\BRICKSFLY_Library_Client::is_library_url( $import_file['content_url'] ) ) {
-				$file_path                   = $import_file['content_url'];
-				$this->selected_import_files = Helpers::download_import_files( array( 'import_file_url' => $file_path ) );
-
-				if ( is_wp_error( $this->selected_import_files ) ) {
-					Helpers::log_error_and_send_ajax_response(
-						$this->selected_import_files->get_error_message(),
-						$this->log_file_path,
-						esc_html__( 'Downloaded files', 'bricksfly-elements-for-bricks' )
-					);
-				}
-			} else {
-				$response                   = array();
-				$template_data['next_step'] = 'fail';
-				$response['msg']            = esc_html__( 'No import files specified!', 'bricksfly-elements-for-bricks' );
-				$response['progress']       = 0;
-				$response['template']       = wp_unslash( $template_data );
-				wp_send_json( $response );
-			}
+	/**
+	 * One part of the content import of a full demo, for an add-on that imports
+	 * a starter template without the import screen: the same files, steps and
+	 * hooks. Call it again while it answers "more".
+	 *
+	 * @param int $template_id Library item id of the running import.
+	 * @param int $seconds     How long this part may take.
+	 * @return string|WP_Error "more" or "done".
+	 */
+	public function run( $template_id, $seconds = 25 ) {
+		if ( ! current_user_can( 'import' ) ) {
+			return new WP_Error( 'bricksfly_import_rights', __( 'Your user role isn\'t high enough. You don\'t have permission to import demo data.', 'bricksfly-elements-for-bricks' ) );
 		}
 
-		Helpers::set_st_import_data_transient( $this->get_current_importer_data() );
+		$limit = static function () use ( $seconds ) {
+			return max( 5, (int) $seconds );
+		};
+		add_filter( 'bricksfly/time_for_one_ajax_call', $limit, 99 );
+		self::$in_php = true;
+		$level        = ob_get_level();
+
+		try {
+			$this->create_importer( true );
+			wp_raise_memory_limit( 'admin' );
+
+			if ( ! $this->use_existing_importer_data() ) {
+				$this->reset_run();
+				$file = $this->download_content_file( $template_id );
+				if ( is_wp_error( $file ) ) {
+					return $file;
+				}
+			}
+
+			$this->import_content_files();
+			Helpers::do_action( 'bricksfly/after_all_import_execution', $this->selected_import_files, $this->import_files, $this->selected_index );
+			$this->update_terms_count();
+			$this->finish_run();
+
+			return 'done';
+		} catch ( Import_Pause $pause ) {
+			wp_suspend_cache_invalidation( false );
+			wp_defer_term_counting( false );
+			wp_defer_comment_counting( false );
+
+			return 'more';
+		} finally {
+			while ( ob_get_level() > $level ) {
+				ob_end_clean();
+			}
+			self::$in_php = false;
+			remove_filter( 'bricksfly/time_for_one_ajax_call', $limit, 99 );
+		}
+	}
+
+	/**
+	 * Forget an earlier run of this request.
+	 *
+	 * @return void
+	 */
+	private function reset_run() {
+		$this->frontend_error_messages = array();
+		$this->before_import_executed  = false;
+		$this->imported_terms          = array();
+		$this->page_import_batch_id    = '';
+	}
+
+	/**
+	 * Download the content file the library released for this import.
+	 *
+	 * @param int $template_id Library item id.
+	 * @return true|WP_Error
+	 */
+	private function download_content_file( $template_id ) {
+		Helpers::set_demo_import_start_time();
+		$this->log_file_path  = Helpers::get_log_path();
+		$this->selected_index = 0;
+		$this->import_files   = array();
+
+		// The content file URL is the one the template library released
+		// for this import (stored server-side by the template importer),
+		// never a URL posted from the browser.
+		$import_file = \wealcoder\bricksfly\Admin\Pages\BRICKSFLY_Template_Importer::get_import_file( $template_id );
+
+		if ( ! $import_file || ! \wealcoder\bricksfly\Admin\BRICKSFLY_Library_Client::is_library_url( $import_file['content_url'] ) ) {
+			return new WP_Error( 'bricksfly_import_no_file', __( 'No import files specified!', 'bricksfly-elements-for-bricks' ) );
+		}
+
+		$this->selected_import_files = Helpers::download_import_files( array( 'import_file_url' => $import_file['content_url'] ) );
+
+		return is_wp_error( $this->selected_import_files ) ? $this->selected_import_files : true;
+	}
+
+	/**
+	 * Import the downloaded content file (or the rest of it).
+	 *
+	 * @return void
+	 */
+	private function import_content_files() {
+		Helpers::set_st_import_data_transient( $this->current_data() );
 
 		if ( ! $this->before_import_executed ) {
 			$this->before_import_executed = true;
@@ -311,7 +417,56 @@ class OneClickImport {
 
 		Helpers::do_action( 'bricksfly/after_content_import_execution', $this->selected_import_files, $this->import_files, $this->selected_index );
 
-		Helpers::set_st_import_data_transient( $this->get_current_importer_data() );
+		Helpers::set_st_import_data_transient( $this->current_data() );
+	}
+
+	/**
+	 * Progress of this import with what the importer mapped so far.
+	 *
+	 * @return array
+	 */
+	private function current_data() {
+		return array_merge( $this->get_current_importer_data(), $this->importer->get_importer_data() );
+	}
+
+	/**
+	 * AJAX: one request of the content import.
+	 */
+	public function import_demo_data_ajax_callback() {
+		Helpers::verify_ajax_call();
+
+		// Same limit WordPress uses for admin tasks (WP_MAX_MEMORY_LIMIT).
+		wp_raise_memory_limit( 'admin' );
+
+		$use_existing_importer_data = $this->use_existing_importer_data();
+
+		if ( ! $use_existing_importer_data ) {
+			check_ajax_referer( 'bricksfly_admin_nonce', 'nonce' );
+
+			$posted     = \wealcoder\bricksfly\Admin\Pages\BRICKSFLY_Template_Importer::read_posted_step();
+			$downloaded = $this->download_content_file( $posted['id'] );
+
+			if ( is_wp_error( $downloaded ) && 'bricksfly_import_no_file' !== $downloaded->get_error_code() ) {
+				Helpers::log_error_and_send_ajax_response(
+					$downloaded->get_error_message(),
+					$this->log_file_path,
+					esc_html__( 'Downloaded files', 'bricksfly-elements-for-bricks' )
+				);
+			} elseif ( is_wp_error( $downloaded ) ) {
+				wp_send_json(
+					array(
+						'msg'      => $downloaded->get_error_message(),
+						'progress' => 0,
+						'template' => array(
+							'id'        => $posted['id'],
+							'next_step' => 'fail',
+						),
+					)
+				);
+			}
+		}
+
+		$this->import_content_files();
 
 		if ( false !== Helpers::has_action( 'bricksfly/after_all_import_execution' ) ) {
 			wp_send_json( array( 'status' => 'afterAllImportAJAX' ) );
@@ -330,13 +485,25 @@ class OneClickImport {
 		$this->final_response();
 	}
 
-	private function final_response() {
+	/**
+	 * Remove the progress data of a finished content import.
+	 *
+	 * @return void
+	 */
+	private function finish_run() {
 		$this->remove_empty_imported_menus();
 		delete_transient( 'bricksfly_st_importer_data' );
 		delete_option( 'bricksfly_template_import_progress' );
-		delete_transient( 'bricksfly_st_mporter_data_failed_attachment_imports' );
+		delete_transient( 'bricksfly_st_importer_data_failed_attachment_imports' );
 		delete_transient( 'bricksfly_import_menu_mapping' );
 		delete_transient( 'bricksfly_import_posts_with_nav_block' );
+	}
+
+	/**
+	 * Last answer of the content import.
+	 */
+	private function final_response() {
+		$this->finish_run();
 
 		$response['msg']      = esc_html__( 'Congrats, your demo has been imported.', 'bricksfly-elements-for-bricks' );
 		$response['progress'] = 80;
@@ -458,11 +625,22 @@ class OneClickImport {
 				return;
 			}
 		}
+		$attachment_status = array_key_exists( 'attachment', $_POST ) ? sanitize_text_field( wp_unslash( $_POST['attachment'] ) ) : true;
+
+		$this->create_importer( $attachment_status );
+	}
+
+	/**
+	 * The importer of this request.
+	 *
+	 * @param mixed $attachments Whether media files are downloaded.
+	 * @return void
+	 */
+	private function create_importer( $attachments ) {
 		$this->import_files = array();
-		$attachment_status  = array_key_exists( 'attachment', $_POST ) ? sanitize_text_field( wp_unslash( $_POST['attachment'] ) ) : true;
 
 		$importer_options = array(
-			'fetch_attachments' => $attachment_status,
+			'fetch_attachments' => $attachments,
 		);
 
 		$logger_options = array(

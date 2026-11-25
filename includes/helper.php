@@ -839,3 +839,26 @@ if ( ! function_exists( 'bricksfly_migrate_thebrbre_settings' ) ) {
 	}
 }
 bricksfly_migrate_thebrbre_settings();
+
+if ( ! function_exists( 'bricksfly_load_importer' ) ) {
+	/**
+	 * Load the starter template importer outside wp-admin, for an add-on that
+	 * imports a template from PHP (BRICKSFLY_Template_Importer::run_step() and
+	 * OneClickImport::run()). The import screen loads the same classes itself.
+	 *
+	 * @return void
+	 */
+	function bricksfly_load_importer() {
+		foreach ( array( 'file', 'media', 'image', 'post', 'plugin', 'misc', 'taxonomy', 'comment' ) as $file ) {
+			require_once ABSPATH . 'wp-admin/includes/' . $file . '.php';
+		}
+
+		$admin = BRICKSFLY_PATH . 'admin/';
+		require_once $admin . 'library-client.php';
+		require_once $admin . 'class-bricksfly-import-refs.php';
+		require_once $admin . 'pages/template-importer.php';
+		foreach ( array( 'base/Helpers', 'base/Downloader', 'base/WPImporterLogger', 'base/WPImporterLoggerCLI', 'base/WXRImportInfo', 'Logger', 'st-init' ) as $file ) {
+			require_once $admin . $file . '.php';
+		}
+	}
+}
