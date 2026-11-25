@@ -1223,6 +1223,9 @@ class WXRImporter extends \WP_Importer {
 
 		if ( empty( $this->url_remap[ $url ] ) ) {
 			$existing_id = attachment_url_to_postid( $url );
+			if ( ! $existing_id ) {
+				$existing_id = $this->copied_image( $url );
+			}
 			if ( $existing_id ) {
 				$this->url_remap[ $url ] = wp_get_attachment_url( $existing_id );
 			}
@@ -1273,6 +1276,28 @@ class WXRImporter extends \WP_Importer {
 		$this->url_remap[ $url ] = $upload['url'];
 
 		return $this->build_bricks_image_setting( $image, $upload['url'], $attachment_id );
+	}
+
+	/**
+	 * A picture an earlier import copied from this address.
+	 *
+	 * @param string $url Address on the demo.
+	 * @return int 0 when there is none.
+	 */
+	protected function copied_image( $url ) {
+		$ids = get_posts(
+			array(
+				'post_type'      => 'attachment',
+				'post_status'    => 'inherit',
+				'posts_per_page' => 1,
+				'fields'         => 'ids',
+				'no_found_rows'  => true,
+				'meta_key'       => '_bricksfly_image_origin_url', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+				'meta_value'     => $url, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+			)
+		);
+
+		return $ids && file_exists( (string) get_attached_file( $ids[0] ) ) ? (int) $ids[0] : 0;
 	}
 
 	/**

@@ -190,26 +190,7 @@ class Helpers {
 		$upload_dir  = wp_upload_dir();
 		$upload_path = self::apply_filters( 'bricksfly/upload_file_path', trailingslashit( $upload_dir['path'] ) );
 
-		$log_path = $upload_path . self::apply_filters( 'bricksfly/log_file_prefix', 'log_file_' ) . self::$demo_import_start_time . self::apply_filters( 'bricksfly/log_file_suffix_and_file_extension', '.txt' );
-
-		self::register_file_as_media_attachment( $log_path );
-
-		return $log_path;
-	}
-
-	public static function register_file_as_media_attachment( $log_path ) {
-		$log_mimes = array( 'txt' => 'text/plain' );
-		$filetype  = wp_check_filetype( basename( $log_path ), self::apply_filters( 'bricksfly/file_mimes', $log_mimes ) );
-
-		$attachment = array(
-			'guid'           => self::get_log_url( $log_path ),
-			'post_mime_type' => $filetype['type'],
-			'post_title'     => self::apply_filters( 'bricksfly/attachment_prefix', esc_html__( 'Starter Template Import - ', 'bricksfly-elements-for-bricks' ) ) . preg_replace( '/\.[^.]+$/', '', basename( $log_path ) ),
-			'post_content'   => '',
-			'post_status'    => 'inherit',
-		);
-
-		$attach_id = wp_insert_attachment( $attachment, $log_path );
+		return $upload_path . self::apply_filters( 'bricksfly/log_file_prefix', 'log_file_' ) . self::$demo_import_start_time . self::apply_filters( 'bricksfly/log_file_suffix_and_file_extension', '.txt' );
 	}
 
 	public static function get_log_url( $log_path ) {

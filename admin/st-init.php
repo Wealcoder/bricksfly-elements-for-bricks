@@ -107,7 +107,7 @@ class OneClickImport {
 	public function separate_demo_menus( $separate ) {
 		// The importer nonce is verified in setup_st_importer() and in the AJAX callback.
 		// phpcs:ignore WordPress.Security.NonceVerification.Missing
-		$type = isset( $_POST['import_type'] ) ? sanitize_key( wp_unslash( $_POST['import_type'] ) ) : '';
+		$type = isset( $_POST['import_type'] ) ? sanitize_key( wp_unslash( $_POST['import_type'] ) ) : $this->running_type_in_php();
 		return 'page' === $type ? $separate : true;
 	}
 
@@ -124,8 +124,17 @@ class OneClickImport {
 	public function import_page_as_copy( $as_copy ) {
 		// The importer nonce is verified in setup_st_importer() and in the AJAX callback.
 		// phpcs:ignore WordPress.Security.NonceVerification.Missing
-		$type = isset( $_POST['import_type'] ) ? sanitize_key( wp_unslash( $_POST['import_type'] ) ) : '';
+		$type = isset( $_POST['import_type'] ) ? sanitize_key( wp_unslash( $_POST['import_type'] ) ) : $this->running_type_in_php();
 		return 'page' === $type ? true : $as_copy;
+	}
+
+	/**
+	 * What an import that was started with run() brings.
+	 *
+	 * @return string 'template', 'page' or ''.
+	 */
+	private function running_type_in_php() {
+		return self::$in_php ? \wealcoder\bricksfly\Admin\Pages\BRICKSFLY_Template_Importer::running_type() : '';
 	}
 
 	/**
@@ -190,9 +199,11 @@ class OneClickImport {
 		// again) now belongs to this import: the batch is replaced, not kept.
 		update_post_meta( $post_id, 'bricksfly_import_batch', $batch_id );
 
-		$template = \wealcoder\bricksfly\Admin\Pages\BRICKSFLY_Template_Importer::running_template();
-		if ( $template ) {
-			update_post_meta( $post_id, 'bricksfly_import_template', $template );
+		// A page imported on its own has its library id too: a demo imported
+		// later brings its own page instead of taking over this one.
+		$item = \wealcoder\bricksfly\Admin\Pages\BRICKSFLY_Template_Importer::running_item();
+		if ( $item ) {
+			update_post_meta( $post_id, 'bricksfly_import_template', $item );
 		}
 
 		if ( 'page' === $post_type ) {
@@ -307,9 +318,9 @@ class OneClickImport {
 	}
 
 	/**
-	 * One part of the content import of a full demo, for an add-on that imports
-	 * a starter template without the import screen: the same files, steps and
-	 * hooks. Call it again while it answers "more".
+	 * One part of the content import of a full demo or a page, for an add-on
+	 * that imports without the import screen: the same files, steps and hooks.
+	 * Call it again while it answers "more".
 	 *
 	 * @param int $template_id Library item id of the running import.
 	 * @param int $seconds     How long this part may take.
@@ -668,6 +679,9 @@ class OneClickImport {
 			$data['post_type'] === 'attachment' &&
 			! empty( $data['attachment_url'] )
 		) {
+			if ( preg_match( '#/log_file_[0-9_-]+\.txt$#', $data['attachment_url'] ) ) {
+				return array(); // Log of an import on the demo site.
+			}
 			$failed_media_imports = Helpers::get_failed_attachment_imports();
 			if ( ! empty( $failed_media_imports ) && in_array( $data['attachment_url'], $failed_media_imports, true ) ) {
 				return array();

@@ -174,14 +174,34 @@ class BRICKSFLY_Template_Importer {
 	}
 
 	/**
+	 * What the import that runs brings.
+	 *
+	 * @return string 'template', 'page' or '' when none runs.
+	 */
+	public static function running_type() {
+		$state = get_transient( self::state_key() );
+
+		return is_array( $state ) && isset( $state['type'] ) ? (string) $state['type'] : '';
+	}
+
+	/**
+	 * Library id of the full demo or page that is being imported.
+	 *
+	 * @return int 0 when none is.
+	 */
+	public static function running_item() {
+		$state = get_transient( self::state_key() );
+
+		return is_array( $state ) && isset( $state['id'] ) ? (int) $state['id'] : 0;
+	}
+
+	/**
 	 * Library id of the full demo that is being imported.
 	 *
 	 * @return int 0 when none is, or a page is.
 	 */
 	public static function running_template() {
-		$state = get_transient( self::state_key() );
-
-		return is_array( $state ) && isset( $state['id'], $state['type'] ) && 'template' === $state['type'] ? (int) $state['id'] : 0;
+		return 'template' === self::running_type() ? self::running_item() : 0;
 	}
 
 	/**
@@ -401,6 +421,7 @@ class BRICKSFLY_Template_Importer {
 			}
 
 			if ( 'page' === $item_type ) {
+				delete_post_meta_by_key( '_bricksfly_import_refs' ); // Only a full demo has its other pages here.
 				$this->apply_page_bundle( $template_data );
 			} else {
 				// A full demo takes over the site: a demo imported earlier keeps
