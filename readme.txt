@@ -8,7 +8,7 @@ Stable tag: 1.0.19
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Bricks Elements, preset animations and ready-made website templates for Bricks Builder. GSAP Extensions come with BricksFly Pro.
+Bricks Elements, animations and ready-made templates for Bricks Builder. GSAP Extensions and AI site building (MCP) come with BricksFly Pro.
 
 == Description ==
 
@@ -16,11 +16,14 @@ BricksFly is a collection of Bricks Builder addons that extends your website-bui
 
 BricksFly also includes a Template Library with starter websites, single pages and reusable sections for Bricks that can be imported and customized directly inside the Bricks editor. Items marked Free import fully with this plugin, with no license or account. Items marked Pro are provided by the separate BricksFly Pro plugin. BricksFly is made by the team behind Animation Addons, a GSAP animation toolkit for WordPress.
 
+**New with BricksFly Pro: build your Bricks site from an AI chat.** Connect Claude, ChatGPT or another app that supports MCP, and ask for a website, a page or a change in plain words. See "AI site building (MCP)" below.
+
 Main features:
 
 - 20+ Bricks Elements covering content, video, marketing and dynamic layouts. Elements marked (Pro) below are part of BricksFly Pro.
 - Starter Animations: preset entrance and text animations (reveal, scale, slide, skew, flip, glow, mask, wave and character effects) for Bricks' own heading, text, image and container elements.
 - With BricksFly Pro: a no-code GSAP animation engine and Extensions with ScrollTrigger, SplitText, parallax, horizontal scroll, sticky and pin, smooth scroll, image reveal on hover, and cursor effects.
+- With BricksFly Pro: AI site building over MCP. Import websites and pages, add sections, edit texts and styles, and recolor the whole site from an AI chat, with a preview and undo.
 - A built-in Template Library with starter templates, pages and sections for Bricks. Free items import with this plugin; Pro items are labeled and come with BricksFly Pro.
 - Responsive controls, live previews, and selective asset loading.
 
@@ -35,6 +38,25 @@ Watch a quick overview:
 https://youtu.be/5wno9t4gR64
 
 More tutorials and walkthroughs are on the [BricksFly YouTube channel](https://www.youtube.com/@gobricksfly).
+
+### AI site building (MCP) with BricksFly Pro
+
+BricksFly Pro, a separate plugin, connects your Bricks site to the AI app you already use through MCP (Model Context Protocol). You create one private link under BricksFly, paste it in the app, and talk to your site. No API key, no coding.
+
+What you can ask for:
+
+- **Import a complete website**: pick a starter template in the chat and it comes in exactly like its demo, with pages, header, footer, blog, menus, fonts and colors. You see what changes before you start and a progress bar while it runs.
+- **Import one page**: about, pricing, contact, portfolio and more, in its original style or in the style of your site. It comes as a draft.
+- **Plan a site from 500+ sections**: the AI suggests sections, you swap, move or remove them in a visual builder inside the chat, then build.
+- **Edit what is there**: change texts, images, spacing or layout. You see a preview and approve it, and you can undo it.
+- **Restyle the whole site**: new colors and fonts on every page in one step.
+- **Add blocks**: pricing tables, FAQ, forms, popups, mega menus, post lists and bento grids, made of native Bricks elements.
+- **Add motion**: GSAP scroll, hover and text animations from the BricksFly Extensions.
+- **Check a page**: headings, image alt texts and accessibility.
+
+Works with Claude, ChatGPT, Gemini, Cursor, VS Code and other apps that accept a remote MCP server (some need a paid plan or a developer mode). The visual gallery inside the chat shows in apps that support MCP Apps, such as Claude.
+
+You stay in control: the connection is off until an administrator creates the link, the link can be removed at any time, the standard access level does not include deleting pages, and the AI can never run PHP code. Pages it builds are saved as drafts; a complete website import goes live, after you have seen what changes and agreed. Building needs Bricks 2.4 or newer with Bricks AI switched on, and a site with HTTPS.
 
 ### Elements for Bricks Builder
 
@@ -209,6 +231,10 @@ Yes. BricksFly uses a clean, modular architecture and native Bricks structure, s
 
 The free plugin includes Starter Animations: preset entrance, text and layout animations for Bricks' heading, text, image and container elements. With BricksFly Pro you can create advanced GSAP animations for Bricks Builder, including [ScrollTrigger scroll effects](https://bricksfly.com/horizontal-scroll/), [SplitText text animations](https://bricksfly.com/split-text-animation/), [image animation](https://bricksfly.com/image-animation/), [image reveal on hover](https://bricksfly.com/image-reveal-on-hover/), [cursor hover effects](https://bricksfly.com/cursor-hover-effect/), parallax, smooth scrolling, and [sticky and pin](https://bricksfly.com/sticky-elements/) sections. All GSAP animation controls are configured visually inside Bricks.
 
+= Can I build or edit my Bricks site with Claude or ChatGPT? =
+
+Yes, with BricksFly Pro. It adds a private MCP link for your site: paste it in Claude, ChatGPT or another app that supports MCP, then ask for a website, a page or a change. You see a preview before a change is saved and can undo it. This free plugin does not connect your site to any AI service.
+
 = Can I import the website templates with one click? =
 
 Yes. BricksFly includes a built-in Template Library with one-click import for Bricks templates, full starter websites, single pages and sections, directly inside your Bricks Builder workflow. Items marked Free import with this plugin; items marked Pro need BricksFly Pro. The import does not install or activate other plugins: it lists any plugins a template recommends so you can install them yourself. Browse the [starter templates](https://bricksfly.com/starter-templates/) or try the [live demo](https://test.bricksfly.com/).
@@ -312,6 +338,7 @@ The files in `public/build` are compiled (minified) JavaScript and CSS. **Their 
 - Improved: Links, menus, popups, template conditions, query loops and forms inside an imported template point to the imported pages, templates, menus and posts of your site instead of the demo's ids.
 - Improved: A second starter template keeps its own posts, header, footer, popups, 404 and search pages, global classes, colors and theme style, also when it is a copy of the first one (light and dark).
 - Improved: A large import saves its place every few seconds and goes on from there. A picture that cannot be downloaded no longer stops the import.
+- Improved: The Build with AI box on the dashboard is in the BricksFly colors.
 - Added: Starter templates can be imported from an AI chat with a progress bar (needs BricksFly Pro 1.0.15).
 - Fixed: On sites without BricksFly Pro an import was not recorded, so the custom fonts, links and front page of a template, and a second template next to the first one, were not set up.
 - Fixed: Menu items and templates that share an address in the demo file were left out.
@@ -319,6 +346,7 @@ The files in `public/build` are compiled (minified) JavaScript and CSS. **Their 
 - Fixed: A starter template took over a page that was imported on its own before. It brings its own page now.
 - Fixed: The custom fonts of a page that is imported on its own were missing. They come from its starter template now.
 - Fixed: Every import left a log file in the Media Library, and importing a page again copied its icons again.
+- Security: The importer never creates PHP objects from a demo file, downloads media from public addresses only, and deletes its content file and log when it is done.
 - Fixed: Uninstalling BricksFly removes the records of template imports too. Imported content is kept.
 
 = 1.0.18 =

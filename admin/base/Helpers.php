@@ -295,7 +295,8 @@ class Helpers {
 	}
 
 	public static function set_demo_import_start_time() {
-		self::$demo_import_start_time = gmdate( self::apply_filters( 'bricksfly/date_format_for_file_names', 'Y-m-d__H-i-s' ) );
+		// The time alone could be guessed, and the files are in the uploads folder.
+		self::$demo_import_start_time = gmdate( self::apply_filters( 'bricksfly/date_format_for_file_names', 'Y-m-d__H-i-s' ) ) . '-' . strtolower( wp_generate_password( 16, false ) );
 	}
 
 	public static function set_st_import_data_transient( $data ) {

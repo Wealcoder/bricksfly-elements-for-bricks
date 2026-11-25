@@ -16,9 +16,9 @@ const AiConnect = () => {
   const connected = !!ai.connected;
 
   return (
-    <div className="flex flex-wrap items-center gap-x-6 gap-y-4 border rounded-2xl p-5 shadow-common bg-[linear-gradient(100deg,#F4F0FF_0%,#FFFFFF_60%)]">
+    <div className="flex flex-wrap items-center gap-x-6 gap-y-4 border rounded-2xl p-5 shadow-common bg-[linear-gradient(100deg,#FFF6D6_0%,#FFFFFF_60%)]">
       <div className="flex items-center gap-4 flex-1 min-w-[260px]">
-        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#6D4AFF] text-white">
+        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#FFD53E] text-[#18181A]">
           <RiSparkling2Fill size={22} />
         </div>
         <div className="min-w-0">
@@ -30,7 +30,7 @@ const AiConnect = () => {
                 Connected
               </span>
             ) : (
-              <span className="rounded-md bg-[#EBF1FF] px-2 py-0.5 text-xs font-medium text-[#335CFF]">
+              <span className="rounded-md bg-[#FFF0B8] px-2 py-0.5 text-xs font-medium text-[#7A5C00]">
                 New
               </span>
             )}

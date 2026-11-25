@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-25T07:18:59+00:00\n"
+"POT-Creation-Date: 2026-11-25T09:36:06+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: bricksfly-elements-for-bricks\n"
@@ -164,38 +164,38 @@ msgid "Invalid file type"
 msgstr ""
 
 #. translators: 1: HTTP status code, 2: HTTP status text, 3: requested URL.
-#: admin/base/WXRImporter.php:1802
+#: admin/base/WXRImporter.php:1830
 #, php-format
 msgid "Remote server returned %1$d %2$s for %3$s"
 msgstr ""
 
-#: admin/base/WXRImporter.php:1813
+#: admin/base/WXRImporter.php:1841
 msgid "Zero size file downloaded"
 msgstr ""
 
 #. translators: %s: human-readable maximum allowed file size (e.g. "5 MB").
-#: admin/base/WXRImporter.php:1822
+#: admin/base/WXRImporter.php:1850
 #, php-format
 msgid "Remote file is too large, limit is %s"
 msgstr ""
 
-#: admin/base/WXRImporter.php:1833
+#: admin/base/WXRImporter.php:1861
 msgid "Processing Posts"
 msgstr ""
 
-#: admin/base/WXRImporter.php:1837
+#: admin/base/WXRImporter.php:1865
 msgid "Processing Comments"
 msgstr ""
 
-#: admin/base/WXRImporter.php:1841
+#: admin/base/WXRImporter.php:1869
 msgid "Processing Terms"
 msgstr ""
 
-#: admin/base/WXRImporter.php:2049
+#: admin/base/WXRImporter.php:2077
 msgid "Starting remapping of featured images"
 msgstr ""
 
-#: admin/base/WXRImporter.php:2129
+#: admin/base/WXRImporter.php:2157
 msgid "Comment checking"
 msgstr ""
 
@@ -796,7 +796,7 @@ msgstr ""
 msgid "Downloaded files"
 msgstr ""
 
-#: admin/st-init.php:525
+#: admin/st-init.php:548
 msgid "Congrats, your demo has been imported."
 msgstr ""
 

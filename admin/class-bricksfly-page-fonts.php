@@ -78,7 +78,7 @@ class BRICKSFLY_Page_Fonts {
 		}
 
 		$release = BRICKSFLY_Library_Client::get_content_file( $template );
-		if ( is_wp_error( $release ) ) {
+		if ( is_wp_error( $release ) || ! BRICKSFLY_Library_Client::is_library_url( $release['content_url'] ) ) {
 			return null;
 		}
 

@@ -777,7 +777,7 @@ class WXRImporter extends \WP_Importer {
 		// stop between two of them and go on in the next request.
 		foreach ( (array) $meta as $meta_item ) {
 			if ( isset( $meta_item['key'], $meta_item['value'] ) && in_array( $meta_item['key'], self::IMAGE_META, true ) ) {
-				$tree = maybe_unserialize( $meta_item['value'] );
+				$tree = self::meta_value( $meta_item['value'] );
 				if ( is_array( $tree ) ) {
 					$this->walk_bricks_settings_for_images( $tree, true );
 				}
@@ -1101,7 +1101,7 @@ class WXRImporter extends \WP_Importer {
 
 			if ( $key ) {
 				if ( ! $value ) {
-					$value = maybe_unserialize( $meta_item['value'] );
+					$value = self::meta_value( $meta_item['value'] );
 				}
 
 				// Bricks stores its element tree (with logo/icon/image fields) as
@@ -1460,7 +1460,7 @@ class WXRImporter extends \WP_Importer {
 			bricksfly_import_insert_comment( $comment_id, $comment, $post_id, $post );
 
 			foreach ( $meta as $meta_item ) {
-				$value = maybe_unserialize( $meta_item['value'] );
+				$value = self::meta_value( $meta_item['value'] );
 				add_comment_meta( $comment_id, wp_slash( $meta_item['key'] ), wp_slash( $value ) );
 			}
 
@@ -1748,7 +1748,7 @@ class WXRImporter extends \WP_Importer {
 			$value = false;
 			if ( $key ) {
 				if ( ! $value ) {
-					$value = maybe_unserialize( $meta_item['value'] ); }
+					$value = self::meta_value( $meta_item['value'] ); }
 				$result = add_term_meta( $term_id, $key, $value );
 				if ( is_wp_error( $result ) ) {
 					do_action( 'bricksfly_importer.process_failed.termmeta', $result, $meta_item, $term_id, $term );
@@ -1757,6 +1757,33 @@ class WXRImporter extends \WP_Importer {
 			}
 		}
 		return true;
+	}
+
+	/**
+	 * Meta value of the file. PHP objects are never created or stored: a demo
+	 * has none, and one from a changed file could run code of another plugin.
+	 *
+	 * @param mixed $raw Raw value.
+	 * @return mixed
+	 */
+	protected static function meta_value( $raw ) {
+		if ( ! is_string( $raw ) || ! is_serialized( $raw ) ) {
+			return $raw;
+		}
+
+		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_unserialize, WordPress.PHP.NoSilencedErrors.Discouraged -- allowed_classes=false, as maybe_unserialize() cannot do; broken values become false like there.
+		$value  = @unserialize( trim( $raw ), array( 'allowed_classes' => false ) );
+		$object = is_object( $value );
+		if ( is_array( $value ) ) {
+			array_walk_recursive(
+				$value,
+				static function ( $item ) use ( &$object ) {
+					$object = $object || is_object( $item );
+				}
+			);
+		}
+
+		return $object ? '' : $value;
 	}
 
 	protected function fetch_remote_file( $url, $post ) {
@@ -1778,7 +1805,8 @@ class WXRImporter extends \WP_Importer {
 		if ( $upload['error'] ) {
 			return new WP_Error( 'upload_dir_error', $upload['error'] ); }
 
-		$response = wp_remote_get(
+		// Public addresses only: the file names where its media is.
+		$response = wp_safe_remote_get(
 			$url,
 			array(
 				'stream'   => true,

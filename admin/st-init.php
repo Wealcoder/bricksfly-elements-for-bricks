@@ -509,11 +509,34 @@ class OneClickImport {
 	 */
 	private function finish_run() {
 		$this->remove_empty_imported_menus();
+		$this->remove_work_files();
 		delete_transient( 'bricksfly_st_importer_data' );
 		delete_option( 'bricksfly_template_import_progress' );
 		delete_transient( 'bricksfly_st_importer_data_failed_attachment_imports' );
 		delete_transient( 'bricksfly_import_menu_mapping' );
 		delete_transient( 'bricksfly_import_posts_with_nav_block' );
+	}
+
+	/**
+	 * Delete the content file and the log of this import from the uploads folder.
+	 *
+	 * @return void
+	 */
+	private function remove_work_files() {
+		$uploads = wp_upload_dir( null, false );
+		$folder  = wp_normalize_path( trailingslashit( $uploads['basedir'] ) );
+		$files   = array(
+			Helpers::apply_filters( 'bricksfly/downloaded_content_file_prefix', 'demo-content-import-file_' ) => isset( $this->selected_import_files['content'] ) ? $this->selected_import_files['content'] : '',
+			Helpers::apply_filters( 'bricksfly/log_file_prefix', 'log_file_' ) => $this->log_file_path,
+		);
+
+		foreach ( $files as $prefix => $file ) {
+			$file = is_string( $file ) ? wp_normalize_path( $file ) : '';
+			// Only files this import made itself, never one a filter named.
+			if ( '' !== $file && 0 === strpos( $file, $folder ) && false === strpos( $file, '/../' ) && 0 === strpos( basename( $file ), $prefix ) && is_file( $file ) ) {
+				wp_delete_file( $file );
+			}
+		}
 	}
 
 	/**
